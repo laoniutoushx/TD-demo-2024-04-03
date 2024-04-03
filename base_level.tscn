@@ -1,0 +1,97 @@
+[gd_scene load_steps=8 format=3 uid="uid://i8fo51m01y4m"]
+
+[ext_resource type="MeshLibrary" uid="uid://c8u34cfng6u86" path="res://MeshLibraries/FreeLibrary.tres" id="1_53xec"]
+[ext_resource type="PackedScene" uid="uid://c4cigwq76vq85" path="res://Enemy/enemy.tscn" id="2_d4gcr"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_812kt"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_qx28c"]
+sky_material = SubResource("ProceduralSkyMaterial_812kt")
+
+[sub_resource type="Environment" id="Environment_nrrga"]
+background_mode = 2
+sky = SubResource("Sky_qx28c")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kuma6"]
+albedo_color = Color(0.355313, 0.355314, 0.355313, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_h333y"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -28, 0, 6, -2, 0, 2, 2, 0, -2, 18, 0, 6, 1, 0, 1, -1, 0, -1, 18, 0, -6, 1, 0, -1, -1, 0, 1, 6, 0, -6, 1, 0, -1, -1, 0, 1, 6, 0, -2, 1, 0, 1, -1, 0, -1, -14, 0, -2, 0, 0, 0, 0, 0, 0, -14, 0, -10),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 7
+
+[node name="BaseLevel" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nrrga")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+material_override = SubResource("StandardMaterial3D_kuma6")
+size = Vector3(100, 2, 100)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, -8.18463e-10, 4.44387e-10, 0, 0.477157, 0.878818, -9.31323e-10, -0.878818, 0.477157, -0.924107, 23.4392, 16.8653)
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_53xec")
+cell_size = Vector3(4, 4, 4)
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(65530, 65533, 0, 65530, 65534, 0, 65530, 65535, 0, 65530, 0, 0, 65530, 2, 0, 65531, 65533, 0, 65531, 65534, 0, 65531, 65535, 0, 65531, 0, 0, 65531, 2, 0, 65532, 0, 0, 65532, 2, 0, 65533, 65533, 0, 65533, 65534, 0, 65533, 0, 0, 65533, 2, 0, 65534, 65533, 0, 65534, 65534, 0, 65534, 0, 0, 65534, 2, 0, 65535, 65533, 0, 65535, 65534, 0, 65535, 0, 0, 65535, 2, 0, 0, 65533, 0, 0, 65534, 0, 0, 0, 0, 0, 2, 0, 1, 65533, 0, 1, 0, 0, 1, 2, 0, 2, 65533, 0, 2, 65535, 0, 2, 0, 0, 2, 2, 0, 3, 65533, 0, 3, 65535, 0, 3, 0, 0, 3, 2, 0, 4, 65533, 0, 4, 2, 0, 5, 65533, 0, 5, 65534, 0, 5, 65535, 0, 5, 0, 0, 5, 1, 0, 5, 2, 0)
+}
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_h333y")
+
+[node name="Road" type="CSGPolygon3D" parent="Path3D"]
+polygon = PackedVector2Array(-1, 0.1, -1, 0.1, 1, 0.1, 1, 0.1)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.5
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="LeftEdge" type="CSGPolygon3D" parent="Path3D"]
+polygon = PackedVector2Array(-1.1, 0, -1.1, 0.15, -0.9, 0.1, -0.9, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.5
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="RightEdge" type="CSGPolygon3D" parent="Path3D"]
+polygon = PackedVector2Array(1.1, 0, 1.1, 0.15, 0.9, 0.1, 0.9, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.5
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="Enemy" parent="Path3D" instance=ExtResource("2_d4gcr")]
+transform = Transform3D(-4.37105e-08, 0, -0.999979, 0, 1, 0, 0.999979, 0, -4.37105e-08, -28, 0, 6)
