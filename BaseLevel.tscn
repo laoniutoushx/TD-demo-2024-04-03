@@ -1,0 +1,138 @@
+[gd_scene load_steps=12 format=3 uid="uid://b6x0ifedubj2s"]
+
+[ext_resource type="MeshLibrary" uid="uid://bw4gbnnfbaej7" path="res://MeshLibraries/SpaceLibrary.tres" id="1_a0syg"]
+[ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_bukvs"]
+[ext_resource type="PackedScene" uid="uid://cjgsocu8i6efm" path="res://Enemy/enemy.tscn" id="2_rn0o8"]
+[ext_resource type="PackedScene" uid="uid://cym641yvamusq" path="res://Enemy/base.tscn" id="3_5py46"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oopyi"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_12gdt"]
+sky_material = SubResource("ProceduralSkyMaterial_oopyi")
+
+[sub_resource type="Environment" id="Environment_tk0br"]
+background_mode = 2
+sky = SubResource("Sky_12gdt")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ggcpa"]
+albedo_color = Color(0.239216, 0.239216, 0.239216, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_35lo2"]
+material = SubResource("StandardMaterial3D_ggcpa")
+size = Vector3(100, 2, 100)
+
+[sub_resource type="Curve3D" id="Curve3D_g10yy"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -30, 0, 6, -2, 0, 2, 2, 0, -2, 18, 0, 6, 2, 0, 2, -2, 0, -2, 18, 0, -6, 2, 0, 2, -2, 0, -2, -18, 0, -6, 0, 0, 0, 0, 0, 0, -18, 0, -14),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rcpim"]
+albedo_color = Color(0.607843, 0.607843, 0.607843, 1)
+
+[node name="BaseLevel" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tk0br")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3d" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("BoxMesh_35lo2")
+
+[node name="RayPickerCamera" parent="." instance=ExtResource("1_bukvs")]
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_a0syg")
+cell_size = Vector3(4, 4, 4)
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(65529, 65532, 0, 65529, 65533, 0, 65529, 65534, 0, 65529, 65535, 0, 65529, 0, 0, 65529, 2, 0, 65529, 3, 0, 65530, 65532, 0, 65530, 65533, 0, 65530, 65534, 0, 65530, 65535, 0, 65530, 0, 0, 65530, 2, 0, 65530, 3, 0, 65531, 65535, 0, 65531, 0, 0, 65531, 2, 0, 65531, 3, 0, 65532, 65535, 0, 65532, 0, 0, 65532, 2, 0, 65532, 3, 0, 65533, 65532, 0, 65533, 65535, 0, 65533, 0, 0, 65533, 2, 0, 65533, 3, 0, 65534, 65532, 0, 65534, 65535, 0, 65534, 0, 0, 65534, 2, 0, 65534, 3, 0, 65535, 65532, 0, 65535, 65535, 0, 65535, 0, 0, 65535, 2, 0, 65535, 3, 0, 0, 65532, 0, 0, 65533, 0, 0, 65535, 0, 0, 0, 0, 0, 2, 0, 0, 3, 0, 1, 65532, 0, 1, 65533, 0, 1, 65535, 0, 1, 0, 0, 1, 2, 0, 1, 3, 0, 2, 65532, 0, 2, 65533, 0, 2, 65535, 0, 2, 0, 0, 2, 2, 0, 2, 3, 0, 3, 65532, 0, 3, 65533, 0, 3, 65535, 0, 3, 0, 0, 3, 2, 0, 3, 3, 0, 4, 65532, 0, 4, 65533, 0, 4, 2, 0, 4, 3, 0, 5, 65532, 0, 5, 65533, 0, 5, 65534, 0, 5, 65535, 0, 5, 0, 0, 5, 1, 0, 5, 2, 0, 5, 3, 0, 6, 65532, 0, 6, 65533, 0, 6, 65534, 0, 6, 65535, 0, 6, 0, 0, 6, 1, 0, 6, 2, 0, 6, 3, 0, 65535, 65533, 0, 65534, 65533, 0, 65533, 65533, 0, 65532, 65533, 0, 65532, 65532, 0)
+}
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_g10yy")
+
+[node name="Road" type="CSGPolygon3D" parent="Path3D"]
+snap = 1e-06
+polygon = PackedVector2Array(-2, 0, -2, 0.1, 2, 0.1, 2, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_rcpim")
+
+[node name="LeftShoulder" type="CSGPolygon3D" parent="Path3D"]
+snap = 1e-06
+polygon = PackedVector2Array(-3, 0, -3, 0.5, -2, 0.5, -2, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_rcpim")
+
+[node name="RightShoulder" type="CSGPolygon3D" parent="Path3D"]
+snap = 1e-06
+polygon = PackedVector2Array(3, 0, 3, 0.5, 2, 0.5, 2, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_rcpim")
+
+[node name="Enemy" parent="Path3D" instance=ExtResource("2_rn0o8")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -30, 0, 6)
+loop = false
+speed = 20
+
+[node name="Enemy2" parent="Path3D" instance=ExtResource("2_rn0o8")]
+transform = Transform3D(-0.0376569, 0, -0.999291, 0, 1, 0, 0.999291, 0, -0.0376569, -25.0043, 0, 6.19939)
+progress = 5.0
+loop = false
+speed = 20
+
+[node name="Enemy3" parent="Path3D" instance=ExtResource("2_rn0o8")]
+transform = Transform3D(-0.0338246, 0, -0.999428, 0, 1, 0, 0.999428, 0, -0.0338246, -20.0072, 0, 6.37809)
+progress = 10.0
+loop = false
+speed = 20
+
+[node name="Enemy4" parent="Path3D" instance=ExtResource("2_rn0o8")]
+transform = Transform3D(-0.029743, 0, -0.999558, 0, 1, 0, 0.999558, 0, -0.029743, -15.0097, 0, 6.53721)
+progress = 15.0
+loop = false
+speed = 20
+
+[node name="Enemy5" parent="Path3D" instance=ExtResource("2_rn0o8")]
+transform = Transform3D(-0.0249787, 0, -0.999688, 0, 1, 0, 0.999688, 0, -0.0249787, -10.0116, 0, 6.67439)
+progress = 20.0
+loop = false
+speed = 20
+
+[node name="Base" parent="." instance=ExtResource("3_5py46")]

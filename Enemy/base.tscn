@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://cym641yvamusq"]
+
+[ext_resource type="Script" path="res://Enemy/base.gd" id="1_oigko"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ktxgf"]
+albedo_color = Color(0.780392, 0.109804, 0.113725, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_ms2hu"]
+subpixel_positioning = 0
+
+[node name="Base" type="Node3D" groups=["base"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -13)
+script = ExtResource("1_oigko")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+radius = 2.0
+height = 4.0
+sides = 32
+material = SubResource("StandardMaterial3D_ktxgf")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+billboard = 1
+font = SubResource("SystemFont_ms2hu")
+font_size = 500

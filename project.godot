@@ -10,11 +10,11 @@ config_version=5
 
 [application]
 
-config/name="TD-demo-2024-04-03"
-run/main_scene="res://base_level.tscn"
+config/name="Barbarian Blaster"
+run/main_scene="res://BaseLevel.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="TD-demo-2024-04-03"
+project/assembly_name="Barbarian Blaster"

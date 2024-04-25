@@ -1,14 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4cigwq76vq85"]
+[gd_scene load_steps=3 format=3 uid="uid://cjgsocu8i6efm"]
 
-[ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_gtcfj"]
+[ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_wievb"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_ddu73"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2jmip"]
+radius = 1.0
+height = 3.0
 
 [node name="Enemy" type="PathFollow3D"]
-transform = Transform3D(-4.37105e-08, 0, -0.999979, 0, 1, 0, 0.999979, 0, -4.37105e-08, -28, 0, 6)
-script = ExtResource("1_gtcfj")
-speed = 8.93
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+script = ExtResource("1_wievb")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_ddu73")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CapsuleMesh_2jmip")
