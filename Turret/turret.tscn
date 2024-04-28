@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://cru16mbhnwx85"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f7p6l"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5q1ac"]
+vertex_color_is_srgb = true
+albedo_color = Color(1, 0.776471, 1, 1)
+metallic = 0.69
+metallic_specular = 0.55
+roughness_texture = SubResource("NoiseTexture2D_f7p6l")
+emission_energy_multiplier = 21.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_uu4co"]
+material = SubResource("StandardMaterial3D_5q1ac")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x4suu"]
+albedo_color = Color(1, 0.854902, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_q67jl"]
+material = SubResource("StandardMaterial3D_x4suu")
+top_radius = 0.7
+bottom_radius = 0.7
+height = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3pqhk"]
+albedo_color = Color(1, 0.482353, 0.87451, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kw3k6"]
+material = SubResource("StandardMaterial3D_3pqhk")
+size = Vector3(0.7, 0.3, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ioqil"]
+albedo_color = Color(0.823529, 0.560784, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h7o0e"]
+material = SubResource("StandardMaterial3D_ioqil")
+size = Vector3(0.2, 0.2, 0.5)
+
+[node name="Turret" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="TurretBase" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_uu4co")
+
+[node name="TurretTop" type="MeshInstance3D" parent="TurretBase"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+mesh = SubResource("CylinderMesh_q67jl")
+
+[node name="Visor" type="MeshInstance3D" parent="TurretBase/TurretTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.5)
+mesh = SubResource("BoxMesh_kw3k6")
+
+[node name="Barrel" type="MeshInstance3D" parent="TurretBase/TurretTop/Visor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.4)
+mesh = SubResource("BoxMesh_h7o0e")

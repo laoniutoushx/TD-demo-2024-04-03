@@ -48,7 +48,8 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 mesh = SubResource("BoxMesh_35lo2")
 
-[node name="RayPickerCamera" parent="." instance=ExtResource("1_bukvs")]
+[node name="RayPickerCamera" parent="." node_paths=PackedStringArray("grid_map") instance=ExtResource("1_bukvs")]
+grid_map = NodePath("../GridMap")
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("1_a0syg")
@@ -112,7 +113,7 @@ loop = false
 speed = 20
 
 [node name="Enemy2" parent="Path3D" instance=ExtResource("2_rn0o8")]
-transform = Transform3D(-0.0376569, 0, -0.999291, 0, 1, 0, 0.999291, 0, -0.0376569, -25.0043, 0, 6.19939)
+transform = Transform3D(-0.0376568, 0, -0.99929, 0, 1, 0, 0.99929, 0, -0.0376568, -25.0043, 0, 6.19939)
 progress = 5.0
 loop = false
 speed = 20
@@ -124,7 +125,7 @@ loop = false
 speed = 20
 
 [node name="Enemy4" parent="Path3D" instance=ExtResource("2_rn0o8")]
-transform = Transform3D(-0.029743, 0, -0.999558, 0, 1, 0, 0.999558, 0, -0.029743, -15.0097, 0, 6.53721)
+transform = Transform3D(-0.029743, 0, -0.999557, 0, 1, 0, 0.999557, 0, -0.029743, -15.0097, 0, 6.53721)
 progress = 15.0
 loop = false
 speed = 20
