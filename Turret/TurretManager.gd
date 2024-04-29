@@ -1,8 +1,9 @@
 extends Node3D
 class_name TurretManager
 
+@export var turret: PackedScene
 
-func build_turret(turret: PackedScene, position: Vector3, turret_code) -> void:
+func build_turret(position: Vector3, turret_code) -> void:
 	var new_turret = turret.instantiate()
 	new_turret.global_position = position
 	add_child(new_turret)

@@ -15,10 +15,6 @@ run/main_scene="res://BaseLevel.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
-
-TM="*res://Turret/TurretManager.gd"
-
 [dotnet]
 
 project/assembly_name="Barbarian Blaster"

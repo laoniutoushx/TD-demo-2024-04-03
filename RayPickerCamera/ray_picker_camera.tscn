@@ -1,12 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://boulaxdrcplpg"]
+[gd_scene load_steps=2 format=3 uid="uid://boulaxdrcplpg"]
 
 [ext_resource type="Script" path="res://RayPickerCamera/ray_picker_camera.gd" id="1_abr1g"]
-[ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Turret/turret.tscn" id="2_rkrqp"]
 
 [node name="RayPickerCamera" type="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 0.551937, 0.833886, 0, -0.833886, 0.551937, -4, 16.8, 19)
 script = ExtResource("1_abr1g")
-turrent = ExtResource("2_rkrqp")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -2)
