@@ -1,0 +1,29 @@
+extends Area3D
+
+
+var target: Node3D
+var starting_position: Vector3
+
+
+var lerp_pos: float = 0
+@export var speed: float = 1.0
+@export var damage: float = 5.0
+
+
+func _ready() -> void:
+	global_position = starting_position
+
+
+func _physics_process(delta: float) -> void:
+	if target != null:
+		if lerp_pos < 1:
+			self.look_at(target.global_position)
+			global_position = starting_position.lerp(target.global_position, lerp_pos)
+			lerp_pos += delta * speed
+		else:
+			target.take_damage(damage)
+			queue_free()
+	else:
+		queue_free()
+	
+

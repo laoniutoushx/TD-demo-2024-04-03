@@ -1,19 +1,29 @@
-extends PathFollow3D
+extends BaseUnit
 
 @export var speed := 5
+@export var life := 20
 
-
+@onready var path: PathFollow3D = $"."
 @onready var base = get_tree().get_first_node_in_group("base")
 
 var is_finish = false
 
+func _ready() -> void:
+	# 初始化时创建 path3d 与 pathfollow3d
+	pass
 
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	progress = progress + (delta * speed)
-	if progress_ratio >= 1.0 && !is_finish:
+	path.progress = path.progress + (delta * speed)
+	if path.progress_ratio >= 1.0 && !is_finish:
 		is_finish = true
 		base.take_damage()
 		set_process(false)
+
+
+func take_damage(damage: float):
+	life -= damage
+	if life <= 0:
+		queue_free()

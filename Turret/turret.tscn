@@ -1,4 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://cru16mbhnwx85"]
+[gd_scene load_steps=13 format=3 uid="uid://cru16mbhnwx85"]
+
+[ext_resource type="Script" path="res://Turret/turret.gd" id="1_xflch"]
+[ext_resource type="PackedScene" uid="uid://nbnxafd504hw" path="res://Turret/projectile.tscn" id="2_cx51o"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f7p6l"]
 
@@ -36,8 +39,14 @@ albedo_color = Color(0.823529, 0.560784, 1, 1)
 material = SubResource("StandardMaterial3D_ioqil")
 size = Vector3(0.2, 0.2, 0.5)
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_sodmm"]
+height = 0.1
+radius = 10.0
+
 [node name="Turret" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_xflch")
+projectile = ExtResource("2_cx51o")
 
 [node name="TurretBase" type="MeshInstance3D" parent="."]
 mesh = SubResource("CylinderMesh_uu4co")
@@ -47,9 +56,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 mesh = SubResource("CylinderMesh_q67jl")
 
 [node name="Visor" type="MeshInstance3D" parent="TurretBase/TurretTop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.5)
 mesh = SubResource("BoxMesh_kw3k6")
 
 [node name="Barrel" type="MeshInstance3D" parent="TurretBase/TurretTop/Visor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -0.4)
 mesh = SubResource("BoxMesh_h7o0e")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_sodmm")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]
