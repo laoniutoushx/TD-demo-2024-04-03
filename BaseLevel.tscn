@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b6x0ifedubj2s"]
+[gd_scene load_steps=16 format=3 uid="uid://b6x0ifedubj2s"]
 
 [ext_resource type="MeshLibrary" uid="uid://bw4gbnnfbaej7" path="res://MeshLibraries/SpaceLibrary.tres" id="1_a0syg"]
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_bukvs"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Turret/TurretManager.gd" id="5_shbca"]
 [ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Turret/turret.tscn" id="6_kt8rc"]
 [ext_resource type="PackedScene" uid="uid://dsyw0akj1phj4" path="res://ui.tscn" id="7_w253d"]
+[ext_resource type="Script" path="res://Scripts/CameraMove.gd" id="8_0s882"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oopyi"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -137,3 +138,6 @@ script = ExtResource("5_shbca")
 turret = ExtResource("6_kt8rc")
 
 [node name="UI" parent="." instance=ExtResource("7_w253d")]
+
+[node name="CameraMove" type="Node3D" parent="."]
+script = ExtResource("8_0s882")
