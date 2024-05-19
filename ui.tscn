@@ -1,35 +1,60 @@
-[gd_scene load_steps=2 format=3 uid="uid://dsyw0akj1phj4"]
+[gd_scene load_steps=4 format=3 uid="uid://v7ppoiw21kdi"]
 
-[ext_resource type="Script" path="res://ui.gd" id="1_i57p0"]
+[ext_resource type="Theme" uid="uid://bf5a24ang0c6j" path="res://new_theme.tres" id="1_cvmv4"]
+[ext_resource type="Texture2D" uid="uid://nx6gcyhrqbr2" path="res://Res/UI/2_爱给网_aigei_com.png" id="1_sx3px"]
+[ext_resource type="Texture2D" uid="uid://bkmrrcn6wmtew" path="res://Res/UI/木支柱4(wood_prop4)_爱给网_aigei_com.png" id="2_pxfgc"]
 
-[node name="UI" type="Control"]
-layout_mode = 3
-anchors_preset = 15
+[node name="Node" type="Node"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+custom_minimum_size = Vector2(200, 0)
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_i57p0")
+offset_left = -263.0
+offset_top = 60.0
+offset_right = -63.0
+offset_bottom = 176.0
+grow_horizontal = 0
+theme = ExtResource("1_cvmv4")
 
-[node name="TextEdit" type="TextEdit" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Hello World!!!"
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="Control" type="Control" parent="."]
-anchors_preset = 0
-offset_left = 1111.0
-offset_right = 1151.0
-offset_bottom = 40.0
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+layout_mode = 2
 
-[node name="TextureButton" type="Button" parent="Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-text = "X"
+[node name="HSplitContainer" type="HSplitContainer" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
 
-[connection signal="pressed" from="Control/TextureButton" to="." method="_on_texture_button_pressed"]
+[node name="MoneyIcon" type="TextureRect" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer"]
+layout_mode = 2
+texture = ExtResource("1_sx3px")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="MoneyLabel" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer"]
+layout_mode = 2
+text = "0
+"
+vertical_alignment = 1
+
+[node name="HSplitContainer2" type="HSplitContainer" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="WoodIcon" type="TextureRect" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer2"]
+layout_mode = 2
+texture = ExtResource("2_pxfgc")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="WoodLabel" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer2"]
+layout_mode = 2
+text = "0"
+vertical_alignment = 1
