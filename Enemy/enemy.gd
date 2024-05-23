@@ -17,7 +17,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	path.progress = path.progress + (delta * speed)
-	if path.progress_ratio >= 1.0 && !is_finish:
+	if path.progress_ratio >= 0.98 && !is_finish:
 		is_finish = true
 		base.take_damage()
 		set_process(false)

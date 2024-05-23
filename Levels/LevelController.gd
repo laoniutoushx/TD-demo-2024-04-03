@@ -15,7 +15,7 @@ func _ready():
 		load_next_level()
  
 	# 检查是否启动了新的关卡
-	if is_new_level_started():
+	if !is_new_level_started():
 		level_started = true
 		# 初始化关卡
 		initialize_level()
@@ -35,6 +35,10 @@ func load_next_level():
 # 初始化关卡
 func initialize_level():
 	# 这里进行关卡的初始化，比如重置游戏状态
+	if current_level == "res://Levels/Level1.tscn":
+		var enemySpawner:EnemySpawner = EnemySpawner.new()
+		enemySpawner.generate_enemy(1, "res://Enemy/enemy.tscn") 
+	
 	pass
  
 # 检查是否启动了新的关卡

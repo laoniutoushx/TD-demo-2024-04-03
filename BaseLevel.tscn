@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cq7cyb86bfho4" path="res://coin.tscn" id="9_n2pau"]
 [ext_resource type="PackedScene" uid="uid://1w2277gletkj" path="res://arrow.tscn" id="10_da0uk"]
 [ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI.tscn" id="10_kc2ue"]
-[ext_resource type="Script" path="res://LevelController.gd" id="11_pdq63"]
+[ext_resource type="Script" path="res://Levels/LevelController.gd" id="11_pdq63"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oopyi"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
