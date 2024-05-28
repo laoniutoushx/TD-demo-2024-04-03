@@ -37,6 +37,7 @@ func initialize_level():
 	# 这里进行关卡的初始化，比如重置游戏状态
 	if current_level == "res://Levels/Level1.tscn":
 		var enemySpawner:EnemySpawner = EnemySpawner.new()
+		get_node("")
 		enemySpawner.generate_enemy(1, "res://Enemy/enemy.tscn") 
 	
 	pass
