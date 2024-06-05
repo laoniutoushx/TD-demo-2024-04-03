@@ -1,8 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://bxibobasihqmy"]
+[gd_scene load_steps=19 format=3 uid="uid://bxibobasihqmy"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_elhju"]
 [ext_resource type="MeshLibrary" uid="uid://bw4gbnnfbaej7" path="res://MeshLibraries/SpaceLibrary.tres" id="2_cynf3"]
-[ext_resource type="PackedScene" uid="uid://cjgsocu8i6efm" path="res://Enemy/enemy.tscn" id="3_whu12"]
 [ext_resource type="PackedScene" uid="uid://cym641yvamusq" path="res://Enemy/base.tscn" id="4_i6mng"]
 [ext_resource type="Script" path="res://Turret/TurretManager.gd" id="5_fsv1a"]
 [ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Turret/turret.tscn" id="6_o3ywy"]
@@ -71,6 +70,7 @@ data = {
 }
 
 [node name="Path3D" type="Path3D" parent="."]
+unique_name_in_owner = true
 curve = SubResource("Curve3D_g10yy")
 
 [node name="Road" type="CSGPolygon3D" parent="Path3D"]
@@ -118,24 +118,8 @@ path_u_distance = 1.0
 path_joined = false
 material = SubResource("StandardMaterial3D_rcpim")
 
-[node name="Enemy" parent="Path3D" instance=ExtResource("3_whu12")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -30, 0, 6)
-
-[node name="Enemy2" parent="Path3D" instance=ExtResource("3_whu12")]
-transform = Transform3D(-0.040198, 0, -0.99919, 0, 1, 0, 0.99919, 0, -0.040198, -28.0019, 0, 6.08274)
-progress = 2.0
-
-[node name="Enemy3" parent="Path3D" instance=ExtResource("3_whu12")]
-transform = Transform3D(-0.0384529, 0, -0.999261, 0, 1, 0, 0.999261, 0, -0.0384529, -26.0036, 0, 6.16134)
-progress = 4.0
-
-[node name="Enemy4" parent="Path3D" instance=ExtResource("3_whu12")]
-transform = Transform3D(-0.0368822, 0, -0.999318, 0, 1, 0, 0.999318, 0, -0.0368822, -24.0049, 0, 6.23666)
-progress = 6.0
-
-[node name="Enemy5" parent="Path3D" instance=ExtResource("3_whu12")]
-transform = Transform3D(-0.035358, 0, -0.999375, 0, 1, 0, 0.999375, 0, -0.035358, -22.006, 0, 6.30891)
-progress = 8.0
+[node name="Start" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.4411, 0, 5.59998)
 
 [node name="Base" parent="." instance=ExtResource("4_i6mng")]
 
@@ -161,3 +145,8 @@ script = ExtResource("10_3s3uy")
 
 [node name="LevelController" type="Node3D" parent="."]
 script = ExtResource("12_2lb4h")
+current_level = "res://Levels/Level1.tscn"
+current_enemy = "res://Enemy/enemy.tscn"
+next_level = "res://Levels/Level2.tscn"
+
+[connection signal="ready" from="Path3D" to="LevelController" method="_on_path_3d_ready"]

@@ -3,27 +3,17 @@ class_name EnemySpawner
 
 
 
-func _init() -> void:
-	# preload something
-	# 第一波
-	var wave_1 = {
-		"model": "",
-		"interval": 1,
-		"num": 5
-	}
-	
-	
-	
-	
-	pass
-
-func generate_enemy(idx, enemy_res):
+func generate_enemy(idx, path, enemy_res):
 	if idx == 1:
-		var path = get_node("./Path3D")
-		for i in 5:
+		for i in 15:
 			var enemy_scene = load(enemy_res)
-			var enemy_instance = enemy_scene.instance()
+			var enemy_instance = enemy_scene.instantiate()
+			
+			var start_node = path.get_parent().find_child("Start")
+			enemy_instance.global_position = start_node.global_position
+
+			
 			# 查找 Path3d
 			path.add_child(enemy_instance)
-			await get_tree().creater_timer(1.0).timeout
+			await path.get_tree().create_timer(1.0).timeout
 

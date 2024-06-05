@@ -16,9 +16,11 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if target != null:
-		if lerp_pos < 1:
+		if lerp_pos < 1: 
 			self.look_at(target.global_position)
-			global_position = starting_position.lerp(target.global_position, lerp_pos)
+			var aabb = target.find_child("MeshInstance3D").mesh.get_aabb()
+			var height = aabb.size.y
+			global_position = starting_position.lerp(Vector3(target.global_position.x, height / 2, target.global_position.z), lerp_pos)
 			lerp_pos += delta * speed
 		else:
 			target.take_damage(damage)
