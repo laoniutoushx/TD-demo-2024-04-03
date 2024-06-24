@@ -1,25 +1,29 @@
 shader_type canvas_item;
-render_mode unshaded;
- 
-uniform float width : hint_range(0.0, 16.0);
-uniform vec4 outline_color;
+
+uniform vec4 outline_color : source_color = vec4(0, 0, 0, 1);
+uniform float outline_width = 10.0;
  
 void fragment()
 {
-    vec2 size = vec2(width) / vec2(textureSize(TEXTURE, 0));
-   
-    vec4 sprite_color = texture(TEXTURE, UV);
-   
-    float alpha = sprite_color.a;
-    alpha += texture(TEXTURE, UV + vec2(0.0, -size.y)).a;
-    alpha += texture(TEXTURE, UV + vec2(size.x, -size.y)).a;
-    alpha += texture(TEXTURE, UV + vec2(size.x, 0.0)).a;
-    alpha += texture(TEXTURE, UV + vec2(size.x, size.y)).a;
-    alpha += texture(TEXTURE, UV + vec2(0.0, size.y)).a;
-    alpha += texture(TEXTURE, UV + vec2(-size.x, size.y)).a;
-    alpha += texture(TEXTURE, UV + vec2(-size.x, 0.0)).a;
-    alpha += texture(TEXTURE, UV + vec2(-size.x, -size.y)).a;
-   
-    vec3 final_color = mix(outline_color.rgb, sprite_color.rgb, sprite_color.a);
-    COLOR = vec4(final_color, clamp(alpha, 0.0, 1.0));
+	vec2 uv = UV;
+	vec2 uv_up = uv + vec2(0, TEXTURE_PIXEL_SIZE.y) * outline_width;
+	vec2 uv_down = uv + vec2(0, -TEXTURE_PIXEL_SIZE.y) * outline_width;
+	vec2 uv_left = uv + vec2(TEXTURE_PIXEL_SIZE.x, 0) * outline_width;
+	vec2 uv_right = uv + vec2(-TEXTURE_PIXEL_SIZE.x, 0) * outline_width;
+	
+	vec4 color_up = texture(TEXTURE, uv_up);
+	vec4 color_down = texture(TEXTURE, uv_down);
+	vec4 color_left = texture(TEXTURE, uv_left);
+	vec4 color_right = texture(TEXTURE, uv_right);
+	
+	vec4 outline = color_up + color_down + color_left + color_right;
+	outline.rgb = outline_color.rgb;
+	
+	vec4 original_color = texture(TEXTURE, UV);
+	
+    COLOR = mix(outline, original_color, original_color.a);
+	
+	
+	
 }
+

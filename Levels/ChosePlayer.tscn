@@ -1,24 +1,20 @@
 [gd_scene load_steps=9 format=3 uid="uid://cnsghg7d4utpg"]
 
 [ext_resource type="Script" path="res://Levels/ChosePlayer.gd" id="1_04x2j"]
-[ext_resource type="Texture2D" uid="uid://d0wwixyltp424" path="res://Asserts/Images/00011-2797661415.png" id="2_51um2"]
+[ext_resource type="PackedScene" uid="uid://b6x0ifedubj2s" path="res://BaseLevel.tscn" id="2_4ey3k"]
+[ext_resource type="Texture2D" uid="uid://bflsp3y0iihgl" path="res://Asserts/Images/00011-2797661415.png" id="2_51um2"]
 [ext_resource type="Shader" path="res://Levels/ChosePlayer.gdshader" id="2_f3m4m"]
-[ext_resource type="Texture2D" uid="uid://cf01qsxil56ae" path="res://Asserts/Images/00042-1141281929.png" id="3_qjn0w"]
+[ext_resource type="Texture2D" uid="uid://c34aywixmee4i" path="res://Asserts/Images/00042-1141281929.png" id="3_qjn0w"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pt2ow"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ey8ka"]
 shader = ExtResource("2_f3m4m")
-shader_parameter/width = null
-shader_parameter/outline_color = null
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_width = 1.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_1w3dy"]
 font_size = 60
 outline_size = 10
 outline_color = Color(0.45098, 1, 0.866667, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cpy1l"]
-shader = ExtResource("2_f3m4m")
-shader_parameter/width = null
-shader_parameter/outline_color = null
 
 [sub_resource type="LabelSettings" id="LabelSettings_t60bw"]
 font_size = 60
@@ -27,6 +23,7 @@ outline_color = Color(1, 0.580392, 0.67451, 1)
 
 [node name="ChosePlayer" type="Node"]
 script = ExtResource("1_04x2j")
+begin_scene = ExtResource("2_4ey3k")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -55,8 +52,7 @@ size_flags_vertical = 3
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer/VSplitContainer"]
-visible = false
-material = SubResource("ShaderMaterial_pt2ow")
+material = SubResource("ShaderMaterial_ey8ka")
 layout_mode = 2
 texture = ExtResource("2_51um2")
 expand_mode = 4
@@ -68,12 +64,6 @@ size_flags_vertical = 8
 text = "法师"
 label_settings = SubResource("LabelSettings_1w3dy")
 horizontal_alignment = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer/VSplitContainer"]
-material = SubResource("ShaderMaterial_cpy1l")
-position = Vector2(493, 457.5)
-scale = Vector2(0.800781, 0.861328)
-texture = ExtResource("2_51um2")
 
 [node name="HSplitContainer2" type="HSplitContainer" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer"]
 layout_mode = 2
@@ -96,5 +86,9 @@ text = "战士"
 label_settings = SubResource("LabelSettings_t60bw")
 horizontal_alignment = 1
 
-[connection signal="focus_entered" from="CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer" to="." method="_on_h_split_container_focus_entered"]
-[connection signal="focus_exited" from="CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer" to="." method="_on_h_split_container_focus_exited"]
+[connection signal="focus_entered" from="CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer/VSplitContainer" to="." method="_on_v_split_container_focus_entered"]
+[connection signal="focus_exited" from="CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer/VSplitContainer" to="." method="_on_v_split_container_focus_exited"]
+[connection signal="mouse_entered" from="CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer/VSplitContainer" to="." method="_on_v_split_container_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer/VSplitContainer" to="." method="_on_v_split_container_mouse_exited"]
+[connection signal="mouse_entered" from="CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer2" to="." method="_on_h_split_container_2_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer2" to="." method="_on_h_split_container_2_mouse_exited"]
