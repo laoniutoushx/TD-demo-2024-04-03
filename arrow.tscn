@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://1w2277gletkj"]
-
-[ext_resource type="PackedScene" uid="uid://dvatcyiidrnp5" path="res://Asserts/Models/arrow.glb" id="1_wl4oa"]
-
-[node name="arrow" instance=ExtResource("1_wl4oa")]

@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cq7cyb86bfho4"]
-
-[ext_resource type="PackedScene" uid="uid://ds5eaeqwul86n" path="res://Asserts/Models/coin.glb" id="1_u76ag"]
-
-[node name="coin" instance=ExtResource("1_u76ag")]

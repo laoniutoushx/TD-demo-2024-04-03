@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cnsghg7d4utpg"]
+[gd_scene load_steps=9 format=3 uid="uid://dt6nat6rbetj6"]
 
 [ext_resource type="Script" path="res://Levels/ChosePlayer.gd" id="1_04x2j"]
-[ext_resource type="PackedScene" uid="uid://b6x0ifedubj2s" path="res://BaseLevel.tscn" id="2_4ey3k"]
+[ext_resource type="PackedScene" uid="uid://b6x0ifedubj2s" path="res://Levels/BaseLevel.tscn" id="2_4ey3k"]
 [ext_resource type="Texture2D" uid="uid://bflsp3y0iihgl" path="res://Asserts/Images/00011-2797661415.png" id="2_51um2"]
 [ext_resource type="Shader" path="res://Levels/ChosePlayer.gdshader" id="2_f3m4m"]
 [ext_resource type="Texture2D" uid="uid://c34aywixmee4i" path="res://Asserts/Images/00042-1141281929.png" id="3_qjn0w"]
@@ -23,7 +23,7 @@ outline_color = Color(1, 0.580392, 0.67451, 1)
 
 [node name="ChosePlayer" type="Node"]
 script = ExtResource("1_04x2j")
-begin_scene = ExtResource("2_4ey3k")
+level_scene = ExtResource("2_4ey3k")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

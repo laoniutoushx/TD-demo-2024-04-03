@@ -1,16 +1,15 @@
-[gd_scene load_steps=19 format=3 uid="uid://b6x0ifedubj2s"]
+[gd_scene load_steps=20 format=3 uid="uid://b6x0ifedubj2s"]
 
-[ext_resource type="MeshLibrary" uid="uid://bw4gbnnfbaej7" path="res://MeshLibraries/SpaceLibrary.tres" id="1_a0syg"]
-[ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_bukvs"]
-[ext_resource type="PackedScene" uid="uid://cjgsocu8i6efm" path="res://Enemy/enemy.tscn" id="2_rn0o8"]
-[ext_resource type="PackedScene" uid="uid://cym641yvamusq" path="res://Enemy/base.tscn" id="3_5py46"]
-[ext_resource type="Script" path="res://Turret/TurretManager.gd" id="5_shbca"]
-[ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Turret/turret.tscn" id="6_kt8rc"]
-[ext_resource type="Script" path="res://Scripts/RTSController.gd" id="8_0s882"]
-[ext_resource type="PackedScene" uid="uid://cq7cyb86bfho4" path="res://coin.tscn" id="9_n2pau"]
-[ext_resource type="PackedScene" uid="uid://1w2277gletkj" path="res://arrow.tscn" id="10_da0uk"]
-[ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI.tscn" id="10_kc2ue"]
-[ext_resource type="Script" path="res://Levels/LevelController.gd" id="11_pdq63"]
+[ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_55flt"]
+[ext_resource type="MeshLibrary" uid="uid://b6ioecdsupr03" path="res://MeshLibraries/SpaceLibrary.tres" id="2_cnmp3"]
+[ext_resource type="PackedScene" uid="uid://cjgsocu8i6efm" path="res://Enemy/enemy.tscn" id="3_68det"]
+[ext_resource type="PackedScene" uid="uid://cym641yvamusq" path="res://Enemy/base.tscn" id="4_mpmiq"]
+[ext_resource type="Script" path="res://Turret/TurretManager.gd" id="5_jm6ny"]
+[ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Turret/turret.tscn" id="6_anbyv"]
+[ext_resource type="Script" path="res://Scripts/RTSController.gd" id="7_h85ip"]
+[ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI/ui.tscn" id="8_q6t8a"]
+[ext_resource type="Script" path="res://Levels/LevelController.gd" id="9_10et7"]
+[ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Asserts/Models/gdbot/gdbot_skin.tscn" id="10_mdt28"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oopyi"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -31,6 +30,13 @@ albedo_color = Color(0.239216, 0.239216, 0.239216, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_35lo2"]
 material = SubResource("StandardMaterial3D_ggcpa")
 size = Vector3(100, 2, 100)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_jfrus"]
+data = PackedVector3Array(-50, 1, 50, 50, 1, 50, -50, -1, 50, 50, 1, 50, 50, -1, 50, -50, -1, 50, 50, 1, -50, -50, 1, -50, 50, -1, -50, -50, 1, -50, -50, -1, -50, 50, -1, -50, 50, 1, 50, 50, 1, -50, 50, -1, 50, 50, 1, -50, 50, -1, -50, 50, -1, 50, -50, 1, -50, -50, 1, 50, -50, -1, -50, -50, 1, 50, -50, -1, 50, -50, -1, -50, 50, 1, 50, -50, 1, 50, 50, 1, -50, -50, 1, 50, -50, 1, -50, 50, 1, -50, -50, -1, 50, 50, -1, 50, -50, -1, -50, 50, -1, 50, 50, -1, -50, -50, -1, -50)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_c3cbv"]
+vertices = PackedVector3Array(-50, 1, 50, 50, 1, -50, 50, 1, 50, -50, 1, -50, -50, -1, 50, 50, -1, -50, 50, -1, 50, -50, -1, -50, 50, 1, 50, -50, 1, -50, 50, 1, -50, -50, 1, 50, 50, -1, 50, -50, -1, -50, 50, -1, -50, -50, -1, 50, 50, 1, 50, -50, -1, 50, -50, 1, 50, 50, -1, 50, 50, 1, -50, -50, -1, -50, -50, 1, -50, 50, -1, -50)
+polygons = [PackedInt32Array(0, 2, 4), PackedInt32Array(2, 6, 4), PackedInt32Array(1, 3, 5), PackedInt32Array(3, 7, 5), PackedInt32Array(8, 10, 12), PackedInt32Array(10, 14, 12), PackedInt32Array(9, 11, 13), PackedInt32Array(11, 15, 13), PackedInt32Array(16, 18, 20), PackedInt32Array(18, 22, 20), PackedInt32Array(17, 19, 21), PackedInt32Array(19, 23, 21)]
 
 [sub_resource type="Curve3D" id="Curve3D_g10yy"]
 _data = {
@@ -55,14 +61,22 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 mesh = SubResource("BoxMesh_35lo2")
 
-[node name="RayPickerCamera" parent="." node_paths=PackedStringArray("grid_map", "turret_manager") instance=ExtResource("1_bukvs")]
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_jfrus")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="Floor"]
+navigation_mesh = SubResource("NavigationMesh_c3cbv")
+
+[node name="RayPickerCamera" parent="." node_paths=PackedStringArray("grid_map", "turret_manager") instance=ExtResource("1_55flt")]
 transform = Transform3D(1, 0, 0, 0, 0.317305, 0.948324, 0, -0.948324, 0.317305, 0, 32, 17)
 fov = 70.0
 grid_map = NodePath("../GridMap")
 turret_manager = NodePath("../TurretManager")
 
 [node name="GridMap" type="GridMap" parent="."]
-mesh_library = ExtResource("1_a0syg")
+mesh_library = ExtResource("2_cnmp3")
 cell_size = Vector3(4, 4, 4)
 cell_center_y = false
 data = {
@@ -117,43 +131,39 @@ path_u_distance = 1.0
 path_joined = false
 material = SubResource("StandardMaterial3D_rcpim")
 
-[node name="Enemy" parent="Path3D" instance=ExtResource("2_rn0o8")]
+[node name="Enemy" parent="Path3D" instance=ExtResource("3_68det")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -30, 0, 6)
 
-[node name="Enemy2" parent="Path3D" instance=ExtResource("2_rn0o8")]
+[node name="Enemy2" parent="Path3D" instance=ExtResource("3_68det")]
 transform = Transform3D(-0.040198, 0, -0.99919, 0, 1, 0, 0.99919, 0, -0.040198, -28.0019, 0, 6.08274)
 progress = 2.0
 
-[node name="Enemy3" parent="Path3D" instance=ExtResource("2_rn0o8")]
+[node name="Enemy3" parent="Path3D" instance=ExtResource("3_68det")]
 transform = Transform3D(-0.0384529, 0, -0.999261, 0, 1, 0, 0.999261, 0, -0.0384529, -26.0036, 0, 6.16134)
 progress = 4.0
 
-[node name="Enemy4" parent="Path3D" instance=ExtResource("2_rn0o8")]
+[node name="Enemy4" parent="Path3D" instance=ExtResource("3_68det")]
 transform = Transform3D(-0.0368822, 0, -0.999318, 0, 1, 0, 0.999318, 0, -0.0368822, -24.0049, 0, 6.23666)
 progress = 6.0
 
-[node name="Enemy5" parent="Path3D" instance=ExtResource("2_rn0o8")]
+[node name="Enemy5" parent="Path3D" instance=ExtResource("3_68det")]
 transform = Transform3D(-0.035358, 0, -0.999375, 0, 1, 0, 0.999375, 0, -0.035358, -22.006, 0, 6.30891)
 progress = 8.0
 
-[node name="Base" parent="." instance=ExtResource("3_5py46")]
+[node name="Base" parent="." instance=ExtResource("4_mpmiq")]
 
 [node name="TurretManager" type="Node3D" parent="."]
-script = ExtResource("5_shbca")
-turret = ExtResource("6_kt8rc")
+script = ExtResource("5_jm6ny")
+turret = ExtResource("6_anbyv")
 
 [node name="RTSController" type="Node3D" parent="." node_paths=PackedStringArray("cam")]
-script = ExtResource("8_0s882")
+script = ExtResource("7_h85ip")
 cam = NodePath("../RayPickerCamera")
 map_bounds = Rect2(-8, -8, 50, 50)
 
-[node name="coin" parent="." instance=ExtResource("9_n2pau")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-
-[node name="arrow" parent="." instance=ExtResource("10_da0uk")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -5, 5, -2)
-
-[node name="UI" parent="." instance=ExtResource("10_kc2ue")]
+[node name="UI" parent="." instance=ExtResource("8_q6t8a")]
 
 [node name="LevelController" type="Node3D" parent="."]
-script = ExtResource("11_pdq63")
+script = ExtResource("9_10et7")
+
+[node name="GDbotSkin" parent="." instance=ExtResource("10_mdt28")]

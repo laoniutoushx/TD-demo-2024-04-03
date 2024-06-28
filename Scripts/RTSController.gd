@@ -18,14 +18,13 @@ func mouse_camera_move(delta):
 
 	var move_vec = Vector3(0, 0, 0)
 	var camera_pos = cam.position
-	
+
 	# 向左、向上移动屏幕
 	if m_pos.x < Constants.MOVE_MARGIN and camera_pos.x > map_bounds.position.x:
 		move_vec.x -= 1
 	if m_pos.y < Constants.MOVE_MARGIN and camera_pos.z > map_bounds.position.y:
 		move_vec.z -= 1
-		
-	
+
 	# 向右、向下移动屏幕
 	if m_pos.x > v_size.x - Constants.MOVE_MARGIN and camera_pos.x < map_bounds.end.x:
 		# TODO 处理边界值
@@ -34,18 +33,10 @@ func mouse_camera_move(delta):
 		# TODO 处理边界值
 		move_vec.z += 1
 
-
-	prints('down', v_size, m_pos, camera_pos, Constants.MOVE_MARGIN)		
-	#print(m_pos, camera_pos, map_bounds.position.x, map_bounds.position.y, map_bounds.end.x, map_bounds.end.y)	# (1, 1, 0)  or (0, 1, 1)  xyz
-	
 	# TODO 确保相机在地图边界内
-	
-	#if camera_pos.x > map_bounds.position.x and camera_pos.x < map_bounds.end.x and camera_pos.z > map_bounds.position.y and camera_pos.z < map_bounds.end.y:
 	cam.global_translate(move_vec * delta * Constants.MOVE_SPEED)
-		
 	
 	
-	# camera_pos.x = clamp(camera_pos.x, map_bounds.position.x, map_bounds.end.x - v_size.x)
-	# camera_pos.z = clamp(camera_pos.z, map_bounds.position.y, map_bounds.end.y - v_size.y)
+func _click_to_choose():
 	
-	# global_translate(move_vec * get_process_delta_time() * MOVE_SPEED)
+	pass

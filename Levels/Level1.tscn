@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://bxibobasihqmy"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_elhju"]
-[ext_resource type="MeshLibrary" uid="uid://bw4gbnnfbaej7" path="res://MeshLibraries/SpaceLibrary.tres" id="2_cynf3"]
+[ext_resource type="MeshLibrary" uid="uid://b6ioecdsupr03" path="res://MeshLibraries/SpaceLibrary.tres" id="2_cynf3"]
 [ext_resource type="PackedScene" uid="uid://cym641yvamusq" path="res://Enemy/base.tscn" id="4_i6mng"]
 [ext_resource type="Script" path="res://Turret/TurretManager.gd" id="5_fsv1a"]
 [ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Turret/turret.tscn" id="6_o3ywy"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cq7cyb86bfho4" path="res://coin.tscn" id="8_p2jik"]
 [ext_resource type="PackedScene" uid="uid://1w2277gletkj" path="res://arrow.tscn" id="9_218oo"]
 [ext_resource type="Script" path="res://Enemy/EnemyController.gd" id="10_3s3uy"]
-[ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI.tscn" id="10_i7dqg"]
+[ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI/ui.tscn" id="10_i7dqg"]
 [ext_resource type="Script" path="res://Levels/LevelController.gd" id="12_2lb4h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oopyi"]

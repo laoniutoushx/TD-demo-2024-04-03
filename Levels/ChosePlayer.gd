@@ -8,7 +8,7 @@ var choose_player_shader = preload("res://Levels/ChosePlayer.gdshader")
 
 var _on_mouse_choose := false
 
-@export var begin_scene:PackedScene
+@export var level_scene:PackedScene
 
 func _ready() -> void:
 	texture_rect.material = ShaderMaterial.new()
@@ -17,7 +17,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_released("click") and _on_mouse_choose:
 		# 初始化场景 1
-		var begin_scene_inst = begin_scene.instantiate()
+		var begin_scene_inst = level_scene.instantiate()
 		get_parent().add_child(begin_scene_inst)
 		var path = begin_scene_inst.find_child("Path3D")
 		self.queue_free()
