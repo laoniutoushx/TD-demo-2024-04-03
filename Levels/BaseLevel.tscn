@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b6x0ifedubj2s"]
+[gd_scene load_steps=23 format=3 uid="uid://b6x0ifedubj2s"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_55flt"]
 [ext_resource type="MeshLibrary" uid="uid://b6ioecdsupr03" path="res://MeshLibraries/SpaceLibrary.tres" id="2_cnmp3"]
@@ -47,6 +47,21 @@ point_count = 5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rcpim"]
 albedo_color = Color(0.607843, 0.607843, 0.607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gf288"]
+bg_color = Color(0.490196, 0.490196, 0.490196, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_blend = true
+expand_margin_left = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yobh4"]
+bg_color = Color(0.211765, 0.705882, 0.388235, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6b7nn"]
+viewport_path = NodePath("GDbotSkin/SubViewport2")
 
 [node name="BaseLevel" type="Node3D"]
 
@@ -167,3 +182,34 @@ map_bounds = Rect2(-8, -8, 50, 50)
 script = ExtResource("9_10et7")
 
 [node name="GDbotSkin" parent="." instance=ExtResource("10_mdt28")]
+
+[node name="SubViewport2" type="SubViewport" parent="GDbotSkin"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(200, 30)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="ProgressBar" type="ProgressBar" parent="GDbotSkin/SubViewport2"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -15.0
+offset_right = 100.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_gf288")
+theme_override_styles/fill = SubResource("StyleBoxFlat_yobh4")
+step = 1.0
+value = 85.0
+show_percentage = false
+
+[node name="Sprite3D" type="Sprite3D" parent="GDbotSkin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_6b7nn")
