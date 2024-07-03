@@ -11,9 +11,7 @@ class_name Enemy
 @onready var base = get_tree().get_first_node_in_group("base")
 
 
-@export var health_bar_tpl: PackedScene
 var health_bar
-var sprit3d
 var is_finish = false
 
 
@@ -21,10 +19,9 @@ func _ready() -> void:
 	# 初始化时创建 path3d 与 pathfollow3d
 	
 	# 初始化创建 health_bar tscn
-	health_bar = health_bar_tpl.instantiate()
-	sprit3d = health_bar.find_child("ShowIn3D")
-	sprit3d.position = self.position
-	add_child(health_bar)
+	health_bar = preload("res://UI/component/health_bar/health_bar.tscn").instantiate()
+	health_bar.global_position = self.global_position
+	$".".add_child(health_bar) 
 	
 	pass
 
