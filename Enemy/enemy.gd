@@ -10,16 +10,29 @@ class_name Enemy
 @onready var path: PathFollow3D = $"."
 @onready var base = get_tree().get_first_node_in_group("base")
 
+
+@export var health_bar_tpl: PackedScene
+var health_bar
+var sprit3d
 var is_finish = false
+
 
 func _ready() -> void:
 	# 初始化时创建 path3d 与 pathfollow3d
+	
+	# 初始化创建 health_bar tscn
+	health_bar = health_bar_tpl.instantiate()
+	sprit3d = health_bar.find_child("ShowIn3D")
+	sprit3d.position = self.position
+	add_child(health_bar)
+	
 	pass
 
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
 	path.progress = path.progress + (delta * speed)
 	if path.progress_ratio >= 0.98 && !is_finish:
 		is_finish = true
@@ -32,4 +45,4 @@ func take_damage(damage: float):
 	if life <= 0:
 		SignalBus.emit_signal("enemy_death", self)
 		queue_free()
-		
+
