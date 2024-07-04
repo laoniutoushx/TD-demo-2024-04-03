@@ -10,18 +10,20 @@ class_name Enemy
 @onready var path: PathFollow3D = $"."
 @onready var base = get_tree().get_first_node_in_group("base")
 
-
-var health_bar
 var is_finish = false
-
 
 func _ready() -> void:
 	# 初始化时创建 path3d 与 pathfollow3d
 	
+	# TODO 使用方法注解等方式实现自动初始化对应 tscn 目标，按照一定逻辑
 	# 初始化创建 health_bar tscn
-	health_bar = preload("res://UI/component/health_bar/health_bar.tscn").instantiate()
-	health_bar.global_position = self.global_position
-	$".".add_child(health_bar) 
+	var health_bar: HealthBar = preload("res://UI/component/health_bar/health_bar.tscn").instantiate()
+	var aabb = find_child("MeshInstance3D").mesh.get_aabb()
+	var height = aabb.size.y
+	health_bar.position.y = self.position.y + height * health_bar.y_scale
+	health_bar.prepare(life)
+	add_child(health_bar) 
+	
 	
 	pass
 
@@ -39,6 +41,7 @@ func _process(delta: float) -> void:
 
 func take_damage(damage: float):
 	life -= damage
+	SignalBus.emit_signal("enemy_take_damage", get_instance_id(), self, damage)
 	if life <= 0:
 		SignalBus.emit_signal("enemy_death", self)
 		queue_free()

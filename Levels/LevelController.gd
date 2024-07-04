@@ -22,7 +22,7 @@ func is_level_complete():
  
 # 加载下一个关卡 TODO 胜利条件判断，进入下一关卡
 func load_next_level():
-	var next_level = "res://Levels/Level2.tscn"
+	var next_level = "res://Levels/Level1.tscn"
 	current_level = next_level
 	get_tree().change_scene(next_level)
  
