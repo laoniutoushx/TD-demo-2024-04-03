@@ -2,7 +2,7 @@ extends Sprite3D
 
 class_name HealthBar
 
-@onready var health_bar: HealthBar2D = $SubViewport/CanvasLayer/HealthBar
+@onready var health_bar: HealthBar2D = $SubViewport/HealthBar
 @export var y_scale := 1.1	# y axis缩放比例（与目标对象 y 相比）
 
 
@@ -13,6 +13,10 @@ func prepare(value:float) -> void:
 	
 	health_bar.over_bar.max_value = value
 	health_bar.over_bar.value = value
+	
+	# BUG 当事件同时传递时，可能导致 bar 刷新值失败
+	health_bar._over_bar_value = value
+	health_bar._under_bar_value = value
 	pass
 
 

@@ -18,7 +18,5 @@ handle_input_locally = false
 gui_disable_input = true
 size = Vector2i(312, 40)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="SubViewport"]
-
-[node name="HealthBar" parent="SubViewport/CanvasLayer" instance=ExtResource("2_qd4gf")]
+[node name="HealthBar" parent="SubViewport" instance=ExtResource("2_qd4gf")]
 scale = Vector2(4, 4)
