@@ -1,16 +1,16 @@
 [gd_scene load_steps=6 format=3 uid="uid://bxufq6dftl8mh"]
 
-[ext_resource type="Shader" path="res://Levels/ChosePlayer.gdshader" id="1_2cbuc"]
-[ext_resource type="Texture2D" uid="uid://kl8ar128qgv1" path="res://icon.svg" id="2_jet82"]
-[ext_resource type="Texture2D" uid="uid://bflsp3y0iihgl" path="res://Asserts/Images/00011-2797661415.png" id="2_nrwfb"]
+[ext_resource type="Shader" path="res://Levels/choose_player/ChosePlayer.gdshader" id="1_5bl3j"]
+[ext_resource type="Texture2D" uid="uid://bflsp3y0iihgl" path="res://Asserts/Images/00011-2797661415.png" id="2_c2xxk"]
+[ext_resource type="Texture2D" uid="uid://kl8ar128qgv1" path="res://icon.svg" id="3_01xpd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f2rsf"]
-shader = ExtResource("1_2cbuc")
+shader = ExtResource("1_5bl3j")
 shader_parameter/outline_color = Color(0.47451, 0.321569, 0.27451, 1)
 shader_parameter/outline_width = -26.72
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dje5e"]
-shader = ExtResource("1_2cbuc")
+shader = ExtResource("1_5bl3j")
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 shader_parameter/outline_width = 1.0
 
@@ -20,10 +20,10 @@ shader_parameter/outline_width = 1.0
 material = SubResource("ShaderMaterial_f2rsf")
 position = Vector2(1190, 618)
 scale = Vector2(0.730469, 0.730469)
-texture = ExtResource("2_nrwfb")
+texture = ExtResource("2_c2xxk")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_dje5e")
 position = Vector2(1741.5, 722.5)
 scale = Vector2(3.86719, 3.86719)
-texture = ExtResource("2_jet82")
+texture = ExtResource("3_01xpd")

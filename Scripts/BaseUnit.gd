@@ -4,11 +4,29 @@ extends Node
 # 基础单位类
 class_name BaseUnit
 
+# 单位分类
+enum UnitCate {
+	HUMAN,
+	BUILDING,
+	DECORATE_DESTORIED,
+	DECORATE_FOREVER
+}
+
+# 单位移动类型
+enum UnitMoveType {
+	FLYING,
+	WALKING,
+	SWIMMING
+}
+
 # 单位的生命值
 var health : int
+@export var unit_cate: UnitCate
+@export var unit_move_type: UnitMoveType
 
 # 单位的最大生命值
-var max_health : int
+@export var max_health : int
+
 
 # 单位的死亡效果
 func death_effect():

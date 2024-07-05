@@ -42,9 +42,5 @@ func is_new_level_started():
 	return false
 
 
-
-
-
-
 func _on_path_3d_ready() -> void:
 	initialize_level()

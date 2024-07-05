@@ -19,5 +19,5 @@ func update_health(value) -> void:
 	_over_bar_value -= value
 	_under_bar_value -= value
 	tween.tween_property(over_bar, "value", _over_bar_value, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(under_bar, "value", _under_bar_value, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(under_bar, "value", _under_bar_value, 0.15).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 

@@ -40,7 +40,7 @@ func _process(delta: float) -> void:
 
 
 func take_damage(damage: float):
-	life -= damage
+	super.take_damage(damage)
 	SignalBus.emit_signal("enemy_take_damage", get_instance_id(), self, damage)
 	if life <= 0:
 		SignalBus.emit_signal("enemy_death", self)
