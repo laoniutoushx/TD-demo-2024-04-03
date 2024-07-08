@@ -6,7 +6,7 @@ func _ready() -> void:
 	
 	pass
 
-func _on_enemy_death(enemy: Enemy):
+func _on_enemy_death(id:int, enemy :Enemy):
 	var money = enemy.money
 	var wood = enemy.wood
 	

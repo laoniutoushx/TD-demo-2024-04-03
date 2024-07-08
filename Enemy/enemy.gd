@@ -3,7 +3,6 @@ extends BaseUnit
 class_name Enemy
 
 @export var speed := 5
-@export var life := 20
 @export var money := 10
 @export var wood := 1
 
@@ -13,6 +12,7 @@ class_name Enemy
 var is_finish = false
 
 func _ready() -> void:
+	super._ready()	
 	# 初始化时创建 path3d 与 pathfollow3d
 	
 	# TODO 使用方法注解等方式实现自动初始化对应 tscn 目标，按照一定逻辑
@@ -21,7 +21,7 @@ func _ready() -> void:
 	var aabb = find_child("MeshInstance3D").mesh.get_aabb()
 	var height = aabb.size.y
 	health_bar.position.y = self.position.y + height * health_bar.y_scale
-	health_bar.prepare(life)
+	health_bar.prepare(max_health)
 	add_child(health_bar) 
 	
 	
@@ -42,7 +42,7 @@ func _process(delta: float) -> void:
 func take_damage(damage: float):
 	super.take_damage(damage)
 	SignalBus.emit_signal("enemy_take_damage", get_instance_id(), self, damage)
-	if life <= 0:
-		SignalBus.emit_signal("enemy_death", self)
+	if health <= 0:
+		SignalBus.emit_signal("enemy_death", get_instance_id(), self)
 		queue_free()
 

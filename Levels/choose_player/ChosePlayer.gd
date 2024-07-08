@@ -4,7 +4,7 @@ extends Node
 @onready var texture_rect: TextureRect = $CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer/VSplitContainer/TextureRect
 @onready var texture_rect2: TextureRect = $CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer2/VSplitContainer/TextureRect
 
-var choose_player_shader = preload("res://Levels/ChosePlayer.gdshader")
+var choose_player_shader = preload("res://Levels/choose_player/ChosePlayer.gdshader")
 
 var _on_mouse_choose := false
 

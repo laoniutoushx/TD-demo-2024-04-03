@@ -27,6 +27,9 @@ var health : int
 # 单位的最大生命值
 @export var max_health : int
 
+func _ready() -> void:
+	health = max_health
+
 
 # 单位的死亡效果
 func death_effect():
