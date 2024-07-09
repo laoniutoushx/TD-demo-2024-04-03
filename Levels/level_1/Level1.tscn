@@ -1,13 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://bxibobasihqmy"]
+[gd_scene load_steps=19 format=3 uid="uid://bxibobasihqmy"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_elhju"]
+[ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Asserts/Models/gdbot/gdbot_skin.tscn" id="1_umiea"]
 [ext_resource type="MeshLibrary" uid="uid://b6ioecdsupr03" path="res://MeshLibraries/SpaceLibrary.tres" id="2_cynf3"]
 [ext_resource type="PackedScene" uid="uid://cym641yvamusq" path="res://Unit/home/base.tscn" id="3_epmlt"]
 [ext_resource type="Script" path="res://Turret/TurretManager.gd" id="5_fsv1a"]
 [ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Turret/turret.tscn" id="6_o3ywy"]
 [ext_resource type="Script" path="res://Scripts/controller/RTSController.gd" id="7_xmjyx"]
-[ext_resource type="PackedScene" uid="uid://dbaowell060vf" path="res://Test/coin.tscn" id="8_p2jik"]
-[ext_resource type="PackedScene" uid="uid://b8y2qqaapibl7" path="res://Test/arrow.tscn" id="9_218oo"]
+[ext_resource type="Script" path="res://Waves/WaveManager.gd" id="8_iynip"]
 [ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI/ui.tscn" id="10_i7dqg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oopyi"]
@@ -29,6 +29,13 @@ albedo_color = Color(0.239216, 0.239216, 0.239216, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_35lo2"]
 material = SubResource("StandardMaterial3D_ggcpa")
 size = Vector3(100, 2, 100)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_yrbu4"]
+data = PackedVector3Array(-50, 1, 50, 50, 1, 50, -50, -1, 50, 50, 1, 50, 50, -1, 50, -50, -1, 50, 50, 1, -50, -50, 1, -50, 50, -1, -50, -50, 1, -50, -50, -1, -50, 50, -1, -50, 50, 1, 50, 50, 1, -50, 50, -1, 50, 50, 1, -50, 50, -1, -50, 50, -1, 50, -50, 1, -50, -50, 1, 50, -50, -1, -50, -50, 1, 50, -50, -1, 50, -50, -1, -50, 50, 1, 50, -50, 1, 50, 50, 1, -50, -50, 1, 50, -50, 1, -50, 50, 1, -50, -50, -1, 50, 50, -1, 50, -50, -1, -50, 50, -1, 50, 50, -1, -50, -50, -1, -50)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_10k2b"]
+vertices = PackedVector3Array(-50, 1, 50, 50, 1, -50, 50, 1, 50, -50, 1, -50, -50, -1, 50, 50, -1, -50, 50, -1, 50, -50, -1, -50, 50, 1, 50, -50, 1, -50, 50, 1, -50, -50, 1, 50, 50, -1, 50, -50, -1, -50, 50, -1, -50, -50, -1, 50, 50, 1, 50, -50, -1, 50, -50, 1, 50, 50, -1, 50, 50, 1, -50, -50, -1, -50, -50, 1, -50, 50, -1, -50)
+polygons = [PackedInt32Array(0, 2, 4), PackedInt32Array(2, 6, 4), PackedInt32Array(1, 3, 5), PackedInt32Array(3, 7, 5), PackedInt32Array(8, 10, 12), PackedInt32Array(10, 14, 12), PackedInt32Array(9, 11, 13), PackedInt32Array(11, 15, 13), PackedInt32Array(16, 18, 20), PackedInt32Array(18, 22, 20), PackedInt32Array(17, 19, 21), PackedInt32Array(19, 23, 21)]
 
 [sub_resource type="Curve3D" id="Curve3D_g10yy"]
 _data = {
@@ -52,6 +59,17 @@ shadow_enabled = true
 [node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 mesh = SubResource("BoxMesh_35lo2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_yrbu4")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="Floor"]
+navigation_mesh = SubResource("NavigationMesh_10k2b")
+
+[node name="GDbotSkin" parent="Floor" instance=ExtResource("1_umiea")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="RayPickerCamera" parent="." node_paths=PackedStringArray("grid_map", "turret_manager") instance=ExtResource("1_elhju")]
 transform = Transform3D(1, 0, 0, 0, 0.317305, 0.948324, 0, -0.948324, 0.317305, 0, 32, 17)
@@ -116,7 +134,7 @@ path_u_distance = 1.0
 path_joined = false
 material = SubResource("StandardMaterial3D_rcpim")
 
-[node name="Start" type="Node3D" parent="."]
+[node name="StartMark" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.4411, 0, 5.59998)
 
 [node name="Base" parent="." instance=ExtResource("3_epmlt")]
@@ -125,15 +143,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.4411, 0, 5.59998)
 script = ExtResource("5_fsv1a")
 turret = ExtResource("6_o3ywy")
 
-[node name="coin" parent="." instance=ExtResource("8_p2jik")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-
-[node name="arrow" parent="." instance=ExtResource("9_218oo")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -5, 5, -2)
-
 [node name="RTSController" type="Node3D" parent="." node_paths=PackedStringArray("cam")]
 script = ExtResource("7_xmjyx")
 cam = NodePath("../RayPickerCamera")
 map_bounds = Rect2(-8, -8, 50, 50)
+
+[node name="WaveManager" type="Node3D" parent="."]
+script = ExtResource("8_iynip")
 
 [node name="UI" parent="." instance=ExtResource("10_i7dqg")]
