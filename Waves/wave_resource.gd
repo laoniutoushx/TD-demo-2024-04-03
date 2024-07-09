@@ -1,3 +1,4 @@
+class_name WaveResource
 extends Resource
 
 
@@ -9,6 +10,6 @@ extends Resource
 
 
 @export_group("Spawner")
-@export var unit: BaseUnit
+@export var enemy_spawner: EnemySpawnerResource
 
 

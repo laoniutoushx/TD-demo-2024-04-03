@@ -1,15 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://bxibobasihqmy"]
+[gd_scene load_steps=17 format=3 uid="uid://bxibobasihqmy"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_elhju"]
 [ext_resource type="MeshLibrary" uid="uid://b6ioecdsupr03" path="res://MeshLibraries/SpaceLibrary.tres" id="2_cynf3"]
-[ext_resource type="PackedScene" uid="uid://cym641yvamusq" path="res://Enemy/base.tscn" id="4_i6mng"]
+[ext_resource type="PackedScene" uid="uid://cym641yvamusq" path="res://Unit/home/base.tscn" id="3_epmlt"]
 [ext_resource type="Script" path="res://Turret/TurretManager.gd" id="5_fsv1a"]
 [ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Turret/turret.tscn" id="6_o3ywy"]
 [ext_resource type="Script" path="res://Scripts/controller/RTSController.gd" id="7_xmjyx"]
 [ext_resource type="PackedScene" uid="uid://dbaowell060vf" path="res://Test/coin.tscn" id="8_p2jik"]
 [ext_resource type="PackedScene" uid="uid://b8y2qqaapibl7" path="res://Test/arrow.tscn" id="9_218oo"]
 [ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI/ui.tscn" id="10_i7dqg"]
-[ext_resource type="Script" path="res://Levels/LevelController.gd" id="12_2lb4h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oopyi"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -120,7 +119,7 @@ material = SubResource("StandardMaterial3D_rcpim")
 [node name="Start" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.4411, 0, 5.59998)
 
-[node name="Base" parent="." instance=ExtResource("4_i6mng")]
+[node name="Base" parent="." instance=ExtResource("3_epmlt")]
 
 [node name="TurretManager" type="Node3D" parent="."]
 script = ExtResource("5_fsv1a")
@@ -138,11 +137,3 @@ cam = NodePath("../RayPickerCamera")
 map_bounds = Rect2(-8, -8, 50, 50)
 
 [node name="UI" parent="." instance=ExtResource("10_i7dqg")]
-
-[node name="LevelController" type="Node3D" parent="."]
-script = ExtResource("12_2lb4h")
-current_level = "res://Levels/Level1.tscn"
-current_enemy = "res://Enemy/enemy.tscn"
-next_level = "res://Levels/Level2.tscn"
-
-[connection signal="ready" from="Path3D" to="LevelController" method="_on_path_3d_ready"]

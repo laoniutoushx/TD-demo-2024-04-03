@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LevelResource" load_steps=3 format=3 uid="uid://44vs6xarl2dg"]
+
+[ext_resource type="PackedScene" uid="uid://bxibobasihqmy" path="res://Levels/level_1/Level1.tscn" id="1_n8mn6"]
+[ext_resource type="Script" path="res://Levels/level_resource.gd" id="1_oc6p8"]
+
+[resource]
+script = ExtResource("1_oc6p8")
+code = "level1"
+name = "level1"
+scene = ExtResource("1_n8mn6")
+start_delay = 0.0
+end_delay = 5.0
+waves = Array[Resource("res://Waves/wave_resource.gd")]([])

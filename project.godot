@@ -8,6 +8,16 @@
 
 config_version=5
 
+[addons]
+
+resources_spreadsheet_view/array_color_tint=100.0
+resources_spreadsheet_view/color_rows=true
+resources_spreadsheet_view/array_min_width=128.0
+resources_spreadsheet_view/resource_preview_size=32.0
+resources_spreadsheet_view/clip_headers=false
+resources_spreadsheet_view/dupe_arrays=true
+resources_spreadsheet_view/context_menu_on_leftclick=false
+
 [application]
 
 config/name="Barbarian Blaster"
@@ -18,6 +28,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 SignalBus="*res://Scripts/SignalBus.gd"
+GTraitsRegistry="*res://gtraits/helper/gtraits_registry.gd"
 
 [display]
 
@@ -29,6 +40,10 @@ window/stretch/aspect="expand"
 [dotnet]
 
 project/assembly_name="Barbarian Blaster"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-traits/plugin.cfg", "res://addons/godot_resource_groups/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg")
 
 [gui]
 

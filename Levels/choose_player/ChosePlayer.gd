@@ -1,5 +1,6 @@
 extends Node
 
+var choose_player_tres = ResourceLoader.load("res://Levels/resources/ChoosePlayer.tres")
 
 @onready var texture_rect: TextureRect = $CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer/VSplitContainer/TextureRect
 @onready var texture_rect2: TextureRect = $CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer2/VSplitContainer/TextureRect
@@ -8,18 +9,14 @@ var choose_player_shader = preload("res://Levels/choose_player/ChosePlayer.gdsha
 
 var _on_mouse_choose := false
 
-@export var level_scene:PackedScene
-
 func _ready() -> void:
+	
 	texture_rect.material = ShaderMaterial.new()
 	texture_rect2.material = ShaderMaterial.new()
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_released("click") and _on_mouse_choose:
-		# 初始化场景 1
-		var begin_scene_inst = level_scene.instantiate()
-		get_parent().add_child(begin_scene_inst)
-		var path = begin_scene_inst.find_child("Path3D")
+		SignalBus.emit_signal("next_level", "level1")
 		self.queue_free()
 	
 
