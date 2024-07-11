@@ -13,6 +13,10 @@ var wave_delay: float = 5.0	# 5s per wave interval
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	current_state = WaveState.WAITING
+	
+	# waiting for scene loaded, get levelresource
+	await get_tree().root.ready
+	print(get_tree().root.get_meta("ls"))
 	pass # Replace with function body.
 
 

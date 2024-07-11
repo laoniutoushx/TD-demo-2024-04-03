@@ -46,6 +46,9 @@ func load_scene(scene_code: String) -> Node:
 		get_parent().add_child(scene)
 		var path = scene.find_child("Path3D")
 		
+	# binding LevelResource
+	scene.set_meta("ls", (level_tres_map[scene_code] as LevelResource))
+	
 	return scene
 
 
