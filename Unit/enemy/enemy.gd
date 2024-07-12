@@ -2,12 +2,13 @@ extends BaseUnit
 
 class_name Enemy
 
-@export var speed := 5
+
 @export var money := 10
 @export var wood := 1
 
 @onready var path: PathFollow3D = $"."
 @onready var base = get_tree().get_first_node_in_group("base")
+
 
 var is_finish = false
 
@@ -15,14 +16,21 @@ func _ready() -> void:
 	super._ready()	
 	# 初始化时创建 path3d 与 pathfollow3d
 	
+	# initial enemySpawner and enemyResource
+	
+	
+	
 	# TODO 使用方法注解等方式实现自动初始化对应 tscn 目标，按照一定逻辑
 	# 初始化创建 health_bar tscn
+	await self.ready
 	var health_bar: HealthBar = preload("res://UI/component/health_bar/health_bar.tscn").instantiate()
 	var aabb = find_child("MeshInstance3D").mesh.get_aabb()
 	var height = aabb.size.y
 	health_bar.position.y = self.position.y + height * health_bar.y_scale
 	health_bar.prepare(max_health)
 	add_child(health_bar) 
+	
+
 	
 	
 	pass
@@ -32,7 +40,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
-	path.progress = path.progress + (delta * speed)
+	path.progress = path.progress + (delta * move_speed)
 	if path.progress_ratio >= 0.98 && !is_finish:
 		is_finish = true
 		base.take_damage()

@@ -41,13 +41,14 @@ func load_scene(scene_code: String) -> Node:
 		add_child(scene)
 	
 	if scene_code == "level1":
+		# binding LevelResource
+		get_tree().set_meta(Constants.WAVE_RESOURCE, level_tres_map[scene_code].waves)
 		# 初始化场景 1
 		scene = level_tres_map['level1'].scene.instantiate()
 		get_parent().add_child(scene)
 		var path = scene.find_child("Path3D")
 		
-	# binding LevelResource
-	scene.set_meta("ls", (level_tres_map[scene_code] as LevelResource))
+
 	
 	return scene
 

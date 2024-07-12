@@ -4,13 +4,11 @@ extends Node3D
 # 专门配置相机移动范围（防止超出地图边界）
 @export var map_bounds: Rect2
 
-const Constants = preload("res://Scripts/Constands.gd")
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	mouse_camera_move(delta)
  
+
 
 func mouse_camera_move(delta):
 	var m_pos = get_viewport().get_mouse_position()

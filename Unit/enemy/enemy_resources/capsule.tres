@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=3 format=3 uid="uid://cs0lrsvor327p"]
+
+[ext_resource type="PackedScene" uid="uid://cjgsocu8i6efm" path="res://Unit/enemy/scenes/capsule.tscn" id="1_7phoe"]
+[ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="1_taj0b"]
+
+[resource]
+script = ExtResource("1_taj0b")
+clz_code = "capsule"
+clz_name = "capsule"
+model_path = ExtResource("1_7phoe")
+unit_move_type = 1
+unit_cate = 1
+armor_amount = 0.0
+armor_type = 2
+max_health = 20.0
+move_speed = 1.0
+turn_speed = 0.0
+attack_speed = 0.0
