@@ -15,8 +15,12 @@ class_name BaseUnit
 @export_flags("HUMAN", "BUILDING", "DECORATE_DESTORIED", "DECORATE_FOREVER") var unit_cate = 0
 
 
-var health : float
-@export var max_health : float
+var health : float		
+@export var max_health : float :
+	set(value):
+		health = value
+		max_health = value
+		
 @export var move_speed : float
 @export var turn_speed : float
 

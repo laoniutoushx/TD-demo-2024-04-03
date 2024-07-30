@@ -2728,10 +2728,6 @@ libraries = {
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 root_node = NodePath("../gdbot")
-libraries = {
-"": SubResource("AnimationLibrary_n4s66"),
-"custom_lib": ExtResource("6_dcd8b")
-}
 tree_root = SubResource("AnimationNodeBlendTree_q32ex")
 anim_player = NodePath("../gdbot/AnimationPlayer")
 parameters/Add2/add_amount = 1.0

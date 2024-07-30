@@ -6,6 +6,10 @@ var level_tres_map: Dictionary = {}
 const LEVEL_RESOURCE_GROUP = preload("res://Res/LevelResourceGroup.tres")
 
 
+var _pre_scene
+var _cur_scene
+
+
 func _ready():
 	# listener signal 
 	SignalBus.connect("next_level", next_level)
@@ -20,7 +24,9 @@ func initialize_level():
 	next_level("choose_player")
 	
 func next_level_before():
-	pass	
+	#if _pre_scene != null:
+		#_pre_scene.queue_free()
+	pass
 	
 # load level scene by scene code	
 func next_level(code: String):
@@ -47,7 +53,9 @@ func load_scene(scene_code: String) -> Node:
 		scene = level_tres_map['level1'].scene.instantiate()
 		get_parent().add_child(scene)
 		var path = scene.find_child("Path3D")
-		
+
+	_pre_scene = _cur_scene
+	_cur_scene = scene
 
 	
 	return scene

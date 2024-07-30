@@ -13,6 +13,6 @@ unit_cate = 1
 armor_amount = 0.0
 armor_type = 2
 max_health = 20.0
-move_speed = 1.0
+move_speed = 10.0
 turn_speed = 0.0
 attack_speed = 0.0

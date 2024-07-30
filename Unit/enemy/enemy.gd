@@ -1,7 +1,5 @@
-extends BaseUnit
-
 class_name Enemy
-
+extends BaseUnit
 
 @export var money := 10
 @export var wood := 1

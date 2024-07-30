@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelResource" load_steps=7 format=3 uid="uid://cfjres2fis310"]
+[gd_resource type="Resource" script_class="LevelResource" load_steps=10 format=3 uid="uid://cfjres2fis310"]
 
 [ext_resource type="PackedScene" uid="uid://bxibobasihqmy" path="res://Levels/level_1/Level1.tscn" id="1_n8mn6"]
 [ext_resource type="Script" path="res://Levels/level_resource.gd" id="1_oc6p8"]
@@ -8,13 +8,34 @@
 [sub_resource type="Resource" id="Resource_2tx4y"]
 script = ExtResource("4_gg7ch")
 enemy_res_name = "capsule"
+spawn_interval = 1.0
+enemy_amount = 20
+
+[sub_resource type="Resource" id="Resource_sa75h"]
+script = ExtResource("4_gg7ch")
+enemy_res_name = "capsule"
+spawn_interval = 1.5
+enemy_amount = 10
 
 [sub_resource type="Resource" id="Resource_6jk0d"]
 script = ExtResource("3_o0ugr")
 start_delay = 0.0
 next_wave_delay = 5.0
 level_code = "Level1"
-enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_2tx4y")])
+enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_2tx4y"), SubResource("Resource_sa75h")])
+
+[sub_resource type="Resource" id="Resource_nciru"]
+script = ExtResource("4_gg7ch")
+enemy_res_name = "capsule"
+spawn_interval = 0.1
+enemy_amount = 100
+
+[sub_resource type="Resource" id="Resource_n08pb"]
+script = ExtResource("3_o0ugr")
+start_delay = 0.0
+next_wave_delay = 5.0
+level_code = "Level1"
+enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_nciru")])
 
 [resource]
 script = ExtResource("1_oc6p8")
@@ -23,4 +44,4 @@ name = "level1"
 scene = ExtResource("1_n8mn6")
 start_delay = 5.0
 end_delay = 5.0
-waves = Array[ExtResource("3_o0ugr")]([SubResource("Resource_6jk0d"), null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+waves = Array[ExtResource("3_o0ugr")]([SubResource("Resource_6jk0d"), SubResource("Resource_n08pb"), null, null, null, null, null, null, null, null, null, null, null, null, null])
