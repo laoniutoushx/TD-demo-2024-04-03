@@ -9,11 +9,13 @@ signal enemy_spawn_finished
 
 
 
-func _init(enemy_spawner_res: EnemySpawnerResource, path: Node, start_node: Node, wave_spawner) -> void:
+func _init(enemy_spawner_res: EnemySpawnerResource, path: Node, start_node: Node, wave_spawner: WaveManager.WaveSpawner) -> void:
 	_enemy_spawner_res = enemy_spawner_res
 	_path = path
 	_start_node = start_node
-	wave_spawner.connect(enemy_spawn_finished)
+	
+	# bind spawning end event
+	enemy_spawn_finished.connect(wave_spawner.finish_listener)
 
 func start():
 	# spawning
@@ -40,3 +42,6 @@ func start():
 			_path.add_child(enemy_instance)
 			await _path.get_tree().create_timer(_enemy_spawner_res.spawn_interval).timeout
 			print("generate 1", enemy_instance)
+	
+	# emit spawning end signal
+	enemy_spawn_finished.emit()

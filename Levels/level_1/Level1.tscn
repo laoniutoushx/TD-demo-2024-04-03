@@ -78,6 +78,7 @@ grid_map = NodePath("../GridMap")
 turret_manager = NodePath("../TurretManager")
 
 [node name="GridMap" type="GridMap" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0738831, 0.0235863, -0.064188)
 mesh_library = ExtResource("2_cynf3")
 cell_size = Vector3(4, 4, 4)
 cell_center_y = false

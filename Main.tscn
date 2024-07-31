@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dtso8cej2aynn"]
+[gd_scene load_steps=3 format=3 uid="uid://dtso8cej2aynn"]
 
+[ext_resource type="Script" path="res://MainManager.gd" id="1_61efc"]
 [ext_resource type="Script" path="res://Scripts/controller/LevelController.gd" id="3_bsvor"]
 
 [node name="Main" type="Node3D"]
+script = ExtResource("1_61efc")
 
 [node name="LevelController" type="Node" parent="."]
 script = ExtResource("3_bsvor")

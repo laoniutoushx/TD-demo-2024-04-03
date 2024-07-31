@@ -3,7 +3,7 @@ extends Node3D
 @export var projectile: PackedScene
 @onready var barrel: MeshInstance3D = $TurretBase/TurretTop/Visor/Barrel
 @onready var turret_top: MeshInstance3D = $TurretBase/TurretTop
-@export var rotate_speed: float = 1
+@export var rotate_speed: float = 5
 
 
 var enemies: Array = []
@@ -49,7 +49,7 @@ func _physics_process(delta: float) -> void:
 				var target_basis:Basis = Basis.looking_at(target_direction)
 				turret_top.basis = turret_top.basis.slerp(target_basis, acquire_slerp_progress)
 				acquire_slerp_progress += delta * rotate_speed
-				if acquire_slerp_progress > 1:
+				if acquire_slerp_progress >= 0.97:
 					acquire_slerp_progress = 0
 					current_state = TurretState.ATTACK
 					turret_top.look_at(Vector3(current_enemy.position.x, turret_top.global_position.y, current_enemy.position.z))
@@ -65,25 +65,17 @@ func _physics_process(delta: float) -> void:
 				attack(turret_top)
 				
 				attack_timer = Timer.new()
-				attack_timer.wait_time = 0.5
-				attack_timer.autostart = true
 				attack_timer.one_shot = true
 				add_child(attack_timer)
-				
-				
+				attack_timer.start(0.5)
 				await attack_timer.timeout
 				
-				if attack_timer.time_left == 0:
-					print("Timer has timed out!")
-					current_state = TurretState.IDLE
-					attack_timer.queue_free()
-					print("attack timer queue")
-					attack_timer = null
-				
-
-
-				# 连接计时器的 "timeout" 信号到一个方法
-				# attack_timer.timeout.connect(_on_timer_timeout, attack_timer)
+				#print("Timer has timed out!")
+				current_state = TurretState.IDLE
+				remove_child(attack_timer)
+				attack_timer.queue_free()
+				#print("attack timer queue")
+				attack_timer = null
 
 func attack(target) -> void:
 	var projectile_ins = projectile.instantiate()
@@ -99,7 +91,6 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 	if enemy != null && enemy.get_groups() != null:
 		for group in enemy.get_groups():
 			if group.get_basename() == 'enemy':
-				print("entered")
 				enemies.append(enemy)
 				
 				
@@ -111,7 +102,6 @@ func _on_area_3d_area_exited(area: Area3D) -> void:
 	if enemy != null && enemy.get_groups() != null:
 		for group in enemy.get_groups():
 			if group.get_basename() == 'enemy':
-				print("exited")
 				enemies.erase(enemy)
 				if enemy == current_enemy:
 					current_enemy = null

@@ -1,15 +1,13 @@
-extends Node2D
+extends Node3D
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
+	# 1. main scene ready， inject instance to CommonUtil.gd 
+
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(delta: float) -> void:
 	pass
-
-
-func _on_button_pressed():
-	pass # Replace with function body.

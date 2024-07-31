@@ -9,18 +9,18 @@
 script = ExtResource("4_gg7ch")
 enemy_res_name = "capsule"
 spawn_interval = 1.0
-enemy_amount = 20
+enemy_amount = 1
 
 [sub_resource type="Resource" id="Resource_sa75h"]
 script = ExtResource("4_gg7ch")
 enemy_res_name = "capsule"
 spawn_interval = 1.5
-enemy_amount = 10
+enemy_amount = 2
 
 [sub_resource type="Resource" id="Resource_6jk0d"]
 script = ExtResource("3_o0ugr")
-start_delay = 0.0
-next_wave_delay = 5.0
+start_delay = 3.0
+next_wave_delay = 3.0
 level_code = "Level1"
 enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_2tx4y"), SubResource("Resource_sa75h")])
 
@@ -32,7 +32,7 @@ enemy_amount = 100
 
 [sub_resource type="Resource" id="Resource_n08pb"]
 script = ExtResource("3_o0ugr")
-start_delay = 0.0
+start_delay = 5.0
 next_wave_delay = 5.0
 level_code = "Level1"
 enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_nciru")])
@@ -43,5 +43,5 @@ code = "level1"
 name = "level1"
 scene = ExtResource("1_n8mn6")
 start_delay = 5.0
-end_delay = 5.0
+end_delay = 10.0
 waves = Array[ExtResource("3_o0ugr")]([SubResource("Resource_6jk0d"), SubResource("Resource_n08pb"), null, null, null, null, null, null, null, null, null, null, null, null, null])

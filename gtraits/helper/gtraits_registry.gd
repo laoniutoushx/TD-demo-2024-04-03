@@ -14,6 +14,8 @@ extends Node
 
 #region Trait declaration
 
+static func _static_init() -> void:
+	GTraitsCore.register_trait(WaveManager, "WaveManager")
 
 #endregion
 
