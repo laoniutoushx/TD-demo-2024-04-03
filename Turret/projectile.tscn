@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://nbnxafd504hw"]
+[gd_scene load_steps=6 format=3 uid="uid://nbnxafd504hw"]
 
 [ext_resource type="Script" path="res://Turret/projectile.gd" id="1_q133x"]
+[ext_resource type="PackedScene" uid="uid://bpbawpm7sb5as" path="res://VFX/projectiles/fireball/vfx_fireball.tscn" id="2_4ulgl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lm726"]
 albedo_color = Color(0.784314, 0.529412, 1, 1)
@@ -14,9 +15,14 @@ size = Vector3(0.1, 0.1, 0.3)
 [node name="Projectile" type="Area3D"]
 top_level = true
 script = ExtResource("1_q133x")
+speed = 2.0
+damage = 5.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="VFX_MESH" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_0ocjb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_2af1u")
+
+[node name="VfxFireball" parent="." instance=ExtResource("2_4ulgl")]
+visible = false

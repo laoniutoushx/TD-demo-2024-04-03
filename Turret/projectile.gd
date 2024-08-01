@@ -6,8 +6,8 @@ var starting_position: Vector3
 
 
 var lerp_pos: float = 0
-@export var speed: float = 1.0
-@export var damage: float = 5.0
+@export var speed: float
+@export var damage: float
 
 
 func _ready() -> void:

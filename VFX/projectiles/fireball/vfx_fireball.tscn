@@ -1,0 +1,99 @@
+[gd_scene load_steps=17 format=3 uid="uid://bpbawpm7sb5as"]
+
+[ext_resource type="Shader" uid="uid://5c03f0gttle5" path="res://VFX/projectiles/fireball/fireball_shader.tres" id="1_cohjf"]
+[ext_resource type="ArrayMesh" uid="uid://d0gdqu6mbcenv" path="res://Asserts/Models/projectiles/fireball/fireball_mesh.obj" id="2_qq4jm"]
+[ext_resource type="Shader" uid="uid://46a4ttq8mwju" path="res://VFX/projectiles/fireball/fire_header_shader.tres" id="3_oy2iu"]
+[ext_resource type="Material" uid="uid://2ya114uel4m3" path="res://VFX/projectiles/fireball/m_fire_trail.tres" id="4_b86em"]
+[ext_resource type="Texture2D" uid="uid://dayvoj8qjupx0" path="res://Asserts/textures/vfx/T_VFX_basic1.PNG" id="5_br3k4"]
+[ext_resource type="Script" path="res://Scripts/Trail3D.gd" id="6_mxcaf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x1k3y"]
+render_priority = 1
+shader = ExtResource("1_cohjf")
+shader_parameter/Fire_Color = Color(2, 1.3, 0.4, 1)
+shader_parameter/Speed = Vector2(1, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_segpy"]
+render_priority = 0
+shader = ExtResource("3_oy2iu")
+shader_parameter/Ball_Color = Color(0.984314, 0.670588, 0, 1)
+shader_parameter/Fresnel_Power = 3.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_fa0kn"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_k28ek"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mh43y"]
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("5_br3k4")
+
+[sub_resource type="Curve" id="Curve_0p181"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.714286, 0.722814), -1.40133, -1.40133, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_05dul"]
+curve = SubResource("Curve_0p181")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bm3au"]
+particle_flag_align_y = true
+emission_shape = 2
+emission_sphere_radius = 0.5
+direction = Vector3(-1, 0, 0)
+spread = 0.0
+initial_velocity_min = 3.0
+initial_velocity_max = 8.0
+radial_velocity_min = 1.0
+radial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_05dul")
+color = Color(2, 1.3, 0.5, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_u12ih"]
+size = Vector2(0.1, 0.5)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_vd6ew"]
+
+[node name="VfxFireball" type="Node3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="FireballOuterMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_x1k3y")
+mesh = ExtResource("2_qq4jm")
+
+[node name="FireBallCoreMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0.194544, 0, 0)
+material_override = SubResource("ShaderMaterial_segpy")
+mesh = SubResource("SphereMesh_fa0kn")
+
+[node name="TrailMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.88698, -0.00121008, 0.000299292, 0.00571695, 0.822735, 1.30589e-05, -0.00116321, -1.03781e-05, 1.00018, -1.54323, 0.0067749, -0.00292969)
+visible = false
+material_override = ExtResource("4_b86em")
+mesh = SubResource("QuadMesh_k28ek")
+
+[node name="Sparks" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_mh43y")
+amount = 10
+lifetime = 0.2
+explosiveness = 0.4
+process_material = SubResource("ParticleProcessMaterial_bm3au")
+draw_pass_1 = SubResource("QuadMesh_u12ih")
+
+[node name="TrailMesh2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+material_override = ExtResource("4_b86em")
+mesh = SubResource("ImmediateMesh_vd6ew")
+script = ExtResource("6_mxcaf")
+fromWidth = 1.0
+toWidth = 1.0
+lifespan = 0.2
+startColor = Color(3, 1.5, 0.4, 1)
+endColor = Color(1, 0, 0, 0.815686)
