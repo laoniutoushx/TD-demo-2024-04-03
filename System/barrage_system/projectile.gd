@@ -1,17 +1,13 @@
-extends Area3D
+extends Node3D
 
-
-var target: Node3D
-var starting_position: Vector3
-
-
+var source: Node
+var target: Node
+var fire_pos: Vector3
 var lerp_pos: float = 0
+
+
 @export var speed: float
 @export var damage: float
-
-
-func _ready() -> void:
-	global_position = starting_position
 
 
 func _physics_process(delta: float) -> void:
@@ -20,7 +16,7 @@ func _physics_process(delta: float) -> void:
 			self.look_at(target.global_position)
 			var aabb = target.find_child("MeshInstance3D").mesh.get_aabb()
 			var height = aabb.size.y
-			global_position = starting_position.lerp(Vector3(target.global_position.x, height / 2, target.global_position.z), lerp_pos)
+			global_position = fire_pos.lerp(Vector3(target.global_position.x, height / 2, target.global_position.z), lerp_pos)
 			lerp_pos += delta * speed
 		else:
 			target.take_damage(damage)

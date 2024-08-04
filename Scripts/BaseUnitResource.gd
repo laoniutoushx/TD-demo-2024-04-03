@@ -21,3 +21,6 @@ extends Resource
 @export var move_speed : float
 @export var turn_speed : float
 @export var attack_speed : float
+
+# FightRegion
+@export var vfx_projectile_name: String

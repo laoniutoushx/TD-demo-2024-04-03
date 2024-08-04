@@ -1,4 +1,4 @@
-extends Node3D
+extends BaseUnit
 
 @export var projectile: PackedScene
 @onready var barrel: MeshInstance3D = $TurretBase/TurretTop/Visor/Barrel
@@ -26,6 +26,7 @@ var current_state: TurretState
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	current_state = TurretState.IDLE
+	vfx_projectile_name = "fireball"
 
 
 
@@ -78,10 +79,13 @@ func _physics_process(delta: float) -> void:
 				attack_timer = null
 
 func attack(target) -> void:
-	var projectile_ins = projectile.instantiate()
-	projectile_ins.target = current_enemy
-	projectile_ins.starting_position = turret_top.global_position
-	add_child(projectile_ins) 
+
+	#var projectile_ins = projectile.instantiate()
+	#projectile_ins.target = current_enemy
+	#projectile_ins.starting_position = turret_top.global_position
+	#add_child(projectile_ins) 
+	
+	(SystemUtil.damage_system as DamageSystem).action(self, current_enemy)
 	
 	pass
 

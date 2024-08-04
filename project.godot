@@ -30,6 +30,7 @@ config/icon="res://icon.svg"
 SignalBus="*res://Scripts/SignalBus.gd"
 GTraitsRegistry="*res://gtraits/helper/gtraits_registry.gd"
 Constants="*res://Scripts/Constants.gd"
+SystemUtil="*res://Scripts/utils/SystemUtil.gd"
 
 [display]
 

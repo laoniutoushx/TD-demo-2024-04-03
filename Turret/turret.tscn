@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://cru16mbhnwx85"]
 
 [ext_resource type="Script" path="res://Turret/turret.gd" id="1_xflch"]
-[ext_resource type="PackedScene" uid="uid://nbnxafd504hw" path="res://Turret/projectile.tscn" id="2_cx51o"]
+[ext_resource type="PackedScene" uid="uid://nbnxafd504hw" path="res://System/barrage_system/projectile.tscn" id="2_r6i4c"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f7p6l"]
 
@@ -46,7 +46,7 @@ radius = 10.0
 [node name="Turret" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_xflch")
-projectile = ExtResource("2_cx51o")
+projectile = ExtResource("2_r6i4c")
 
 [node name="TurretBase" type="MeshInstance3D" parent="."]
 mesh = SubResource("CylinderMesh_uu4co")
@@ -62,11 +62,14 @@ mesh = SubResource("BoxMesh_kw3k6")
 [node name="Barrel" type="MeshInstance3D" parent="TurretBase/TurretTop/Visor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -0.4)
 mesh = SubResource("BoxMesh_h7o0e")
+metadata/fire_pos = false
 
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("CylinderShape3D_sodmm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]

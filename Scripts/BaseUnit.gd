@@ -5,6 +5,8 @@ extends Node
 class_name BaseUnit
 
 
+
+
 # player meta into
 @export_flags("P1", "P2", "P3", "P4") var player_owner_idx: int = 0
 
@@ -23,6 +25,11 @@ var health : float
 		
 @export var move_speed : float
 @export var turn_speed : float
+@export var attack_speed : float
+
+# FightRegion
+@export var vfx_projectile_name: String
+
 
 func _ready() -> void:
 	health = max_health

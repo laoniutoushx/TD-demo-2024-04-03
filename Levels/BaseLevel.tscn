@@ -147,5 +147,3 @@ map_bounds = Rect2(-8, -8, 50, 50)
 script = ExtResource("9_10et7")
 
 [node name="GDbotSkin" parent="." instance=ExtResource("10_mdt28")]
-
-[node name="Sprite3D" type="Sprite3D" parent="GDbotSkin"]

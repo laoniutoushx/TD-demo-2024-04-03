@@ -1,10 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtso8cej2aynn"]
+[gd_scene load_steps=5 format=3 uid="uid://dtso8cej2aynn"]
 
-[ext_resource type="Script" path="res://MainManager.gd" id="1_61efc"]
 [ext_resource type="Script" path="res://Scripts/controller/LevelController.gd" id="3_bsvor"]
+[ext_resource type="PackedScene" uid="uid://b7a1nrfaoya4w" path="res://System/vfx_system/vfx_system.tscn" id="3_pqnn5"]
+[ext_resource type="PackedScene" uid="uid://7rvt2k3k1jwh" path="res://System/barrage_system/barrage_system.tscn" id="4_2xh4q"]
+[ext_resource type="PackedScene" uid="uid://5kncg21bpaly" path="res://System/damage_system/damage_system.tscn" id="5_v3n30"]
 
 [node name="Main" type="Node3D"]
-script = ExtResource("1_61efc")
 
 [node name="LevelController" type="Node" parent="."]
 script = ExtResource("3_bsvor")
+
+[node name="System" type="Node" parent="."]
+
+[node name="VfxSystem" parent="System" instance=ExtResource("3_pqnn5")]
+unique_name_in_owner = true
+
+[node name="BarrageSystem" parent="System" instance=ExtResource("4_2xh4q")]
+unique_name_in_owner = true
+
+[node name="DamageSystem" parent="System" instance=ExtResource("5_v3n30")]
+unique_name_in_owner = true
