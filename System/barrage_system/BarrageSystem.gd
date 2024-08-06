@@ -1,6 +1,7 @@
 extends Node
 class_name BarrageSystem
 
+signal node_exited(position)
 
 func _ready() -> void:
 	SystemUtil.barrage_system = self
@@ -26,18 +27,18 @@ func action(source, target):
 		source.add_child(projectile_instance) 
 		
 		# 3. load projectile vfx destory scene instance
-		var vfx_projectile_destory_pos
-		await projectile_instance.tree_exiting.connect(Callable(self, "_on_node_exiting").bind(vfx_projectile_destory_pos))
-		vfx_projectile_destory_pos = await _on_node_exiting
+		
+		await projectile_instance.tree_exiting.connect(_on_node_exiting.bind(projectile_instance))
+		var vfx_projectile_destory_pos = await node_exited
 		
 		var vfx_projectile_destory_ins: Node3D = (SystemUtil.vfx_system as VFXSystem).create_vfx(vfx_projectile_name, VFXSystem.VFX_TYPE.DESTORY)
-		vfx_projectile_destory_ins.global_position = vfx_projectile_destory_pos
+		vfx_projectile_destory_ins.position = vfx_projectile_destory_pos
 		source.add_child(vfx_projectile_destory_ins) 
 		
 	pass
 	
-func _on_node_exiting(vfx_projectile_destory_pos):
-	return vfx_projectile_destory_pos.global_position
+func _on_node_exiting(projectile_instance):
+	node_exited.emit(projectile_instance.position)
 
 # 寻找 fire_pos 节点，定义在 Metadata 当中（has_key fire_pos）
 func get_fire_pos(source):
