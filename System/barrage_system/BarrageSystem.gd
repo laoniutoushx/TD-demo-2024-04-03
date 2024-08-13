@@ -1,6 +1,9 @@
 extends Node
 class_name BarrageSystem
 
+var signal_dict = {}
+
+
 func _ready() -> void:
 	SystemUtil.barrage_system = self
 
@@ -26,8 +29,8 @@ func action(source, target):
 		
 		
 		# 3. load projectile vfx destory scene instance
-		
-		self.add_user_signal(str(projectile_instance.get_instance_id()), [{"name": "pos", "type": TYPE_VECTOR3}])
+		var signal_name = str(projectile_instance.get_instance_id())
+		self.add_user_signal(signal_name, [{"name": "pos", "type": TYPE_VECTOR3}])
 		
 		var temp_conn: Callable = func(projectile_instance) -> void:
 			var pos = projectile_instance.global_position
@@ -42,14 +45,17 @@ func action(source, target):
 		
 		
 		# 使用动态生成的信号名称等待信号触发
-		var signal_name = str(projectile_instance.get_instance_id())
-		var sl = self.get_signal_list()
-		var s: Variant = self.get(signal_name)
-		print(s)
-		var pos = await s
+		var cal: Callable = func(pos: Vector3) -> void:
+			print("finish")
+			print("global position: (%f, %f, %f)" % [pos.x, pos.y, pos.z])
+			
+		self.connect(signal_name, cal, CONNECT_ONE_SHOT)
+		await cal.call()
+		
+		
 		
 
-		var vfx_projectile_destory_pos = pos
+		var vfx_projectile_destory_pos = null
 		
 		var vfx_projectile_destory_ins: Node3D = (SystemUtil.vfx_system as VFXSystem).create_vfx(vfx_projectile_name, VFXSystem.VFX_TYPE.DESTORY)
 		source.add_child(vfx_projectile_destory_ins) 
