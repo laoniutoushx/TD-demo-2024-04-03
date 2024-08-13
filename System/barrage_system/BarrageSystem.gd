@@ -1,8 +1,6 @@
 extends Node
 class_name BarrageSystem
 
-signal node_exited(position)
-
 func _ready() -> void:
 	SystemUtil.barrage_system = self
 
@@ -19,26 +17,49 @@ func action(source, target):
 		# append projectile vfx instance to project instance
 		
 		var projectile_res: PackedScene = load("res://System/barrage_system/projectile.tscn")
-		var projectile_instance = projectile_res.instantiate()
+		var projectile_instance: Node3D = projectile_res.instantiate()
 		projectile_instance.source = source
 		projectile_instance.target = target
 		projectile_instance.fire_pos = get_fire_pos(source)
 		projectile_instance.add_child(vfx_projectile_ins) 
 		source.add_child(projectile_instance) 
 		
+		
 		# 3. load projectile vfx destory scene instance
 		
-		await projectile_instance.tree_exiting.connect(_on_node_exiting.bind(projectile_instance))
-		var vfx_projectile_destory_pos = await node_exited
+		self.add_user_signal(str(projectile_instance.get_instance_id()), [{"name": "pos", "type": TYPE_VECTOR3}])
+		
+		var temp_conn: Callable = func(projectile_instance) -> void:
+			var pos = projectile_instance.global_position
+			print("global position: (%f, %f, %f)" % [pos.x, pos.y, pos.z])
+			emit_signal(str(projectile_instance.get_instance_id()), pos)
+		
+		
+		projectile_instance.tree_exiting.connect(
+			temp_conn.bind(projectile_instance),
+			CONNECT_ONE_SHOT
+		)
+		
+		
+		# 使用动态生成的信号名称等待信号触发
+		var signal_name = str(projectile_instance.get_instance_id())
+		var sl = self.get_signal_list()
+		var s: Variant = self.get(signal_name)
+		print(s)
+		var pos = await s
+		
+
+		var vfx_projectile_destory_pos = pos
 		
 		var vfx_projectile_destory_ins: Node3D = (SystemUtil.vfx_system as VFXSystem).create_vfx(vfx_projectile_name, VFXSystem.VFX_TYPE.DESTORY)
-		vfx_projectile_destory_ins.position = vfx_projectile_destory_pos
 		source.add_child(vfx_projectile_destory_ins) 
+		vfx_projectile_destory_ins.global_position = vfx_projectile_destory_pos
 		
 	pass
 	
-func _on_node_exiting(projectile_instance):
-	node_exited.emit(projectile_instance.position)
+
+	
+
 
 # 寻找 fire_pos 节点，定义在 Metadata 当中（has_key fire_pos）
 func get_fire_pos(source):
