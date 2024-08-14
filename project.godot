@@ -34,8 +34,8 @@ SystemUtil="*res://Scripts/utils/SystemUtil.gd"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=1980
+window/size/viewport_height=1024
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

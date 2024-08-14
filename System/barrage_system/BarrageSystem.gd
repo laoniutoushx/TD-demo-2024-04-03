@@ -29,27 +29,28 @@ func action(source, target):
 		
 		
 		# 3. load projectile vfx destory scene instance
-		#var signal_name = str(projectile_instance.get_instance_id())
-		#self.add_user_signal(signal_name, [{"name": "pos", "type": TYPE_VECTOR3}])
-		var ps_instance: ProjectileSignal = ProjectileSignal.new()
+		var signal_name = str(projectile_instance.get_instance_id())
+		self.add_user_signal(signal_name, [{"name": "pos", "type": TYPE_VECTOR3}])
+		var signal_projectile = Signal(self, signal_name)
+		#var ps_instance: ProjectileSignal = ProjectileSignal.new()
 		
-		var temp_conn: Callable = func(projectile_instance, ps_instance) -> void:
+		var temp_conn: Callable = func(projectile_instance, signal_projectile) -> void:
 			var pos = projectile_instance.global_position
 			#emit_signal(str(projectile_instance.get_instance_id()), pos)
-			ps_instance.project_signal.emit(pos)
+			signal_projectile.emit(pos)
 		
 		
 		projectile_instance.tree_exiting.connect(
-			temp_conn.bind(projectile_instance, ps_instance),
+			temp_conn.bind(projectile_instance, signal_projectile),
 			CONNECT_ONE_SHOT
 		)
 
-		var vfx_projectile_destory_pos = await ps_instance.project_signal
+		var vfx_projectile_destory_pos = await signal_projectile
 		print("global position: (%f, %f, %f)" % [vfx_projectile_destory_pos.x, vfx_projectile_destory_pos.y, vfx_projectile_destory_pos.z])
 		
 		var vfx_projectile_destory_ins: Node3D = (SystemUtil.vfx_system as VFXSystem).create_vfx(vfx_projectile_name, VFXSystem.VFX_TYPE.DESTORY)
 		vfx_projectile_destory_ins.global_position = vfx_projectile_destory_pos
-		source.add_child(vfx_projectile_destory_ins) 
+		get_parent().add_child(vfx_projectile_destory_ins) 
 		#vfx_projectile_destory_ins.start()
 		
 	pass

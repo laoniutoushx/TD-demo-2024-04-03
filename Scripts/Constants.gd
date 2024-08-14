@@ -7,3 +7,5 @@ const MOVE_SPEED = 30
 
 const WAVE_RESOURCE = "WAVE_RESOURCE"
 
+var ROOT_NODE: Node = null
+var GLB_TICKET: float = 0.0

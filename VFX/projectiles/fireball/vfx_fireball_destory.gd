@@ -5,5 +5,4 @@ extends Node3D
 
 func _ready() -> void:
 	# 触发粒子系统
-	await vfx_death_effect.ready
 	vfx_death_effect.emitting = true

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://baccqi1glrd32"]
+[gd_scene load_steps=7 format=3 uid="uid://baccqi1glrd32"]
 
 [ext_resource type="Script" path="res://Scripts/controller/LevelController.gd" id="3_bsvor"]
 [ext_resource type="PackedScene" uid="uid://b7a1nrfaoya4w" path="res://System/vfx_system/vfx_system.tscn" id="3_pqnn5"]
 [ext_resource type="PackedScene" uid="uid://7rvt2k3k1jwh" path="res://System/barrage_system/barrage_system.tscn" id="4_2xh4q"]
 [ext_resource type="PackedScene" uid="uid://j4jwbc0wb7cd" path="res://Test/BaseLevel1.tscn" id="5_jsh0o"]
 [ext_resource type="PackedScene" uid="uid://5kncg21bpaly" path="res://System/damage_system/damage_system.tscn" id="5_v3n30"]
+[ext_resource type="PackedScene" uid="uid://ey350w7b70mt" path="res://VFX/projectiles/fireball/vfx_fireball_destory.tscn" id="6_5un0a"]
 
 [node name="Main" type="Node3D"]
 
@@ -21,5 +22,8 @@ unique_name_in_owner = true
 
 [node name="DamageSystem" parent="System" instance=ExtResource("5_v3n30")]
 unique_name_in_owner = true
+
+[node name="VfxFireballDestory" parent="." instance=ExtResource("6_5un0a")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 3, 0)
 
 [node name="BaseLevel" parent="." instance=ExtResource("5_jsh0o")]
