@@ -29,42 +29,31 @@ func action(source, target):
 		
 		
 		# 3. load projectile vfx destory scene instance
-		var signal_name = str(projectile_instance.get_instance_id())
-		self.add_user_signal(signal_name, [{"name": "pos", "type": TYPE_VECTOR3}])
+		#var signal_name = str(projectile_instance.get_instance_id())
+		#self.add_user_signal(signal_name, [{"name": "pos", "type": TYPE_VECTOR3}])
+		var ps_instance: ProjectileSignal = ProjectileSignal.new()
 		
-		var temp_conn: Callable = func(projectile_instance) -> void:
+		var temp_conn: Callable = func(projectile_instance, ps_instance) -> void:
 			var pos = projectile_instance.global_position
-			print("global position: (%f, %f, %f)" % [pos.x, pos.y, pos.z])
-			emit_signal(str(projectile_instance.get_instance_id()), pos)
+			#emit_signal(str(projectile_instance.get_instance_id()), pos)
+			ps_instance.project_signal.emit(pos)
 		
 		
 		projectile_instance.tree_exiting.connect(
-			temp_conn.bind(projectile_instance),
+			temp_conn.bind(projectile_instance, ps_instance),
 			CONNECT_ONE_SHOT
 		)
-		
-		
-		# 使用动态生成的信号名称等待信号触发
-		var cal: Callable = func(pos: Vector3) -> void:
-			print("finish")
-			print("global position: (%f, %f, %f)" % [pos.x, pos.y, pos.z])
-			
-		self.connect(signal_name, cal, CONNECT_ONE_SHOT)
-		await cal.call()
-		
-		
-		
 
-		var vfx_projectile_destory_pos = null
+		var vfx_projectile_destory_pos = await ps_instance.project_signal
+		print("global position: (%f, %f, %f)" % [vfx_projectile_destory_pos.x, vfx_projectile_destory_pos.y, vfx_projectile_destory_pos.z])
 		
 		var vfx_projectile_destory_ins: Node3D = (SystemUtil.vfx_system as VFXSystem).create_vfx(vfx_projectile_name, VFXSystem.VFX_TYPE.DESTORY)
-		source.add_child(vfx_projectile_destory_ins) 
 		vfx_projectile_destory_ins.global_position = vfx_projectile_destory_pos
+		source.add_child(vfx_projectile_destory_ins) 
+		#vfx_projectile_destory_ins.start()
 		
 	pass
-	
 
-	
 
 
 # 寻找 fire_pos 节点，定义在 Metadata 当中（has_key fire_pos）

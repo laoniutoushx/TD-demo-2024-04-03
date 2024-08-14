@@ -47,6 +47,8 @@ func _process(delta: float) -> void:
 
 func take_damage(damage: float):
 	super.take_damage(damage)
+	var pos = self.global_position
+	print("global position-take d: (%f, %f, %f)" % [pos.x, pos.y, pos.z])
 	SignalBus.emit_signal("enemy_take_damage", get_instance_id(), self, damage)
 	if health <= 0:
 		SignalBus.emit_signal("enemy_death", get_instance_id(), self)

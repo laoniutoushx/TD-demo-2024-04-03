@@ -58,4 +58,4 @@ one_shot = true
 process_material = SubResource("ParticleProcessMaterial_u1oo6")
 draw_pass_1 = SubResource("QuadMesh_6nhg4")
 
-[connection signal="finished" from="vfx_death_effect" to="." method="_on_vfx_death_effect_finished"]
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
