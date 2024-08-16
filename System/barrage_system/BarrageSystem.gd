@@ -2,11 +2,11 @@ extends Node
 class_name BarrageSystem
 
 var signal_dict = {}
-
+var projectile_res: PackedScene
 
 func _ready() -> void:
 	SystemUtil.barrage_system = self
-
+	projectile_res = preload("res://System/barrage_system/projectile.tscn")
 
 # 弹道执行
 func action(source, target):
@@ -19,7 +19,6 @@ func action(source, target):
 		# 2. 加载弹道场景
 		# append projectile vfx instance to project instance
 		
-		var projectile_res: PackedScene = load("res://System/barrage_system/projectile.tscn")
 		var projectile_instance: Node3D = projectile_res.instantiate()
 		projectile_instance.source = source
 		projectile_instance.target = target
@@ -50,10 +49,10 @@ func action(source, target):
 		
 		var vfx_projectile_destory_ins: Node3D = (SystemUtil.vfx_system as VFXSystem).create_vfx(vfx_projectile_name, VFXSystem.VFX_TYPE.DESTORY)
 		vfx_projectile_destory_ins.global_position = vfx_projectile_destory_pos
+		#self.add_child(vfx_projectile_destory_ins) 	# 当前节点类型为 Node，self.add_child 可能无法正常工作
 		get_parent().add_child(vfx_projectile_destory_ins) 
-		#vfx_projectile_destory_ins.start()
-		
-	pass
+
+
 
 
 

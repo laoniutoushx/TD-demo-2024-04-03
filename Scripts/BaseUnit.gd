@@ -29,6 +29,8 @@ var health : float
 
 # FightRegion
 @export var vfx_projectile_name: String
+@export var projectile_speed: String
+@export var projectile_trace: Curve3D
 
 
 func _ready() -> void:
