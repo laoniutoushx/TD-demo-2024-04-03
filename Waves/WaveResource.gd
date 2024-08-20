@@ -10,5 +10,3 @@ extends Resource
 
 @export_group("Spawner")
 @export var enemy_spawner_resource: Array[EnemySpawnerResource]
-
-

@@ -31,4 +31,3 @@ func _process(delta: float) -> void:
 
 func take_damage() -> void:
 	current_life = current_life - 1
-

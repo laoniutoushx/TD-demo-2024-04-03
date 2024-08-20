@@ -1,5 +1,2 @@
 class_name EnemyResource
 extends BaseUnitResource
-
-
-

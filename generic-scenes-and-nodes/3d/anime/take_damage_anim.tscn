@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://dfyyy6xwxb6om"]
+
+[node name="TakeDamageAnim" type="AnimationPlayer"]

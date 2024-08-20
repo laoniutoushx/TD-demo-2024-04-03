@@ -52,7 +52,6 @@ size = Vector2(0.1, 0.3)
 script = ExtResource("1_cm757")
 
 [node name="vfx_death_effect" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 emitting = false
 amount = 22
 lifetime = 0.2

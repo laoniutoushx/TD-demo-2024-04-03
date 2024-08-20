@@ -4,7 +4,7 @@ extends Node
 # base unit
 class_name BaseUnit
 
-
+var _outline_mesh: ArrayMesh
 
 
 # player meta into
@@ -15,6 +15,9 @@ class_name BaseUnit
 @export_flags("WALK", "FLYING", "SWIM") var unit_move_type: int = 0
 # define unit category
 @export_flags("HUMAN", "BUILDING", "DECORATE_DESTORIED", "DECORATE_FOREVER") var unit_cate = 0
+
+# create mesh outline
+@export var mesh_outline: bool = true
 
 
 var health : float		
@@ -35,6 +38,9 @@ var health : float
 
 func _ready() -> void:
 	health = max_health
+	# 是否创建 mesh_outline
+	if mesh_outline:
+		_create_mesh_outline()
 
 
 # unit death effect
@@ -50,9 +56,23 @@ func take_damage(damage: float):
 	health -= damage
 	if is_dead():
 		death_effect()
+	else:
+		# 受击动画
+		await CommonUtil.await_timer(0.1)
+
+			
+
+		
+		pass
 
 # heal unit health
 func heal(amount: int):
 	health = min(health + amount, max_health)
-
-
+	
+func _create_mesh_outline():
+	# 1. 获取对象 mesh 网格
+	var origin_mesh = CommonUtil.get_first_mesh_instances(self)
+	_outline_mesh = CommonUtil.create_outline_mesh(origin_mesh)
+	self.add_child(_outline_mesh)
+	
+	

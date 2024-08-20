@@ -53,4 +53,3 @@ func take_damage(damage: float):
 	if health <= 0:
 		SignalBus.emit_signal("enemy_death", get_instance_id(), self)
 		queue_free()
-
