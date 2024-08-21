@@ -17,7 +17,8 @@ var _outline_mesh: MeshInstance3D
 @export_flags("HUMAN", "BUILDING", "DECORATE_DESTORIED", "DECORATE_FOREVER") var unit_cate = 0
 
 # create mesh outline
-@export var mesh_outline: bool = true
+@export var mesh_outline: bool = false
+@export var mesh_standing: bool = false
 
 
 var health : float		
@@ -41,6 +42,10 @@ func _ready() -> void:
 	# 是否创建 mesh_outline
 	if mesh_outline:
 		_create_mesh_outline()
+		
+	# 是否创建 mesh_standing
+	if mesh_standing:
+		_create_mesh_standing()
 
 
 # unit death effect
@@ -78,4 +83,10 @@ func _create_mesh_outline():
 	
 	origin_mesh.add_child(_outline_mesh)
 	
-	
+func _create_mesh_standing():
+	var origin_mesh = CommonUtil.get_first_mesh_instances(self)
+	var standing_mesh = origin_mesh.duplicate()
+	standing_mesh.scale = Vector3(1.01, 1.01, 1.01)
+	standing_mesh.visible = false
+	origin_mesh.add_child(standing_mesh)
+	pass

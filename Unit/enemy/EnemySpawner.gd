@@ -31,6 +31,7 @@ func start():
 		var enemy_instance: Enemy = enemy_resource.model_path.instantiate()
 		enemy_instance.move_speed = enemy_resource.move_speed
 		enemy_instance.max_health = enemy_resource.max_health
+		enemy_instance.mesh_standing = enemy_resource.mesh_standing
 		
 		if _start_node != null:
 			enemy_instance.global_position = _start_node.global_position
