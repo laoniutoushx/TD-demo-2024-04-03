@@ -38,13 +38,16 @@ static func get_all_mesh_instances(node: Node) -> Array[MeshInstance3D]:
 	
 
 static func get_first_mesh_instances(node: Node) -> MeshInstance3D:
-	var mesh_instance
 	if node is MeshInstance3D:
-		mesh_instance = node
-		return mesh_instance
-	for child in node.get_children():
-		mesh_instance = get_all_mesh_instances(child)
-	return mesh_instance
+		return node
+	else:
+		for child in node.get_children():
+			var mesh_instance = get_first_mesh_instances(child)
+			if mesh_instance is MeshInstance3D:
+				return mesh_instance
+			else:
+				continue
+	return null
 		
 
 static func create_outline_mesh(mesh_instance: MeshInstance3D, outline_width: float = 0.05) -> ArrayMesh:

@@ -4,7 +4,7 @@ extends Node
 # base unit
 class_name BaseUnit
 
-var _outline_mesh: ArrayMesh
+var _outline_mesh: MeshInstance3D
 
 
 # player meta into
@@ -72,7 +72,10 @@ func heal(amount: int):
 func _create_mesh_outline():
 	# 1. 获取对象 mesh 网格
 	var origin_mesh = CommonUtil.get_first_mesh_instances(self)
-	_outline_mesh = CommonUtil.create_outline_mesh(origin_mesh)
-	self.add_child(_outline_mesh)
+	var outline_mesh_data = CommonUtil.create_outline_mesh(origin_mesh)
+	_outline_mesh = MeshInstance3D.new()
+	_outline_mesh.mesh = outline_mesh_data
+	
+	origin_mesh.add_child(_outline_mesh)
 	
 	

@@ -25,7 +25,7 @@ func start():
 		# enemy res name
 		var enemy_res_name = _enemy_spawner_res.enemy_res_name
 		# load enemy resource file
-		var enemy_resource:EnemyResource = load("res://Unit/enemy/enemy_resources/%s.tres" % enemy_res_name)
+		var enemy_resource:EnemyResource = load("res://Unit/enemy/resources/%s.tres" % enemy_res_name)
 		
 		# generate enemy instance
 		var enemy_instance: Enemy = enemy_resource.model_path.instantiate()
