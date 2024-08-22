@@ -43,10 +43,21 @@ func action(source, target):
 			temp_conn.bind(projectile_instance, signal_projectile),
 			CONNECT_ONE_SHOT
 		)
-
-		var vfx_projectile_destory_pos = await signal_projectile
-		print("global position: (%f, %f, %f)" % [vfx_projectile_destory_pos.x, vfx_projectile_destory_pos.y, vfx_projectile_destory_pos.z])
 		
+		# waiting for projectile arrived
+		var vfx_projectile_destory_pos = await signal_projectile
+		#print("global position: (%f, %f, %f)" % [vfx_projectile_destory_pos.x, vfx_projectile_destory_pos.y, vfx_projectile_destory_pos.z])
+		
+		# 伤害追加
+		target.take_damage(projectile_instance.damage)
+		if target is BaseUnit:
+			var mesh_standing = (target as BaseUnit).get_mesh_standing()
+			if mesh_standing != null:
+				mesh_standing.visible = true
+				# 等待 0.01 秒后恢复, wait to do
+				
+		
+		# destory vfx create
 		var vfx_projectile_destory_ins: Node3D = (SystemUtil.vfx_system as VFXSystem).create_vfx(vfx_projectile_name, VFXSystem.VFX_TYPE.DESTORY)
 		vfx_projectile_destory_ins.global_position = vfx_projectile_destory_pos
 		#self.add_child(vfx_projectile_destory_ins) 	# 当前节点类型为 Node，self.add_child 可能无法正常工作

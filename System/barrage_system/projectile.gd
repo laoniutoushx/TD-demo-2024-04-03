@@ -19,7 +19,6 @@ func _physics_process(delta: float) -> void:
 			global_position = fire_pos.lerp(Vector3(target.global_position.x, height / 2, target.global_position.z), lerp_pos)
 			lerp_pos += delta * speed
 		else:
-			target.take_damage(damage)
 			queue_free()
 	else:
 		queue_free()

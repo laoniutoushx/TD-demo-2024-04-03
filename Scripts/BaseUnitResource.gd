@@ -17,8 +17,8 @@ extends Resource
 @export_flags("INVINCIBLE", "NORMAL", "HERO") var armor_type = 0
 
 # create mesh outline
-@export var mesh_outline: bool = false
-@export var mesh_standing: bool = false
+@export var is_mesh_outline: bool = false
+@export var is_mesh_standing: bool = false
 
 
 @export var max_health : float

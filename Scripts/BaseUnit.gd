@@ -5,7 +5,7 @@ extends Node
 class_name BaseUnit
 
 var _outline_mesh: MeshInstance3D
-
+var _hit_flash_material = preload("res://Asserts/materials/hit_flash.tres")
 
 # player meta into
 @export_flags("P1", "P2", "P3", "P4") var player_owner_idx: int = 0
@@ -17,8 +17,11 @@ var _outline_mesh: MeshInstance3D
 @export_flags("HUMAN", "BUILDING", "DECORATE_DESTORIED", "DECORATE_FOREVER") var unit_cate = 0
 
 # create mesh outline
-@export var mesh_outline: bool = false
-@export var mesh_standing: bool = false
+@export var is_mesh_outline: bool = false
+@export var is_mesh_standing: bool = false
+
+var _mesh_outline
+var _mesh_standing: MeshInstance3D
 
 
 var health : float		
@@ -40,11 +43,11 @@ var health : float
 func _ready() -> void:
 	health = max_health
 	# 是否创建 mesh_outline
-	if mesh_outline:
+	if is_mesh_outline:
 		_create_mesh_outline()
 		
 	# 是否创建 mesh_standing
-	if mesh_standing:
+	if is_mesh_standing:
 		_create_mesh_standing()
 
 
@@ -85,8 +88,13 @@ func _create_mesh_outline():
 	
 func _create_mesh_standing():
 	var origin_mesh = CommonUtil.get_first_mesh_instances(self)
-	var standing_mesh = origin_mesh.duplicate()
-	standing_mesh.scale = Vector3(1.01, 1.01, 1.01)
-	standing_mesh.visible = false
-	origin_mesh.add_child(standing_mesh)
+	_mesh_standing = origin_mesh.duplicate()
+	_mesh_standing.transform.origin = Vector3(0, 0, 0)
+	_mesh_standing.scale = Vector3(1.01, 1.01, 1.01)
+	_mesh_standing.material_override = _hit_flash_material
+	_mesh_standing.visible = false
+	origin_mesh.add_child(_mesh_standing)
 	pass
+	
+func get_mesh_standing() -> MeshInstance3D:
+	return _mesh_standing	
