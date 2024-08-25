@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=3 format=3 uid="uid://du2cd7tgpnqxw"]
+
+[ext_resource type="PackedScene" uid="uid://ca3nvrkfayrwg" path="res://Unit/enemy/scenes/cow.tscn" id="1_i6ap7"]
+[ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_1desw"]
+
+[resource]
+script = ExtResource("2_1desw")
+clz_code = "cow"
+clz_name = "cow"
+model_path = ExtResource("1_i6ap7")
+unit_move_type = 1
+unit_cate = 1
+armor_amount = 0.0
+armor_type = 2
+is_mesh_outline = false
+is_mesh_standing = true
+max_health = 20.0
+move_speed = 10.0
+turn_speed = 0.0
+attack_speed = 100.0
+vfx_projectile_name = "fireball"

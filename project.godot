@@ -47,6 +47,10 @@ project/assembly_name="Barbarian Blaster"
 
 enabled=PackedStringArray("res://addons/godot-traits/plugin.cfg", "res://addons/godot_resource_groups/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg")
 
+[global_group]
+
+enemy=""
+
 [gui]
 
 theme/custom="res://Res/new_theme.tres"

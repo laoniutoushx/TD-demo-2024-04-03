@@ -14,14 +14,17 @@ func _ready() -> void:
 	super._ready()	
 	# 初始化时创建 path3d 与 pathfollow3d
 	
-	# initial enemySpawner and enemyResource
+	# 初始化 walk 动画
+	var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_name(self, "AnimationPlayer")
+	if ap:
+		ap.play("Armature|Run")
 	
 	
 	# TODO 使用方法注解等方式实现自动初始化对应 tscn 目标，按照一定逻辑
 	# 初始化创建 health_bar tscn
 	await self.ready
 	var health_bar: HealthBar = preload("res://UI/component/health_bar/health_bar.tscn").instantiate()
-	var aabb = find_child("MeshInstance3D").mesh.get_aabb()
+	var aabb = CommonUtil.get_first_node_by_node_type(self, "MeshInstance3D").mesh.get_aabb()
 	var height = aabb.size.y
 	health_bar.position.y = self.position.y + height * health_bar.y_scale
 	health_bar.prepare(max_health)
@@ -46,10 +49,11 @@ func take_damage(damage: float):
 	#print("global position-take d: (%f, %f, %f)" % [pos.x, pos.y, pos.z])
 	SignalBus.emit_signal("enemy_take_damage", get_instance_id(), self, damage)
 	if super.is_logic_dead():
-		#SignalBus.emit_signal("enemy_logic_death", get_instance_id(), self)
 		print("emit signal - " + Constants.LOGIC_DEAD + str(get_instance_id()))
 		var signal_enemy_death: Signal = signal_container.get(Constants.LOGIC_DEAD + str(get_instance_id()))
 		signal_enemy_death.emit(self)
+		# Global Signal
+		SignalBus.emit_signal("enemy_logic_death", get_instance_id(), self)
 
 
 
