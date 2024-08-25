@@ -17,7 +17,6 @@ func _ready() -> void:
 	# initial enemySpawner and enemyResource
 	
 	
-	
 	# TODO 使用方法注解等方式实现自动初始化对应 tscn 目标，按照一定逻辑
 	# 初始化创建 health_bar tscn
 	await self.ready
@@ -27,10 +26,6 @@ func _ready() -> void:
 	health_bar.position.y = self.position.y + height * health_bar.y_scale
 	health_bar.prepare(max_health)
 	add_child(health_bar) 
-	
-
-	
-	
 	pass
 
 
@@ -48,8 +43,17 @@ func _process(delta: float) -> void:
 func take_damage(damage: float):
 	super.take_damage(damage)
 	var pos = self.global_position
-	print("global position-take d: (%f, %f, %f)" % [pos.x, pos.y, pos.z])
+	#print("global position-take d: (%f, %f, %f)" % [pos.x, pos.y, pos.z])
 	SignalBus.emit_signal("enemy_take_damage", get_instance_id(), self, damage)
-	if health <= 0:
-		SignalBus.emit_signal("enemy_death", get_instance_id(), self)
-		queue_free()
+	if super.is_logic_dead():
+		#SignalBus.emit_signal("enemy_logic_death", get_instance_id(), self)
+		print("emit signal - " + Constants.LOGIC_DEAD + str(get_instance_id()))
+		var signal_enemy_death: Signal = signal_container.get(Constants.LOGIC_DEAD + str(get_instance_id()))
+		signal_enemy_death.emit(self)
+
+
+
+
+#func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	#print("++++" + anim_name)
+	#pass # Replace with function body.

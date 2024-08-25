@@ -9,3 +9,8 @@ const WAVE_RESOURCE = "WAVE_RESOURCE"
 
 var ROOT_NODE: Node = null
 var GLB_TICKET: float = 0.0
+
+
+# SIGNAL PREFIX
+var LOGIC_DEAD = "logic_dead:"
+var PHYSIC_DEAD = "physic_dead:"

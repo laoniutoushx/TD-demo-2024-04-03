@@ -33,14 +33,14 @@ func action(source, target):
 		var signal_projectile = Signal(self, signal_name)
 		#var ps_instance: ProjectileSignal = ProjectileSignal.new()
 		
-		var temp_conn: Callable = func(projectile_instance, signal_projectile) -> void:
+		var projectile_exiting: Callable = func(target, projectile_instance, signal_projectile) -> void:
+			# 发送 exiting position
 			var pos = projectile_instance.global_position
 			#emit_signal(str(projectile_instance.get_instance_id()), pos)
 			signal_projectile.emit(pos)
 		
-		
 		projectile_instance.tree_exiting.connect(
-			temp_conn.bind(projectile_instance, signal_projectile),
+			projectile_exiting.bind(target, projectile_instance, signal_projectile),
 			CONNECT_ONE_SHOT
 		)
 		
@@ -49,12 +49,16 @@ func action(source, target):
 		#print("global position: (%f, %f, %f)" % [vfx_projectile_destory_pos.x, vfx_projectile_destory_pos.y, vfx_projectile_destory_pos.z])
 		
 		# 伤害追加
-		target.take_damage(projectile_instance.damage)
-		if target is BaseUnit:
+		if target != null and target is BaseUnit and !(target as BaseUnit).is_logic_dead(): 
+			target.take_damage(projectile_instance.damage)
+		
+		# 受击动画
+		if target != null and target is BaseUnit:
 			var mesh_standing = (target as BaseUnit).get_mesh_standing()
 			if mesh_standing != null:
 				mesh_standing.visible = true
 				# 等待 0.01 秒后恢复, wait to do
+				CommonUtil.delay_execution(0.1, func() -> void: if mesh_standing != null: mesh_standing.visible = false)
 				
 		
 		# destory vfx create

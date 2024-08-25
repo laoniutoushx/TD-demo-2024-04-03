@@ -11,7 +11,7 @@ var lerp_pos: float = 0
 
 
 func _physics_process(delta: float) -> void:
-	if target != null:
+	if target != null and !target.is_logic_dead():
 		if lerp_pos < 1: 
 			self.look_at(target.global_position)
 			var aabb = target.find_child("MeshInstance3D").mesh.get_aabb()

@@ -4,6 +4,10 @@ extends Node
 # base unit
 class_name BaseUnit
 
+# signal
+var signal_container = {}
+
+# material and mesh
 var _outline_mesh: MeshInstance3D
 var _hit_flash_material = preload("res://Asserts/materials/hit_flash.tres")
 
@@ -51,27 +55,63 @@ func _ready() -> void:
 		_create_mesh_standing()
 
 
+# enemy 死亡触发事件， turret 监听该 enemy 死亡事件，删除对应敌人集合
+func do_after_logic_dead() -> void:
+	# stop moving
+	set_process(false)
+	
+	# 移出 health bar
+	var health_bar = CommonUtil.get_first_node_by_node_name(self, "HealthBar3D")
+	health_bar.queue_free()
+	
+	# player death animation
+	death_effect()
+	pass		
+
 # unit death effect
 func death_effect():
-	pass
+	# physic signal
+	var signal_name = Constants.PHYSIC_DEAD + str(get_instance_id())
+	add_user_signal(signal_name, [{"name": "unit", "type": TYPE_OBJECT}])
+	var signal_physic_dead = Signal(self, signal_name)
+	signal_physic_dead.connect(_on_physic_dead, CONNECT_ONE_SHOT)
+	
+	# logic animation player
+	var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(self, "AnimationPlayer")
+	if ap != null:
+		ap.play("death")
+		
+		# 参数有默认时，是自右向左
+		ap.animation_finished.connect(_on_animation_player_animation_finished.bind(self, signal_physic_dead), CONNECT_ONE_SHOT)
+		#SignalBus.emit_signal("enemy_physic_death", get_instance_id(), self)
+	else:	
+		signal_physic_dead.emit(self)
+
+
+func _on_animation_player_animation_finished(anim_name: String, unit:BaseUnit, signal_physic_dead:Signal) -> void:
+	signal_physic_dead.emit(unit)
+	pass # Replace with function body.
+	
+#func _on_animation_finished(anim_name: String, target_animation: String):
+	## 判断是否是指定的动画播放完毕
+	#if anim_name == target_animation:
+		#print("Animation finished: ", anim_name)
+		#signal_physic_dead.emit(self)  # 发射自定义信号
+
+# 物理死亡
+func _on_physic_dead(unit: BaseUnit) -> void:
+	unit.queue_free()
+
+
 
 # is dead
-func is_dead() -> bool:
+func is_logic_dead() -> bool:
 	return health <= 0
 
 # damage unit
 func take_damage(damage: float):
 	health -= damage
-	if is_dead():
-		death_effect()
-	else:
-		# 受击动画
-		await CommonUtil.await_timer(0.1)
 
-			
-
-		
-		pass
 
 # heal unit health
 func heal(amount: int):
@@ -79,7 +119,7 @@ func heal(amount: int):
 	
 func _create_mesh_outline():
 	# 1. 获取对象 mesh 网格
-	var origin_mesh = CommonUtil.get_first_mesh_instances(self)
+	var origin_mesh = CommonUtil.get_first_node_by_node_type(self, "MeshInstance3D")
 	var outline_mesh_data = CommonUtil.create_outline_mesh(origin_mesh)
 	_outline_mesh = MeshInstance3D.new()
 	_outline_mesh.mesh = outline_mesh_data
@@ -87,7 +127,7 @@ func _create_mesh_outline():
 	origin_mesh.add_child(_outline_mesh)
 	
 func _create_mesh_standing():
-	var origin_mesh = CommonUtil.get_first_mesh_instances(self)
+	var origin_mesh = CommonUtil.get_first_node_by_node_type(self, "MeshInstance3D")
 	_mesh_standing = origin_mesh.duplicate()
 	_mesh_standing.transform.origin = Vector3(0, 0, 0)
 	_mesh_standing.scale = Vector3(1.01, 1.01, 1.01)

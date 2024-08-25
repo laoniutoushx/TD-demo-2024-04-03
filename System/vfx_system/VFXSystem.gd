@@ -28,6 +28,6 @@ func create_vfx(vfx_name: String, vfx_type: VFX_TYPE) -> Node3D:
 		vfx_scene = load("res://VFX/projectiles/%s/vfx_%s.tscn" % [vfx_name, vfx_name])
 	else:
 		# 约定 vfx 后缀
-		print("res://VFX/projectiles/%s/vfx_%s_%s.tscn" % [vfx_name, vfx_name, str(VFX_TYPE.keys()[vfx_type]).to_lower()])
+		#print("res://VFX/projectiles/%s/vfx_%s_%s.tscn" % [vfx_name, vfx_name, str(VFX_TYPE.keys()[vfx_type]).to_lower()])
 		vfx_scene = load("res://VFX/projectiles/%s/vfx_%s_%s.tscn" % [vfx_name, vfx_name, str(VFX_TYPE.keys()[vfx_type]).to_lower()])
 	return vfx_scene.instantiate()

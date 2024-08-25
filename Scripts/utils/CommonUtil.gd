@@ -24,6 +24,23 @@ static func await_timer(second):
 			root.remove_child(timer)
 			timer.queue_free()
 
+
+static func delay_execution(delay: float, callback: Callable):
+	if delay > 0:
+		var timer = Timer.new()
+		timer.one_shot = true
+		var root = await_get_root_node()
+		root.add_child(timer)
+		
+		var callable: Callable = func(root: Node, timer: Timer, callback: Callable):
+			callback.call()
+			timer.queue_free()
+
+		timer.timeout.connect(callable.bind(root, timer, callback), CONNECT_ONE_SHOT)
+		timer.start(delay)
+	pass			
+
+
 func _process(delta: float) -> void:
 	Constants.GLB_TICKET += delta
 
@@ -37,18 +54,33 @@ static func get_all_mesh_instances(node: Node) -> Array[MeshInstance3D]:
 	return mesh_instances
 	
 
-static func get_first_mesh_instances(node: Node) -> MeshInstance3D:
-	if node is MeshInstance3D:
+static func get_first_node_by_node_type(node: Node, clazz: String) -> Variant:
+	#print(node.get_class(), str(clazz))
+	if node.is_class(clazz):
 		return node
 	else:
 		for child in node.get_children():
-			var mesh_instance = get_first_mesh_instances(child)
-			if mesh_instance is MeshInstance3D:
-				return mesh_instance
+			var _node = get_first_node_by_node_type(child, clazz)
+			if _node != null and _node.is_class(clazz):
+				return _node
 			else:
 				continue
 	return null
-		
+	
+	
+static func get_first_node_by_node_name(node: Node, name: String) -> Variant:
+	#print(node.get_class(), name)
+	if node.name == name:
+		return node
+	else:
+		for child in node.get_children():
+			var _node = get_first_node_by_node_name(child, name)
+			if _node != null and _node.name == name:
+				return _node
+			else:
+				continue
+	return null	
+
 
 static func create_outline_mesh(mesh_instance: MeshInstance3D, outline_width: float = 0.05) -> ArrayMesh:
 	var original_mesh = mesh_instance.mesh
