@@ -17,7 +17,7 @@ func _ready() -> void:
 	# 初始化 walk 动画
 	var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_name(self, "AnimationPlayer")
 	if ap:
-		ap.play("Armature|Run")
+		ap.play(anim_run)
 	
 	
 	# TODO 使用方法注解等方式实现自动初始化对应 tscn 目标，按照一定逻辑

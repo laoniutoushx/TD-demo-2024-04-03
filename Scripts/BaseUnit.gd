@@ -11,6 +11,13 @@ var signal_container = {}
 var _outline_mesh: MeshInstance3D
 var _hit_flash_material = preload("res://Asserts/materials/hit_flash.tres")
 
+# create mesh outline
+@export var is_mesh_outline: bool = false
+@export var is_mesh_standing: bool = false
+
+var _mesh_outline
+var _mesh_standing: MeshInstance3D
+
 # player meta into
 @export_flags("P1", "P2", "P3", "P4") var player_owner_idx: int = 0
 
@@ -20,12 +27,12 @@ var _hit_flash_material = preload("res://Asserts/materials/hit_flash.tres")
 # define unit category
 @export_flags("HUMAN", "BUILDING", "DECORATE_DESTORIED", "DECORATE_FOREVER") var unit_cate = 0
 
-# create mesh outline
-@export var is_mesh_outline: bool = false
-@export var is_mesh_standing: bool = false
 
-var _mesh_outline
-var _mesh_standing: MeshInstance3D
+# ANIMATION
+@export var anim_run = Constants.ANIM_RUN
+@export var anim_walk = Constants.ANIM_WALK
+@export var anim_idle = Constants.ANIM_IDEL
+@export var anim_death = Constants.ANIM_DEATH
 
 
 var health : float		
@@ -79,7 +86,7 @@ func death_effect():
 	# logic animation player
 	var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(self, "AnimationPlayer")
 	if ap != null:
-		ap.play("death")
+		ap.play(anim_death)
 		
 		# 参数有默认时，是自右向左
 		ap.animation_finished.connect(_on_animation_player_animation_finished.bind(self, signal_physic_dead), CONNECT_ONE_SHOT)

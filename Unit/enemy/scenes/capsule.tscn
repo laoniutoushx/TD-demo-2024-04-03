@@ -11,34 +11,21 @@ radius = 1.0
 height = 3.0
 
 [sub_resource type="Animation" id="Animation_a6x41"]
-length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath(".:position:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [0.0]
+"values": [0.0, -3.0]
 }
 
 [sub_resource type="Animation" id="Animation_wwgfo"]
-resource_name = "death"
+resource_name = "destory"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -55,21 +42,22 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_su66l"]
 _data = {
 "RESET": SubResource("Animation_a6x41"),
-"death": SubResource("Animation_wwgfo")
+"destory": SubResource("Animation_wwgfo")
 }
 
 [node name="Enemy" type="PathFollow3D" groups=["enemy"]]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_wievb")
 
-[node name="Area3D" type="Area3D" parent="." groups=["enemy"]]
+[node name="AttackedScope" type="Area3D" parent="." groups=["enemy"]]
+unique_name_in_owner = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+[node name="capsule" type="MeshInstance3D" parent="AttackedScope"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 mesh = SubResource("CapsuleMesh_2jmip")
 skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" groups=["enemy"]]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackedScope" groups=["enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("CapsuleShape3D_oq3j6")
 

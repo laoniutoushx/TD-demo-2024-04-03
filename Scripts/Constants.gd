@@ -14,3 +14,10 @@ var GLB_TICKET: float = 0.0
 # SIGNAL PREFIX
 var LOGIC_DEAD = "logic_dead:"
 var PHYSIC_DEAD = "physic_dead:"
+
+
+# ANIMATION
+var ANIM_RUN = "running"
+var ANIM_WALK = "walk"
+var ANIM_IDEL = "idel"
+var ANIM_DEATH = "destory"

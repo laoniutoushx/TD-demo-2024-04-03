@@ -28,3 +28,9 @@ extends Resource
 
 # FightRegion
 @export var vfx_projectile_name: String
+
+# ANIMATION
+@export var anim_run = Constants.ANIM_RUN
+@export var anim_walk = Constants.ANIM_WALK
+@export var anim_idle = Constants.ANIM_IDEL
+@export var anim_death = Constants.ANIM_DEATH

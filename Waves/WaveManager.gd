@@ -23,13 +23,14 @@ class WaveSpawner:
 	var enemy_spawner_reses: Array[EnemySpawnerResource]
 	signal spawning_finished		# is finished spawing
 	var finished_enemy_spawner_counter := 0		# EnemySpawner finished counter
-	
+
 	# Note 是否完成
 	func finish_listener():
 		finished_enemy_spawner_counter += 1
 		if finished_enemy_spawner_counter == enemy_spawner_reses.size():
 			print("finished wave spawner")
 			spawning_finished.emit()
+		
 
 
 # Called when the node enters the scene tree for the first time.

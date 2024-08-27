@@ -24,6 +24,8 @@ var current_state: TurretState
 func _ready() -> void:
 	current_state = TurretState.IDLE
 	vfx_projectile_name = "fireball"
+	
+	
 
 
 
@@ -94,23 +96,20 @@ func attack(target) -> void:
 
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
-	var enemy = area.get_parent_node_3d()
-	if enemy != null && enemy.get_groups() != null && enemy is BaseUnit && !enemy.is_logic_dead():
-		for group in enemy.get_groups():
-			if group.get_basename() == 'enemy':
-				enemies.append(enemy)
-				enemy_signal_registger(enemy)
+	# TODO 获取当前节点实例化场景的顶级节点
+	var enemy = CommonUtil.get_first_parent_by_node_type(area, "PathFollow3D")
+	if enemy != null && enemy is BaseUnit && !enemy.is_logic_dead():
+		enemies.append(enemy)
+		enemy_signal_registger(enemy)
 				
 
 
 func _on_area_3d_area_exited(area: Area3D) -> void:
-	var enemy = area.get_parent_node_3d()
-	if enemy != null && enemy.get_groups() != null:
-		for group in enemy.get_groups():
-			if group.get_basename() == 'enemy':
-				enemies.erase(enemy)
-				if enemy == current_enemy:
-					current_enemy = null
+	var enemy = CommonUtil.get_first_parent_by_node_type(area, "PathFollow3D")
+	if enemy != null:
+		enemies.erase(enemy)
+		if enemy == current_enemy:
+			current_enemy = null
 					
 
 func enemy_signal_registger(enemy) -> void:

@@ -15,7 +15,7 @@ func _init(enemy_spawner_res: EnemySpawnerResource, path: Node, start_node: Node
 	_start_node = start_node
 	
 	# bind spawning end event
-	enemy_spawn_finished.connect(wave_spawner.finish_listener)
+	enemy_spawn_finished.connect(wave_spawner.finish_listener, CONNECT_ONE_SHOT)
 
 func start():
 	# spawning
@@ -32,6 +32,10 @@ func start():
 		enemy_instance.move_speed = enemy_resource.move_speed
 		enemy_instance.max_health = enemy_resource.max_health
 		enemy_instance.is_mesh_standing = enemy_resource.is_mesh_standing
+		enemy_instance.anim_run = enemy_resource.anim_run
+		enemy_instance.anim_walk = enemy_resource.anim_walk
+		enemy_instance.anim_idle = enemy_resource.anim_idle
+		enemy_instance.anim_death = enemy_resource.anim_death
 		
 		if _start_node != null:
 			enemy_instance.global_position = _start_node.global_position
@@ -41,7 +45,7 @@ func start():
 		# 查找 Path3d
 		if _path != null:
 			_path.add_child(enemy_instance)
-			await _path.get_tree().create_timer(_enemy_spawner_res.spawn_interval).timeout
+			await CommonUtil.await_timer(_enemy_spawner_res.spawn_interval)
 			print("generate 1", enemy_instance)
 	
 	# emit spawning end signal

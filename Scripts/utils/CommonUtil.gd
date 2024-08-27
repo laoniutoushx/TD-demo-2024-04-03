@@ -80,6 +80,23 @@ static func get_first_node_by_node_name(node: Node, name: String) -> Variant:
 			else:
 				continue
 	return null	
+	
+
+static func get_first_parent_by_node_type(node: Node, clazz: String) -> Variant:
+	if node == null: return 
+	if node.is_class(clazz):
+		return node
+	else:
+		return get_first_parent_by_node_type(node.get_parent(), clazz)
+
+# WARNING 注意每个实例化的场景，节点 name 必须唯一的，重复名称系统会加上后缀 @Num
+static func get_first_parent_by_node_name(node: Node, name: String) -> Variant:
+	if node == null: return
+	print(node.name)
+	if node.name == name:
+		return node
+	else:
+		return get_first_parent_by_node_name(node.get_parent(), name)
 
 
 static func create_outline_mesh(mesh_instance: MeshInstance3D, outline_width: float = 0.05) -> ArrayMesh:
