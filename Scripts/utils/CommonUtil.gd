@@ -97,6 +97,21 @@ static func get_first_parent_by_node_name(node: Node, name: String) -> Variant:
 		return node
 	else:
 		return get_first_parent_by_node_name(node.get_parent(), name)
+		
+static func get_all_parent_node_by_node_type(node: Node, clazz: String) -> Array[Variant]:
+	var parent_nodes = []
+	if node == null:
+		return parent_nodes
+	if node.is_class(clazz):
+		parent_nodes.append(node)
+		return parent_nodes	
+
+	while node.get_parent() != null:
+		node = node.get_parent()
+		parent_nodes.append(node)
+		if node.is_class(clazz):
+			break
+	return parent_nodes
 
 
 static func create_outline_mesh(mesh_instance: MeshInstance3D, outline_width: float = 0.05) -> ArrayMesh:

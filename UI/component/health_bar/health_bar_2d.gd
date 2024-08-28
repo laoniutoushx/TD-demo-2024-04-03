@@ -11,7 +11,7 @@ var _under_bar_value:float
 func _ready() -> void:
 	over_bar.z_index = 1
 	under_bar.z_index = 0
-	pass # Replace with function body.
+
 
 
 func update_health(value) -> void:

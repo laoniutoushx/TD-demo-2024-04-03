@@ -24,11 +24,36 @@ func _ready() -> void:
 	# 初始化创建 health_bar tscn
 	await self.ready
 	var health_bar: HealthBar = preload("res://UI/component/health_bar/health_bar.tscn").instantiate()
-	var aabb = CommonUtil.get_first_node_by_node_type(self, "MeshInstance3D").mesh.get_aabb()
+	var mesh_node = CommonUtil.get_first_node_by_node_type(self, "MeshInstance3D")
+	var aabb = mesh_node.mesh.get_aabb()
+	var width = aabb.size.x
 	var height = aabb.size.y
-	health_bar.position.y = self.position.y + height * health_bar.y_scale
-	health_bar.prepare(max_health)
+
+	# 获取所有父节点，计算 scale 值
+	var y_scale_instance = 1.0
+	var x_scale_instance = 1.0
+	var parent_nodes = CommonUtil.get_all_parent_node_by_node_type(mesh_node, "PathFollow3D")
+	for parent_node in parent_nodes:
+		if parent_node.scale != null:
+			y_scale_instance *= parent_node.scale.y
+			x_scale_instance *= parent_node.scale.x
+	
+	var real_width = width * x_scale_instance
+	var real_height = height * health_bar.y_scale * y_scale_instance
+	
+	# health bar 长度比例计算  78 px : 10px => 2
+	var default_scale_of_healthbar2d_x_y = health_bar.get_health_bar2d_size().x / health_bar.get_health_bar2d_size().y
+	var default_scale_of_healthbar2d_and_mesh3d = 78.0 / 2.0
+	
+	var health_bar_2d_width = real_width * default_scale_of_healthbar2d_and_mesh3d
+	var health_bar_2d_height = health_bar_2d_width / default_scale_of_healthbar2d_x_y
+	
+	
+	health_bar.position.y = self.position.y + real_height
+
 	add_child(health_bar) 
+	health_bar.resize(health_bar_2d_width * 4.0, health_bar_2d_height)
+	health_bar.prepare(max_health)
 	pass
 
 
