@@ -19,3 +19,4 @@ gui_disable_input = true
 size = Vector2i(78, 10)
 
 [node name="HealthBar" parent="SubViewport" instance=ExtResource("2_qd4gf")]
+scale = Vector2(4, 4)

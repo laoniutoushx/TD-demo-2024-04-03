@@ -31,6 +31,7 @@ SignalBus="*res://Scripts/SignalBus.gd"
 GTraitsRegistry="*res://gtraits/helper/gtraits_registry.gd"
 Constants="*res://Scripts/Constants.gd"
 SystemUtil="*res://Scripts/utils/SystemUtil.gd"
+UUID="*res://Scripts/utils/uuid.gd"
 
 [display]
 

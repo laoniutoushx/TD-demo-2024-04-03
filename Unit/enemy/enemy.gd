@@ -42,18 +42,23 @@ func _ready() -> void:
 	var real_height = height * health_bar.y_scale * y_scale_instance
 	
 	# health bar 长度比例计算  78 px : 10px => 2
-	var default_scale_of_healthbar2d_x_y = health_bar.get_health_bar2d_size().x / health_bar.get_health_bar2d_size().y
+	var default_scale_of_healthbar2d_x_y = float(health_bar.get_health_bar2d_size().x) / float(health_bar.get_health_bar2d_size().y)
 	var default_scale_of_healthbar2d_and_mesh3d = 78.0 / 2.0
 	
-	var health_bar_2d_width = real_width * default_scale_of_healthbar2d_and_mesh3d
+	# 4x width 扩大
+	var health_bar_2d_width = real_width * default_scale_of_healthbar2d_and_mesh3d * 4
 	var health_bar_2d_height = health_bar_2d_width / default_scale_of_healthbar2d_x_y
+	
+	# 412px : 78px = 4
+	var w_w_scale = (health_bar_2d_width) / health_bar.get_health_bar2d_size().x
 	
 	
 	health_bar.position.y = self.position.y + real_height
 
 	add_child(health_bar) 
-	health_bar.resize(health_bar_2d_width * 4.0, health_bar_2d_height)
 	health_bar.prepare(max_health)
+	health_bar.resize(health_bar_2d_width, health_bar_2d_height, w_w_scale)
+	
 	pass
 
 

@@ -28,7 +28,7 @@ func action(source, target):
 		
 		
 		# 3. load projectile vfx destory scene instance
-		var signal_name = str(projectile_instance.get_instance_id())
+		var signal_name = str(projectile_instance.get_instance_id()) + UUID.v4()
 		self.add_user_signal(signal_name, [{"name": "pos", "type": TYPE_VECTOR3}])
 		var signal_projectile = Signal(self, signal_name)
 		#var ps_instance: ProjectileSignal = ProjectileSignal.new()
@@ -46,13 +46,13 @@ func action(source, target):
 		
 		# waiting for projectile arrived
 		var vfx_projectile_destory_pos = await signal_projectile
-		#print("global position: (%f, %f, %f)" % [vfx_projectile_destory_pos.x, vfx_projectile_destory_pos.y, vfx_projectile_destory_pos.z])
+		print("global position: (%f, %f, %f)" % [vfx_projectile_destory_pos.x, vfx_projectile_destory_pos.y, vfx_projectile_destory_pos.z])
 		
 		# 伤害追加
 		if target != null and target is BaseUnit and !(target as BaseUnit).is_logic_dead(): 
 			target.take_damage(projectile_instance.damage)
 		
-		# 受击动画
+		# 受击动画（mesh_standing）
 		if target != null and target is BaseUnit:
 			var mesh_standing = (target as BaseUnit).get_mesh_standing()
 			if mesh_standing != null:

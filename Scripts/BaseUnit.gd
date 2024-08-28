@@ -134,14 +134,19 @@ func _create_mesh_outline():
 	origin_mesh.add_child(_outline_mesh)
 	
 func _create_mesh_standing():
-	var origin_mesh = CommonUtil.get_first_node_by_node_type(self, "MeshInstance3D")
+	var origin_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(self, "MeshInstance3D")
 	_mesh_standing = origin_mesh.duplicate()
 	_mesh_standing.transform.origin = Vector3(0, 0, 0)
 	_mesh_standing.scale = Vector3(1.01, 1.01, 1.01)
 	_mesh_standing.material_override = _hit_flash_material
 	_mesh_standing.visible = false
 	origin_mesh.add_child(_mesh_standing)
-	pass
-	
+	# 如果有骨骼，设置 mesh_standing 骨骼（添加到场景树当中后再获取相对路径）
+	var skeleton: Skeleton3D = CommonUtil.get_first_node_by_node_type(self, "Skeleton3D")
+	if skeleton != null:
+		_mesh_standing.skeleton = _mesh_standing.get_path_to(skeleton)
+
+
+
 func get_mesh_standing() -> MeshInstance3D:
 	return _mesh_standing	

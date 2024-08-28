@@ -2,8 +2,8 @@ extends Sprite3D
 
 class_name HealthBar
 
-@export var _x = 78
-@export var _y = 10
+@export var width = 78
+@export var height = 10
 
 @onready var health_bar: HealthBar2D = $SubViewport/HealthBar
 @onready var sub_viewport: SubViewport = $SubViewport
@@ -29,18 +29,21 @@ func prepare(value:float) -> void:
 	pass
 
 
-func resize(_x: float, _y: float):
-	# 重设 health_bar 尺寸
-	health_bar.size.x = _x
-	health_bar.size.y = _y
-	
+func resize(_x: float, _y: float, w_w_scale: float):
 	# 重设 subviewport container 2d 尺寸
-	sub_viewport.size.x = _x
-	sub_viewport.size.y = _y
-
+	sub_viewport.size = Vector2i(_x, _y)
 	
+	# 重设 health_bar 比例（ health bar 必须设置比例，如果设置尺寸，还需要重写 progress bar 填充参数 px）
+	health_bar.scale.x = w_w_scale
+	health_bar.scale.y = w_w_scale
+	
+
+
+
+
+
 func get_health_bar2d_size():
-	return Vector2i(_x, _y)
+	return Vector2i(width, height)
 
 
 func _on_enemy_take_damage(id:int, enemy: Enemy, damage:float) -> void:
