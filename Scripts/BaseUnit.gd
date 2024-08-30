@@ -85,12 +85,9 @@ func death_effect():
 	
 	# logic animation player
 	var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(self, "AnimationPlayer")
-	if ap != null:
+	if ap != null and ap.has_animation(anim_death):
 		ap.play(anim_death)
-		
-		# 参数有默认时，是自右向左
 		ap.animation_finished.connect(_on_animation_player_animation_finished.bind(self, signal_physic_dead), CONNECT_ONE_SHOT)
-		#SignalBus.emit_signal("enemy_physic_death", get_instance_id(), self)
 	else:	
 		signal_physic_dead.emit(self)
 

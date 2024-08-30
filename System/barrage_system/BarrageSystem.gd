@@ -23,12 +23,13 @@ func action(source, target):
 		projectile_instance.source = source
 		projectile_instance.target = target
 		projectile_instance.fire_pos = get_fire_pos(source)
-		projectile_instance.add_child(vfx_projectile_ins) 
 		source.add_child(projectile_instance) 
+		projectile_instance.add_child(vfx_projectile_ins) 
 		
 		
 		# 3. load projectile vfx destory scene instance
 		var signal_name = str(projectile_instance.get_instance_id()) + UUID.v4()
+	
 		self.add_user_signal(signal_name, [{"name": "pos", "type": TYPE_VECTOR3}])
 		var signal_projectile = Signal(self, signal_name)
 		#var ps_instance: ProjectileSignal = ProjectileSignal.new()
@@ -46,7 +47,7 @@ func action(source, target):
 		
 		# waiting for projectile arrived
 		var vfx_projectile_destory_pos = await signal_projectile
-		print("global position: (%f, %f, %f)" % [vfx_projectile_destory_pos.x, vfx_projectile_destory_pos.y, vfx_projectile_destory_pos.z])
+		
 		
 		# 伤害追加
 		if target != null and target is BaseUnit and !(target as BaseUnit).is_logic_dead(): 
@@ -65,9 +66,9 @@ func action(source, target):
 		var vfx_projectile_destory_ins: Node3D = (SystemUtil.vfx_system as VFXSystem).create_vfx(vfx_projectile_name, VFXSystem.VFX_TYPE.DESTORY)
 		vfx_projectile_destory_ins.global_position = vfx_projectile_destory_pos
 		#self.add_child(vfx_projectile_destory_ins) 	# 当前节点类型为 Node，self.add_child 可能无法正常工作
-		get_parent().add_child(vfx_projectile_destory_ins) 
-
-
+		#print("global position: (%f, %f, %f)" % [parent_node.global_position.x, parent_node.global_position.y, parent_node.global_position.z])
+		get_parent().add_child(vfx_projectile_destory_ins)
+		self.add_user_signal(signal_name)
 
 
 

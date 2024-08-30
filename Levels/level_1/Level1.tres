@@ -33,8 +33,8 @@ enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_nc
 
 [sub_resource type="Resource" id="Resource_gf1ss"]
 script = ExtResource("4_gg7ch")
-enemy_res_name = "capsule"
-spawn_interval = 0.5
+enemy_res_name = "pig"
+spawn_interval = 2.0
 enemy_amount = 20
 
 [sub_resource type="Resource" id="Resource_jmrcr"]
