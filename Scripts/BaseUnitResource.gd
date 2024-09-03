@@ -1,7 +1,7 @@
 class_name BaseUnitResource
 extends Resource
 
-
+@export_group("Unit Steup")
 # meta config
 @export var clz_code: String
 @export var clz_name: String
@@ -34,3 +34,7 @@ extends Resource
 @export var anim_walk = Constants.ANIM_WALK
 @export var anim_idle = Constants.ANIM_IDEL
 @export var anim_death = Constants.ANIM_DEATH
+
+# Component - 组件系统预定义
+@export_group("System Component")
+@export_flags("VFX", "ITEM", "DAMAGABLE", "BARRAGE") var component_system = 0

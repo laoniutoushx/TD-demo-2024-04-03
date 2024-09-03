@@ -60,6 +60,10 @@ func _ready() -> void:
 	# 是否创建 mesh_standing
 	if is_mesh_standing:
 		_create_mesh_standing()
+		
+	# system component load（item）
+	
+	
 
 
 # enemy 死亡触发事件， turret 监听该 enemy 死亡事件，删除对应敌人集合
