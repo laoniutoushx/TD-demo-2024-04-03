@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=2 format=3 uid="uid://5metv6bqqctl"]
+
+[ext_resource type="Script" path="res://System/item_system/domain/item_ressource.gd" id="1_ya1ng"]
+
+[resource]
+script = ExtResource("1_ya1ng")
+id = ""
+code = "axe"
+name = ""
+icon = ""
+model = ""
+description = ""
+category = null
+nature = null
+borning_position = Vector3(0, 0, 0)

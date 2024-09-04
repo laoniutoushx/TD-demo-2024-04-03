@@ -1,14 +1,15 @@
-extends Node
-class_name ItemDomain
+extends Resource
+class_name ItemResource
 
-# Class
+# Class Template
 
 
 # basic properity
-@export var id: String
-# @export var name: String
-@export var icon: String
-@export var model: String
+@export var id: String = UUID.v4()
+@export var code: String
+@export var name: String
+@export var icon: Texture2D
+@export var model: Mesh
 @export var description:String
 # 分类
 @export_flags("WEAPON", "CLOTHING", "SHOES", "JEWELRY", "OTHER") var category
@@ -20,9 +21,3 @@ class_name ItemDomain
 
 
 # skill table
-
-
-
-# RelationShip
-var _owner: BaseUnit
-var _composite: Array[ItemDomain]

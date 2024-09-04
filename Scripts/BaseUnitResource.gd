@@ -38,3 +38,8 @@ extends Resource
 # Component - 组件系统预定义
 @export_group("System Component")
 @export_flags("VFX", "ITEM", "DAMAGABLE", "BARRAGE") var component_system = 0
+
+
+# Item related
+# 拾取速度
+@export var pickup_velocity := 1000.0
