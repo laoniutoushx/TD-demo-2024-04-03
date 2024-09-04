@@ -1,6 +1,10 @@
 extends Node
 class_name ItemDomain
 
-# 基础属性
-var item_id: String
-var item_name: String
+# basic properity
+@export var item_id: String
+@export var item_name: String
+
+
+func _ready() -> void:
+    pass
