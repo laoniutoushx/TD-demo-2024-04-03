@@ -2,19 +2,20 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://b2jmotgetkr7k"
-path="res://.godot/imported/KingGamingFreeTrial-gxrq6.otf-d80f76b1d2a63f81482f1c747d4bd399.fontdata"
+uid="uid://cat6s1t257mgd"
+path="res://.godot/imported/KingGamingFreeTrial-owdrz.ttf-36833e6e492a47134faff71af1c66b25.fontdata"
 
 [deps]
 
-source_file="res://Res/Font/KingGamingFreeTrial-gxrq6.otf"
-dest_files=["res://.godot/imported/KingGamingFreeTrial-gxrq6.otf-d80f76b1d2a63f81482f1c747d4bd399.fontdata"]
+source_file="res://Asserts/resources/demo_ui/Font/KingGamingFreeTrial-owdrz.ttf"
+dest_files=["res://.godot/imported/KingGamingFreeTrial-owdrz.ttf-36833e6e492a47134faff71af1c66b25.fontdata"]
 
 [params]
 
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

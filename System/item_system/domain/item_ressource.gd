@@ -9,7 +9,7 @@ class_name ItemResource
 @export var code: String
 @export var name: String
 @export var icon: Texture2D
-@export var model: Mesh
+@export var model: PackedScene
 @export var description:String
 # 分类
 @export_flags("WEAPON", "CLOTHING", "SHOES", "JEWELRY", "OTHER") var category

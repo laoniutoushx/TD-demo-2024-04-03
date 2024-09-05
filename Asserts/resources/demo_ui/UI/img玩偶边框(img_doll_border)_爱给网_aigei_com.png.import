@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dn1ckbh6o81n5"
-path="res://.godot/imported/gdbot_vignette.png-83e12cc864161200a598f82879815b25.ctex"
+uid="uid://b6vx8m1k8vjl1"
+path="res://.godot/imported/img玩偶边框(img_doll_border)_爱给网_aigei_com.png-7a39020f9af4c2b6f17efa81afbebb5c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Res/model_data/gdbot_vignette.png"
-dest_files=["res://.godot/imported/gdbot_vignette.png-83e12cc864161200a598f82879815b25.ctex"]
+source_file="res://Asserts/resources/demo_ui/UI/img玩偶边框(img_doll_border)_爱给网_aigei_com.png"
+dest_files=["res://.godot/imported/img玩偶边框(img_doll_border)_爱给网_aigei_com.png-7a39020f9af4c2b6f17efa81afbebb5c.ctex"]
 
 [params]
 

@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="ModelData" load_steps=4 format=3 uid="uid://p3r7wj72g1ox"]
 
 [ext_resource type="PackedScene" uid="uid://nbnxafd504hw" path="res://System/barrage_system/projectile.tscn" id="1_2p3ax"]
-[ext_resource type="Script" path="res://Res/model_data/model_data_builder.gd" id="1_e0bky"]
-[ext_resource type="Texture2D" uid="uid://dn1ckbh6o81n5" path="res://Res/model_data/gdbot_vignette.png" id="2_deoag"]
+[ext_resource type="Script" path="res://Asserts/resources/demo_ui/model_data/model_data_builder.gd" id="1_e0bky"]
+[ext_resource type="Texture2D" uid="uid://dn1ckbh6o81n5" path="res://Asserts/resources/demo_ui/model_data/gdbot_vignette.png" id="2_deoag"]
 
 [resource]
 script = ExtResource("1_e0bky")

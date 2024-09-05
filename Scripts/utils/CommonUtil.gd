@@ -23,6 +23,7 @@ static func await_timer(second):
 			await timer.timeout
 			root.remove_child(timer)
 			timer.queue_free()
+			timer.free()
 
 
 static func delay_execution(delay: float, callback: Callable):
@@ -35,10 +36,11 @@ static func delay_execution(delay: float, callback: Callable):
 		var callable: Callable = func(root: Node, timer: Timer, callback: Callable):
 			callback.call()
 			timer.queue_free()
+			timer.free()
 
 		timer.timeout.connect(callable.bind(root, timer, callback), CONNECT_ONE_SHOT)
 		timer.start(delay)
-	pass			
+	pass
 
 
 func _process(delta: float) -> void:
@@ -79,15 +81,16 @@ static func get_first_node_by_node_name(node: Node, name: String) -> Variant:
 				return _node
 			else:
 				continue
-	return null	
+	return null
 	
 
 static func get_first_parent_by_node_type(node: Node, clazz: String) -> Variant:
-	if node == null: return 
+	if node == null: return
 	if node.is_class(clazz):
 		return node
 	else:
 		return get_first_parent_by_node_type(node.get_parent(), clazz)
+
 
 # WARNING 注意每个实例化的场景，节点 name 必须唯一的，重复名称系统会加上后缀 @Num
 static func get_first_parent_by_node_name(node: Node, name: String) -> Variant:
@@ -97,14 +100,15 @@ static func get_first_parent_by_node_name(node: Node, name: String) -> Variant:
 		return node
 	else:
 		return get_first_parent_by_node_name(node.get_parent(), name)
-		
+
+
 static func get_all_parent_node_by_node_type(node: Node, clazz: String) -> Array[Variant]:
 	var parent_nodes = []
 	if node == null:
 		return parent_nodes
 	if node.is_class(clazz):
 		parent_nodes.append(node)
-		return parent_nodes	
+		return parent_nodes
 
 	while node.get_parent() != null:
 		node = node.get_parent()
@@ -132,3 +136,58 @@ static func create_outline_mesh(mesh_instance: MeshInstance3D, outline_width: fl
 	outline_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	
 	return outline_mesh
+
+
+# common resource get
+static func get_resource(file_name):
+	if ResourceLoaderUtil.contains_resource(file_name):
+		return ResourceLoaderUtil.get_resource(file_name)
+
+# common resource load
+static func load_resources_to_container_from_directory(path: String, container: Dictionary):
+	ResourceLoaderUtil.load_resources_to_container_from_directory(path, container)
+
+
+# Inner Class
+# Resource Loader
+class ResourceLoaderUtil:
+	static var _common_container = {}
+
+	# 主函数：加载指定目录下的所有 .tres 和 .tscn 文件
+	static func load_resources_to_container_from_directory(path, container: Dictionary) -> Dictionary:
+		var dir = DirAccess.open(path)
+		
+		if dir:
+			dir.list_dir_begin()
+			var file_name = dir.get_next()
+			while file_name != "":
+				if dir.current_is_dir():
+					# 递归处理子目录
+					load_resources_to_container_from_directory(path.plus_file(file_name), container if container else _common_container)
+				elif file_name.ends_with(".tres") or file_name.ends_with(".tscn"):
+					# 加载资源
+					var resource = load(path.plus_file(file_name))
+					if resource:
+						_common_container[file_name] = resource
+						print("Loaded: " + file_name)
+				file_name = dir.get_next()
+			dir.list_dir_end()
+		else:
+			print("An error occurred when trying to access the path.")
+		
+		return container if container else _common_container
+
+
+	# 获取加载的资源
+	static func get_resource(file_name):
+		return _common_container.get(file_name)
+
+	# 是否存在
+	static func contains_resource(file_name):
+		return _common_container.has(file_name)
+
+
+	# 打印所有加载的资源
+	static func print_loaded_resources():
+		for key in _common_container.keys():
+			print(key + ": " + str(_common_container[key]))

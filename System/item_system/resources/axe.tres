@@ -4,11 +4,9 @@
 
 [resource]
 script = ExtResource("1_ya1ng")
-id = ""
+id = null
 code = "axe"
 name = ""
-icon = ""
-model = ""
 description = ""
 category = null
 nature = null

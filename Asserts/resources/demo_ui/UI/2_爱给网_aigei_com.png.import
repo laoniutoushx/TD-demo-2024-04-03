@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkmrrcn6wmtew"
-path="res://.godot/imported/木支柱4(wood_prop4)_爱给网_aigei_com.png-f4c2345e9dfdc7e30b823d280bdcb679.ctex"
+uid="uid://nx6gcyhrqbr2"
+path="res://.godot/imported/2_爱给网_aigei_com.png-bddfa37edb390b3164b2807915c297d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Res/UI/木支柱4(wood_prop4)_爱给网_aigei_com.png"
-dest_files=["res://.godot/imported/木支柱4(wood_prop4)_爱给网_aigei_com.png-f4c2345e9dfdc7e30b823d280bdcb679.ctex"]
+source_file="res://Asserts/resources/demo_ui/UI/2_爱给网_aigei_com.png"
+dest_files=["res://.godot/imported/2_爱给网_aigei_com.png-bddfa37edb390b3164b2807915c297d2.ctex"]
 
 [params]
 

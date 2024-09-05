@@ -1,7 +1,7 @@
 [gd_resource type="Theme" load_steps=4 format=3 uid="uid://bf5a24ang0c6j"]
 
-[ext_resource type="FontFile" uid="uid://b2jmotgetkr7k" path="res://Res/Font/KingGamingFreeTrial-gxrq6.otf" id="1_mvk6a"]
-[ext_resource type="Texture2D" uid="uid://b6vx8m1k8vjl1" path="res://Res/UI/img玩偶边框(img_doll_border)_爱给网_aigei_com.png" id="2_yfhom"]
+[ext_resource type="FontFile" uid="uid://b2jmotgetkr7k" path="res://Asserts/resources/demo_ui/Font/KingGamingFreeTrial-gxrq6.otf" id="1_mvk6a"]
+[ext_resource type="Texture2D" uid="uid://b6vx8m1k8vjl1" path="res://Asserts/resources/demo_ui/UI/img玩偶边框(img_doll_border)_爱给网_aigei_com.png" id="2_yfhom"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5pm7c"]
 texture = ExtResource("2_yfhom")

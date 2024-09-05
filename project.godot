@@ -59,7 +59,7 @@ enemy=""
 
 [gui]
 
-theme/custom="res://Res/new_theme.tres"
+theme/custom="res://Asserts/resources/demo_ui/new_theme.tres"
 
 [input]
 
