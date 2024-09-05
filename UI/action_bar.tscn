@@ -1,0 +1,78 @@
+[gd_scene load_steps=2 format=3 uid="uid://cddhheg1d4j32"]
+
+[ext_resource type="Texture2D" uid="uid://kl8ar128qgv1" path="res://icon.svg" id="1_77c8w"]
+
+[node name="ActionBar" type="Node"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ItemBar" type="GridContainer" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 160.0
+offset_top = -184.0
+offset_right = 684.0
+offset_bottom = -56.0
+grow_horizontal = 0
+grow_vertical = 0
+columns = 5
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ItemBar"]
+layout_mode = 2
+texture = ExtResource("1_77c8w")
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/ItemBar"]
+layout_mode = 2
+texture = ExtResource("1_77c8w")
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/ItemBar"]
+layout_mode = 2
+texture = ExtResource("1_77c8w")
+
+[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/ItemBar"]
+layout_mode = 2
+texture = ExtResource("1_77c8w")
+
+[node name="SkillBar" type="GridContainer" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -803.0
+offset_top = -184.0
+offset_right = -279.0
+offset_bottom = -56.0
+grow_horizontal = 0
+grow_vertical = 0
+columns = 5
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/SkillBar"]
+layout_mode = 2
+texture = ExtResource("1_77c8w")
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/SkillBar"]
+layout_mode = 2
+texture = ExtResource("1_77c8w")
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/SkillBar"]
+layout_mode = 2
+texture = ExtResource("1_77c8w")
+
+[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/SkillBar"]
+layout_mode = 2
+texture = ExtResource("1_77c8w")
+
+[node name="SelectedBar" type="GridContainer" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.48
+anchor_top = 1.0
+anchor_right = 0.48
+anchor_bottom = 1.0
+offset_left = -19.4
+offset_top = -160.0
+offset_right = 20.6
+offset_bottom = -120.0

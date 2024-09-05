@@ -23,7 +23,7 @@ static func await_timer(second):
 			await timer.timeout
 			root.remove_child(timer)
 			timer.queue_free()
-			timer.free()
+
 
 
 static func delay_execution(delay: float, callback: Callable):
@@ -36,7 +36,7 @@ static func delay_execution(delay: float, callback: Callable):
 		var callable: Callable = func(root: Node, timer: Timer, callback: Callable):
 			callback.call()
 			timer.queue_free()
-			timer.free()
+
 
 		timer.timeout.connect(callable.bind(root, timer, callback), CONNECT_ONE_SHOT)
 		timer.start(delay)

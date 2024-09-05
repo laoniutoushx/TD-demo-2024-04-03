@@ -3,7 +3,7 @@ extends Node
 
 var level_tres_arr: Array[LevelResource] = []
 var level_tres_map: Dictionary = {}
-const LEVEL_RESOURCE_GROUP = preload("res://Res/LevelResourceGroup.tres")
+const LEVEL_RESOURCE_GROUP = preload("res://Asserts/resources/demo_ui/LevelResourceGroup.tres")
 
 
 var _pre_scene
