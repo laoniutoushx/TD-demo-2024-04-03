@@ -1,78 +1,257 @@
-[gd_scene load_steps=2 format=3 uid="uid://cddhheg1d4j32"]
+[gd_scene load_steps=3 format=3 uid="uid://cddhheg1d4j32"]
 
-[ext_resource type="Texture2D" uid="uid://kl8ar128qgv1" path="res://icon.svg" id="1_77c8w"]
+[ext_resource type="LabelSettings" uid="uid://dddgoh2chfqp" path="res://Asserts/resources/action_bar_label_setting.tres" id="1_lflx2"]
+[ext_resource type="Texture2D" uid="uid://dowc03iavj7w8" path="res://Asserts/Images/item/1.png" id="2_16obo"]
 
 [node name="ActionBar" type="Node"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ItemBar" type="GridContainer" parent="CanvasLayer"]
-anchors_preset = -1
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SkillGridContainer" type="GridContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 160.0
-offset_top = -184.0
-offset_right = 684.0
-offset_bottom = -56.0
-grow_horizontal = 0
+offset_left = -514.0
+offset_top = -100.0
+offset_right = -178.0
+offset_bottom = -36.0
+grow_horizontal = 2
 grow_vertical = 0
-columns = 5
+columns = 10
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ItemBar"]
+[node name="Panel" type="Panel" parent="CanvasLayer/Control/SkillGridContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("1_77c8w")
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/ItemBar"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/SkillGridContainer/Panel"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_16obo")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/SkillGridContainer/Panel"]
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 24.0
+text = "Q"
+label_settings = ExtResource("1_lflx2")
+
+[node name="Panel2" type="Panel" parent="CanvasLayer/Control/SkillGridContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("1_77c8w")
 
-[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/ItemBar"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/SkillGridContainer/Panel2"]
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 24.0
+text = "W"
+label_settings = ExtResource("1_lflx2")
+
+[node name="Panel3" type="Panel" parent="CanvasLayer/Control/SkillGridContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("1_77c8w")
 
-[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/ItemBar"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/SkillGridContainer/Panel3"]
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 24.0
+text = "E"
+label_settings = ExtResource("1_lflx2")
+
+[node name="Panel4" type="Panel" parent="CanvasLayer/Control/SkillGridContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("1_77c8w")
 
-[node name="SkillBar" type="GridContainer" parent="CanvasLayer"]
-anchors_preset = -1
+[node name="Label" type="Label" parent="CanvasLayer/Control/SkillGridContainer/Panel4"]
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 24.0
+text = "R"
+label_settings = ExtResource("1_lflx2")
+
+[node name="Panel5" type="Panel" parent="CanvasLayer/Control/SkillGridContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/SkillGridContainer/Panel5"]
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 24.0
+text = "T"
+label_settings = ExtResource("1_lflx2")
+
+[node name="ItemGridContainer" type="GridContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -803.0
-offset_top = -184.0
-offset_right = -279.0
-offset_bottom = -56.0
-grow_horizontal = 0
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 576.0
+offset_bottom = -36.0
+grow_horizontal = 2
 grow_vertical = 0
-columns = 5
+columns = 10
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/SkillBar"]
+[node name="Panel" type="Panel" parent="CanvasLayer/Control/ItemGridContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("1_77c8w")
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/SkillBar"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/ItemGridContainer/Panel"]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 24.0
+text = "1"
+label_settings = ExtResource("1_lflx2")
+
+[node name="Panel2" type="Panel" parent="CanvasLayer/Control/ItemGridContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("1_77c8w")
 
-[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/SkillBar"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/ItemGridContainer/Panel2"]
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 24.0
+text = "2"
+label_settings = ExtResource("1_lflx2")
+
+[node name="Panel3" type="Panel" parent="CanvasLayer/Control/ItemGridContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("1_77c8w")
 
-[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/SkillBar"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/ItemGridContainer/Panel3"]
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 24.0
+text = "3"
+label_settings = ExtResource("1_lflx2")
+
+[node name="Panel4" type="Panel" parent="CanvasLayer/Control/ItemGridContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("1_77c8w")
 
-[node name="SelectedBar" type="GridContainer" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_left = 0.48
+[node name="Label" type="Label" parent="CanvasLayer/Control/ItemGridContainer/Panel4"]
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 24.0
+text = "4"
+label_settings = ExtResource("1_lflx2")
+
+[node name="Panel5" type="Panel" parent="CanvasLayer/Control/ItemGridContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/ItemGridContainer/Panel5"]
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 24.0
+text = "5"
+label_settings = ExtResource("1_lflx2")
+
+[node name="Panel6" type="Panel" parent="CanvasLayer/Control/ItemGridContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/ItemGridContainer/Panel6"]
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 24.0
+text = "6"
+label_settings = ExtResource("1_lflx2")
+
+[node name="Panel7" type="Panel" parent="CanvasLayer/Control/ItemGridContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/ItemGridContainer/Panel7"]
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 24.0
+text = "7"
+label_settings = ExtResource("1_lflx2")
+
+[node name="Panel8" type="Panel" parent="CanvasLayer/Control/ItemGridContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/ItemGridContainer/Panel8"]
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 24.0
+text = "8"
+label_settings = ExtResource("1_lflx2")
+
+[node name="Panel9" type="Panel" parent="CanvasLayer/Control/ItemGridContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/ItemGridContainer/Panel9"]
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 24.0
+text = "9"
+label_settings = ExtResource("1_lflx2")
+
+[node name="Panel10" type="Panel" parent="CanvasLayer/Control/ItemGridContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/ItemGridContainer/Panel10"]
+offset_left = 5.0
+offset_right = 12.0
+offset_bottom = 24.0
+text = "0"
+label_settings = ExtResource("1_lflx2")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 0.48
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -19.4
-offset_top = -160.0
-offset_right = 20.6
-offset_bottom = -120.0
+offset_left = -764.0
+offset_top = -284.0
+offset_right = -554.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control/PanelContainer"]
+custom_minimum_size = Vector2(200, 250)
+layout_mode = 2
+
+[node name="SelectedGridContainer" type="GridContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -514.0
+offset_top = -265.0
+offset_right = -450.0
+offset_bottom = -201.0
+grow_horizontal = 2
+grow_vertical = 0
+columns = 16
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control/SelectedGridContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2

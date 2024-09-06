@@ -24,3 +24,4 @@ anim_walk = null
 anim_idle = null
 anim_death = "destory"
 component_system = 0
+pickup_velocity = 1000.0
