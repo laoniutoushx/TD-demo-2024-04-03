@@ -5,10 +5,10 @@ class_name ItemSystem
 
 func _ready() -> void:
     # 在系统启动时，初始化所有 item template resource，将起保存在 container 当中
-    CommonUtil.load_resources_from_directory("res://System/item_system/resources/", ItemManager.container())
+    CommonUtil.load_resources_to_container_from_directory("res://System/item_system/resources/", ItemManager.container())
     pass
 
-
+# generate item 
 func generate_item(item_code: String, p: Vector3) -> ItemDomain:
     # load item res
     var item_res: ItemResource = ItemManager.got(item_code)
