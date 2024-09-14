@@ -31,7 +31,7 @@ func _input(event: InputEvent) -> void:
 			else:
 				mouse_key_state = PlayerStatus.MouseKeyState.MOUSE_RIGHT_RELEASED
 
-
+# keyboard states and mouse states
 class PlayerStatus:
 	enum MouseKeyState {
 		IDEL,
@@ -47,18 +47,18 @@ class PlayerStatus:
 		MOVING
 	}
 
+# mouse move state caculate
 class PlayerMovement:
 	
 	static var previous_mouse_position = Vector2.ZERO
 	static var current_mouse_position = Vector2.ZERO
 	static var mouse_speed = Vector2.ZERO
 
-	static func calculate_mouse_speed(viewport: Viewport, delta: float) -> void:
+	static func calculate_mouse_speed(viewport: Viewport, delta):
 		current_mouse_position = viewport.get_mouse_position()
 		mouse_speed = (current_mouse_position - previous_mouse_position) / delta
 		if mouse_speed.length() > 0:
-			mouse_state = PlayerStatus.MouseState.MOVING
+			PlayerController.mouse_state = PlayerStatus.MouseState.MOVING
 		else:
-			mouse_state = PlayerStatus.MouseState.IDEL
-    	previous_mouse_position = current_mouse_position
-
+			PlayerController.mouse_state = PlayerStatus.MouseState.IDEL
+		previous_mouse_position = current_mouse_position			
