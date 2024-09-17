@@ -101,8 +101,10 @@ static func get_first_parent_by_node_name(node: Node, name: String) -> Variant:
 	else:
 		return get_first_parent_by_node_name(node.get_parent(), name)
 
-
+# 获取当前节点到指定类型节点中间的所有节点（向上查找），clazz 为空默认查找 owner.clazz
 static func get_all_parent_node_by_node_type(node: Node, clazz: String) -> Array[Variant]:
+	if clazz == null:
+		clazz = node.owner.gat_class()
 	var parent_nodes = []
 	if node == null:
 		return parent_nodes
@@ -116,6 +118,17 @@ static func get_all_parent_node_by_node_type(node: Node, clazz: String) -> Array
 		if node.is_class(clazz):
 			break
 	return parent_nodes
+
+
+
+# 获取 transformed 之后的 aab
+static func get_scaled_aabb(mesh_instance: MeshInstance3D) -> AABB:
+	var local_aabb = mesh_instance.mesh.get_aabb()
+	var basis = mesh_instance.global_transform.basis
+	var scale = basis.get_scale()
+	var scaled_aabb = AABB(local_aabb.position * scale, local_aabb.size * scale)
+	return scaled_aabb
+
 
 
 static func create_outline_mesh(mesh_instance: MeshInstance3D, outline_width: float = 0.05) -> ArrayMesh:
@@ -153,7 +166,7 @@ static func load_resources_to_container_from_directory(path: String, container: 
 class ResourceLoaderUtil:
 	static var _common_container = {}
 
-	# 主函数：加载指定目录下的所有 .tres 和 .tscn 文件
+	# 主函数：加载指定目录下的所有 .tres 和 .tscn 文件到指定容器（不指定容器则加载到默认 自定义容器中 _common_container ）
 	static func load_resources_to_container_from_directory(path, container: Dictionary) -> Dictionary:
 		var dir = DirAccess.open(path)
 		

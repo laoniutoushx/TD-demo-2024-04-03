@@ -11,3 +11,11 @@ signal next_level(code:String)	# scene code
 signal enemy_logic_death(id:int, enemy :Enemy)
 signal enemy_physic_death(id:int, enemy :Enemy)
 signal enemy_take_damage(id:int, enemy :Enemy, damage: float)
+
+
+
+# RayPicker
+
+# Class TurretManager - Paramaters [ Collider, Ray_Cast, GridMap ]
+# Class PlayerController - Paramaters [ Camera, viewport ]
+signal ray_picker_regist(callable: Callable)

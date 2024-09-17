@@ -1,6 +1,13 @@
 class_name PlayerController extends Node
 
+# Scope Node Define
+@onready var select_area: Area3D = %SelectArea
+@onready var collision_shape: CollisionShape3D = %CollisionShape
+
+
 var client_id: String = OS.get_unique_id()
+var plane: Plane  # 用于计算交点的平面
+
 
 # Player Status
 static var mouse_key_state: PlayerStatus.MouseKeyState = PlayerStatus.MouseKeyState.IDEL
@@ -8,14 +15,28 @@ static var mouse_state: PlayerStatus.MouseState = PlayerStatus.MouseState.IDEL
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	# 创建一个水平平面（y = 0）
+	plane = Plane(Vector3.UP, 0)
+	
+	# Signal 监听
+	#SignalBus.ray_picker_regist.emit(click_to_select)
+	SignalBufferSystem.buffer_signal(SignalBus.ray_picker_regist, select_area_pos_sync)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	PlayerMovement.calculate_mouse_speed(get_viewport(), delta)
+	PlayerMouseMovement.calculate_mouse_speed(get_viewport(), delta)
 
-	pass
+# area3d 与 mouse position 同步
+func select_area_pos_sync(ray_cast: RayCast3D) -> void:
+	select_area.global_position = ray_cast.get_collision_point()
+	if Input.is_action_just_pressed("left_click"):
+		print("左键按下 - 通过 Input.is_action_just_pressed")
+		for unit in PlayerSelect.units():
+			unit_selected_handler(unit)
+			
+func unit_selected_handler(unit) -> void:
+	
+	pass			
 
 # player input event handler ( change status )
 func _input(event: InputEvent) -> void:
@@ -48,7 +69,7 @@ class PlayerStatus:
 	}
 
 # mouse move state caculate
-class PlayerMovement:
+class PlayerMouseMovement:
 	
 	static var previous_mouse_position = Vector2.ZERO
 	static var current_mouse_position = Vector2.ZERO
@@ -61,4 +82,29 @@ class PlayerMovement:
 			PlayerController.mouse_state = PlayerStatus.MouseState.MOVING
 		else:
 			PlayerController.mouse_state = PlayerStatus.MouseState.IDEL
-		previous_mouse_position = current_mouse_position			
+		previous_mouse_position = current_mouse_position
+
+# Player Selected Unit
+class PlayerSelect:
+	
+	static var _selected_units: Dictionary = {}
+	
+	static func units() -> Dictionary:
+		return _selected_units
+	
+	static func add_unit(unit: Object) -> Object:
+		_selected_units[unit.get_instance_id()] = unit
+		return unit
+	
+	static func remove_unit(unit: Object) -> Object:
+		_selected_units.erase(unit.get_instance_id())
+		return unit
+
+func _on_select_area_area_entered(area: Area3D) -> void:
+	PlayerSelect.add_unit(area.owner)
+	print(PlayerSelect._selected_units)
+
+
+func _on_select_area_area_exited(area: Area3D) -> void:
+	PlayerSelect.remove_unit(area.owner)
+	print(PlayerSelect._selected_units)

@@ -1,13 +1,13 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=3 format=3 uid="uid://b208mtlyvcjst"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=3 format=3 uid="uid://dcx3x4v6e1pk"]
 
-[ext_resource type="PackedScene" uid="uid://bv2qhyy2b7sew" path="res://Unit/enemy/scenes/pig.tscn" id="1_61pvo"]
-[ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_kr5yt"]
+[ext_resource type="PackedScene" uid="uid://bv2qhyy2b7sew" path="res://Unit/enemy/scenes/pig.tscn" id="1_22bhd"]
+[ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_gquih"]
 
 [resource]
-script = ExtResource("2_kr5yt")
+script = ExtResource("2_gquih")
 clz_code = "pig"
 clz_name = "pig"
-model_path = ExtResource("1_61pvo")
+model_path = ExtResource("1_22bhd")
 unit_move_type = 1
 unit_cate = 1
 armor_amount = 0.0

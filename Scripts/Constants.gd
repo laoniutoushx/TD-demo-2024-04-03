@@ -21,3 +21,7 @@ var ANIM_RUN = "running"
 var ANIM_WALK = "walk"
 var ANIM_IDEL = "idel"
 var ANIM_DEATH = "destory"
+
+
+# Script Type
+var MeshInstance3D_CLZ = "MeshInstance3D"

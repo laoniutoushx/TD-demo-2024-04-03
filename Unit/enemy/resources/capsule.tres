@@ -23,5 +23,6 @@ anim_run = "running"
 anim_walk = null
 anim_idle = null
 anim_death = "destory"
+is_selected_circle = true
 component_system = 0
 pickup_velocity = 1000.0

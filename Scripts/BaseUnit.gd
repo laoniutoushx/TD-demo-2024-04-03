@@ -4,6 +4,9 @@ extends Node
 # base unit
 class_name BaseUnit
 
+# ref resource
+@export var clazz: Resource
+
 # signal
 var signal_container = {}
 
@@ -12,11 +15,14 @@ var _outline_mesh: MeshInstance3D
 var _hit_flash_material = preload("res://Asserts/materials/hit_flash.tres")
 
 # create mesh outline
-@export var is_mesh_outline: bool = false
-@export var is_mesh_standing: bool = false
+var is_mesh_outline: bool
+var is_mesh_standing: bool
 
 var _mesh_outline
 var _mesh_standing: MeshInstance3D
+
+# selected circle
+var is_selected_circle: bool
 
 # player meta into
 @export_flags("P1", "P2", "P3", "P4") var player_owner_idx: int = 0
@@ -60,6 +66,10 @@ func _ready() -> void:
 	# 是否创建 mesh_standing
 	if is_mesh_standing:
 		_create_mesh_standing()
+		
+	# 是否创建 Selected Circle
+	#if is_selected_circle:
+		#_create_selected_circle()
 		
 	# system component load（item）
 	
@@ -147,6 +157,18 @@ func _create_mesh_standing():
 	if skeleton != null:
 		_mesh_standing.skeleton = _mesh_standing.get_path_to(skeleton)
 
+func _create_selected_circle() -> void:
+	var selected_circle_scene: PackedScene = preload("res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn")
+	var selected_circle: Node3D = selected_circle_scene.instantiate()
+	selected_circle.color = Color.WHITE
+	
+	var mesh_node = CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ)
+	var aabb = CommonUtil.get_scaled_aabb(mesh_node)
+	var max_len = min(aabb.size.x, aabb.size.z)
+	
+	selected_circle.radius = max_len * 1.2 / 2.0
+	add_child(selected_circle)
+	pass
 
 
 func get_mesh_standing() -> MeshInstance3D:

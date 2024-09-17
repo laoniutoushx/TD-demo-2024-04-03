@@ -36,11 +36,15 @@ extends Resource
 @export var anim_idle = Constants.ANIM_IDEL
 @export var anim_death = Constants.ANIM_DEATH
 
+# Action Behavior
+@export_group("Action")
+@export var is_selected_circle: bool = true
+
 # Component - 组件系统预定义
 @export_group("System Component")
 @export_flags("VFX", "ITEM", "DAMAGABLE", "BARRAGE") var component_system = 0
 
-
 # Item related
+@export_group("Item")
 # 拾取速度
 @export var pickup_velocity := 1000.0

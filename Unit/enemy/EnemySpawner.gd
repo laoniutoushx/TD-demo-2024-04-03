@@ -36,6 +36,10 @@ func start():
 		enemy_instance.anim_walk = enemy_resource.anim_walk
 		enemy_instance.anim_idle = enemy_resource.anim_idle
 		enemy_instance.anim_death = enemy_resource.anim_death
+		enemy_instance.is_selected_circle = enemy_resource.is_selected_circle
+		
+		# y offset
+		enemy_instance.v_offset = _start_node.global_position.y
 		
 		if _start_node != null:
 			enemy_instance.global_position = _start_node.global_position

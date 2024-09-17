@@ -33,6 +33,7 @@ Constants="*res://Scripts/Constants.gd"
 SystemUtil="*res://Scripts/utils/SystemUtil.gd"
 UUID="*res://Scripts/utils/uuid.gd"
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+SignalBufferSystem="*res://Scripts/SignalBufferSystem.gd"
 
 [display]
 

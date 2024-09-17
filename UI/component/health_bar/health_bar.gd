@@ -7,7 +7,7 @@ class_name HealthBar
 
 @onready var health_bar: HealthBar2D = $SubViewport/HealthBar
 @onready var sub_viewport: SubViewport = $SubViewport
-@export var y_scale := 1.1	# y axis缩放比例（与目标对象 y 相比）
+@export var y_scale := 1.2	# y axis缩放比例（与目标对象 y 相比）
 
 
 # Called when the node enters the scene tree for the first time.

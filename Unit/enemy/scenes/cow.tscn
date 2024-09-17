@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=4 uid="uid://ca3nvrkfayrwg"]
+[gd_scene load_steps=16 format=4 uid="uid://ca3nvrkfayrwg"]
 
 [ext_resource type="Script" path="res://Unit/enemy/enemy.gd" id="1_5kd5q"]
+[ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="2_k35om"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fve5l"]
 resource_name = "White"
@@ -164,7 +165,7 @@ bind/27/bone = -1
 bind/27/pose = Transform3D(1, 0, -2.71003e-06, 0, -1, 0, -2.71003e-06, 0, -1, -0.00784985, 0.0260472, 0.00100006)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8iqam"]
-size = Vector3(2.27808, 8, 2.3)
+size = Vector3(2.278, 5.5, 2.3)
 
 [sub_resource type="Animation" id="Animation_ld1sw"]
 resource_name = "Armature|Death"
@@ -1849,10 +1850,9 @@ script = ExtResource("1_5kd5q")
 [node name="Cow" type="Node3D" parent="."]
 
 [node name="Armature" type="Node3D" parent="Cow"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, 0, 0)
 
 [node name="Skeleton3D" type="Skeleton3D" parent="Cow/Armature"]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 bones/0/name = "root"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, -1.19209e-07, -1, 0, 1, -1.19209e-07, 0, 0, 0)
@@ -2136,10 +2136,17 @@ unique_name_in_owner = true
 transform = Transform3D(0.01, 0, 0, 0, -1.19209e-09, -0.01, 0, 0.01, -1.19209e-09, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Cow/Armature/Skeleton3D/AttackedScope" groups=["enemy"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00344238, 3.04319, -0.0500001)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00344238, 2.14319, -0.05)
 shape = SubResource("BoxShape3D_8iqam")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Cow"]
 libraries = {
 "": SubResource("AnimationLibrary_1d8n2")
 }
+
+[node name="FadedCircle3D" parent="." instance=ExtResource("2_k35om")]
+radius = 3.286
+width = 78.905
+inner_edge_width = 175.512
+outer_edge_width = 33.268
+color = Color(0.336, 0.8, 0.366933, 0.74902)

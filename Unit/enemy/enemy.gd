@@ -19,27 +19,23 @@ func _ready() -> void:
 	if ap:
 		ap.play(anim_run)
 	
+	# health bar
+	_health_bar_create()
 	
+
+# health bar creation
+func _health_bar_create():
 	# TODO 使用方法注解等方式实现自动初始化对应 tscn 目标，按照一定逻辑
 	# 初始化创建 health_bar tscn
 	await self.ready
 	var health_bar: HealthBar = preload("res://UI/component/health_bar/health_bar.tscn").instantiate()
-	var mesh_node = CommonUtil.get_first_node_by_node_type(self, "MeshInstance3D")
-	var aabb = mesh_node.mesh.get_aabb()
+	var mesh_node = CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ)
+	var aabb = CommonUtil.get_scaled_aabb(mesh_node)
 	var width = aabb.size.x
 	var height = aabb.size.y
 
-	# 获取所有父节点，计算 scale 值
-	var y_scale_instance = 1.0
-	var x_scale_instance = 1.0
-	var parent_nodes = CommonUtil.get_all_parent_node_by_node_type(mesh_node, "PathFollow3D")
-	for parent_node in parent_nodes:
-		if parent_node.scale != null:
-			y_scale_instance *= parent_node.scale.y
-			x_scale_instance *= parent_node.scale.x
-	
-	var real_width = width * x_scale_instance
-	var real_height = height * health_bar.y_scale * y_scale_instance
+	var real_width = width
+	var real_height = height * health_bar.y_scale 
 	
 	# health bar 长度比例计算  78 px : 10px => 2
 	var default_scale_of_healthbar2d_x_y = float(health_bar.get_health_bar2d_size().x) / float(health_bar.get_health_bar2d_size().y)
@@ -52,15 +48,11 @@ func _ready() -> void:
 	# 412px : 78px = 4
 	var w_w_scale = (health_bar_2d_width) / health_bar.get_health_bar2d_size().x
 	
-	
 	health_bar.position.y = self.position.y + real_height
 
 	add_child(health_bar) 
 	health_bar.prepare(max_health)
 	health_bar.resize(health_bar_2d_width, health_bar_2d_height, w_w_scale)
-	
-	pass
-
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
