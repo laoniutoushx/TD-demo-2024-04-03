@@ -26,17 +26,31 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	PlayerMouseMovement.calculate_mouse_speed(get_viewport(), delta)
 
-# area3d 与 mouse position 同步
+# area3d 与 mouse position 同步 （ray picker 回调函数）
 func select_area_pos_sync(ray_cast: RayCast3D) -> void:
 	select_area.global_position = ray_cast.get_collision_point()
-	if Input.is_action_just_pressed("left_click"):
+	if mouse_key_state == PlayerStatus.MouseKeyState.MOUSE_LEFT_CLICK:
 		print("左键按下 - 通过 Input.is_action_just_pressed")
+		# record selected units
 		for unit in PlayerSelect.units():
-			unit_selected_handler(unit)
-			
+			PlayerSelect.remove_selected_unit(unit)
+			if unit is BaseUnit and unit.has_method('hide_selected_circle'):
+				(unit as BaseUnit).hide_selected_circle()
+				
+		for candidate in PlayerSelect.candidates():
+			PlayerSelect.add_selected_unit(candidate)
+			if candidate is BaseUnit and candidate.has_method('show_selected_circle'):
+				(candidate as BaseUnit).show_selected_circle()
+		
+
+
+
 func unit_selected_handler(unit) -> void:
-	
-	pass			
+	PlayerSelect.remove_candidate_unit(unit)
+	PlayerSelect.add_selected_unit(unit)
+	if unit is BaseUnit and unit.has_method('show_selected_circle'):
+		(unit as BaseUnit).show_selected_circle()
+	pass
 
 # player input event handler ( change status )
 func _input(event: InputEvent) -> void:
@@ -87,24 +101,63 @@ class PlayerMouseMovement:
 # Player Selected Unit
 class PlayerSelect:
 	
-	static var _selected_units: Dictionary = {}
+	static var _candidate_selected_unit: Dictionary = {}
+	static var _selected_unit: Dictionary = {}
 	
-	static func units() -> Dictionary:
-		return _selected_units
+	# Selected Untis
+	static func clearl_unit():
+		_selected_unit.clear()
 	
-	static func add_unit(unit: Object) -> Object:
-		_selected_units[unit.get_instance_id()] = unit
-		return unit
+	static func contains_unit(unit: Object) -> bool:
+		if unit != null:
+			return _selected_unit.keys().has(unit.get_instance_id())
+		return unit != null
+		
+	static func units() -> Array:
+		return _selected_unit.values()
+		
+	static func add_selected_unit(unit) -> Object:
+		if unit != null:
+			_selected_unit[unit.get_instance_id()] = unit
+		return null
 	
-	static func remove_unit(unit: Object) -> Object:
-		_selected_units.erase(unit.get_instance_id())
-		return unit
+	static func remove_selected_unit(unit) -> bool:
+		if unit != null:
+			_selected_unit.erase(unit.get_instance_id())
+		return unit == null	
+		
+	# Candidate Units
+	static func clear_candidate():
+		_candidate_selected_unit.clear()
+	
+	static func contains_candidate(unit) -> bool:
+		if unit != null:
+			return _candidate_selected_unit.keys().has(unit.get_instance_id())
+		return unit != null
+		
+	static func candidates() -> Array:
+		return _candidate_selected_unit.values()
+	
+	static func add_candidate_unit(unit) -> Object:
+		if unit != null:
+			_candidate_selected_unit[unit.get_instance_id()] = unit
+		return null
+	
+	static func remove_candidate_unit(unit) -> bool:
+		if unit != null:
+			return _candidate_selected_unit.erase(unit.get_instance_id())
+		return unit == null
+		
+
 
 func _on_select_area_area_entered(area: Area3D) -> void:
-	PlayerSelect.add_unit(area.owner)
-	print(PlayerSelect._selected_units)
+	var _enter_node = area.owner
+	PlayerSelect.add_candidate_unit(_enter_node)
+	if _enter_node is BaseUnit and _enter_node.has_method('show_selected_circle'):
+		(_enter_node as BaseUnit).show_selected_circle()
 
 
 func _on_select_area_area_exited(area: Area3D) -> void:
-	PlayerSelect.remove_unit(area.owner)
-	print(PlayerSelect._selected_units)
+	var _exit_node = area.owner
+	if PlayerSelect.remove_candidate_unit(_exit_node) and !PlayerSelect.contains_unit(_exit_node) and _exit_node is BaseUnit and _exit_node.has_method('hide_selected_circle'):
+		(_exit_node as BaseUnit).hide_selected_circle()

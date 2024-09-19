@@ -70,7 +70,11 @@ func _ready() -> void:
 	# 是否创建 Selected Circle
 	#if is_selected_circle:
 		#_create_selected_circle()
-		
+	
+	# hide select circle
+	var select_circle = CommonUtil.get_first_node_by_node_name(self, "FadedCircle3D")	
+	select_circle.hide()
+	
 	# system component load（item）
 	
 	
@@ -173,3 +177,13 @@ func _create_selected_circle() -> void:
 
 func get_mesh_standing() -> MeshInstance3D:
 	return _mesh_standing	
+
+func show_selected_circle() -> void:
+	var select_circle = CommonUtil.get_first_node_by_node_name(self, "FadedCircle3D")	
+	if select_circle:
+		select_circle.visible = true
+
+func hide_selected_circle() -> void:
+	var select_circle = CommonUtil.get_first_node_by_node_name(self, "FadedCircle3D")	
+	if select_circle:
+		select_circle.visible = false
