@@ -30,13 +30,15 @@ func _process(delta: float) -> void:
 func select_area_pos_sync(ray_cast: RayCast3D) -> void:
 	select_area.global_position = ray_cast.get_collision_point()
 	if mouse_key_state == PlayerStatus.MouseKeyState.MOUSE_LEFT_CLICK:
-		print("左键按下 - 通过 Input.is_action_just_pressed")
-		# record selected units
+		#print("左键按下 - 通过 Input.is_action_just_pressed")
+		
+		# remove last selected units
 		for unit in PlayerSelect.units():
 			PlayerSelect.remove_selected_unit(unit)
 			if unit is BaseUnit and unit.has_method('hide_selected_circle'):
 				(unit as BaseUnit).hide_selected_circle()
-				
+		
+		# record selected units
 		for candidate in PlayerSelect.candidates():
 			PlayerSelect.add_selected_unit(candidate)
 			if candidate is BaseUnit and candidate.has_method('show_selected_circle'):

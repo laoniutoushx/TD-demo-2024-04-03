@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfaspgwk37pik"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ad7di"]
+viewport_path = NodePath("SubViewport")
+
+[node name="SelectionBox" type="Sprite3D"]
+billboard = 1
+texture = SubResource("ViewportTexture_ad7di")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(40, 80)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewport"]
+
+[node name="Control" type="Control" parent="SubViewport/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SelectionRect" type="ReferenceRect" parent="SubViewport/CanvasLayer/Control"]
+offset_right = 40.0
+offset_bottom = 80.0
+border_width = 5.0
+editor_only = false
