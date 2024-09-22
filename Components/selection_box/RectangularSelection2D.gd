@@ -1,9 +1,13 @@
 extends Panel
 
+@onready var ray_picker_camera: RayPicker = $"../RayPickerCamera"
+
 signal finished(rect)
 
 @export var interrupt_on_hitting_screen_margin = true
 @export var screen_margin = 1
+
+var selecting_delay: float = 0.05
 
 var _rect = null
 
@@ -46,8 +50,11 @@ func _screen_margin_hit():
 
 func _start():
 	var mouse_pos = get_global_mouse_position()
-	_rect = Rect2(0, 0, 0, 0)
-	_rect.position = mouse_pos
+	
+	CommonUtil.delay_execution(selecting_delay, func():
+		_rect = Rect2(0, 0, 0, 0)
+		_rect.position = mouse_pos
+		)
 
 
 func _interrupt():

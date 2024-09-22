@@ -28,7 +28,7 @@ func _health_bar_create():
 	# TODO 使用方法注解等方式实现自动初始化对应 tscn 目标，按照一定逻辑
 	# 初始化创建 health_bar tscn
 	await self.ready
-	var health_bar: HealthBar = preload("res://UI/component/health_bar/health_bar.tscn").instantiate()
+	var health_bar: HealthBar = preload("res://Components/health_bar/health_bar.tscn").instantiate()
 	var mesh_node = CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ)
 	var aabb = CommonUtil.get_scaled_aabb(mesh_node)
 	var width = aabb.size.x

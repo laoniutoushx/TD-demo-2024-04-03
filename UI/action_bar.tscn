@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://5ssodayalwtg"]
 
 [ext_resource type="LabelSettings" uid="uid://dddgoh2chfqp" path="res://Asserts/resources/action_bar_label_setting.tres" id="1_lflx2"]
-[ext_resource type="Script" path="res://UI/component/action_bar/action_bar.gd" id="1_tfey0"]
+[ext_resource type="Script" path="res://Components/action_bar/action_bar.gd" id="1_tfey0"]
 [ext_resource type="Texture2D" uid="uid://dowc03iavj7w8" path="res://Asserts/Images/item/1.png" id="2_16obo"]
 
 [node name="ActionBar" type="Node"]

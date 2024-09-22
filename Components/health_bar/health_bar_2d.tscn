@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c183vsn54oua8"]
 
 [ext_resource type="Texture2D" uid="uid://bslmxy076vvmy" path="res://Asserts/textures/HealthBar.png" id="1_m16v3"]
-[ext_resource type="Script" path="res://UI/component/health_bar/health_bar_2d.gd" id="1_wgafx"]
+[ext_resource type="Script" path="res://Components/health_bar/health_bar_2d.gd" id="1_wgafx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mcocq"]
 atlas = ExtResource("1_m16v3")

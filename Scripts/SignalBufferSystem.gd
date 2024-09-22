@@ -4,6 +4,10 @@ extends Node
 var _signal_buffers = {}
 
 func buffer_signal(_signal: Signal, callable: Callable):
+	# 发送信号
+	_signal.emit(callable)
+	
+	# 缓存信号
 	var signal_name = _signal.get_name()
 	if not _signal_buffers.has(signal_name):
 		_signal_buffers[signal_name] = []

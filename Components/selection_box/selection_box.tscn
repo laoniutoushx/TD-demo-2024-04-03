@@ -20,6 +20,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="SelectionRect" type="ReferenceRect" parent="SubViewport/CanvasLayer/Control"]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 80.0
 border_width = 5.0

@@ -3,10 +3,10 @@ class_name PlayerController extends Node
 # Scope Node Define
 @onready var select_area: Area3D = %SelectArea
 @onready var collision_shape: CollisionShape3D = %CollisionShape
+@onready var selection_box: SelectionBox = $SelectionBox
 
 
 var client_id: String = OS.get_unique_id()
-var plane: Plane  # 用于计算交点的平面
 
 
 # Player Status
@@ -15,9 +15,6 @@ static var mouse_state: PlayerStatus.MouseState = PlayerStatus.MouseState.IDEL
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# 创建一个水平平面（y = 0）
-	plane = Plane(Vector3.UP, 0)
-	
 	# Signal 监听
 	#SignalBus.ray_picker_regist.emit(click_to_select)
 	SignalBufferSystem.buffer_signal(SignalBus.ray_picker_regist, select_area_pos_sync)
@@ -35,15 +32,14 @@ func select_area_pos_sync(ray_cast: RayCast3D) -> void:
 		# remove last selected units
 		for unit in PlayerSelect.units():
 			PlayerSelect.remove_selected_unit(unit)
-			if unit is BaseUnit and unit.has_method('hide_selected_circle'):
+			if is_instance_valid(unit) and unit is BaseUnit and unit.has_method('hide_selected_circle'):
 				(unit as BaseUnit).hide_selected_circle()
 		
 		# record selected units
 		for candidate in PlayerSelect.candidates():
 			PlayerSelect.add_selected_unit(candidate)
-			if candidate is BaseUnit and candidate.has_method('show_selected_circle'):
+			if is_instance_valid(candidate) and candidate is BaseUnit and candidate.has_method('show_selected_circle'):
 				(candidate as BaseUnit).show_selected_circle()
-		
 
 
 
@@ -154,12 +150,28 @@ class PlayerSelect:
 
 func _on_select_area_area_entered(area: Area3D) -> void:
 	var _enter_node = area.owner
-	PlayerSelect.add_candidate_unit(_enter_node)
-	if _enter_node is BaseUnit and _enter_node.has_method('show_selected_circle'):
-		(_enter_node as BaseUnit).show_selected_circle()
+	candidate_unit_add(_enter_node)
 
 
 func _on_select_area_area_exited(area: Area3D) -> void:
 	var _exit_node = area.owner
-	if PlayerSelect.remove_candidate_unit(_exit_node) and !PlayerSelect.contains_unit(_exit_node) and _exit_node is BaseUnit and _exit_node.has_method('hide_selected_circle'):
-		(_exit_node as BaseUnit).hide_selected_circle()
+	candidate_unit_remove(_exit_node)
+
+
+func _on_selection_box_frame_selecting_unit_entered(unit: BaseUnit) -> void:
+	candidate_unit_add(unit)
+
+
+func _on_selection_box_frame_selecting_unit_exited(unit: BaseUnit) -> void:
+	candidate_unit_remove(unit)
+
+
+func candidate_unit_add(unit) -> void:
+	if unit is BaseUnit and unit.has_method('show_selected_circle'):
+		PlayerSelect.add_candidate_unit(unit)
+		PlayerSelect.add_selected_unit(unit)
+		(unit as BaseUnit).show_selected_circle()
+
+func candidate_unit_remove(unit) -> void:
+	if PlayerSelect.remove_candidate_unit(unit) and !PlayerSelect.contains_unit(unit) and unit is BaseUnit and unit.has_method('hide_selected_circle'):
+		(unit as BaseUnit).hide_selected_circle()

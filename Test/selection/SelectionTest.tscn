@@ -1,0 +1,65 @@
+[gd_scene load_steps=12 format=3 uid="uid://b46kpucicrelp"]
+
+[ext_resource type="Script" path="res://Test/selection/selection_test.gd" id="1_l11i2"]
+[ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="3_4c7vd"]
+[ext_resource type="PackedScene" uid="uid://dwky2e2vyhklu" path="res://Test/selection/SelectionBox.tscn" id="3_6sdhb"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mp3n6"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_wrg5e"]
+sky_material = SubResource("ProceduralSkyMaterial_mp3n6")
+
+[sub_resource type="Environment" id="Environment_yqben"]
+background_mode = 2
+sky = SubResource("Sky_wrg5e")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_j5obr"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_upkdk"]
+size = Vector3(2, 3.86963, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1pvb5"]
+albedo_color = Color(0.26, 0.199897, 0.0702, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_go7kg"]
+material = SubResource("StandardMaterial3D_1pvb5")
+size = Vector2(20, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_weuj6"]
+size = Vector3(37.6992, 1, 39.9727)
+
+[node name="SelectionTest" type="Node3D"]
+script = ExtResource("1_l11i2")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yqben")
+
+[node name="Unit" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07426, 9.95066)
+mesh = SubResource("BoxMesh_j5obr")
+
+[node name="Area3D" type="Area3D" parent="Unit"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Unit/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.934814, 0)
+shape = SubResource("BoxShape3D_upkdk")
+
+[node name="RayPickerCamera" parent="." instance=ExtResource("3_4c7vd")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.95066)
+mesh = SubResource("PlaneMesh_go7kg")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67188, 0, 7.73544)
+shape = SubResource("BoxShape3D_weuj6")
+
+[node name="SelectionBox" parent="." instance=ExtResource("3_6sdhb")]

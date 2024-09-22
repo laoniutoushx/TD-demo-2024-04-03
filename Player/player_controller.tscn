@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://lwbcrrjy7f4u"]
+[gd_scene load_steps=5 format=3 uid="uid://lwbcrrjy7f4u"]
 
 [ext_resource type="Script" path="res://Player/player_controller.gd" id="1_q3nwc"]
 [ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Unit/turret/turret.tscn" id="2_u85e6"]
+[ext_resource type="PackedScene" uid="uid://dwky2e2vyhklu" path="res://Test/selection/SelectionBox.tscn" id="3_7tl51"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a4h3f"]
 size = Vector3(1, 3, 1)
@@ -21,5 +22,9 @@ shape = SubResource("BoxShape3D_a4h3f")
 
 [node name="Turret" parent="SelectArea" instance=ExtResource("2_u85e6")]
 
+[node name="SelectionBox" parent="." instance=ExtResource("3_7tl51")]
+
 [connection signal="area_entered" from="SelectArea" to="." method="_on_select_area_area_entered"]
 [connection signal="area_exited" from="SelectArea" to="." method="_on_select_area_area_exited"]
+[connection signal="frame_selecting_unit_entered" from="SelectionBox" to="." method="_on_selection_box_frame_selecting_unit_entered"]
+[connection signal="frame_selecting_unit_exited" from="SelectionBox" to="." method="_on_selection_box_frame_selecting_unit_exited"]

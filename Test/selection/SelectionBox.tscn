@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwky2e2vyhklu"]
+
+[ext_resource type="Script" path="res://Test/selection/SelectionBox.gd" id="1_jrxse"]
+[ext_resource type="PackedScene" uid="uid://dk7sa3fkyxks5" path="res://Components/selection_box/RectangularSelection2D.tscn" id="1_odm8a"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_biknc"]
+margin = 0.0
+size = Vector3(0, 0, 0)
+
+[node name="SelectionBox" type="Node3D"]
+script = ExtResource("1_jrxse")
+
+[node name="RectangularSelection2D" parent="." instance=ExtResource("1_odm8a")]
+metadata/_edit_use_anchors_ = true
+
+[node name="SelectedArea" type="Area3D" parent="."]
+
+[node name="AreaCollision" type="CollisionShape3D" parent="SelectedArea"]
+shape = SubResource("BoxShape3D_biknc")
+disabled = true
+
+[connection signal="area_entered" from="SelectedArea" to="." method="_on_selected_area_area_entered"]
+[connection signal="area_exited" from="SelectedArea" to="." method="_on_selected_area_area_exited"]

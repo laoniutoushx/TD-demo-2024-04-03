@@ -1,7 +1,6 @@
 class_name RayPicker extends Camera3D
 
 @onready var ray_cast_3d: RayCast3D = $RayCast3D
-@onready var ray_picker_camera_orth: Camera3D = $RayPickerCameraOrth
 @export var grid_map: GridMap
 @export var turret_manager: Node3D
 
@@ -30,6 +29,9 @@ func _process(delta: float) -> void:
 			callback.call(ray_cast_3d, grid_map)
 			continue
 		if callbacl_class is PlayerController:
+			callback.call(ray_cast_3d)
+			continue
+		if callbacl_class is SelectionBox:
 			callback.call(ray_cast_3d)
 			continue
 
