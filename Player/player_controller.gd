@@ -27,20 +27,20 @@ func _process(delta: float) -> void:
 func select_area_pos_sync(ray_cast: RayCast3D) -> void:
 	select_area.global_position = ray_cast.get_collision_point()
 	if mouse_key_state == PlayerStatus.MouseKeyState.MOUSE_LEFT_CLICK:
-		#print("左键按下 - 通过 Input.is_action_just_pressed")
-		
-		# remove last selected units
-		for unit in PlayerSelect.units():
-			PlayerSelect.remove_selected_unit(unit)
-			if is_instance_valid(unit) and unit is BaseUnit and unit.has_method('hide_selected_circle'):
-				(unit as BaseUnit).hide_selected_circle()
-		
-		# record selected units
-		for candidate in PlayerSelect.candidates():
-			PlayerSelect.add_selected_unit(candidate)
-			if is_instance_valid(candidate) and candidate is BaseUnit and candidate.has_method('show_selected_circle'):
-				(candidate as BaseUnit).show_selected_circle()
+		refresh_selection_units()
 
+func refresh_selection_units() -> void:
+	# remove last selected units
+	for unit in PlayerSelect.units():
+		PlayerSelect.remove_selected_unit(unit)
+		if is_instance_valid(unit) and unit.has_method('hide_selected_circle'):
+			(unit as BaseUnit).hide_selected_circle()
+	
+	# record selected units
+	for candidate in PlayerSelect.candidates():
+		PlayerSelect.add_selected_unit(candidate)
+		if is_instance_valid(candidate) and candidate.has_method('show_selected_circle'):
+			(candidate as BaseUnit).show_selected_circle()
 
 
 func unit_selected_handler(unit) -> void:
@@ -169,9 +169,15 @@ func _on_selection_box_frame_selecting_unit_exited(unit: BaseUnit) -> void:
 func candidate_unit_add(unit) -> void:
 	if unit is BaseUnit and unit.has_method('show_selected_circle'):
 		PlayerSelect.add_candidate_unit(unit)
-		PlayerSelect.add_selected_unit(unit)
 		(unit as BaseUnit).show_selected_circle()
 
 func candidate_unit_remove(unit) -> void:
-	if PlayerSelect.remove_candidate_unit(unit) and !PlayerSelect.contains_unit(unit) and unit is BaseUnit and unit.has_method('hide_selected_circle'):
+	if unit is BaseUnit and unit.has_method('hide_selected_circle'):
+		PlayerSelect.remove_candidate_unit(unit)
 		(unit as BaseUnit).hide_selected_circle()
+
+func _on_selection_box_selecting_finished() -> void:
+	refresh_selection_units()
+
+
+# Selection Circle UI Logic Layer

@@ -130,7 +130,7 @@ bind/23/bone = -1
 bind/23/pose = Transform3D(1, 0, -3.18686e-06, 0, -1, 0, -3.18686e-06, 0, -1, -0.0106705, 0.030365, 0.00100007)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8iqam"]
-size = Vector3(2.278, 4.5, 2.3)
+size = Vector3(2.278, 4.5, 6)
 
 [sub_resource type="Animation" id="Animation_10rde"]
 resource_name = "Armature|Idle"
@@ -935,7 +935,7 @@ unique_name_in_owner = true
 transform = Transform3D(0.01, 0, 0, 0, -1.94707e-09, -0.01, 0, 0.01, -1.94707e-09, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pig/Armature/Skeleton3D/AttackedScope" groups=["enemy"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00344238, 2.04319, -0.05)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00344238, 2.04319, -0.2)
 shape = SubResource("BoxShape3D_8iqam")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Pig"]

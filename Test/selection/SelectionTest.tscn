@@ -49,6 +49,16 @@ mesh = SubResource("BoxMesh_j5obr")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.934814, 0)
 shape = SubResource("BoxShape3D_upkdk")
 
+[node name="Unit2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9405, 1.07426, 9.95066)
+mesh = SubResource("BoxMesh_j5obr")
+
+[node name="Area3D" type="Area3D" parent="Unit2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Unit2/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.934814, 0)
+shape = SubResource("BoxShape3D_upkdk")
+
 [node name="RayPickerCamera" parent="." instance=ExtResource("3_4c7vd")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]

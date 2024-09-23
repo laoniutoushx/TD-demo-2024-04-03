@@ -11,6 +11,7 @@ subpixel_positioning = 0
 [node name="Base" type="Node3D" groups=["base"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -13)
 script = ExtResource("1_8pvdi")
+life = 100
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 size = Vector3(5, 1, 5)

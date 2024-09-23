@@ -39,6 +39,6 @@ func callable_build_turret(ray_cast_3d: RayCast3D, grid_map: GridMap) -> void:
 					grid_map.set_cell_item(cell, 1)
 
 					# TODO 逻辑耦合 buliding turret
-					self.build_turret(grid_map.map_to_local(cell), null) 
+					#self.build_turret(grid_map.map_to_local(cell), null) 
 					
 					

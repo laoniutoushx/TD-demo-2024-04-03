@@ -129,7 +129,7 @@ bind/23/bone = -1
 bind/23/pose = Transform3D(2.5285, 0, -9.26365e-06, 0, -2.5285, 0, -9.26365e-06, 0, -2.5285, -0.0139213, 0.0230074, 0.00100009)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8iqam"]
-size = Vector3(2.278, 4.5, 2.3)
+size = Vector3(2.278, 4.5, 3.57592)
 
 [sub_resource type="Animation" id="Animation_tgsky"]
 resource_name = "Armature|Idle"
@@ -902,7 +902,7 @@ unique_name_in_owner = true
 transform = Transform3D(0.025285, 0, 0, 0, -4.92317e-09, -0.025285, 0, 0.025285, -4.92317e-09, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pug/Armature/Skeleton3D/AttackedScope" groups=["enemy"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00344238, 2.04319, -0.05)
+transform = Transform3D(1, 0, 0, 0, 1, -5.68434e-14, 0, 5.68434e-14, 1, 0.00344238, 2.04319, 0.158014)
 shape = SubResource("BoxShape3D_8iqam")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Pug"]
