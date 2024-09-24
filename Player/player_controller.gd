@@ -7,7 +7,7 @@ class_name PlayerController extends Node
 
 
 var client_id: String = OS.get_unique_id()
-
+var can_click = true
 
 # Player Status
 static var mouse_key_state: PlayerStatus.MouseKeyState = PlayerStatus.MouseKeyState.IDEL
@@ -27,8 +27,12 @@ func _process(delta: float) -> void:
 func select_area_pos_sync(ray_cast: RayCast3D) -> void:
 	select_area.global_position = ray_cast.get_collision_point()
 	if mouse_key_state == PlayerStatus.MouseKeyState.MOUSE_LEFT_CLICK:
-		refresh_selection_units()
-
+		if can_click && !PlayerSelect.is_selecting() && PlayerSelect.candidates().size() > 0:
+			can_click = false
+			refresh_selection_units()
+			CommonUtil.delay_execution(1, func(): can_click = true)
+		
+# TODO click select && frame select (click select trigger when show circle, but unit will move out to candidate， how to stop it）
 func refresh_selection_units() -> void:
 	# remove last selected units
 	for unit in PlayerSelect.units():
@@ -41,6 +45,9 @@ func refresh_selection_units() -> void:
 		PlayerSelect.add_selected_unit(candidate)
 		if is_instance_valid(candidate) and candidate.has_method('show_selected_circle'):
 			(candidate as BaseUnit).show_selected_circle()
+			
+	# record selected units
+	PlayerSelect.clear_candidate()
 
 
 func unit_selected_handler(unit) -> void:
@@ -98,9 +105,12 @@ class PlayerMouseMovement:
 
 # Player Selected Unit
 class PlayerSelect:
-	
+	static var _selecting := false
 	static var _candidate_selected_unit: Dictionary = {}
 	static var _selected_unit: Dictionary = {}
+	
+	static func is_selecting():
+		return _selecting
 	
 	# Selected Untis
 	static func clearl_unit():
@@ -154,16 +164,20 @@ func _on_select_area_area_entered(area: Area3D) -> void:
 
 
 func _on_select_area_area_exited(area: Area3D) -> void:
+	if PlayerSelect.is_selecting():
+		return
 	var _exit_node = area.owner
 	candidate_unit_remove(_exit_node)
 
 
 func _on_selection_box_frame_selecting_unit_entered(unit: BaseUnit) -> void:
 	candidate_unit_add(unit)
+	print('in -> ' + str(PlayerSelect.candidates().size()))
 
 
 func _on_selection_box_frame_selecting_unit_exited(unit: BaseUnit) -> void:
 	candidate_unit_remove(unit)
+	print('out -> ' + str(PlayerSelect.candidates().size()))
 
 
 func candidate_unit_add(unit) -> void:
@@ -177,7 +191,10 @@ func candidate_unit_remove(unit) -> void:
 		(unit as BaseUnit).hide_selected_circle()
 
 func _on_selection_box_selecting_finished() -> void:
+	PlayerSelect._selecting = false
 	refresh_selection_units()
 
+func _on_selection_box_selecting_started() -> void:
+	PlayerSelect._selecting = true
 
 # Selection Circle UI Logic Layer
