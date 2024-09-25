@@ -10,7 +10,8 @@ signal finished(rect)
 var selecting_delay: float = 0.05
 
 var _rect = null
-
+var _tick_time := 0.0
+var _is_selecting := false
 
 func _ready():
 	hide()
@@ -49,11 +50,13 @@ func _screen_margin_hit():
 
 
 func _start():
+	_is_selecting = true
 	var mouse_pos = get_global_mouse_position()
 	
 	CommonUtil.delay_execution(selecting_delay, func():
-		_rect = Rect2(0, 0, 0, 0)
-		_rect.position = mouse_pos
+		if _is_selecting:
+			_rect = Rect2(0, 0, 0, 0)
+			_rect.position = mouse_pos
 		)
 
 
@@ -63,6 +66,7 @@ func _interrupt():
 
 
 func _finish():
+	_is_selecting = false
 	if not _selecting():
 		return
 	_rect.end = get_global_mouse_position()

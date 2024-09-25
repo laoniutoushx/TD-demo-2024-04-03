@@ -11,7 +11,7 @@ signal selecting_finished
 @onready var area_collision: CollisionShape3D = $SelectedArea/AreaCollision
 @export var ray_length: float = 100.0
 
-@export var selecting_delay: float = 0.05	# 延迟指定时间后开始执行框选逻辑
+@export var selecting_delay: float = 0.1	# 延迟指定时间后开始执行框选逻辑
 
 
 var start_project_pos: Vector3
@@ -43,18 +43,18 @@ func _selecting():
 func _start():
 
 	start_project_pos = cur_project_pos
-	print(start_project_pos)
+	#print(start_project_pos)
 	
 	_area.global_position = start_project_pos
 	area_collision.shape.size = Vector3.ZERO
 	
 	# delay to enable detect
-	#area_collision.disabled = false
-	#selecting_started.emit()
-	CommonUtil.delay_execution(selecting_delay, func(): 
-		area_collision.disabled = false
-		selecting_started.emit()
-		)
+	area_collision.disabled = false
+	selecting_started.emit()
+	#CommonUtil.delay_execution(selecting_delay, func(): 
+		#area_collision.disabled = false
+		#selecting_started.emit()
+		#)
 
 
 func _finish():

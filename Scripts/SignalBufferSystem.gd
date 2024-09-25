@@ -14,9 +14,9 @@ func buffer_signal(_signal: Signal, callable: Callable):
 	
 	_signal_buffers[signal_name].append(callable)
 
-func connect_buffered(_signal: Signal, callable: Callable):
+func connect_buffered(_signal: Signal, callable: Callable, cf: ConnectFlags = 0):
 	# 首先正常连接信号
-	_signal.connect(callable)
+	_signal.connect(callable, cf)
 	
 	# 检查是否有缓冲的信号
 	var signal_name = _signal.get_name()
@@ -28,5 +28,3 @@ func connect_buffered(_signal: Signal, callable: Callable):
 		
 		# 清除已处理的缓冲信号
 		_signal_buffers[signal_name].clear()
-
-# 在项目的自动加载中添加这个脚本
