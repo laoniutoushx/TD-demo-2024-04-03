@@ -10,6 +10,9 @@ class_name BaseUnit
 # signal
 var signal_container = {}
 
+# icon 
+var icon
+
 # material and mesh
 var _outline_mesh: MeshInstance3D
 var _hit_flash_material = preload("res://Asserts/materials/hit_flash.tres")
