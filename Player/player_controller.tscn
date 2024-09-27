@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://lwbcrrjy7f4u"]
 
 [ext_resource type="Script" path="res://Player/player_controller.gd" id="1_q3nwc"]
-[ext_resource type="PackedScene" uid="uid://dwky2e2vyhklu" path="res://Test/selection/SelectionBox.tscn" id="3_7tl51"]
+[ext_resource type="PackedScene" uid="uid://dwky2e2vyhklu" path="res://Components/selection_box/SelectionBox.tscn" id="3_7tl51"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a4h3f"]
 size = Vector3(0.1, 3, 0.1)
@@ -26,4 +26,3 @@ shape = SubResource("BoxShape3D_a4h3f")
 [connection signal="frame_selecting_unit_entered" from="SelectionBox" to="." method="_on_selection_box_frame_selecting_unit_entered"]
 [connection signal="frame_selecting_unit_exited" from="SelectionBox" to="." method="_on_selection_box_frame_selecting_unit_exited"]
 [connection signal="selecting_finished" from="SelectionBox" to="." method="_on_selection_box_selecting_finished"]
-[connection signal="selecting_started" from="SelectionBox" to="." method="_on_selection_box_selecting_started"]

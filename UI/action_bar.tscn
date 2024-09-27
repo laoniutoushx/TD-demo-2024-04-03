@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://5ssodayalwtg"]
+[gd_scene load_steps=4 format=3 uid="uid://bb67gybabt467"]
 
 [ext_resource type="LabelSettings" uid="uid://dddgoh2chfqp" path="res://Asserts/resources/action_bar_label_setting.tres" id="1_lflx2"]
 [ext_resource type="Script" path="res://Components/action_bar/action_bar.gd" id="1_tfey0"]
@@ -8,7 +8,6 @@
 script = ExtResource("1_tfey0")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -33,35 +32,20 @@ grow_horizontal = 2
 grow_vertical = 0
 columns = 10
 
-[node name="Panel" type="Panel" parent="CanvasLayer/Control/SkillGridContainer"]
+[node name="Panel2" type="PanelContainer" parent="CanvasLayer/Control/SkillGridContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/SkillGridContainer/Panel"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/SkillGridContainer/Panel2"]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 2
 texture = ExtResource("2_16obo")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/SkillGridContainer/Panel"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
-text = "Q"
-label_settings = ExtResource("1_lflx2")
-
-[node name="Panel2" type="Panel" parent="CanvasLayer/Control/SkillGridContainer"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
 [node name="Label" type="Label" parent="CanvasLayer/Control/SkillGridContainer/Panel2"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 text = "W"
 label_settings = ExtResource("1_lflx2")
 
@@ -116,15 +100,18 @@ grow_horizontal = 2
 grow_vertical = 0
 columns = 10
 
-[node name="Panel" type="Panel" parent="CanvasLayer/Control/ItemGridContainer"]
+[node name="Panel" type="PanelContainer" parent="CanvasLayer/Control/ItemGridContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/ItemGridContainer/Panel"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_16obo")
+expand_mode = 1
+
 [node name="Label" type="Label" parent="CanvasLayer/Control/ItemGridContainer/Panel"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
+layout_mode = 2
 text = "1"
 label_settings = ExtResource("1_lflx2")
 

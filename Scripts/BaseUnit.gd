@@ -28,7 +28,10 @@ var _mesh_standing: MeshInstance3D
 var is_selected_circle: bool
 
 # player meta into
-@export_flags("P1", "P2", "P3", "P4") var player_owner_idx: int = 0
+@export_flags("P0", "P1", "P2", "P3") var player_owner_idx: int = 0
+
+# player group => 0 & 1
+var player_group
 
 
 # define how unit move on mesh ground

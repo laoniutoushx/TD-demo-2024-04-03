@@ -38,6 +38,10 @@ func start():
 		enemy_instance.anim_death = enemy_resource.anim_death
 		enemy_instance.is_selected_circle = enemy_resource.is_selected_circle
 		
+		# player
+		enemy_instance.player_group = 1
+		enemy_instance.player_owner_idx = 1
+		
 		# y offset
 		enemy_instance.v_offset = _start_node.global_position.y
 		

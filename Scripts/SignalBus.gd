@@ -21,4 +21,4 @@ signal enemy_take_damage(id:int, enemy :Enemy, damage: float)
 signal ray_picker_regist(callable: Callable)
 
 # PlayerController
-signal player_select_units(units: Array)		# unit selected
+signal player_selected_units(units: Array)		# unit selected

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://bxibobasihqmy"]
+[gd_scene load_steps=27 format=4 uid="uid://bxibobasihqmy"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_elhju"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Asserts/Models/gdbot/gdbot_skin.tscn" id="1_umiea"]
@@ -12,8 +12,7 @@
 [ext_resource type="Script" path="res://Waves/WaveManager.gd" id="8_iynip"]
 [ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI/ui.tscn" id="10_i7dqg"]
 [ext_resource type="PackedScene" uid="uid://cwdfip6pck67" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/TownCenter_SecondAge_Level2.gltf" id="12_at28j"]
-[ext_resource type="PackedScene" uid="uid://dwky2e2vyhklu" path="res://Test/selection/SelectionBox.tscn" id="13_lwsu0"]
-[ext_resource type="PackedScene" uid="uid://5ssodayalwtg" path="res://UI/action_bar.tscn" id="14_nd4hb"]
+[ext_resource type="PackedScene" uid="uid://dwky2e2vyhklu" path="res://Components/selection_box/SelectionBox.tscn" id="13_lwsu0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oopyi"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -262,5 +261,3 @@ script = ExtResource("8_iynip")
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -0.534992, 0.147339, 0.523489)
 
 [node name="SelectionBox" parent="." instance=ExtResource("13_lwsu0")]
-
-[node name="ActionBar" parent="." instance=ExtResource("14_nd4hb")]

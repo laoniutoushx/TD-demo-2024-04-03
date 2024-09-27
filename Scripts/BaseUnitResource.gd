@@ -5,7 +5,6 @@ extends Resource
 # meta config
 @export var clz_code: String
 @export var clz_name: String
-@export var icon: Texture2D
 @export var model_path: PackedScene	# model like glb, gltf...
 
 

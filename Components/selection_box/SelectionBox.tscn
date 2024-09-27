@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dwky2e2vyhklu"]
 
-[ext_resource type="Script" path="res://Test/selection/SelectionBox.gd" id="1_jrxse"]
+[ext_resource type="Script" path="res://Components/selection_box/SelectionBox.gd" id="1_jrxse"]
 [ext_resource type="PackedScene" uid="uid://dk7sa3fkyxks5" path="res://Components/selection_box/RectangularSelection2D.tscn" id="1_odm8a"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_biknc"]

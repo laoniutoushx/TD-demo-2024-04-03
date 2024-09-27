@@ -15,8 +15,13 @@ func _ready() -> void:
 
 
 func build_turret(position: Vector3, turret_code) -> void:
-	var new_turret = turret.instantiate()
+	var new_turret: Turret  = turret.instantiate()
 	new_turret.global_position = position
+	
+	# player
+	new_turret.player_group = 0
+	new_turret.player_owner_idx = 0
+	
 	add_child(new_turret)
 
 

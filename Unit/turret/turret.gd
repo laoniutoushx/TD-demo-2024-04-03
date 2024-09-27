@@ -1,4 +1,4 @@
-extends BaseUnit
+class_name Turret extends BaseUnit
 
 @export var projectile: PackedScene
 @onready var barrel: MeshInstance3D = $TurretBase/TurretTop/Visor/Barrel
@@ -97,15 +97,15 @@ func attack(target) -> void:
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
 	# TODO 获取当前节点实例化场景的顶级节点
-	var enemy = CommonUtil.get_first_parent_by_node_type(area, "PathFollow3D")
-	if enemy != null && enemy is BaseUnit && !enemy.is_logic_dead():
+	var enemy = area.owner
+	if enemy != null && enemy is BaseUnit && enemy.player_owner_idx != self.player_owner_idx && !enemy.is_logic_dead():
 		enemies.append(enemy)
 		enemy_signal_registger(enemy)
 				
 
 
 func _on_area_3d_area_exited(area: Area3D) -> void:
-	var enemy = CommonUtil.get_first_parent_by_node_type(area, "PathFollow3D")
+	var enemy = area.owner
 	if enemy != null:
 		enemies.erase(enemy)
 		if enemy == current_enemy:

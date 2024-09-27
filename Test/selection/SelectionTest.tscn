@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Test/selection/selection_test.gd" id="1_l11i2"]
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="3_4c7vd"]
-[ext_resource type="PackedScene" uid="uid://dwky2e2vyhklu" path="res://Test/selection/SelectionBox.tscn" id="3_6sdhb"]
+[ext_resource type="PackedScene" uid="uid://dwky2e2vyhklu" path="res://Components/selection_box/SelectionBox.tscn" id="3_6sdhb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mp3n6"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
