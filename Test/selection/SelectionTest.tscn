@@ -73,3 +73,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67188, 0, 7.73544)
 shape = SubResource("BoxShape3D_weuj6")
 
 [node name="SelectionBox" parent="." instance=ExtResource("3_6sdhb")]
+
+[connection signal="selecting_finished" from="SelectionBox" to="." method="_on_selection_box_selecting_finished"]
+[connection signal="selecting_started" from="SelectionBox" to="." method="_on_selection_box_selecting_started"]

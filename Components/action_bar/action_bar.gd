@@ -26,18 +26,18 @@ func display() -> void:
 func hide() -> void:
 	canvas_layer.visible = false	
 
-func _on_player_select_units(units: Array) -> void:
-	print(units.size())
-	if units.size() == 0:
+func _on_player_select_units(unit_map: Dictionary) -> void:
+	print(unit_map.size())
+	if unit_map.size() == 0:
 		hide()
 	else:
 		display()
-		open_selection_bar(units)
+		open_selection_bar(unit_map)
 
 
-func open_selection_bar(units: Array):
+func open_selection_bar(unit_map: Dictionary):
 	# selection bar init
-	selection_bar_comp.add_elements(units)
+	selection_bar_comp.add_elements(unit_map.values())
 
 
 

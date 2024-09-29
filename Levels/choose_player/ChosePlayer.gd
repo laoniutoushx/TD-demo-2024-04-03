@@ -1,6 +1,7 @@
 extends Node
 
-var choose_player_tres = ResourceLoader.load("res://Levels/resources/ChoosePlayer.tres")
+var choose_player_tres = ResourceLoader.load("res://Levels/choose_player/ChoosePlayer.tres")
+@onready var canvas_layer: CanvasLayer = $CanvasLayer
 
 @onready var texture_rect: TextureRect = $CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer/VSplitContainer/TextureRect
 @onready var texture_rect2: TextureRect = $CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer2/VSplitContainer/TextureRect
@@ -16,8 +17,9 @@ func _ready() -> void:
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_released("click") and _on_mouse_choose:
-		SignalBus.emit_signal("next_level", "level1")
-		self.queue_free()
+		SignalBus.next_level.emit("level1")
+		canvas_layer.hide()
+		#self.queue_free()
 	
 
 func _on_v_split_container_mouse_entered() -> void:

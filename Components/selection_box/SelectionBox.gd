@@ -3,7 +3,7 @@ class_name SelectionBox extends Node3D
 signal frame_selecting_unit_entered(unit: BaseUnit)
 signal frame_selecting_unit_exited(unit: BaseUnit)
 signal selecting_started
-signal selecting_finished(unit_map)
+signal selecting_finished(unit_map: Dictionary)
 
 @onready var rectangular_selection_2d: Panel = $RectangularSelection2D
 
@@ -62,7 +62,7 @@ func _start():
 	selecting_started.emit()
 	#CommonUtil.delay_execution(selecting_delay, func(): 
 		#area_collision.disabled = false
-		#selecting_started.emit()
+		#selecting_started.emit(
 		#)
 
 

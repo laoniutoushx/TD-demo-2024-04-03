@@ -1,6 +1,5 @@
 extends Panel
 
-@onready var ray_picker_camera: RayPicker = $"../RayPickerCamera"
 
 signal finished(rect)
 

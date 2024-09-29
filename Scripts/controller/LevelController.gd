@@ -52,7 +52,7 @@ func load_scene(scene_code: String) -> Node:
 		# 初始化场景 1
 		scene = level_tres_map['level1'].scene.instantiate()
 		get_parent().add_child(scene)
-		var path = scene.find_child("Path3D")
+
 
 	_pre_scene = _cur_scene
 	_cur_scene = scene

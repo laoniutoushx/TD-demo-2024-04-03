@@ -3,7 +3,8 @@ class_name PlayerController extends Node
 # Scope Node Define
 @onready var select_area: Area3D = %SelectArea
 @onready var collision_shape: CollisionShape3D = %CollisionShape
-@onready var selection_box: SelectionBox = $SelectionBox
+@onready var selection_box: SelectionBox = %SelectionBox
+
 
 
 var client_id: String = OS.get_unique_id()
@@ -20,6 +21,7 @@ func _ready() -> void:
 	SignalBufferSystem.buffer_signal(SignalBus.ray_picker_regist, select_area_pos_sync)
 
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	PlayerMouseMovement.calculate_mouse_speed(get_viewport(), delta)
@@ -31,7 +33,7 @@ func select_area_pos_sync(ray_cast: RayCast3D) -> void:
 
 		
 # TODO click select && frame select (click select trigger when show circle, but unit will move out to candidate， how to stop it）
-func refresh_selection_units(unit_map) -> void:
+func refresh_selection_units(unit_map: Dictionary) -> void:
 	# remove last selected units
 	for unit in PlayerSelect.units():
 		if is_instance_valid(unit) and !unit_map.keys().has(unit.get_instance_id()) and unit.has_method('hide_selected_circle'):
@@ -47,7 +49,8 @@ func refresh_selection_units(unit_map) -> void:
 			(unit as BaseUnit).show_selected_circle()
 	
 	# emit signal player_selected_units
-	SignalBus.player_selected_units.emit(unit_map)
+	if unit_map.keys().size() > 0:
+		SignalBus.player_selected_units.emit(unit_map)
 
 
 # player input event handler ( change status )
@@ -168,8 +171,7 @@ func _on_select_area_area_exited(area: Area3D) -> void:
 		(unit as BaseUnit).hide_selected_circle()
 
 
-func _on_selection_box_selecting_finished(unit_map) -> void:
-	print(unit_map.keys().size())
+
 
 
 func _on_selection_box_frame_selecting_unit_entered(unit: BaseUnit) -> void:
@@ -177,6 +179,18 @@ func _on_selection_box_frame_selecting_unit_entered(unit: BaseUnit) -> void:
 		(unit as BaseUnit).show_selected_circle()
 
 
+
 func _on_selection_box_frame_selecting_unit_exited(unit: BaseUnit) -> void:
 	if unit is BaseUnit and unit.has_method('hide_selected_circle'):
 		(unit as BaseUnit).hide_selected_circle()
+
+
+
+
+func _on_selection_box_selecting_started() -> void:
+	PlayerSelect._selecting = true
+
+
+func _on_selection_box_selecting_finished(unit_map: Dictionary) -> void:
+	PlayerSelect._selecting = false
+	refresh_selection_units(unit_map)

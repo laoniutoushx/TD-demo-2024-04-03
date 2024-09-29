@@ -20,9 +20,9 @@ shape = SubResource("BoxShape3D_a4h3f")
 [node name="MeshArea" type="MeshInstance3D" parent="SelectArea"]
 
 [node name="SelectionBox" parent="." instance=ExtResource("3_7tl51")]
+unique_name_in_owner = true
 
 [connection signal="area_entered" from="SelectArea" to="." method="_on_select_area_area_entered"]
 [connection signal="area_exited" from="SelectArea" to="." method="_on_select_area_area_exited"]
-[connection signal="frame_selecting_unit_entered" from="SelectionBox" to="." method="_on_selection_box_frame_selecting_unit_entered"]
-[connection signal="frame_selecting_unit_exited" from="SelectionBox" to="." method="_on_selection_box_frame_selecting_unit_exited"]
 [connection signal="selecting_finished" from="SelectionBox" to="." method="_on_selection_box_selecting_finished"]
+[connection signal="selecting_started" from="SelectionBox" to="." method="_on_selection_box_selecting_started"]

@@ -4,8 +4,6 @@ class_name TurretManager
 @export var turret: PackedScene
 var ray_picker: RayPicker
 
-@onready var turret_m: Node3D = $"../Turret"
-
 # 自定义 Annotation
 
 
