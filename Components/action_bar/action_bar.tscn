@@ -1,15 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://cddhheg1d4j32"]
+[gd_scene load_steps=3 format=3 uid="uid://cddhheg1d4j32"]
 
 [ext_resource type="Script" path="res://Components/action_bar/action_bar.gd" id="1_dpfvq"]
-[ext_resource type="LabelSettings" uid="uid://dddgoh2chfqp" path="res://Asserts/resources/action_bar_label_setting.tres" id="1_lflx2"]
 [ext_resource type="PackedScene" uid="uid://d2fad1mnop0tn" path="res://Components/action_bar/base_slot.tscn" id="2_7x41a"]
-[ext_resource type="Texture2D" uid="uid://dowc03iavj7w8" path="res://Asserts/Images/item/1.png" id="2_16obo"]
 
 [node name="ActionBar" type="Node"]
 script = ExtResource("1_dpfvq")
 slot = ExtResource("2_7x41a")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -27,81 +26,28 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -514.0
-offset_top = -100.0
-offset_right = -178.0
+offset_left = -555.0
+offset_top = -110.0
+offset_right = -155.0
 offset_bottom = -36.0
 grow_horizontal = 2
 grow_vertical = 0
 columns = 10
 
-[node name="Panel" type="Panel" parent="CanvasLayer/Control/SkillBar"]
-custom_minimum_size = Vector2(64, 64)
+[node name="BaseSlot" parent="CanvasLayer/Control/SkillBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/SkillBar/Panel"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
-text = "Q"
-label_settings = ExtResource("1_lflx2")
-
-[node name="Panel2" type="Panel" parent="CanvasLayer/Control/SkillBar"]
-custom_minimum_size = Vector2(64, 64)
+[node name="BaseSlot2" parent="CanvasLayer/Control/SkillBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/SkillBar/Panel2"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
-text = "W"
-label_settings = ExtResource("1_lflx2")
-
-[node name="Panel3" type="Panel" parent="CanvasLayer/Control/SkillBar"]
-custom_minimum_size = Vector2(64, 64)
+[node name="BaseSlot3" parent="CanvasLayer/Control/SkillBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/SkillBar/Panel3"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
-text = "E"
-label_settings = ExtResource("1_lflx2")
-
-[node name="Panel4" type="Panel" parent="CanvasLayer/Control/SkillBar"]
-custom_minimum_size = Vector2(64, 64)
+[node name="BaseSlot4" parent="CanvasLayer/Control/SkillBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/SkillBar/Panel4"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_right = 64.0
-offset_bottom = 64.0
-texture = ExtResource("2_16obo")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/SkillBar/Panel4"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
-text = "R"
-label_settings = ExtResource("1_lflx2")
-
-[node name="Panel5" type="Panel" parent="CanvasLayer/Control/SkillBar"]
-custom_minimum_size = Vector2(64, 64)
+[node name="BaseSlot5" parent="CanvasLayer/Control/SkillBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/SkillBar/Panel5"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
-text = "T"
-label_settings = ExtResource("1_lflx2")
 
 [node name="ItemBar" type="GridContainer" parent="CanvasLayer/Control"]
 unique_name_in_owner = true
@@ -119,160 +65,31 @@ grow_horizontal = 2
 grow_vertical = 0
 columns = 10
 
-[node name="Panel" type="Panel" parent="CanvasLayer/Control/ItemBar"]
-custom_minimum_size = Vector2(64, 64)
+[node name="BaseSlot" parent="CanvasLayer/Control/ItemBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/ItemBar/Panel"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
-text = "1"
-label_settings = ExtResource("1_lflx2")
-
-[node name="Panel2" type="Panel" parent="CanvasLayer/Control/ItemBar"]
-custom_minimum_size = Vector2(64, 64)
+[node name="BaseSlot2" parent="CanvasLayer/Control/ItemBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/ItemBar/Panel2"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
-text = "2"
-label_settings = ExtResource("1_lflx2")
-
-[node name="Panel3" type="Panel" parent="CanvasLayer/Control/ItemBar"]
-custom_minimum_size = Vector2(64, 64)
+[node name="BaseSlot3" parent="CanvasLayer/Control/ItemBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/ItemBar/Panel3"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
-text = "3"
-label_settings = ExtResource("1_lflx2")
-
-[node name="Panel4" type="Panel" parent="CanvasLayer/Control/ItemBar"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/ItemBar/Panel4"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
-text = "4"
-label_settings = ExtResource("1_lflx2")
-
-[node name="Panel5" type="Panel" parent="CanvasLayer/Control/ItemBar"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/ItemBar/Panel5"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
-text = "5"
-label_settings = ExtResource("1_lflx2")
-
-[node name="Panel6" type="Panel" parent="CanvasLayer/Control/ItemBar"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/ItemBar/Panel6"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
-text = "6"
-label_settings = ExtResource("1_lflx2")
-
-[node name="Panel7" type="Panel" parent="CanvasLayer/Control/ItemBar"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/ItemBar/Panel7"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
-text = "7"
-label_settings = ExtResource("1_lflx2")
-
-[node name="Panel8" type="Panel" parent="CanvasLayer/Control/ItemBar"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/ItemBar/Panel8"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
-text = "8"
-label_settings = ExtResource("1_lflx2")
-
-[node name="Panel9" type="Panel" parent="CanvasLayer/Control/ItemBar"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/ItemBar/Panel9"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
-text = "9"
-label_settings = ExtResource("1_lflx2")
-
-[node name="Panel10" type="Panel" parent="CanvasLayer/Control/ItemBar"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/ItemBar/Panel10"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 12.0
-offset_bottom = 24.0
-text = "0"
-label_settings = ExtResource("1_lflx2")
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -764.0
-offset_top = -284.0
-offset_right = -554.0
-offset_bottom = -24.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Panel" type="Panel" parent="CanvasLayer/Control/PanelContainer"]
-custom_minimum_size = Vector2(200, 250)
+[node name="BaseSlot4" parent="CanvasLayer/Control/ItemBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
 
 [node name="SelectionBar" type="GridContainer" parent="CanvasLayer/Control"]
 unique_name_in_owner = true
+layout_direction = 2
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -514.0
-offset_top = -265.0
-offset_right = -450.0
-offset_bottom = -201.0
+offset_left = -555.0
+offset_top = -275.0
+offset_right = 945.0
+offset_bottom = -125.0
 grow_horizontal = 2
 grow_vertical = 0
 columns = 16
-
-[node name="Panel" type="Panel" parent="CanvasLayer/Control/SelectionBar"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2

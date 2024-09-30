@@ -7,6 +7,8 @@ extends Resource
 @export var clz_name: String
 @export var model_path: PackedScene	# model like glb, gltf...
 
+@export var icon_path: String
+
 
 # define how unit move on mesh ground
 @export_flags("WALK", "FLYING", "SWIM") var unit_move_type: int = 0

@@ -38,6 +38,9 @@ func start():
 		enemy_instance.anim_death = enemy_resource.anim_death
 		enemy_instance.is_selected_circle = enemy_resource.is_selected_circle
 		
+		# icon
+		enemy_instance.icon_path = enemy_resource.icon_path
+		
 		# player
 		enemy_instance.player_group = 1
 		enemy_instance.player_owner_idx = 1

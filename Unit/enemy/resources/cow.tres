@@ -8,6 +8,7 @@ script = ExtResource("2_1desw")
 clz_code = "cow"
 clz_name = "cow"
 model_path = ExtResource("1_i6ap7")
+icon_path = "res://Asserts/Images/icon/enemy/cow.png"
 unit_move_type = 1
 unit_cate = 1
 armor_amount = 0.0

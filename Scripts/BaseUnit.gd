@@ -11,7 +11,7 @@ class_name BaseUnit
 var signal_container = {}
 
 # icon 
-var icon
+var icon_path: String
 
 # material and mesh
 var _outline_mesh: MeshInstance3D

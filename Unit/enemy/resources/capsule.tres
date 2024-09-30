@@ -8,6 +8,7 @@ script = ExtResource("1_taj0b")
 clz_code = "capsule"
 clz_name = "capsule"
 model_path = ExtResource("1_7phoe")
+icon_path = "res://Asserts/Images/icon/enemy/capsule.png"
 unit_move_type = 1
 unit_cate = 1
 armor_amount = 0.0

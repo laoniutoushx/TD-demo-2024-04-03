@@ -31,3 +31,6 @@ var ICON_ENEMY_DIR_PREFIX = "res://Asserts/Images/icon/enemy/"
 
 # State Control
 var SELECTION_START = false
+
+# Action Bar
+var SELECTION_BAR_MAX_SLOT_NUM = 16 * 2
