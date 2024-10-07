@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=3 format=3 uid="uid://b208mtlyvcjst"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=4 format=3 uid="uid://b208mtlyvcjst"]
 
 [ext_resource type="PackedScene" uid="uid://bv2qhyy2b7sew" path="res://Unit/enemy/scenes/pig.tscn" id="1_61pvo"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_kr5yt"]
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMeta.gd" id="3_g34h2"]
 
 [resource]
 script = ExtResource("2_kr5yt")
@@ -27,3 +28,4 @@ anim_death = "death"
 is_selected_circle = true
 component_system = 0
 pickup_velocity = 1000.0
+skills = Array[ExtResource("3_g34h2")]([])

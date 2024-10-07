@@ -34,6 +34,7 @@ SystemUtil="*res://Scripts/utils/SystemUtil.gd"
 UUID="*res://Scripts/utils/uuid.gd"
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 SignalBufferSystem="*res://Scripts/SignalBufferSystem.gd"
+SOS="*res://Scripts/utils/SOS.gd"
 
 [display]
 
@@ -60,7 +61,7 @@ enemy=""
 
 [gui]
 
-theme/custom="res://Asserts/resources/demo_ui/new_theme.tres"
+theme/custom="res://Asserts/resources/demo_ui/panel_container_theme.tres"
 
 [input]
 

@@ -58,15 +58,16 @@ static func get_all_mesh_instances(node: Node) -> Array[MeshInstance3D]:
 
 static func get_first_node_by_node_type(node: Node, clazz: String) -> Variant:
 	#print(node.get_class(), str(clazz))
-	if node.is_class(clazz):
-		return node
-	else:
-		for child in node.get_children():
-			var _node = get_first_node_by_node_type(child, clazz)
-			if _node != null and _node.is_class(clazz):
-				return _node
-			else:
-				continue
+	if is_instance_valid(node):
+		if node.is_class(clazz):
+			return node
+		else:
+			for child in node.get_children():
+				var _node = get_first_node_by_node_type(child, clazz)
+				if _node != null and _node.is_class(clazz):
+					return _node
+				else:
+					continue
 	return null
 	
 	
@@ -161,6 +162,27 @@ static func load_resources_to_container_from_directory(path: String, container: 
 	ResourceLoaderUtil.load_resources_to_container_from_directory(path, container)
 
 
+
+static func bean_properties_copy(src: Object, tar: Object) -> Variant:
+	# 获取源对象的属性列表
+	var src_properties = src.get_property_list()
+	
+	# 遍历每个属性
+	for property in src_properties:
+		var prop_name = property.name
+		
+		# 过滤掉内置属性，只复制用户自定义的属性
+		if property.usage & PROPERTY_USAGE_SCRIPT_VARIABLE != 0:
+			# 尝试从目标对象获取属性值并复制
+			if tar.has_method("get") and tar.has_method("set"):
+				if tar.get_indexed(prop_name) != null:
+					var value = src.get(prop_name)
+					tar.set(prop_name, value)
+	
+	return tar
+
+
+
 # Inner Class
 # Resource Loader
 class ResourceLoaderUtil:
@@ -176,12 +198,13 @@ class ResourceLoaderUtil:
 			while file_name != "":
 				if dir.current_is_dir():
 					# 递归处理子目录
-					load_resources_to_container_from_directory(path.plus_file(file_name), container if container else _common_container)
+					load_resources_to_container_from_directory(path.plus_file(file_name), container if container != null else _common_container)
 				elif file_name.ends_with(".tres") or file_name.ends_with(".tscn"):
 					# 加载资源
-					var resource = load(path.plus_file(file_name))
+					var full_path = path + "/" + file_name
+					var resource = load(full_path)
 					if resource:
-						_common_container[file_name] = resource
+						(container if container != null else _common_container)[full_path.get_file().get_basename()] = resource
 						print("Loaded: " + file_name)
 				file_name = dir.get_next()
 			dir.list_dir_end()

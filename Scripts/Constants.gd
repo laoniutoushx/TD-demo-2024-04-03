@@ -28,6 +28,7 @@ var MeshInstance3D_CLZ = "MeshInstance3D"
 
 # Enemy Icon Dir Prefix
 var ICON_ENEMY_DIR_PREFIX = "res://Asserts/Images/icon/enemy/"
+var ICON_DEFAULT = "res://Asserts/Images/icon/default.svg"
 
 # State Control
 var SELECTION_START = false

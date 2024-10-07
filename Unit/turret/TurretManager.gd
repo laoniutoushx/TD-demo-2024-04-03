@@ -2,23 +2,30 @@ extends Node3D
 class_name TurretManager
 
 @export var turret: PackedScene
+
+
 var ray_picker: RayPicker
 
 # 自定义 Annotation
 
 
 func _ready() -> void:
-	SignalBus.ray_picker_regist.emit(callable_build_turret)
+	#SignalBus.ray_picker_regist.emit(callable_build_turret)
 	pass
 
 
 func build_turret(position: Vector3, turret_code) -> void:
 	var new_turret: Turret  = turret.instantiate()
+	
+	#var new_turret: Turret = SystemUtil.unit_system.create_unit()
+	
 	new_turret.global_position = position
 	
 	# player
-	new_turret.player_group = 0
-	new_turret.player_owner_idx = 0
+	new_turret.player_group = SOS.main.player_controller.get_player_group_idx()
+	new_turret.player_owner_idx = SOS.main.player_controller.get_player_idx()
+	new_turret.clz_name = 'turret'
+	new_turret.clz_code = 'turret'
 	
 	add_child(new_turret)
 

@@ -5,3 +5,5 @@ extends Node
 var vfx_system: VFXSystem
 var damage_system: DamageSystem
 var barrage_system: BarrageSystem
+var unit_system: UnitSystem
+var skill_system: SkillSystem

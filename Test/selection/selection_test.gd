@@ -1,7 +1,7 @@
 extends Node3D
 
 
-func _on_selection_box_selecting_finished() -> void:
+func _on_selection_box_selecting_finished(unit_map) -> void:
 	print(123)
 
 

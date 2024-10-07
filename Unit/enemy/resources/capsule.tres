@@ -1,7 +1,27 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=3 format=3 uid="uid://cs0lrsvor327p"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://cs0lrsvor327p"]
 
 [ext_resource type="PackedScene" uid="uid://cjgsocu8i6efm" path="res://Unit/enemy/scenes/capsule.tscn" id="1_7phoe"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="1_taj0b"]
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMeta.gd" id="3_788m7"]
+
+[sub_resource type="Resource" id="Resource_3h4ta"]
+script = ExtResource("3_788m7")
+id = ""
+title = "Unnamed Skill"
+desc = ""
+icon_name = ""
+icon_idx = 0
+level = 0
+max_level = 3
+cooldown = 1.0
+mana_cost = 10.0
+range = 5.0
+release_distance = 0.0
+stock = 1
+release_type = 0
+target_type = 0
+target_move_type = 0
+target_cate = 0
 
 [resource]
 script = ExtResource("1_taj0b")
@@ -27,3 +47,4 @@ anim_death = "destory"
 is_selected_circle = true
 component_system = 0
 pickup_velocity = 1000.0
+skills = Array[ExtResource("3_788m7")]([SubResource("Resource_3h4ta")])

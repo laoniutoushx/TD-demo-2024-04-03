@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="SkillMeta" load_steps=2 format=3 uid="uid://x4bivjxncvqm"]
+
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMeta.gd" id="1_6e70r"]
+
+[resource]
+script = ExtResource("1_6e70r")
+id = ""
+title = "Unnamed Skill"
+desc = ""
+icon_name = ""
+icon_idx = 0
+level = 0
+max_level = 3
+cooldown = 1.0
+mana_cost = 10.0
+range = 5.0
+release_distance = 0.0
+stock = 1
+release_type = 0
+target_type = 0
+target_move_type = 0
+target_cate = 0

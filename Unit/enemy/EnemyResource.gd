@@ -1,2 +1,1 @@
-class_name EnemyResource
-extends BaseUnitResource
+class_name EnemyResource extends BaseUnitResource

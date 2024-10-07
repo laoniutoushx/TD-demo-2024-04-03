@@ -22,28 +22,28 @@ var cur_project_pos: Vector3
 
 
 func _ready() -> void:
+	 # 确保 Panel 在所有子节点的最上层
+	#get_parent().move_child(self, get_parent().get_child_count() - 1)
+	
 	SignalBufferSystem.buffer_signal(SignalBus.ray_picker_regist, select_area_pos_sync)
+	SignalBus.unit_logic_death.connect(_on_unit_logic_death)
 	await rectangular_selection_2d.ready
 	rectangular_selection_2d.selecting_delay = selecting_delay
+	
+	
+	
+func _input(event: InputEvent) -> void:	
+	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
+		_start()
+		
+	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed):
+		_finish()
+	
+
 
 func _physics_process(_delta):
 	_update()
 
-func _input(event: InputEvent) -> void:
-#func _unhandled_input(event):
-	if (event is InputEventMouseButton 
-		and event.button_index == MOUSE_BUTTON_LEFT 
-		and event.pressed 
-		and not Constants.SELECTION_START
-		):
-		_start()
-	if (
-		event is InputEventMouseButton
-		and event.button_index == MOUSE_BUTTON_LEFT
-		and not event.pressed
-		and Constants.SELECTION_START
-	):
-		_finish()
 
 func _selecting():
 	return area_collision.disabled == false
@@ -95,16 +95,20 @@ func select_area_pos_sync(ray_cast: RayCast3D) -> void:
 
 func _on_selected_area_area_entered(area: Area3D) -> void:
 	# TODO player owner check
-	if area.owner is BaseUnit:
+	if area.owner is BaseUnit and (area.owner as BaseUnit).is_alive():
 		DoubleCacheSelection.append(area.owner)
 		frame_selecting_unit_entered.emit(area.owner)
-		print("enter -> " + str(DoubleCacheSelection.units().keys().size()))
+		#print("enter -> " + str(DoubleCacheSelection.units().keys().size()))
 
 
 func _on_selected_area_area_exited(area: Area3D) -> void:
 	if area.owner is BaseUnit:
 		DoubleCacheSelection.remove(area.owner)
 		frame_selecting_unit_exited.emit(area.owner)
+
+# listening unit death
+func _on_unit_logic_death(id:int, enemy :Enemy):
+	DoubleCacheSelection.remove(enemy)
 
 
 class DoubleCacheSelection:

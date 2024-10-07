@@ -1,5 +1,4 @@
-class_name Enemy
-extends BaseUnit
+class_name Enemy extends BaseUnit
 
 @export var money := 10
 @export var wood := 1
@@ -66,18 +65,8 @@ func _process(delta: float) -> void:
 
 
 func take_damage(damage: float):
-	super.take_damage(damage)
 	var pos = self.global_position
-	#print("global position-take d: (%f, %f, %f)" % [pos.x, pos.y, pos.z])
-	SignalBus.emit_signal("enemy_take_damage", get_instance_id(), self, damage)
-	if super.is_logic_dead():
-		print("emit signal - " + Constants.LOGIC_DEAD + str(get_instance_id()))
-		var signal_enemy_death: Signal = signal_container.get(Constants.LOGIC_DEAD + str(get_instance_id()))
-		signal_enemy_death.emit(self)
-		# Global Signal
-		SignalBus.emit_signal("enemy_logic_death", get_instance_id(), self)
-
-
+	super.take_damage(damage)
 
 
 #func _on_animation_player_animation_finished(anim_name: StringName) -> void:

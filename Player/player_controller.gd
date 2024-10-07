@@ -8,6 +8,11 @@ class_name PlayerController extends Node
 
 
 var client_id: String = OS.get_unique_id()
+var player_idx: int
+var player_group_idx: int
+
+
+var outline_material: ShaderMaterial
 
 
 # Player Status
@@ -19,8 +24,18 @@ func _ready() -> void:
 	# Signal 监听
 	#SignalBus.ray_picker_regist.emit(click_to_select)
 	SignalBufferSystem.buffer_signal(SignalBus.ray_picker_regist, select_area_pos_sync)
+	SignalBus.unit_logic_death.connect(_on_unit_logic_death)
+	player_idx = get_player_idx()
+	player_group_idx = get_player_group_idx()
+	
+	outline_material = preload("res://Asserts/shared/shader/3d/outline/outline_mat.tres")
 
+# 获取玩家索引信息
+func get_player_idx():
+	return 0
 
+func get_player_group_idx():
+	return 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -49,8 +64,7 @@ func refresh_selection_units(unit_map: Dictionary) -> void:
 			(unit as BaseUnit).show_selected_circle()
 	
 	# emit signal player_selected_units
-	if unit_map.keys().size() > 0:
-		SignalBus.player_selected_units.emit(unit_map)
+	SignalBus.player_selected_units.emit(unit_map)
 
 
 # player input event handler ( change status )
@@ -159,21 +173,29 @@ class PlayerSelect:
 # monitor when unit enter mouse scope
 func _on_select_area_area_entered(area: Area3D) -> void:
 	var unit = area.owner
-	if unit is BaseUnit and unit.has_method('show_selected_circle'):
+	if unit is BaseUnit and unit.is_alive() and unit.has_method('show_selected_circle'):
 		(unit as BaseUnit).show_selected_circle()
+		var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ)
+		if unit_mesh != null:
+			unit_mesh.material_overlay = outline_material
 
 # monitor when unit exit mouse scope(notice when selected, not hide)
 func _on_select_area_area_exited(area: Area3D) -> void:
+	var unit = area.owner
+	
+	var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ)
+	if unit_mesh != null:
+		unit_mesh.material_overlay = null
+	
 	if PlayerSelect.is_selecting():
 		return
-	var unit = area.owner		
 	if unit is BaseUnit and !PlayerSelect.contains_unit(unit) and unit.has_method('hide_selected_circle'):
 		(unit as BaseUnit).hide_selected_circle()
 
 
 
 
-
+# Selection Box Event Callback
 func _on_selection_box_frame_selecting_unit_entered(unit: BaseUnit) -> void:
 	if unit is BaseUnit and unit.has_method('show_selected_circle'):
 		(unit as BaseUnit).show_selected_circle()
@@ -186,7 +208,6 @@ func _on_selection_box_frame_selecting_unit_exited(unit: BaseUnit) -> void:
 
 
 
-
 func _on_selection_box_selecting_started() -> void:
 	PlayerSelect._selecting = true
 
@@ -194,3 +215,12 @@ func _on_selection_box_selecting_started() -> void:
 func _on_selection_box_selecting_finished(unit_map: Dictionary) -> void:
 	PlayerSelect._selecting = false
 	refresh_selection_units(unit_map)
+	
+	
+# listening unit death
+func _on_unit_logic_death(id: int, unit: BaseUnit):
+	if unit.has_method('hide_selected_circle'):
+		unit.hide_selected_circle()
+	
+	var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ)
+	unit_mesh.material_overlay = null

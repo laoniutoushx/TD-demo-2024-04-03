@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cddhheg1d4j32"]
+[gd_scene load_steps=4 format=3 uid="uid://cddhheg1d4j32"]
 
 [ext_resource type="Script" path="res://Components/action_bar/action_bar.gd" id="1_dpfvq"]
 [ext_resource type="PackedScene" uid="uid://d2fad1mnop0tn" path="res://Components/action_bar/base_slot.tscn" id="2_7x41a"]
+
+[sub_resource type="Theme" id="Theme_w1r8r"]
 
 [node name="ActionBar" type="Node"]
 script = ExtResource("1_dpfvq")
@@ -88,8 +90,130 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -555.0
 offset_top = -275.0
-offset_right = 945.0
+offset_right = 630.0
 offset_bottom = -125.0
 grow_horizontal = 2
 grow_vertical = 0
-columns = 16
+columns = 14
+
+[node name="BaseSlot" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot2" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot3" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot4" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot5" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot6" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot7" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot8" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot9" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot10" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot11" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot12" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot13" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot14" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot15" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot16" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot17" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot18" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot19" parent="CanvasLayer/Control/SelectionBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BulildingBar" type="GridContainer" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
+layout_direction = 2
+layout_mode = 2
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 660.0
+offset_top = -345.0
+offset_right = 858.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_w1r8r")
+columns = 4
+
+[node name="BaseSlot" parent="CanvasLayer/Control/BulildingBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot2" parent="CanvasLayer/Control/BulildingBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot3" parent="CanvasLayer/Control/BulildingBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot4" parent="CanvasLayer/Control/BulildingBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot5" parent="CanvasLayer/Control/BulildingBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot6" parent="CanvasLayer/Control/BulildingBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot7" parent="CanvasLayer/Control/BulildingBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot8" parent="CanvasLayer/Control/BulildingBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot9" parent="CanvasLayer/Control/BulildingBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot10" parent="CanvasLayer/Control/BulildingBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot11" parent="CanvasLayer/Control/BulildingBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot12" parent="CanvasLayer/Control/BulildingBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot13" parent="CanvasLayer/Control/BulildingBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot14" parent="CanvasLayer/Control/BulildingBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot15" parent="CanvasLayer/Control/BulildingBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+
+[node name="BaseSlot16" parent="CanvasLayer/Control/BulildingBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2

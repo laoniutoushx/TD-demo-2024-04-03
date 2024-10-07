@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://b46kpucicrelp"]
+[gd_scene load_steps=13 format=3 uid="uid://b46kpucicrelp"]
 
 [ext_resource type="Script" path="res://Test/selection/selection_test.gd" id="1_l11i2"]
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="3_4c7vd"]
 [ext_resource type="PackedScene" uid="uid://dwky2e2vyhklu" path="res://Components/selection_box/SelectionBox.tscn" id="3_6sdhb"]
+[ext_resource type="PackedScene" uid="uid://cddhheg1d4j32" path="res://Components/action_bar/action_bar.tscn" id="4_4supj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mp3n6"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -73,6 +74,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67188, 0, 7.73544)
 shape = SubResource("BoxShape3D_weuj6")
 
 [node name="SelectionBox" parent="." instance=ExtResource("3_6sdhb")]
+
+[node name="ActionBar" parent="." instance=ExtResource("4_4supj")]
 
 [connection signal="selecting_finished" from="SelectionBox" to="." method="_on_selection_box_selecting_finished"]
 [connection signal="selecting_started" from="SelectionBox" to="." method="_on_selection_box_selecting_started"]

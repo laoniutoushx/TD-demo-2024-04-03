@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjgsocu8i6efm"]
+[gd_scene load_steps=8 format=3 uid="uid://cjgsocu8i6efm"]
 
 [ext_resource type="Script" path="res://Unit/enemy/enemy.gd" id="1_wievb"]
-[ext_resource type="Material" uid="uid://dc7daq3vlonkx" path="res://Asserts/materials/outline.tres" id="2_ac7wu"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="2_odmji"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2jmip"]
@@ -56,7 +55,6 @@ unique_name_in_owner = true
 
 [node name="capsule" type="MeshInstance3D" parent="AttackedScope"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-material_override = ExtResource("2_ac7wu")
 mesh = SubResource("CapsuleMesh_2jmip")
 skeleton = NodePath("../..")
 

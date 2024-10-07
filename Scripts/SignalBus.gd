@@ -7,10 +7,10 @@ extends Node
 signal next_level(code:String)	# scene code
 
 
-# Enemey
-signal enemy_logic_death(id:int, enemy :Enemy)
-signal enemy_physic_death(id:int, enemy :Enemy)
-signal enemy_take_damage(id:int, enemy :Enemy, damage: float)
+# Unit event
+signal unit_logic_death(id:int, unit :BaseUnit)
+signal unit_physic_death(id:int, unit :BaseUnit)
+signal unit_take_damage(id:int, unit :BaseUnit, damage: float)
 
 
 

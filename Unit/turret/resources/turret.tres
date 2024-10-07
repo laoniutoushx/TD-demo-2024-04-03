@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=3 format=3 uid="uid://batuffvaegvkn"]
+
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMeta.gd" id="2_l8ipb"]
+[ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_nv5yp"]
+
+[resource]
+script = ExtResource("2_nv5yp")
+clz_code = "turret"
+clz_name = "turret"
+icon_path = "res://Asserts/Images/icon/turret/turret.svg"
+unit_move_type = 1
+unit_cate = 1
+armor_amount = 0.0
+armor_type = 2
+is_mesh_outline = false
+is_mesh_standing = false
+max_health = 100.0
+move_speed = 5.0
+turn_speed = 10.0
+attack_speed = 100.0
+vfx_projectile_name = "fireball"
+anim_run = "Armature|Jump"
+anim_walk = null
+anim_idle = null
+anim_death = "death"
+is_selected_circle = true
+component_system = 0
+pickup_velocity = 1000.0
+skills = Array[ExtResource("2_l8ipb")]([])

@@ -12,8 +12,7 @@ class_name HealthBar
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	SignalBus.connect("enemy_take_damage", _on_enemy_take_damage)
-	pass
+	SignalBus.unit_take_damage.connect(_on_enemy_take_damage)
 
 
 func prepare(value:float) -> void:

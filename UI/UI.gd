@@ -3,7 +3,7 @@ extends Node
 
 func _ready() -> void:
 	#SignalBus.connect("enemy_logic_death", _on_enemy_death)
-	SignalBus.enemy_logic_death.connect(_on_enemy_death)
+	SignalBus.unit_logic_death.connect(_on_enemy_death)
 	
 	pass
 

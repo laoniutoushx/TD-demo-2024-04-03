@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bxufq6dftl8mh"]
 
-[ext_resource type="Shader" path="res://Levels/choose_player/ChosePlayer.gdshader" id="1_5bl3j"]
+[ext_resource type="Shader" path="res://Levels/choose_player/ChoosePlayer.gdshader" id="1_5bl3j"]
 [ext_resource type="Texture2D" uid="uid://bflsp3y0iihgl" path="res://Asserts/Images/00011-2797661415.png" id="2_c2xxk"]
 [ext_resource type="Texture2D" uid="uid://kl8ar128qgv1" path="res://icon.svg" id="3_01xpd"]
 

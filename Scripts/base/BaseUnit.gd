@@ -1,0 +1,219 @@
+# BaseUnit.gd
+class_name BaseUnit extends Node
+
+# ref resource
+@export var clazz: Resource
+var skill_meta_res: SkillMeta	# skill meta info
+
+# signal
+var signal_container = {}
+
+# meta properity
+var clz_code: String
+var clz_name: String
+#var uuid: String = UUID.v4()
+
+# icon 
+var icon_path: String
+
+# material and mesh
+var _outline_mesh: MeshInstance3D
+var _hit_flash_material = preload("res://Asserts/materials/hit_flash.tres")
+var _outline_material = preload("res://Asserts/materials/outline_mat.tres")
+
+# create mesh outline
+var is_mesh_outline: bool
+var is_mesh_standing: bool
+
+var _mesh_outline
+var _mesh_standing: MeshInstance3D
+
+# selected circle
+var is_selected_circle: bool
+
+# player meta into
+# @export_flags("P0", "P1", "P2", "P3") 
+var player_owner_idx: int
+
+# player group => 0 & 1
+var player_group: int
+
+
+# define how unit move on mesh ground
+# @export_flags("WALK", "FLYING", "SWIM") 
+var unit_move_type: int = 0
+# define unit category
+# @export_flags("HUMAN", "BUILDING", "DECORATE_DESTORIED", "DECORATE_FOREVER") 
+var unit_cate: int = 0
+
+
+# ANIMATION
+@export var anim_run = Constants.ANIM_RUN
+@export var anim_walk = Constants.ANIM_WALK
+@export var anim_idle = Constants.ANIM_IDEL
+@export var anim_death = Constants.ANIM_DEATH
+
+# status
+var health : float		
+@export var max_health : float :
+	set(value):
+		health = value
+		max_health = value
+		
+var _is_alive := true
+		
+@export var move_speed : float
+@export var turn_speed : float
+@export var attack_speed : float
+
+# FightRegion
+@export var vfx_projectile_name: String
+@export var projectile_speed: String
+@export var projectile_trace: Curve3D
+
+# Skill（实例化后的技能列表）
+var skill_map: Dictionary = {}
+
+
+func _ready() -> void:
+	health = max_health
+	# 是否创建 mesh_outline
+	if is_mesh_outline:
+		_create_mesh_outline()
+		
+	# 是否创建 mesh_standing
+	if is_mesh_standing:
+		_create_mesh_standing()
+		
+	# 是否创建 Selected Circle
+	#if is_selected_circle:
+		#_create_selected_circle()
+	
+	# hide select circle
+	var select_circle = CommonUtil.get_first_node_by_node_name(self, "FadedCircle3D")	
+	select_circle.hide()
+	
+	# system component load（item）
+	
+	# system component load（skill）
+	
+	
+	
+func is_alive() -> bool:
+	return _is_alive
+
+# enemy 死亡触发事件， turret 监听该 enemy 死亡事件，删除对应敌人集合
+func do_after_logic_dead() -> void:
+	_is_alive = false
+	
+	# stop moving
+	set_process(false)
+	
+	# 移出 health bar
+	var health_bar = CommonUtil.get_first_node_by_node_name(self, "HealthBar3D")
+	health_bar.queue_free()
+	
+	# player death animation
+	death_effect()
+	pass		
+
+# unit death effect
+func death_effect():
+	# physic signal
+	var signal_name = Constants.PHYSIC_DEAD + str(get_instance_id())
+	add_user_signal(signal_name, [{"name": "unit", "type": TYPE_OBJECT}])
+	var signal_physic_dead = Signal(self, signal_name)
+	signal_physic_dead.connect(_on_physic_dead, CONNECT_ONE_SHOT)
+	
+	# logic animation player
+	var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(self, "AnimationPlayer")
+	if ap != null and ap.has_animation(anim_death):
+		ap.play(anim_death)
+		ap.animation_finished.connect(_on_animation_player_animation_finished.bind(self, signal_physic_dead), CONNECT_ONE_SHOT)
+	else:	
+		signal_physic_dead.emit(self)
+
+
+func _on_animation_player_animation_finished(anim_name: String, unit:BaseUnit, signal_physic_dead:Signal) -> void:
+	signal_physic_dead.emit(unit)
+	pass # Replace with function body.
+	
+#func _on_animation_finished(anim_name: String, target_animation: String):
+	## 判断是否是指定的动画播放完毕
+	#if anim_name == target_animation:
+		#print("Animation finished: ", anim_name)
+		#signal_physic_dead.emit(self)  # 发射自定义信号
+
+# 物理死亡
+func _on_physic_dead(unit: BaseUnit) -> void:
+	unit.queue_free()
+
+
+
+# is dead
+func is_logic_dead() -> bool:
+	return health <= 0
+
+# damage unit
+func take_damage(damage: float):
+	health -= damage
+	#print("global position-take d: (%f, %f, %f)" % [pos.x, pos.y, pos.z])
+	SignalBus.unit_take_damage.emit(get_instance_id(), self, damage)
+	if is_logic_dead():
+		print("emit signal - " + Constants.LOGIC_DEAD + str(get_instance_id()))
+		var signal_enemy_death: Signal = signal_container.get(Constants.LOGIC_DEAD + str(get_instance_id()))
+		signal_enemy_death.emit(self)
+		# Global Signal
+		SignalBus.unit_logic_death.emit(get_instance_id(), self)
+
+
+# heal unit health
+func heal(amount: int):
+	health = min(health + amount, max_health)
+	
+func _create_mesh_outline():
+	# 1. 获取对象 mesh 网格
+	var origin_mesh = CommonUtil.get_first_node_by_node_type(self, "MeshInstance3D")
+	if origin_mesh != null:
+		var om: MeshInstance3D = (origin_mesh as MeshInstance3D)
+		om.material_overlay = _outline_material
+	
+func _create_mesh_standing():
+	var origin_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(self, "MeshInstance3D")
+	_mesh_standing = origin_mesh.duplicate()
+	_mesh_standing.transform.origin = Vector3(0, 0, 0)
+	_mesh_standing.scale = Vector3(1.01, 1.01, 1.01)
+	_mesh_standing.material_override = _hit_flash_material
+	_mesh_standing.visible = false
+	origin_mesh.add_child(_mesh_standing)
+	# 如果有骨骼，设置 mesh_standing 骨骼（添加到场景树当中后再获取相对路径）
+	var skeleton: Skeleton3D = CommonUtil.get_first_node_by_node_type(self, "Skeleton3D")
+	if skeleton != null:
+		_mesh_standing.skeleton = _mesh_standing.get_path_to(skeleton)
+
+func _create_selected_circle() -> void:
+	var selected_circle_scene: PackedScene = preload("res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn")
+	var selected_circle: Node3D = selected_circle_scene.instantiate()
+	selected_circle.color = Color.WHITE
+	
+	var mesh_node = CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ)
+	var aabb = CommonUtil.get_scaled_aabb(mesh_node)
+	var max_len = min(aabb.size.x, aabb.size.z)
+	
+	selected_circle.radius = max_len * 1.2 / 2.0
+	add_child(selected_circle)
+	pass
+
+
+func get_mesh_standing() -> MeshInstance3D:
+	return _mesh_standing	
+
+func show_selected_circle() -> void:
+	var select_circle = CommonUtil.get_first_node_by_node_name(self, "FadedCircle3D")	
+	if select_circle:
+		select_circle.visible = true
+
+func hide_selected_circle() -> void:
+	var select_circle = CommonUtil.get_first_node_by_node_name(self, "FadedCircle3D")	
+	if select_circle:
+		select_circle.visible = false

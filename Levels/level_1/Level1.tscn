@@ -1,13 +1,13 @@
 [gd_scene load_steps=27 format=4 uid="uid://bxibobasihqmy"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_elhju"]
-[ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Asserts/Models/gdbot/gdbot_skin.tscn" id="1_umiea"]
+[ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_umiea"]
 [ext_resource type="MeshLibrary" uid="uid://b6ioecdsupr03" path="res://MeshLibraries/SpaceLibrary.tres" id="2_cynf3"]
 [ext_resource type="PackedScene" uid="uid://wacj14cvr4eq" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/WallTowers_DoorClosed_FirstAge.gltf" id="2_gg4ko"]
 [ext_resource type="PackedScene" uid="uid://bdruiih1fouof" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Rock.gltf" id="3_03ljr"]
 [ext_resource type="PackedScene" uid="uid://cym641yvamusq" path="res://Unit/home/base.tscn" id="3_epmlt"]
 [ext_resource type="Script" path="res://Unit/turret/TurretManager.gd" id="5_fsv1a"]
-[ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Unit/turret/turret.tscn" id="6_o3ywy"]
+[ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Unit/turret/scenes/turret.tscn" id="6_o3ywy"]
 [ext_resource type="Script" path="res://Scripts/controller/RTSController.gd" id="7_xmjyx"]
 [ext_resource type="Script" path="res://Waves/WaveManager.gd" id="8_iynip"]
 [ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI/ui.tscn" id="10_i7dqg"]
@@ -40,6 +40,16 @@ data = PackedVector3Array(-50, 1, 50, 50, 1, 50, -50, -1, 50, 50, 1, 50, 50, -1,
 [sub_resource type="NavigationMesh" id="NavigationMesh_10k2b"]
 vertices = PackedVector3Array(-50, 1, 50, 50, 1, -50, 50, 1, 50, -50, 1, -50, -50, -1, 50, 50, -1, -50, 50, -1, 50, -50, -1, -50, 50, 1, 50, -50, 1, -50, 50, 1, -50, -50, 1, 50, 50, -1, 50, -50, -1, -50, 50, -1, -50, -50, -1, 50, 50, 1, 50, -50, -1, 50, -50, 1, 50, 50, -1, 50, 50, 1, -50, -50, -1, -50, -50, 1, -50, 50, -1, -50)
 polygons = [PackedInt32Array(0, 2, 4), PackedInt32Array(2, 6, 4), PackedInt32Array(1, 3, 5), PackedInt32Array(3, 7, 5), PackedInt32Array(8, 10, 12), PackedInt32Array(10, 14, 12), PackedInt32Array(9, 11, 13), PackedInt32Array(11, 15, 13), PackedInt32Array(16, 18, 20), PackedInt32Array(18, 22, 20), PackedInt32Array(17, 19, 21), PackedInt32Array(19, 23, 21)]
+
+[sub_resource type="Curve3D" id="Curve3D_g10yy"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -30, 0, 6, -2, 0, 2, 2, 0, -2, 18, 0, 6, 2, 0, 2, -2, 0, -2, 18, 0, -6, 2, 0, 2, -2, 0, -2, -18, 0, -6, 0, 0, 0, 0, 0, 0, -18, 0, -14),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rcpim"]
+albedo_color = Color(0.607843, 0.607843, 0.607843, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mo400"]
 
@@ -123,16 +133,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="Curve3D" id="Curve3D_g10yy"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -30, 0, 6, -2, 0, 2, 2, 0, -2, 18, 0, 6, 2, 0, 2, -2, 0, -2, 18, 0, -6, 2, 0, 2, -2, 0, -2, -18, 0, -6, 0, 0, 0, 0, 0, 0, -18, 0, -14),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
-}
-point_count = 5
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rcpim"]
-albedo_color = Color(0.607843, 0.607843, 0.607843, 1)
-
 [node name="BaseLevel" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -153,25 +153,6 @@ shape = SubResource("ConcavePolygonShape3D_yrbu4")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Floor"]
 navigation_mesh = SubResource("NavigationMesh_10k2b")
-
-[node name="GDbotSkin" parent="Floor" instance=ExtResource("1_umiea")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.64657, 1, 0.0492271)
-
-[node name="WallTowers_DoorClosed_FirstAge2" parent="Floor" instance=ExtResource("2_gg4ko")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 12.8555, 1, 8.29548)
-
-[node name="Rock2" parent="Floor" instance=ExtResource("3_03ljr")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 17.8017, 1.06816, 13.8853)
-
-[node name="Bomber2" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9924, 1, 10.25)
-material_override = SubResource("StandardMaterial3D_mo400")
-mesh = SubResource("ArrayMesh_2ymjy")
-
-[node name="Bomber2" type="MeshInstance3D" parent="Floor/Bomber2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9924, 1, 10.25)
-material_override = SubResource("StandardMaterial3D_mo400")
-mesh = SubResource("ArrayMesh_2ymjy")
 
 [node name="RayPickerCamera" parent="." node_paths=PackedStringArray("grid_map", "turret_manager") instance=ExtResource("1_elhju")]
 transform = Transform3D(1, 0, 0, 0, 0.317305, 0.948324, 0, -0.948324, 0.317305, 0, 32, 17)
@@ -257,7 +238,29 @@ script = ExtResource("8_iynip")
 
 [node name="UI" parent="." instance=ExtResource("10_i7dqg")]
 
-[node name="TownCenter_SecondAge_Level22" parent="." instance=ExtResource("12_at28j")]
+[node name="ActionBar" parent="." instance=ExtResource("13_sr2b3")]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="TownCenter_SecondAge_Level22" parent="Environment" instance=ExtResource("12_at28j")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -0.534992, 0.147339, 0.523489)
 
-[node name="ActionBar" parent="." instance=ExtResource("13_sr2b3")]
+[node name="WallTowers_DoorClosed_FirstAge2" parent="Environment" instance=ExtResource("2_gg4ko")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 12.8555, 0, 8.29548)
+
+[node name="Rock2" parent="Environment" instance=ExtResource("3_03ljr")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 17.8017, 0.0681601, 13.8853)
+
+[node name="Bomber2" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9924, 0, 10.25)
+material_override = SubResource("StandardMaterial3D_mo400")
+mesh = SubResource("ArrayMesh_2ymjy")
+skeleton = NodePath("../../Floor")
+
+[node name="Bomber2" type="MeshInstance3D" parent="Environment/Bomber2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9924, 1, 10.25)
+material_override = SubResource("StandardMaterial3D_mo400")
+mesh = SubResource("ArrayMesh_2ymjy")
+
+[node name="GDbotSkin" parent="." instance=ExtResource("1_umiea")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 9, 0.16514, 0)

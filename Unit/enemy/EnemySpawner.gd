@@ -28,22 +28,7 @@ func start():
 		var enemy_resource:EnemyResource = load("res://Unit/enemy/resources/%s.tres" % enemy_res_name)
 		
 		# generate enemy instance
-		var enemy_instance: Enemy = enemy_resource.model_path.instantiate()
-		enemy_instance.move_speed = enemy_resource.move_speed
-		enemy_instance.max_health = enemy_resource.max_health
-		enemy_instance.is_mesh_standing = enemy_resource.is_mesh_standing
-		enemy_instance.anim_run = enemy_resource.anim_run
-		enemy_instance.anim_walk = enemy_resource.anim_walk
-		enemy_instance.anim_idle = enemy_resource.anim_idle
-		enemy_instance.anim_death = enemy_resource.anim_death
-		enemy_instance.is_selected_circle = enemy_resource.is_selected_circle
-		
-		# icon
-		enemy_instance.icon_path = enemy_resource.icon_path
-		
-		# player
-		enemy_instance.player_group = 1
-		enemy_instance.player_owner_idx = 1
+		var enemy_instance: Enemy = SystemUtil.unit_system.create_unit(enemy_resource)
 		
 		# y offset
 		enemy_instance.v_offset = _start_node.global_position.y
