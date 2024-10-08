@@ -16,6 +16,9 @@ var skill_meta_map: Dictionary = {}
 
 func _ready() -> void:
 	SystemUtil.skill_system = self
+	
+	await CommonUtil.await_timer(2.0)
+	
 	# load skill meta resources
 	load_skill_meta_res()
 

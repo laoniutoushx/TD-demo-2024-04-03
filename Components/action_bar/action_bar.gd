@@ -21,7 +21,7 @@ var active_callback_list: Array[Callable] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	CommonUtil.load_resources_to_container_from_directory("res://Asserts/Images/icon/enemy", icon_res_container)
+	CommonUtil.load_resources_to_container_from_directory("res://Asserts/Images/icon/enemy/", icon_res_container)
 	#canvas_layer.visible = false
 	SignalBus.player_selected_units.connect(_on_player_select_units)
 	SignalBus.unit_logic_death.connect(_on_unit_logic_death)
@@ -110,6 +110,7 @@ class BaseBarComponent extends Node:
 				_selection_bar.add_child(select_slot_instance)
 				_action_bar.register_active(select_slot_instance.active_callback)
 				
+				# 添加 element 时的钩子函数
 				if hook != null:
 					hook.call(_action_bar, select_slot_instance)
 				

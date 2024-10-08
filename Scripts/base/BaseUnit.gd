@@ -3,7 +3,7 @@ class_name BaseUnit extends Node
 
 # ref resource
 @export var clazz: Resource
-var skill_meta_res: SkillMeta	# skill meta info
+var skill_metas: Array[SkillMeta] = []	# skill meta info
 
 # signal
 var signal_container = {}
@@ -96,7 +96,7 @@ func _ready() -> void:
 	# system component load（item）
 	
 	# system component load（skill）
-	
+	SystemUtil.skill_system.initialize_skills(self.skill_meta_res)
 	
 	
 func is_alive() -> bool:

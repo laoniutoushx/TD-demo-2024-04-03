@@ -34,8 +34,8 @@ func active_callback(act: bool) -> void:
 
 func init(icon_path: String, label, active: bool) -> void:
 	# 图标初始化
-	if icon_path != null and icon_res_container.has(icon_path):
-		icon_texture.texture = icon_res_container[icon_path]
+	if icon_path != null and icon_res_container.has(icon_path.get_file().get_basename()):
+		icon_texture.texture = icon_res_container[icon_path.get_file().get_basename()]
 	else:
 		icon_texture.texture = SOS.main.resource_manager.get_resource_by_name("icon")
 	icon_texture.material = slot_material
