@@ -15,11 +15,11 @@ uniform vec4 modulate_color: source_color;
 // Border functions
 bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, sampler2D texture) {
     if (!show_border) return false; // 如果不显示边框，直接返回false
-    
+
     for (float i = -ceil(border_width); i <= ceil(border_width); i++) {
         float x = abs(i) > border_width ? border_width * sign(i) : i;
         float offset;
-        
+
         if (border_pattern == 0) {
             offset = border_width - abs(x);
         } else if (border_pattern == 1) {
@@ -27,11 +27,11 @@ bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, sampler2D texture) {
         } else if (border_pattern == 2) {
             offset = border_width;
         }
-        
+
         for (float j = -ceil(offset); j <= ceil(offset); j++) {
             float y = abs(j) > offset ? offset * sign(j) : j;
             vec2 xy = uv + texture_pixel_size * vec2(x, y);
-            
+
             if ((xy != clamp(xy, vec2(0.0), vec2(1.0)) || texture(texture, xy).a <= 0.0) == inside) {
                 return true;
             }
@@ -55,7 +55,7 @@ bool is_hid(vec2 uv, vec2 size, float radius) {
     vec2 rd_end = vec2(size.x, radius);
     vec2 lu_origin = vec2(0, size.y - radius);
     vec2 lu_end = vec2(radius, size.y);
-    
+
     if (!in_rect(uv, a, b)) {
         float dis = radius - 1.0;
         if (in_rect(uv, vec2(0.0), a)) {
@@ -86,22 +86,22 @@ void fragment() {
     vec2 uv = UV;
     vec4 texture_color;
     bool is_border = false;
-    
+
     // 处理纹理UV映射
     if (inside && show_border) {
         // 内边框模式
         vec2 border_uv = uv;
         vec2 texture_uv = uv;
-        
+
         // 检查是否在边框区域
         if (hasContraryNeighbour(border_uv, TEXTURE_PIXEL_SIZE, TEXTURE)) {
             is_border = true;
         }
-        
+
         // 缩放纹理UV以适应内边框
         float scale = max(0.0001, 1.0 - (2.0 * border_width * TEXTURE_PIXEL_SIZE.x));
         texture_uv = (texture_uv - 0.5) / scale + 0.5;
-        
+
         if (texture_uv == clamp(texture_uv, vec2(0.0), vec2(1.0))) {
             texture_color = texture(TEXTURE, texture_uv);
         } else {
@@ -113,10 +113,10 @@ void fragment() {
             vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(border_width * 2.0));
             uv = (uv - texture_pixel_size * border_width) * TEXTURE_PIXEL_SIZE / texture_pixel_size;
         }
-        
+
         if (uv == clamp(uv, vec2(0.0), vec2(1.0))) {
             texture_color = texture(TEXTURE, uv);
-            
+
             // 只在显示边框时检查边框区域
             if (show_border && hasContraryNeighbour(UV, TEXTURE_PIXEL_SIZE, TEXTURE)) {
                 is_border = true;
@@ -125,14 +125,14 @@ void fragment() {
             texture_color = vec4(0.0);
         }
     }
-    
+
     // 应用圆角
     float pixel_size_x = 1.0 / TEXTURE_PIXEL_SIZE.x;
     float pixel_size_y = 1.0 / TEXTURE_PIXEL_SIZE.y;
     float max_r = min(pixel_size_x, pixel_size_y) / 2.0;
-    
-    if (is_hid(vec2(UV.x * pixel_size_x, UV.y * pixel_size_y), 
-               vec2(pixel_size_x, pixel_size_y), 
+
+    if (is_hid(vec2(UV.x * pixel_size_x, UV.y * pixel_size_y),
+               vec2(pixel_size_x, pixel_size_y),
                min(corner_radius, max_r))) {
         COLOR = vec4(0.0);
     } else {

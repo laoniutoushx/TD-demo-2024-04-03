@@ -1,15 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://cru16mbhnwx85"]
+[gd_scene load_steps=15 format=3 uid="uid://cru16mbhnwx85"]
 
 [ext_resource type="Script" path="res://Unit/turret/scenes/turret.gd" id="1_xflch"]
 [ext_resource type="PackedScene" uid="uid://nbnxafd504hw" path="res://System/barrage_system/projectile.tscn" id="2_r6i4c"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_82e52"]
-
-[sub_resource type="Curve3D" id="Curve3D_rblul"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0),
-"tilts": PackedFloat32Array(0)
-}
-point_count = 1
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f7p6l"]
 
@@ -58,9 +51,6 @@ size = Vector3(2.278, 5.5, 6)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_xflch")
 projectile = ExtResource("2_r6i4c")
-vfx_projectile_name = "default"
-projectile_speed = "1000"
-projectile_trace = SubResource("Curve3D_rblul")
 
 [node name="TurretBase" type="MeshInstance3D" parent="."]
 mesh = SubResource("CylinderMesh_uu4co")

@@ -26,4 +26,4 @@ anim_death = "death"
 is_selected_circle = true
 component_system = 0
 pickup_velocity = 1000.0
-skills = Array[ExtResource("2_l8ipb")]([])
+skill_metas = Array[ExtResource("2_l8ipb")]([])

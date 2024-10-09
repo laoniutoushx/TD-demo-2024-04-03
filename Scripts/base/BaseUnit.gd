@@ -2,7 +2,7 @@
 class_name BaseUnit extends Node
 
 # ref resource
-@export var clazz: Resource
+@export var clazz: BaseUnitResource
 @export var skill_metas: Array[SkillMetaResource] = []	# skill meta info
 
 # signal
