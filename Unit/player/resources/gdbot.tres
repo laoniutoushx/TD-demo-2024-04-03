@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=3 format=3 uid="uid://cl1kqae77bk2i"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://cl1kqae77bk2i"]
 
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_k0vou"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_qcj2s"]
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="3_aj7dk"]
+[ext_resource type="Resource" uid="uid://f1j2insixtan" path="res://System/skill_system/resources/building/building_base_turret.tres" id="4_o5vs8"]
 
 [resource]
 script = ExtResource("2_qcj2s")
@@ -27,3 +29,4 @@ anim_death = "death"
 is_selected_circle = true
 component_system = 0
 pickup_velocity = 1000.0
+skill_metas = Array[ExtResource("3_aj7dk")]([ExtResource("4_o5vs8")])

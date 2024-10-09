@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EnemyResource" load_steps=3 format=3 uid="uid://batuffvaegvkn"]
 
-[ext_resource type="Script" path="res://System/skill_system/domain/SkillMeta.gd" id="2_l8ipb"]
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="2_l8ipb"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_nv5yp"]
 
 [resource]

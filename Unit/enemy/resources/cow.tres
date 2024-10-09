@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://ca3nvrkfayrwg" path="res://Unit/enemy/scenes/cow.tscn" id="1_i6ap7"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_1desw"]
-[ext_resource type="Script" path="res://System/skill_system/domain/SkillMeta.gd" id="3_6odkl"]
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="3_6odkl"]
 
 [resource]
 script = ExtResource("2_1desw")
@@ -28,4 +28,4 @@ anim_death = "Armature|Death"
 is_selected_circle = true
 component_system = 0
 pickup_velocity = 1000.0
-skills = Array[ExtResource("3_6odkl")]([])
+skill_metas = Array[ExtResource("3_6odkl")]([])

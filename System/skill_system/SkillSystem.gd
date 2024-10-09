@@ -28,24 +28,31 @@ func load_skill_meta_res():
 
 
 # 获取技能元信息
-func get_meta_skill_by_id(skill_code: String) -> SkillMeta:
+func get_meta_skill_by_id(skill_code: String) -> SkillMetaResource:
 	return skill_meta_map[skill_code]
 	
 # 实例化 技能
-func initialize_skills(skill_codes: Array[String]) -> Array[Skill]:
-	var skill_list: Array[Skill] = []
-	for skill_code in skill_codes:
-		var skill = _initialize_skill(skill_code)
-		skill_list.append(skill)
-	return skill_list
+func initialize_skills(unit: BaseUnit, skill_metas: Array[SkillMetaResource]) -> Dictionary:
+	var skill_map: Dictionary = {}
+	for idx in range(skill_metas.size()):
+		var skill: Skill = _initialize_skill(unit, skill_metas[idx], idx)
+		if skill != null:
+			skill_map[skill.code] = skill
+	return skill_map
 	
  # 实例化
-func _initialize_skill(skill_code: String) -> Skill:
-	var skill_meta: SkillMeta = get_meta_skill_by_id(skill_code)
-	if skill_meta != null:
-		var skill = Skill.new()
-		skill = CommonUtil.bean_properties_copy(skill_meta, skill)
-		
+func _initialize_skill(unit: BaseUnit, skill_meta_res: SkillMetaResource, idx: int = 0) -> Skill:
+	if skill_meta_res != null:
+		var skill: Skill = Skill.new()
+		CommonUtil.bean_properties_copy(skill_meta_res, skill)
+		skill.skill_meta_res = skill_meta_res
+		skill.sort = idx
+		if skill.code == null:
+			printerr("skill code not define")
+			
+		# skill id
+		skill.id = UUID.v4()
+		skill.unit = unit
 		
 		return skill
 	

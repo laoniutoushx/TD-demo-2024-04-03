@@ -52,4 +52,4 @@ extends Resource
 
 # Skill related
 @export_group("Skill")
-@export var skill_metas: Array[SkillMeta] = []
+@export var skill_metas: Array[SkillMetaResource] = []

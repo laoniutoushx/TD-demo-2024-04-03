@@ -17,7 +17,7 @@ func create_unit(unit_res: Resource) -> BaseUnit:
 
 func _enemy_create(enemy_resource: EnemyResource) -> Enemy:
 	var enemy_instance: Enemy = enemy_resource.model_path.instantiate()
-	enemy_instance = CommonUtil.bean_properties_copy(enemy_resource, enemy_instance)
+	#enemy_instance = CommonUtil.bean_properties_copy(enemy_resource, enemy_instance)
 	
 	# player
 	enemy_instance.player_group = 1

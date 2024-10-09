@@ -1,16 +1,18 @@
 class_name Skill extends Node
 
 # Reference
-var skill_meta: SkillMeta
+var skill_meta_res: SkillMetaResource
 var unit: BaseUnit
 
 
 # meta info 
-@export var id: String
+var id: String
+var code: String
+@export var sort: int
+
 @export var title: String = "Unnamed Skill"
 @export var desc: String
 @export var icon_name: String
-@export var icon_idx: int
 @export var level: int = 0
 @export var max_level: int = 3
 
@@ -30,8 +32,8 @@ var unit: BaseUnit
 # release skill
 
 
-@export var release_type: SkillMeta.SKILL_RELEASE_TYPE
-@export var target_type: SkillMeta.SKILL_RELEASE_TYPE	# 0: 地面, 1: 目标, 2: 无目标
+@export var release_type: SkillMetaResource.SKILL_RELEASE_TYPE
+@export var target_type: SkillMetaResource.SKILL_RELEASE_TYPE	# 0: 地面, 1: 目标, 2: 无目标
 # define how unit move on mesh ground( walk/fly )
 @export var target_move_type = 0
 # define unit category (  HUMAN/BUILDING/DECORATE_DESTORIED/DECORATE_FOREVER )
@@ -40,7 +42,3 @@ var unit: BaseUnit
 
 # Skill Script Template( ClassDB )
 @export var script_name: Script
-
-
-func _ready() -> void:
-	id = skill_meta.id

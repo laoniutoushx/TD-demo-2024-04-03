@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=2 format=3 uid="uid://f1j2insixtan"]
+
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_iajld"]
+
+[resource]
+script = ExtResource("1_iajld")
+code = "building_base_turret"
+title = "building_base_turret"
+desc = "building_base_turret"
+icon_name = "res://Asserts/Images/icon/skill icon/0.png"
+icon_idx = 0
+level = 0
+max_level = 3
+cooldown = 1.0
+mana_cost = 10.0
+range = 5.0
+release_distance = 0.0
+stock = 1
+release_type = 0
+target_type = 0
+target_move_type = 0
+target_cate = 0

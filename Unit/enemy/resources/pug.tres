@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bv2qhyy2b7sew" path="res://Unit/enemy/scenes/pig.tscn" id="1_22bhd"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_gquih"]
-[ext_resource type="Script" path="res://System/skill_system/domain/SkillMeta.gd" id="3_8yvs0"]
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="3_8yvs0"]
 
 [resource]
 script = ExtResource("2_gquih")

@@ -3,7 +3,7 @@ class_name BaseUnit extends Node
 
 # ref resource
 @export var clazz: Resource
-var skill_metas: Array[SkillMeta] = []	# skill meta info
+@export var skill_metas: Array[SkillMetaResource] = []	# skill meta info
 
 # signal
 var signal_container = {}
@@ -25,7 +25,6 @@ var _outline_material = preload("res://Asserts/materials/outline_mat.tres")
 var is_mesh_outline: bool
 var is_mesh_standing: bool
 
-var _mesh_outline
 var _mesh_standing: MeshInstance3D
 
 # selected circle
@@ -33,10 +32,10 @@ var is_selected_circle: bool
 
 # player meta into
 # @export_flags("P0", "P1", "P2", "P3") 
-var player_owner_idx: int
+@export var player_owner_idx: int
 
 # player group => 0 & 1
-var player_group: int
+@export var player_group: int
 
 
 # define how unit move on mesh ground
@@ -48,34 +47,37 @@ var unit_cate: int = 0
 
 
 # ANIMATION
-@export var anim_run = Constants.ANIM_RUN
-@export var anim_walk = Constants.ANIM_WALK
-@export var anim_idle = Constants.ANIM_IDEL
-@export var anim_death = Constants.ANIM_DEATH
+var anim_run = Constants.ANIM_RUN
+var anim_walk = Constants.ANIM_WALK
+var anim_idle = Constants.ANIM_IDEL
+var anim_death = Constants.ANIM_DEATH
 
 # status
 var health : float		
-@export var max_health : float :
+var max_health : float :
 	set(value):
 		health = value
 		max_health = value
 		
 var _is_alive := true
-		
-@export var move_speed : float
-@export var turn_speed : float
-@export var attack_speed : float
+
+var move_speed : float
+var turn_speed : float
+var attack_speed : float
 
 # FightRegion
-@export var vfx_projectile_name: String
-@export var projectile_speed: String
-@export var projectile_trace: Curve3D
+var vfx_projectile_name: String
+var projectile_speed: String
+var projectile_trace: Curve3D
 
 # Skill（实例化后的技能列表）
 var skill_map: Dictionary = {}
 
 
 func _ready() -> void:
+	# bean property copy
+	CommonUtil.bean_properties_copy(clazz, self)
+	
 	health = max_health
 	# 是否创建 mesh_outline
 	if is_mesh_outline:
@@ -96,7 +98,7 @@ func _ready() -> void:
 	# system component load（item）
 	
 	# system component load（skill）
-	SystemUtil.skill_system.initialize_skills(self.skill_meta_res)
+	skill_map = SystemUtil.skill_system.initialize_skills(self, skill_metas)
 	
 	
 func is_alive() -> bool:
