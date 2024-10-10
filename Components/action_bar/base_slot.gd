@@ -37,7 +37,11 @@ func init(icon_path: String, label, active: bool) -> void:
 	if icon_path != null and icon_res_container.has(icon_path.get_file().get_basename()):
 		icon_texture.texture = icon_res_container[icon_path.get_file().get_basename()]
 	else:
-		icon_texture.texture = SOS.main.resource_manager.get_resource_by_name("icon")
+		icon_texture.texture = SOS.main.resource_manager.get_resource_by_name(icon_path.get_file().get_basename())
+	
+	if icon_texture.texture == null:
+		icon_texture.texture = SOS.main.resource_manager.get_resource_by_name('icon')	
+	
 	icon_texture.material = slot_material
 	
 	# 关键字

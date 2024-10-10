@@ -11,22 +11,21 @@ func setup_for_unit(unit_map: Dictionary):
 				var skill: Skill = skill_map[code]
 				_create_slot(skill)
 
-	
-	
 func _create_slot(skill: Skill) -> BaseSlot:	
 	var slot_instance: BaseSlot = super.add_element(skill.id, _skill_bar)
 	
 	slot_instance.init(
-		skill.icon_name,
+		skill.icon_path,
 		null, 
 		skill.unit.player_group == SOS.main.player_controller.get_player_group_idx()
 	)
+	# click signal listener
+	slot_instance.slot_clicked.connect(_on_slot_clicked)
 	_slot_num += 1
 
 	return slot_instance
 	
 	
-
 func remove_element(ele: Variant):
 	ele = (ele as Skill)
 	if _skill_bar.has_node(ele.id):
@@ -36,9 +35,13 @@ func remove_element(ele: Variant):
 		_slot_num -= 1
 		
 		
-		
 func clear():
 	for child: BaseSlot in _skill_bar.get_children():
 		_action_bar.deregister_active(child.active_callback)
 		child.queue_free()
 	_slot_num = 0
+
+
+func _on_slot_clicked(slot: BaseSlot):
+	
+	pass

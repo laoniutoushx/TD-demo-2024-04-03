@@ -4,11 +4,10 @@
 
 [resource]
 script = ExtResource("1_6e70r")
-id = ""
+code = "lightning_chain"
 title = "lightning_chain"
 desc = ""
-icon_name = ""
-icon_idx = 0
+icon_path = "res://Asserts/Images/icon/skill icon/619.png"
 level = 0
 max_level = 3
 cooldown = 1.0

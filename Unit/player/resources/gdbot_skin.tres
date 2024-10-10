@@ -1,16 +1,17 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://sa00lx2hfecc"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=6 format=3 uid="uid://sa00lx2hfecc"]
 
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_x8mob"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_usrqw"]
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="3_j65fo"]
 [ext_resource type="Resource" uid="uid://x4bivjxncvqm" path="res://System/skill_system/resources/damage/lightning_chain.tres" id="4_dopkm"]
+[ext_resource type="Resource" uid="uid://f1j2insixtan" path="res://System/skill_system/resources/building/building_base_turret.tres" id="5_i4cvi"]
 
 [resource]
 script = ExtResource("2_usrqw")
 clz_code = "gdbot_skin"
 clz_name = "gdbot_skin"
 model_path = ExtResource("1_x8mob")
-icon_path = "res://Asserts/Images/icon/enemy/capsule.png"
+icon_path = "res://icon.svg"
 unit_move_type = 1
 unit_cate = 1
 armor_amount = 0.0
@@ -29,4 +30,4 @@ anim_death = "destory"
 is_selected_circle = true
 component_system = 0
 pickup_velocity = 1000.0
-skill_metas = Array[ExtResource("3_j65fo")]([ExtResource("4_dopkm")])
+skill_metas = Array[ExtResource("3_j65fo")]([ExtResource("4_dopkm"), ExtResource("5_i4cvi")])
