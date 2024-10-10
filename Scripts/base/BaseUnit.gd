@@ -2,7 +2,7 @@
 class_name BaseUnit extends Node
 
 # ref resource
-@export var clazz: BaseUnitResource
+var clazz: BaseUnitResource
 @export var skill_metas: Array[SkillMetaResource] = []	# skill meta info
 
 # signal
@@ -75,8 +75,8 @@ var skill_map: Dictionary = {}
 
 
 func _ready() -> void:
-	# bean property copy
-	CommonUtil.bean_properties_copy(clazz, self)
+	# 注意 BaseUnit 与 BaseUnitResource 的 cycle reference 
+	clazz_init()
 	
 	health = max_health
 	# 是否创建 mesh_outline
@@ -99,6 +99,17 @@ func _ready() -> void:
 	
 	# system component load（skill）
 	skill_map = SystemUtil.skill_system.initialize_skills(self, skill_metas)
+
+# clz 初始化
+func clazz_init():
+	var current_scene_name: String = self.scene_file_path.get_file().get_basename()
+
+	# load clz resource
+	clazz = SOS.main.resource_manager.get_resource_by_name(current_scene_name)
+	
+	# bean property copy
+	if clazz != null:
+		CommonUtil.bean_properties_copy(clazz, self)
 	
 	
 func is_alive() -> bool:

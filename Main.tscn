@@ -20,7 +20,7 @@ script = ExtResource("3_bsvor")
 
 [node name="ResourceManager" type="Node" parent="."]
 script = ExtResource("4_o4wll")
-extensions = Array[String](["png", "tres", "tre", "tscn", "svg"])
+extensions = Array[String](["png", "tres", "tre", "svg"])
 res_paths = Array[String](["res://"])
 
 [node name="System" type="Node" parent="."]

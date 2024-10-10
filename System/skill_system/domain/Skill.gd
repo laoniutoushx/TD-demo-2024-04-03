@@ -12,7 +12,7 @@ var code: String
 
 @export var title: String = "Unnamed Skill"
 @export var desc: String
-@export var icon_name: String
+@export var icon_path: String
 @export var level: int = 0
 @export var max_level: int = 3
 
