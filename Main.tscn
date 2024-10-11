@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://d4gqkoqce24re"]
+[gd_scene load_steps=10 format=3 uid="uid://d4gqkoqce24re"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_7e1y6"]
+[ext_resource type="PackedScene" uid="uid://lwbcrrjy7f4u" path="res://Player/player_controller.tscn" id="1_7t1by"]
 [ext_resource type="Script" path="res://Scripts/controller/LevelController.gd" id="3_bsvor"]
 [ext_resource type="PackedScene" uid="uid://b7a1nrfaoya4w" path="res://System/vfx_system/vfx_system.tscn" id="3_pqnn5"]
 [ext_resource type="PackedScene" uid="uid://7rvt2k3k1jwh" path="res://System/barrage_system/barrage_system.tscn" id="4_2xh4q"]
@@ -19,6 +20,8 @@ script = ExtResource("3_bsvor")
 script = ExtResource("4_o4wll")
 extensions = Array[String](["png", "tres", "tre", "svg"])
 res_paths = Array[String](["res://"])
+
+[node name="PlayerController" parent="." instance=ExtResource("1_7t1by")]
 
 [node name="System" type="Node" parent="."]
 

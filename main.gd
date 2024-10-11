@@ -4,7 +4,7 @@ class_name Main extends Node3D
 
 @onready var level_controller: LevelController = $LevelController
 @onready var resource_manager: ResourceManager = $ResourceManager
-
+var player_controller: PlayerController
 
 
 @onready var vfx_system: VFXSystem = %VfxSystem

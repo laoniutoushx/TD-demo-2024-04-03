@@ -32,13 +32,14 @@ func _ready() -> void:
 	
 # input event handler register
 func _input(event: InputEvent) -> void:
-	if is_active and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed and is_mouse_hover:
-		get_viewport().set_input_as_handled()
+	if is_active and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and is_mouse_hover:
+		#get_viewport().set_input_as_handled()
 		slot_clicked.emit(self)
 
 
 func active_callback(act: bool) -> void:
 	is_active = act
+	
 
 
 func init(icon_path: String, type: SLOT_TYPE = SLOT_TYPE.DEFAULT, active: bool = true, label: String = '' ) -> void:

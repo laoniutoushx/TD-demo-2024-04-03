@@ -21,6 +21,9 @@ static var mouse_state: PlayerStatus.MouseState = PlayerStatus.MouseState.IDEL
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# 注册到 main
+	SOS.main.player_controller = self
+
 	# Signal 监听
 	#SignalBus.ray_picker_regist.emit(click_to_select)
 	SignalBufferSystem.buffer_signal(SignalBus.ray_picker_regist, select_area_pos_sync)
