@@ -1,9 +1,10 @@
-[gd_scene load_steps=27 format=4 uid="uid://bxibobasihqmy"]
+[gd_scene load_steps=28 format=4 uid="uid://bxibobasihqmy"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_elhju"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_umiea"]
 [ext_resource type="MeshLibrary" uid="uid://b6ioecdsupr03" path="res://MeshLibraries/SpaceLibrary.tres" id="2_cynf3"]
 [ext_resource type="PackedScene" uid="uid://wacj14cvr4eq" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/WallTowers_DoorClosed_FirstAge.gltf" id="2_gg4ko"]
+[ext_resource type="PackedScene" uid="uid://lwbcrrjy7f4u" path="res://Player/player_controller.tscn" id="3_0k7np"]
 [ext_resource type="PackedScene" uid="uid://bdruiih1fouof" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Rock.gltf" id="3_03ljr"]
 [ext_resource type="PackedScene" uid="uid://cym641yvamusq" path="res://Unit/home/base.tscn" id="3_epmlt"]
 [ext_resource type="Script" path="res://Unit/turret/TurretManager.gd" id="5_fsv1a"]
@@ -135,6 +136,12 @@ blend_shape_mode = 0
 
 [node name="BaseLevel" type="Node3D"]
 
+[node name="UI" parent="." instance=ExtResource("10_i7dqg")]
+
+[node name="ActionBar" parent="." instance=ExtResource("13_sr2b3")]
+
+[node name="PlayerController" parent="." instance=ExtResource("3_0k7np")]
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_tk0br")
 
@@ -235,10 +242,6 @@ map_bounds = Rect2(-8, -8, 50, 50)
 
 [node name="WaveManager" type="Node3D" parent="."]
 script = ExtResource("8_iynip")
-
-[node name="UI" parent="." instance=ExtResource("10_i7dqg")]
-
-[node name="ActionBar" parent="." instance=ExtResource("13_sr2b3")]
 
 [node name="Environment" type="Node3D" parent="."]
 

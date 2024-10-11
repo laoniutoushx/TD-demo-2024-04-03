@@ -1,7 +1,7 @@
 class_name Main extends Node3D
 
 
-@onready var player_controller: PlayerController = $PlayerController
+
 @onready var level_controller: LevelController = $LevelController
 @onready var resource_manager: ResourceManager = $ResourceManager
 

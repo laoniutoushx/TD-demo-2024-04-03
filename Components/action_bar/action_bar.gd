@@ -151,7 +151,7 @@ class SelectionBarComponent extends BaseBarComponent:
 					print("%s, element player group: %s, player gouup: %s" % [element.clz_name, str(element.player_group), str(SOS.main.player_controller.get_player_group_idx())])
 					select_slot_instance.init(
 						element.icon_path,
-						null, 
+						BaseSlot.SLOT_TYPE.SELECT, 
 						element.player_group == SOS.main.player_controller.get_player_group_idx()
 					)
 					_slot_num += 1

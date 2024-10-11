@@ -16,7 +16,7 @@ func _create_slot(skill: Skill) -> BaseSlot:
 	
 	slot_instance.init(
 		skill.icon_path,
-		null, 
+		BaseSlot.SLOT_TYPE.SKILL, 
 		skill.unit.player_group == SOS.main.player_controller.get_player_group_idx()
 	)
 	# click signal listener
@@ -43,5 +43,5 @@ func clear():
 
 
 func _on_slot_clicked(slot: BaseSlot):
-	
+	print("slot cliecked %s" % "hahaha")
 	pass

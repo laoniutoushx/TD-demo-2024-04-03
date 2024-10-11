@@ -1,5 +1,12 @@
 class_name BaseSlot extends PanelContainer
 
+enum SLOT_TYPE {
+	SKILL,
+	SELECT,
+	ITEM,
+	DEFAULT
+}
+
 signal slot_clicked(s: BaseSlot)
 
 
@@ -17,6 +24,7 @@ var icon_res_container := {}
 
 var is_active: bool = false
 var is_mouse_hover: bool = false
+var slot_type: SLOT_TYPE
 
 func _ready() -> void:
 	slot_material = _slot_material.duplicate(true)
@@ -25,6 +33,7 @@ func _ready() -> void:
 # input event handler register
 func _input(event: InputEvent) -> void:
 	if is_active and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed and is_mouse_hover:
+		get_viewport().set_input_as_handled()
 		slot_clicked.emit(self)
 
 
@@ -32,7 +41,7 @@ func active_callback(act: bool) -> void:
 	is_active = act
 
 
-func init(icon_path: String, label, active: bool) -> void:
+func init(icon_path: String, type: SLOT_TYPE = SLOT_TYPE.DEFAULT, active: bool = true, label: String = '' ) -> void:
 	# 图标初始化
 	if icon_path != null and icon_res_container.has(icon_path.get_file().get_basename()):
 		icon_texture.texture = icon_res_container[icon_path.get_file().get_basename()]
@@ -44,9 +53,12 @@ func init(icon_path: String, label, active: bool) -> void:
 	
 	icon_texture.material = slot_material
 	
-	# 关键字
+	# slot label name
 	if label != null:
 		short_cut.text = label
+	
+	slot_type = type
+	is_active = active
 	
 	# 激活 or 不激活	
 	do(active)
