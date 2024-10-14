@@ -30,8 +30,14 @@ var MeshInstance3D_CLZ = "MeshInstance3D"
 var ICON_ENEMY_DIR_PREFIX = "res://Asserts/Images/icon/enemy/"
 var ICON_DEFAULT = "res://Asserts/Images/icon/default.svg"
 
-# State Control
+
+# Selection Box Start and End controller flag
 var SELECTION_START = false
+
 
 # Action Bar
 var SELECTION_BAR_MAX_SLOT_NUM = 16 * 2
+
+
+# Input Event handler state control ( action bar and other _input func)
+var CAN_PASS_THROUGH_3D = true

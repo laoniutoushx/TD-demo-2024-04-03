@@ -22,17 +22,6 @@ var camara_can_automatic_pan:bool = true
 @onready var camara:Camera3D = $camera_socket/Camera3D
 
 
-
-func _ready() -> void:
-	pass
-	
-	
-func _process(delta: float) -> void:
-	pass
-	
-	
-func _unhandled_input(event: InputEvent) -> void:
-	pass
 	
 func camera_base_move(delta:float) -> void:
 	if !camera_can_move_base: return

@@ -1,0 +1,64 @@
+[gd_scene load_steps=11 format=3 uid="uid://c6xjk3lvvm7g7"]
+
+[ext_resource type="Script" path="res://Test/indicator/mouse_pointer.gd" id="1_djnwl"]
+[ext_resource type="Script" path="res://Scripts/camera/camera.gd" id="2_dkeoc"]
+[ext_resource type="Texture2D" uid="uid://mfbpevuvekus" path="res://Asserts/Images/indicator/skill_release_indicator.png" id="3_eo33r"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cdhyu"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_jtlke"]
+sky_material = SubResource("ProceduralSkyMaterial_cdhyu")
+
+[sub_resource type="Environment" id="Environment_mualc"]
+background_mode = 2
+sky = SubResource("Sky_jtlke")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ofwre"]
+albedo_color = Color(0.2106, 0.26, 0.26, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jevgn"]
+size = Vector2(20, 20)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wwh8l"]
+points = PackedVector3Array(10.1548, 0.158668, 10.1548, -10.1548, -0.158668, -10.1548, -10.1548, 0.158668, -10.1548, 10.1548, -0.158668, -10.1548, -10.1548, -0.158668, 10.1548, -10.1548, 0.158668, 10.1548, 10.1548, 0.158668, -10.1548, 10.1548, -0.158668, 10.1548)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8p5sk"]
+
+[node name="MousePointer" type="Node3D"]
+script = ExtResource("1_djnwl")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mualc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_ofwre")
+mesh = SubResource("PlaneMesh_jevgn")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_wwh8l")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_8p5sk")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="RigidBody3D"]
+use_collision = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.7266, -0.29197, 0.621937, 0, 0.905214, 0.424956, -0.687061, -0.308773, 0.657729, 6, 5, 6)
+script = ExtResource("2_dkeoc")
+
+[node name="Decal" type="Decal" parent="."]
+texture_albedo = ExtResource("3_eo33r")

@@ -32,9 +32,10 @@ func _ready() -> void:
 	
 # input event handler register
 func _input(event: InputEvent) -> void:
-	if is_active and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and is_mouse_hover:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and is_mouse_hover:
 		#get_viewport().set_input_as_handled()
 		slot_clicked.emit(self)
+		get_viewport().set_input_as_handled()
 
 
 func active_callback(act: bool) -> void:

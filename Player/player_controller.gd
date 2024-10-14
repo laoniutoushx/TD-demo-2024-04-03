@@ -22,7 +22,6 @@ static var mouse_state: PlayerStatus.MouseState = PlayerStatus.MouseState.IDEL
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# 注册到 main
-	SOS.main.player_controller = self
 
 	# Signal 监听
 	#SignalBus.ray_picker_regist.emit(click_to_select)
@@ -71,18 +70,18 @@ func refresh_selection_units(unit_map: Dictionary) -> void:
 
 
 # player input event handler ( change status )
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed:
-				mouse_key_state = PlayerStatus.MouseKeyState.MOUSE_LEFT_CLICK
-			else:
-				mouse_key_state = PlayerStatus.MouseKeyState.MOUSE_LEFT_RELEASED
-		elif event.button_index == MOUSE_BUTTON_RIGHT:
-			if event.pressed:
-				mouse_key_state = PlayerStatus.MouseKeyState.MOUSE_RIGHT_CLICK
-			else:
-				mouse_key_state = PlayerStatus.MouseKeyState.MOUSE_RIGHT_RELEASED
+# func _input(event: InputEvent) -> void:
+# 	if event is InputEventMouseButton:
+# 		if event.button_index == MOUSE_BUTTON_LEFT:
+# 			if event.pressed:
+# 				mouse_key_state = PlayerStatus.MouseKeyState.MOUSE_LEFT_CLICK
+# 			else:
+# 				mouse_key_state = PlayerStatus.MouseKeyState.MOUSE_LEFT_RELEASED
+# 		elif event.button_index == MOUSE_BUTTON_RIGHT:
+# 			if event.pressed:
+# 				mouse_key_state = PlayerStatus.MouseKeyState.MOUSE_RIGHT_CLICK
+# 			else:
+# 				mouse_key_state = PlayerStatus.MouseKeyState.MOUSE_RIGHT_RELEASED
 
 # keyboard states and mouse states
 class PlayerStatus:
