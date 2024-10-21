@@ -1,4 +1,4 @@
-class_name PlayerController extends Node
+class_name PlayerController extends Node3D
 
 # Scope Node Define
 @onready var select_area: Area3D = %SelectArea
