@@ -13,3 +13,9 @@ func change_mouse_to_magic_circle():
     
     # 将其添加到场景中
     add_child(magic_circle)
+
+
+func _process(delta):
+    if has_node("MagicCircle"):
+        var magic_circle = get_node("MagicCircle")
+        magic_circle.rect_global_position = get_global_mouse_position() - magic_circle.rect_size / 2    

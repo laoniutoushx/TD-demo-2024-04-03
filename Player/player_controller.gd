@@ -4,7 +4,7 @@ class_name PlayerController extends Node
 @onready var select_area: Area3D = %SelectArea
 @onready var collision_shape: CollisionShape3D = %CollisionShape
 @onready var selection_box: SelectionBox = %SelectionBox
-
+@onready var player_skill_scope_indicator: PlayerSkillScopeIndicator = %PlayerSkillScopeIndicator
 
 
 var client_id: String = OS.get_unique_id()
