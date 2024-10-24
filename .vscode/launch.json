@@ -12,8 +12,8 @@
             "address": "127.0.0.1",
             "port": 6007,
             "scene": "main",
-            // "editor_path": "H:\\Godot\\Godot_v4.3-stable_mono_win64\\Godot_v4.3-stable_mono_win64.exe",
-            "editor_path": "E:\\ProgramFiles\\Godot\\Godot_v4.3-stable_mono_win64\\Godot_v4.3-stable_mono_win64.exe",
+            "editor_path": "H:\\Godot\\Godot_v4.3-stable_mono_win64\\Godot_v4.3-stable_mono_win64.exe",
+            // "editor_path": "E:\\ProgramFiles\\Godot\\Godot_v4.3-stable_mono_win64\\Godot_v4.3-stable_mono_win64.exe",
             // engine command line flags
             "profiling": false,
             "single_threaded_scene": false,
