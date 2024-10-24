@@ -7,6 +7,8 @@
 script = ExtResource("1_i7fiu")
 
 [node name="SklillReleaseIndicator" type="Decal" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
-size = Vector3(2, 10, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.82005, 0)
+size = Vector3(10, 10, 10)
 texture_albedo = ExtResource("1_5uq1c")
+emission_energy = 16.0
+modulate = Color(0, 0.329667, 0.86, 1)

@@ -44,5 +44,7 @@ func clear():
 
 func _on_slot_clicked(slot: BaseSlot):
 	print("slot cliecked %s" % "hahaha")
+	# skill indicator show
 	SOS.main.player_controller.player_skill_scope_indicator.show_indicator()
-	pass
+	
+	

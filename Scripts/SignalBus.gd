@@ -19,6 +19,8 @@ signal unit_take_damage(id:int, unit :BaseUnit, damage: float)
 # Class TurretManager - Paramaters [ Collider, Ray_Cast, GridMap ]
 # Class PlayerController - Paramaters [ Camera, viewport ]
 signal ray_picker_regist(callable: Callable)
+signal ray_picker_unregist(callable: Callable)
+
 
 # PlayerController
 signal player_selected_units(unit_map: Dictionary)		# unit selected
