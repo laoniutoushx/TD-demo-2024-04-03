@@ -1,5 +1,7 @@
 class_name PlayerSkillScopeIndicator extends Node3D
 
+# 引入状态机
+
 
 
 func _ready() -> void:
