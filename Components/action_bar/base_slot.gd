@@ -1,10 +1,17 @@
 class_name BaseSlot extends PanelContainer
 
+# type0
 enum SLOT_TYPE {
 	SKILL,
 	SELECT,
 	ITEM,
 	DEFAULT
+}
+
+# slot state
+enum SLOT_STATE {
+	IN_ACTIVE,
+	ACTIVE
 }
 
 signal slot_clicked(s: BaseSlot)
@@ -19,6 +26,10 @@ static var slot_panel_container_unactive_theme: Theme = preload("res://Component
 static var _slot_material = preload("res://Components/action_bar/corner_boder_color.tres")
 static var _slot_shader = preload("res://Components/action_bar/corner_boder_color.gdshader")
 
+# 槽位引用的实体对象
+@export var reference: Variant = null
+# @export var slot_state: SLOT_STATE = SLOT_STATE.IN_ACTIVE
+
 var slot_material: ShaderMaterial
 var icon_res_container := {}
 
@@ -28,7 +39,7 @@ var slot_type: SLOT_TYPE
 
 func _ready() -> void:
 	slot_material = _slot_material.duplicate(true)
-	
+	# slot_state = SLOT_STATE.IN_ACTIVE
 	
 # input event handler register
 func _input(event: InputEvent) -> void:
@@ -43,7 +54,10 @@ func active_callback(act: bool) -> void:
 	
 
 
-func init(icon_path: String, type: SLOT_TYPE = SLOT_TYPE.DEFAULT, active: bool = true, label: String = '' ) -> void:
+func init(ref: Variant, icon_path: String, type: SLOT_TYPE = SLOT_TYPE.DEFAULT, active: bool = true, label: String = '' ) -> void:
+	# 引用实体对象
+	reference = ref
+
 	# 图标初始化
 	if icon_path != null and icon_res_container.has(icon_path.get_file().get_basename()):
 		icon_texture.texture = icon_res_container[icon_path.get_file().get_basename()]

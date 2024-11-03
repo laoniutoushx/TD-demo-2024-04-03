@@ -42,3 +42,39 @@ var code: String
 
 # Skill Script Template( ClassDB )
 @export var script_name: Script
+
+
+# FSM
+
+# What state the turret is in
+enum SKILL_STATE {
+	Idle,
+	Indicate,
+	Released
+}
+
+var current_state: SKILL_STATE = SKILL_STATE.Idle
+
+# Handles everything related to changing states
+# You could also move each state's setup into a separate function if you had a lot to do.
+func change_state(new_state: SKILL_STATE) -> void:
+    current_state = new_state
+    
+    match current_state:
+        SKILL_STATE.Indicate:
+            SOS.main.player_controller.player_skill_scope_indicator.show_indicator()
+            # 开启一个监听器，监听 mouse clicked 事件，事件触发时，切换 skill state
+            var _on_gui_input = func (event: InputEvent) -> void:
+                # 检查事件是否为鼠标按下
+                if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
+                    print("左键点击!")
+
+            var viewport =SOS.main.get_viewport()
+            viewport.connect(SOS.main.input_event, _on_gui_input)
+
+
+        SKILL_STATE.Released:
+            pass
+        SKILL_STATE.Idle:
+            pass
+    

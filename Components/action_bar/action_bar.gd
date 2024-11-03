@@ -150,6 +150,7 @@ class SelectionBarComponent extends BaseBarComponent:
 				if element != null and is_instance_valid(element) and select_slot_instance != null and is_instance_valid(select_slot_instance):
 					print("%s, element player group: %s, player gouup: %s" % [element.clz_name, str(element.player_group), str(SOS.main.player_controller.get_player_group_idx())])
 					select_slot_instance.init(
+						element,
 						element.icon_path,
 						BaseSlot.SLOT_TYPE.SELECT, 
 						element.player_group == SOS.main.player_controller.get_player_group_idx()

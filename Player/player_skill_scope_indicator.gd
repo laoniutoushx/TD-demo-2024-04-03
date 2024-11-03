@@ -5,7 +5,7 @@ class_name PlayerSkillScopeIndicator extends Node3D
 
 
 func _ready() -> void:
-    visible = false
+    hide_indicator()
     pass
 
 

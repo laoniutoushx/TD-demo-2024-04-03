@@ -1,6 +1,7 @@
 class_name SkillBarComponent extends ActionBar.BaseBarComponent
 
-	
+
+var cur_active_slot: BaseSlot	
 	
 func setup_for_unit(unit_map: Dictionary):
 	var unit: BaseUnit = unit_map.values()[0]
@@ -15,6 +16,7 @@ func _create_slot(skill: Skill) -> BaseSlot:
 	var slot_instance: BaseSlot = super.add_element(skill.id, _skill_bar)
 	
 	slot_instance.init(
+		skill,
 		skill.icon_path,
 		BaseSlot.SLOT_TYPE.SKILL, 
 		skill.unit.player_group == SOS.main.player_controller.get_player_group_idx()
@@ -43,8 +45,13 @@ func clear():
 
 
 func _on_slot_clicked(slot: BaseSlot):
+	cur_active_slot = slot
 	print("slot cliecked %s" % "hahaha")
 	# skill indicator show
-	SOS.main.player_controller.player_skill_scope_indicator.show_indicator()
+	var skill: Skill = (slot.reference as Skill)
+
+	skill.change_state(Skill.SKILL_STATE.Indicate)
+
+	# SOS.main.player_controller.player_skill_scope_indicator.show_indicator()
 	
 	
