@@ -14,7 +14,10 @@ class_name Main extends Node3D
 @onready var unit_system: UnitSystem = %UnitSystem
 @onready var skill_system: SkillSystem = %SkillSystem
 
+var input_event_callable_list: Array[Callable] = []
 
 func _ready() -> void:
 	SOS.main = self
 	pass
+
+func _input(event: InputEvent) -> void:

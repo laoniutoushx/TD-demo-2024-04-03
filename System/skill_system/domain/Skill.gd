@@ -64,14 +64,15 @@ func change_state(new_state: SKILL_STATE) -> void:
         SKILL_STATE.Indicate:
             SOS.main.player_controller.player_skill_scope_indicator.show_indicator()
             # 开启一个监听器，监听 mouse clicked 事件，事件触发时，切换 skill state
-            var _on_gui_input = func (event: InputEvent) -> void:
-                # 检查事件是否为鼠标按下
-                if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
-                    print("左键点击!")
 
-            var viewport =SOS.main.get_viewport()
-            viewport.connect(SOS.main.input_event, _on_gui_input)
+            # TODO 在对象实例化时，将 skill 绑定到对象树上，之后可以在 skill 中使用 get_tree() 的方法
 
+            # 可选：如果需要全局监听鼠标点击，可以使用以下方式
+            var click_handler: Callable = func() -> void:
+                print("hello")
+                if Input.is_action_just_pressed("click"):
+                   change_state(SKILL_STATE.Released)
+            get_tree().process_frame.connect(click_handler)
 
         SKILL_STATE.Released:
             pass
