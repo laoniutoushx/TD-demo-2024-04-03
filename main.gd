@@ -21,3 +21,5 @@ func _ready() -> void:
 	pass
 
 func _input(event: InputEvent) -> void:
+	for input_event_callable in input_event_callable_list:
+		input_event_callable.call(event)

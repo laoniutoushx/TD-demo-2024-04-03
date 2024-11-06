@@ -38,6 +38,11 @@ func initialize_skills(unit: BaseUnit, skill_metas: Array[SkillMetaResource]) ->
 		var skill: Skill = _initialize_skill(unit, skill_metas[idx], idx)
 		if skill != null:
 			skill_map[skill.code] = skill
+
+			# add to unit tree
+			skill.name = skill.code
+			self.add_child(skill)
+
 	return skill_map
 	
  # 实例化

@@ -55,6 +55,7 @@ enum SKILL_STATE {
 
 var current_state: SKILL_STATE = SKILL_STATE.Idle
 
+
 # Handles everything related to changing states
 # You could also move each state's setup into a separate function if you had a lot to do.
 func change_state(new_state: SKILL_STATE) -> void:
@@ -68,11 +69,13 @@ func change_state(new_state: SKILL_STATE) -> void:
             # TODO 在对象实例化时，将 skill 绑定到对象树上，之后可以在 skill 中使用 get_tree() 的方法
 
             # 可选：如果需要全局监听鼠标点击，可以使用以下方式
-            var click_handler: Callable = func() -> void:
-                print("hello")
-                if Input.is_action_just_pressed("click"):
-                   change_state(SKILL_STATE.Released)
-            get_tree().process_frame.connect(click_handler)
+            # 动态连接 input_event 信号
+            # GD4 Meta Register
+            self.set("_input", func(event: InputEvent) -> void:
+                print(event)
+
+            )
+ 
 
         SKILL_STATE.Released:
             pass
