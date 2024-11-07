@@ -50,10 +50,19 @@ var code: String
 enum SKILL_STATE {
 	Idle,
 	Indicate,
-	Released
+	Release
 }
 
 var current_state: SKILL_STATE = SKILL_STATE.Idle
+
+
+func _input(event: InputEvent) -> void:
+    if current_state == SKILL_STATE.Indicate and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+        change_state(SKILL_STATE.Release)
+        get_viewport().set_input_as_handled()
+
+
+
 
 
 # Handles everything related to changing states
@@ -63,22 +72,24 @@ func change_state(new_state: SKILL_STATE) -> void:
     
     match current_state:
         SKILL_STATE.Indicate:
+            # 隐藏鼠标光标
+            Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
             SOS.main.player_controller.player_skill_scope_indicator.show_indicator()
-            # 开启一个监听器，监听 mouse clicked 事件，事件触发时，切换 skill state
 
-            # TODO 在对象实例化时，将 skill 绑定到对象树上，之后可以在 skill 中使用 get_tree() 的方法
-
-            # 可选：如果需要全局监听鼠标点击，可以使用以下方式
-            # 动态连接 input_event 信号
-            # GD4 Meta Register
-            self.set("_input", func(event: InputEvent) -> void:
-                print(event)
-
-            )
- 
-
-        SKILL_STATE.Released:
-            pass
+        SKILL_STATE.Release:
+            action()
+            Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
         SKILL_STATE.Idle:
             pass
     
+# skill 动作执行
+func action() -> void:
+    # 加载技能 元数据 对应 action 脚本，执行
+    # 0. 鼠标等效果处理， 施法效果, UI interactive
+    # 1. skill 准备( anim/cooldown/vfx/audio )
+    # 2. skill 执行（ do action ）可包括任何逻辑, take_damage, vfx, other logic, audio 等
+    # 3. skill 完成( vfx/anim/audio )
+
+    # SkillContext 上下文，保存 skill, target, source, position 等信息
+    
+    pass
