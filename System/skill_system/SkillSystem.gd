@@ -63,4 +63,21 @@ func _initialize_skill(unit: BaseUnit, skill_meta_res: SkillMetaResource, idx: i
 	
 	return null
 	
+
+func action(skill_context: SkillContext) -> void:
+	# 判断技能类型
+	# 范围技能
+	# 范围单位选择
 	
+	var skill: Skill = skill_context.skill
+
+	var release_type = skill.release_type
+
+	if release_type == SkillMetaResource.SKILL_RELEASE_TYPE.TARGETED:
+		var range: float = skill.range	# 技能范围
+
+		
+
+
+
+	pass	

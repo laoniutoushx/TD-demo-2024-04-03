@@ -3,6 +3,7 @@ class_name Skill extends Node
 # Reference
 var skill_meta_res: SkillMetaResource
 var unit: BaseUnit
+var target: BaseUnit
 
 
 # meta info 
@@ -26,6 +27,14 @@ var code: String
 @export var release_distance: float 
 # 技能点数（使用次数）
 @export var stock: int  = 1
+
+# 技能内部控制变量
+# 间隔时间
+@export var internal_time: float = 0.1
+# 施法前摇
+@export var start_time: float = 0.1
+# 施法后摇
+@export var end_time: float = 0.1
 
 # consume 消耗
 # level up 
@@ -79,6 +88,7 @@ func change_state(new_state: SKILL_STATE) -> void:
         SKILL_STATE.Release:
             action()
             Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+            SOS.main.player_controller.player_skill_scope_indicator.hide_indicator()
         SKILL_STATE.Idle:
             pass
     
@@ -91,5 +101,13 @@ func action() -> void:
     # 3. skill 完成( vfx/anim/audio )
 
     # SkillContext 上下文，保存 skill, target, source, position 等信息
+    print("action")
     
+    # 技能上下文构建
+    var skill_context: SkillContext = SkillContext.new(self, null, unit, Vector3.ZERO)
+
+    SystemUtil.skill_system.action(skill_context)
+
+
+
     pass

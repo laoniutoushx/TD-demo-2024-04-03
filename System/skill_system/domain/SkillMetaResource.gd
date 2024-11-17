@@ -20,6 +20,8 @@ class_name SkillMetaResource extends Resource
 #直线技能: 沿着一个方向生效，影响路径上的所有单位。
 #扇形技能: 以一个角度扇形区域生效，影响该区域内的单位。
 
+
+
 enum SKILL_RELEASE_TYPE{
 	TARGETED,
 	SELF_CAST,
@@ -58,6 +60,17 @@ enum SKILL_EFFECT_TYPE{
 @export var release_distance: float 
 # 技能点数（使用次数）
 @export var stock: int  = 1
+
+
+# 技能内部控制变量
+# 间隔时间
+@export var internal_time: float = 0.1
+# 施法前摇
+@export var start_time: float = 0.1
+# 施法后摇
+@export var end_time: float = 0.1
+
+
 
 # consume 消耗
 # level up 

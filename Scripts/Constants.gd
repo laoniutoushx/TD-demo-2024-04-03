@@ -25,6 +25,7 @@ var ANIM_DEATH = "destory"
 
 # Script Type
 var MeshInstance3D_CLZ = "MeshInstance3D"
+var AnimationPlayer_CLZ = "AnimationPlayer"
 
 # Enemy Icon Dir Prefix
 var ICON_ENEMY_DIR_PREFIX = "res://Asserts/Images/icon/enemy/"
