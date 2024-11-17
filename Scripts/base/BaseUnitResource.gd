@@ -37,6 +37,10 @@ extends Resource
 @export var anim_idle = Constants.ANIM_IDEL
 @export var anim_death = Constants.ANIM_DEATH
 
+
+@export var anim_release = Constants.ANIM_RELEASE
+
+
 # Action Behavior
 @export_group("Action")
 @export var is_selected_circle: bool = true

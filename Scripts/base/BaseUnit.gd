@@ -52,6 +52,8 @@ var anim_walk = Constants.ANIM_WALK
 var anim_idle = Constants.ANIM_IDEL
 var anim_death = Constants.ANIM_DEATH
 
+var anim_release = Constants.ANIM_RELEASE
+
 # status
 var health : float		
 var max_health : float :
