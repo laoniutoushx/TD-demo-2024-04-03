@@ -47,12 +47,12 @@ var unit_cate: int = 0
 
 
 # ANIMATION
-var anim_run = Constants.ANIM_RUN
-var anim_walk = Constants.ANIM_WALK
-var anim_idle = Constants.ANIM_IDEL
-var anim_death = Constants.ANIM_DEATH
+@export var anim_run = Constants.ANIM_RUN
+@export var anim_walk = Constants.ANIM_WALK
+@export var anim_idle = Constants.ANIM_IDEL
+@export var anim_death = Constants.ANIM_DEATH
 
-var anim_release = Constants.ANIM_RELEASE
+@export var anim_release = Constants.ANIM_RELEASE
 
 # status
 var health : float		

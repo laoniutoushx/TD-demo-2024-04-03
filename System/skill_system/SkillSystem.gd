@@ -76,7 +76,8 @@ func action(skill_context: SkillContext) -> void:
 	if release_type == SkillMetaResource.SKILL_RELEASE_TYPE.TARGETED:
 		var range: float = skill.range	# 技能范围
 
-		
+		var light_chain = LightingChain.new()
+		light_chain.action(skill_context)
 
 
 

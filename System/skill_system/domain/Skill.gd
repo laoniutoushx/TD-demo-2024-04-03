@@ -6,6 +6,7 @@ var unit: BaseUnit
 var target: BaseUnit
 
 
+
 # meta info 
 var id: String
 var code: String
@@ -105,6 +106,7 @@ func action() -> void:
     
     # 技能上下文构建
     var skill_context: SkillContext = SkillContext.new(self, null, unit, Vector3.ZERO)
+
 
     SystemUtil.skill_system.action(skill_context)
 
