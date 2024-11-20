@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://duwov0ffsv1iy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o7kte"]
+albedo_color = Color(33.514, 0.366, 0.519, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jgw72"]
+material = SubResource("StandardMaterial3D_o7kte")
+radius = 0.03
+
+[node name="PlayerMousePosition" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_jgw72")

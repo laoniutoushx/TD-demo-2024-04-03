@@ -19,14 +19,16 @@ class_name SkillMetaResource extends Resource
 #4. 方向性技能
 #直线技能: 沿着一个方向生效，影响路径上的所有单位。
 #扇形技能: 以一个角度扇形区域生效，影响该区域内的单位。
-
+#5. 范围释放技能
+#范围技能: 以目标点为中心的范围生效，影响周围单位。
 
 
 enum SKILL_RELEASE_TYPE{
 	TARGETED,
 	SELF_CAST,
 	NO_TARGET,
-	DIRECTION
+	DIRECTION,
+	CIRCLE_RANGE
 }
 
 enum SKILL_TARGET_TYPE{

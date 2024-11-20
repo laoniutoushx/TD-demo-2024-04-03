@@ -50,7 +50,11 @@ func _on_slot_clicked(slot: BaseSlot):
 	# skill indicator show
 	var skill: Skill = (slot.reference as Skill)
 
-	skill.change_state(Skill.SKILL_STATE.Indicate)
+	if skill.release_type == SkillMetaResource.SKILL_RELEASE_TYPE.TARGETED:
+		skill.change_state(Skill.SKILL_STATE.Targeted_Indicate)
+
+	if skill.release_type == SkillMetaResource.SKILL_RELEASE_TYPE.CIRCLE_RANGE:
+		skill.change_state(Skill.SKILL_STATE.Circle_Range_Indicate)
 
 	# SOS.main.player_controller.player_skill_scope_indicator.show_indicator()
 	

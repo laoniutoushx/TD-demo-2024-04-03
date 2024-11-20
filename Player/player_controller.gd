@@ -7,6 +7,8 @@ class_name PlayerController extends Node3D
 @onready var player_skill_scope_indicator: PlayerSkillScopeIndicator = %PlayerSkillScopeIndicator
 
 
+
+
 var client_id: String = OS.get_unique_id()
 var player_idx: int
 var player_group_idx: int
@@ -18,6 +20,14 @@ var outline_material: ShaderMaterial
 # Player Status
 static var mouse_key_state: PlayerStatus.MouseKeyState = PlayerStatus.MouseKeyState.IDEL
 static var mouse_state: PlayerStatus.MouseState = PlayerStatus.MouseState.IDEL
+
+# Player corsor 
+var cursor_default = load("res://Asserts/Images/indicator/cursor_point.png")
+var cursor_target = load("res://Asserts/Images/indicator/target_select.png")
+
+
+var player_mouse_position
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,6 +41,11 @@ func _ready() -> void:
 	player_group_idx = get_player_group_idx()
 	
 	outline_material = preload("res://Asserts/shared/shader/3d/outline/outline_mat.tres")
+
+	# 设置鼠标光标
+	Input.set_custom_mouse_cursor(cursor_default)
+
+	player_mouse_position = $PlayerMousePosition
 
 # 获取玩家索引信息
 func get_player_idx():
@@ -46,9 +61,20 @@ func _process(delta: float) -> void:
 # area3d 与 mouse position 同步 （ray picker 回调函数）
 func select_area_pos_sync(ray_cast: RayCast3D) -> void:
 	select_area.global_position = ray_cast.get_collision_point()
+	player_mouse_position.global_position = ray_cast.get_collision_point()
 
 
-		
+# mouse coursor 切换
+func switch_cursor(cousor: Constants.CURSOR_STATUS) -> void:
+	if cousor == Constants.CURSOR_STATUS.TARGETED:
+		Input.set_custom_mouse_cursor(cursor_target, Input.CURSOR_ARROW, Vector2(16, 16))
+	else:
+		Input.set_custom_mouse_cursor(cursor_default, Input.CURSOR_ARROW, Vector2(0, 0))
+
+
+
+
+# 选中单位		
 # TODO click select && frame select (click select trigger when show circle, but unit will move out to candidate， how to stop it）
 func refresh_selection_units(unit_map: Dictionary) -> void:
 	# remove last selected units
@@ -68,20 +94,6 @@ func refresh_selection_units(unit_map: Dictionary) -> void:
 	# emit signal player_selected_units
 	SignalBus.player_selected_units.emit(unit_map)
 
-
-# player input event handler ( change status )
-# func _input(event: InputEvent) -> void:
-# 	if event is InputEventMouseButton:
-# 		if event.button_index == MOUSE_BUTTON_LEFT:
-# 			if event.pressed:
-# 				mouse_key_state = PlayerStatus.MouseKeyState.MOUSE_LEFT_CLICK
-# 			else:
-# 				mouse_key_state = PlayerStatus.MouseKeyState.MOUSE_LEFT_RELEASED
-# 		elif event.button_index == MOUSE_BUTTON_RIGHT:
-# 			if event.pressed:
-# 				mouse_key_state = PlayerStatus.MouseKeyState.MOUSE_RIGHT_CLICK
-# 			else:
-# 				mouse_key_state = PlayerStatus.MouseKeyState.MOUSE_RIGHT_RELEASED
 
 # keyboard states and mouse states
 class PlayerStatus:

@@ -59,7 +59,9 @@ var code: String
 # What state the turret is in
 enum SKILL_STATE {
 	Idle,
-	Indicate,
+	Targeted_Indicate,
+    Direction_Indicate,
+    Circle_Range_Indicate,
 	Release
 }
 
@@ -67,7 +69,10 @@ var current_state: SKILL_STATE = SKILL_STATE.Idle
 
 
 func _input(event: InputEvent) -> void:
-    if current_state == SKILL_STATE.Indicate and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+    if ((current_state == SKILL_STATE.Targeted_Indicate or 
+        current_state == SKILL_STATE.Direction_Indicate or 
+        current_state == SKILL_STATE.Circle_Range_Indicate )
+        and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
         change_state(SKILL_STATE.Release)
         get_viewport().set_input_as_handled()
 
@@ -81,12 +86,21 @@ func change_state(new_state: SKILL_STATE) -> void:
     current_state = new_state
     
     match current_state:
-        SKILL_STATE.Indicate:
+        SKILL_STATE.Circle_Range_Indicate:
             # 隐藏鼠标光标
             Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
             SOS.main.player_controller.player_skill_scope_indicator.show_indicator()
+            # 点击任意位置后，释放
+
+        SKILL_STATE.Targeted_Indicate:
+            # 切换鼠标光标
+            SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.TARGETED)
+            # register click event(match click unit)
+            # 必须选中一个目标，才能切换状态（注意必须选中）
 
         SKILL_STATE.Release:
+            # when click left mouse
+
             action()
             Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
             SOS.main.player_controller.player_skill_scope_indicator.hide_indicator()

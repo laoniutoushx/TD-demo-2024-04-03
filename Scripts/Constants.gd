@@ -43,3 +43,10 @@ var SELECTION_BAR_MAX_SLOT_NUM = 16 * 2
 
 # Input Event handler state control ( action bar and other _input func)
 var CAN_PASS_THROUGH_3D = true
+
+
+# Corsor Type
+enum CURSOR_STATUS {
+	DEFAULT,
+	TARGETED
+}
