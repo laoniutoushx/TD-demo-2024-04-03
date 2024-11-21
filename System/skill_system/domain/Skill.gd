@@ -66,15 +66,18 @@ enum SKILL_STATE {
 }
 
 var current_state: SKILL_STATE = SKILL_STATE.Idle
-
+var mouse_click_check = false
 
 func _input(event: InputEvent) -> void:
-    if ((current_state == SKILL_STATE.Targeted_Indicate or 
-        current_state == SKILL_STATE.Direction_Indicate or 
-        current_state == SKILL_STATE.Circle_Range_Indicate )
-        and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
-        change_state(SKILL_STATE.Release)
-        get_viewport().set_input_as_handled()
+    if mouse_click_check and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+        if current_state == SKILL_STATE.Targeted_Indicate:
+            # 检查是否有单位选中（且是地方单位） player <> self.player and player_group == ?
+
+
+        
+        if current_state == SKILL_STATE.Direction_Indicate or current_state == SKILL_STATE.Circle_Range_Indicate:
+            change_state(SKILL_STATE.Release)
+            get_viewport().set_input_as_handled()
 
 
 
@@ -90,12 +93,14 @@ func change_state(new_state: SKILL_STATE) -> void:
             # 隐藏鼠标光标
             Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
             SOS.main.player_controller.player_skill_scope_indicator.show_indicator()
+            mouse_click_check = true
             # 点击任意位置后，释放
 
         SKILL_STATE.Targeted_Indicate:
             # 切换鼠标光标
             SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.TARGETED)
-            # register click event(match click unit)
+            mouse_click_check = true
+            # 监听玩家选择单位信号
             # 必须选中一个目标，才能切换状态（注意必须选中）
 
         SKILL_STATE.Release:

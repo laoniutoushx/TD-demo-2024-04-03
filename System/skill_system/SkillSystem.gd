@@ -71,7 +71,7 @@ func action(skill_context: SkillContext) -> void:
 	
 	var skill: Skill = skill_context.skill
 
-	var release_type = skill.release_type
+	var release_type: SkillMetaResource.SKILL_RELEASE_TYPE = skill.release_type
 
 	if release_type == SkillMetaResource.SKILL_RELEASE_TYPE.TARGETED:
 		var range: float = skill.range	# 技能范围
