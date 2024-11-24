@@ -26,7 +26,14 @@ var cursor_default = load("res://Asserts/Images/indicator/cursor_point.png")
 var cursor_target = load("res://Asserts/Images/indicator/target_select.png")
 
 
-var player_mouse_position
+var player_mouse_position: Node3D
+
+# player status
+var player_status = PLAYER_STATUS.DEFAULT
+enum PLAYER_STATUS {
+	DEFAULT,
+	CHOOSING_TARGETED_UNIT
+}
 
 
 # Called when the node enters the scene tree for the first time.
@@ -76,7 +83,7 @@ func switch_cursor(cousor: Constants.CURSOR_STATUS) -> void:
 
 # 选中单位		
 # TODO click select && frame select (click select trigger when show circle, but unit will move out to candidate， how to stop it）
-func refresh_selection_units(unit_map: Dictionary) -> void:
+func refresh_selection_units(unit_map: Dictionary, mouse_pos: Vector3) -> void:
 	# remove last selected units
 	for unit in PlayerSelect.units():
 		if is_instance_valid(unit) and !unit_map.keys().has(unit.get_instance_id()) and unit.has_method('hide_selected_circle'):
@@ -92,7 +99,7 @@ func refresh_selection_units(unit_map: Dictionary) -> void:
 			(unit as BaseUnit).show_selected_circle()
 	
 	# emit signal player_selected_units
-	SignalBus.player_selected_units.emit(unit_map)
+	SignalBus.player_selected_units.emit(unit_map, mouse_pos)
 
 
 # keyboard states and mouse states
@@ -226,9 +233,9 @@ func _on_selection_box_selecting_started() -> void:
 	PlayerSelect._selecting = true
 
 
-func _on_selection_box_selecting_finished(unit_map: Dictionary) -> void:
+func _on_selection_box_selecting_finished(unit_map: Dictionary, mouse_pos: Vector3) -> void:
 	PlayerSelect._selecting = false
-	refresh_selection_units(unit_map)
+	refresh_selection_units(unit_map, mouse_pos)
 	
 	
 # listening unit death

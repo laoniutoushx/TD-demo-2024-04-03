@@ -141,7 +141,7 @@ func death_effect():
 	signal_physic_dead.connect(_on_physic_dead, CONNECT_ONE_SHOT)
 	
 	# logic animation player
-	var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(self, "AnimationPlayer")
+	var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(self, Constants.AnimationPlayer_CLZ)
 	if ap != null and ap.has_animation(anim_death):
 		ap.play(anim_death)
 		ap.animation_finished.connect(_on_animation_player_animation_finished.bind(self, signal_physic_dead), CONNECT_ONE_SHOT)

@@ -23,4 +23,4 @@ signal ray_picker_unregist(callable: Callable)
 
 
 # PlayerController
-signal player_selected_units(unit_map: Dictionary)		# unit selected
+signal player_selected_units(unit_map: Dictionary, mouse_pos: Vector3)		# unit selected

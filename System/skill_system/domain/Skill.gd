@@ -65,21 +65,63 @@ enum SKILL_STATE {
 	Release
 }
 
-var current_state: SKILL_STATE = SKILL_STATE.Idle
+var current_state: SKILL_STATE
 var mouse_click_check = false
+
+var skill_context: SkillContext
+
+func _ready() -> void:
+    # 技能上下文构建
+    # SkillContext 上下文，保存 skill: Skill, target: BaseUnit, source: BaseUnit, position: Vector3 等信息
+    skill_context = SkillContext.new(self, null, unit, Vector3.ZERO)
+    current_state = SKILL_STATE.Idle
+
 
 func _input(event: InputEvent) -> void:
     if mouse_click_check and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-        if current_state == SKILL_STATE.Targeted_Indicate:
-            # 检查是否有单位选中（且是地方单位） player <> self.player and player_group == ?
-
-
-        
         if current_state == SKILL_STATE.Direction_Indicate or current_state == SKILL_STATE.Circle_Range_Indicate:
+            # 鼠标在 3d 空间中位置
+            skill_context.position =  SOS.main.player_controller.player_mouse_position.global_position
+
             change_state(SKILL_STATE.Release)
+            mouse_click_check = false
+            Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
             get_viewport().set_input_as_handled()
 
 
+func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3):
+    if current_state == SKILL_STATE.Targeted_Indicate:
+        if not unit_map.is_empty():
+            var min_unit = null
+            var min_distance = INF  # 使用 INF 作为初始最小距离
+            
+            # 遍历所有单位
+            for u_key in unit_map.keys():
+                var unit = unit_map.get(u_key)
+                # 计算单位到原点的距离
+                var distance = Vector2(unit.global_position.x, unit.global_position.z).length()
+                
+                # 如果找到更近的单位，更新最小距离和对应的单位
+                if distance < min_distance:
+                    min_distance = distance
+                    min_unit = unit
+            
+            # 此时 min_unit 就是距离原点最近的单位
+            if min_unit:
+                # 在这里处理最近的单位，比如选中它
+                print("最近的单位距离: ", min_distance)
+                print("最近的单位: ", min_unit)
+
+
+                skill_context.position = mouse_pos
+                skill_context.target = min_unit
+                change_state(SKILL_STATE.Release)
+                SignalBus.player_selected_units.disconnect(_on_player_selected_units)
+                SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.DEFAULT)
+
+
+        
+        pass
 
 
 
@@ -90,45 +132,34 @@ func change_state(new_state: SKILL_STATE) -> void:
     
     match current_state:
         SKILL_STATE.Circle_Range_Indicate:
+            # PlayerStatus 切换
+            SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.CHOOSING_TARGETED_UNIT
+            # 技能指示器
+            SOS.main.player_controller.player_skill_scope_indicator.show_indicator()
             # 隐藏鼠标光标
             Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-            SOS.main.player_controller.player_skill_scope_indicator.show_indicator()
             mouse_click_check = true
             # 点击任意位置后，释放
 
         SKILL_STATE.Targeted_Indicate:
+            # PlayerStatus 切换
+            SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.CHOOSING_TARGETED_UNIT
             # 切换鼠标光标
             SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.TARGETED)
-            mouse_click_check = true
             # 监听玩家选择单位信号
             # 必须选中一个目标，才能切换状态（注意必须选中）
+            SignalBus.player_selected_units.connect(_on_player_selected_units)
+            
 
         SKILL_STATE.Release:
             # when click left mouse
+            SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DEFAULT
+            SystemUtil.skill_system.release(skill_context)
 
-            action()
-            Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
             SOS.main.player_controller.player_skill_scope_indicator.hide_indicator()
+            change_state(SKILL_STATE.Idle)
+
+
         SKILL_STATE.Idle:
             pass
     
-# skill 动作执行
-func action() -> void:
-    # 加载技能 元数据 对应 action 脚本，执行
-    # 0. 鼠标等效果处理， 施法效果, UI interactive
-    # 1. skill 准备( anim/cooldown/vfx/audio )
-    # 2. skill 执行（ do action ）可包括任何逻辑, take_damage, vfx, other logic, audio 等
-    # 3. skill 完成( vfx/anim/audio )
-
-    # SkillContext 上下文，保存 skill, target, source, position 等信息
-    print("action")
-    
-    # 技能上下文构建
-    var skill_context: SkillContext = SkillContext.new(self, null, unit, Vector3.ZERO)
-
-
-    SystemUtil.skill_system.action(skill_context)
-
-
-
-    pass

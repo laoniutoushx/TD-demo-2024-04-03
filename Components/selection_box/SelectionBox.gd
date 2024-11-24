@@ -3,7 +3,7 @@ class_name SelectionBox extends Node3D
 signal frame_selecting_unit_entered(unit: BaseUnit)
 signal frame_selecting_unit_exited(unit: BaseUnit)
 signal selecting_started
-signal selecting_finished(unit_map: Dictionary)
+signal selecting_finished(unit_map: Dictionary, end_project_pos: Vector3)
 
 @onready var rectangular_selection_2d: Panel = $RectangularSelection2D
 
@@ -76,7 +76,7 @@ func _finish():
 	area_collision.disabled = true
 	print("finish -> " + str(DoubleCacheSelection.units().keys().size()))
 	var units = DoubleCacheSelection.units()
-	selecting_finished.emit(units)
+	selecting_finished.emit(units, end_project_pos)
 	DoubleCacheSelection.shift_cache()
 
 func _update():

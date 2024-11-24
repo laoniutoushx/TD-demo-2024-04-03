@@ -32,10 +32,11 @@ func get_meta_skill_by_id(skill_code: String) -> SkillMetaResource:
 	return skill_meta_map[skill_code]
 	
 # 实例化 技能
-func initialize_skills(unit: BaseUnit, skill_metas: Array[SkillMetaResource]) -> Dictionary:
+func initialize_skills(source_unit: BaseUnit, skill_metas: Array[SkillMetaResource]) -> Dictionary:
 	var skill_map: Dictionary = {}
 	for idx in range(skill_metas.size()):
-		var skill: Skill = _initialize_skill(unit, skill_metas[idx], idx)
+		var skill: Skill = _initialize_skill(source_unit, skill_metas[idx], idx)
+		skill.unit = source_unit
 		if skill != null:
 			skill_map[skill.code] = skill
 
@@ -46,9 +47,10 @@ func initialize_skills(unit: BaseUnit, skill_metas: Array[SkillMetaResource]) ->
 	return skill_map
 	
  # 实例化
-func _initialize_skill(unit: BaseUnit, skill_meta_res: SkillMetaResource, idx: int = 0) -> Skill:
+func _initialize_skill(source_unit: BaseUnit, skill_meta_res: SkillMetaResource, idx: int = 0) -> Skill:
 	if skill_meta_res != null:
 		var skill: Skill = Skill.new()
+		skill.unit = source_unit
 		CommonUtil.bean_properties_copy(skill_meta_res, skill)
 		skill.skill_meta_res = skill_meta_res
 		skill.sort = idx
@@ -57,17 +59,18 @@ func _initialize_skill(unit: BaseUnit, skill_meta_res: SkillMetaResource, idx: i
 			
 		# skill id
 		skill.id = UUID.v4()
-		skill.unit = unit
 		
 		return skill
 	
 	return null
 	
 
-func action(skill_context: SkillContext) -> void:
-	# 判断技能类型
-	# 范围技能
-	# 范围单位选择
+func release(skill_context: SkillContext) -> void:
+    # 加载技能 元数据 对应 action 脚本，执行
+    # 0. 鼠标等效果处理， 施法效果, UI interactive
+    # 1. skill 准备( anim/cooldown/vfx/audio )
+    # 2. skill 执行（ do action ）可包括任何逻辑, take_damage, vfx, other logic, audio 等
+    # 3. skill 完成( vfx/anim/audio )
 	
 	var skill: Skill = skill_context.skill
 
