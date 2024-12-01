@@ -28,6 +28,13 @@ func action(skill_context: SkillContext) -> void:
     await CommonUtil.await_timer(skill_context.skill.start_time)
 
 
+    # 技能释放
+    # 特效绑定模型位置
+    # 伤害触发
+
+    # -- vfx/source_unit/target_unit handler
+
+
     pass
 
 
