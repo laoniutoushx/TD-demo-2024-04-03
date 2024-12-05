@@ -1,4 +1,9 @@
-[gd_resource type="ArrayMesh" format=4 uid="uid://bo5gxac5u8hrw"]
+[gd_resource type="ArrayMesh" load_steps=3 format=4 uid="uid://bo5gxac5u8hrw"]
+
+[ext_resource type="Texture2D" uid="uid://crjkbnvogaxw2" path="res://Asserts/Images/lightning4b.png" id="1_kibeh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7syov"]
+albedo_texture = ExtResource("1_kibeh")
 
 [resource]
 _surfaces = [{
@@ -7,6 +12,7 @@ _surfaces = [{
 "format": 34896613399,
 "index_count": 6,
 "index_data": PackedByteArray("AAABAAIAAgABAAMA"),
+"material": SubResource("StandardMaterial3D_7syov"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
