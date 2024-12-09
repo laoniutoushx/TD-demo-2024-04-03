@@ -1,0 +1,60 @@
+[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://bobabpabvjoxf"]
+
+[ext_resource type="Texture2D" uid="uid://bqedjnyqktse" path="res://Asserts/Images/indicator/mark_floor.png" id="1_vo7p6"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_hvs0a"]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_6kij6"]
+texture = ExtResource("1_vo7p6")
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_dai38"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_s08u7"]
+parameter_name = "ColorParameter"
+default_value_enabled = true
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
+
+uniform vec4 ColorParameter : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
+uniform sampler2D tex_frg_3;
+
+
+
+void fragment() {
+// ColorParameter:5
+	vec4 n_out5p0 = ColorParameter;
+
+
+// Input:2
+	vec4 n_out2p0 = COLOR;
+
+
+// Texture2D:3
+	vec4 n_out3p0 = texture(tex_frg_3, UV);
+
+
+// FloatOp:4
+	float n_out4p0 = n_out2p0.x * n_out3p0.x;
+
+
+// Output:0
+	ALBEDO = vec3(n_out5p0.xyz);
+	ALPHA = n_out4p0;
+
+
+}
+"
+flags/unshaded = true
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_hvs0a")
+nodes/fragment/2/position = Vector2(-535, 331)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_6kij6")
+nodes/fragment/3/position = Vector2(-620, 500)
+nodes/fragment/4/node = SubResource("VisualShaderNodeFloatOp_dai38")
+nodes/fragment/4/position = Vector2(33, 193)
+nodes/fragment/5/node = SubResource("VisualShaderNodeColorParameter_s08u7")
+nodes/fragment/5/position = Vector2(-80, 520)
+nodes/fragment/connections = PackedInt32Array(2, 0, 4, 0, 3, 0, 4, 1, 4, 0, 0, 1, 5, 0, 0, 0)

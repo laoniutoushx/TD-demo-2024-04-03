@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cu530yo3ckh2b"]
-
-[ext_resource type="ArrayMesh" uid="uid://cmqarno8i2rgc" path="res://Asserts/thunder_editable.tres" id="1_llg42"]
-
-[node name="LightingChianVfx" type="Node3D"]
-
-[node name="ThunderLighting" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
-mesh = ExtResource("1_llg42")

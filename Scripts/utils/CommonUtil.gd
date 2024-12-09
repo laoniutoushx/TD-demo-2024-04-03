@@ -198,7 +198,7 @@ class ResourceLoaderUtil:
 			while file_name != "":
 				if dir.current_is_dir():
 					# 递归处理子目录
-					load_resources_to_container_from_directory(path.plus_file(file_name), container if container != null else _common_container)
+					load_resources_to_container_from_directory(dir.get_current_dir() + "/" + file_name, container if container != null else _common_container)
 				elif file_name.ends_with(".tres") or file_name.ends_with(".tscn") or file_name.ends_with("png") or file_name.ends_with("svg"):
 					# 加载资源
 					var full_path = path + "/" + file_name

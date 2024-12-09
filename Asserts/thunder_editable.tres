@@ -1,4 +1,22 @@
-[gd_resource type="ArrayMesh" format=4 uid="uid://cmqarno8i2rgc"]
+[gd_resource type="ArrayMesh" load_steps=7 format=4 uid="uid://cmqarno8i2rgc"]
+
+[ext_resource type="Shader" uid="uid://bobabpabvjoxf" path="res://VFX/lighting/mark_shader.tres" id="1_sqq6g"]
+[ext_resource type="Shader" uid="uid://dve64n1tdddq7" path="res://Asserts/thunder_shader.tres" id="1_xlbha"]
+[ext_resource type="Shader" uid="uid://d0wapq72rl42h" path="res://VFX/lighting/wave_shader.tres" id="3_m11f5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ior7v"]
+render_priority = 0
+shader = ExtResource("1_sqq6g")
+shader_parameter/ColorParameter = Color(0.203922, 0.784314, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rd5jq"]
+render_priority = 0
+shader = ExtResource("1_xlbha")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jylu0"]
+render_priority = 0
+shader = ExtResource("3_m11f5")
+shader_parameter/ColorParameter = Color(0, 0.870588, 1, 1)
 
 [resource]
 _surfaces = [{
@@ -7,6 +25,7 @@ _surfaces = [{
 "format": 34896613399,
 "index_count": 6,
 "index_data": PackedByteArray("AAABAAIAAgABAAMA"),
+"material": SubResource("ShaderMaterial_ior7v"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -18,6 +37,7 @@ _surfaces = [{
 "format": 34896613399,
 "index_count": 120,
 "index_data": PackedByteArray("AAABAAIAAgABAAMABAAFAAYABgAFAAcABgAHAAgACAAHAAkACAAJAAoACgAJAAsACgALAAwADAALAA0ADAANAA4ADgANAA8ADgAPABAAEAAPABEAEAARABIAEgARABMAEgATABQAFAATABUAFAAVABYAFgAVABcAFgAXABgAGAAXABkAGAAZABoAGgAZABsAGgAbABwAHAAbAB0AHAAdAB4AHgAdAB8AHgAfACAAIAAfACEAIAAhACIAIgAhACMAIgAjACQAJAAjACUAJAAlACYAJgAlACcAJgAnACgAKAAnACkAKAApAAAAAAApAAEA"),
+"material": SubResource("ShaderMaterial_rd5jq"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -29,6 +49,7 @@ _surfaces = [{
 "format": 34896613399,
 "index_count": 192,
 "index_data": PackedByteArray("AAABAAIAAgABAAMABAAAAAUABQAAAAIABgAEAAcABwAEAAUACAAGAAkACQAGAAcACgAIAAsACwAIAAkADAAKAA0ADQAKAAsADgAMAA8ADwAMAA0AEAAOABEAEQAOAA8AEgAQABMAEwAQABEAFAASABUAFQASABMAFgAUABcAFwAUABUAGAAWABkAGQAWABcAGgAYABsAGwAYABkAHAAaAB0AHQAaABsAHgAcAB8AHwAcAB0AIAAeACEAIQAeAB8AIgAgACMAIwAgACEAJAAiACUAJQAiACMAJgAkACcAJwAkACUAKAAmACkAKQAmACcAKgAoACsAKwAoACkALAAqAC0ALQAqACsALgAsAC8ALwAsAC0AMAAuADEAMQAuAC8AMgAwADMAMwAwADEANAAyADUANQAyADMANgA0ADcANwA0ADUAOAA2ADkAOQA2ADcAOgA4ADsAOwA4ADkAPAA6AD0APQA6ADsAPgA8AD8APwA8AD0AQAA+AEEAQQA+AD8A"),
+"material": SubResource("ShaderMaterial_jylu0"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),

@@ -7,6 +7,7 @@ class_name LightingChain extends Node
 func action(skill_context: SkillContext) -> void:
     # 播放施法动画 & 声音
     var source_unit: BaseUnit = skill_context.source
+    var target_unit: BaseUnit = skill_context.target
 
     if source_unit is Gdbot:
         source_unit.jump()
@@ -33,6 +34,9 @@ func action(skill_context: SkillContext) -> void:
     # 伤害触发
 
     # -- vfx/source_unit/target_unit handler
+    var vfx = SystemUtil.vfx_system.create_vfx("lighting_chian", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
+    target_unit.add_child(vfx)
+
 
 
     pass
