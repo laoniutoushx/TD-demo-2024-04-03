@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cu530yo3ckh2b"]
+[gd_scene load_steps=6 format=3 uid="uid://cu530yo3ckh2b"]
 
 [ext_resource type="ArrayMesh" uid="uid://cmqarno8i2rgc" path="res://Asserts/thunder_editable.tres" id="1_llg42"]
+[ext_resource type="Script" path="res://VFX/lighting/vfx_lighting_chian_running.gd" id="1_tl6gl"]
 
 [sub_resource type="Gradient" id="Gradient_1hr1u"]
 
@@ -12,9 +13,13 @@ gravity = Vector3(0, 0, 0)
 color_ramp = SubResource("GradientTexture1D_fp5x7")
 
 [node name="LightingChianVfx" type="Node3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+script = ExtResource("1_tl6gl")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
 amount = 1
 lifetime = 0.25
+one_shot = true
 process_material = SubResource("ParticleProcessMaterial_3rux6")
 draw_pass_1 = ExtResource("1_llg42")

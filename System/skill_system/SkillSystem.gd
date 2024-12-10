@@ -59,6 +59,10 @@ func _initialize_skill(source_unit: BaseUnit, skill_meta_res: SkillMetaResource,
 			
 		# skill id
 		skill.id = UUID.v4()
+
+		print(skill.code)
+		print(skill.name)
+		print(skill.value)
 		
 		return skill
 	

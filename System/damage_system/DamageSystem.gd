@@ -34,3 +34,10 @@ func animation_action(source: BaseUnit, target:BaseUnit):
 
 func _process(delta: float) -> void:
 	_tick += delta
+
+
+
+func skill_damage(skill: Skill, source: BaseUnit, target:BaseUnit):
+	print(skill.value)
+	target.take_damage(skill.value)
+	pass

@@ -7,6 +7,8 @@ var clazz: BaseUnitResource
 
 # signal
 var signal_container = {}
+signal logical_death(unit: BaseUnit)
+signal physic_death(unit: BaseUnit)
 
 # meta properity
 var clz_code: String
@@ -102,6 +104,10 @@ func _ready() -> void:
 	# system component load（skill）
 	skill_map = SystemUtil.skill_system.initialize_skills(self, skill_metas)
 
+	# signal register
+	logical_death.connect(_on_logic_dead, CONNECT_ONE_SHOT)
+	physic_death.connect(_on_physic_dead, CONNECT_ONE_SHOT)
+
 # clz 初始化
 func clazz_init():
 	var current_scene_name: String = self.scene_file_path.get_file().get_basename()
@@ -163,6 +169,9 @@ func _on_animation_player_animation_finished(anim_name: String, unit:BaseUnit, s
 func _on_physic_dead(unit: BaseUnit) -> void:
 	unit.queue_free()
 
+func _on_logic_dead(unit: BaseUnit) -> void:
+	if unit:
+		unit.do_after_logic_dead()
 
 
 # is dead
@@ -176,8 +185,9 @@ func take_damage(damage: float):
 	SignalBus.unit_take_damage.emit(get_instance_id(), self, damage)
 	if is_logic_dead():
 		print("emit signal - " + Constants.LOGIC_DEAD + str(get_instance_id()))
-		var signal_enemy_death: Signal = signal_container.get(Constants.LOGIC_DEAD + str(get_instance_id()))
-		signal_enemy_death.emit(self)
+		logical_death.emit(self)
+		# var signal_enemy_death: Signal = signal_container.get(Constants.LOGIC_DEAD + str(get_instance_id()))
+		# signal_enemy_death.emit(self)
 		# Global Signal
 		SignalBus.unit_logic_death.emit(get_instance_id(), self)
 

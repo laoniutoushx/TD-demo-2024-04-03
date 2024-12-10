@@ -62,6 +62,8 @@ enum SKILL_EFFECT_TYPE{
 @export var release_distance: float 
 # 技能点数（使用次数）
 @export var stock: int  = 1
+# 值
+@export var value: float
 
 
 # 技能内部控制变量

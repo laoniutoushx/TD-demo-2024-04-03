@@ -100,7 +100,8 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 	var enemy = area.owner
 	if enemy != null && enemy is BaseUnit && enemy.player_owner_idx != self.player_owner_idx && !enemy.is_logic_dead():
 		enemies.append(enemy)
-		enemy_signal_registger(enemy)
+		(enemy as BaseUnit).logical_death.connect(_on_enemy_logic_death, CONNECT_ONE_SHOT)
+		# enemy_signal_registger(enemy)
 				
 
 
@@ -121,7 +122,6 @@ func enemy_signal_registger(enemy) -> void:
 	# turret 监听当前信号，绑定某个 func 
 	signal_enemy_death.connect(_on_enemy_logic_death, CONNECT_ONE_SHOT)
 	enemy.signal_container[signal_name] = signal_enemy_death
-	pass
 
 
 # enemy 死亡触发事件， turret 监听该 enemy 死亡事件，删除对应敌人集合
@@ -129,6 +129,3 @@ func _on_enemy_logic_death(enemy: BaseUnit) -> void:
 	enemies.erase(enemy)
 	if current_enemy == enemy:
 		current_enemy = null
-	if enemy:
-		enemy.do_after_logic_dead()
-	pass

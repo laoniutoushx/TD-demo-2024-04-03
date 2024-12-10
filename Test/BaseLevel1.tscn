@@ -162,7 +162,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 11)
 
 [node name="Enemy" parent="." instance=ExtResource("10_64q00")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.994, 0, 6.301)
-max_health = 1000.0
 
 [node name="VfxSystem" parent="." instance=ExtResource("12_tuabp")]
 

@@ -1,7 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cfkgmuw8ts8h1"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pevc1"]
-load_path = "res://.godot/imported/target_select.png-86cd040297e5ce58dd756ff4f04ffb1c.s3tc.ctex"
 
 [node name="TargetedIndicator" type="Node2D"]
 
