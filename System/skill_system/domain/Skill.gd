@@ -66,7 +66,8 @@ enum SKILL_STATE {
 	Targeted_Indicate,
     Direction_Indicate,
     Circle_Range_Indicate,
-	Release
+	Release,
+    Cool_Down
 }
 
 var current_state: SKILL_STATE
@@ -120,7 +121,6 @@ func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3):
                 skill_context.position = mouse_pos
                 skill_context.target = min_unit
                 change_state(SKILL_STATE.Release)
-                transition_to_release()
                 SignalBus.player_selected_units.disconnect(_on_player_selected_units)
                 SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.DEFAULT)
 
@@ -162,12 +162,18 @@ func change_state(new_state: SKILL_STATE) -> void:
             SystemUtil.skill_system.release(skill_context)
 
             SOS.main.player_controller.player_skill_scope_indicator.hide_indicator()
-            change_state(SKILL_STATE.Idle)
+            change_state(SKILL_STATE.Cool_Down)
 
+        SKILL_STATE.Cool_Down:
+            slot.progress_bar.visible = true
+            slot.timer.start()
+            slot.set_process(true)
+            await slot.timer.timeout
+            slot.progress_bar.visible = false
+            slot.set_process(false)
+            change_state(SKILL_STATE.Idle)
 
         SKILL_STATE.Idle:
             pass
     
-func transition_to_release():
-    
-    slot.progress_bar
+

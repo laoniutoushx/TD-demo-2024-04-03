@@ -20,6 +20,7 @@ signal slot_clicked(s: BaseSlot)
 @onready var icon_texture: TextureRect = $IconTexture
 @onready var short_cut: Label = $ShortCut
 @onready var progress_bar: TextureProgressBar = $TextureProgressBar
+@onready var timer: Timer = $Timer
 
 static var action_bar: ActionBar
 
@@ -43,10 +44,18 @@ var mapping_key: String = ""
 func _ready() -> void:
 	slot_material = _slot_material.duplicate(true)
 	progress_bar.value = 0.0
+	progress_bar.visible = false
 	# slot_state = SLOT_STATE.IN_ACTIVE
+	set_process(false)
+
+	# skill init
+	if reference:
+		timer.wait_time = reference.cooldown
+		progress_bar.max_value = reference.cooldown
+
 	
 # input event handler register
-func _input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void: 
 	# 绑定鼠标左键点击
 	if (is_mouse_hover and
 			(
@@ -57,7 +66,7 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 	# 按键主动绑定到显示的 slot 上（每次切换 action bar 时动态绑定）
-	if mapping_key != "" and event is InputEventKey and event.pressed:
+	if mapping_key != "" and reference.current_state == reference.SKILL_STATE.Idle and event is InputEventKey and event.pressed:
 		if InputMap.action_has_event(mapping_key, event):
 			print("Triggered action:", mapping_key)
 			slot_clicked.emit(self)
@@ -117,3 +126,7 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
 	is_mouse_hover = false
 	icon_texture.material.set_shader_parameter("show_border", false)
+
+
+func _process(delta: float) -> void:
+	progress_bar.value = timer.time_left
