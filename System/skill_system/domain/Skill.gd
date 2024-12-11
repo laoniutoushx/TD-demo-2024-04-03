@@ -4,6 +4,7 @@ class_name Skill extends Node
 var skill_meta_res: SkillMetaResource
 var unit: BaseUnit
 var target: BaseUnit
+var slot: BaseSlot
 
 
 
@@ -119,6 +120,7 @@ func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3):
                 skill_context.position = mouse_pos
                 skill_context.target = min_unit
                 change_state(SKILL_STATE.Release)
+                transition_to_release()
                 SignalBus.player_selected_units.disconnect(_on_player_selected_units)
                 SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.DEFAULT)
 
@@ -166,3 +168,6 @@ func change_state(new_state: SKILL_STATE) -> void:
         SKILL_STATE.Idle:
             pass
     
+func transition_to_release():
+    
+    slot.progress_bar

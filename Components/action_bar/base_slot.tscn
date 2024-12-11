@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2fad1mnop0tn"]
+[gd_scene load_steps=7 format=3 uid="uid://d2fad1mnop0tn"]
 
 [ext_resource type="Theme" uid="uid://diau7m8wv81l3" path="res://Components/action_bar/slot_panel_container_unactive_theme.tres" id="1_agtpx"]
 [ext_resource type="Script" path="res://Components/action_bar/base_slot.gd" id="1_csdik"]
 [ext_resource type="Texture2D" uid="uid://dowc03iavj7w8" path="res://Asserts/Images/item/1.png" id="1_fdg41"]
 [ext_resource type="LabelSettings" uid="uid://dddgoh2chfqp" path="res://Asserts/resources/action_bar_label_setting.tres" id="2_cwpij"]
 [ext_resource type="Material" uid="uid://bvuqnh7l05igc" path="res://Components/action_bar/corner_boder_color.tres" id="3_4x347"]
+[ext_resource type="Texture2D" uid="uid://b4ledf1xcnbsk" path="res://Asserts/Images/icon/white.jpg" id="6_kjqx3"]
 
 [node name="BaseSlot" type="PanelContainer"]
 material = ExtResource("3_4x347")
@@ -15,7 +16,6 @@ theme = ExtResource("1_agtpx")
 script = ExtResource("1_csdik")
 
 [node name="IconTexture" type="TextureRect" parent="."]
-self_modulate = Color(0.453232, 0.453232, 0.453232, 1)
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("1_fdg41")
@@ -26,6 +26,15 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 label_settings = ExtResource("2_cwpij")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.25
+fill_mode = 4
+texture_progress = ExtResource("6_kjqx3")
+tint_progress = Color(0, 0, 0, 0.47)
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

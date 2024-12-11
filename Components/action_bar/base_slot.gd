@@ -19,6 +19,7 @@ signal slot_clicked(s: BaseSlot)
 
 @onready var icon_texture: TextureRect = $IconTexture
 @onready var short_cut: Label = $ShortCut
+@onready var progress_bar: TextureProgressBar = $TextureProgressBar
 
 static var action_bar: ActionBar
 
@@ -36,20 +37,35 @@ var icon_res_container := {}
 var is_active: bool = false
 var is_mouse_hover: bool = false
 var slot_type: SLOT_TYPE
+# 快捷键（写死）
+var mapping_key: String = ""
 
 func _ready() -> void:
 	slot_material = _slot_material.duplicate(true)
+	progress_bar.value = 0.0
 	# slot_state = SLOT_STATE.IN_ACTIVE
 	
 # input event handler register
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and is_mouse_hover:
-		#get_viewport().set_input_as_handled()
+	# 绑定鼠标左键点击
+	if (is_mouse_hover and
+			(
+				event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed 
+			)
+		):
 		slot_clicked.emit(self)
 		get_viewport().set_input_as_handled()
 
+	# 按键主动绑定到显示的 slot 上（每次切换 action bar 时动态绑定）
+	if mapping_key != "" and event is InputEventKey and event.pressed:
+		if InputMap.action_has_event(mapping_key, event):
+			print("Triggered action:", mapping_key)
+			slot_clicked.emit(self)
+			get_viewport().set_input_as_handled()
+
 
 func active_callback(act: bool) -> void:
+	# 回调函数（当前 slot 是否激活状态设置）
 	is_active = act
 	
 

@@ -2,7 +2,8 @@ class_name SkillBarComponent extends ActionBar.BaseBarComponent
 
 
 var cur_active_slot: BaseSlot	
-	
+
+
 func setup_for_unit(unit_map: Dictionary):
 	var unit: BaseUnit = unit_map.values()[0]
 	var skill_map: Dictionary = unit.skill_map
@@ -10,9 +11,11 @@ func setup_for_unit(unit_map: Dictionary):
 		for code in skill_map.keys():
 			if _slot_num <= 5:
 				var skill: Skill = skill_map[code]
-				_create_slot(skill)
+				var _slot = _create_skill_slot(skill)
+				skill.slot = _slot
+				_bind_mapping_key(_slot, _slot_num)
 
-func _create_slot(skill: Skill) -> BaseSlot:	
+func _create_skill_slot(skill: Skill) -> BaseSlot:	
 	var slot_instance: BaseSlot = super.add_element(skill.id, _skill_bar)
 	
 	slot_instance.init(
@@ -26,7 +29,24 @@ func _create_slot(skill: Skill) -> BaseSlot:
 	_slot_num += 1
 
 	return slot_instance
-	
+
+# 绑定快捷键
+# 按键主动绑定到显示的 slot 上（每次切换 action bar 时动态绑定）
+func _bind_mapping_key(slot: BaseSlot, idx: int):
+	var short_cut_text = ""
+	if idx == 1:
+		short_cut_text = "Q"
+	elif idx == 2:
+		short_cut_text = "W"
+	elif idx == 3:
+		short_cut_text = "E"
+	elif idx == 4:
+		short_cut_text = "R"
+	elif idx == 5:
+		short_cut_text = "T"	
+
+	slot.mapping_key = short_cut_text
+	slot.short_cut.text = short_cut_text
 	
 func remove_element(ele: Variant):
 	ele = (ele as Skill)
