@@ -21,9 +21,6 @@ layout_mode = 2
 texture = ExtResource("1_fdg41")
 expand_mode = 1
 
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
-
 [node name="ShortCut" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 0

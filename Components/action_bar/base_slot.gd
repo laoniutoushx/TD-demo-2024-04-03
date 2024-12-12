@@ -20,7 +20,7 @@ signal slot_clicked(s: BaseSlot)
 @onready var icon_texture: TextureRect = $IconTexture
 @onready var short_cut: Label = $ShortCut
 @onready var progress_bar: TextureProgressBar = $TextureProgressBar
-@onready var timer: Timer = $Timer
+var timer: Timer
 
 static var action_bar: ActionBar
 
@@ -42,16 +42,10 @@ var slot_type: SLOT_TYPE
 var mapping_key: String = ""
 
 func _ready() -> void:
+	set_process(false)
 	slot_material = _slot_material.duplicate(true)
 	progress_bar.value = 0.0
 	progress_bar.visible = false
-	# slot_state = SLOT_STATE.IN_ACTIVE
-	set_process(false)
-
-	# skill init
-	if reference:
-		timer.wait_time = reference.cooldown
-		progress_bar.max_value = reference.cooldown
 
 	
 # input event handler register
@@ -79,7 +73,7 @@ func active_callback(act: bool) -> void:
 	
 
 
-func init(ref: Variant, icon_path: String, type: SLOT_TYPE = SLOT_TYPE.DEFAULT, active: bool = true, label: String = '' ) -> void:
+func custome_init(ref: Variant, icon_path: String, type: SLOT_TYPE = SLOT_TYPE.DEFAULT, active: bool = true, label: String = '' ) -> void:
 	# 引用实体对象
 	reference = ref
 
@@ -129,4 +123,6 @@ func _on_mouse_exited() -> void:
 
 
 func _process(delta: float) -> void:
-	progress_bar.value = timer.time_left
+	if timer:
+		progress_bar.value = timer.time_left
+		print(timer.time_left)

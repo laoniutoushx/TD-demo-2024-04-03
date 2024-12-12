@@ -57,6 +57,10 @@ var code: String
 # Skill Script Template( ClassDB )
 @export var script_name: Script
 
+# Timer
+var cool_down_timer: Timer
+
+
 
 # FSM
 
@@ -80,6 +84,14 @@ func _ready() -> void:
     # SkillContext 上下文，保存 skill: Skill, target: BaseUnit, source: BaseUnit, position: Vector3 等信息
     skill_context = SkillContext.new(self, null, unit, Vector3.ZERO)
     current_state = SKILL_STATE.Idle
+
+    # cool_down_timer 配置
+    cool_down_timer = Timer.new()
+    cool_down_timer.one_shot = true
+    cool_down_timer.autostart = false
+    cool_down_timer.wait_time = cooldown
+    add_child(cool_down_timer)
+
 
 
 func _input(event: InputEvent) -> void:
@@ -166,9 +178,9 @@ func change_state(new_state: SKILL_STATE) -> void:
 
         SKILL_STATE.Cool_Down:
             slot.progress_bar.visible = true
-            slot.timer.start()
+            cool_down_timer.start()
             slot.set_process(true)
-            await slot.timer.timeout
+            await cool_down_timer.timeout
             slot.progress_bar.visible = false
             slot.set_process(false)
             change_state(SKILL_STATE.Idle)

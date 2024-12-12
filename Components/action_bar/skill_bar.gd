@@ -3,7 +3,7 @@ class_name SkillBarComponent extends ActionBar.BaseBarComponent
 
 var cur_active_slot: BaseSlot	
 
-
+# 装配 skill 时，需要检查 skill 状态，当 skill 处于 release 状态时，需要处理 progress_bar  等信息
 func setup_for_unit(unit_map: Dictionary):
 	var unit: BaseUnit = unit_map.values()[0]
 	var skill_map: Dictionary = unit.skill_map
@@ -18,7 +18,7 @@ func setup_for_unit(unit_map: Dictionary):
 func _create_skill_slot(skill: Skill) -> BaseSlot:	
 	var slot_instance: BaseSlot = super.add_element(skill.id, _skill_bar)
 	
-	slot_instance.init(
+	slot_instance.custome_init(
 		skill,
 		skill.icon_path,
 		BaseSlot.SLOT_TYPE.SKILL, 
@@ -26,6 +26,20 @@ func _create_skill_slot(skill: Skill) -> BaseSlot:
 	)
 	# click signal listener
 	slot_instance.slot_clicked.connect(_on_slot_clicked)
+
+
+	# slot_state = SLOT_STATE.IN_ACTIVE
+
+	# skill init
+	slot_instance.timer = skill.cool_down_timer
+	slot_instance.progress_bar.max_value = skill.cooldown
+
+	# if skill status = Cool_Down
+	if skill.current_state == skill.SKILL_STATE.Cool_Down:
+		slot_instance.progress_bar.value = skill.cool_down_timer.time_left
+		slot_instance.progress_bar.visible = true
+		slot_instance.set_process(true)
+
 	_slot_num += 1
 
 	return slot_instance
