@@ -31,6 +31,7 @@ mesh = SubResource("BoxMesh_pclmo")
 shape = SubResource("ConcavePolygonShape3D_nauxq")
 
 [node name="TurretBase" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("BoxMesh_a2llf")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TurretBase"]

@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cgaedihpqlmgm"]
+
+[ext_resource type="Shader" path="res://Test/glow shader test 2/glow 3d.gdshader" id="1_vbb67"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_vbb67")
