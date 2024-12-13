@@ -177,7 +177,8 @@ static func bean_properties_copy(src: Object, tar: Object) -> Variant:
 			if tar.has_method("get") and tar.has_method("set"):
 				if tar.get_indexed(prop_name) != null:
 					var value = src.get(prop_name)
-					tar.set(prop_name, value)
+					if value != null:
+						tar.set(prop_name, value)
 	
 	return tar
 

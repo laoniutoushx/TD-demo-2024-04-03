@@ -1,9 +1,10 @@
 # BaseUnit.gd
 class_name BaseUnit extends Node
 
+
+@export_group("Unit Steup")
 # ref resource
 var clazz: BaseUnitResource
-@export var skill_metas: Array[SkillMetaResource] = []	# skill meta info
 
 # signal
 var signal_container = {}
@@ -17,6 +18,30 @@ var clz_name: String
 
 # icon 
 var icon_path: String
+
+# define how unit move on mesh ground
+@export_flags("WALK", "FLYING", "SWIM") var unit_move_type: int = 0
+# define unit category
+@export_flags("HUMAN", "BUILDING", "DECORATE_DESTORIED", "DECORATE_FOREVER") var unit_cate = 0
+# armor
+@export var armor_amount: float
+@export_flags("INVINCIBLE", "NORMAL", "HERO") var armor_type = 0
+
+
+# status
+var health : float		
+var max_health : float :
+	set(value):
+		health = value
+		max_health = value
+		
+var _is_alive := true
+
+var move_speed : float
+var turn_speed : float
+var attack_speed : float
+
+
 
 # material and mesh
 var _outline_mesh: MeshInstance3D
@@ -32,6 +57,8 @@ var _mesh_standing: MeshInstance3D
 # selected circle
 var is_selected_circle: bool
 
+
+@export_group("Player")
 # player meta into
 # @export_flags("P0", "P1", "P2", "P3") 
 @export var player_owner_idx: int
@@ -40,15 +67,10 @@ var is_selected_circle: bool
 @export var player_group: int
 
 
-# define how unit move on mesh ground
-# @export_flags("WALK", "FLYING", "SWIM") 
-var unit_move_type: int = 0
-# define unit category
-# @export_flags("HUMAN", "BUILDING", "DECORATE_DESTORIED", "DECORATE_FOREVER") 
-var unit_cate: int = 0
 
 
 # ANIMATION
+@export_group("Animation")
 @export var anim_run = Constants.ANIM_RUN
 @export var anim_walk = Constants.ANIM_WALK
 @export var anim_idle = Constants.ANIM_IDEL
@@ -56,24 +78,15 @@ var unit_cate: int = 0
 
 @export var anim_release = Constants.ANIM_RELEASE
 
-# status
-var health : float		
-var max_health : float :
-	set(value):
-		health = value
-		max_health = value
-		
-var _is_alive := true
 
-var move_speed : float
-var turn_speed : float
-var attack_speed : float
-
+@export_group("System Component")
 # FightRegion
 var vfx_projectile_name: String
 var projectile_speed: String
 var projectile_trace: Curve3D
 
+@export_group("Skill")
+@export var skill_metas: Array[SkillMetaResource] = []	# skill meta info
 # Skill（实例化后的技能列表）
 var skill_map: Dictionary = {}
 

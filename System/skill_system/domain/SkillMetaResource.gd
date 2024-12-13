@@ -24,7 +24,7 @@ class_name SkillMetaResource extends Resource
 
 
 enum SKILL_RELEASE_TYPE{
-	TARGETED,
+	TARGETED,	
 	SELF_CAST,
 	NO_TARGET,
 	DIRECTION,
@@ -61,7 +61,7 @@ enum SKILL_EFFECT_TYPE{
 # 释放距离
 @export var release_distance: float 
 # 技能点数（使用次数）
-@export var stock: int  = 1
+@export var stock: int  = -1
 # 值
 @export var value: float
 
@@ -81,13 +81,12 @@ enum SKILL_EFFECT_TYPE{
 # release skill
 
 
-@export var release_type: SKILL_RELEASE_TYPE
-@export var target_type: SKILL_RELEASE_TYPE	# 0: 地面, 1: 目标, 2: 无目标
-# define how unit move on mesh ground( walk/fly )
-@export var target_move_type = 0
-# define unit category (  HUMAN/BUILDING/DECORATE_DESTORIED/DECORATE_FOREVER )
-@export var target_cate = 0
+@export_flags("TARGETED", "SELF_CAST", "NO_TARGET", "DIRECTION", "CIRCLE_RANGE") var release_type: int = 1
+@export_flags("FLOOR", "UNIT", "NO_TARGET") var target_type: int = 1	# 0: 地面, 1: 目标, 2: 无目标
+@export_flags("DAMAGE","HEAL","BUILDING") var effect_type: int = 1	# 0: 伤害, 1: 治愈, 2: 建筑
+
 
 
 # Skill Script Template( ClassDB )
-@export var script_name: Script
+@export var skill_script: Script
+

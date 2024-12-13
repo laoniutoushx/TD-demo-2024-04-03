@@ -5,3 +5,6 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_1qmoo")
+shader_parameter/emission_color = Color(0, 0.803922, 0.0352941, 1)
+shader_parameter/emission_amount = 5.0
+shader_parameter/rim_sharpness = 1.5

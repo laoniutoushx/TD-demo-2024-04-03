@@ -24,22 +24,19 @@ func _process(delta: float) -> void:
 	
 	# 强制更新射线碰撞信息
 	ray_cast_3d.force_raycast_update() 
-	for callback in callable_back_list:
-		var callbacl_class = callback.get_object()
 
-		# 特殊处理 TurretManager`s RayPicker
-		if callbacl_class is TurretManager:
-			callback.call(ray_cast_3d, grid_map)
-			continue
-		else:
-			# 其他情况统一处理
-			callback.call(ray_cast_3d)
-		# if callbacl_class is PlayerController:
-		# 	callback.call(ray_cast_3d)
-		# 	continue
-		# if callbacl_class is SelectionBox:
-		# 	callback.call(ray_cast_3d)
-		# 	continue
+	# 射线碰撞回调
+	if callable_back_list.size() > 0:
+		for callback in callable_back_list:
+			var callbacl_class = callback.get_object()
+
+			# 特殊处理 TurretManager`s RayPicker
+			if callbacl_class is TurretManager:
+				callback.call(ray_cast_3d, grid_map)
+			else:
+				# 其他情况统一处理
+				callback.call(ray_cast_3d)
+
 
 
 # Register Callable Function to be called when other Component need RayPicker Result

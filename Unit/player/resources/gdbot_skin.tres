@@ -1,10 +1,52 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=6 format=3 uid="uid://sa00lx2hfecc"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=7 format=3 uid="uid://sa00lx2hfecc"]
 
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_x8mob"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_usrqw"]
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="3_j65fo"]
-[ext_resource type="Resource" uid="uid://x4bivjxncvqm" path="res://System/skill_system/resources/damage/lightning_chain.tres" id="4_dopkm"]
-[ext_resource type="Resource" uid="uid://f1j2insixtan" path="res://System/skill_system/resources/building/building_base_turret.tres" id="5_i4cvi"]
+[ext_resource type="Script" path="res://System/skill_system/resources/damage/lighting_chain.gd" id="4_d70qp"]
+
+[sub_resource type="Resource" id="Resource_qo41h"]
+script = ExtResource("3_j65fo")
+code = "lighting_chain"
+title = "lighting_chain"
+desc = ""
+icon_path = "0"
+level = 0
+max_level = 3
+cooldown = 5.0
+mana_cost = 10.0
+range = 5.0
+release_distance = 0.0
+stock = -1
+value = 0.0
+internal_time = 0.1
+start_time = 0.1
+end_time = 0.1
+release_type = 1
+target_type = 1
+effect_type = 1
+skill_script = ExtResource("4_d70qp")
+
+[sub_resource type="Resource" id="Resource_iasbf"]
+script = ExtResource("3_j65fo")
+code = "building_base"
+title = "building_base"
+desc = "1"
+icon_path = ""
+level = 0
+max_level = 3
+cooldown = 1.0
+mana_cost = 10.0
+range = 5.0
+release_distance = 0.0
+stock = -1
+value = 0.0
+internal_time = 0.1
+start_time = 0.1
+end_time = 0.1
+release_type = 1
+target_type = 1
+effect_type = 1
 
 [resource]
 script = ExtResource("2_usrqw")
@@ -31,4 +73,4 @@ anim_release = "simple_punch"
 is_selected_circle = true
 component_system = 0
 pickup_velocity = 1000.0
-skill_metas = Array[ExtResource("3_j65fo")]([ExtResource("4_dopkm"), ExtResource("5_i4cvi")])
+skill_metas = Array[ExtResource("3_j65fo")]([SubResource("Resource_qo41h"), SubResource("Resource_iasbf")])

@@ -52,10 +52,13 @@ func _initialize_skill(source_unit: BaseUnit, skill_meta_res: SkillMetaResource,
 		var skill: Skill = Skill.new()
 		skill.unit = source_unit
 		CommonUtil.bean_properties_copy(skill_meta_res, skill)
+		# 收到赋值 skill_script
+		skill.skill_script = skill_meta_res.skill_script
+
 		skill.skill_meta_res = skill_meta_res
 		skill.sort = idx
 		if skill.code == null:
-			printerr("skill code not define")
+			printerr("ERROR: skill code not define")
 			
 		# skill id
 		skill.id = UUID.v4()
@@ -63,6 +66,13 @@ func _initialize_skill(source_unit: BaseUnit, skill_meta_res: SkillMetaResource,
 		print(skill.code)
 		print(skill.name)
 		print(skill.value)
+
+		# 实例化技能脚本
+		# assert(skill.skill_script != null, "skill script not define")
+		if skill.skill_script != null:
+			skill.skill_script_instance = skill.skill_script.new()
+		else:
+			printerr("ERROR: skill script not define")
 		
 		return skill
 	
@@ -81,10 +91,16 @@ func release(skill_context: SkillContext) -> void:
 	var release_type: SkillMetaResource.SKILL_RELEASE_TYPE = skill.release_type
 
 	if release_type == SkillMetaResource.SKILL_RELEASE_TYPE.TARGETED:
-		var range: float = skill.range	# 技能范围
 
-		var light_chain = LightingChain.new()
-		light_chain.action(skill_context)
+		if skill.effect_type == SkillMetaResource.SKILL_EFFECT_TYPE.BUILDING:
+			pass
+
+
+		if skill.effect_type == SkillMetaResource.SKILL_EFFECT_TYPE.DAMAGE:
+			var range: float = skill.range	# 技能范围
+
+			var light_chain = LightingChain.new()
+			light_chain.action(skill_context)
 
 
 

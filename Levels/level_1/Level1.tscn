@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://bxibobasihqmy"]
+[gd_scene load_steps=30 format=4 uid="uid://bxibobasihqmy"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_elhju"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_umiea"]
@@ -6,13 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://wacj14cvr4eq" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/WallTowers_DoorClosed_FirstAge.gltf" id="2_gg4ko"]
 [ext_resource type="PackedScene" uid="uid://bdruiih1fouof" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Rock.gltf" id="3_03ljr"]
 [ext_resource type="PackedScene" uid="uid://cym641yvamusq" path="res://Unit/home/base.tscn" id="3_epmlt"]
-[ext_resource type="Script" path="res://Unit/turret/TurretManager.gd" id="5_fsv1a"]
-[ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Unit/turret/scenes/turret.tscn" id="6_o3ywy"]
 [ext_resource type="Script" path="res://Scripts/controller/RTSController.gd" id="7_xmjyx"]
 [ext_resource type="Script" path="res://Waves/WaveManager.gd" id="8_iynip"]
 [ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI/ui.tscn" id="10_i7dqg"]
 [ext_resource type="PackedScene" uid="uid://cwdfip6pck67" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/TownCenter_SecondAge_Level2.gltf" id="12_at28j"]
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="13_g37ug"]
 [ext_resource type="PackedScene" uid="uid://cddhheg1d4j32" path="res://Components/action_bar/action_bar.tscn" id="13_sr2b3"]
+[ext_resource type="Script" path="res://System/skill_system/resources/damage/lighting_chain.gd" id="14_8s6hh"]
+[ext_resource type="PackedScene" uid="uid://btv2y2tfng4ob" path="res://Unit/turret/TurretManager.tscn" id="14_d0au5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oopyi"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -133,6 +134,49 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
+[sub_resource type="Resource" id="Resource_qo41h"]
+script = ExtResource("13_g37ug")
+code = "lighting_chain"
+title = "lighting_chain"
+desc = ""
+icon_path = "0"
+level = 0
+max_level = 3
+cooldown = 5.0
+mana_cost = 10.0
+range = 5.0
+release_distance = 0.0
+stock = -1
+value = 0.0
+internal_time = 0.1
+start_time = 0.1
+end_time = 0.1
+release_type = 1
+target_type = 1
+effect_type = 1
+skill_script = ExtResource("14_8s6hh")
+
+[sub_resource type="Resource" id="Resource_iasbf"]
+script = ExtResource("13_g37ug")
+code = "building_base"
+title = "building_base"
+desc = "1"
+icon_path = ""
+level = 0
+max_level = 3
+cooldown = 1.0
+mana_cost = 10.0
+range = 5.0
+release_distance = 0.0
+stock = -1
+value = 0.0
+internal_time = 0.1
+start_time = 0.1
+end_time = 0.1
+release_type = 1
+target_type = 1
+effect_type = 1
+
 [node name="BaseLevel" type="Node3D"]
 
 [node name="UI" parent="." instance=ExtResource("10_i7dqg")]
@@ -158,11 +202,10 @@ shape = SubResource("ConcavePolygonShape3D_yrbu4")
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Floor"]
 navigation_mesh = SubResource("NavigationMesh_10k2b")
 
-[node name="RayPickerCamera" parent="." node_paths=PackedStringArray("grid_map", "turret_manager") instance=ExtResource("1_elhju")]
+[node name="RayPickerCamera" parent="." node_paths=PackedStringArray("grid_map") instance=ExtResource("1_elhju")]
 transform = Transform3D(1, 0, 0, 0, 0.317305, 0.948324, 0, -0.948324, 0.317305, 0, 32, 17)
 fov = 70.0
 grid_map = NodePath("../GridMap")
-turret_manager = NodePath("../TurretManager")
 
 [node name="GridMap" type="GridMap" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0738831, 0.0235863, -0.064188)
@@ -228,10 +271,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.4411, 0.103827, 5.59998)
 
 [node name="Base" parent="." instance=ExtResource("3_epmlt")]
 
-[node name="TurretManager" type="Node3D" parent="."]
-script = ExtResource("5_fsv1a")
-turret = ExtResource("6_o3ywy")
-
 [node name="RTSController" type="Node3D" parent="." node_paths=PackedStringArray("cam")]
 script = ExtResource("7_xmjyx")
 cam = NodePath("../RayPickerCamera")
@@ -239,6 +278,8 @@ map_bounds = Rect2(-8, -8, 50, 50)
 
 [node name="WaveManager" type="Node3D" parent="."]
 script = ExtResource("8_iynip")
+
+[node name="TurretManager" parent="." instance=ExtResource("14_d0au5")]
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -264,3 +305,4 @@ mesh = SubResource("ArrayMesh_2ymjy")
 
 [node name="GDbotSkin" parent="." instance=ExtResource("1_umiea")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 9, 0.16514, 0)
+skill_metas = Array[ExtResource("13_g37ug")]([SubResource("Resource_qo41h"), SubResource("Resource_iasbf")])

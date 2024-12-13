@@ -20,6 +20,6 @@ internal_time = 0.1
 start_time = 0.1
 end_time = 0.1
 release_type = 0
-target_type = 0
+target_type = 1
 target_move_type = 0
 target_cate = 0

@@ -25,6 +25,9 @@ static var mouse_state: PlayerStatus.MouseState = PlayerStatus.MouseState.IDEL
 var cursor_default = load("res://Asserts/Images/indicator/cursor_point.png")
 var cursor_target = load("res://Asserts/Images/indicator/target_select.png")
 
+# Skill Indicator Grid Map Material
+var skill_indicator_grid_map_material: ShaderMaterial = load("res://Test/glow shader test 2/glow 3d - chocked.tres")
+
 
 var player_mouse_position: Node3D
 
