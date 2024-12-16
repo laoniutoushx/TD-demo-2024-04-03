@@ -13,7 +13,7 @@ var chock_material: Material = preload("res://Test/glow shader test 2/glow 3d - 
 var cell_mesh_container: Dictionary = {}
 
 func _ready() -> void:
-	SignalBus.ray_picker_regist.emit(callable_build_turret)
+	# SignalBus.ray_picker_regist.emit(callable_build_turret)
 	pass
 
 
@@ -57,7 +57,7 @@ func callable_build_turret(ray_cast_3d: RayCast3D, grid_map: GridMap) -> void:
 					grid_map.set_cell_item(cell, 1)
 
 					# TODO 逻辑耦合 buliding turret
-					self.build_turret(grid_map.map_to_local(cell), null) 
+					self.build_turret(grid_map.map_to_local(cell), null)
 
 
 func set_cell_material(grid_map: GridMap, point: Vector3, material: Material) -> void:

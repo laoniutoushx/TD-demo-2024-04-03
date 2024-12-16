@@ -228,3 +228,11 @@ class ResourceLoaderUtil:
 	static func print_loaded_resources():
 		for key in _common_container.keys():
 			print(key + ": " + str(_common_container[key]))
+
+
+# 处理 export_flags 相关数据
+static func is_flag_set(flag: int, bit: int) -> bool:
+	return (int(pow(2, flag)) & bit) != 0
+
+static func set_flag(flag: int) -> int:
+	return int(pow(2, flag))

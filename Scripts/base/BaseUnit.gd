@@ -89,6 +89,9 @@ var projectile_trace: Curve3D
 @export var skill_metas: Array[SkillMetaResource] = []	# skill meta info
 # Skill（实例化后的技能列表）
 var skill_map: Dictionary = {}
+# 一个单位，在多个技能中共享的状态（目前为 skill indicator）
+var current_global_skill_state: int = 0
+
 
 
 func _ready() -> void:

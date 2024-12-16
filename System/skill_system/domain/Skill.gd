@@ -46,9 +46,9 @@ var code: String
 # release skill
 
 
-@export_flags("TARGETED", "SELF_CAST", "NO_TARGET", "DIRECTION", "CIRCLE_RANGE") var release_type: int = 1
-@export_flags("FLOOR", "UNIT", "NO_TARGET") var target_type: int = 1	# 0: 地面, 1: 目标, 2: 无目标
-@export_flags("DAMAGE","HEAL","BUILDING") var effect_type: int = 1	# 0: 伤害, 1: 治愈, 2: 建筑
+@export_flags("TARGETED", "SELF_CAST", "NO_TARGET", "DIRECTION", "CIRCLE_RANGE") var release_type: int = 0
+@export_flags("FLOOR", "UNIT", "NO_TARGET") var target_type: int = 0	# 0: 地面, 1: 目标, 2: 无目标
+@export_flags("DAMAGE","HEAL","BUILDING") var effect_type: int = 0	# 0: 伤害, 1: 治愈, 2: 建筑
 
 
 # Skill Script Template( ClassDB )
@@ -158,6 +158,12 @@ func change_state(new_state: SKILL_STATE) -> void:
             # 点击任意位置后，释放
 
         SKILL_STATE.Targeted_Indicate:
+            # 单位全局技能状态处理
+            unit.current_global_skill_state = CommonUtil.set_flag(SKILL_STATE.Targeted_Indicate)
+
+            # TODO 可以在此处注册 键盘 Esc 事件，取消 indicator
+            
+
             # PlayerStatus 切换
             SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.CHOOSING_TARGETED_UNIT
             # 切换鼠标光标
@@ -167,6 +173,12 @@ func change_state(new_state: SKILL_STATE) -> void:
             SignalBus.player_selected_units.connect(_on_player_selected_units)
 
         SKILL_STATE.Building_Indicate:
+            # 单位全局技能状态处理
+            unit.current_global_skill_state = CommonUtil.set_flag(SKILL_STATE.Targeted_Indicate)
+
+            # TODO 可以在此处注册 键盘 Esc 事件，取消 indicator
+
+
             # PlayerStatus 切换
             SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.CHOOSING_TARGETED_UNIT
             # 切换鼠标光标
@@ -177,6 +189,7 @@ func change_state(new_state: SKILL_STATE) -> void:
             
 
         SKILL_STATE.Release:
+            unit.current_global_skill_state = 0
             # when click left mouse
             SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DEFAULT
             SystemUtil.skill_system.release(skill_context)

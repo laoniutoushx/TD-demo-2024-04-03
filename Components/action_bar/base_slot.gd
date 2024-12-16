@@ -59,8 +59,9 @@ func _input(event: InputEvent) -> void:
 		slot_clicked.emit(self)
 		get_viewport().set_input_as_handled()
 
+
 	# 按键主动绑定到显示的 slot 上（每次切换 action bar 时动态绑定）
-	if mapping_key != "" and reference.current_state == reference.SKILL_STATE.Idle and event is InputEventKey and event.pressed:
+	if mapping_key != "" and reference.unit.current_global_skill_state == 0 and reference.current_state == reference.SKILL_STATE.Idle and event is InputEventKey and event.pressed:
 		if InputMap.action_has_event(mapping_key, event):
 			print("Triggered action:", mapping_key)
 			slot_clicked.emit(self)
@@ -125,4 +126,4 @@ func _on_mouse_exited() -> void:
 func _process(delta: float) -> void:
 	if timer:
 		progress_bar.value = timer.time_left
-		print(timer.time_left)
+		# print(timer.time_left)

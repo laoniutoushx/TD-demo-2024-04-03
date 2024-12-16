@@ -87,21 +87,4 @@ func release(skill_context: SkillContext) -> void:
     # 3. skill 完成( vfx/anim/audio )
 	
 	var skill: Skill = skill_context.skill
-
-	var release_type: SkillMetaResource.SKILL_RELEASE_TYPE = skill.release_type
-
-	if release_type == SkillMetaResource.SKILL_RELEASE_TYPE.TARGETED:
-
-		if skill.effect_type == SkillMetaResource.SKILL_EFFECT_TYPE.BUILDING:
-			pass
-
-
-		if skill.effect_type == SkillMetaResource.SKILL_EFFECT_TYPE.DAMAGE:
-			var range: float = skill.range	# 技能范围
-
-			var light_chain = LightingChain.new()
-			light_chain.action(skill_context)
-
-
-
-	pass	
+	skill.skill_script_instance.action(skill_context)

@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=7 format=3 uid="uid://sa00lx2hfecc"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=8 format=3 uid="uid://sa00lx2hfecc"]
 
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_x8mob"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_usrqw"]
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="3_j65fo"]
 [ext_resource type="Script" path="res://System/skill_system/resources/damage/lighting_chain.gd" id="4_d70qp"]
+[ext_resource type="Script" path="res://System/skill_system/resources/building/building_base_turret.gd" id="5_50ktb"]
 
 [sub_resource type="Resource" id="Resource_qo41h"]
 script = ExtResource("3_j65fo")
@@ -18,7 +19,7 @@ mana_cost = 10.0
 range = 5.0
 release_distance = 0.0
 stock = -1
-value = 0.0
+value = 20.0
 internal_time = 0.1
 start_time = 0.1
 end_time = 0.1
@@ -29,8 +30,8 @@ skill_script = ExtResource("4_d70qp")
 
 [sub_resource type="Resource" id="Resource_iasbf"]
 script = ExtResource("3_j65fo")
-code = "building_base"
-title = "building_base"
+code = "building_base_turret"
+title = "building_base_turret"
 desc = "1"
 icon_path = ""
 level = 0
@@ -40,13 +41,14 @@ mana_cost = 10.0
 range = 5.0
 release_distance = 0.0
 stock = -1
-value = 0.0
+value = 20.0
 internal_time = 0.1
 start_time = 0.1
 end_time = 0.1
 release_type = 1
 target_type = 1
-effect_type = 1
+effect_type = 4
+skill_script = ExtResource("5_50ktb")
 
 [resource]
 script = ExtResource("2_usrqw")

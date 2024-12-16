@@ -5,6 +5,12 @@ class_name BuildingBaseTurret extends Node
 
 
 func action(skill_context: SkillContext) -> void:
+
+    # first, create a projectile, and move it to building position
+    # second, create building model, make it building status, play building animation
+    
+
+
     # 播放施法动画 & 声音
     var skill: Skill = skill_context.skill
     var source_unit: BaseUnit = skill_context.source
