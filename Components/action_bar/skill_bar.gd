@@ -85,7 +85,10 @@ func _on_slot_clicked(slot: BaseSlot):
 	var skill: Skill = (slot.reference as Skill)
 
 	if skill.release_type == SkillMetaResource.SKILL_RELEASE_TYPE.TARGETED:
-		skill.change_state(Skill.SKILL_STATE.Targeted_Indicate)
+		if skill.effect_type == SkillMetaResource.SKILL_EFFECT_TYPE.BUILDING:
+			skill.change_state(Skill.SKILL_STATE.Targeted_Indicate)
+		else:
+			skill.change_state(Skill.SKILL_STATE.Targeted_Indicate)
 
 	if skill.release_type == SkillMetaResource.SKILL_RELEASE_TYPE.CIRCLE_RANGE:
 		skill.change_state(Skill.SKILL_STATE.Circle_Range_Indicate)

@@ -47,17 +47,17 @@ func callable_build_turret(ray_cast_3d: RayCast3D, grid_map: GridMap) -> void:
 			Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
 			if Input.is_action_pressed("click"):
 				var point = ray_cast_3d.get_collision_point()
-
-				set_cell_material(grid_map, point, chock_material)
+				var cell =  grid_map.local_to_map(point)
+				# set_cell_material(grid_map, point, chock_material)
 
 				# 当前 grid_map 没有 cell 格子
-				# if grid_map.get_cell_item(cell) == 0: 
-				# 	# 将 mesh library 索引为 1 的格子设置到当前 gridmap 位置
+				if grid_map.get_cell_item(cell) == 0: 
+					# 将 mesh library 索引为 1 的格子设置到当前 gridmap 位置
 
-				# 	grid_map.set_cell_item(cell, 1)
+					grid_map.set_cell_item(cell, 1)
 
-				# 	# TODO 逻辑耦合 buliding turret
-				# 	self.build_turret(grid_map.map_to_local(cell), null) 
+					# TODO 逻辑耦合 buliding turret
+					self.build_turret(grid_map.map_to_local(cell), null) 
 
 
 func set_cell_material(grid_map: GridMap, point: Vector3, material: Material) -> void:
