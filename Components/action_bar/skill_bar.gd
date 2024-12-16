@@ -86,7 +86,7 @@ func _on_slot_clicked(slot: BaseSlot):
 
 	if skill.release_type == SkillMetaResource.SKILL_RELEASE_TYPE.TARGETED:
 		if skill.effect_type == SkillMetaResource.SKILL_EFFECT_TYPE.BUILDING:
-			skill.change_state(Skill.SKILL_STATE.Targeted_Indicate)
+			skill.change_state(Skill.SKILL_STATE.Building_Indicate)
 		else:
 			skill.change_state(Skill.SKILL_STATE.Targeted_Indicate)
 

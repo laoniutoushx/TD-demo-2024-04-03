@@ -66,6 +66,7 @@ var cool_down_timer: Timer
 enum SKILL_STATE {
 	Idle,
 	Targeted_Indicate,
+    Building_Indicate,
     Direction_Indicate,
     Circle_Range_Indicate,
 	Release,
@@ -157,6 +158,15 @@ func change_state(new_state: SKILL_STATE) -> void:
             # 点击任意位置后，释放
 
         SKILL_STATE.Targeted_Indicate:
+            # PlayerStatus 切换
+            SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.CHOOSING_TARGETED_UNIT
+            # 切换鼠标光标
+            SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.TARGETED)
+            # 监听玩家选择单位信号
+            # 必须选中一个目标，才能切换状态（注意必须选中）
+            SignalBus.player_selected_units.connect(_on_player_selected_units)
+
+        SKILL_STATE.Building_Indicate:
             # PlayerStatus 切换
             SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.CHOOSING_TARGETED_UNIT
             # 切换鼠标光标
