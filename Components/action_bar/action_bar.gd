@@ -66,8 +66,9 @@ func hide() -> void:
 
 # REGION selection bar 
 func _on_player_select_units(unit_map: Dictionary, mouse_pos: Vector3) -> void:
-	# 检查玩家状态
-	if SOS.main.player_controller.player_status == SOS.main.player_controller.PLAYER_STATUS.CHOOSING_TARGETED_UNIT:
+	# 检查玩家状态，防止其他状态触发 skill
+	if (SOS.main.player_controller.player_status == SOS.main.player_controller.PLAYER_STATUS.CHOOSING_TARGETED_UNIT
+		or SOS.main.player_controller.player_status == SOS.main.player_controller.PLAYER_STATUS.CHOOSING_BUILDING_AREA):
 		return
 
 	if unit_map.size() == 0:

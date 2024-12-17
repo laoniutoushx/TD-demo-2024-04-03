@@ -49,5 +49,6 @@ var CAN_PASS_THROUGH_3D = true
 # Corsor Type
 enum CURSOR_STATUS {
 	DEFAULT,
-	TARGETED
+	TARGETED,
+	HAND
 }

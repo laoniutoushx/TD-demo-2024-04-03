@@ -159,7 +159,7 @@ func change_state(new_state: SKILL_STATE) -> void:
 
         SKILL_STATE.Targeted_Indicate:
             # 单位全局技能状态处理
-            unit.current_global_skill_state = CommonUtil.set_flag(SKILL_STATE.Targeted_Indicate)
+            unit.current_global_skill_state = SKILL_STATE.Targeted_Indicate
 
             # TODO 可以在此处注册 键盘 Esc 事件，取消 indicator
             
@@ -174,18 +174,20 @@ func change_state(new_state: SKILL_STATE) -> void:
 
         SKILL_STATE.Building_Indicate:
             # 单位全局技能状态处理
-            unit.current_global_skill_state = CommonUtil.set_flag(SKILL_STATE.Targeted_Indicate)
+            unit.current_global_skill_state = SKILL_STATE.Building_Indicate
 
             # TODO 可以在此处注册 键盘 Esc 事件，取消 indicator
 
 
             # PlayerStatus 切换
-            SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.CHOOSING_TARGETED_UNIT
+            SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.CHOOSING_BUILDING_AREA
             # 切换鼠标光标
-            SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.TARGETED)
-            # 监听玩家选择单位信号
-            # 必须选中一个目标，才能切换状态（注意必须选中）
-            SignalBus.player_selected_units.connect(_on_player_selected_units)
+            SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.HAND)
+
+            # building floor indicator show by signal
+            SignalBus.building_floor_indicator_show.emit(skill_context)
+
+
             
 
         SKILL_STATE.Release:
@@ -202,8 +204,10 @@ func change_state(new_state: SKILL_STATE) -> void:
             cool_down_timer.start()
             slot.set_process(true)
             await cool_down_timer.timeout
-            slot.progress_bar.visible = false
-            slot.set_process(false)
+            if is_instance_valid(slot):                
+                slot.set_process(false)
+            if is_instance_valid(slot.progress_bar):
+                slot.progress_bar.visible = false
             change_state(SKILL_STATE.Idle)
 
         SKILL_STATE.Idle:

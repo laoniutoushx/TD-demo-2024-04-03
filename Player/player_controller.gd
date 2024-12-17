@@ -24,6 +24,7 @@ static var mouse_state: PlayerStatus.MouseState = PlayerStatus.MouseState.IDEL
 # Player corsor 
 var cursor_default = load("res://Asserts/Images/indicator/cursor_point.png")
 var cursor_target = load("res://Asserts/Images/indicator/target_select.png")
+var cursor_building = load("res://Asserts/Images/indicator/cursor_building.png")
 
 # Skill Indicator Grid Map Material
 var skill_indicator_grid_map_material: ShaderMaterial = load("res://Test/glow shader test 2/glow 3d - chocked.tres")
@@ -35,7 +36,8 @@ var player_mouse_position: Node3D
 var player_status = PLAYER_STATUS.DEFAULT
 enum PLAYER_STATUS {
 	DEFAULT,
-	CHOOSING_TARGETED_UNIT
+	CHOOSING_TARGETED_UNIT,
+	CHOOSING_BUILDING_AREA
 }
 
 
@@ -76,10 +78,16 @@ func select_area_pos_sync(ray_cast: RayCast3D) -> void:
 
 # mouse coursor 切换
 func switch_cursor(cousor: Constants.CURSOR_STATUS) -> void:
-	if cousor == Constants.CURSOR_STATUS.TARGETED:
-		Input.set_custom_mouse_cursor(cursor_target, Input.CURSOR_ARROW, Vector2(16, 16))
-	else:
+	if cousor == Constants.CURSOR_STATUS.DEFAULT:
 		Input.set_custom_mouse_cursor(cursor_default, Input.CURSOR_ARROW, Vector2(0, 0))
+	elif cousor == Constants.CURSOR_STATUS.TARGETED:
+		Input.set_custom_mouse_cursor(cursor_target, Input.CURSOR_ARROW, Vector2(16, 16))
+	elif cousor == Constants.CURSOR_STATUS.HAND:
+		# 完全清除自定义光标
+		# Input.set_custom_mouse_cursor(null)
+		Input.set_custom_mouse_cursor(cursor_building, Input.CURSOR_ARROW, Vector2(16, 16))
+		
+
 
 
 

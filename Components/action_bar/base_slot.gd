@@ -50,22 +50,24 @@ func _ready() -> void:
 	
 # input event handler register
 func _input(event: InputEvent) -> void: 
-	# 绑定鼠标左键点击
-	if (is_mouse_hover and
-			(
-				event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed 
-			)
-		):
-		slot_clicked.emit(self)
-		get_viewport().set_input_as_handled()
-
-
-	# 按键主动绑定到显示的 slot 上（每次切换 action bar 时动态绑定）
-	if mapping_key != "" and reference.unit.current_global_skill_state == 0 and reference.current_state == reference.SKILL_STATE.Idle and event is InputEventKey and event.pressed:
-		if InputMap.action_has_event(mapping_key, event):
-			print("Triggered action:", mapping_key)
+	# 技能 slot 监听
+	if reference is Skill:
+		# 绑定鼠标左键点击
+		if (is_mouse_hover and reference.SKILL_STATE.Idle == reference.current_state and 
+				(
+					event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed 
+				)
+			):
 			slot_clicked.emit(self)
 			get_viewport().set_input_as_handled()
+
+
+		# 按键主动绑定到显示的 slot 上（每次切换 action bar 时动态绑定）
+		if mapping_key != "" and reference.unit.current_global_skill_state == 0 and reference.SKILL_STATE.Idle == reference.current_state and event is InputEventKey and event.pressed:
+			if InputMap.action_has_event(mapping_key, event):
+				print("Triggered action:", mapping_key)
+				slot_clicked.emit(self)
+				get_viewport().set_input_as_handled()
 
 
 func active_callback(act: bool) -> void:
