@@ -14,7 +14,7 @@ var acquire_slerp_progress:float = 0
 
 # state   idle（呆滞状态）
 enum TurretState {
-	IDLE, AIMMING, ATTACK, ATTACK_INTERVAL, UNKNOW
+	BUILDING, IDLE, AIMMING, ATTACK, ATTACK_INTERVAL, UNKNOW
 }
 var pre_state: TurretState
 var current_state: TurretState
@@ -22,7 +22,7 @@ var current_state: TurretState
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	current_state = TurretState.IDLE
+	current_state = TurretState.BUILDING
 	vfx_projectile_name = "fireball"
 	
 	
@@ -32,6 +32,10 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	match current_state:
+		TurretState.BUILDING:
+			pass
+
+
 		TurretState.IDLE:
 			if enemies.size() > 0:
 				if current_enemy == null:
@@ -129,3 +133,8 @@ func _on_enemy_logic_death(enemy: BaseUnit) -> void:
 	enemies.erase(enemy)
 	if current_enemy == enemy:
 		current_enemy = null
+
+
+func change_state(new_state: TurretState) -> void:
+	pre_state = current_state
+	current_state = new_state

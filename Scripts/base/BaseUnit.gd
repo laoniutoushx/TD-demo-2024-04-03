@@ -148,7 +148,8 @@ func do_after_logic_dead() -> void:
 	
 	# 移出 health bar
 	var health_bar = CommonUtil.get_first_node_by_node_name(self, "HealthBar3D")
-	health_bar.queue_free()
+	if health_bar != null:
+		health_bar.queue_free()
 	
 	# player death animation
 	death_effect()

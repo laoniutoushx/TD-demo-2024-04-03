@@ -74,6 +74,7 @@ enum SKILL_STATE {
 }
 
 var current_state: SKILL_STATE
+var pre_state: SKILL_STATE
 var mouse_click_check = false
 
 var skill_context: SkillContext
@@ -82,6 +83,7 @@ func _ready() -> void:
     # 技能上下文构建
     # SkillContext 上下文，保存 skill: Skill, target: BaseUnit, source: BaseUnit, position: Vector3 等信息
     skill_context = SkillContext.new(self, null, unit, Vector3.ZERO)
+    pre_state = SKILL_STATE.Idle
     current_state = SKILL_STATE.Idle
 
     # cool_down_timer 配置
@@ -131,6 +133,7 @@ func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3):
 
                 skill_context.position = mouse_pos
                 skill_context.target = min_unit
+
                 change_state(SKILL_STATE.Release)
                 SignalBus.player_selected_units.disconnect(_on_player_selected_units)
                 SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.DEFAULT)
@@ -144,8 +147,15 @@ func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3):
 # Handles everything related to changing states
 # You could also move each state's setup into a separate function if you had a lot to do.
 func change_state(new_state: SKILL_STATE) -> void:
-    current_state = new_state
+
+    if pre_state == SKILL_STATE.Targeted_Indicate or pre_state == SKILL_STATE.Building_Indicate:
+        # 单位共享状态值 -1
+        unit.current_global_skill_state = 0
     
+    # 旧状态
+    pre_state = current_state
+    current_state = new_state
+
     match current_state:
         SKILL_STATE.Circle_Range_Indicate:
             # PlayerStatus 切换
@@ -159,7 +169,7 @@ func change_state(new_state: SKILL_STATE) -> void:
 
         SKILL_STATE.Targeted_Indicate:
             # 单位全局技能状态处理
-            unit.current_global_skill_state = SKILL_STATE.Targeted_Indicate
+            unit.current_global_skill_state = 1
 
             # TODO 可以在此处注册 键盘 Esc 事件，取消 indicator
             
@@ -174,7 +184,7 @@ func change_state(new_state: SKILL_STATE) -> void:
 
         SKILL_STATE.Building_Indicate:
             # 单位全局技能状态处理
-            unit.current_global_skill_state = SKILL_STATE.Building_Indicate
+            unit.current_global_skill_state = 1
 
             # TODO 可以在此处注册 键盘 Esc 事件，取消 indicator
 
@@ -191,7 +201,6 @@ func change_state(new_state: SKILL_STATE) -> void:
             
 
         SKILL_STATE.Release:
-            unit.current_global_skill_state = 0
             # when click left mouse
             SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DEFAULT
             SystemUtil.skill_system.release(skill_context)
@@ -208,9 +217,10 @@ func change_state(new_state: SKILL_STATE) -> void:
                 slot.set_process(false)
             if is_instance_valid(slot.progress_bar):
                 slot.progress_bar.visible = false
+            
             change_state(SKILL_STATE.Idle)
 
         SKILL_STATE.Idle:
             pass
-    
 
+        

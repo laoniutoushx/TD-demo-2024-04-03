@@ -10,7 +10,7 @@ var callable_back_list: Array[Callable] = []
 func _ready() -> void:
 	#SignalBus.ray_picker_regist.connect(_on_ray_picker_regist)
 	SignalBufferSystem.connect_buffered(SignalBus.ray_picker_regist, _on_ray_picker_regist)
-	SignalBufferSystem.connect_buffered(SignalBus.ray_picker_unregist, _on_ray_picker_regist)
+	SignalBufferSystem.connect_buffered(SignalBus.ray_picker_unregist, _on_ray_picker_unregist)
 	#$RayCast3D.debug_shape_custom_color = Color(1, 0, 0)  # 红色
 	#$RayCast3D.debug_shape_thickness = 2
 

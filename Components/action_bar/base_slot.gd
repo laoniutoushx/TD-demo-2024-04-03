@@ -53,12 +53,15 @@ func _input(event: InputEvent) -> void:
 	# 技能 slot 监听
 	if reference is Skill:
 		# 绑定鼠标左键点击
-		if (is_mouse_hover and reference.SKILL_STATE.Idle == reference.current_state and 
+		if is_mouse_hover:
+			print(reference.unit.current_global_skill_state, reference.current_state)
+			if (reference.unit.current_global_skill_state == 0 and reference.SKILL_STATE.Idle == reference.current_state and 
 				(
 					event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed 
 				)
 			):
-			slot_clicked.emit(self)
+				slot_clicked.emit(self)
+			# 阻止事件传递
 			get_viewport().set_input_as_handled()
 
 

@@ -90,3 +90,6 @@ enum SKILL_EFFECT_TYPE{
 # Skill Script Template( ClassDB )
 @export var skill_script: Script
 
+
+# Building
+@export var building_scene: PackedScene
