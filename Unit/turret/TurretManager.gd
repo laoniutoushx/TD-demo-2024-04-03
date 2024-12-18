@@ -1,7 +1,6 @@
-extends Node3D
-class_name TurretManager
+class_name TurretManager extends Node3D
 
-var turret: Node3D
+var turret: BaseUnit
 var ray_picker: RayPicker
 var skill_context: SkillContext
 
@@ -68,6 +67,8 @@ func callable_build_turret(ray_cast_3d: RayCast3D, _grid_map: GridMap) -> void:
 					# skill state chagne
 					var bind_build_turret: Callable = build_turret.bind(_grid_map.map_to_local(cell), null)
 					skill_context.callback = bind_build_turret
+					skill_context.building = turret
+					skill_context.building.global_position = Vector3(turret.global_position.x, 10, turret.global_position.z)
 					skill_context.skill.change_state(Skill.SKILL_STATE.Release)
 
 

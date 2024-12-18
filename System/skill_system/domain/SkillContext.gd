@@ -8,6 +8,7 @@ var position: Vector3
 # 技能范围定义回调
 var skill_scope_delegate: Callable
 
+var building: BaseUnit
 var callback: Callable
 
 

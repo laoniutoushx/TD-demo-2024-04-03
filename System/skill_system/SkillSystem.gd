@@ -43,6 +43,7 @@ func initialize_skills(source_unit: BaseUnit, skill_metas: Array[SkillMetaResour
 			# add to unit tree
 			skill.name = skill.code
 			self.add_child(skill)
+			skill.add_child(skill.skill_script_instance)
 
 	return skill_map
 	

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://1rtrqwv5w5d5"]
+
+[ext_resource type="PackedScene" uid="uid://cpwm1os812h4l" path="res://VFX/building/vfx_build_located_running.tscn" id="1_jfoyx"]
+[ext_resource type="Script" path="res://Test/tween/tween_test.gd" id="1_qaem2"]
+
+[node name="TweenTest" type="Node3D"]
+script = ExtResource("1_qaem2")
+
+[node name="BuildLocated" parent="." instance=ExtResource("1_jfoyx")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.961142, -0.110385, 0.253023, 0.00862706, 0.928135, 0.372143, -0.275919, -0.355499, 0.893022, 2.02, 5.68943, 8.53282)

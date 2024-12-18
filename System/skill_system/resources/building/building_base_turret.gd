@@ -1,4 +1,4 @@
-class_name BuildingBaseTurret extends Node
+class_name BuildingBaseTurret extends Node3D
 
 
 
@@ -32,6 +32,19 @@ func action(skill_context: SkillContext) -> void:
 
     # 等待施法前摇开始
     await CommonUtil.await_timer(skill_context.skill.start_time)
+
+    # 技能释放
+    var building: BaseUnit = skill_context.building
+    var origin_p = skill_context.building.global_position
+    # building.position = Vector3(origin_p.x, 100, origin_p.z)
+    building.add_child(SystemUtil.vfx_system.create_vfx("build_located", VFXSystem.VFX_TYPE.RUNNING))
+    
+
+
+    var tween = create_tween()
+    tween.tween_property(building, "global_position", Vector3(origin_p.x, 0.0, origin_p.z), 2)
+
+
 
 
     # 技能释放
