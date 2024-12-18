@@ -58,14 +58,17 @@ func callable_build_turret(ray_cast_3d: RayCast3D, _grid_map: GridMap) -> void:
 					# 将 mesh library 索引为 1 的格子设置到当前 gridmap 位置
 					_grid_map.set_cell_item(cell, 1)
 
-					# TODO 逻辑耦合 buliding turret
-					self.build_turret(_grid_map.map_to_local(cell), null)
+					# 创建 Turret
+					# self.build_turret(_grid_map.map_to_local(cell), null)
 
 					# 鼠标样式切换
 					SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.DEFAULT)
 
+
 					# skill state chagne
-					skill_context.skill.change_state(Skill.SKILL_STATE.Cool_Down)
+					var bind_build_turret: Callable = build_turret.bind(_grid_map.map_to_local(cell), null)
+					skill_context.callback = bind_build_turret
+					skill_context.skill.change_state(Skill.SKILL_STATE.Release)
 
 
 

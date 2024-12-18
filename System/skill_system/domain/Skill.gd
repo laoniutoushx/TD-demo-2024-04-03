@@ -74,7 +74,6 @@ enum SKILL_STATE {
 }
 
 var current_state: SKILL_STATE
-var pre_state: SKILL_STATE
 var mouse_click_check = false
 
 var skill_context: SkillContext
@@ -83,7 +82,6 @@ func _ready() -> void:
     # 技能上下文构建
     # SkillContext 上下文，保存 skill: Skill, target: BaseUnit, source: BaseUnit, position: Vector3 等信息
     skill_context = SkillContext.new(self, null, unit, Vector3.ZERO)
-    pre_state = SKILL_STATE.Idle
     current_state = SKILL_STATE.Idle
 
     # cool_down_timer 配置
@@ -116,6 +114,11 @@ func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3):
             # 遍历所有单位
             for u_key in unit_map.keys():
                 var unit = unit_map.get(u_key)
+
+                # 根据 skill target type 动态判断是否满足条件
+                if not _skill_target_unit_cond_matched(unit):
+                    continue
+
                 # 计算单位到原点的距离
                 var distance = Vector2(unit.global_position.x, unit.global_position.z).length()
                 
@@ -137,10 +140,26 @@ func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3):
                 change_state(SKILL_STATE.Release)
                 SignalBus.player_selected_units.disconnect(_on_player_selected_units)
                 SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.DEFAULT)
+            else:
+                print("没有找到最近的单位")
+
+        else:
+            print("没有选中任何单位")
 
 
-        
-        pass
+# skill target selected unit filter
+func _skill_target_unit_cond_matched(_u: BaseUnit) -> bool:
+
+    var conditions = [
+        # friend unit
+        CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.FRIEND, target_type) and _u.player_group == SOS.main.player_controller.player_group_idx,
+        # enemy unit
+        CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.ENEMY, target_type) and _u.player_group != SOS.main.player_controller.player_group_idx
+    ]
+    print(conditions.any(func(x): return x))
+    return conditions.any(func(x): return x)
+
+
 
 
 
@@ -148,12 +167,11 @@ func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3):
 # You could also move each state's setup into a separate function if you had a lot to do.
 func change_state(new_state: SKILL_STATE) -> void:
 
-    if pre_state == SKILL_STATE.Targeted_Indicate or pre_state == SKILL_STATE.Building_Indicate:
+    if current_state == SKILL_STATE.Targeted_Indicate or current_state == SKILL_STATE.Building_Indicate:
         # 单位共享状态值 -1
         unit.current_global_skill_state = 0
     
     # 旧状态
-    pre_state = current_state
     current_state = new_state
 
     match current_state:
@@ -213,14 +231,15 @@ func change_state(new_state: SKILL_STATE) -> void:
             cool_down_timer.start()
             slot.set_process(true)
             await cool_down_timer.timeout
+            if is_instance_valid(slot) and is_instance_valid(slot.progress_bar):
+                slot.progress_bar.visible = false
             if is_instance_valid(slot):                
                 slot.set_process(false)
-            if is_instance_valid(slot.progress_bar):
-                slot.progress_bar.visible = false
+
             
             change_state(SKILL_STATE.Idle)
 
         SKILL_STATE.Idle:
-            pass
+            print("skill [%s] is idle" % code)
 
         

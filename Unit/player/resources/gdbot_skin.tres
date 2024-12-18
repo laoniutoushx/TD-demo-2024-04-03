@@ -25,7 +25,7 @@ internal_time = 0.1
 start_time = 0.1
 end_time = 0.1
 release_type = 1
-target_type = 1
+target_type = 17
 effect_type = 1
 skill_script = ExtResource("4_d70qp")
 

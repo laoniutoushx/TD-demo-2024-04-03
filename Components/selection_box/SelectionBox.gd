@@ -110,7 +110,7 @@ func _on_selected_area_area_exited(area: Area3D) -> void:
 func _on_unit_logic_death(id:int, enemy :Enemy):
 	DoubleCacheSelection.remove(enemy)
 
-
+# 多重选择缓存
 class DoubleCacheSelection:
 	# Selection Box Units
 	# Use Double Shift Cache Units Arrays

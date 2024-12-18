@@ -34,7 +34,9 @@ enum SKILL_RELEASE_TYPE{
 enum SKILL_TARGET_TYPE{
 	FLOOR,
 	UNIT,
-	NO_TARGET
+	NO_TARGET,
+	FRIEND,
+	ENEMY
 }
 
 enum SKILL_EFFECT_TYPE{
@@ -82,7 +84,7 @@ enum SKILL_EFFECT_TYPE{
 
 
 @export_flags("TARGETED", "SELF_CAST", "NO_TARGET", "DIRECTION", "CIRCLE_RANGE") var release_type: int = 1
-@export_flags("FLOOR", "UNIT", "NO_TARGET") var target_type: int = 1	# 0: 地面, 1: 目标, 2: 无目标
+@export_flags("FLOOR", "UNIT", "NO_TARGET", "FRIEND", "ENEMY") var target_type: int = 1	# 0: 地面, 1: 目标, 2: 无目标
 @export_flags("DAMAGE","HEAL","BUILDING") var effect_type: int = 1	# 0: 伤害, 1: 治愈, 2: 建筑
 
 
