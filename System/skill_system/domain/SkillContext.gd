@@ -3,11 +3,14 @@ class_name SkillContext
 var skill: Skill
 var target: BaseUnit
 var source: BaseUnit
-var position: Vector3
+var target_position: Vector3
 
 # 技能范围定义回调
 var skill_scope_delegate: Callable
 
+
+# building about
+# var building_origin_pos: Vector3
 var building: BaseUnit
 var callback: Callable
 
@@ -17,5 +20,5 @@ func _init(skill: Skill, target: BaseUnit, source: BaseUnit, position: Vector3) 
 
     self.source = source
     self.skill = skill
-    self.position = position
+    self.target_position = position
     self.target = target

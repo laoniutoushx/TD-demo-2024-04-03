@@ -3,7 +3,7 @@ class_name SelectionBox extends Node3D
 signal frame_selecting_unit_entered(unit: BaseUnit)
 signal frame_selecting_unit_exited(unit: BaseUnit)
 signal selecting_started
-signal selecting_finished(unit_map: Dictionary, end_project_pos: Vector3)
+signal selecting_finished(unit_map: Dictionary, end_project_pos: Vector3, player_status: PlayerController.PLAYER_STATUS)
 
 @onready var rectangular_selection_2d: Panel = $RectangularSelection2D
 
@@ -20,6 +20,9 @@ var cur_project_pos: Vector3
 
 # control event trigger
 
+# 点击瞬间 player status record
+var player_status: PlayerController.PLAYER_STATUS
+
 
 func _ready() -> void:
 	 # 确保 Panel 在所有子节点的最上层
@@ -34,10 +37,12 @@ func _ready() -> void:
 	
 func _input(event: InputEvent) -> void:
 	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
+		player_status = SOS.main.player_controller.player_status
 		_start()
 		
 	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed):
 		_finish()
+		player_status = SOS.main.player_controller.player_status
 	
 
 
@@ -76,7 +81,7 @@ func _finish():
 	area_collision.disabled = true
 	print("finish -> " + str(DoubleCacheSelection.units().keys().size()))
 	var units = DoubleCacheSelection.units()
-	selecting_finished.emit(units, end_project_pos)
+	selecting_finished.emit(units, end_project_pos, player_status)
 	DoubleCacheSelection.shift_cache()
 
 func _update():

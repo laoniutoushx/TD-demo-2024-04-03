@@ -7,7 +7,7 @@ extends Node3D
 func _ready() -> void:
 	var tween = create_tween()
 
-	tween.tween_property(build_located_vfx, "position", Vector3(1.0, 10.0, 1.0), 1.0)
+	tween.tween_property(build_located_vfx, "global_position", Vector3(1.0, 10.0, 1.0), 1.0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

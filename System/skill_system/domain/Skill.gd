@@ -96,16 +96,15 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
     if mouse_click_check and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
         if current_state == SKILL_STATE.Direction_Indicate or current_state == SKILL_STATE.Circle_Range_Indicate:
-            # 鼠标在 3d 空间中位置
-            skill_context.position =  SOS.main.player_controller.player_mouse_position.global_position
-
-            change_state(SKILL_STATE.Release)
             mouse_click_check = false
+            # 鼠标在 3d 空间中位置
+            skill_context.target_position =  SOS.main.player_controller.player_mouse_position.global_position
+            change_state(SKILL_STATE.Release)
             Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
             get_viewport().set_input_as_handled()
 
 
-func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3):
+func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3, on_selected_player_status: PlayerController.PLAYER_STATUS) -> void:
     if current_state == SKILL_STATE.Targeted_Indicate:
         if not unit_map.is_empty():
             var min_unit = null
@@ -134,7 +133,7 @@ func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3):
                 print("最近的单位: ", min_unit)
 
 
-                skill_context.position = mouse_pos
+                skill_context.target_position = mouse_pos
                 skill_context.target = min_unit
 
                 change_state(SKILL_STATE.Release)
@@ -167,15 +166,21 @@ func _skill_target_unit_cond_matched(_u: BaseUnit) -> bool:
 # You could also move each state's setup into a separate function if you had a lot to do.
 func change_state(new_state: SKILL_STATE) -> void:
 
-    if current_state == SKILL_STATE.Targeted_Indicate or current_state == SKILL_STATE.Building_Indicate:
-        # 单位共享状态值 -1
+    if (current_state == SKILL_STATE.Targeted_Indicate 
+        or current_state == SKILL_STATE.Building_Indicate 
+        or current_state == SKILL_STATE.Circle_Range_Indicate):
+        # 单位全局技能共享状态值 -1
         unit.current_global_skill_state = 0
+        # player status 变更 DEFAULT
+        SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DEFAULT
     
     # 旧状态
     current_state = new_state
 
     match current_state:
         SKILL_STATE.Circle_Range_Indicate:
+            # 单位全局技能状态处理
+            unit.current_global_skill_state = 1
             # PlayerStatus 切换
             SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.CHOOSING_TARGETED_UNIT
             # 技能指示器
@@ -217,14 +222,12 @@ func change_state(new_state: SKILL_STATE) -> void:
 
 
             
-
         SKILL_STATE.Release:
-            # when click left mouse
-            SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DEFAULT
+            # releasing
             SystemUtil.skill_system.release(skill_context)
-
             SOS.main.player_controller.player_skill_scope_indicator.hide_indicator()
             change_state(SKILL_STATE.Cool_Down)
+
 
         SKILL_STATE.Cool_Down:
             slot.progress_bar.visible = true

@@ -70,7 +70,7 @@ enum SKILL_EFFECT_TYPE{
 
 # 技能内部控制变量
 # 间隔时间
-@export var internal_time: float = 0.1
+@export var internal_time: float = -1
 # 施法前摇
 @export var start_time: float = 0.1
 # 施法后摇

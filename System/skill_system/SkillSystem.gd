@@ -86,6 +86,26 @@ func release(skill_context: SkillContext) -> void:
     # 1. skill 准备( anim/cooldown/vfx/audio )
     # 2. skill 执行（ do action ）可包括任何逻辑, take_damage, vfx, other logic, audio 等
     # 3. skill 完成( vfx/anim/audio )
-	
+
 	var skill: Skill = skill_context.skill
+	var source_unit: BaseUnit = skill_context.source
+	var target_unit: BaseUnit = skill_context.target
+
+	if source_unit is Gdbot:
+
+		source_unit.jump()
+		await CommonUtil.await_timer(0.1)
+		source_unit.fall()
+		await CommonUtil.await_timer(0.1)
+		source_unit.idle()
+
+
+	var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(source_unit, Constants.AnimationPlayer_CLZ)
+	var anim_release_code: String = source_unit.anim_release
+
+	if ap != null and ap.has_animation(anim_release_code):
+		ap.play(anim_release_code)
+
+	await CommonUtil.await_timer(skill_context.skill.start_time)
 	skill.skill_script_instance.action(skill_context)
+	await CommonUtil.await_timer(skill_context.skill.end_time)

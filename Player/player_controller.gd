@@ -17,10 +17,6 @@ var player_group_idx: int
 var outline_material: ShaderMaterial
 
 
-# Player Status
-static var mouse_key_state: PlayerStatus.MouseKeyState = PlayerStatus.MouseKeyState.IDEL
-static var mouse_state: PlayerStatus.MouseState = PlayerStatus.MouseState.IDEL
-
 # Player corsor 
 var cursor_default = load("res://Asserts/Images/indicator/cursor_point.png")
 var cursor_target = load("res://Asserts/Images/indicator/target_select.png")
@@ -32,13 +28,14 @@ var skill_indicator_grid_map_material: ShaderMaterial = load("res://Test/glow sh
 
 var player_mouse_position: Node3D
 
-# player status
-var player_status = PLAYER_STATUS.DEFAULT
+# player status（unique status）互斥状态，全局唯一
 enum PLAYER_STATUS {
 	DEFAULT,
 	CHOOSING_TARGETED_UNIT,
 	CHOOSING_BUILDING_AREA
 }
+
+var player_status = PLAYER_STATUS.DEFAULT
 
 
 # Called when the node enters the scene tree for the first time.
@@ -66,9 +63,7 @@ func get_player_idx():
 func get_player_group_idx():
 	return 0
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	PlayerMouseMovement.calculate_mouse_speed(get_viewport(), delta)
+
 
 # area3d 与 mouse position 同步 （ray picker 回调函数）
 func select_area_pos_sync(ray_cast: RayCast3D) -> void:
@@ -89,12 +84,9 @@ func switch_cursor(cousor: Constants.CURSOR_STATUS) -> void:
 		
 
 
-
-
-
 # 选中单位		
 # TODO click select && frame select (click select trigger when show circle, but unit will move out to candidate， how to stop it）
-func refresh_selection_units(unit_map: Dictionary, mouse_pos: Vector3) -> void:
+func refresh_selection_units(unit_map: Dictionary, mouse_pos: Vector3, on_selected_player_status: PLAYER_STATUS) -> void:
 	# remove last selected units
 	for unit in PlayerSelect.units():
 		if is_instance_valid(unit) and !unit_map.keys().has(unit.get_instance_id()) and unit.has_method('hide_selected_circle'):
@@ -110,40 +102,10 @@ func refresh_selection_units(unit_map: Dictionary, mouse_pos: Vector3) -> void:
 			(unit as BaseUnit).show_selected_circle()
 	
 	# emit signal player_selected_units
-	SignalBus.player_selected_units.emit(unit_map, mouse_pos)
+	SignalBus.player_selected_units.emit(unit_map, mouse_pos, on_selected_player_status)
 
 
-# keyboard states and mouse states
-class PlayerStatus:
-	enum MouseKeyState {
-		IDEL,
-		MOUSE_LEFT_CLICK,
-		MOUSE_RIGHT_CLICK,
-		MOUSE_LEFT_PRESSING,
-		MOUSE_RIGHT_PRESSING,
-		MOUSE_RIGHT_RELEASED,
-		MOUSE_LEFT_RELEASED
-	}
-	enum MouseState {
-		IDEL,
-		MOVING
-	}
 
-# mouse move state caculate
-class PlayerMouseMovement:
-	
-	static var previous_mouse_position = Vector2.ZERO
-	static var current_mouse_position = Vector2.ZERO
-	static var mouse_speed = Vector2.ZERO
-
-	static func calculate_mouse_speed(viewport: Viewport, delta):
-		current_mouse_position = viewport.get_mouse_position()
-		mouse_speed = (current_mouse_position - previous_mouse_position) / delta
-		if mouse_speed.length() > 0:
-			PlayerController.mouse_state = PlayerStatus.MouseState.MOVING
-		else:
-			PlayerController.mouse_state = PlayerStatus.MouseState.IDEL
-		previous_mouse_position = current_mouse_position
 
 # Player Selected Unit
 class PlayerSelect:
@@ -244,9 +206,9 @@ func _on_selection_box_selecting_started() -> void:
 	PlayerSelect._selecting = true
 
 
-func _on_selection_box_selecting_finished(unit_map: Dictionary, mouse_pos: Vector3) -> void:
+func _on_selection_box_selecting_finished(unit_map: Dictionary, mouse_pos: Vector3, on_selected_player_status: PLAYER_STATUS) -> void:
 	PlayerSelect._selecting = false
-	refresh_selection_units(unit_map, mouse_pos)
+	refresh_selection_units(unit_map, mouse_pos, on_selected_player_status)
 	
 	
 # listening unit death
@@ -254,5 +216,6 @@ func _on_unit_logic_death(id: int, unit: BaseUnit):
 	if unit.has_method('hide_selected_circle'):
 		unit.hide_selected_circle()
 	
+	# 单位逻辑死亡时，清除单位网格效果（outline）等
 	var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ)
 	unit_mesh.material_overlay = null

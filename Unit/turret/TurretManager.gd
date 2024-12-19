@@ -48,6 +48,9 @@ func callable_build_turret(ray_cast_3d: RayCast3D, _grid_map: GridMap) -> void:
 
 				# 当前 _grid_map 没有 cell 格子
 				if _grid_map.get_cell_item(cell) == 0: 
+					# 取消点击事件传递
+					get_viewport().set_input_as_handled()
+
 					# 取消注册
 					SignalBus.ray_picker_unregist.emit(callable_build_turret)
 
@@ -65,10 +68,14 @@ func callable_build_turret(ray_cast_3d: RayCast3D, _grid_map: GridMap) -> void:
 
 
 					# skill state chagne
-					var bind_build_turret: Callable = build_turret.bind(_grid_map.map_to_local(cell), null)
+					var cell_center_pos: Vector3 = _grid_map.map_to_local(cell)
+					cell_center_pos.y += 1
+					var bind_build_turret: Callable = build_turret.bind(cell_center_pos, null)
 					skill_context.callback = bind_build_turret
 					skill_context.building = turret
-					skill_context.building.global_position = Vector3(turret.global_position.x, 10, turret.global_position.z)
+					# skill_context.building_origin_pos = skill_context.building.global_position
+					skill_context.building.global_position = cell_center_pos
+					# skill_context.building.global_position = Vector3(turret.global_position.x, 10, turret.global_position.z)
 					skill_context.skill.change_state(Skill.SKILL_STATE.Release)
 
 
@@ -84,7 +91,7 @@ func _on_building_floor_indicator_show(_skill_context: SkillContext):
 		var cell_position = grid_map.map_to_local(cell)
 		if item_idx == 0:
 			if not cell_mesh_container.keys().has(cell_position):
-				cell_position.y += 1
+				cell_position.y += 0.3
 				var _cellmesh_instance = _create_cell_mesh_indicator_in_position(grid_map, cell_position)
 				cell_mesh_container[cell_position] = _cellmesh_instance
 

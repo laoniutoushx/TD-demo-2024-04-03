@@ -66,7 +66,13 @@ func _input(event: InputEvent) -> void:
 
 
 		# 按键主动绑定到显示的 slot 上（每次切换 action bar 时动态绑定）
-		if mapping_key != "" and reference.unit.current_global_skill_state == 0 and reference.SKILL_STATE.Idle == reference.current_state and event is InputEventKey and event.pressed:
+		if (mapping_key != "" 
+			and is_instance_valid(reference) 
+			and is_instance_valid(reference.unit) 
+			and reference.unit.current_global_skill_state == 0 
+			and reference.SKILL_STATE.Idle == reference.current_state 
+			and event is InputEventKey 
+			and event.pressed):
 			if InputMap.action_has_event(mapping_key, event):
 				print("Triggered action:", mapping_key)
 				slot_clicked.emit(self)

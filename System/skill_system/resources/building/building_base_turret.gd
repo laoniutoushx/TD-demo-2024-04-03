@@ -5,52 +5,30 @@ class_name BuildingBaseTurret extends Node3D
 
 
 func action(skill_context: SkillContext) -> void:
-
-    # first, create a projectile, and move it to building position
-    # second, create building model, make it building status, play building animation
-
     # 播放施法动画 & 声音
     var skill: Skill = skill_context.skill
     var source_unit: BaseUnit = skill_context.source
     var target_unit: BaseUnit = skill_context.target
 
-    if source_unit is Gdbot:
-        source_unit.jump()
-        await CommonUtil.await_timer(0.1)
-        source_unit.fall()
-        await CommonUtil.await_timer(0.1)
-        source_unit.idle()
-
-    # var at: AnimationTree = CommonUtil.get_first_node_by_node_type(source_unit, Constants.AnimationTree_CLZ)
-
-
-    var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(source_unit, Constants.AnimationPlayer_CLZ)
-    var anim_release_code: String = source_unit.anim_release
-
-    if ap != null and ap.has_animation(anim_release_code):
-        ap.play(anim_release_code)
-
-    # 等待施法前摇开始
-    await CommonUtil.await_timer(skill_context.skill.start_time)
 
     # 技能释放
     var building: BaseUnit = skill_context.building
-    var origin_p = skill_context.building.global_position
+    var gp = skill_context.building.global_position
     # building.position = Vector3(origin_p.x, 100, origin_p.z)
-    building.add_child(SystemUtil.vfx_system.create_vfx("build_located", VFXSystem.VFX_TYPE.RUNNING))
+    var vfx = SystemUtil.vfx_system.create_vfx("build_located", VFXSystem.VFX_TYPE.RUNNING)
+    building.add_child(vfx)
     
+    building.global_position = Vector3(gp.x, 30.0, gp.z)
 
-
-    var tween = create_tween()
-    tween.tween_property(building, "global_position", Vector3(origin_p.x, 0.0, origin_p.z), 2)
-
-
-
-
-    # 技能释放
-    # 音效播放
-    # 特效绑定模型位置
-    # 伤害触发
+    var tween: Tween = create_tween()
+    tween.set_ease(Tween.EASE_OUT)
+    tween.set_trans(Tween.TRANS_EXPO)  # 使用指数曲线让效果更明显
+    tween.tween_property(building, "global_position", gp, 1)
 
     # TODO 逻辑耦合 buliding turret
+    await tween.finished
     skill_context.callback.call()
+
+    # remove vfx
+    CommonUtil.delay_execution(0.3, func(): if is_instance_valid(vfx): vfx.queue_free())
+

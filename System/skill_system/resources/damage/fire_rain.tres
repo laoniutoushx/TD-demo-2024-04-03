@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=3 format=3 uid="uid://btoskpfy832ny"]
+
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_k0j1h"]
+[ext_resource type="Script" path="res://System/skill_system/resources/damage/fire_rain.gd" id="2_xxo4j"]
+
+[resource]
+script = ExtResource("1_k0j1h")
+code = "lightning_chain"
+title = "lightning_chain"
+desc = ""
+icon_path = "res://Asserts/Images/icon/skill icon/619.png"
+level = 0
+max_level = 3
+cooldown = 1.0
+mana_cost = 10.0
+range = 5.0
+release_distance = 0.0
+stock = 1
+value = 20.0
+internal_time = 0.3
+start_time = 0.1
+end_time = 0.1
+release_type = 16
+target_type = 17
+effect_type = 1
+skill_script = ExtResource("2_xxo4j")

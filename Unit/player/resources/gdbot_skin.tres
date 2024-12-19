@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=9 format=3 uid="uid://sa00lx2hfecc"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=10 format=3 uid="uid://sa00lx2hfecc"]
 
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_x8mob"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_usrqw"]
@@ -21,7 +21,7 @@ range = 5.0
 release_distance = 0.0
 stock = -1
 value = 20.0
-internal_time = 0.1
+internal_time = -1.0
 start_time = 0.1
 end_time = 0.1
 release_type = 1
@@ -37,13 +37,13 @@ desc = "1"
 icon_path = ""
 level = 0
 max_level = 3
-cooldown = 10.0
+cooldown = 1.0
 mana_cost = 10.0
 range = 5.0
 release_distance = 0.0
 stock = -1
 value = 20.0
-internal_time = 0.1
+internal_time = -1.0
 start_time = 0.1
 end_time = 0.1
 release_type = 1
@@ -52,12 +52,33 @@ effect_type = 4
 skill_script = ExtResource("5_50ktb")
 building_scene = ExtResource("5_uivxd")
 
+[sub_resource type="Resource" id="Resource_f5utn"]
+script = ExtResource("3_j65fo")
+code = ""
+title = "fire rain"
+desc = ""
+icon_path = "1157"
+level = 0
+max_level = 3
+cooldown = 1.0
+mana_cost = 10.0
+range = 5.0
+release_distance = 0.0
+stock = -1
+value = 0.0
+internal_time = -1.0
+start_time = 0.1
+end_time = 0.1
+release_type = 1
+target_type = 1
+effect_type = 1
+
 [resource]
 script = ExtResource("2_usrqw")
 clz_code = "gdbot_skin"
 clz_name = "gdbot_skin"
 model_path = ExtResource("1_x8mob")
-icon_path = "res://icon.svg"
+icon_path = "res://Asserts/Images/icon/player/gdbot.png"
 unit_move_type = 1
 unit_cate = 1
 armor_amount = 0.0
@@ -77,4 +98,4 @@ anim_release = "simple_punch"
 is_selected_circle = true
 component_system = 0
 pickup_velocity = 1000.0
-skill_metas = Array[ExtResource("3_j65fo")]([SubResource("Resource_qo41h"), SubResource("Resource_iasbf")])
+skill_metas = Array[ExtResource("3_j65fo")]([SubResource("Resource_qo41h"), SubResource("Resource_iasbf"), SubResource("Resource_f5utn")])
