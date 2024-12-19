@@ -19,6 +19,7 @@ scale_curve = SubResource("CurveTexture_6o248")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ckmor"]
 albedo_color = Color(0.502, 14.054, 0.369, 1)
+billboard_mode = 2
 
 [sub_resource type="QuadMesh" id="QuadMesh_cfe6p"]
 material = SubResource("StandardMaterial3D_ckmor")
