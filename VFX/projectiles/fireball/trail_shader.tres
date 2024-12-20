@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=11 format=3 uid="uid://d1j3j4a1bhlnv"]
+[gd_resource type="VisualShader" load_steps=12 format=3 uid="uid://d1j3j4a1bhlnv"]
 
 [ext_resource type="Texture2D" uid="uid://dxod3qohfa65r" path="res://Asserts/textures/vfx/T_FireTrail.jpg" id="1_cunxy"]
 
@@ -32,6 +32,10 @@ operator = 2
 
 [sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_la4o5"]
 function = 1
+
+[sub_resource type="VisualShaderNodeBillboard" id="VisualShaderNodeBillboard_hvtdh"]
+billboard_type = 3
+keep_scale = true
 
 [resource]
 code = "shader_type spatial;
@@ -96,6 +100,8 @@ flags/unshaded = true
 flags/shadows_disabled = true
 flags/ambient_light_disabled = true
 flags/fog_disabled = true
+nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_hvtdh")
+nodes/vertex/2/position = Vector2(-105.891, 95.2496)
 nodes/fragment/0/position = Vector2(640, 60)
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_w1cu2")
 nodes/fragment/2/position = Vector2(0, 360)

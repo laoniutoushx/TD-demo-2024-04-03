@@ -1,0 +1,62 @@
+[gd_scene load_steps=13 format=3 uid="uid://dysa7dbyn3mj2"]
+
+[ext_resource type="Shader" path="res://Test/Fire/fire vfx 01.gdshader" id="1_jsei6"]
+[ext_resource type="Shader" path="res://Test/Fire/fire vfx 01 - ball.gdshader" id="2_x6pw8"]
+[ext_resource type="Shader" uid="uid://dhg0rn3r5336q" path="res://Test/Fire/meteor.tres" id="3_3007g"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w00eh"]
+render_priority = 0
+shader = ExtResource("1_jsei6")
+shader_parameter/rotation_speed = 0.5
+shader_parameter/sun_color = Color(0.875, 0.297, 0.171, 1)
+shader_parameter/absorption = 0.15
+shader_parameter/scatter = 0.2
+
+[sub_resource type="SphereMesh" id="SphereMesh_weemb"]
+material = SubResource("ShaderMaterial_w00eh")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t0dbw"]
+render_priority = 0
+shader = ExtResource("2_x6pw8")
+shader_parameter/time_scale = 0.45
+shader_parameter/noise_scale = 0.45
+shader_parameter/color1 = Color(1, 0.19, 0, 1)
+shader_parameter/color2 = Color(1, 0.91, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_xjrkm"]
+material = SubResource("ShaderMaterial_t0dbw")
+
+[sub_resource type="SphereMesh" id="SphereMesh_6sb8f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crvpb"]
+render_priority = 0
+shader = ExtResource("3_3007g")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ycmg7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gqfru"]
+render_priority = 0
+shader = ExtResource("3_3007g")
+
+[sub_resource type="SphereMesh" id="SphereMesh_vvcm4"]
+material = SubResource("ShaderMaterial_gqfru")
+
+[node name="FireVfx01" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_weemb")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.64157)
+mesh = SubResource("SphereMesh_xjrkm")
+
+[node name="Meteor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.4995)
+mesh = SubResource("SphereMesh_6sb8f")
+surface_material_override/0 = SubResource("ShaderMaterial_crvpb")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10.312)
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_ycmg7")
+draw_pass_1 = SubResource("SphereMesh_vvcm4")
