@@ -12,6 +12,7 @@ var walk_run_blending = 0.0 : set = _set_walk_run_blending
 func _ready() -> void:
 	super._ready()	
 	set_face("default")
+	idle()
 
 
 func _set_walk_run_blending(value : float):
