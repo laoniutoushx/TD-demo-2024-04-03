@@ -40,3 +40,17 @@ func _process(delta: float) -> void:
 func skill_damage(skill: Skill, source: BaseUnit, target:BaseUnit):
 	print(skill.value)
 	target.take_damage(skill.value)
+
+
+func skill_range_damage(skill: Skill, source: BaseUnit, target_position: Vector3, affect_range: float = 5.0):
+	var units_within_range: Array = []
+
+	for unit in get_tree().get_nodes_in_group("enemy"):
+		if unit.global_position.distance_to(target_position) <= affect_range:
+			units_within_range.append(unit)
+
+	for unit in units_within_range:
+		if unit and unit.owner and unit.owner is BaseUnit:
+			print(skill.value)
+			unit.owner.take_damage(skill.value)
+
