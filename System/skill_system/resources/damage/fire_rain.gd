@@ -10,6 +10,10 @@ func action(skill_context: SkillContext) -> void:
     var source_unit: BaseUnit = skill_context.source
     var target_unit: BaseUnit = skill_context.target
 
+
+    # 初始数量
+    var init_num: int = skill.init_num
+
   
     # -- vfx/source_unit/target_unit handler
     var vfx = SystemUtil.vfx_system.create_vfx("lighting_chain", SystemUtil.vfx_system.VFX_TYPE.RUNNING)

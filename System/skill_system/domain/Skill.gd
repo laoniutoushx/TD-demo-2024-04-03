@@ -34,6 +34,8 @@ var code: String
 
 
 # 技能内部控制变量
+# 初始对象数量（skill 内部单位初始数量）
+@export var init_num: int = 1
 # 间隔时间
 @export var internal_time: float = 0.1
 # 施法前摇
