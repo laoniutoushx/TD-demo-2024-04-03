@@ -11,27 +11,28 @@ func action(skill_context: SkillContext) -> void:
     var target_unit: BaseUnit = skill_context.target
 
 
-    # 初始数量
-    var init_num: int = skill.init_num
-    var target_position: Vector3 = skill_context.target_position
+    for wave in range(skill.wave):
 
-    var points = []
-    var radius = skill.range
+        # 初始数量
+        var init_num: int = skill.init_num
+        var target_position: Vector3 = skill_context.target_position
 
-    while points.size() < init_num:
-        var angle = randf() * TAU
-        var distance = randf() * radius
-        var new_point = target_position + Vector3(cos(angle) * distance, 0, sin(angle) * distance)
+        var points = []
+        var radius = skill.range
 
+        while points.size() < init_num:
+            var angle = randf() * TAU
+            var distance = randf() * radius
+            var new_point = target_position + Vector3(cos(angle) * distance, 0, sin(angle) * distance)
+            points.append(new_point)
+    
+        for point in points:
+            var handler = InnerHandler.new(skill_context)
+            add_child(handler)
+            handler.vfx_handler(point)
 
-        
-        points.append(new_point)
-   
-    var tween: Tween
-    for point in points:
-        var handler = InnerHandler.new(skill_context)
-        add_child(handler)
-        handler.vfx_handler(point)
+        if skill.wave > 1 and wave < skill.wave - 1:
+            await CommonUtil.await_timer(skill.internal_time)
 
 
 
@@ -51,12 +52,22 @@ class InnerHandler extends Node3D:
         
         var tween: Tween = create_tween()
         tween.tween_property(vfx, "global_position", point, 1)
-
         await tween.finished
 
-        SystemUtil.damage_system.skill_range_damage(skill_context.skill, skill_context.source, point)
+        SystemUtil.damage_system.skill_range_damage(skill_context.skill, skill_context.source, point, skill_context.skill.range)
 
         # await CommonUtil.await_timer(2.0)
         
         if is_instance_valid(vfx):
             vfx.queue_free()
+
+        var vfx_destory = SystemUtil.vfx_system.create_vfx("fireball_another", SystemUtil.vfx_system.VFX_TYPE.DESTORY)
+        vfx_destory.look_at(point)
+        vfx_destory.global_position = point
+        vfx_destory.rotate_z(90)
+        self.add_child(vfx_destory)
+
+        await CommonUtil.await_timer(1.0)
+
+        if is_instance_valid(vfx_destory):
+            vfx_destory.queue_free()

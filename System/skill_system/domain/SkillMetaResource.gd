@@ -45,7 +45,7 @@ enum SKILL_EFFECT_TYPE{
 	BUILDING
 }
 
-
+@export_group("Skill Meta Steup")
 # meta info 
 @export var code: String
 @export var title: String = "Unnamed Skill"
@@ -69,15 +69,17 @@ enum SKILL_EFFECT_TYPE{
 
 
 # 技能内部控制变量
+@export_group("Skill Inner Steup")
 # 初始对象数量（skill 内部单位初始数量）
 @export var init_num: int = 1
 # 间隔时间
-@export var internal_time: float = -1
+@export var internal_time: float = 0.3
 # 施法前摇
 @export var start_time: float = 0.1
 # 施法后摇
 @export var end_time: float = 0.1
-
+# 技能轮次
+@export var wave: int = 1
 
 
 # consume 消耗

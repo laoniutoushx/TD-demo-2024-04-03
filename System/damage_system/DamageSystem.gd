@@ -61,14 +61,19 @@ func skill_range_damage(skill: Skill, source: BaseUnit, target_position: Vector3
 				var scale: Vector3 = CommonUtil.get_basic_scale(collision)
 
 				var world_unit_size = shape_size * scale
-				
-				var min_x = unit_position.x - world_unit_size.x / 2
-				var max_x = unit_position.x + world_unit_size.x / 2
-				var min_z = unit_position.z - world_unit_size.z / 2
-				var max_z = unit_position.z + world_unit_size.z / 2
 
-				if target_position.x >= min_x and target_position.x <= max_x and target_position.z >= min_z and target_position.z <= max_z:
+				var is_in_range = target_position.x >= unit_position.x - world_unit_size.x / 2 and target_position.x <= unit_position.x + world_unit_size.x / 2 and target_position.z >= unit_position.z - world_unit_size.z / 2 and target_position.z <= unit_position.z + world_unit_size.z / 2
+				if is_in_range:
 					if CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.ENEMY, skill.target_type) and unit.owner.player_group != source.player_group:
 						unit.owner.take_damage(skill.value)
+				
+				# var min_x = unit_position.x - world_unit_size.x / 2
+				# var max_x = unit_position.x + world_unit_size.x / 2
+				# var min_z = unit_position.z - world_unit_size.z / 2
+				# var max_z = unit_position.z + world_unit_size.z / 2
+
+				# if target_position.x >= min_x and target_position.x <= max_x and target_position.z >= min_z and target_position.z <= max_z:
+				# 	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.ENEMY, skill.target_type) and unit.owner.player_group != source.player_group:
+				# 		unit.owner.take_damage(skill.value)
 
 

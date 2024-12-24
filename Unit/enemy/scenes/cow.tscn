@@ -166,7 +166,7 @@ bind/27/pose = Transform3D(1, 0, -2.71003e-06, 0, -1, 0, -2.71003e-06, 0, -1, -0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8iqam"]
 margin = 0.0
-size = Vector3(0.02, 0.05, 0.06)
+size = Vector3(2, 4.7, 6)
 
 [sub_resource type="Animation" id="Animation_lrcyk"]
 resource_name = "Armature|Death"
@@ -1848,13 +1848,6 @@ _data = {
 use_model_front = true
 script = ExtResource("1_5kd5q")
 
-[node name="FadedCircle3D" parent="." instance=ExtResource("2_k35om")]
-radius = 3.286
-width = 78.905
-inner_edge_width = 175.512
-outer_edge_width = 33.268
-color = Color(0.336, 0.8, 0.366933, 0.74902)
-
 [node name="Cow" type="Node3D" parent="."]
 
 [node name="Armature" type="Node3D" parent="Cow"]
@@ -2141,13 +2134,20 @@ skin = SubResource("Skin_axfqr")
 
 [node name="AttackedScope" type="Area3D" parent="Cow/Armature/Skeleton3D" groups=["enemy"]]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, -1.19209e-07, -1, 0, 1, -1.19209e-07, 0, 0, 0)
+transform = Transform3D(0.01, 0, 0, 0, -4.37114e-10, -0.01, 0, 0.01, -4.37114e-10, 0, -3.09943e-09, 0.026)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Cow/Armature/Skeleton3D/AttackedScope" groups=["enemy"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.425, -2.26493e-08)
 shape = SubResource("BoxShape3D_8iqam")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Cow"]
 libraries = {
 "": SubResource("AnimationLibrary_gpf3n")
 }
+
+[node name="FadedCircle3D" parent="." instance=ExtResource("2_k35om")]
+radius = 3.286
+width = 78.905
+inner_edge_width = 175.512
+outer_edge_width = 33.268
+color = Color(0.336, 0.8, 0.366933, 0.74902)

@@ -1,7 +1,7 @@
 class_name PlayerSkillScopeIndicator extends Node3D
 
 # 引入状态机
-
+@onready var skill_release_indicator: Decal = $SklillReleaseIndicator
 
 
 func _ready() -> void:
@@ -27,5 +27,11 @@ func hide_indicator() -> void:
     SignalBufferSystem.buffer_signal(SignalBus.ray_picker_unregist, skill_scope_indicatior_pos_sync)
     visible = false
 
-    
 
+func set_indicator_size(x: float, y: float) -> void:
+    skill_release_indicator.size.x = x
+    skill_release_indicator.size.z = y  # z = y
+    
+func reset_indicator_size() -> void:
+    skill_release_indicator.size = Vector3(10, 10, 10)
+    

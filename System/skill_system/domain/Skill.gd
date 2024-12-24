@@ -7,8 +7,8 @@ var target: BaseUnit
 var slot: BaseSlot
 
 
-
 # meta info 
+@export_group("Skill Meta Steup")
 var id: String
 var code: String
 @export var sort: int
@@ -32,16 +32,18 @@ var code: String
 # 值
 @export var value: float
 
-
 # 技能内部控制变量
+@export_group("Skill Inner Steup") 
 # 初始对象数量（skill 内部单位初始数量）
 @export var init_num: int = 1
 # 间隔时间
-@export var internal_time: float = -1
+@export var internal_time: float = 0.3
 # 施法前摇
 @export var start_time: float = 0.1
 # 施法后摇
 @export var end_time: float = 0.1
+# 技能轮次
+@export var wave: int = 1
 
 # consume 消耗
 # level up 
@@ -186,6 +188,7 @@ func change_state(new_state: SKILL_STATE) -> void:
             # PlayerStatus 切换
             SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.CHOOSING_TARGETED_UNIT
             # 技能指示器
+            SOS.main.player_controller.player_skill_scope_indicator.set_indicator_size(range * 2, range * 2)
             SOS.main.player_controller.player_skill_scope_indicator.show_indicator()
             # 隐藏鼠标光标
             Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
