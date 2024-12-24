@@ -67,11 +67,10 @@ shape = SubResource("ConcavePolygonShape3D_jfrus")
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Floor"]
 navigation_mesh = SubResource("NavigationMesh_c3cbv")
 
-[node name="RayPickerCamera" parent="." node_paths=PackedStringArray("grid_map", "turret_manager") instance=ExtResource("1_55flt")]
+[node name="RayPickerCamera" parent="." node_paths=PackedStringArray("grid_map") instance=ExtResource("1_55flt")]
 transform = Transform3D(1, 0, 0, 0, 0.317305, 0.948324, 0, -0.948324, 0.317305, 0, 32, 17)
 fov = 70.0
 grid_map = NodePath("../GridMap")
-turret_manager = NodePath("")
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("2_cnmp3")
@@ -144,3 +143,6 @@ script = ExtResource("9_10et7")
 [node name="GDbotSkin" parent="." instance=ExtResource("10_mdt28")]
 
 [node name="TurretManager" parent="." instance=ExtResource("8_alldu")]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, -1)

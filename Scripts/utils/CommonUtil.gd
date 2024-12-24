@@ -130,6 +130,10 @@ static func get_scaled_aabb(mesh_instance: MeshInstance3D) -> AABB:
 	var scaled_aabb = AABB(local_aabb.position * scale, local_aabb.size * scale)
 	return scaled_aabb
 
+static func get_basic_scale(node: Node) -> Vector3:
+	var basis = node.global_transform.basis
+	return basis.get_scale()
+
 
 
 static func create_outline_mesh(mesh_instance: MeshInstance3D, outline_width: float = 0.05) -> ArrayMesh:
@@ -231,8 +235,8 @@ class ResourceLoaderUtil:
 
 
 # 处理 export_flags 相关数据
-static func is_flag_set(flag: int, bit: int) -> bool:
-	return (int(pow(2, flag)) & bit) != 0
+static func is_flag_set(flag: int, bit_set: int) -> bool:
+	return (int(pow(2, flag)) & bit_set) != 0
 
 static func set_flag(flag: int) -> int:
 	return int(pow(2, flag))

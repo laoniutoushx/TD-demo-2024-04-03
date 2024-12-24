@@ -37,7 +37,7 @@ var code: String
 # 初始对象数量（skill 内部单位初始数量）
 @export var init_num: int = 1
 # 间隔时间
-@export var internal_time: float = 0.1
+@export var internal_time: float = -1
 # 施法前摇
 @export var start_time: float = 0.1
 # 施法后摇

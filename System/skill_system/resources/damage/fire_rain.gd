@@ -33,15 +33,6 @@ func action(skill_context: SkillContext) -> void:
         add_child(handler)
         handler.vfx_handler(point)
 
-  
-
-
-    # SystemUtil.damage_system.skill_damage(skill, source_unit, target_unit)
-
-    # await CommonUtil.await_timer(2.0)
-    
-    # if is_instance_valid(vfx):
-    #     vfx.queue_free()
 
 
 class InnerHandler extends Node3D:
@@ -63,7 +54,7 @@ class InnerHandler extends Node3D:
 
         await tween.finished
 
-        SystemUtil.damage_system.skill_range_damage(skill_context.skill, skill_context.source, point, 10.0)
+        SystemUtil.damage_system.skill_range_damage(skill_context.skill, skill_context.source, point)
 
         # await CommonUtil.await_timer(2.0)
         

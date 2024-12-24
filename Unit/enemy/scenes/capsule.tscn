@@ -50,13 +50,12 @@ _data = {
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_wievb")
 
-[node name="AttackedScope" type="Area3D" parent="." groups=["enemy"]]
-unique_name_in_owner = true
-
-[node name="capsule" type="MeshInstance3D" parent="AttackedScope"]
+[node name="capsule" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 mesh = SubResource("CapsuleMesh_2jmip")
-skeleton = NodePath("../..")
+
+[node name="AttackedScope" type="Area3D" parent="." groups=["enemy"]]
+unique_name_in_owner = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackedScope" groups=["enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290527, 1.05695, -0.0090332)

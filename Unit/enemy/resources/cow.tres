@@ -25,6 +25,7 @@ anim_run = "Armature|Run"
 anim_walk = null
 anim_idle = null
 anim_death = "Armature|Death"
+anim_release = null
 is_selected_circle = true
 component_system = 0
 pickup_velocity = 1000.0

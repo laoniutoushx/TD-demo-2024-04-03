@@ -26,6 +26,7 @@ var ANIM_RELEASE = "release"
 
 # Script Type
 var MeshInstance3D_CLZ = "MeshInstance3D"
+var CollisionShape3D_CLZ = "CollisionShape3D"
 var AnimationPlayer_CLZ = "AnimationPlayer"
 var AnimationTree_CLZ = "AnimationTree"
 
