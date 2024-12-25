@@ -47,6 +47,10 @@ func _ready() -> void:
 	progress_bar.value = 0.0
 	progress_bar.visible = false
 
+	# Assuming slot is a Control node or subclass like Button, Label, etc.
+	# 设置 slot 轴心位置（防止缩放时，图标位置偏移）
+	self.pivot_offset = self.size / 2  # Set the pivot to the center of the node
+
 	
 # input event handler register
 func _input(event: InputEvent) -> void: 

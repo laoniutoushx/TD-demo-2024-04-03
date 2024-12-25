@@ -33,7 +33,7 @@ float perlin(vec3 p) {
     vec3 min_corner = floor(p);
     vec3 local = fract(p);
     float ret = 0.0;
-    
+
     for (int dx = 0; dx <= 1; ++dx) {
         for (int dy = 0; dy <= 1; ++dy) {
             for (int dz = 0; dz <= 1; ++dz) {
@@ -53,7 +53,7 @@ float perlin(vec3 p) {
 float fbm(vec3 p) {
     float ret = 0.0;
     float amp = 1.0;
-    
+
     for (int i = 0; i < 4; ++i) {
         ret += amp * perlin(p);
         p *= 2.0;
@@ -66,14 +66,14 @@ float fbm(vec3 p) {
 vec4 rayMarch(vec3 ro, vec3 rd) {
     float t = 0.0;
     vec4 color = vec4(0.0);
-    
+
     for(int i = 0; i < 50; i++) {
         vec3 p = ro + t * rd;
         float sdf = length(p) - 1.0;
         float noise = fbm(p * noise_scale + TIME * time_scale);
         noise = (noise + 0.7) / 3.0;
         float density = pow(7.2, -1.66 * sdf) * noise;
-        
+
         if(density > 1e-3) {
             vec4 c = vec4(mix(color1, color2, density), density);
             c.a *= 0.2;
@@ -88,14 +88,14 @@ vec4 rayMarch(vec3 ro, vec3 rd) {
 void fragment() {
     // 转换UV坐标
     vec2 uv = (UV * 2.0 - 1.0);
-    
+
     // 设置光线原点和方向
     vec3 ro = vec3(0.0, 0.0, -2.0);
     vec3 rd = normalize(vec3(uv, 1.0));
-    
+
     // 执行光线步进
     vec4 color = rayMarch(ro, rd);
-    
+
     // 输出最终颜色
     ALBEDO = color.rgb;
     ALPHA = color.a;

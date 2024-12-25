@@ -1,8 +1,8 @@
 [gd_resource type="ArrayMesh" load_steps=7 format=4 uid="uid://cmqarno8i2rgc"]
 
-[ext_resource type="Shader" uid="uid://bobabpabvjoxf" path="res://VFX/lighting/mark_shader.tres" id="1_sqq6g"]
+[ext_resource type="Shader" uid="uid://bobabpabvjoxf" path="res://VFX/thunderclap/mark_shader.tres" id="1_sqq6g"]
 [ext_resource type="Shader" uid="uid://dve64n1tdddq7" path="res://Asserts/thunder_shader.tres" id="1_xlbha"]
-[ext_resource type="Shader" uid="uid://d0wapq72rl42h" path="res://VFX/lighting/wave_shader.tres" id="3_m11f5"]
+[ext_resource type="Shader" uid="uid://d0wapq72rl42h" path="res://VFX/thunderclap/wave_shader.tres" id="3_m11f5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ior7v"]
 render_priority = 0

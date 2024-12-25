@@ -1,4 +1,4 @@
-class_name LightingChain extends Node3D
+class_name ThunderChain extends Node3D
 
 
 
@@ -18,7 +18,7 @@ func action(skill_context: SkillContext) -> void:
 
 
     # -- vfx/source_unit/target_unit handler
-    var vfx = SystemUtil.vfx_system.create_vfx("lighting_chain", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
+    var vfx = SystemUtil.vfx_system.create_vfx("thunderclap", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
     target_unit.add_child(vfx)
 
     SystemUtil.damage_system.skill_damage(skill, source_unit, target_unit)

@@ -145,9 +145,11 @@ func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3, on_sele
                 SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.DEFAULT)
             else:
                 print("没有找到最近的单位")
+                SOS.main.message_bar.set_message("没有选中任何单位")
 
         else:
             print("没有选中任何单位")
+            SOS.main.message_bar.set_message("没有选中任何单位")
 
 
 # skill target selected unit filter
@@ -177,12 +179,22 @@ func change_state(new_state: SKILL_STATE) -> void:
         unit.current_global_skill_state = 0
         # player status 变更 DEFAULT
         SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DEFAULT
+
+        slot.icon_texture.material.set_shader_parameter("enable_gradient", false)
+        var tween = create_tween()
+        tween.tween_property(slot, "scale", Vector2(1.0, 1.0), 0.1)
     
     # 旧状态
     current_state = new_state
 
     match current_state:
         SKILL_STATE.Circle_Range_Indicate:
+            slot.icon_texture.material.set_shader_parameter("enable_gradient", true)
+
+            var tween = create_tween()
+            tween.tween_property(slot, "scale", Vector2(1.2, 1.2), 0.1)
+
+
             # 单位全局技能状态处理
             unit.current_global_skill_state = 1
             # PlayerStatus 切换
@@ -196,6 +208,11 @@ func change_state(new_state: SKILL_STATE) -> void:
             # 点击任意位置后，释放
 
         SKILL_STATE.Targeted_Indicate:
+            slot.icon_texture.material.set_shader_parameter("enable_gradient", true)
+
+            var tween = create_tween()
+            tween.tween_property(slot, "scale", Vector2(1.2, 1.2), 0.1)
+
             # 单位全局技能状态处理
             unit.current_global_skill_state = 1
 
@@ -211,6 +228,11 @@ func change_state(new_state: SKILL_STATE) -> void:
             SignalBus.player_selected_units.connect(_on_player_selected_units)
 
         SKILL_STATE.Building_Indicate:
+            slot.icon_texture.material.set_shader_parameter("enable_gradient", true)
+
+            var tween = create_tween()
+            tween.tween_property(slot, "scale", Vector2(1.2, 1.2), 0.1)
+
             # 单位全局技能状态处理
             unit.current_global_skill_state = 1
 

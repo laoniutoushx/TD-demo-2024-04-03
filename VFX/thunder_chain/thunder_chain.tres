@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://blihyhfc607g1"]
+
+[ext_resource type="Texture2D" uid="uid://brtx1k4o282bb" path="res://addons/kenney_particle_pack/spark_07.png" id="1_61s34"]
+
+[resource]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(4, 3, 2, 1)
+albedo_texture = ExtResource("1_61s34")
+uv2_triplanar_sharpness = 0.784584
+uv2_world_triplanar = true
+point_size = 0.1

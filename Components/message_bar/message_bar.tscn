@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://byvfnv1m624t"]
+
+[ext_resource type="Script" path="res://Components/message_bar/message_bar.gd" id="1_2umr1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jbcne"]
+font_size = 30
+font_color = Color(1, 0.423529, 0.490196, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="MessageBar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2umr1")
+
+[node name="Msg" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 75.0
+offset_top = 84.0
+offset_right = -75.0
+offset_bottom = -638.0
+grow_horizontal = 2
+label_settings = SubResource("LabelSettings_jbcne")
+horizontal_alignment = 1
+vertical_alignment = 1

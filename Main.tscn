@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d4gqkoqce24re"]
+[gd_scene load_steps=11 format=3 uid="uid://d4gqkoqce24re"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_7e1y6"]
 [ext_resource type="PackedScene" uid="uid://lwbcrrjy7f4u" path="res://Player/player_controller.tscn" id="1_7t1by"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://5kncg21bpaly" path="res://System/damage_system/damage_system.tscn" id="5_v3n30"]
 [ext_resource type="PackedScene" uid="uid://ti0jc0egel3q" path="res://System/unit_system/unit_system.tscn" id="7_i5nrp"]
 [ext_resource type="PackedScene" uid="uid://caj82lyjnxa4l" path="res://System/skill_system/skill_system.tscn" id="9_tkfl7"]
+[ext_resource type="PackedScene" uid="uid://byvfnv1m624t" path="res://Components/message_bar/message_bar.tscn" id="10_s4ypy"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_7e1y6")
@@ -22,6 +23,8 @@ extensions = Array[String](["png", "tres", "tre", "svg"])
 res_paths = Array[String](["res://"])
 
 [node name="PlayerController" parent="." instance=ExtResource("1_7t1by")]
+
+[node name="MessageBar" parent="." instance=ExtResource("10_s4ypy")]
 
 [node name="System" type="Node" parent="."]
 

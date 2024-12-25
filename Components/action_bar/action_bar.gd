@@ -68,6 +68,8 @@ func hide() -> void:
 func _on_player_select_units(unit_map: Dictionary, mouse_pos: Vector3, on_selected_player_status: PlayerController.PLAYER_STATUS) -> void:
 	if on_selected_player_status == PlayerController.PLAYER_STATUS.DEFAULT:
 		if unit_map.size() == 0:
+			# skill bar clear
+			close_skill_bar()
 			hide()
 		else:
 			display()
@@ -91,6 +93,9 @@ func open_skill_bar(unit_map: Dictionary):
 	skill_bar_comp.clear()
 	# skill bar init
 	skill_bar_comp.setup_for_unit(unit_map)
+
+func close_skill_bar():
+	skill_bar_comp.clear()
 
 # REGION selection bar 
 

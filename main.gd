@@ -6,6 +6,9 @@ class_name Main extends Node3D
 @onready var resource_manager: ResourceManager = $ResourceManager
 @onready var player_controller: PlayerController = $PlayerController
 
+# message bar
+@onready var message_bar: Control = $MessageBar
+
 
 
 @onready var vfx_system: VFXSystem = %VfxSystem
