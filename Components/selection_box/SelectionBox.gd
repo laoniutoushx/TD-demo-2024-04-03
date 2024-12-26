@@ -65,10 +65,7 @@ func _start():
 	# delay to enable detect
 	area_collision.disabled = false
 	selecting_started.emit()
-	#CommonUtil.delay_execution(selecting_delay, func(): 
-		#area_collision.disabled = false
-		#selecting_started.emit(
-		#)
+
 
 
 func _finish():

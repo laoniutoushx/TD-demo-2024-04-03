@@ -28,3 +28,4 @@ signal player_selected_units(unit_map: Dictionary, mouse_pos: Vector3, on_select
 
 # Skill
 signal building_floor_indicator_show(skill_context: SkillContext)   # 建筑技能指示事件
+signal building_floor_indicator_hide(skill_context: SkillContext)   # 建筑技能指示事件

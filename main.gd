@@ -5,9 +5,12 @@ class_name Main extends Node3D
 @onready var level_controller: LevelController = $LevelController
 @onready var resource_manager: ResourceManager = $ResourceManager
 @onready var player_controller: PlayerController = $PlayerController
+var turret_manager: TurretManager
 
-# message bar
-@onready var message_bar: Control = $MessageBar
+# UI
+@onready var message_bar: Control = $UI/MessageBar
+@onready var building_key_indicator: Control = $UI/BuildingKeyIndicator
+@onready var slot_indicator: Control = $UI/SlotIndicator
 
 
 

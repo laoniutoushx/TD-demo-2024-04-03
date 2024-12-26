@@ -106,6 +106,13 @@ func _input(event: InputEvent) -> void:
             change_state(SKILL_STATE.Release)
             Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
             get_viewport().set_input_as_handled()
+    
+    if event is InputEventKey and event.pressed and event.keycode  == KEY_ESCAPE:
+        if current_state == SKILL_STATE.Targeted_Indicate or current_state == SKILL_STATE.Building_Indicate or current_state == SKILL_STATE.Circle_Range_Indicate:
+            change_state(SKILL_STATE.Idle)
+
+
+
 
 
 func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3, on_selected_player_status: PlayerController.PLAYER_STATUS) -> void:
@@ -172,6 +179,7 @@ func _skill_target_unit_cond_matched(_u: BaseUnit) -> bool:
 # You could also move each state's setup into a separate function if you had a lot to do.
 func change_state(new_state: SKILL_STATE) -> void:
 
+    # 从前一个状态迁移过来时，执行操作
     if (current_state == SKILL_STATE.Targeted_Indicate 
         or current_state == SKILL_STATE.Building_Indicate 
         or current_state == SKILL_STATE.Circle_Range_Indicate):
@@ -179,11 +187,27 @@ func change_state(new_state: SKILL_STATE) -> void:
         unit.current_global_skill_state = 0
         # player status 变更 DEFAULT
         SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DEFAULT
+        # player cursor 变更 DEFAULT
+        SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.DEFAULT)
 
         slot.icon_texture.material.set_shader_parameter("enable_gradient", false)
         var tween = create_tween()
         tween.tween_property(slot, "scale", Vector2(1.0, 1.0), 0.1)
+
+        if current_state == SKILL_STATE.Building_Indicate:
+            # 关闭 BuildingKeyIndicator
+            SOS.main.building_key_indicator.show_toggle()
+            # 销毁 turrent 
+            SignalBus.building_floor_indicator_hide.emit(skill_context)
+            # 如果切换到 Idle 状态，直接删除 turret（耦合代码）
+            if new_state == SKILL_STATE.Idle and SOS.main.turret_manager:
+                SOS.main.turret_manager.turret.queue_free()
+                
+
+        if current_state == SKILL_STATE.Circle_Range_Indicate:
+            SOS.main.player_controller.player_skill_scope_indicator.hide_indicator()
     
+
     # 旧状态
     current_state = new_state
 
@@ -236,6 +260,9 @@ func change_state(new_state: SKILL_STATE) -> void:
             # 单位全局技能状态处理
             unit.current_global_skill_state = 1
 
+            # 开启 BuildingKeyIndicator
+            SOS.main.building_key_indicator.show_toggle()
+
             # TODO 可以在此处注册 键盘 Esc 事件，取消 indicator
 
 
@@ -252,7 +279,7 @@ func change_state(new_state: SKILL_STATE) -> void:
         SKILL_STATE.Release:
             # releasing
             SystemUtil.skill_system.release(skill_context)
-            SOS.main.player_controller.player_skill_scope_indicator.hide_indicator()
+            
             change_state(SKILL_STATE.Cool_Down)
 
 

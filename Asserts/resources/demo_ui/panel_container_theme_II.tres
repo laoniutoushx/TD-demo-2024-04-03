@@ -1,0 +1,16 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://bqkldfjwcgfsp"]
+
+[ext_resource type="FontFile" uid="uid://b2jmotgetkr7k" path="res://Asserts/resources/demo_ui/Font/KingGamingFreeTrial-gxrq6.otf" id="1_bs38l"]
+[ext_resource type="Texture2D" uid="uid://cil63qfmw07vn" path="res://Asserts/Images/background/background-black.png" id="2_uy0d3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5pm7c"]
+texture = ExtResource("2_uy0d3")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[resource]
+Label/font_sizes/font_size = 32
+Label/fonts/font = ExtResource("1_bs38l")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_5pm7c")

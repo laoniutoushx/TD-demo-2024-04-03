@@ -1,5 +1,5 @@
-class_name CommonUtil
-extends Node
+class_name CommonUtil extends Node
+
 
 # get main scene tree
 static func await_get_root_node() -> Node:
@@ -9,6 +9,7 @@ static func await_get_root_node() -> Node:
 		while Constants.GLB_TICKET > 2.0:
 			return await_get_root_node()
 	return Constants.ROOT_NODE
+
 
 
 static func await_timer(second):

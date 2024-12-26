@@ -58,7 +58,7 @@ func action(source, target):
 			var mesh_standing = (target as BaseUnit).get_mesh_standing()
 			if mesh_standing != null:
 				mesh_standing.visible = true
-				# 等待 0.01 秒后恢复, wait to do
+				# 等待 0.1 秒后恢复, wait to do
 				CommonUtil.delay_execution(0.1, func() -> void: if mesh_standing != null: mesh_standing.visible = false)
 				
 		

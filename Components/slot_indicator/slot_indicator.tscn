@@ -1,0 +1,133 @@
+[gd_scene load_steps=5 format=3 uid="uid://vrme7q61fwqx"]
+
+[ext_resource type="Script" path="res://Components/slot_indicator/slot_indicator.gd" id="1_fo23d"]
+[ext_resource type="Theme" uid="uid://bqkldfjwcgfsp" path="res://Asserts/resources/demo_ui/panel_container_theme_II.tres" id="1_r2pw0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ao2g8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ar14"]
+
+[node name="SlotIndicator" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fo23d")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = -148.5
+offset_right = 155.0
+offset_bottom = 148.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_r2pw0")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 70
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/AspectRatioContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "基础塔"
+label_settings = SubResource("LabelSettings_ao2g8")
+vertical_alignment = 1
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer"]
+layout_mode = 2
+alignment_horizontal = 2
+
+[node name="Level" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/AspectRatioContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "等级 1"
+label_settings = SubResource("LabelSettings_ao2g8")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 0
+
+[node name="CostContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="MoneyCost" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/CostContainer"]
+layout_mode = 2
+text = "金币：100"
+label_settings = SubResource("LabelSettings_ao2g8")
+vertical_alignment = 1
+
+[node name="WoodCost" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/CostContainer"]
+layout_mode = 2
+text = "木材：1"
+label_settings = SubResource("LabelSettings_ao2g8")
+vertical_alignment = 1
+
+[node name="ManCost" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/CostContainer"]
+layout_mode = 2
+text = "魔法消耗：50"
+label_settings = SubResource("LabelSettings_ao2g8")
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="MsgContainer" type="VSplitContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/MsgContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_2ar14")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/MsgContainer/PanelContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "“火焰雨”通常指一种魔法技能，常见于各种奇幻题材的游戏、小说等作品中。其效果为从天空中降下大量的火焰，攻击范围内的敌人。由于不同作品的设定各异，“火焰雨”的具体表现形式和效果也会有所不同。
+"
+fit_content = true
+
+[node name="MarginContainer4" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ValueContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer4"]
+layout_mode = 2
+
+[node name="Damage" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/ValueContainer"]
+layout_mode = 2
+text = "伤害：20"
+label_settings = SubResource("LabelSettings_ao2g8")
+vertical_alignment = 1
+
+[node name="Damage2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/ValueContainer"]
+layout_mode = 2
+text = "持续时间：20"
+label_settings = SubResource("LabelSettings_ao2g8")
+vertical_alignment = 1

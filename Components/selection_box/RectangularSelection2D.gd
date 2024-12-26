@@ -35,11 +35,6 @@ func _start():
 	_rect = Rect2(0, 0, 100, 100)
 	_rect.position = mouse_pos
 	
-	#CommonUtil.delay_execution(selecting_delay, func():
-		#if _is_selecting:
-			#_rect = Rect2(0, 0, 0, 0)
-			#_rect.position = mouse_pos
-		#)
 
 
 func _finish():

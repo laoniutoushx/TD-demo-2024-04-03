@@ -12,6 +12,10 @@ var cell_mesh_container: Dictionary = {}
 
 func _ready() -> void:
 	SignalBus.building_floor_indicator_show.connect(_on_building_floor_indicator_show)
+	SignalBus.building_floor_indicator_hide.connect(_on_building_floor_indicator_hide)
+
+	# 依赖注入
+	SOS.main.turret_manager = self
 
 
 
@@ -79,7 +83,7 @@ func callable_build_turret(ray_cast_3d: RayCast3D, _grid_map: GridMap) -> void:
 					skill_context.skill.change_state(Skill.SKILL_STATE.Release)
 
 
-
+# 显示建筑指示
 func _on_building_floor_indicator_show(_skill_context: SkillContext):
 	skill_context = _skill_context
 	var grid_map = CommonUtil.get_first_node_by_node_name(self.get_parent(), "GridMap")
@@ -103,10 +107,17 @@ func _on_building_floor_indicator_show(_skill_context: SkillContext):
 
 	SignalBus.ray_picker_regist.emit(callable_build_turret)
 
-	# 开始监听 ray picker 点击位置
+
+# 隐藏建筑指示
+func _on_building_floor_indicator_hide(_skill_context: SkillContext):
+	# 取消相机碰撞检测回调注册函数
+	SignalBus.ray_picker_unregist.emit(callable_build_turret)
+	# 清空所有指示
+	_clear_cell_mesh_indicator_in_position()
 
 
 
+# 创建 cell mesh 指示
 func _create_cell_mesh_indicator_in_position(grid_map, cell_position: Vector3) -> MeshInstance3D:
 	var cellmesh_instance = MeshInstance3D.new()
 	cellmesh_instance.mesh = grid_map.mesh_library.get_item_mesh(1)  # 使用默认的块 Mesh
@@ -116,6 +127,8 @@ func _create_cell_mesh_indicator_in_position(grid_map, cell_position: Vector3) -
 	add_child(cellmesh_instance)
 	return cellmesh_instance
 
+
+# 清空所有指示
 func _clear_cell_mesh_indicator_in_position() -> void:
 	for cell_position in cell_mesh_container:
 		remove_child(cell_mesh_container[cell_position])

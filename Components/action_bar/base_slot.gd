@@ -130,12 +130,20 @@ func do(active):
 func _on_mouse_entered() -> void:
 	is_mouse_hover = true
 	icon_texture.material.set_shader_parameter("show_border", true)
+
+	# 显示 slot_indicator 
+	SOS.main.slot_indicator.show_toggle(reference)
+		
 	
 
 
 func _on_mouse_exited() -> void:
 	is_mouse_hover = false
 	icon_texture.material.set_shader_parameter("show_border", false)
+
+	# 关闭 slot_indicator 
+	SOS.main.slot_indicator.show_toggle(reference)
+
 
 
 func _process(delta: float) -> void:
