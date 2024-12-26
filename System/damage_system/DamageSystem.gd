@@ -30,7 +30,7 @@ func _process(delta: float) -> void:
 
 
 func skill_damage(skill: Skill, source: BaseUnit, target:BaseUnit):
-	print(skill.value)
+	print("skill value: %s, skill name: %s " % skill.value, skill.title)
 	target.take_damage(skill.value)
 
 
@@ -38,7 +38,7 @@ func skill_range_damage(skill: Skill, source: BaseUnit, target_position: Vector3
 	var units_within_range: Array = []
 
 	for unit in SOS.main.get_tree().get_nodes_in_group("enemy"):
-		print(unit.global_position.distance_to(target_position))
+		# print(unit.global_position.distance_to(target_position))
 		if unit.global_position.distance_to(target_position) <= affect_range:
 			units_within_range.append(unit)
 

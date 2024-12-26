@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://vrme7q61fwqx"]
 
 [ext_resource type="Script" path="res://Components/slot_indicator/slot_indicator.gd" id="1_fo23d"]
-[ext_resource type="Theme" uid="uid://bqkldfjwcgfsp" path="res://Asserts/resources/demo_ui/panel_container_theme_II.tres" id="1_r2pw0"]
+[ext_resource type="Theme" uid="uid://bgnm3bo8fskui" path="res://Asserts/resources/demo_ui/panel_container_theme_II.tres" id="1_r2pw0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ao2g8"]
 
@@ -25,10 +25,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -155.0
-offset_top = -148.5
-offset_right = 155.0
-offset_bottom = 148.5
+offset_left = -172.5
+offset_top = -229.0
+offset_right = 172.5
+offset_bottom = 229.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_r2pw0")

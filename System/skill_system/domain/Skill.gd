@@ -168,7 +168,7 @@ func _skill_target_unit_cond_matched(_u: BaseUnit) -> bool:
         # enemy unit
         CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.ENEMY, target_type) and _u.player_group != SOS.main.player_controller.player_group_idx
     ]
-    print(conditions.any(func(x): return x))
+
     return conditions.any(func(x): return x)
 
 

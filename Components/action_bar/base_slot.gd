@@ -132,7 +132,7 @@ func _on_mouse_entered() -> void:
 	icon_texture.material.set_shader_parameter("show_border", true)
 
 	# 显示 slot_indicator 
-	SOS.main.slot_indicator.show_toggle(reference)
+	SOS.main.slot_indicator.show_toggle(self)
 		
 	
 
@@ -142,7 +142,7 @@ func _on_mouse_exited() -> void:
 	icon_texture.material.set_shader_parameter("show_border", false)
 
 	# 关闭 slot_indicator 
-	SOS.main.slot_indicator.show_toggle(reference)
+	SOS.main.slot_indicator.show_toggle(self)
 
 
 
