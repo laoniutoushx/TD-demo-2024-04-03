@@ -1,0 +1,72 @@
+[gd_scene load_steps=14 format=3 uid="uid://ckhf1swc6vp84"]
+
+[ext_resource type="Shader" uid="uid://20s2yib7focl" path="res://Test/draw_line/draw_line.tres" id="1_jihmk"]
+[ext_resource type="Script" path="res://Test/draw_line/draw_line.gd" id="1_mqalp"]
+[ext_resource type="Script" path="res://Test/draw_line/mesh_instance_3d_3.gd" id="3_p1jxw"]
+[ext_resource type="Script" path="res://Scripts/camera/camera.gd" id="4_m7gt2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ukg3"]
+albedo_color = Color(0.28485, 0.28485, 0.28485, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bjn21"]
+material = SubResource("StandardMaterial3D_8ukg3")
+size = Vector2(20, 20)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_csqw2"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_fvota"]
+sky_material = SubResource("ProceduralSkyMaterial_csqw2")
+
+[sub_resource type="Environment" id="Environment_brkvc"]
+background_mode = 2
+sky = SubResource("Sky_fvota")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_leqla"]
+render_priority = 0
+shader = ExtResource("1_jihmk")
+shader_parameter/Color = Color(0, 2, 0, 1)
+shader_parameter/MainTextureSpeed = Vector2(1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_4ee6e"]
+material = SubResource("ShaderMaterial_leqla")
+size = Vector2(1, 10)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_i5gsx"]
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_24vgw"]
+
+[node name="DrawLine" type="Node3D"]
+script = ExtResource("1_mqalp")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_bjn21")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_brkvc")
+
+[node name="FreeLookCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
+script = ExtResource("4_m7gt2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.76447, 0, -1.40845)
+mesh = SubResource("QuadMesh_4ee6e")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.474703, 0, 0)
+visible = false
+mesh = SubResource("ImmediateMesh_i5gsx")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.345451, 0, -0.619586)
+visible = false
+mesh = SubResource("ImmediateMesh_24vgw")
+script = ExtResource("3_p1jxw")
