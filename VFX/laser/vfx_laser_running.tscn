@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0m318c4sullh"]
+
+[ext_resource type="Script" path="res://VFX/laser/laser.gd" id="1_cfngw"]
+[ext_resource type="Texture2D" uid="uid://brtx1k4o282bb" path="res://addons/kenney_particle_pack/spark_07.png" id="1_gmr7m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f8fnu"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 2, 1, 1)
+albedo_texture = ExtResource("1_gmr7m")
+uv1_scale = Vector3(0.1, 0, 0.1)
+uv1_offset = Vector3(0, 0, 1.5)
+uv1_triplanar = true
+uv2_world_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6yyk1"]
+material = SubResource("StandardMaterial3D_f8fnu")
+size = Vector2(10, 2.5)
+
+[node name="LaserMesh" type="MeshInstance3D"]
+mesh = SubResource("PlaneMesh_6yyk1")
+script = ExtResource("1_cfngw")

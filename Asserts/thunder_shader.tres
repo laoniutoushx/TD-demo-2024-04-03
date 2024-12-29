@@ -6,8 +6,8 @@
 default_input_values = [1, 0.0, 2, 1.0, 3, 0.0, 4, 0.8]
 
 [sub_resource type="Gradient" id="Gradient_w72ll"]
-offsets = PackedFloat32Array(0.210526, 0.676113)
-colors = PackedColorArray(0.0112, 0.212427, 0.56, 1, 0.018, 0.538, 1, 1)
+offsets = PackedFloat32Array(0.210526, 0.686235)
+colors = PackedColorArray(0.3, 2, 2, 1, 0.115711, 0.729057, 0.0926712, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_3c5uq"]
 gradient = SubResource("Gradient_w72ll")

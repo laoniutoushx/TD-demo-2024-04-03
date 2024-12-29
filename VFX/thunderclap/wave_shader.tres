@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" load_steps=11 format=3 uid="uid://d0wapq72rl42h"]
 
-[ext_resource type="Texture2D" uid="uid://c5cylhbe5luaa" path="res://Asserts/Images/indicator/wave.png" id="1_v8mmp"]
+[ext_resource type="Texture2D" uid="uid://brtx1k4o282bb" path="res://addons/kenney_particle_pack/spark_07.png" id="1_g74qh"]
 
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_rfd1r"]
 parameter_name = "ColorParameter"
@@ -8,15 +8,16 @@ default_value_enabled = true
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_oboj1"]
 expanded_output_ports = [0]
-texture = ExtResource("1_v8mmp")
+texture = ExtResource("1_g74qh")
 
 [sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_erkiu"]
+default_input_values = [1, Vector2(0, 1), 2, Vector2(0, 0)]
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_y61a6"]
 input_name = "color"
 
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_5nw8g"]
-default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 0.7)]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 1)]
 op_type = 0
 operator = 2
 
@@ -54,12 +55,12 @@ void fragment() {
 
 
 // VectorOp:7
-	vec2 n_in7p1 = vec2(0.00000, 0.70000);
+	vec2 n_in7p1 = vec2(0.00000, 1.00000);
 	vec2 n_out7p0 = vec2(n_out5p0.xy) * n_in7p1;
 
 
 // UVFunc:4
-	vec2 n_in4p1 = vec2(1.00000, 1.00000);
+	vec2 n_in4p1 = vec2(0.00000, 1.00000);
 	vec2 n_out4p0 = n_out7p0 * n_in4p1 + UV;
 
 
@@ -83,7 +84,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-1047.11, -21.2904)
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_oboj1")
 nodes/fragment/2/position = Vector2(-500, 260)
 nodes/fragment/4/node = SubResource("VisualShaderNodeUVFunc_erkiu")

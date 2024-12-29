@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://crm57in44str3"]
+
+[ext_resource type="Material" uid="uid://bsd4bn81ctghw" path="res://VFX/laser/laser_mat.tres" id="1_jfn5f"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5t2ll"]
+material = ExtResource("1_jfn5f")
+size = Vector2(100, 0.5)
+
+[node name="UvTiling" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.861629, 0, 0.507538, 0, 1, 0, -0.507538, 0, 0.861629, 0, 0, 0)
+mesh = SubResource("PlaneMesh_5t2ll")

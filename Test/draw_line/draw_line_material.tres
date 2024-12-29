@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://20s2yib7focl"]
+
+[ext_resource type="Shader" uid="uid://bgirpi5ir5gxr" path="res://Test/draw_line/draw_line_shader.tres" id="1_5rs6h"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_5rs6h")
+shader_parameter/ColorParameter = Color(0, 0, 3, 1)

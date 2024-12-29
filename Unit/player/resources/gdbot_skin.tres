@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=11 format=3 uid="uid://sa00lx2hfecc"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=13 format=3 uid="uid://sa00lx2hfecc"]
 
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_x8mob"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_usrqw"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://System/skill_system/resources/building/building_base_turret.gd" id="5_50ktb"]
 [ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Unit/turret/scenes/turret.tscn" id="5_uivxd"]
 [ext_resource type="Script" path="res://System/skill_system/resources/damage/fire_rain.gd" id="7_yamqi"]
+[ext_resource type="Script" path="res://System/skill_system/resources/damage/thunder_chain.gd" id="8_s0ajn"]
 
 [sub_resource type="Resource" id="Resource_qo41h"]
 script = ExtResource("3_j65fo")
@@ -81,6 +82,30 @@ target_type = 17
 effect_type = 1
 skill_script = ExtResource("7_yamqi")
 
+[sub_resource type="Resource" id="Resource_ldcvd"]
+script = ExtResource("3_j65fo")
+code = "thunder chain"
+title = "thunder chain"
+desc = ""
+icon_path = "201"
+level = 0
+max_level = 3
+cooldown = 1.0
+mana_cost = 10.0
+range = 5.0
+release_distance = 0.0
+stock = -1
+value = 100.0
+init_num = 1
+internal_time = 0.3
+start_time = 0.1
+end_time = 0.1
+wave = 1
+release_type = 1
+target_type = 18
+effect_type = 1
+skill_script = ExtResource("8_s0ajn")
+
 [resource]
 script = ExtResource("2_usrqw")
 clz_code = "gdbot_skin"
@@ -106,4 +131,4 @@ anim_release = "simple_punch"
 is_selected_circle = true
 component_system = 0
 pickup_velocity = 1000.0
-skill_metas = Array[ExtResource("3_j65fo")]([SubResource("Resource_qo41h"), SubResource("Resource_iasbf"), SubResource("Resource_f5utn")])
+skill_metas = Array[ExtResource("3_j65fo")]([SubResource("Resource_qo41h"), SubResource("Resource_iasbf"), SubResource("Resource_f5utn"), SubResource("Resource_ldcvd")])

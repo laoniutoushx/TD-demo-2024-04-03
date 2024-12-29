@@ -1,9 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://ckhf1swc6vp84"]
+[gd_scene load_steps=17 format=3 uid="uid://ckhf1swc6vp84"]
 
-[ext_resource type="Shader" uid="uid://20s2yib7focl" path="res://Test/draw_line/draw_line.tres" id="1_jihmk"]
 [ext_resource type="Script" path="res://Test/draw_line/draw_line.gd" id="1_mqalp"]
-[ext_resource type="Script" path="res://Test/draw_line/mesh_instance_3d_3.gd" id="3_p1jxw"]
+[ext_resource type="Shader" uid="uid://bgirpi5ir5gxr" path="res://Test/draw_line/draw_line_shader.tres" id="3_34v7j"]
+[ext_resource type="Material" uid="uid://20s2yib7focl" path="res://Test/draw_line/draw_line_material.tres" id="3_ig2vv"]
 [ext_resource type="Script" path="res://Scripts/camera/camera.gd" id="4_m7gt2"]
+[ext_resource type="Material" uid="uid://dbyayvgnlg7tq" path="res://Test/draw_line/draw_line_standard_mat.tres" id="5_axy6o"]
+[ext_resource type="Script" path="res://Test/draw_line/lighting.gd" id="6_i8erj"]
+[ext_resource type="Texture2D" uid="uid://brtx1k4o282bb" path="res://addons/kenney_particle_pack/spark_07.png" id="6_iw45g"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ukg3"]
 albedo_color = Color(0.28485, 0.28485, 0.28485, 1)
@@ -25,19 +28,20 @@ sky = SubResource("Sky_fvota")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_leqla"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_ubb81"]
+material = ExtResource("3_ig2vv")
+size = Vector2(1, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jfdor"]
 render_priority = 0
-shader = ExtResource("1_jihmk")
-shader_parameter/Color = Color(0, 2, 0, 1)
-shader_parameter/MainTextureSpeed = Vector2(1, 1)
+shader = ExtResource("3_34v7j")
+shader_parameter/ColorParameter = null
 
-[sub_resource type="QuadMesh" id="QuadMesh_4ee6e"]
-material = SubResource("ShaderMaterial_leqla")
-size = Vector2(1, 10)
+[sub_resource type="PlaneMesh" id="PlaneMesh_ilcru"]
+material = ExtResource("3_ig2vv")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_i5gsx"]
-
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_24vgw"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_bd4w4"]
+material = ExtResource("5_axy6o")
 
 [node name="DrawLine" type="Node3D"]
 script = ExtResource("1_mqalp")
@@ -49,7 +53,7 @@ mesh = SubResource("PlaneMesh_bjn21")
 environment = SubResource("Environment_brkvc")
 
 [node name="FreeLookCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
+transform = Transform3D(1, 0, 0, 0, 0.990029, 0.140867, 0, -0.140867, 0.990029, 0, 2.60073, 6.54436)
 script = ExtResource("4_m7gt2")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -57,16 +61,28 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.76447, 0, -1.40845)
-mesh = SubResource("QuadMesh_4ee6e")
+transform = Transform3D(-0.499716, 0.459974, 0.733968, -0.576659, 0.455614, -0.678144, -0.646335, -0.762128, 0.0375705, 0, 2.74537, 0)
+visible = false
+mesh = SubResource("PlaneMesh_ubb81")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.474703, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33835, 0.307793, 0)
 visible = false
-mesh = SubResource("ImmediateMesh_i5gsx")
+material_override = SubResource("ShaderMaterial_jfdor")
+mesh = SubResource("PlaneMesh_ilcru")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.345451, 0, -0.619586)
-visible = false
-mesh = SubResource("ImmediateMesh_24vgw")
-script = ExtResource("3_p1jxw")
+transform = Transform3D(1, 0, 0, 0, 0.345331, -0.938481, 0, 0.938481, 0.345331, 3.34545, 2.25703, -0.619586)
+mesh = SubResource("PlaneMesh_bd4w4")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.330234, -0.943899, 0, 0.943899, 0.330234, 0, 0.559899, -2.20988)
+modulate = Color(0.653, 2, 0.653, 1)
+axis = 1
+double_sided = false
+texture = ExtResource("6_iw45g")
+
+[node name="Lightning" type="Node3D" parent="."]
+script = ExtResource("6_i8erj")
+use_custom_material = true
+lightning_material = ExtResource("3_ig2vv")

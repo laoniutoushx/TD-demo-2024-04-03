@@ -7,7 +7,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ior7v"]
 render_priority = 0
 shader = ExtResource("1_sqq6g")
-shader_parameter/ColorParameter = Color(0.203922, 0.784314, 1, 1)
+shader_parameter/ColorParameter = Color(1, 2, 2, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rd5jq"]
 render_priority = 0
@@ -16,7 +16,7 @@ shader = ExtResource("1_xlbha")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jylu0"]
 render_priority = 0
 shader = ExtResource("3_m11f5")
-shader_parameter/ColorParameter = Color(0, 0.870588, 1, 1)
+shader_parameter/ColorParameter = Color(0, 2, 2, 1)
 
 [resource]
 _surfaces = [{
