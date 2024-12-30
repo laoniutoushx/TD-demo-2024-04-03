@@ -241,3 +241,12 @@ static func is_flag_set(flag: int, bit_set: int) -> bool:
 
 static func set_flag(flag: int) -> int:
 	return int(pow(2, flag))
+
+
+
+# 集合工具类
+static func arr_to_map(arr: Array) -> Dictionary:
+	var map = {}
+	for item in arr:
+		map[item.get_instance_id()] = item
+	return map

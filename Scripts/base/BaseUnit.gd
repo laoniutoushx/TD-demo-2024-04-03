@@ -11,13 +11,12 @@ var signal_container = {}
 signal logical_death(unit: BaseUnit)
 signal physic_death(unit: BaseUnit)
 
-# meta properity
-var clz_code: String
-var clz_name: String
-#var uuid: String = UUID.v4()
+# meta config
+@export var clz_code: String
+@export var clz_name: String
+@export var model_path: PackedScene	# model like glb, gltf...
 
-# icon 
-var icon_path: String
+@export var icon_path: String
 
 # define how unit move on mesh ground
 @export_flags("WALK", "FLYING", "SWIM") var unit_move_type: int = 0
@@ -26,11 +25,11 @@ var icon_path: String
 # armor
 @export var armor_amount: float
 enum ARMOR_TYPE_ENUM  {
-    INVINCIBLE,
-    NORMAL,
-    HERO,
-    ENEMY,
-    FRIEND
+	INVINCIBLE,
+	NORMAL,
+	HERO,
+	ENEMY,
+	FRIEND
 }
 @export_flags("INVINCIBLE", "NORMAL", "HERO", "ENEMY", "FRIEND") var armor_type = 0
 

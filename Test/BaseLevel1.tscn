@@ -143,7 +143,6 @@ material = SubResource("StandardMaterial3D_rcpim")
 
 [node name="TurretManager" type="Node3D" parent="."]
 script = ExtResource("4_qlalf")
-turret = ExtResource("5_mrrd1")
 
 [node name="RTSController" type="Node3D" parent="." node_paths=PackedStringArray("cam")]
 script = ExtResource("6_10okp")

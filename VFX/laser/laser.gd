@@ -5,6 +5,12 @@ var source_unit: BaseUnit
 var target_unit: BaseUnit
 
 
+var laser_mat_res: Mesh = preload("laser_mesh.tres")
+
+
+func _ready() -> void:
+	mesh = laser_mat_res.duplicate()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:

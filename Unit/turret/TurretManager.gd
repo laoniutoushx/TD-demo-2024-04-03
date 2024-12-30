@@ -134,4 +134,3 @@ func _clear_cell_mesh_indicator_in_position() -> void:
 		remove_child(cell_mesh_container[cell_position])
 	
 	cell_mesh_container.clear()
-

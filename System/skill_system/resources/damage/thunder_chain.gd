@@ -27,17 +27,17 @@ func action(skill_context: SkillContext) -> void:
 			_s_u = _t_u
 			# 获取 source_target 单位 skill.range 码范围内随机 enemy 单位
 			var enemies_in_range: Array[BaseUnit] = SystemUtil.unit_system.get_units_in_range(_s_u, skill.match_range, BaseUnit.ARMOR_TYPE_ENUM.ENEMY)
+			var enemies_in_range_map = CommonUtil.arr_to_map(enemies_in_range)
+
 			# Remove already damaged units from the list of potential targets
 			var units_to_remove = []
 			for damaged_unit in damaged_units:
-				if damaged_unit in enemies_in_range:
-					units_to_remove.append(damaged_unit)
-			for unit_to_remove in units_to_remove:
-				enemies_in_range.erase(unit_to_remove)
+				if damaged_unit and is_instance_valid(damaged_unit) and damaged_unit.get_instance_id() in enemies_in_range_map.keys():
+					enemies_in_range_map.erase(damaged_unit.get_instance_id())
 					
 			# If there are any enemies in range, select one at random and damage it
-			if enemies_in_range.size() > 0:
-				_t_u = enemies_in_range[randi() % enemies_in_range.size()]
+			if enemies_in_range_map.values().size() > 0:
+				_t_u = enemies_in_range_map.values()[randi() % enemies_in_range_map.values().size()]
 				var handler = InnerHandler.new(skill_context)
 				add_child(handler)
 				print("source unit: %s, target unit: %s" % [_s_u.clz_code, _t_u.clz_code])
@@ -66,16 +66,7 @@ class InnerHandler extends Node3D:
 		# -- vfx/source_unit/target_unit handler
 		var vfx = SystemUtil.vfx_system.create_vfx("laser", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
 		target_unit.add_child(vfx)
-
-
-		var source_mesh = CommonUtil.get_first_node_by_node_type(source_unit, Constants.MeshInstance3D_CLZ)
-		var source_aabb = CommonUtil.get_scaled_aabb(source_mesh)
-		var source_height = source_aabb.size.y
-
-		var target_mesh = CommonUtil.get_first_node_by_node_type(target_unit, Constants.MeshInstance3D_CLZ)
-		var target_aabb = CommonUtil.get_scaled_aabb(target_mesh)
-		var target_height = target_aabb.size.y
-
+		
 		vfx.set_line_by_unit(source_unit, target_unit)
 
 		SystemUtil.damage_system.skill_damage(skill, source_unit, target_unit)

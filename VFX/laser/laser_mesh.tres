@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://brtx1k4o282bb" path="res://addons/kenney_particle_pack/spark_07.png" id="1_3tdms"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y8dhr"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4g3ej"]
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -16,5 +16,5 @@ uv1_triplanar = true
 uv2_world_triplanar = true
 
 [resource]
-material = SubResource("StandardMaterial3D_y8dhr")
+material = SubResource("StandardMaterial3D_4g3ej")
 size = Vector2(10, 2.5)

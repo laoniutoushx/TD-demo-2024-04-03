@@ -673,6 +673,11 @@ _data = {
 [node name="Enemy" type="PathFollow3D" groups=["enemy"]]
 use_model_front = true
 script = ExtResource("1_uk2u6")
+unit_move_type = 1
+unit_cate = 1
+armor_type = 8
+player_owner_idx = 1
+player_group = 1
 
 [node name="Pig" type="Node3D" parent="."]
 

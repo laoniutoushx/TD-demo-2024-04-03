@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b6x0ifedubj2s"]
+[gd_scene load_steps=19 format=3 uid="uid://b6x0ifedubj2s"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_55flt"]
 [ext_resource type="MeshLibrary" uid="uid://b6ioecdsupr03" path="res://MeshLibraries/SpaceLibrary.tres" id="2_cnmp3"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/controller/RTSController.gd" id="7_h85ip"]
 [ext_resource type="PackedScene" uid="uid://btv2y2tfng4ob" path="res://Unit/turret/TurretManager.tscn" id="8_alldu"]
 [ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI/ui.tscn" id="8_q6t8a"]
+[ext_resource type="PackedScene" uid="uid://bv2qhyy2b7sew" path="res://Unit/enemy/scenes/pig.tscn" id="9_3f0su"]
 [ext_resource type="Script" path="res://Scripts/controller/LevelController.gd" id="9_10et7"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="10_mdt28"]
 
@@ -146,3 +147,18 @@ script = ExtResource("9_10et7")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, -1)
+
+[node name="Enemy" parent="." instance=ExtResource("9_3f0su")]
+transform = Transform3D(0.0863212, 0, 0.996267, 0, 1, 0, -0.996267, 0, 0.0863212, 0, 0, 0)
+
+[node name="Enemy2" parent="." instance=ExtResource("9_3f0su")]
+transform = Transform3D(0.0863212, 0, 0.996267, 0, 1, 0, -0.996267, 0, 0.0863212, 0, 0, 0)
+
+[node name="Enemy3" parent="." instance=ExtResource("9_3f0su")]
+transform = Transform3D(0.0863212, 0, 0.996267, 0, 1, 0, -0.996267, 0, 0.0863212, 0, 0, 0)
+
+[node name="Enemy4" parent="." instance=ExtResource("9_3f0su")]
+transform = Transform3D(0.0863212, 0, 0.996267, 0, 1, 0, -0.996267, 0, 0.0863212, 0, 0, 0)
+
+[node name="Enemy5" parent="." instance=ExtResource("9_3f0su")]
+transform = Transform3D(0.0863212, 0, 0.996267, 0, 1, 0, -0.996267, 0, 0.0863212, 0, 0, 0)
