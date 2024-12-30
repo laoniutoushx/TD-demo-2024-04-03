@@ -25,7 +25,14 @@ var icon_path: String
 @export_flags("HUMAN", "BUILDING", "DECORATE_DESTORIED", "DECORATE_FOREVER") var unit_cate = 0
 # armor
 @export var armor_amount: float
-@export_flags("INVINCIBLE", "NORMAL", "HERO") var armor_type = 0
+enum ARMOR_TYPE_ENUM  {
+    INVINCIBLE,
+    NORMAL,
+    HERO,
+    ENEMY,
+    FRIEND
+}
+@export_flags("INVINCIBLE", "NORMAL", "HERO", "ENEMY", "FRIEND") var armor_type = 0
 
 
 # status

@@ -14,9 +14,10 @@ extends Resource
 @export_flags("WALK", "FLYING", "SWIM") var unit_move_type: int = 0
 # define unit category
 @export_flags("HUMAN", "BUILDING", "DECORATE_DESTORIED", "DECORATE_FOREVER") var unit_cate = 0
+
 # armor
 @export var armor_amount: float
-@export_flags("INVINCIBLE", "NORMAL", "HERO") var armor_type = 0
+@export_flags("INVINCIBLE", "NORMAL", "HERO", "ENEMY", "FRIEND") var armor_type = 0
 
 # create mesh outline
 @export var is_mesh_outline: bool = false

@@ -31,7 +31,7 @@ func action(skill_context: SkillContext) -> void:
             add_child(handler)
             handler.vfx_handler(point)
 
-        if skill.wave > 1 and wave < skill.wave - 1:
+        if wave < skill.wave - 1:
             await CommonUtil.await_timer(skill.internal_time)
 
 
@@ -54,7 +54,7 @@ class InnerHandler extends Node3D:
         tween.tween_property(vfx, "global_position", point, 1)
         await tween.finished
 
-        SystemUtil.damage_system.skill_range_damage(skill_context.skill, skill_context.source, point, skill_context.skill.range)
+        SystemUtil.damage_system.skill_range_damage(skill_context.skill, skill_context.source, point, skill_context.skill.damage_range)
 
         # await CommonUtil.await_timer(2.0)
         

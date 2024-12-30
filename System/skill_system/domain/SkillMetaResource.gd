@@ -58,7 +58,11 @@ enum SKILL_EFFECT_TYPE{
 @export var cooldown: float = 1.0
 # 魔法消耗
 @export var mana_cost: float = 10.0
-# 技能范围
+# 技能伤害范围
+@export var damage_range: float = 5.0
+# 技能匹配目标对象范围
+@export var match_range: float = 30.0
+# 技能影响（释放）范围
 @export var range: float = 5.0
 # 释放距离
 @export var release_distance: float 
