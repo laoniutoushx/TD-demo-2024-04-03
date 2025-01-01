@@ -70,8 +70,15 @@ class InnerHandler extends Node3D:
 		vfx.set_line_by_unit(source_unit, target_unit)
 
 		SystemUtil.damage_system.skill_damage(skill, source_unit, target_unit)
+
+		await CommonUtil.await_timer(0.2)
+
+		# tween 透明度设置
+		var tween = create_tween()
+		# 设置透明度为 0.0
+		tween.tween_property(vfx, "transparency", 1, 0.8)
 		
-		CommonUtil.delay_execution(0.5, func():
+		CommonUtil.delay_execution(2, func():
 			if is_instance_valid(vfx):
 				vfx.queue_free()
 		)

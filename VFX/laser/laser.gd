@@ -5,11 +5,13 @@ var source_unit: BaseUnit
 var target_unit: BaseUnit
 
 
-var laser_mat_res: Mesh = preload("laser_mesh.tres")
+var laser_mesh: Mesh = preload("res://VFX/laser/laser_mesh.tres")
+# var laser_mat: Material = preload("res://VFX/laser/laser_mat.tres")
 
 
 func _ready() -> void:
-	mesh = laser_mat_res.duplicate()
+	mesh = laser_mesh.duplicate()
+	# mesh.material = laser_mat.duplicate()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -17,7 +19,7 @@ func _physics_process(delta: float) -> void:
 
 	_refresh_line()
 
-	mesh.material.uv1_offset.x = mesh.material.uv1_offset.x + delta
+	mesh.material.uv1_offset.x = mesh.material.uv1_offset.x + delta / 4
 
 
 func set_line(start: Vector3, end: Vector3): 
