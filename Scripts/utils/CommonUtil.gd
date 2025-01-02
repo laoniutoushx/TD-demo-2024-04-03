@@ -243,6 +243,40 @@ static func set_flag(flag: int) -> int:
 	return int(pow(2, flag))
 
 
+# 将传入 bit_set 从 10 进制转为 2 进制，并取出二进制位为 1 的位置，根据位置获取 type 中对应的枚举值，拼接成字符串返回
+static func bit_set_to_str(bit_set: int, type_dict: Dictionary) -> String:
+	var type = get_enum_values_as_array(type_dict)
+	var binary_str = int_to_binary_string(bit_set)
+	var result = []
+
+	for i in range(binary_str.length()):
+		# 从低位到高位，检查是否为 1
+		if binary_str[binary_str.length() - i - 1] == "1":
+			if i < type.size():
+				result.append(type[i])
+
+	return ", ".join(result)
+
+
+# 将枚举类型的值提取为数组
+static func get_enum_values_as_array(enum_type: Dictionary) -> Array:
+	if typeof(enum_type) == 27:	# TYPE_DICTIONARY corresponds to 27
+		return enum_type.keys()
+	return []
+
+
+# 将整数转换为二进制字符串
+static func int_to_binary_string(value: int) -> String:
+	var binary_str = ""
+	while value > 0:
+		binary_str = str(value % 2) + binary_str
+		value = value / 2
+
+	# Pad the binary string to 32 bits manually
+	var padding_length = max(0, 32 - binary_str.length())
+	var padding = "0".repeat(padding_length)
+	return padding + binary_str
+
 
 # 集合工具类
 static func arr_to_map(arr: Array) -> Dictionary:

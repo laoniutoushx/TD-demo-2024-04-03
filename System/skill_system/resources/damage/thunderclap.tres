@@ -1,24 +1,32 @@
-[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=2 format=3 uid="uid://x4bivjxncvqm"]
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=3 format=3 uid="uid://x4bivjxncvqm"]
 
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_6e70r"]
+[ext_resource type="Script" path="res://System/skill_system/resources/damage/thunderclap.gd" id="2_tekrb"]
 
 [resource]
 script = ExtResource("1_6e70r")
-code = "lightning_chain"
-title = "lightning_chain"
-desc = ""
-icon_path = "res://Asserts/Images/icon/skill icon/619.png"
-level = 0
+code = "thunderclap"
+title = "雷霆一击"
+desc = "“雷霆一击”常用来形容威力强大、声势浩大的攻击，具体含义需根据语境判断，游戏设计中多表现为高爆发伤害或范围控制技能，强调力量感和冲击力。“雷霆一击”常用来形容威力强大、声势浩大的攻击，具体含义需根据语境判断，游戏设计中多表现为高爆发伤害或范围控制技能，强调力量感和冲击力。"
+icon_path = "0"
+level = 1
 max_level = 3
 cooldown = 1.0
 mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+damage_range = 5.0
+match_range = 30.0
 range = 5.0
 release_distance = 0.0
 stock = 1
 value = 100.0
+init_num = 1
 internal_time = 0.1
 start_time = 0.1
 end_time = 0.1
-release_type = 0
-target_type = 1
+wave = 1
+release_type = 1
+target_type = 17
 effect_type = 1
+skill_script = ExtResource("2_tekrb")

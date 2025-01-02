@@ -1,118 +1,12 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=13 format=3 uid="uid://sa00lx2hfecc"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=8 format=3 uid="uid://sa00lx2hfecc"]
 
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_x8mob"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_usrqw"]
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="3_j65fo"]
-[ext_resource type="Script" path="res://System/skill_system/resources/damage/thunderclap.gd" id="4_d70qp"]
-[ext_resource type="Script" path="res://System/skill_system/resources/building/building_base_turret.gd" id="5_50ktb"]
-[ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Unit/turret/scenes/turret.tscn" id="5_uivxd"]
-[ext_resource type="Script" path="res://System/skill_system/resources/damage/fire_rain.gd" id="7_yamqi"]
-[ext_resource type="Script" path="res://System/skill_system/resources/damage/thunder_chain.gd" id="8_s0ajn"]
-
-[sub_resource type="Resource" id="Resource_qo41h"]
-script = ExtResource("3_j65fo")
-code = "thunderclap"
-title = "thunderclap"
-desc = ""
-icon_path = "0"
-level = 0
-max_level = 3
-cooldown = 5.0
-mana_cost = 10.0
-damage_range = 5.0
-match_range = 30.0
-range = 5.0
-release_distance = 0.0
-stock = -1
-value = 20.0
-init_num = 1
-internal_time = -1.0
-start_time = 0.1
-end_time = 0.1
-wave = 1
-release_type = 1
-target_type = 17
-effect_type = 1
-skill_script = ExtResource("4_d70qp")
-
-[sub_resource type="Resource" id="Resource_iasbf"]
-script = ExtResource("3_j65fo")
-code = "building_base_turret"
-title = "building_base_turret"
-desc = "1"
-icon_path = ""
-level = 0
-max_level = 3
-cooldown = 1.0
-mana_cost = 10.0
-damage_range = 5.0
-match_range = 30.0
-range = 5.0
-release_distance = 0.0
-stock = -1
-value = 20.0
-init_num = 1
-internal_time = -1.0
-start_time = 0.1
-end_time = 0.1
-wave = 1
-release_type = 1
-target_type = 1
-effect_type = 4
-skill_script = ExtResource("5_50ktb")
-building_scene = ExtResource("5_uivxd")
-
-[sub_resource type="Resource" id="Resource_f5utn"]
-script = ExtResource("3_j65fo")
-code = ""
-title = "fire rain"
-desc = ""
-icon_path = "1157"
-level = 0
-max_level = 3
-cooldown = 1.0
-mana_cost = 10.0
-damage_range = 5.0
-match_range = 30.0
-range = 5.0
-release_distance = 0.0
-stock = -1
-value = 10.0
-init_num = 10
-internal_time = 0.3
-start_time = 0.1
-end_time = 0.1
-wave = 3
-release_type = 16
-target_type = 17
-effect_type = 1
-skill_script = ExtResource("7_yamqi")
-
-[sub_resource type="Resource" id="Resource_ldcvd"]
-script = ExtResource("3_j65fo")
-code = "thunder chain"
-title = "thunder chain"
-desc = ""
-icon_path = "201"
-level = 0
-max_level = 3
-cooldown = 1.0
-mana_cost = 10.0
-damage_range = 5.0
-match_range = 30.0
-range = 5.0
-release_distance = 0.0
-stock = -1
-value = 20.0
-init_num = 1
-internal_time = 0.2
-start_time = 0.3
-end_time = 0.1
-wave = 5
-release_type = 1
-target_type = 18
-effect_type = 1
-skill_script = ExtResource("8_s0ajn")
+[ext_resource type="Resource" uid="uid://x4bivjxncvqm" path="res://System/skill_system/resources/damage/thunderclap.tres" id="4_vdhal"]
+[ext_resource type="Resource" uid="uid://f1j2insixtan" path="res://System/skill_system/resources/building/building_base_turret.tres" id="5_jcvry"]
+[ext_resource type="Resource" uid="uid://btoskpfy832ny" path="res://System/skill_system/resources/damage/fire_rain.tres" id="6_6vxlu"]
+[ext_resource type="Resource" uid="uid://dpnj33orc37b" path="res://System/skill_system/resources/damage/thunder_chain.tres" id="7_jsd2q"]
 
 [resource]
 script = ExtResource("2_usrqw")
@@ -139,4 +33,4 @@ anim_release = "simple_punch"
 is_selected_circle = true
 component_system = 0
 pickup_velocity = 1000.0
-skill_metas = Array[ExtResource("3_j65fo")]([SubResource("Resource_qo41h"), SubResource("Resource_iasbf"), SubResource("Resource_f5utn"), SubResource("Resource_ldcvd")])
+skill_metas = Array[ExtResource("3_j65fo")]([ExtResource("4_vdhal"), ExtResource("5_jcvry"), ExtResource("6_6vxlu"), ExtResource("7_jsd2q")])

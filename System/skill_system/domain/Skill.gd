@@ -16,13 +16,15 @@ var code: String
 @export var title: String = "Unnamed Skill"
 @export var desc: String
 @export var icon_path: String
-@export var level: int = 0
+@export var level: int = 1
 @export var max_level: int = 3
 
 # 冷却时间
 @export var cooldown: float = 1.0
 # 魔法消耗
 @export var mana_cost: float = 10.0
+@export var wood_cost: float = 10.0
+@export var money_cost: float = 10.0
 # 技能伤害范围
 @export var damage_range: float = 5.0
 # 技能匹配目标对象范围
@@ -41,7 +43,7 @@ var code: String
 # 初始对象数量（skill 内部单位初始数量）
 @export var init_num: int = 1
 # 间隔时间
-@export var internal_time: float = 0.3
+@export var internal_time: float = -1
 # 施法前摇
 @export var start_time: float = 0.1
 # 施法后摇
