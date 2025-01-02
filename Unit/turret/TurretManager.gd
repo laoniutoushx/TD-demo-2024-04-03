@@ -73,7 +73,7 @@ func callable_build_turret(ray_cast_3d: RayCast3D, _grid_map: GridMap) -> void:
 
 					# skill state chagne
 					var cell_center_pos: Vector3 = _grid_map.map_to_local(cell)
-					cell_center_pos.y += 1
+					cell_center_pos.y += 1.09
 					var bind_build_turret: Callable = build_turret.bind(cell_center_pos, null)
 					skill_context.callback = bind_build_turret
 					skill_context.building = turret
@@ -101,7 +101,8 @@ func _on_building_floor_indicator_show(_skill_context: SkillContext):
 
 	# 在鼠标位置创建 building model
 	if skill_context.skill.skill_meta_res.building_scene != null:
-		turret = skill_context.skill.skill_meta_res.building_scene.instantiate()
+		# turret = skill_context.skill.skill_meta_res.building_scene.instantiate()
+		turret = SystemUtil.unit_system.create_unit(skill_context.skill.skill_meta_res.building_res)
 		add_child(turret)
 
 

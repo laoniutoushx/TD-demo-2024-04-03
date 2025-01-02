@@ -45,7 +45,7 @@ height = 0.1
 radius = 10.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yf35w"]
-size = Vector3(2.278, 5.5, 6)
+size = Vector3(1, 2.5, 1)
 
 [node name="Turret" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -70,16 +70,17 @@ metadata/fire_pos = false
 
 [node name="AttackingScope" type="Area3D" parent="."]
 unique_name_in_owner = true
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackingScope"]
 shape = SubResource("CylinderShape3D_sodmm")
 
 [node name="AttackedScope" type="Area3D" parent="." groups=["enemy"]]
 unique_name_in_owner = true
-transform = Transform3D(0.01, 0, 0, 0, -1.19209e-09, -0.01, 0, 0.01, -1.19209e-09, 0, 0, 0)
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackedScope" groups=["enemy"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00344238, 2.14319, -0.2)
 shape = SubResource("BoxShape3D_yf35w")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

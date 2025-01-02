@@ -23,6 +23,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_v812f")
 metadata/_edit_use_anchors_ = true
 
 [node name="SelectedArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 3
 
 [node name="AreaCollision" type="CollisionShape3D" parent="SelectedArea"]
 shape = SubResource("BoxShape3D_biknc")

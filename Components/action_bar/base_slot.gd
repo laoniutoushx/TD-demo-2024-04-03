@@ -100,7 +100,10 @@ func custome_init(ref: Variant, icon_path: String, type: SLOT_TYPE = SLOT_TYPE.D
 		icon_texture.texture = SOS.main.resource_manager.get_resource_by_name(icon_path.get_file().get_basename())
 	
 	if icon_texture.texture == null:
-		icon_texture.texture = SOS.main.resource_manager.get_resource_by_name('icon')	
+		icon_texture.texture = load(icon_path)
+
+	if icon_texture.texture == null:
+		icon_texture.texture = SOS.main.resource_manager.get_resource_by_name('default')
 	
 	icon_texture.material = slot_material
 	

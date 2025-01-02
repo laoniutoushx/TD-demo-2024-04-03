@@ -900,6 +900,8 @@ skin = SubResource("Skin_htx7w")
 [node name="AttackedScope" type="Area3D" parent="Pug/Armature/Skeleton3D" groups=["enemy"]]
 unique_name_in_owner = true
 transform = Transform3D(0.025285, 0, 0, 0, -4.92317e-09, -0.025285, 0, 0.025285, -4.92317e-09, 0, 0, 0)
+collision_layer = 3
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pug/Armature/Skeleton3D/AttackedScope" groups=["enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, -5.68434e-14, 0, 5.68434e-14, 1, 0.00344238, 2.04319, 0.158014)

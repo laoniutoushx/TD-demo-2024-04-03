@@ -8,11 +8,12 @@ func _ready() -> void:
 
 
 func create_unit(unit_res: Resource) -> BaseUnit:
+
 	
 	if unit_res is EnemyResource:
 		return _enemy_create(unit_res)
-	
-	return null
+	else:
+		return _unit_create(unit_res)
 
 
 func _enemy_create(enemy_resource: EnemyResource) -> Enemy:
@@ -26,9 +27,19 @@ func _enemy_create(enemy_resource: EnemyResource) -> Enemy:
 	return enemy_instance
 
 
+func _unit_create(unit_resource: BaseUnitResource) -> Enemy:
+	var unit_instance: BaseUnit = unit_resource.model_path.instantiate()
+		
+	# player
+	unit_instance.player_group = 0
+	unit_instance.player_owner_idx = 0
+	
+	return unit_instance
+
+
 func get_units_in_range(source_unit: BaseUnit, range: float, unit_type: BaseUnit.ARMOR_TYPE_ENUM) -> Array[BaseUnit]:
 	var position: Vector3 = source_unit.global_position
-
+ 
 	var units_within_range: Array = []
 	var units: Array[BaseUnit] = []
 

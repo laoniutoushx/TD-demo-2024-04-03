@@ -1,18 +1,20 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=3 format=3 uid="uid://batuffvaegvkn"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=4 format=3 uid="uid://batuffvaegvkn"]
 
+[ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Unit/turret/scenes/turret.tscn" id="1_o0rv6"]
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="2_l8ipb"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_nv5yp"]
 
 [resource]
 script = ExtResource("2_nv5yp")
 clz_code = "turret"
-clz_name = "turret"
-icon_path = "res://Asserts/Images/icon/turret/turret.svg"
+clz_name = "基础塔 Lv 1"
+model_path = ExtResource("1_o0rv6")
+icon_path = "res://Asserts/Images/icon/skill icon/27.png"
 unit_move_type = 1
 unit_cate = 1
 armor_amount = 0.0
 armor_type = 2
-is_mesh_outline = false
+is_mesh_outline = true
 is_mesh_standing = false
 max_health = 100.0
 move_speed = 5.0
@@ -23,6 +25,7 @@ anim_run = "Armature|Jump"
 anim_walk = null
 anim_idle = null
 anim_death = "death"
+anim_release = null
 is_selected_circle = true
 component_system = 0
 pickup_velocity = 1000.0

@@ -24,7 +24,7 @@ var input_event_callable_list: Array[Callable] = []
 
 func _ready() -> void:
 	SOS.main = self
-	pass
+
 
 func _input(event: InputEvent) -> void:
 	for input_event_callable in input_event_callable_list:

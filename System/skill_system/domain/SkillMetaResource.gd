@@ -39,11 +39,21 @@ enum SKILL_TARGET_TYPE{
 	ENEMY
 }
 
+enum SKILL_TARGET_TYPE_CHN{
+	地面,
+	单位,
+	无目标,
+	友军,
+	敌人
+}
+
 enum SKILL_EFFECT_TYPE{
 	DAMAGE,
 	HEAL,
 	BUILDING
 }
+
+
 
 @export_group("Skill Meta Steup")
 # meta info 
@@ -107,3 +117,4 @@ enum SKILL_EFFECT_TYPE{
 
 # Building
 @export var building_scene: PackedScene
+@export var building_res: BaseUnitResource

@@ -122,7 +122,7 @@ func refresh_slot_indicator_info(_slot: BaseSlot) -> void:
 			damage_range.visible = false
 
 		if skill.target_type:
-			var target_type_str = CommonUtil.bit_set_to_str(skill.target_type, SkillMetaResource.SKILL_TARGET_TYPE)
+			var target_type_str = CommonUtil.bit_set_to_str(skill.target_type, SkillMetaResource.SKILL_TARGET_TYPE_CHN)
 			target_type.text = "目标类型： %s" % str(target_type_str)
 		else:
 			target_type.visible = false

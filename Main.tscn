@@ -21,7 +21,7 @@ script = ExtResource("3_bsvor")
 
 [node name="ResourceManager" type="Node" parent="."]
 script = ExtResource("4_o4wll")
-extensions = Array[String](["png", "tres", "tre", "svg"])
+extensions = Array[String](["png", "tres", "tre", "svg", "jpg", "jpeg"])
 res_paths = Array[String](["res://"])
 
 [node name="PlayerController" parent="." instance=ExtResource("1_7t1by")]
