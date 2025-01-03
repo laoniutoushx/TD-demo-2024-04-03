@@ -1,5 +1,4 @@
-extends Node
-class_name ItemSystem
+class_name ItemSystem extends Node
 
 
 
@@ -9,7 +8,7 @@ func _ready() -> void:
 	pass
 
 # generate item 
-func generate_item(item_code: String, p: Vector3) -> ItemDomain:
+func generate_item(item_code: String, p: Vector3) -> Item:
 	# load item res
 	var item_res: ItemResource = ItemManager.got(item_code)
 	
@@ -23,7 +22,7 @@ func generate_item(item_code: String, p: Vector3) -> ItemDomain:
 class ItemManager:
 
 	static var _item_res_container = {}    # code => ItemResource
-	static var _item_domain_container = {} # id => ItemDomain
+	static var _item_domain_container = {} # id => Item
 
 
 	static func put(k: String, v: Object) -> Object:

@@ -1,6 +1,5 @@
-class_name ActionBar extends Node
+class_name ActionBar extends Control
 
-@onready var canvas_layer: CanvasLayer = $CanvasLayer
 
 @onready var skill_bar: GridContainer = %SkillBar
 @onready var item_bar: GridContainer = %ItemBar
@@ -45,14 +44,14 @@ func register_active_exec(is_active: bool):
 
 func show_toggle() -> void:
 	# toggle
-	canvas_layer.visible = !canvas_layer.visible
+	visible = !visible
 
 func display() -> void:
-	canvas_layer.visible = true	
+	visible = true	
 	register_active_exec(true)
 
-func hide() -> void:
-	canvas_layer.visible = false	
+func hidden() -> void:
+	visible = false	
 	register_active_exec(false)
 
 
@@ -190,9 +189,6 @@ class SelectionBarComponent extends BaseBarComponent:
 		print("slot print %s" % [slot.name])
 	
 
-
-class ItemBarComponent extends BaseBarComponent:
-	pass
 	
 class BulidingBarComponent extends BaseBarComponent:
 	pass

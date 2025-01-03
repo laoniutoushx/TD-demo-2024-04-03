@@ -7,15 +7,27 @@ extends Resource
 @export var clz_name: String
 @export var model_path: PackedScene	# model like glb, gltf...
 
+@export var title: String
+@export var desc: String
+
 @export var icon_path: String
 
+enum ELEMENT_PHASE_STR{
+	木,
+	火,
+    土,
+	金,
+	水
+}
 
-# define how unit move on mesh ground
+# define unit element phase（五行）
+@export_flags("WOOD", "FIRE", "EARCH", "METAL", "WATER") var element_phase: int = 0
+# define how unit move on mesh ground（移动方式）
 @export_flags("WALK", "FLYING", "SWIM") var unit_move_type: int = 0
-# define unit category
+# define unit category（单位类型）
 @export_flags("HUMAN", "BUILDING", "DECORATE_DESTORIED", "DECORATE_FOREVER") var unit_cate = 0
 
-# armor
+# armor（护甲）
 @export var armor_amount: float
 @export_flags("INVINCIBLE", "NORMAL", "HERO", "ENEMY", "FRIEND") var armor_type = 0
 
@@ -23,11 +35,36 @@ extends Resource
 @export var is_mesh_outline: bool = false
 @export var is_mesh_standing: bool = false
 
+# unit cost
+# 魔法消耗
+@export var mana_cost: float = 10.0
+# 木材消耗
+@export var wood_cost: float = 10.0
+# 金钱消耗
+@export var money_cost: float = 10.0
 
+# unit status
+@export var relife : int = 1    # 转生次数
+@export var level : int = 1
 @export var max_health : float
 @export var move_speed : float
 @export var turn_speed : float
 @export var attack_speed : float
+@export var attack_range : float
+@export var attack_num : int = 1
+
+@export var value: float	# 伤害值
+@export var unit_growth_factor: float = 1.0     # 单位成长率
+@export var exp_growth_factor: float = 1.0     # 经验成长率
+
+
+# 经验值(L)=100×(L−1)^{1.5}
+@export var experience: float = 0.0   # 经验值
+@export var max_level: float = 100   # 最大等级
+@export var level_up_experience: float = 100   # 升级经验值（按等级递增）
+
+
+
 
 # FightRegion
 @export var vfx_projectile_name: String
@@ -59,3 +96,4 @@ extends Resource
 # Skill related
 @export_group("Skill")
 @export var skill_metas: Array[SkillMetaResource] = []
+

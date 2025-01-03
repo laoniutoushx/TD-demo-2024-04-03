@@ -244,7 +244,7 @@ static func set_flag(flag: int) -> int:
 
 
 # 将传入 bit_set 从 10 进制转为 2 进制，并取出二进制位为 1 的位置，根据位置获取 type 中对应的枚举值，拼接成字符串返回
-static func bit_set_to_str(bit_set: int, type_dict: Dictionary) -> String:
+static func bit_set_to_str(bit_set: int, type_dict: Dictionary, split_str: String = ', ') -> String:
 	var type = get_enum_values_as_array(type_dict)
 	var binary_str = int_to_binary_string(bit_set)
 	var result = []
@@ -255,7 +255,7 @@ static func bit_set_to_str(bit_set: int, type_dict: Dictionary) -> String:
 			if i < type.size():
 				result.append(type[i])
 
-	return ", ".join(result)
+	return split_str.join(result)
 
 
 # 将枚举类型的值提取为数组

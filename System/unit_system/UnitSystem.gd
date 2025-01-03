@@ -7,34 +7,25 @@ func _ready() -> void:
 
 
 
-func create_unit(unit_res: Resource) -> BaseUnit:
+func create_unit(unit_res: Resource, player_idx: int) -> BaseUnit:
 
-	
-	if unit_res is EnemyResource:
-		return _enemy_create(unit_res)
-	else:
-		return _unit_create(unit_res)
+	print(unit_res.clz_code)
+	print(unit_res.get_class())
 
-
-func _enemy_create(enemy_resource: EnemyResource) -> Enemy:
-	var enemy_instance: Enemy = enemy_resource.model_path.instantiate()
-	#enemy_instance = CommonUtil.bean_properties_copy(enemy_resource, enemy_instance)
-	
-	# player
-	enemy_instance.player_group = 1
-	enemy_instance.player_owner_idx = 1
-	
-	return enemy_instance
+	return _unit_create(unit_res, player_idx)
 
 
-func _unit_create(unit_resource: BaseUnitResource) -> Enemy:
+
+func _unit_create(unit_resource: BaseUnitResource, player_idx) -> BaseUnit:
 	var unit_instance: BaseUnit = unit_resource.model_path.instantiate()
-		
+	unit_instance = CommonUtil.bean_properties_copy(unit_resource, unit_instance)
+	
 	# player
-	unit_instance.player_group = 0
-	unit_instance.player_owner_idx = 0
+	unit_instance.player_group = player_idx
+	unit_instance.player_owner_idx = player_idx
 	
 	return unit_instance
+
 
 
 func get_units_in_range(source_unit: BaseUnit, range: float, unit_type: BaseUnit.ARMOR_TYPE_ENUM) -> Array[BaseUnit]:

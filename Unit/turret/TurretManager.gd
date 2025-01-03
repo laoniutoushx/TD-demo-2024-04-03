@@ -39,48 +39,49 @@ func build_turret(position: Vector3, turret_code) -> void:
 
 # 注册 build_turret function 到 RayPicker
 func callable_build_turret(ray_cast_3d: RayCast3D, _grid_map: GridMap) -> void:
-	# 同步建筑位置
-	turret.global_position = ray_cast_3d.get_collision_point()
+	if turret:
+		# 同步建筑位置
+		turret.global_position = ray_cast_3d.get_collision_point()
 
-	if ray_cast_3d.is_colliding():
-		var collider = ray_cast_3d.get_collider()
-		if collider is GridMap:
+		if ray_cast_3d.is_colliding():
+			var collider = ray_cast_3d.get_collider()
+			if collider is GridMap:
 
-			if Input.is_action_pressed("click"):
-				var point = ray_cast_3d.get_collision_point()
-				var cell =  _grid_map.local_to_map(point)
+				if Input.is_action_pressed("click"):
+					var point = ray_cast_3d.get_collision_point()
+					var cell =  _grid_map.local_to_map(point)
 
-				# 当前 _grid_map 没有 cell 格子
-				if _grid_map.get_cell_item(cell) == 0: 
-					# 取消点击事件传递
-					get_viewport().set_input_as_handled()
+					# 当前 _grid_map 没有 cell 格子
+					if _grid_map.get_cell_item(cell) == 0: 
+						# 取消点击事件传递
+						get_viewport().set_input_as_handled()
 
-					# 取消注册
-					SignalBus.ray_picker_unregist.emit(callable_build_turret)
+						# 取消注册
+						SignalBus.ray_picker_unregist.emit(callable_build_turret)
 
-					# 清除 cell mesh
-					_clear_cell_mesh_indicator_in_position()
+						# 清除 cell mesh
+						_clear_cell_mesh_indicator_in_position()
 
-					# 将 mesh library 索引为 1 的格子设置到当前 gridmap 位置
-					_grid_map.set_cell_item(cell, 1)
+						# 将 mesh library 索引为 1 的格子设置到当前 gridmap 位置
+						_grid_map.set_cell_item(cell, 1)
 
-					# 创建 Turret
-					# self.build_turret(_grid_map.map_to_local(cell), null)
+						# 创建 Turret
+						# self.build_turret(_grid_map.map_to_local(cell), null)
 
-					# 鼠标样式切换
-					SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.DEFAULT)
+						# 鼠标样式切换
+						SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.DEFAULT)
 
 
-					# skill state chagne
-					var cell_center_pos: Vector3 = _grid_map.map_to_local(cell)
-					cell_center_pos.y += 1.09
-					var bind_build_turret: Callable = build_turret.bind(cell_center_pos, null)
-					skill_context.callback = bind_build_turret
-					skill_context.building = turret
-					# skill_context.building_origin_pos = skill_context.building.global_position
-					skill_context.building.global_position = cell_center_pos
-					# skill_context.building.global_position = Vector3(turret.global_position.x, 10, turret.global_position.z)
-					skill_context.skill.change_state(Skill.SKILL_STATE.Release)
+						# skill state chagne
+						var cell_center_pos: Vector3 = _grid_map.map_to_local(cell)
+						cell_center_pos.y += 1.09
+						var bind_build_turret: Callable = build_turret.bind(cell_center_pos, null)
+						skill_context.callback = bind_build_turret
+						skill_context.building = turret
+						# skill_context.building_origin_pos = skill_context.building.global_position
+						skill_context.building.global_position = cell_center_pos
+						# skill_context.building.global_position = Vector3(turret.global_position.x, 10, turret.global_position.z)
+						skill_context.skill.change_state(Skill.SKILL_STATE.Release)
 
 
 # 显示建筑指示
@@ -102,7 +103,7 @@ func _on_building_floor_indicator_show(_skill_context: SkillContext):
 	# 在鼠标位置创建 building model
 	if skill_context.skill.skill_meta_res.building_scene != null:
 		# turret = skill_context.skill.skill_meta_res.building_scene.instantiate()
-		turret = SystemUtil.unit_system.create_unit(skill_context.skill.skill_meta_res.building_res)
+		turret = SystemUtil.unit_system.create_unit(skill_context.skill.skill_meta_res.building_res, 0)
 		add_child(turret)
 
 

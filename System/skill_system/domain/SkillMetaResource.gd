@@ -118,3 +118,7 @@ enum SKILL_EFFECT_TYPE{
 # Building
 @export var building_scene: PackedScene
 @export var building_res: BaseUnitResource
+
+
+# skill level config
+@export var skill_level_res_config: Array[SkillMetaResource] = []

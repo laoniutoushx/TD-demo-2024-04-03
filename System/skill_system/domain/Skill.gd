@@ -65,6 +65,9 @@ var code: String
 @export var skill_script: Script
 var skill_script_instance: Variant
 
+# skill level config
+var skill_level_config: Array[Skill] = []
+
 # Timer
 var cool_down_timer: Timer
 

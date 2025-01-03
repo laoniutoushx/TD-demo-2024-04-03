@@ -16,8 +16,13 @@ signal physic_death(unit: BaseUnit)
 @export var clz_name: String
 @export var model_path: PackedScene	# model like glb, gltf...
 
+@export var title: String
+@export var desc: String
+
 @export var icon_path: String
 
+# define unit element phase
+@export_flags("WOOD", "FIRE", "METAL", "WATER", "EARCH") var element_phase: int = 0
 # define how unit move on mesh ground
 @export_flags("WALK", "FLYING", "SWIM") var unit_move_type: int = 0
 # define unit category
@@ -34,7 +39,7 @@ enum ARMOR_TYPE_ENUM  {
 @export_flags("INVINCIBLE", "NORMAL", "HERO", "ENEMY", "FRIEND") var armor_type = 0
 
 
-# status
+# unit status
 var health : float		
 var max_health : float :
 	set(value):
@@ -43,10 +48,22 @@ var max_health : float :
 		
 var _is_alive := true
 
+var relife : int
+var level : int
 var move_speed : float
 var turn_speed : float
 var attack_speed : float
+var attack_range : float
+var attack_num : int
+var value: float	# 伤害值
+var unit_growth_factor: float = 1.0     # 单位成长率
+var exp_growth_factor: float = 1.0     # 经验成长率
 
+
+# 经验值(L)=100×(L−1)^{1.5}
+var experience: float = 0.0   # 经验值
+var max_level: float = 100   # 最大等级
+var level_up_experience: float = 100   # 升级经验值（按等级递增）
 
 
 # material and mesh
@@ -57,8 +74,19 @@ var _outline_material = preload("res://Asserts/materials/outline_mat.tres")
 # create mesh outline
 var is_mesh_outline: bool
 var is_mesh_standing: bool
-
 var _mesh_standing: MeshInstance3D
+
+# unit cost
+# 魔法消耗
+@export var mana_cost: float = 10.0
+# 木材消耗
+@export var wood_cost: float = 10.0
+# 金钱消耗
+@export var money_cost: float = 10.0
+
+
+
+
 
 # selected circle
 var is_selected_circle: bool

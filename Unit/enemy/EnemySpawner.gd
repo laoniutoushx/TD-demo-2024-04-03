@@ -28,7 +28,7 @@ func start():
 		var enemy_resource:EnemyResource = load("res://Unit/enemy/resources/%s.tres" % enemy_res_name)
 		
 		# generate enemy instance
-		var enemy_instance: Enemy = SystemUtil.unit_system.create_unit(enemy_resource)
+		var enemy_instance: Enemy = SystemUtil.unit_system.create_unit(enemy_resource, 1)
 		
 		# y offset
 		enemy_instance.v_offset = _start_node.global_position.y
@@ -42,7 +42,7 @@ func start():
 		if _path != null:
 			_path.add_child(enemy_instance)
 			await CommonUtil.await_timer(_enemy_spawner_res.spawn_interval)
-			print("generate 1", enemy_instance)
+
 	
 	# emit spawning end signal
 	enemy_spawn_finished.emit()

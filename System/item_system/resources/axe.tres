@@ -1,13 +1,43 @@
-[gd_resource type="Resource" script_class="ItemResource" load_steps=2 format=3 uid="uid://5metv6bqqctl"]
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://5metv6bqqctl"]
 
 [ext_resource type="Script" path="res://System/item_system/domain/item_ressource.gd" id="1_ya1ng"]
+
+[sub_resource type="Resource" id="Resource_aevwh"]
+script = ExtResource("1_ya1ng")
+id = null
+code = ""
+title = ""
+desc = ""
+description = ""
+cooldown = 1.0
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+level = 1
+max_level = 3
+stock = 1
+value = 0.0
+category = null
+nature = null
+borning_position = Vector3(0, 0, 0)
+item_level_res_config = Array[ExtResource("1_ya1ng")]([])
 
 [resource]
 script = ExtResource("1_ya1ng")
 id = null
 code = "axe"
-name = ""
+title = ""
+desc = ""
 description = ""
+cooldown = 1.0
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+level = 1
+max_level = 3
+stock = 1
+value = 0.0
 category = null
 nature = null
 borning_position = Vector3(0, 0, 0)
+item_level_res_config = Array[ExtResource("1_ya1ng")]([SubResource("Resource_aevwh")])

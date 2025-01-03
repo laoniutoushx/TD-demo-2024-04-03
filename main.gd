@@ -10,7 +10,9 @@ var turret_manager: TurretManager
 # UI
 @onready var message_bar: Control = $UI/MessageBar
 @onready var building_key_indicator: Control = $UI/BuildingKeyIndicator
-@onready var slot_indicator: Control = $UI/SlotIndicator
+@onready var skill_slot_indicator: Control = $UI/SkillSlotIndicator
+@onready var unit_slot_indicator: Control = $UI/UnitSlotIndicator
+@onready var item_slot_indicator: Control = $UI/ItemSlotIndicator
 
 
 

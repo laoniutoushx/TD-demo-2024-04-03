@@ -1,17 +1,40 @@
-[gd_scene load_steps=6 format=3 uid="uid://vrme7q61fwqx"]
+[gd_scene load_steps=11 format=3 uid="uid://bl0ey0g0r6gjt"]
 
-[ext_resource type="Script" path="res://Components/slot_indicator/slot_indicator.gd" id="1_fo23d"]
-[ext_resource type="PackedScene" uid="uid://bk72dt5ar01dx" path="res://Components/background/background_slot_basic.tscn" id="2_sj83t"]
+[ext_resource type="Script" path="res://Components/slot_indicator/unit_slot_indicator.gd" id="1_hkv76"]
+[ext_resource type="PackedScene" uid="uid://bk72dt5ar01dx" path="res://Components/background/background_slot_basic.tscn" id="2_sayir"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ljmcq"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_ao2g8"]
+[sub_resource type="LabelSettings" id="LabelSettings_uvqvc"]
+font_size = 32
 font_color = Color(1, 0.924409, 0.599136, 1)
+outline_size = 5
+outline_color = Color(0.473893, 0.470763, 9.62615e-08, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3aq3v"]
+font_size = 22
+font_color = Color(1, 0.924409, 0.599136, 1)
+outline_size = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_xd57s"]
+font_color = Color(1, 0.67451, 0.101961, 1)
+outline_size = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_v0yym"]
+font_color = Color(1, 0.67451, 0.101961, 1)
+outline_size = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_1f6mj"]
+font_color = Color(1, 0.67451, 0.101961, 1)
 outline_size = 1
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ar14"]
 
-[node name="SlotIndicator" type="Control"]
+[sub_resource type="LabelSettings" id="LabelSettings_ao2g8"]
+font_color = Color(1, 0.776471, 0.439216, 1)
+outline_size = 1
+
+[node name="UnitSlotIndicator" type="Control"]
 z_index = 100
 layout_mode = 3
 anchors_preset = 8
@@ -21,7 +44,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_fo23d")
+script = ExtResource("1_hkv76")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -38,7 +61,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ljmcq")
 
-[node name="BackgroundSlotBasic" parent="PanelContainer" instance=ExtResource("2_sj83t")]
+[node name="BackgroundSlotBasic" parent="PanelContainer" instance=ExtResource("2_sayir")]
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
@@ -50,6 +73,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -62,7 +86,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "基础塔"
-label_settings = SubResource("LabelSettings_ao2g8")
+label_settings = SubResource("LabelSettings_uvqvc")
 vertical_alignment = 1
 
 [node name="AspectRatioContainer2" type="AspectRatioContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer"]
@@ -74,7 +98,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "等级 1"
-label_settings = SubResource("LabelSettings_ao2g8")
+label_settings = SubResource("LabelSettings_3aq3v")
 horizontal_alignment = 2
 vertical_alignment = 1
 
@@ -93,21 +117,21 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 text = "金币：100"
-label_settings = SubResource("LabelSettings_ao2g8")
+label_settings = SubResource("LabelSettings_xd57s")
 vertical_alignment = 1
 
 [node name="WoodCost" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HSplitContainer/CostContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "木材：1"
-label_settings = SubResource("LabelSettings_ao2g8")
+label_settings = SubResource("LabelSettings_v0yym")
 vertical_alignment = 1
 
 [node name="ManaCost" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HSplitContainer/CostContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "魔法消耗：50"
-label_settings = SubResource("LabelSettings_ao2g8")
+label_settings = SubResource("LabelSettings_1f6mj")
 vertical_alignment = 1
 
 [node name="五行-TODO" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HSplitContainer"]
@@ -116,8 +140,8 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 0
 
 [node name="MsgContainer" type="VSplitContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -132,7 +156,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_colors/default_color = Color(0.912527, 0.762639, 0.167911, 1)
-text = "123"
+text = "一个普通的防御塔"
 fit_content = true
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
@@ -143,6 +167,13 @@ layout_mode = 2
 [node name="ValueContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer4"]
 layout_mode = 2
 
+[node name="ElementPhase" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/ValueContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "属性：金"
+label_settings = SubResource("LabelSettings_ao2g8")
+vertical_alignment = 1
+
 [node name="Damage" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/ValueContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -150,24 +181,17 @@ text = "伤害：20"
 label_settings = SubResource("LabelSettings_ao2g8")
 vertical_alignment = 1
 
-[node name="InitNum" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/ValueContainer"]
+[node name="AttackNum" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/ValueContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "目标数量：3"
 label_settings = SubResource("LabelSettings_ao2g8")
 vertical_alignment = 1
 
-[node name="Wave" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/ValueContainer"]
+[node name="AttackRange" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/ValueContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "跳越次数：3"
-label_settings = SubResource("LabelSettings_ao2g8")
-vertical_alignment = 1
-
-[node name="DamageRange" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/ValueContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "伤害范围：3"
+text = "范围：3"
 label_settings = SubResource("LabelSettings_ao2g8")
 vertical_alignment = 1
 
@@ -175,13 +199,6 @@ vertical_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 text = "目标类型：地面、单位"
-label_settings = SubResource("LabelSettings_ao2g8")
-vertical_alignment = 1
-
-[node name="Duration" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/ValueContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "持续时间：20"
 label_settings = SubResource("LabelSettings_ao2g8")
 vertical_alignment = 1
 

@@ -55,7 +55,7 @@ func _ready() -> void:
 # input event handler register
 func _input(event: InputEvent) -> void: 
 	# 技能 slot 监听
-	if reference is Skill:
+	if is_instance_valid(reference) and reference is Skill:
 		# 绑定鼠标左键点击
 		if is_mouse_hover:
 			print(reference.unit.current_global_skill_state, reference.current_state)
@@ -133,10 +133,15 @@ func do(active):
 func _on_mouse_entered() -> void:
 	is_mouse_hover = true
 	icon_texture.material.set_shader_parameter("show_border", true)
+	
 
 	# 显示 slot_indicator 
-	SOS.main.slot_indicator.show_toggle(self)
-		
+	if reference is Skill:
+		SOS.main.skill_slot_indicator.show_toggle(self)
+	elif reference is BaseUnit:
+		SOS.main.unit_slot_indicator.show_toggle(self)
+	elif reference is Item:
+		SOS.main.item_slot_indicator.show_toggle(self)
 	
 
 
@@ -145,7 +150,12 @@ func _on_mouse_exited() -> void:
 	icon_texture.material.set_shader_parameter("show_border", false)
 
 	# 关闭 slot_indicator 
-	SOS.main.slot_indicator.show_toggle(self)
+	if reference is Skill:
+		SOS.main.skill_slot_indicator.show_toggle(self)
+	elif reference is BaseUnit:
+		SOS.main.unit_slot_indicator.show_toggle(self)
+	elif reference is Item:
+		SOS.main.item_slot_indicator.show_toggle(self)
 
 
 
