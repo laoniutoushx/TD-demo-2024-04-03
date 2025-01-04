@@ -94,6 +94,3 @@ func _on_slot_clicked(slot: BaseSlot):
 	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_RELEASE_TYPE.CIRCLE_RANGE, skill.release_type):
 		skill.change_state(Skill.SKILL_STATE.Circle_Range_Indicate)
 
-	# SOS.main.player_controller.player_skill_scope_indicator.show_indicator()
-	
-	

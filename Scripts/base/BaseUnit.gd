@@ -119,12 +119,21 @@ var vfx_projectile_name: String
 var projectile_speed: String
 var projectile_trace: Curve3D
 
+
+@export_group("Item")
+@export var pickup_velocity := 1000.0
+@export var item_metas: Array[ItemResource] = []	# item meta info
+# Item（实例化后的物品列表）
+var item_map: Dictionary = {}
+
+
 @export_group("Skill")
 @export var skill_metas: Array[SkillMetaResource] = []	# skill meta info
 # Skill（实例化后的技能列表）
 var skill_map: Dictionary = {}
 # 一个单位，在多个技能中共享的状态（目前为 skill indicator）
 var current_global_skill_state: int = 0
+
 
 
 
@@ -150,6 +159,7 @@ func _ready() -> void:
 	select_circle.hide()
 	
 	# system component load（item）
+	item_map = SystemUtil.item_system.initialize_items(self, item_metas)
 	
 	# system component load（skill）
 	skill_map = SystemUtil.skill_system.initialize_skills(self, skill_metas)

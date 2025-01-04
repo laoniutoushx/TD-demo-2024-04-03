@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d4gqkoqce24re"]
+[gd_scene load_steps=17 format=3 uid="uid://d4gqkoqce24re"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_7e1y6"]
 [ext_resource type="PackedScene" uid="uid://lwbcrrjy7f4u" path="res://Player/player_controller.tscn" id="1_7t1by"]
@@ -9,7 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://5kncg21bpaly" path="res://System/damage_system/damage_system.tscn" id="5_v3n30"]
 [ext_resource type="PackedScene" uid="uid://ti0jc0egel3q" path="res://System/unit_system/unit_system.tscn" id="7_i5nrp"]
 [ext_resource type="PackedScene" uid="uid://caj82lyjnxa4l" path="res://System/skill_system/skill_system.tscn" id="9_tkfl7"]
+[ext_resource type="PackedScene" uid="uid://c3a6luswx336s" path="res://System/item_system/item_system.tscn" id="10_lph7j"]
 [ext_resource type="PackedScene" uid="uid://byvfnv1m624t" path="res://Components/message_bar/message_bar.tscn" id="10_s4ypy"]
+[ext_resource type="PackedScene" uid="uid://clsjotbm5x8w3" path="res://System/buff_system/buff_system.tscn" id="11_3fiu1"]
 [ext_resource type="PackedScene" uid="uid://b1ol5vcu5t2uq" path="res://Components/building_key_indicator/building_key_indicator.tscn" id="11_al8tg"]
 [ext_resource type="PackedScene" uid="uid://vrme7q61fwqx" path="res://Components/slot_indicator/skill_slot_indicator.tscn" id="12_kj6y6"]
 [ext_resource type="PackedScene" uid="uid://bl0ey0g0r6gjt" path="res://Components/slot_indicator/unit_slot_indicator.tscn" id="13_1oenx"]
@@ -44,6 +46,11 @@ unique_name_in_owner = true
 
 [node name="SkillSystem" parent="System" instance=ExtResource("9_tkfl7")]
 unique_name_in_owner = true
+
+[node name="ItemSystem" parent="System" instance=ExtResource("10_lph7j")]
+unique_name_in_owner = true
+
+[node name="BuffSystem" parent="System" instance=ExtResource("11_3fiu1")]
 
 [node name="UI" type="Node" parent="."]
 

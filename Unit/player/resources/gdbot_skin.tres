@@ -1,6 +1,8 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=8 format=3 uid="uid://sa00lx2hfecc"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=10 format=3 uid="uid://sa00lx2hfecc"]
 
+[ext_resource type="Script" path="res://System/item_system/domain/item_ressource.gd" id="1_2sp2u"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_x8mob"]
+[ext_resource type="Resource" uid="uid://5metv6bqqctl" path="res://System/item_system/resources/axe.tres" id="2_2osqj"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_usrqw"]
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="3_j65fo"]
 [ext_resource type="Resource" uid="uid://x4bivjxncvqm" path="res://System/skill_system/resources/damage/thunderclap.tres" id="4_vdhal"]
@@ -49,4 +51,5 @@ anim_release = "simple_punch"
 is_selected_circle = true
 component_system = 0
 pickup_velocity = 1000.0
+item_metas = Array[ExtResource("1_2sp2u")]([ExtResource("2_2osqj")])
 skill_metas = Array[ExtResource("3_j65fo")]([ExtResource("4_vdhal"), ExtResource("5_jcvry"), ExtResource("6_6vxlu"), ExtResource("7_jsd2q")])

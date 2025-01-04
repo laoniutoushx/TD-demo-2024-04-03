@@ -92,6 +92,7 @@ enum ELEMENT_PHASE_STR{
 @export_group("Item")
 # 拾取速度
 @export var pickup_velocity := 1000.0
+@export var item_metas: Array[ItemResource] = []	# item meta info
 
 # Skill related
 @export_group("Skill")

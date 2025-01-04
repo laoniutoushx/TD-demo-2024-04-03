@@ -21,6 +21,9 @@ var turret_manager: TurretManager
 @onready var damage_system: DamageSystem = %DamageSystem
 @onready var unit_system: UnitSystem = %UnitSystem
 @onready var skill_system: SkillSystem = %SkillSystem
+@onready var item_system: ItemSystem = %ItemSystem
+@onready var buff_system: BuffSystem = %BuffSystem
+
 
 var input_event_callable_list: Array[Callable] = []
 

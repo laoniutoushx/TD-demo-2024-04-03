@@ -7,3 +7,5 @@ var damage_system: DamageSystem
 var barrage_system: BarrageSystem
 var unit_system: UnitSystem
 var skill_system: SkillSystem
+var item_system: ItemSystem
+var buff_system: BuffSystem

@@ -13,11 +13,13 @@ enum NATURE_STR{
 @export_group("Item Meta Steup")
 @export var id: String = UUID.v4()
 @export var code: String
+@export var sort: int
+
+
 @export var title: String
 @export var desc: String
-@export var icon: Texture2D
+@export var icon_path: String
 @export var model: PackedScene
-@export var description:String
 
 
 @export_group("Item Inner Steup")
@@ -48,4 +50,4 @@ enum NATURE_STR{
 @export var item_script: Script
 
 # item level config
-@export var item_level_res_config: Array[ItemResource] = []
+@export var item_level_config: Array[ItemResource] = []

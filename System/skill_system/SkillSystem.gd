@@ -53,8 +53,9 @@ func _initialize_skill(source_unit: BaseUnit, skill_meta_res: SkillMetaResource,
 		var skill: Skill = Skill.new()
 		skill.unit = source_unit
 		CommonUtil.bean_properties_copy(skill_meta_res, skill)
-		# 收到赋值 skill_script
+		# 手动赋值 skill_script
 		skill.skill_script = skill_meta_res.skill_script
+
 
 		skill.skill_meta_res = skill_meta_res
 		skill.sort = idx

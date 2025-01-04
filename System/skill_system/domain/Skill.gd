@@ -9,7 +9,7 @@ var slot: BaseSlot
 
 # meta info 
 @export_group("Skill Meta Steup")
-var id: String
+var id: StringName
 var code: String
 @export var sort: int
 
@@ -65,8 +65,6 @@ var code: String
 @export var skill_script: Script
 var skill_script_instance: Variant
 
-# skill level config
-var skill_level_config: Array[Skill] = []
 
 # Timer
 var cool_down_timer: Timer

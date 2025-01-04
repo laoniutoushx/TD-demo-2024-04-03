@@ -34,3 +34,4 @@ effect_type = 4
 skill_script = ExtResource("2_yfq8n")
 building_scene = ExtResource("1_tqfdc")
 building_res = ExtResource("1_icxeo")
+skill_level_config = Array[ExtResource("1_iajld")]([])

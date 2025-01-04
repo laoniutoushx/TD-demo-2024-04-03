@@ -121,4 +121,4 @@ enum SKILL_EFFECT_TYPE{
 
 
 # skill level config
-@export var skill_level_res_config: Array[SkillMetaResource] = []
+@export var skill_level_config: Array[SkillMetaResource] = []

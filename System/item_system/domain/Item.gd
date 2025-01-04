@@ -12,13 +12,14 @@ var slot: BaseSlot
 
 # basic properity
 @export_group("Item Meta Steup")
-@export var id: String = UUID.v4()
+@export var id: StringName
 @export var code: String
+@export var sort: int
+
 @export var title: String
 @export var desc: String
-@export var icon: Texture2D
+@export var icon_path: String
 @export var model: PackedScene
-@export var description:String
 
 
 # status
@@ -48,11 +49,11 @@ var slot: BaseSlot
 
 # Item Script Template( 用于 动态 处理 Item 逻辑 )
 @export var item_script: Script
+var item_script_instance: Variant
 
 
-# item level config
-var item_level_config: Array[Item] = []
-
+# Timer
+var cool_down_timer: Timer
 
 
 ## Item 逻辑处理

@@ -69,6 +69,7 @@ func _on_player_select_units(unit_map: Dictionary, mouse_pos: Vector3, on_select
 		if unit_map.size() == 0:
 			# skill bar clear
 			close_skill_bar()
+			close_item_bar()
 			hide()
 		else:
 			display()
@@ -76,7 +77,8 @@ func _on_player_select_units(unit_map: Dictionary, mouse_pos: Vector3, on_select
 			open_selection_bar(unit_map)
 			# skill bar
 			open_skill_bar(unit_map)
-		
+			# item bar
+			open_item_bar(unit_map)
 		
 
 func _on_unit_logic_death(id:int, unit :BaseUnit):
@@ -93,8 +95,16 @@ func open_skill_bar(unit_map: Dictionary):
 	# skill bar init
 	skill_bar_comp.setup_for_unit(unit_map)
 
+func open_item_bar(unit_map: Dictionary):
+	item_bar_comp.clear()
+	# skill bar init
+	item_bar_comp.setup_for_unit(unit_map)	
+
 func close_skill_bar():
 	skill_bar_comp.clear()
+
+func close_item_bar():
+	item_bar_comp.clear()	
 
 # REGION selection bar 
 

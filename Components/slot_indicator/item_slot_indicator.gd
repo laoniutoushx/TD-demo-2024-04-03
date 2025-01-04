@@ -33,70 +33,70 @@ func refresh_slot_indicator_info(_slot: BaseSlot) -> void:
 
 # 依据 base_slot 显示对应提示信息（数据驱动）
 func _slot_info(_slot: BaseSlot) -> void:
-	var skill = _slot.reference as Skill
+	var item = _slot.reference as Item
 
 	# Meta
-	if skill.title:
-		title.text = str(skill.title)
+	if item.title:
+		title.text = str(item.title)
 	else:
 		title.visible = false
 
-	if skill.level:
-		level.text = "等级 %s" % [str(skill.level)]
+	if item.level:
+		level.text = "等级 %s" % [str(item.level)]
 	else:
 		level.visible = false
 
-	if skill.desc:
-		desc.text = str(skill.desc)
+	if item.desc:
+		desc.text = str(item.desc)
 	else:
 		desc.visible = false
 	
 
 	# Cost
-	if skill.mana_cost:
-		mana_cost.text = "魔法消耗： %s" % str(skill.mana_cost)
+	if item.mana_cost:
+		mana_cost.text = "魔法消耗： %s" % str(item.mana_cost)
 	else:
 		mana_cost.visible = false
 
-	if skill.money_cost:
-		money_cost.text = "金钱： %s" % str(skill.money_cost)
+	if item.money_cost:
+		money_cost.text = "金钱： %s" % str(item.money_cost)
 	else:
 		money_cost.visible = false
 
-	if skill.wood_cost:
-		wood_cost.text = "木材： %s" % str(skill.wood_cost)
+	if item.wood_cost:
+		wood_cost.text = "木材： %s" % str(item.wood_cost)
 	else:
 		wood_cost.visible = false
 
 
 	# Functional
-	if skill.value:
-		damage.text = "伤害： %s" % str(skill.value)
+	if item.value:
+		damage.text = "伤害： %s" % str(item.value)
 	else:
 		damage.visible = false
 
-	if skill.init_num:
-		init_num.text = "数量： %s" % str(skill.init_num)
-	else:
-		init_num.visible = false
+	# if item.init_num:
+	# 	init_num.text = "数量： %s" % str(item.init_num)
+	# else:
+	# 	init_num.visible = false
 
-	if skill.range:
-		damage_range.text = "伤害范围： %s m" % str(skill.range)
-	else:
-		damage_range.visible = false
+	# if item.range:
+	# 	damage_range.text = "伤害范围： %s m" % str(item.range)
+	# else:
+	# 	damage_range.visible = false
 
-	if skill.target_type:
-		var target_type_str = CommonUtil.bit_set_to_str(skill.target_type, SkillMetaResource.SKILL_TARGET_TYPE_CHN)
-		target_type.text = "目标类型： %s" % str(target_type_str)
-	else:
-		target_type.visible = false
+	# if item.target_type:
+	# 	var target_type_str = CommonUtil.bit_set_to_str(item.target_type, SkillMetaResource.SKILL_TARGET_TYPE_CHN)
+	# 	target_type.text = "目标类型： %s" % str(target_type_str)
+	# else:
+	# 	target_type.visible = false
 
-	if skill.wave:
-		wave.text = "轮次： %s" % str(skill.wave)
-	else:
-		wave.visible = false
+	# if item.wave:
+	# 	wave.text = "轮次： %s" % str(item.wave)
+	# else:
+	# 	wave.visible = false
 	
-	if skill.internal_time > -1:
-		duration.text = "持续时间： %s s" % str(skill.internal_time * skill.wave)
-	else:
-		duration.visible = false
+	# if item.internal_time > -1:
+	# 	duration.text = "持续时间： %s s" % str(item.internal_time * item.wave)
+	# else:
+	# 	duration.visible = false
