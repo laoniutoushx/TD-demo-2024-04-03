@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BuffResource" load_steps=3 format=3 uid="uid://c65qmoljjlnvn"]
+
+[ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="1_jwc7d"]
+[ext_resource type="Script" path="res://System/buff_system/resources/attack_power_buff.gd" id="1_qkloj"]
+
+[resource]
+script = ExtResource("1_jwc7d")
+id = &""
+code = "attack_power_buff"
+sort = 0
+type = 39
+title = "伤害加深"
+desc = "增加一定的伤害"
+icon_path = "5"
+value = 0.0
+value_unit = 1
+buff_script = ExtResource("1_qkloj")

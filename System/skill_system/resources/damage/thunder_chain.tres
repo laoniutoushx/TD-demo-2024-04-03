@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=3 format=3 uid="uid://dpnj33orc37b"]
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=4 format=3 uid="uid://dpnj33orc37b"]
 
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_67cf5"]
+[ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="2_oo7f5"]
 [ext_resource type="Script" path="res://System/skill_system/resources/damage/thunder_chain.gd" id="2_rsmhd"]
 
 [resource]
@@ -10,6 +11,7 @@ title = "闪电链"
 desc = "对目标造成闪电伤害，在多个目标间跳转"
 icon_path = "1157"
 level = 0
+level_up_gap = 1
 max_level = 3
 cooldown = 1.0
 mana_cost = 10.0
@@ -31,3 +33,4 @@ target_type = 16
 effect_type = 1
 skill_script = ExtResource("2_rsmhd")
 skill_level_config = Array[ExtResource("1_67cf5")]([])
+skill_buff_config = Array[ExtResource("2_oo7f5")]([])

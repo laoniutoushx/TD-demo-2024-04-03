@@ -9,7 +9,8 @@ var clazz: BaseUnitResource
 # signal
 var signal_container = {}
 signal logical_death(unit: BaseUnit)
-signal physic_death(unit: BaseUnit)
+# signal physic_death(unit: BaseUnit)
+
 
 # meta config
 @export var clz_code: String
@@ -46,10 +47,9 @@ var max_health : float :
 		health = value
 		max_health = value
 		
-var _is_alive := true
+var _is_logic_alive := true
 
 var relife : int
-var level : int
 var move_speed : float
 var turn_speed : float
 var attack_speed : float
@@ -57,13 +57,9 @@ var attack_range : float
 var attack_num : int
 var value: float	# 伤害值
 var unit_growth_factor: float = 1.0     # 单位成长率
-var exp_growth_factor: float = 1.0     # 经验成长率
 
 
-# 经验值(L)=100×(L−1)^{1.5}
-var experience: float = 0.0   # 经验值
-var max_level: float = 100   # 最大等级
-var level_up_experience: float = 100   # 升级经验值（按等级递增）
+
 
 
 # material and mesh
@@ -135,6 +131,10 @@ var skill_map: Dictionary = {}
 var current_global_skill_state: int = 0
 
 
+@export_group("Buff")
+# Buff（实例化后的buff列表）
+var buff_map: Dictionary = {}
+
 
 
 func _ready() -> void:
@@ -164,9 +164,10 @@ func _ready() -> void:
 	# system component load（skill）
 	skill_map = SystemUtil.skill_system.initialize_skills(self, skill_metas)
 
+
 	# signal register
 	logical_death.connect(_on_logic_dead, CONNECT_ONE_SHOT)
-	physic_death.connect(_on_physic_dead, CONNECT_ONE_SHOT)
+	# physic_death.connect(_on_physic_dead, CONNECT_ONE_SHOT)
 
 # clz 初始化
 func clazz_init():
@@ -181,23 +182,24 @@ func clazz_init():
 	
 	
 func is_alive() -> bool:
-	return _is_alive
+	return _is_logic_alive
 
 # enemy 死亡触发事件， turret 监听该 enemy 死亡事件，删除对应敌人集合
 func do_after_logic_dead() -> void:
-	_is_alive = false
-	
+
 	# stop moving
 	set_process(false)
 	
 	# 移出 health bar
 	var health_bar = CommonUtil.get_first_node_by_node_name(self, "HealthBar3D")
 	if health_bar != null:
-		health_bar.queue_free()
+		health_bar.hide()
+		# health_bar.queue_free()
 	
 	# player death animation
 	death_effect()
-	pass		
+
+
 
 # unit death effect
 func death_effect():
@@ -226,10 +228,13 @@ func _on_animation_player_animation_finished(anim_name: String, unit:BaseUnit, s
 		#print("Animation finished: ", anim_name)
 		#signal_physic_dead.emit(self)  # 发射自定义信号
 
+
 # 物理死亡
 func _on_physic_dead(unit: BaseUnit) -> void:
 	unit.queue_free()
 
+
+# 逻辑死亡
 func _on_logic_dead(unit: BaseUnit) -> void:
 	if unit:
 		unit.do_after_logic_dead()
@@ -237,25 +242,24 @@ func _on_logic_dead(unit: BaseUnit) -> void:
 
 # is dead
 func is_logic_dead() -> bool:
-	return health <= 0
+	return is_alive()
 
 # damage unit
 func take_damage(damage: float):
 	health -= damage
-	#print("global position-take d: (%f, %f, %f)" % [pos.x, pos.y, pos.z])
 	SignalBus.unit_take_damage.emit(get_instance_id(), self, damage)
-	if is_logic_dead():
-		print("emit signal - " + Constants.LOGIC_DEAD + str(get_instance_id()))
-		logical_death.emit(self)
-		# var signal_enemy_death: Signal = signal_container.get(Constants.LOGIC_DEAD + str(get_instance_id()))
-		# signal_enemy_death.emit(self)
-		# Global Signal
+	if health + damage > 0 and health <= 0:
+		_is_logic_alive = false
+		print("emit signal %s, is alive = %s " % [Constants.LOGIC_DEAD + str(get_instance_id()), _is_logic_alive])
+		_on_logic_dead(self)
 		SignalBus.unit_logic_death.emit(get_instance_id(), self)
 
 
 # heal unit health
 func heal(amount: int):
 	health = min(health + amount, max_health)
+
+
 	
 func _create_mesh_outline():
 	# 1. 获取对象 mesh 网格

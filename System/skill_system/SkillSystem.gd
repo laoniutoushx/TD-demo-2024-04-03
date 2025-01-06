@@ -36,6 +36,10 @@ func initialize_skills(source_unit: BaseUnit, skill_metas: Array[SkillMetaResour
 	var skill_map: Dictionary = {}
 	for idx in range(skill_metas.size()):
 		var skill: Skill = _initialize_skill(source_unit, skill_metas[idx], idx)
+
+		# 初始化 buff
+		SystemUtil.buff_system.init_buff_for_unit_by_res(skill.skill_meta_res, source_unit)
+
 		skill.unit = source_unit
 		if skill != null:
 			skill_map[skill.code] = skill
@@ -65,9 +69,6 @@ func _initialize_skill(source_unit: BaseUnit, skill_meta_res: SkillMetaResource,
 		# skill id
 		skill.id = UUID.v4()
 
-		print(skill.code)
-		print(skill.name)
-		print(skill.value)
 
 		# 实例化技能脚本
 		# assert(skill.skill_script != null, "skill script not define")

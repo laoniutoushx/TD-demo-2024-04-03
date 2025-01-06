@@ -51,3 +51,6 @@ enum NATURE_STR{
 
 # item level config
 @export var item_level_config: Array[ItemResource] = []
+
+# item buff config
+@export var item_buff_config: Array[BuffResource] = []

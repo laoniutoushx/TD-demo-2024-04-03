@@ -284,3 +284,9 @@ static func arr_to_map(arr: Array) -> Dictionary:
 	for item in arr:
 		map[item.get_instance_id()] = item
 	return map
+
+
+
+# 组件相关
+static func get_component_by_name(reference: Node, name: String) -> Variant:
+	return reference.find_child(name, true)

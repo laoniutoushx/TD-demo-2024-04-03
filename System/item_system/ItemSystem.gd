@@ -20,19 +20,23 @@ func generate_item(item_code: String, p: Vector3) -> Item:
 	
 # 实例化 技能
 func initialize_items(source_unit: BaseUnit, item_metas: Array[ItemResource]) -> Dictionary:
-	var skill_map: Dictionary = {}
+	var item_map: Dictionary = {}
 	for idx in range(item_metas.size()):
 		var item: Item = _initialize_item(source_unit, item_metas[idx], idx)
+
+		# 初始化 buff
+		SystemUtil.buff_system.init_buff_for_unit_by_res(item.item_res, source_unit)
+
 		item.unit = source_unit
 		if item != null:
-			skill_map[item.code] = item
+			item_map[item.code] = item
 
 			# add to unit tree
 			item.name = item.code
 			self.add_child(item)
 			item.add_child(item.item_script_instance)
 
-	return skill_map
+	return item_map
 	
  # 实例化
 func _initialize_item(source_unit: BaseUnit, item_meta_res: ItemResource, idx: int = 0) -> Item:
@@ -42,8 +46,6 @@ func _initialize_item(source_unit: BaseUnit, item_meta_res: ItemResource, idx: i
 		CommonUtil.bean_properties_copy(item_meta_res, item)
 		# 手动赋值 skill_script
 		item.item_script = item_meta_res.item_script
-
-
 		item.item_res = item_meta_res
 		item.sort = idx
 		if item.code == null:
@@ -51,10 +53,6 @@ func _initialize_item(source_unit: BaseUnit, item_meta_res: ItemResource, idx: i
 			
 		# skill id
 		item.id = UUID.v4()
-
-		print(item.code)
-		print(item.name)
-		print(item.value)
 
 		# 实例化技能脚本
 		# assert(skill.skill_script != null, "skill script not define")

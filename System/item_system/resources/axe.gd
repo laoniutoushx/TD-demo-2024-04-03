@@ -1,4 +1,4 @@
-class_name Axe extends Node3D
+class_name Axe extends Item
 
 
 func action(item_context: ItemContext) -> void:

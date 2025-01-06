@@ -1,16 +1,4 @@
-class_name Buff extends BuffTpl
-
-
-
-# Reference
-var unit: BaseUnit
-var target: BaseUnit
-var item_res: ItemResource
-var skill_res: SkillMetaResource
-var slot: BaseSlot
-
-## Item 效果（属性提升，buff 叠加，技能释放，状态转变）
-
+class_name BuffResource extends Resource
 
 
 # basic properity
@@ -37,13 +25,5 @@ enum VALUE_UNIT {
 @export var value: float
 @export var value_unit: VALUE_UNIT
 
-# buff logic action
+
 @export var buff_script: Script
-var buff_script_instance: Variant
-
-
-# Timer
-var cool_down_timer: Timer
-
-
-## Item 逻辑处理

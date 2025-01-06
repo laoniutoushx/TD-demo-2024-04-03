@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=5 format=3 uid="uid://f1j2insixtan"]
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=6 format=3 uid="uid://f1j2insixtan"]
 
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_iajld"]
 [ext_resource type="Resource" uid="uid://batuffvaegvkn" path="res://Unit/turret/resources/turret.tres" id="1_icxeo"]
 [ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Unit/turret/scenes/turret.tscn" id="1_tqfdc"]
 [ext_resource type="Script" path="res://System/skill_system/resources/building/building_base_turret.gd" id="2_yfq8n"]
+[ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="4_0kk1c"]
 
 [resource]
 script = ExtResource("1_iajld")
@@ -12,6 +13,7 @@ title = "基础塔"
 desc = "在指定位置建造一个防御塔"
 icon_path = "default"
 level = 0
+level_up_gap = 1
 max_level = 3
 cooldown = 1.0
 mana_cost = 10.0
@@ -35,3 +37,4 @@ skill_script = ExtResource("2_yfq8n")
 building_scene = ExtResource("1_tqfdc")
 building_res = ExtResource("1_icxeo")
 skill_level_config = Array[ExtResource("1_iajld")]([])
+skill_buff_config = Array[ExtResource("4_0kk1c")]([])

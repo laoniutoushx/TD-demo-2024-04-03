@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxwu6lrqgowbs"]
+
+[ext_resource type="Script" path="res://Components/level/level_comp.gd" id="1_wyb6t"]
+
+[node name="LevelComp" type="Node"]
+script = ExtResource("1_wyb6t")

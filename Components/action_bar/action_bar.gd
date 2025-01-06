@@ -4,7 +4,7 @@ class_name ActionBar extends Control
 @onready var skill_bar: GridContainer = %SkillBar
 @onready var item_bar: GridContainer = %ItemBar
 @onready var selection_bar: GridContainer = %SelectionBar
-@onready var bulilding_bar: GridContainer = %BulildingBar
+@onready var buff_bar: GridContainer = %BuffBar
 
 
 @export var slot: PackedScene
@@ -14,7 +14,7 @@ static var icon_res_container := {}
 var selection_bar_comp: SelectionBarComponent
 var item_bar_comp: ItemBarComponent
 var skill_bar_comp: SkillBarComponent
-var building_bar_comp: BulidingBarComponent
+var buff_bar_comp: BuffBarComponent
 
 var active_callback_list: Array[Callable] = []
 
@@ -28,7 +28,7 @@ func _ready() -> void:
 	selection_bar_comp = SelectionBarComponent.new(self)
 	item_bar_comp = ItemBarComponent.new(self)
 	skill_bar_comp = SkillBarComponent.new(self)
-	building_bar_comp = BulidingBarComponent.new(self)
+	buff_bar_comp = BuffBarComponent.new(self)
 	
 
 func register_active(cale: Callable):
@@ -70,6 +70,7 @@ func _on_player_select_units(unit_map: Dictionary, mouse_pos: Vector3, on_select
 			# skill bar clear
 			close_skill_bar()
 			close_item_bar()
+			close_buff_bar()
 			hide()
 		else:
 			display()
@@ -79,6 +80,8 @@ func _on_player_select_units(unit_map: Dictionary, mouse_pos: Vector3, on_select
 			open_skill_bar(unit_map)
 			# item bar
 			open_item_bar(unit_map)
+			# item bar
+			open_buff_bar(unit_map)
 		
 
 func _on_unit_logic_death(id:int, unit :BaseUnit):
@@ -97,14 +100,26 @@ func open_skill_bar(unit_map: Dictionary):
 
 func open_item_bar(unit_map: Dictionary):
 	item_bar_comp.clear()
-	# skill bar init
+	# item bar init
 	item_bar_comp.setup_for_unit(unit_map)	
+
+func open_buff_bar(unit_map: Dictionary):
+	buff_bar_comp.clear()
+	# buff bar init
+	var unit: BaseUnit = unit_map.values()[0]
+	var buff_map: Dictionary = unit.buff_map
+	buff_bar_comp.add_elements(buff_map.values(), buff_bar_comp.add_element_hook)	
+
+
 
 func close_skill_bar():
 	skill_bar_comp.clear()
 
 func close_item_bar():
 	item_bar_comp.clear()	
+
+func close_buff_bar():
+	buff_bar_comp.clear()		
 
 # REGION selection bar 
 
@@ -117,7 +132,7 @@ class BaseBarComponent extends Node:
 	var _skill_bar: GridContainer
 	var _item_bar: GridContainer
 	var _selection_bar: GridContainer
-	var _bulilding_bar: GridContainer
+	var _buff_bar: GridContainer
 
 	var _slot_num = 0
 	
@@ -126,7 +141,7 @@ class BaseBarComponent extends Node:
 		_skill_bar = _action_bar.skill_bar
 		_item_bar = _action_bar.item_bar
 		_selection_bar = _action_bar.selection_bar
-		_bulilding_bar = _action_bar.bulilding_bar
+		_buff_bar = _action_bar.buff_bar
 	
 		_slot_ps = action_bar.slot
 		_icon_res_container = ActionBar.icon_res_container
@@ -200,6 +215,48 @@ class SelectionBarComponent extends BaseBarComponent:
 	
 
 	
-class BulidingBarComponent extends BaseBarComponent:
-	pass
+
+# BUFF BAR	
+class BuffBarComponent extends BaseBarComponent:
+	func add_elements(elements: Array, hook: Callable):
+		
+		for element: Buff in elements:
+			if is_instance_valid(element) and _slot_num < 16 * 2:
+				var buff_slot_instance: BaseSlot = super.add_element(str(element.get_instance_id()), _buff_bar, add_element_hook)
+				
+				if element != null and is_instance_valid(element) and buff_slot_instance != null and is_instance_valid(buff_slot_instance):
+					print(" buff title : %s" % [element.title])					
+					print("element icon path: %s" % [element.icon_path])
+					buff_slot_instance.custome_init(
+						element,
+						element.icon_path,
+						BaseSlot.SLOT_TYPE.BUFF, 
+						true
+					)
+					_slot_num += 1
+					
+		
+	func remove_element(ele: Variant):
+		ele = (ele as Buff)
+		if _buff_bar.has_node(str(ele.get_instance_id())):
+			var _s: BaseSlot = _buff_bar.get_node(str(ele.get_instance_id()))
+			_action_bar.deregister_active(_s.active_callback)
+			_s.queue_free()
+			_slot_num -= 1
+			
+			
+			
+	func clear():
+		for child: BaseSlot in _buff_bar.get_children():
+			_action_bar.deregister_active(child.active_callback)
+			child.queue_free()
+		_slot_num = 0
+	
+	
+	func add_element_hook(ab: ActionBar, bs: BaseSlot):
+		bs.slot_clicked.connect(slot_item_clicked)
+		
+		
+	func slot_item_clicked(slot: BaseSlot):
+		print("slot print %s" % [slot.name])
 	

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfymti8t44nq4"]
+
+[ext_resource type="PackedScene" uid="uid://dv480s183616w" path="res://Asserts/Models/item/Treasure Chest.glb" id="1_8v731"]
+
+[node name="Default" type="Node3D"]
+
+[node name="Treasure Chest" parent="." instance=ExtResource("1_8v731")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.341414, 0)

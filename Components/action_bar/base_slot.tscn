@@ -9,7 +9,6 @@
 
 [node name="BaseSlot" type="PanelContainer"]
 material = ExtResource("3_4x347")
-custom_minimum_size = Vector2(64, 64)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

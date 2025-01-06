@@ -62,6 +62,7 @@ enum SKILL_EFFECT_TYPE{
 @export var desc: String
 @export var icon_path: String
 @export var level: int = 1
+@export var level_up_gap: int = 1
 @export var max_level: int = 3
 
 # 冷却时间
@@ -122,3 +123,6 @@ enum SKILL_EFFECT_TYPE{
 
 # skill level config
 @export var skill_level_config: Array[SkillMetaResource] = []
+
+# skill buff config
+@export var skill_buff_config: Array[BuffResource] = []

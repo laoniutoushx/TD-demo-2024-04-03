@@ -44,8 +44,7 @@ enum ELEMENT_PHASE_STR{
 @export var money_cost: float = 10.0
 
 # unit status
-@export var relife : int = 1    # 转生次数
-@export var level : int = 1
+
 @export var max_health : float
 @export var move_speed : float
 @export var turn_speed : float
@@ -55,14 +54,6 @@ enum ELEMENT_PHASE_STR{
 
 @export var value: float	# 伤害值
 @export var unit_growth_factor: float = 1.0     # 单位成长率
-@export var exp_growth_factor: float = 1.0     # 经验成长率
-
-
-# 经验值(L)=100×(L−1)^{1.5}
-@export var experience: float = 0.0   # 经验值
-@export var max_level: float = 100   # 最大等级
-@export var level_up_experience: float = 100   # 升级经验值（按等级递增）
-
 
 
 
@@ -98,3 +89,8 @@ enum ELEMENT_PHASE_STR{
 @export_group("Skill")
 @export var skill_metas: Array[SkillMetaResource] = []
 
+
+
+# Component
+@export_group("Component")
+@export var level_component: PackedScene

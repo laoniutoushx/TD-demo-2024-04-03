@@ -57,3 +57,5 @@ var cool_down_timer: Timer
 
 
 ## Item 逻辑处理
+func action(item_context: ItemContext) -> void:
+	pass

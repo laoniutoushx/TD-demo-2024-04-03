@@ -5,6 +5,7 @@ enum SLOT_TYPE {
 	SKILL,
 	SELECT,
 	ITEM,
+	BUFF,
 	DEFAULT
 }
 

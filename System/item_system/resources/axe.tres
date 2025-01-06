@@ -1,16 +1,20 @@
-[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://5metv6bqqctl"]
+[gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://5metv6bqqctl"]
 
-[ext_resource type="Script" path="res://System/item_system/domain/item_ressource.gd" id="1_ya1ng"]
+[ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="1_pse34"]
 [ext_resource type="Script" path="res://System/item_system/resources/axe.gd" id="2_0uamu"]
+[ext_resource type="Resource" uid="uid://c65qmoljjlnvn" path="res://System/buff_system/resources/attack_power_buff.tres" id="2_1fp0n"]
+[ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="3_4jin5"]
+[ext_resource type="PackedScene" uid="uid://dfymti8t44nq4" path="res://System/item_system/resources/default.tscn" id="3_b8bgn"]
 
 [resource]
-script = ExtResource("1_ya1ng")
+script = ExtResource("3_4jin5")
 id = null
 code = "axe"
 sort = 0
 title = "斧头"
 desc = "斧头"
 icon_path = "res://Asserts/Images/item/26.png"
+model = ExtResource("3_b8bgn")
 cooldown = 1.0
 mana_cost = 10.0
 wood_cost = 10.0
@@ -23,4 +27,5 @@ category = 1
 nature = 4
 borning_position = Vector3(0, 0, 0)
 item_script = ExtResource("2_0uamu")
-item_level_config = Array[ExtResource("1_ya1ng")]([])
+item_level_config = Array[ExtResource("3_4jin5")]([])
+item_buff_config = Array[ExtResource("1_pse34")]([ExtResource("2_1fp0n")])

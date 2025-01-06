@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=3 format=3 uid="uid://btoskpfy832ny"]
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=4 format=3 uid="uid://btoskpfy832ny"]
 
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_k0j1h"]
+[ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="2_voe6e"]
 [ext_resource type="Script" path="res://System/skill_system/resources/damage/fire_rain.gd" id="2_xxo4j"]
 
 [resource]
@@ -10,6 +11,7 @@ title = "火焰雨"
 desc = "从空中召唤一批火焰，砸向地面，对范围目标造成伤害"
 icon_path = "619"
 level = 0
+level_up_gap = 1
 max_level = 3
 cooldown = 1.0
 mana_cost = 10.0
@@ -31,3 +33,4 @@ target_type = 17
 effect_type = 1
 skill_script = ExtResource("2_xxo4j")
 skill_level_config = Array[ExtResource("1_k0j1h")]([])
+skill_buff_config = Array[ExtResource("2_voe6e")]([])

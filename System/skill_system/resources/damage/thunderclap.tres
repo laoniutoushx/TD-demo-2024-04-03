@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=3 format=3 uid="uid://x4bivjxncvqm"]
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=4 format=3 uid="uid://x4bivjxncvqm"]
 
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_6e70r"]
+[ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="2_722v6"]
 [ext_resource type="Script" path="res://System/skill_system/resources/damage/thunderclap.gd" id="2_tekrb"]
 
 [resource]
@@ -10,6 +11,7 @@ title = "雷霆一击"
 desc = "“雷霆一击”常用来形容威力强大、声势浩大的攻击，具体含义需根据语境判断，游戏设计中多表现为高爆发伤害或范围控制技能，强调力量感和冲击力。“雷霆一击”常用来形容威力强大、声势浩大的攻击，具体含义需根据语境判断，游戏设计中多表现为高爆发伤害或范围控制技能，强调力量感和冲击力。"
 icon_path = "0"
 level = 1
+level_up_gap = 1
 max_level = 3
 cooldown = 1.0
 mana_cost = 10.0
@@ -30,3 +32,5 @@ release_type = 1
 target_type = 17
 effect_type = 1
 skill_script = ExtResource("2_tekrb")
+skill_level_config = Array[ExtResource("1_6e70r")]([])
+skill_buff_config = Array[ExtResource("2_722v6")]([])

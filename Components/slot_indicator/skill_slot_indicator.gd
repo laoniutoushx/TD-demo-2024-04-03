@@ -34,6 +34,8 @@ func refresh_slot_indicator_info(_slot: BaseSlot) -> void:
 # 依据 base_slot 显示对应提示信息（数据驱动）
 func _slot_info(_slot: BaseSlot) -> void:
 	var skill = _slot.reference as Skill
+	var level_comp: LevelComp = CommonUtil.get_component_by_name(skill, "LevelComp")
+
 
 	# Meta
 	if skill.title:
@@ -41,8 +43,8 @@ func _slot_info(_slot: BaseSlot) -> void:
 	else:
 		title.visible = false
 
-	if skill.level:
-		level.text = "等级 %s" % [str(skill.level)]
+	if level_comp and level_comp.level:
+		level.text = "等级 %s" % [str(level_comp.level)]
 	else:
 		level.visible = false
 
