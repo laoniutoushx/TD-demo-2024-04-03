@@ -7,7 +7,6 @@ class_name BaseUnit extends Node
 var clazz: BaseUnitResource
 
 # signal
-var signal_container = {}
 signal logical_death(unit: BaseUnit)
 # signal physic_death(unit: BaseUnit)
 
@@ -242,7 +241,7 @@ func _on_logic_dead(unit: BaseUnit) -> void:
 
 # is dead
 func is_logic_dead() -> bool:
-	return is_alive()
+	return !is_alive()
 
 # damage unit
 func take_damage(damage: float):

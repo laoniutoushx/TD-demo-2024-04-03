@@ -3,10 +3,10 @@ class_name Turret extends BaseUnit
 @export var projectile: PackedScene
 @onready var barrel: MeshInstance3D = $TurretBase/TurretTop/Visor/Barrel
 @onready var turret_top: MeshInstance3D = $TurretBase/TurretTop
-@export var rotate_speed: float = 5
 
 
-var enemies: Array = []
+
+var enemies: Dictionary = {}
 var current_enemy
 
 # aiming
@@ -14,7 +14,7 @@ var acquire_slerp_progress:float = 0
 
 # state   idle（呆滞状态）
 enum TurretState {
-	BUILDING, IDLE, AIMMING, ATTACK, ATTACK_INTERVAL, UNKNOW
+	BUILDING, IDLE, AIMMING, ATTACK, ATTACK_INTERVAL, AIMMING_WAITING
 }
 var pre_state: TurretState
 var current_state: TurretState
@@ -39,14 +39,15 @@ func _physics_process(delta: float) -> void:
 		TurretState.IDLE:
 			if enemies.size() > 0:
 				if current_enemy == null:
-					current_enemy = enemies[0]
+					current_enemy = enemies.values()[0]
+					print(enemies)
 				pre_state = current_state
 				current_state = TurretState.AIMMING
 			#print("idle")
 
 		
 		TurretState.AIMMING:
-			#print("aiming")
+			# 从攻击状态跳转回瞄准状态，等待攻击间隔完毕
 			if current_enemy == null:
 				pre_state = current_state
 				current_state = TurretState.IDLE
@@ -54,10 +55,12 @@ func _physics_process(delta: float) -> void:
 				var target_direction = turret_top.global_position.direction_to(Vector3(current_enemy.position.x, turret_top.global_position.y, current_enemy.position.z))
 				var target_basis:Basis = Basis.looking_at(target_direction)
 				turret_top.basis = turret_top.basis.slerp(target_basis, acquire_slerp_progress)
-				acquire_slerp_progress += delta * rotate_speed
+				acquire_slerp_progress += delta * turn_speed
+				print(acquire_slerp_progress)
 				if acquire_slerp_progress >= 0.97:
-					acquire_slerp_progress = 0
+					pre_state = current_state
 					current_state = TurretState.ATTACK
+					acquire_slerp_progress = 0
 					turret_top.look_at(Vector3(current_enemy.position.x, turret_top.global_position.y, current_enemy.position.z))
 				
 
@@ -74,15 +77,35 @@ func _physics_process(delta: float) -> void:
 				current_state = TurretState.IDLE
 			
 			
-			
 		TurretState.ATTACK_INTERVAL:
-			if pre_state == TurretState.ATTACK:
-				pre_state = TurretState.UNKNOW	# 防止重复进入当前状态 ATTACK_INTERVAL
-
-				CommonUtil.delay_execution(0.5, (func(node: BaseUnit) -> void:
-					pre_state = current_state
-					node.current_state = node.TurretState.ATTACK).bind(self)
+			# 立即转入寻敌状态
+			pre_state = current_state
+			current_state = TurretState.AIMMING_WAITING
+			CommonUtil.delay_execution(attack_speed, (func(node: BaseUnit) -> void:
+					node.pre_state = node.TurretState.AIMMING_WAITING).bind(self)
 				)
+
+
+		TurretState.AIMMING_WAITING:
+			# print(pre_state)
+			# 从攻击状态跳转回瞄准状态，等待攻击间隔完毕
+			if pre_state == TurretState.AIMMING_WAITING:
+				if current_enemy == null:
+					current_state = TurretState.IDLE	
+				else:
+					current_state = TurretState.AIMMING
+			else:
+				if current_enemy != null:
+					var target_direction = turret_top.global_position.direction_to(Vector3(current_enemy.position.x, turret_top.global_position.y, current_enemy.position.z))
+					var target_basis:Basis = Basis.looking_at(target_direction)
+					turret_top.basis = turret_top.basis.slerp(target_basis, acquire_slerp_progress)
+					acquire_slerp_progress += delta * turn_speed
+					if acquire_slerp_progress >= 0.97:
+						acquire_slerp_progress = 0
+				else:
+					if enemies.size() > 0:
+						current_enemy = enemies.values()[0]
+				
 
 
 
@@ -103,34 +126,25 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 	# TODO 获取当前节点实例化场景的顶级节点
 	var enemy = area.owner
 	if enemy != null && enemy is BaseUnit && enemy.player_owner_idx != self.player_owner_idx && !enemy.is_logic_dead():
-		enemies.append(enemy)
+		enemies[enemy.get_instance_id()] = enemy
 		(enemy as BaseUnit).logical_death.connect(_on_enemy_logic_death, CONNECT_ONE_SHOT)
-		# enemy_signal_registger(enemy)
+
 				
 
 
 func _on_area_3d_area_exited(area: Area3D) -> void:
 	var enemy = area.owner
 	if enemy != null:
-		enemies.erase(enemy)
+		enemies.erase(enemy.get_instance_id())
 		if enemy == current_enemy:
 			current_enemy = null
 					
 
-func enemy_signal_registger(enemy) -> void:
-	# 为 enemy 创建死亡信号
-	var signal_name = Constants.LOGIC_DEAD + str(enemy.get_instance_id())
-	enemy.add_user_signal(signal_name, [{"name": "enemy", "type": TYPE_OBJECT}])
-	var signal_enemy_death = Signal(enemy, signal_name)
-	
-	# turret 监听当前信号，绑定某个 func 
-	signal_enemy_death.connect(_on_enemy_logic_death, CONNECT_ONE_SHOT)
-	enemy.signal_container[signal_name] = signal_enemy_death
 
 
 # enemy 死亡触发事件， turret 监听该 enemy 死亡事件，删除对应敌人集合
 func _on_enemy_logic_death(enemy: BaseUnit) -> void:
-	enemies.erase(enemy)
+	enemies.erase(enemy.get_instance_id())
 	if current_enemy == enemy:
 		current_enemy = null
 

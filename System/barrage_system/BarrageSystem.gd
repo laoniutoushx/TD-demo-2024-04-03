@@ -50,7 +50,7 @@ func action(source, target):
 		
 		
 		# 伤害追加
-		if target != null and target is BaseUnit and !(target as BaseUnit).is_logic_dead(): 
+		if target != null and target is BaseUnit and (target as BaseUnit).is_alive(): 
 			target.take_damage(projectile_instance.damage)
 		
 		# 受击动画（mesh_standing）
