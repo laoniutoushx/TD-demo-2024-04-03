@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=4 uid="uid://b21f0lumfd6hw"]
+[gd_scene load_steps=12 format=4 uid="uid://b21f0lumfd6hw"]
 
 [ext_resource type="Script" path="res://Unit/enemy/enemy.gd" id="1_ohkdf"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="2_a7ryb"]
+[ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="3_wcudh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_elfjc"]
 resource_name = "Beige"
@@ -913,3 +914,5 @@ libraries = {
 }
 
 [node name="FadedCircle3D" parent="." instance=ExtResource("2_a7ryb")]
+
+[node name="LevelComp" parent="." instance=ExtResource("3_wcudh")]

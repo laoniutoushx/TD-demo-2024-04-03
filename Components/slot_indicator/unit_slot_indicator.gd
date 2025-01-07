@@ -41,7 +41,7 @@ func _slot_info(_slot: BaseSlot) -> void:
 	else:
 		title.visible = false
 
-	if level_comp and level_comp.level:
+	if level_comp:
 		level.text = "等级 %s" % [str(level_comp.level)]
 	else:
 		level.visible = false

@@ -62,7 +62,9 @@ func _physics_process(delta: float) -> void:
 					acquire_slerp_progress = 0
 					turret_top.look_at(Vector3(current_enemy.position.x, turret_top.global_position.y, current_enemy.position.z))
 				
-
+		# 需要一个执行动画回复点的状态或方法，等待执行完成后，执行 attack
+		# 等待动画回复点
+		# await CommonUtil.await_timer(anim_ack_point)
 			 
 		TurretState.ATTACK:
 			if current_enemy != null:

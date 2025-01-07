@@ -70,6 +70,8 @@ enum ELEMENT_PHASE_STR{
 
 @export var anim_release = Constants.ANIM_RELEASE
 
+@export var anim_ack_point = 0.03	# 攻击动画回复点
+
 
 # Action Behavior
 @export_group("Action")

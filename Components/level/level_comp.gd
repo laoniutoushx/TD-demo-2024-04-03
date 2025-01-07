@@ -44,30 +44,46 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-# 获取经验
-func obtain_exp(_exp: float) -> void:
-	exp += _exp
-	while exp >= level_up_experience:
-		level_up()
-		exp = exp - level_up_experience
-
 # 升级
 func level_up() -> void:
 	if level < max_level:
+		print("level up %s %s" % [owner.title, level])
 		level += 1
 		# level up vfx
 		if owner is BaseUnit:
 			# create vfx for BaseUnit
+			var vfx = SystemUtil.vfx_system.create_vfx("default", VFXSystem.VFX_TYPE.BURNING)
+			if vfx:
+				owner.add_child(vfx)
+				CommonUtil.delay_execution(2, (func(vfx): vfx.queue_free()).bind(vfx) )
 
-			pass
 
 
 # 单位死亡事件监听
 func _on_unit_logic_death(id: int, unit: BaseUnit) -> void:
+	# 玩家组判断
+	if unit.player_group == SOS.main.player_controller.player_group_idx:
+		return
+
 	## 检测当前单位距离
 	var distance := (owner.global_position as Vector3).distance_to(unit.global_position)
 	if distance < exp_range:
-		# 检查是否可以获取经验
-		var level_comp: LevelComp = SystemUtil.unit_system.get_component_from_unit(unit, BaseUnitResource.COMPONENT_SYSTEM.LEVEL)
-		if level_comp:
-			obtain_exp(level_comp.exp_provide)
+		obtain_exp(get_unit_exp(unit))
+
+# 获取经验
+func obtain_exp(_exp: float) -> void:
+	if _exp > 0:
+		exp += _exp
+		while exp >= level_up_experience:
+			level_up()
+			exp = exp - level_up_experience
+
+# 获取单位经验值
+func get_unit_exp(unit: BaseUnit) -> float:
+	# 检查是否可以获取经验
+	var level_comp: LevelComp = SystemUtil.unit_system.get_component_from_unit(unit, BaseUnitResource.COMPONENT_SYSTEM.LEVEL)
+	if level_comp:
+		return level_comp.exp_provide
+	return 0
+
+		

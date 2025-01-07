@@ -10,6 +10,9 @@ func _ready() -> void:
 
 # 弹道执行
 func action(source, target):
+
+	# TODO 不处理伤害，可以执行 等待，等待弹道完成后，触发
+
 	# 1. 获取弹道模型
 	if source is BaseUnit:
 		# load projectile vfx scene instance
@@ -50,11 +53,11 @@ func action(source, target):
 		
 		
 		# 伤害追加
-		if target != null and target is BaseUnit and (target as BaseUnit).is_alive(): 
+		if target and target is BaseUnit and (target as BaseUnit).is_alive(): 
 			target.take_damage(projectile_instance.damage)
 		
 		# 受击动画（mesh_standing）
-		if target != null and target is BaseUnit:
+		if target and target is BaseUnit:
 			var mesh_standing = (target as BaseUnit).get_mesh_standing()
 			if mesh_standing != null:
 				mesh_standing.visible = true

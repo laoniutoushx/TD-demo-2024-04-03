@@ -35,4 +35,4 @@ func create_vfx(vfx_name: String, vfx_type: VFX_TYPE) -> Node3D:
 		# vfx_scene = load("res://VFX/projectiles/%s/vfx_%s_%s.tscn" % [vfx_name, vfx_name, str(VFX_TYPE.keys()[vfx_type]).to_lower()])
 		var path = "vfx_%s_%s" % [vfx_name, str(VFX_TYPE.keys()[vfx_type]).to_lower()]
 		vfx_scene = vfx_res_map.get("vfx_%s_%s" % [vfx_name, str(VFX_TYPE.keys()[vfx_type]).to_lower()])
-	return vfx_scene.instantiate()
+	return vfx_scene.instantiate() if vfx_scene else null

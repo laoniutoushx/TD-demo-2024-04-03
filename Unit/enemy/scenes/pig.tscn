@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=4 uid="uid://bv2qhyy2b7sew"]
+[gd_scene load_steps=14 format=4 uid="uid://bv2qhyy2b7sew"]
 
 [ext_resource type="Script" path="res://Unit/enemy/enemy.gd" id="1_uk2u6"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="2_3k0tu"]
+[ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="3_u6u4n"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_34swq"]
 resource_name = "Material.003"
@@ -956,3 +957,5 @@ width = 78.905
 inner_edge_width = 175.512
 outer_edge_width = 33.268
 color = Color(0.336, 0.8, 0.366933, 0.74902)
+
+[node name="LevelComp" parent="." instance=ExtResource("3_u6u4n")]

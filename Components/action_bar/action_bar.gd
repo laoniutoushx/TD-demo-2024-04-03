@@ -20,6 +20,7 @@ var active_callback_list: Array[Callable] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	hide()
 	CommonUtil.load_resources_to_container_from_directory("res://Asserts/Images/icon/enemy/", icon_res_container)
 	#canvas_layer.visible = false
 	SignalBus.player_selected_units.connect(_on_player_select_units)

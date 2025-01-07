@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cjgsocu8i6efm"]
+[gd_scene load_steps=9 format=3 uid="uid://cjgsocu8i6efm"]
 
 [ext_resource type="Script" path="res://Unit/enemy/enemy.gd" id="1_wievb"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="2_odmji"]
+[ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="3_gtw6s"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2jmip"]
 radius = 1.0
@@ -74,3 +75,5 @@ width = 36.502
 inner_edge_width = 78.34
 outer_edge_width = 0.001
 color = Color(0.336, 0.8, 0.366933, 0.74902)
+
+[node name="LevelComp" parent="." instance=ExtResource("3_gtw6s")]

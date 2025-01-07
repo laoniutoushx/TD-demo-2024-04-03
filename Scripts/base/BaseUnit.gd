@@ -107,11 +107,13 @@ var is_selected_circle: bool
 
 @export var anim_release = Constants.ANIM_RELEASE
 
+@export var anim_ack_point = 0.03	# 攻击动画回复点
+
 
 # Component - 组件系统预定义
 @export_group("System Component")
 @export_flags("LEVEL", "VFX", "ITEM", "DAMAGABLE", "BARRAGE") var component_systems = 0
-
+@export var level_component: LevelComp
 
 
 # FightRegion
@@ -168,6 +170,9 @@ func _ready() -> void:
 	# system component load（skill）
 	skill_map = SystemUtil.skill_system.initialize_skills(self, skill_metas)
 
+	# level_up
+	if CommonUtil.is_flag_set(BaseUnitResource.COMPONENT_SYSTEM.LEVEL, component_systems):
+		pass
 
 	# signal register
 	logical_death.connect(_on_logic_dead, CONNECT_ONE_SHOT)
