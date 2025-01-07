@@ -77,7 +77,14 @@ enum ELEMENT_PHASE_STR{
 
 # Component - 组件系统预定义
 @export_group("System Component")
-@export_flags("VFX", "ITEM", "DAMAGABLE", "BARRAGE") var component_system = 0
+@export_flags("LEVEL", "VFX", "ITEM", "DAMAGABLE", "BARRAGE") var component_systems = 0
+enum COMPONENT_SYSTEM{
+	LEVEL,
+	VFX,	
+	ITEM,
+	DAMAGABLE,
+	BARRAGE
+}
 
 # Item related
 @export_group("Item")

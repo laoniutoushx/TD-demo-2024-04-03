@@ -56,7 +56,6 @@ func _physics_process(delta: float) -> void:
 				var target_basis:Basis = Basis.looking_at(target_direction)
 				turret_top.basis = turret_top.basis.slerp(target_basis, acquire_slerp_progress)
 				acquire_slerp_progress += delta * turn_speed
-				print(acquire_slerp_progress)
 				if acquire_slerp_progress >= 0.97:
 					pre_state = current_state
 					current_state = TurretState.ATTACK

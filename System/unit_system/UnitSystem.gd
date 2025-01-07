@@ -49,3 +49,14 @@ func get_units_in_range(source_unit: BaseUnit, range: float, unit_type: BaseUnit
 
 	print("chain chain chain")
 	return units
+
+
+
+# 获取单位组件信息
+func get_component_from_unit(unit: BaseUnit, component_type: BaseUnitResource.COMPONENT_SYSTEM) -> Node:
+	if component_type == BaseUnitResource.COMPONENT_SYSTEM.LEVEL:
+		return CommonUtil.get_first_node_by_node_name(unit, "LevelComp")
+
+	return null
+	
+	

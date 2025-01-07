@@ -48,7 +48,7 @@ var max_health : float :
 		
 var _is_logic_alive := true
 
-var relife : int
+
 var move_speed : float
 var turn_speed : float
 var attack_speed : float
@@ -108,7 +108,12 @@ var is_selected_circle: bool
 @export var anim_release = Constants.ANIM_RELEASE
 
 
+# Component - 组件系统预定义
 @export_group("System Component")
+@export_flags("LEVEL", "VFX", "ITEM", "DAMAGABLE", "BARRAGE") var component_systems = 0
+
+
+
 # FightRegion
 var vfx_projectile_name: String
 var projectile_speed: String

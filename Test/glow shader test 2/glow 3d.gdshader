@@ -20,10 +20,10 @@ vec3 ramp(float t) {
 
 vec2 polarMap(vec2 uv, float shift, float inner) {
     uv = vec2(0.5) - uv;
-    
+
     float px = 1.0 - fract(atan(uv.y, uv.x) / 6.28 + 0.25) + shift;
     float py = (sqrt(uv.x * uv.x + uv.y * uv.y) * (1.0 + inner * 2.0) - inner) * 2.0;
-    
+
     return vec2(px, py);
 }
 
@@ -32,13 +32,13 @@ float fire(vec2 n) {
 }
 
 float shade(vec2 uv, float t) {
-    uv.x += uv.y < .5 ? 23.0 + t * .035 : -11.0 + t * .03;    
+    uv.x += uv.y < .5 ? 23.0 + t * .035 : -11.0 + t * .03;
     uv.y = abs(uv.y - .5);
     uv.x *= 35.0;
-    
+
     float q = fire(uv - t * .013) / 2.0;
     vec2 r = vec2(fire(uv + q / 2.0 + t - uv.x - uv.y), fire(uv + q - t));
-    
+
     return pow((r.y + r.y) * max(.0, uv.y) + .1, 4.0);
 }
 
@@ -50,7 +50,7 @@ vec3 fire_color(float grad) {
     vec3 color2 = color;
     color = ramp(grad);
     color /= (m2 + max(vec3(0.0), color));
-    
+
     return color;
 }
 
@@ -58,21 +58,21 @@ void fragment() {
     // In Godot, replace iResolution and iTime with uniform parameters
     vec2 RESOLUTION = vec2(1.0, 1.0); // Default resolution, should be set by uniform
 
-    
+
     float m1 = 3.6; // Default value, can be controlled by uniform
-    
+
     vec2 uv = UV;
     float ff = 1.0 - uv.y;
     uv.x -= (RESOLUTION.x / RESOLUTION.y - 1.0) / 2.0;
-    
+
     vec2 uv2 = uv;
     uv2.y = 1.0 - uv2.y;
-    
+
     uv = polarMap(uv, 1.3, m1);
     uv2 = polarMap(uv2, 1.9, m1);
-    
+
     vec3 c1 = fire_color(shade(uv, TIME)) * ff;
     vec3 c2 = fire_color(shade(uv2, TIME)) * (1.0 - ff);
-    
+
     ALBEDO = c1 + c2;
 }
