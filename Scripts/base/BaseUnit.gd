@@ -249,8 +249,7 @@ func take_damage(damage: float):
 	SignalBus.unit_take_damage.emit(get_instance_id(), self, damage)
 	if health + damage > 0 and health <= 0:
 		_is_logic_alive = false
-		print("emit signal %s, is alive = %s " % [Constants.LOGIC_DEAD + str(get_instance_id()), _is_logic_alive])
-		_on_logic_dead(self)
+		logical_death.emit(self)
 		SignalBus.unit_logic_death.emit(get_instance_id(), self)
 
 
