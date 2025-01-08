@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqb6e4p3pktw5"
-path.s3tc="res://.godot/imported/light_02.png-b6549820c060c2cbcd6b1e0d46c32f1c.s3tc.ctex"
+uid="uid://buk1rhp6hu77v"
+path.s3tc="res://.godot/imported/level_up.png-65ba29fc69b28e31515d5a6d707fee7a.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/kenney_particle_pack/light_02.png"
-dest_files=["res://.godot/imported/light_02.png-b6549820c060c2cbcd6b1e0d46c32f1c.s3tc.ctex"]
+source_file="res://Asserts/Images/vfx/level_up.png"
+dest_files=["res://.godot/imported/level_up.png-65ba29fc69b28e31515d5a6d707fee7a.s3tc.ctex"]
 
 [params]
 

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://81atb3yklasc"
+path="res://.godot/imported/fireball_trail.obj-e06bead9751d89eb27042126693c6891.mesh"
+
+[deps]
+
+files=["res://.godot/imported/fireball_trail.obj-e06bead9751d89eb27042126693c6891.mesh"]
+
+source_file="res://Asserts/Models/vfx/fireball_trail.obj"
+dest_files=["res://.godot/imported/fireball_trail.obj-e06bead9751d89eb27042126693c6891.mesh", "res://.godot/imported/fireball_trail.obj-e06bead9751d89eb27042126693c6891.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

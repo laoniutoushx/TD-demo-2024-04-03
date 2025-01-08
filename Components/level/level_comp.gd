@@ -52,10 +52,15 @@ func level_up() -> void:
 		# level up vfx
 		if owner is BaseUnit:
 			# create vfx for BaseUnit
-			var vfx = SystemUtil.vfx_system.create_vfx("default", VFXSystem.VFX_TYPE.BURNING)
+			var vfx = SystemUtil.vfx_system.create_vfx("level_up_tower", VFXSystem.VFX_TYPE.BURNING)
 			if vfx:
 				owner.add_child(vfx)
-				CommonUtil.delay_execution(2, (func(vfx): vfx.queue_free()).bind(vfx) )
+				# CommonUtil.delay_execution(2, (func(vfx): vfx.queue_free()).bind(vfx) )
+
+				# 播放特效
+				var player: AnimationPlayer = CommonUtil.get_first_node_by_node_type(vfx, Constants.AnimationPlayer_CLZ)
+				if player:
+					player.play("default")
 
 
 
