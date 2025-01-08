@@ -54,8 +54,10 @@ func level_up() -> void:
 			# create vfx for BaseUnit
 			var vfx = SystemUtil.vfx_system.create_vfx("level_up_tower", VFXSystem.VFX_TYPE.BURNING)
 			if vfx:
-				owner.add_child(vfx)
-				# CommonUtil.delay_execution(2, (func(vfx): vfx.queue_free()).bind(vfx) )
+				var vfx_pivot: Node3D = Node3D.new()
+				owner.add_child(vfx_pivot)
+				vfx_pivot.add_child(vfx)
+				CommonUtil.delay_execution(2, func(): vfx_pivot.queue_free() )
 
 				# 播放特效
 				var player: AnimationPlayer = CommonUtil.get_first_node_by_node_type(vfx, Constants.AnimationPlayer_CLZ)

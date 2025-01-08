@@ -32,5 +32,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.189808, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.285855, 0)
 amount = 60
 randomness = 0.5
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_q2nyx")
 draw_pass_1 = SubResource("QuadMesh_cfe6p")
