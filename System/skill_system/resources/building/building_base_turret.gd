@@ -28,6 +28,8 @@ func action(skill_context: SkillContext) -> void:
     # TODO 逻辑耦合 buliding turret
     await tween.finished
     skill_context.callback.call()
+    # fixed bug when player building another turret（status changed to building）
+    building.change_state(Turret.TurretState.IDLE)
 
     # remove vfx
     CommonUtil.delay_execution(0.3, func(): if is_instance_valid(vfx): vfx.queue_free())

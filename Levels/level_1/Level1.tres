@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelResource" load_steps=11 format=3 uid="uid://cfjres2fis310"]
+[gd_resource type="Resource" script_class="LevelResource" load_steps=12 format=3 uid="uid://cfjres2fis310"]
 
 [ext_resource type="PackedScene" uid="uid://bxibobasihqmy" path="res://Levels/level_1/Level1.tscn" id="1_n8mn6"]
 [ext_resource type="Script" path="res://Levels/level_resource.gd" id="1_oc6p8"]
@@ -34,15 +34,21 @@ enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_nc
 [sub_resource type="Resource" id="Resource_gf1ss"]
 script = ExtResource("4_gg7ch")
 enemy_res_name = "pig"
-spawn_interval = 2.0
-enemy_amount = 20
+spawn_interval = 0.7
+enemy_amount = 200
+
+[sub_resource type="Resource" id="Resource_ocmok"]
+script = ExtResource("4_gg7ch")
+enemy_res_name = "pug"
+spawn_interval = 1.0
+enemy_amount = 200
 
 [sub_resource type="Resource" id="Resource_jmrcr"]
 script = ExtResource("3_o0ugr")
 start_delay = 5.0
 next_wave_delay = 5.0
 level_code = ""
-enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_gf1ss")])
+enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_gf1ss"), SubResource("Resource_ocmok")])
 
 [resource]
 script = ExtResource("1_oc6p8")

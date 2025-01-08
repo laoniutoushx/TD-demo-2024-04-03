@@ -645,7 +645,7 @@ script = ExtResource("1_ohkdf")
 [node name="Pug" type="Node3D" parent="."]
 
 [node name="Armature" type="Node3D" parent="Pug"]
-transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, 0, 0)
+transform = Transform3D(50, 0, 0, 0, -2.18557e-06, 50, 0, -50, -2.18557e-06, 0, 0, 0)
 
 [node name="Skeleton3D" type="Skeleton3D" parent="Pug/Armature"]
 bones/0/name = "root"
@@ -914,5 +914,10 @@ libraries = {
 }
 
 [node name="FadedCircle3D" parent="." instance=ExtResource("2_a7ryb")]
+radius = 2.0
+width = 54.17
+inner_edge_width = 57.102
+outer_edge_width = 15.601
+color = Color(0.178664, 0.602868, 0.508376, 1)
 
 [node name="LevelComp" parent="." instance=ExtResource("3_wcudh")]

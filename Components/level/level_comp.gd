@@ -54,15 +54,17 @@ func level_up() -> void:
 			# create vfx for BaseUnit
 			var vfx = SystemUtil.vfx_system.create_vfx("level_up_tower", VFXSystem.VFX_TYPE.BURNING)
 			if vfx:
-				var vfx_pivot: Node3D = Node3D.new()
-				owner.add_child(vfx_pivot)
-				vfx_pivot.add_child(vfx)
-				CommonUtil.delay_execution(2, func(): vfx_pivot.queue_free() )
-
+				owner.add_child(vfx)
 				# 播放特效
 				var player: AnimationPlayer = CommonUtil.get_first_node_by_node_type(vfx, Constants.AnimationPlayer_CLZ)
 				if player:
 					player.play("default")
+
+					await player.animation_finished
+					vfx.queue_free()
+
+
+
 
 
 
@@ -83,6 +85,7 @@ func obtain_exp(_exp: float) -> void:
 		exp += _exp
 		while exp >= level_up_experience:
 			level_up()
+			await CommonUtil.await_timer(0.1)
 			exp = exp - level_up_experience
 
 # 获取单位经验值

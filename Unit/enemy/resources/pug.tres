@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=4 format=3 uid="uid://dcx3x4v6e1pk"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://dcx3x4v6e1pk"]
 
-[ext_resource type="PackedScene" uid="uid://bv2qhyy2b7sew" path="res://Unit/enemy/scenes/pig.tscn" id="1_22bhd"]
+[ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_ooydm"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_gquih"]
+[ext_resource type="PackedScene" uid="uid://b21f0lumfd6hw" path="res://Unit/enemy/scenes/pug.tscn" id="2_ki07y"]
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="3_8yvs0"]
 
 [resource]
 script = ExtResource("2_gquih")
-clz_code = "pig"
-clz_name = "pig"
-model_path = ExtResource("1_22bhd")
+clz_code = "pug"
+clz_name = "pug"
+model_path = ExtResource("2_ki07y")
 title = "帕吉"
 desc = "狗"
 icon_path = "res://Asserts/Images/icon/enemy/pug.png"
@@ -22,22 +23,23 @@ is_mesh_standing = true
 mana_cost = 10.0
 wood_cost = 10.0
 money_cost = 10.0
-relife = 1
-level = 1
 max_health = 100.0
 move_speed = 5.0
 turn_speed = 0.0
 attack_speed = 100.0
 attack_range = 0.0
 attack_num = 1
-growth = 1.0
+value = 0.0
+unit_growth_factor = 1.0
 vfx_projectile_name = ""
 anim_run = "Armature|Jump"
 anim_walk = null
 anim_idle = null
 anim_death = "death"
 anim_release = null
+anim_ack_point = 0.03
 is_selected_circle = true
-component_system = 0
+component_systems = 0
 pickup_velocity = 1000.0
+item_metas = Array[ExtResource("1_ooydm")]([])
 skill_metas = Array[ExtResource("3_8yvs0")]([])
