@@ -38,16 +38,19 @@ func _slot_info(_slot: BaseSlot) -> void:
 	# Meta
 	if unit.title:
 		title.text = str(unit.title)
+		title.visible = true
 	else:
 		title.visible = false
 
 	if level_comp:
 		level.text = "等级 %s" % [str(level_comp.level)]
+		level.visible = true
 	else:
 		level.visible = false
 
 	if unit.desc:
 		desc.text = str(unit.desc)
+		desc.visible = true
 	else:
 		desc.visible = false
 	
@@ -55,6 +58,7 @@ func _slot_info(_slot: BaseSlot) -> void:
 	# Cost
 	if unit.mana_cost:
 		mana_cost.text = "魔法消耗： %s" % str(unit.mana_cost)
+		mana_cost.visible = true
 	else:
 		mana_cost.visible = false
 
@@ -65,6 +69,7 @@ func _slot_info(_slot: BaseSlot) -> void:
 
 	if unit.wood_cost:
 		wood_cost.text = "木材： %s" % str(unit.wood_cost)
+		wood_cost.visible = true
 	else:
 		wood_cost.visible = false
 
@@ -73,27 +78,32 @@ func _slot_info(_slot: BaseSlot) -> void:
 	if unit.element_phase:
 		var element_phase_str = CommonUtil.bit_set_to_str(unit.element_phase, BaseUnitResource.ELEMENT_PHASE_STR, ' | ')
 		element_phase.text = "五行： %s" % str(element_phase_str)
+		element_phase.visible = true
 	else:
 		element_phase.visible = false
 
-	if unit.value:
-		damage.text = "伤害： %s" % str(unit.value)
+	if unit.attack_value:
+		damage.text = "伤害： %s" % str(unit.attack_value)
+		damage.visible = true
 	else:
 		damage.visible = false
 
 	if unit.attack_num:
 		attack_num.text = "数量： %s" % str(unit.attack_num)
+		attack_num.visible = true
 	else:
 		attack_num.visible = false
 
 	if unit.attack_range:
 		attack_range.text = "范围： %s m" % str(unit.attack_range)
+		attack_range.visible = true
 	else:
 		attack_range.visible = false
 
 	# if unit.target_type:
 	# 	var target_type_str = CommonUtil.bit_set_to_str(unit.target_type, SkillMetaResource.SKILL_TARGET_TYPE_CHN)
 	# 	target_type.text = "目标类型： %s" % str(target_type_str)
+	#   target_type.visible = true
 	# else:
 	# 	target_type.visible = false
 

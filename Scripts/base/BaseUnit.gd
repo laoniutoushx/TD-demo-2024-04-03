@@ -54,7 +54,7 @@ var turn_speed : float
 var attack_speed : float
 var attack_range : float
 var attack_num : int
-var value: float	# 伤害值
+var attack_value: float	# 伤害值
 var unit_growth_factor: float = 1.0     # 单位成长率
 
 

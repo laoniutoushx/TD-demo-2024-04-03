@@ -1,4 +1,4 @@
-class_name LevelComp extends Node
+class_name LevelComp extends Node3D
 
 ## 引入此组件的单位，可以升级（）
 # 两种等级配置方式，第一种，数组形式配置
@@ -19,13 +19,13 @@ var reference: Variant
 @export var exp_growth_factor: float = 1.0     # 经验成长率
 
 # 经验值(L)=100×(L−1)^{1.5}
-@export var exp: float = 0.0   # 当前经验值
+@export var exp: int = 0.0   # 当前经验值
 @export var exp_range: float = 300   # 经验值获取范围
 @export var max_level: float = 100   # 最大等级
-@export var level_up_experience: float = 100   # 升级经验值（按等级递增）
+@export var level_up_experience: int = 25   # 升级经验值（按等级递增）
 
 #
-@export var exp_provide: float = 25.0   # 可供其他单位获取经验
+@export var exp_provide: int = 25.0   # 可供其他单位获取经验
 
 
 # 初始化
@@ -35,35 +35,23 @@ func _ready() -> void:
 
 	# 组件加载后，自动初始化
 	reference = owner
-	print(owner.name + " level comp is ready")
-
-	# 如果 reference is unit，创建 ui 经验条等信息
+	# print(owner.name + " level comp is ready")
 
 
-
-	pass # Replace with function body.
 
 
 # 升级
 func level_up() -> void:
 	if level < max_level:
-		print("level up %s %s" % [owner.title, level])
 		level += 1
-		# level up vfx
-		if owner is BaseUnit:
-			# create vfx for BaseUnit
-			var vfx = SystemUtil.vfx_system.create_vfx("level_up_tower", VFXSystem.VFX_TYPE.BURNING)
-			if vfx:
-				owner.add_child(vfx)
-				# 播放特效
-				var player: AnimationPlayer = CommonUtil.get_first_node_by_node_type(vfx, Constants.AnimationPlayer_CLZ)
-				if player:
-					player.play("default")
-
-					await player.animation_finished
-					vfx.queue_free()
-
-
+		
+		if reference is Turret:
+			var vfx_instance = SystemUtil.vfx_system.create_vfx("level_up_tower", VFXSystem.VFX_TYPE.BURNING)
+			if vfx_instance:
+				# 使用 call_deferred 延迟添加
+				reference.call_deferred("add_child", vfx_instance)
+				# await vfx_instance.ready
+				# reference.add_child(vfx_instance)	# BUG ？？？ 为什么不使用延迟添加，节点不会进入场景？
 
 
 
@@ -71,7 +59,7 @@ func level_up() -> void:
 # 单位死亡事件监听
 func _on_unit_logic_death(id: int, unit: BaseUnit) -> void:
 	# 玩家组判断
-	if unit.player_group == SOS.main.player_controller.player_group_idx:
+	if unit.player_group == owner.player_group:
 		return
 
 	## 检测当前单位距离
@@ -80,20 +68,19 @@ func _on_unit_logic_death(id: int, unit: BaseUnit) -> void:
 		obtain_exp(get_unit_exp(unit))
 
 # 获取经验
-func obtain_exp(_exp: float) -> void:
+func obtain_exp(_exp: int) -> void:
 	if _exp > 0:
 		exp += _exp
 		while exp >= level_up_experience:
 			level_up()
-			await CommonUtil.await_timer(0.1)
 			exp = exp - level_up_experience
 
+
 # 获取单位经验值
-func get_unit_exp(unit: BaseUnit) -> float:
+func get_unit_exp(unit: BaseUnit) -> int:
 	# 检查是否可以获取经验
 	var level_comp: LevelComp = SystemUtil.unit_system.get_component_from_unit(unit, BaseUnitResource.COMPONENT_SYSTEM.LEVEL)
 	if level_comp:
 		return level_comp.exp_provide
 	return 0
 
-		

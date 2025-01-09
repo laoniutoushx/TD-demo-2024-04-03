@@ -6,7 +6,10 @@
 viewport_path = NodePath("Sprite3D/SubViewport")
 
 [sub_resource type="LabelSettings" id="LabelSettings_7fo2w"]
-font_size = 32
+font_size = 64
+font_color = Color(0.541582, 0.533017, 0.0183188, 1)
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
 
 [node name="DebugDraw" type="Node3D"]
 script = ExtResource("1_0xatp")
@@ -18,6 +21,7 @@ texture = SubResource("ViewportTexture_vojyk")
 
 [node name="SubViewport" type="SubViewport" parent="Sprite3D"]
 transparent_bg = true
+size = Vector2i(1024, 1024)
 
 [node name="Control" type="Control" parent="Sprite3D/SubViewport"]
 layout_mode = 3
@@ -27,8 +31,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StatusLabel" type="Label" parent="Sprite3D/SubViewport/Control"]
-unique_name_in_owner = true
+[node name="VBoxContainer" type="VBoxContainer" parent="Sprite3D/SubViewport/Control"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -36,10 +40,24 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -65.5
-offset_top = -23.0
+offset_top = -48.0
 offset_right = 65.5
-offset_bottom = 23.0
+offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="StatusLabel" type="Label" parent="Sprite3D/SubViewport/Control/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 text = "Turret"
 label_settings = SubResource("LabelSettings_7fo2w")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelLabel" type="Label" parent="Sprite3D/SubViewport/Control/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Level 1, EXP 0.0"
+label_settings = SubResource("LabelSettings_7fo2w")
+horizontal_alignment = 1
+vertical_alignment = 1

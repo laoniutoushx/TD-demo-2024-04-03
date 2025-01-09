@@ -39,16 +39,19 @@ func _slot_info(_slot: BaseSlot) -> void:
 	# Meta
 	if item.title:
 		title.text = str(item.title)
+		title.visible = true
 	else:
 		title.visible = false
 
 	if level_comp and level_comp.level:
 		level.text = "等级 %s" % [str(level_comp.level)]
+		level.visible = true
 	else:
 		level.visible = false
 
 	if item.desc:
 		desc.text = str(item.desc)
+		desc.visible = true
 	else:
 		desc.visible = false
 	
@@ -56,16 +59,19 @@ func _slot_info(_slot: BaseSlot) -> void:
 	# Cost
 	if item.mana_cost:
 		mana_cost.text = "魔法消耗： %s" % str(item.mana_cost)
+		mana_cost.visible = true
 	else:
 		mana_cost.visible = false
 
 	if item.money_cost:
 		money_cost.text = "金钱： %s" % str(item.money_cost)
+		money_cost.visible = true
 	else:
 		money_cost.visible = false
 
 	if item.wood_cost:
 		wood_cost.text = "木材： %s" % str(item.wood_cost)
+		wood_cost.visible = true
 	else:
 		wood_cost.visible = false
 
@@ -73,6 +79,7 @@ func _slot_info(_slot: BaseSlot) -> void:
 	# Functional
 	if item.value:
 		damage.text = "伤害： %s" % str(item.value)
+		damage.visible = true
 	else:
 		damage.visible = false
 

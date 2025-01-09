@@ -1,18 +1,18 @@
-[gd_scene load_steps=44 format=3 uid="uid://q0ejspps68wy"]
+[gd_scene load_steps=40 format=3 uid="uid://ciii016bbbiur"]
 
-[ext_resource type="Shader" uid="uid://bhkav64atua32" path="res://VFX/level_up/level_up_tower.tres" id="1_dth3e"]
-[ext_resource type="Script" path="res://VFX/level_up/vfx_level_up_tower_burning.gd" id="1_yxkto"]
-[ext_resource type="Texture2D" uid="uid://cts3hu0ch3yv" path="res://Asserts/textures/vfx/fireball_trail.png" id="2_p7hhh"]
-[ext_resource type="ArrayMesh" uid="uid://bnfqibr0o5qkp" path="res://Asserts/Models/vfx/cylinder_long.obj" id="3_bu824"]
-[ext_resource type="Texture2D" uid="uid://5riuudcudygl" path="res://Asserts/textures/vfx/Voronoi.png" id="4_06we2"]
-[ext_resource type="Texture2D" uid="uid://bdps07kabnh6g" path="res://addons/kenney_particle_pack/star_05.png" id="5_ydgh0"]
-[ext_resource type="Texture2D" uid="uid://buk1rhp6hu77v" path="res://Asserts/Images/vfx/level_up.png" id="6_ceo0h"]
+[ext_resource type="Shader" uid="uid://bhkav64atua32" path="res://VFX/level_up/level_up_tower.tres" id="1_n44c3"]
+[ext_resource type="Script" path="res://VFX/level_up/vfx_level_up_tower_no_ani_burning.gd" id="1_yfnc1"]
+[ext_resource type="Texture2D" uid="uid://cts3hu0ch3yv" path="res://Asserts/textures/vfx/fireball_trail.png" id="2_w40ku"]
+[ext_resource type="ArrayMesh" uid="uid://bnfqibr0o5qkp" path="res://Asserts/Models/vfx/cylinder_long.obj" id="3_75qko"]
+[ext_resource type="Texture2D" uid="uid://5riuudcudygl" path="res://Asserts/textures/vfx/Voronoi.png" id="4_gc6y5"]
+[ext_resource type="Texture2D" uid="uid://bdps07kabnh6g" path="res://addons/kenney_particle_pack/star_05.png" id="5_gepi4"]
+[ext_resource type="Texture2D" uid="uid://buk1rhp6hu77v" path="res://Asserts/Images/vfx/level_up.png" id="6_71eae"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c5dr8"]
 render_priority = 0
-shader = ExtResource("1_dth3e")
+shader = ExtResource("1_n44c3")
 shader_parameter/Speed = Vector2(1, 1)
-shader_parameter/NoiseTexture = ExtResource("2_p7hhh")
+shader_parameter/NoiseTexture = ExtResource("2_w40ku")
 
 [sub_resource type="Curve" id="Curve_nbgvm"]
 _data = [Vector2(0.00573066, 0), 0.0, 0.0, 0, 0, Vector2(0.234957, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.932918, 0.0, 0, 0]
@@ -49,9 +49,9 @@ alpha_curve = SubResource("CurveTexture_t0kl5")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_om4an"]
 render_priority = 0
-shader = ExtResource("1_dth3e")
+shader = ExtResource("1_n44c3")
 shader_parameter/Speed = Vector2(1, 0.5)
-shader_parameter/NoiseTexture = ExtResource("4_06we2")
+shader_parameter/NoiseTexture = ExtResource("4_gc6y5")
 
 [sub_resource type="Curve" id="Curve_825xe"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -84,7 +84,7 @@ cull_mode = 2
 shading_mode = 0
 vertex_color_use_as_albedo = true
 vertex_color_is_srgb = true
-albedo_texture = ExtResource("5_ydgh0")
+albedo_texture = ExtResource("5_gepi4")
 billboard_mode = 3
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
@@ -168,7 +168,7 @@ transparency = 1
 cull_mode = 2
 vertex_color_use_as_albedo = true
 vertex_color_is_srgb = true
-albedo_texture = ExtResource("6_ceo0h")
+albedo_texture = ExtResource("6_71eae")
 billboard_mode = 3
 billboard_keep_scale = true
 particles_anim_h_frames = 1
@@ -179,95 +179,8 @@ particles_anim_loop = false
 material = SubResource("StandardMaterial3D_we2ao")
 size = Vector2(10, 2)
 
-[sub_resource type="Animation" id="Animation_7xeap"]
-resource_name = "default"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("InnerGlowCylinder:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0666667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("OuterGlowCylinder:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.133333),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("GlowParticle:emitting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("LevelUp:emitting")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.133333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-
-[sub_resource type="Animation" id="Animation_b7r5h"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("InnerGlowCylinder:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("LevelUp:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_alhgn"]
-_data = {
-"RESET": SubResource("Animation_b7r5h"),
-"default": SubResource("Animation_7xeap")
-}
-
-[sub_resource type="BoxMesh" id="BoxMesh_cddu8"]
-size = Vector3(2, 2, 2)
-
 [node name="LevelUpTower" type="Node3D"]
-script = ExtResource("1_yxkto")
+script = ExtResource("1_yfnc1")
 
 [node name="InnerGlowCylinder" type="GPUParticles3D" parent="."]
 material_override = SubResource("ShaderMaterial_c5dr8")
@@ -277,7 +190,7 @@ amount = 1
 one_shot = true
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_mve3k")
-draw_pass_1 = ExtResource("3_bu824")
+draw_pass_1 = ExtResource("3_75qko")
 
 [node name="OuterGlowCylinder" type="GPUParticles3D" parent="."]
 material_override = SubResource("ShaderMaterial_om4an")
@@ -287,14 +200,13 @@ amount = 1
 one_shot = true
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_kdnuq")
-draw_pass_1 = ExtResource("3_bu824")
+draw_pass_1 = ExtResource("3_75qko")
 
 [node name="GlowParticle" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0028, 0)
 material_override = SubResource("StandardMaterial3D_xf1b6")
 emitting = false
 amount = 16
-lifetime = 1.2
 one_shot = true
 explosiveness = 1.0
 randomness = 1.0
@@ -310,13 +222,3 @@ one_shot = true
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_q7x2o")
 draw_pass_1 = SubResource("QuadMesh_h3ybu")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_alhgn")
-}
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08361, 0)
-visible = false
-mesh = SubResource("BoxMesh_cddu8")

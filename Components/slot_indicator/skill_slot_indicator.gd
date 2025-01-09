@@ -40,16 +40,19 @@ func _slot_info(_slot: BaseSlot) -> void:
 	# Meta
 	if skill.title:
 		title.text = str(skill.title)
+		title.visible = true
 	else:
 		title.visible = false
 
 	if level_comp and level_comp.level:
 		level.text = "等级 %s" % [str(level_comp.level)]
+		level.visible = true
 	else:
 		level.visible = false
 
 	if skill.desc:
 		desc.text = str(skill.desc)
+		desc.visible = true
 	else:
 		desc.visible = false
 	
@@ -57,16 +60,19 @@ func _slot_info(_slot: BaseSlot) -> void:
 	# Cost
 	if skill.mana_cost:
 		mana_cost.text = "魔法消耗： %s" % str(skill.mana_cost)
+		mana_cost.visible = true
 	else:
 		mana_cost.visible = false
 
 	if skill.money_cost:
 		money_cost.text = "金钱： %s" % str(skill.money_cost)
+		money_cost.visible = true
 	else:
 		money_cost.visible = false
 
 	if skill.wood_cost:
 		wood_cost.text = "木材： %s" % str(skill.wood_cost)
+		wood_cost.visible = true
 	else:
 		wood_cost.visible = false
 
@@ -74,31 +80,37 @@ func _slot_info(_slot: BaseSlot) -> void:
 	# Functional
 	if skill.value:
 		damage.text = "伤害： %s" % str(skill.value)
+		damage.visible = true
 	else:
 		damage.visible = false
 
 	if skill.init_num:
 		init_num.text = "数量： %s" % str(skill.init_num)
+		init_num.visible = true
 	else:
 		init_num.visible = false
 
 	if skill.range:
 		damage_range.text = "伤害范围： %s m" % str(skill.range)
+		damage_range.visible = true
 	else:
 		damage_range.visible = false
 
 	if skill.target_type:
 		var target_type_str = CommonUtil.bit_set_to_str(skill.target_type, SkillMetaResource.SKILL_TARGET_TYPE_CHN)
 		target_type.text = "目标类型： %s" % str(target_type_str)
+		target_type.visible = true
 	else:
 		target_type.visible = false
 
 	if skill.wave:
 		wave.text = "轮次： %s" % str(skill.wave)
+		wave.visible = true
 	else:
 		wave.visible = false
 	
 	if skill.internal_time > -1:
 		duration.text = "持续时间： %s s" % str(skill.internal_time * skill.wave)
+		duration.visible = true
 	else:
 		duration.visible = false

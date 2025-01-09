@@ -52,7 +52,7 @@ enum ELEMENT_PHASE_STR{
 @export var attack_range : float
 @export var attack_num : int = 1
 
-@export var value: float	# 伤害值
+@export var attack_value: float	# 伤害值
 @export var unit_growth_factor: float = 1.0     # 单位成长率
 
 

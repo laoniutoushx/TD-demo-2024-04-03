@@ -17,16 +17,15 @@ func _ready() -> void:
 # 依据 base_slot 显示对应提示信息（数据驱动）
 func show_toggle(_slot: BaseSlot) -> void:
 	cur_slot = _slot
-	# Data Driven
-	refresh_slot_indicator_info(_slot)
-	defer_show(_slot)
+	defer_show()
 
 
-func defer_show(_slot: BaseSlot) -> void:
-	if is_visible():
+func defer_show() -> void:
+	if visible:
 		hide()
 	else:
 		_on_panel_container_resized()
+		refresh_slot_indicator_info(cur_slot)
 		show()
 
 # 刷新位置

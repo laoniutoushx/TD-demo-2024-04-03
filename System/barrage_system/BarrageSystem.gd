@@ -54,7 +54,7 @@ func action(source, target):
 		
 		# 伤害追加
 		if target and target is BaseUnit and (target as BaseUnit).is_alive(): 
-			target.take_damage(projectile_instance.damage)
+			target.take_damage(source.attack_value)
 		
 		# 受击动画（mesh_standing）
 		if target and target is BaseUnit:
