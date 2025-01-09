@@ -16,16 +16,16 @@ var reference: Variant
 @export var relife : int = 1    # 转生次数
 @export var level : int = 1		# 当前等级
 
-@export var exp_growth_factor: float = 1.0     # 经验成长率
+@export var exp_growth_factor: float = 1.1     # 经验成长率
 
 # 经验值(L)=100×(L−1)^{1.5}
-@export var exp: int = 0.0   # 当前经验值
+@export var exp: float = 0.0   # 当前经验值
 @export var exp_range: float = 300   # 经验值获取范围
 @export var max_level: float = 100   # 最大等级
-@export var level_up_experience: int = 25   # 升级经验值（按等级递增）
+@export var level_up_experience: float = 100   # 升级经验值（按等级递增）
 
 #
-@export var exp_provide: int = 25.0   # 可供其他单位获取经验
+@export var exp_provide: float = 25.0   # 可供其他单位获取经验
 
 
 # 初始化
@@ -68,16 +68,17 @@ func _on_unit_logic_death(id: int, unit: BaseUnit) -> void:
 		obtain_exp(get_unit_exp(unit))
 
 # 获取经验
-func obtain_exp(_exp: int) -> void:
+func obtain_exp(_exp: float) -> void:
 	if _exp > 0:
 		exp += _exp
 		while exp >= level_up_experience:
 			level_up()
 			exp = exp - level_up_experience
+			level_up_experience = level_up_experience * exp_growth_factor
 
 
 # 获取单位经验值
-func get_unit_exp(unit: BaseUnit) -> int:
+func get_unit_exp(unit: BaseUnit) -> float:
 	# 检查是否可以获取经验
 	var level_comp: LevelComp = SystemUtil.unit_system.get_component_from_unit(unit, BaseUnitResource.COMPONENT_SYSTEM.LEVEL)
 	if level_comp:

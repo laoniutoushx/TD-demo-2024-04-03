@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxlqei5m2v1ki"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_o5nca"]
+
+[node name="RangeIndicatorTest" type="Node2D"]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(484.875, 567.5)
+scale = Vector2(674.25, 519.5)
+mesh = SubResource("CylinderMesh_o5nca")

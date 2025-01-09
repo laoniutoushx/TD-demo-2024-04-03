@@ -51,6 +51,9 @@ point_count = 5
 albedo_color = Color(0.607843, 0.607843, 0.607843, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mo400"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_color = Color(1, 0.43, 0.43, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o1dbk"]
 resource_name = "Light"
@@ -252,11 +255,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9924, 0, 10.25)
 material_override = SubResource("StandardMaterial3D_mo400")
 mesh = SubResource("ArrayMesh_2ymjy")
 skeleton = NodePath("../../Floor")
-
-[node name="Bomber2" type="MeshInstance3D" parent="Environment/Bomber2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9924, 1, 10.25)
-material_override = SubResource("StandardMaterial3D_mo400")
-mesh = SubResource("ArrayMesh_2ymjy")
 
 [node name="GDbotSkin" parent="." instance=ExtResource("1_umiea")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 9, 0.16514, 0)
