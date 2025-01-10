@@ -27,9 +27,9 @@ var code: String
 @export var money_cost: float = 10.0
 # 技能伤害范围
 @export var damage_range: float = 5.0
-# 技能匹配目标对象范围
+# 技能匹配目标对象范围（目标搜索范围，例如 light_chain 下一个目标匹配范围）
 @export var match_range: float = 30.0
-# 技能影响（释放）范围
+# 技能范围
 @export var range: float = 5.0
 # 释放距离
 @export var release_distance: float 
@@ -201,6 +201,13 @@ func change_state(new_state: SKILL_STATE) -> void:
         var tween = create_tween()
         tween.tween_property(slot, "scale", Vector2(1.0, 1.0), 0.1)
 
+        # if current_state == SKILL_STATE.Targeted_Indicate:
+            # 单位技能范围指示隐藏
+        var range_comp = CommonUtil.get_component_by_name(unit, "RangeIndicator")
+        if range_comp:
+            range_comp.recover_radius()
+
+            
         if current_state == SKILL_STATE.Building_Indicate:
             # 关闭 BuildingKeyIndicator
             SOS.main.building_key_indicator.show_toggle()
@@ -212,6 +219,7 @@ func change_state(new_state: SKILL_STATE) -> void:
                 
 
         if current_state == SKILL_STATE.Circle_Range_Indicate:
+            # 隐藏技能指示器
             SOS.main.player_controller.player_skill_scope_indicator.hide_indicator()
     
 
@@ -224,6 +232,13 @@ func change_state(new_state: SKILL_STATE) -> void:
 
             var tween = create_tween()
             tween.tween_property(slot, "scale", Vector2(1.2, 1.2), 0.1)
+
+            # 单位技能范围指示
+            var range_comp = CommonUtil.get_component_by_name(unit, "RangeIndicator")
+            if range_comp:
+                range_comp.set_radius(range)
+
+            # 限制 cursor 移动
 
 
             # 单位全局技能状态处理
@@ -244,6 +259,12 @@ func change_state(new_state: SKILL_STATE) -> void:
             var tween = create_tween()
             tween.tween_property(slot, "scale", Vector2(1.2, 1.2), 0.1)
 
+            # 单位技能范围指示
+            var range_comp = CommonUtil.get_component_by_name(unit, "RangeIndicator")
+            if range_comp:
+                range_comp.set_radius(range)
+
+
             # 单位全局技能状态处理
             unit.current_global_skill_state = 1
 
@@ -263,6 +284,11 @@ func change_state(new_state: SKILL_STATE) -> void:
 
             var tween = create_tween()
             tween.tween_property(slot, "scale", Vector2(1.2, 1.2), 0.1)
+
+            # 单位技能范围指示
+            var range_comp = CommonUtil.get_component_by_name(unit, "RangeIndicator")
+            if range_comp:
+                range_comp.set_radius(range)
 
             # 单位全局技能状态处理
             unit.current_global_skill_state = 1

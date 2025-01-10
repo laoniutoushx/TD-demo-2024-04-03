@@ -22,6 +22,7 @@ var current_state: TurretState
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	super._ready()
 	current_state = TurretState.BUILDING
 	vfx_projectile_name = "fireball"
 	

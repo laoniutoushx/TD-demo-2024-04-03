@@ -36,6 +36,7 @@ enum PLAYER_STATUS {
 }
 
 var player_status = PLAYER_STATUS.DEFAULT
+var player_mouse_position_limit: Vector2	# 玩家鼠标移动范围限制
 
 
 # Called when the node enters the scene tree for the first time.
@@ -67,6 +68,10 @@ func get_player_group_idx():
 
 # area3d 与 mouse position 同步 （ray picker 回调函数）
 func select_area_pos_sync(ray_cast: RayCast3D) -> void:
+	# 此处多一个处理，当玩家处在技能提示阶段，准备释放技能时，限制获取到的最大点击位置（鼠标移动限制只针对无法移动单位）
+	if player_mouse_position_limit:
+		pass
+
 	select_area.global_position = ray_cast.get_collision_point()
 	player_mouse_position.global_position = ray_cast.get_collision_point()
 

@@ -143,9 +143,15 @@ var buff_map: Dictionary = {}
 
 
 
+# 内部节点
+
+
 func _ready() -> void:
 	# 注意 BaseUnit 与 BaseUnitResource 的 cycle reference 
 	clazz_init()
+
+	print("_ready %s, %s, %s, %s" % [self.name, get_instance_id(), clz_code, get_class()])
+	
 	
 	health = max_health
 	# 是否创建 mesh_outline
@@ -163,6 +169,18 @@ func _ready() -> void:
 	# hide select circle
 	var select_circle = CommonUtil.get_first_node_by_node_name(self, "FadedCircle3D")	
 	select_circle.hide()
+	
+	# attack area fixed
+	var attacking_scope = CommonUtil.get_first_node_by_node_name(self, "AttackingScope")
+	if attacking_scope:
+		print("has attack scop")
+		var cylinder_collision: CollisionShape3D = attacking_scope.get_child(0)
+		if cylinder_collision and cylinder_collision.shape:
+			print("has cylinder collision")
+			print(attack_range)
+			(cylinder_collision.shape as CylinderShape3D).radius = attack_range
+			
+
 	
 	# system component load（item）
 	item_map = SystemUtil.item_system.initialize_items(self, item_metas)

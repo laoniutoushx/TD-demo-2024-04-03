@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://cbqypojw4pb1c"]
+
+[ext_resource type="Script" path="res://Test/range/mouse_move_limit.gd" id="1_7oqn8"]
+[ext_resource type="Script" path="res://Test/range/ui.gd" id="2_81gy7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m8utj"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_wf6y3"]
+sky_material = SubResource("ProceduralSkyMaterial_m8utj")
+
+[sub_resource type="Environment" id="Environment_rmvve"]
+background_mode = 2
+sky = SubResource("Sky_wf6y3")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6p3by"]
+albedo_color = Color(0.270222, 0.270222, 0.270222, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_feock"]
+size = Vector2(10, 10)
+
+[node name="MouseMoveLimit" type="Node3D"]
+script = ExtResource("1_7oqn8")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rmvve")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_6p3by")
+mesh = SubResource("PlaneMesh_feock")
+
+[node name="UI" type="Node2D" parent="."]
+script = ExtResource("2_81gy7")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.948733, 0.31608, 0, -0.31608, 0.948733, 0, 0.865839, 3.8289)

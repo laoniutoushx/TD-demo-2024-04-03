@@ -104,7 +104,8 @@ func _on_building_floor_indicator_show(_skill_context: SkillContext):
 	if skill_context.skill.skill_meta_res.building_scene != null:
 		# turret = skill_context.skill.skill_meta_res.building_scene.instantiate()
 		turret = SystemUtil.unit_system.create_unit(skill_context.skill.skill_meta_res.building_res, 0)
-		add_child(turret)
+		# add_child(turret)
+		call_deferred("add_child", turret)
 
 
 	SignalBus.ray_picker_regist.emit(callable_build_turret)

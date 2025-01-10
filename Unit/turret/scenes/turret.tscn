@@ -74,7 +74,6 @@ metadata/fire_pos = false
 
 [node name="AttackingScope" type="Area3D" parent="."]
 unique_name_in_owner = true
-visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackingScope"]
 shape = SubResource("CylinderShape3D_sodmm")
