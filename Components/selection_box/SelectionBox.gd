@@ -36,13 +36,14 @@ func _ready() -> void:
 	
 	
 func _input(event: InputEvent) -> void:
-	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
-		player_status = SOS.main.player_controller.player_status
-		_start()
-		
-	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed):
-		_finish()
-		player_status = SOS.main.player_controller.player_status
+	if SOS.main.player_controller.player_status == SOS.main.player_controller.PLAYER_STATUS.DEFAULT:
+		if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
+			player_status = SOS.main.player_controller.player_status
+			_start()
+			
+		if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed):
+			_finish()
+			player_status = SOS.main.player_controller.player_status
 	
 
 

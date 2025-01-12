@@ -48,6 +48,8 @@ func callable_build_turret(ray_cast_3d: RayCast3D, _grid_map: GridMap) -> void:
 			if collider is GridMap:
 
 				if Input.is_action_pressed("click"):
+					# get_viewport().set_input_as_handled()
+					
 					var point = ray_cast_3d.get_collision_point()
 					var cell =  _grid_map.local_to_map(point)
 

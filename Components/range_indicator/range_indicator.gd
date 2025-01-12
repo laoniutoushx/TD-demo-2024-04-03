@@ -2,26 +2,21 @@ extends Node3D
 
 @onready var circle = $FadedCircle3D
 
-# 缓存前一次设置的半径
-var last_radius: float
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
-	hide()
 
+	hide()
 	SignalBus.player_selected_units.connect(_on_player_selected_units)
-	last_radius = circle.radius
+
 
 
 func set_radius(rad: float):
-	last_radius = circle.radius
 	circle.radius = rad
 
-# 恢复上一次设置的半径
-func recover_radius():
-	circle.radius = last_radius	
+
 
 
 # player select event
@@ -37,4 +32,6 @@ func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3, on_sele
 			show()
 			return 
 	
-	hide()
+	# 选择单位时玩家状态（default）
+	if on_selected_player_status == SOS.main.player_controller.PLAYER_STATUS.DEFAULT:
+		hide()

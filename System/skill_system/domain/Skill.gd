@@ -106,17 +106,23 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
     if mouse_click_check and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+        # 单位事件监听
         if current_state == SKILL_STATE.Direction_Indicate or current_state == SKILL_STATE.Circle_Range_Indicate:
             mouse_click_check = false
             # 鼠标在 3d 空间中位置
-            skill_context.target_position =  SOS.main.player_controller.player_mouse_position.global_position
+            # skill_context.target_position =  SOS.main.player_controller.player_mouse_position.global_position
+            # 玩家 circle indicator 在 3d 空间中位置（适配玩家技能范围，防止释放技能超出技能施法范围距离）
+            skill_context.target_position =  SOS.main.player_controller.player_skill_scope_indicator.global_position
+
             change_state(SKILL_STATE.Release)
             Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
             get_viewport().set_input_as_handled()
     
     if event is InputEventKey and event.pressed and event.keycode  == KEY_ESCAPE:
         if current_state == SKILL_STATE.Targeted_Indicate or current_state == SKILL_STATE.Building_Indicate or current_state == SKILL_STATE.Circle_Range_Indicate:
+            Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
             change_state(SKILL_STATE.Idle)
+            get_viewport().set_input_as_handled()
 
 
 
@@ -205,8 +211,11 @@ func change_state(new_state: SKILL_STATE) -> void:
             # 单位技能范围指示隐藏
         var range_comp = CommonUtil.get_component_by_name(unit, "RangeIndicator")
         if range_comp:
-            range_comp.recover_radius()
+            range_comp.set_radius(unit.attack_range)
 
+
+        # # 恢复 cursor 移动
+        # SOS.main.player_controller.player_skill_scope_indicator.not_limit_move()
             
         if current_state == SKILL_STATE.Building_Indicate:
             # 关闭 BuildingKeyIndicator
@@ -221,6 +230,8 @@ func change_state(new_state: SKILL_STATE) -> void:
         if current_state == SKILL_STATE.Circle_Range_Indicate:
             # 隐藏技能指示器
             SOS.main.player_controller.player_skill_scope_indicator.hide_indicator()
+
+ 
     
 
     # 旧状态
@@ -239,7 +250,7 @@ func change_state(new_state: SKILL_STATE) -> void:
                 range_comp.set_radius(range)
 
             # 限制 cursor 移动
-
+            SOS.main.player_controller.player_skill_scope_indicator.limit_move(unit.global_position, range)
 
             # 单位全局技能状态处理
             unit.current_global_skill_state = 1
@@ -275,9 +286,15 @@ func change_state(new_state: SKILL_STATE) -> void:
             SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.CHOOSING_TARGETED_UNIT
             # 切换鼠标光标
             SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.TARGETED)
+
+
             # 监听玩家选择单位信号
             # 必须选中一个目标，才能切换状态（注意必须选中）
             SignalBus.player_selected_units.connect(_on_player_selected_units)
+
+            # TODO 此处改为监听玩家 3d 空间鼠标位置附近碰撞单位，同时鼠标样式调整为 Sprite3D 或 Decel 模式，并禁止鼠标显示
+            # 此时禁用 SelectionBox 与 RectangularSelection2D 的选择，启用程序目标选择
+
 
         SKILL_STATE.Building_Indicate:
             slot.icon_texture.material.set_shader_parameter("enable_gradient", true)
@@ -286,14 +303,14 @@ func change_state(new_state: SKILL_STATE) -> void:
             tween.tween_property(slot, "scale", Vector2(1.2, 1.2), 0.1)
 
             # 单位技能范围指示
-            var range_comp = CommonUtil.get_component_by_name(unit, "RangeIndicator")
-            if range_comp:
-                range_comp.set_radius(range)
+            # var range_comp = CommonUtil.get_component_by_name(unit, "RangeIndicator")
+            # if range_comp:
+            #     range_comp.set_radius(range)
 
             # 单位全局技能状态处理
             unit.current_global_skill_state = 1
 
-            # 开启 BuildingKeyIndicator
+            # 开启 BuildingKeyIndicator（ 左键单击/ Esc 取消）
             SOS.main.building_key_indicator.show_toggle()
 
             # TODO 可以在此处注册 键盘 Esc 事件，取消 indicator
@@ -314,6 +331,10 @@ func change_state(new_state: SKILL_STATE) -> void:
             SystemUtil.skill_system.release(skill_context)
             
             change_state(SKILL_STATE.Cool_Down)
+
+            # var range_comp = CommonUtil.get_component_by_name(unit, "RangeIndicator")
+            # if range_comp:
+            #     range_comp.set_radius(unit.attack_range)
 
 
         SKILL_STATE.Cool_Down:
