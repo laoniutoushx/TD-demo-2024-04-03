@@ -47,4 +47,4 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_2sp2u")]([ExtResource("2_2osqj")])
-skill_metas = Array[ExtResource("3_j65fo")]([ExtResource("4_vdhal"), ExtResource("5_jcvry"), ExtResource("6_6vxlu"), ExtResource("7_jsd2q")])
+skill_metas = Array[ExtResource("3_j65fo")]([ExtResource("7_jsd2q"), ExtResource("4_vdhal"), ExtResource("6_6vxlu"), ExtResource("5_jcvry")])

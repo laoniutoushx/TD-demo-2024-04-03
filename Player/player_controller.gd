@@ -2,16 +2,16 @@ class_name PlayerController extends Node3D
 
 # Scope Node Define
 @onready var select_area: Area3D = %SelectArea
-@onready var collision_shape: CollisionShape3D = %CollisionShape
 @onready var selection_box: SelectionBox = %SelectionBox
 @onready var player_skill_scope_indicator: PlayerSkillScopeIndicator = %PlayerSkillScopeIndicator
+@onready var player_skill_target_indicator = %PlayerSkillTargetIndicator
 
 
 
 
 var client_id: String = OS.get_unique_id()
 var player_idx: int
-var player_group_idx: int
+var player_group_idx: int 
 
 
 var outline_material: ShaderMaterial
@@ -26,8 +26,6 @@ var cursor_building = load("res://Asserts/Images/indicator/cursor_building.png")
 var skill_indicator_grid_map_material: ShaderMaterial = load("res://Test/glow shader test 2/glow 3d - chocked.tres")
 
 
-var player_mouse_position: Node3D
-
 # player status（unique status）互斥状态，全局唯一
 enum PLAYER_STATUS {
 	DEFAULT,
@@ -36,7 +34,17 @@ enum PLAYER_STATUS {
 }
 
 var player_status = PLAYER_STATUS.DEFAULT
-var player_mouse_position_limit: Vector2	# 玩家鼠标移动范围限制
+
+
+
+# 当前鼠标位置所在单位
+var cur_unit_map: Dictionary = {}
+
+
+# 玩家鼠标移动范围限制
+var limit_center: Vector3
+var limit_radius: float
+var is_limit_move: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -55,7 +63,9 @@ func _ready() -> void:
 	# 设置鼠标光标
 	Input.set_custom_mouse_cursor(cursor_default)
 
-	player_mouse_position = $PlayerMousePosition
+	# target_indicator 默认隐藏
+	player_skill_target_indicator.hide()
+
 
 # 获取玩家索引信息
 func get_player_idx():
@@ -65,15 +75,46 @@ func get_player_group_idx():
 	return 0
 
 
+# 限制玩家鼠标移动范围
+func limit_move(center: Vector3, radius: float):
+	limit_center = center
+	limit_radius = radius    # ? 为什么要 3 倍
+	is_limit_move = true
 
+
+func not_limit_move():
+	is_limit_move = false    
+
+
+
+# TODO 当限制技能释放范围时，也同时限制鼠标移动范围（3d 反向映射 2d 空间）
 # area3d 与 mouse position 同步 （ray picker 回调函数）
 func select_area_pos_sync(ray_cast: RayCast3D) -> void:
 	# 此处多一个处理，当玩家处在技能提示阶段，准备释放技能时，限制获取到的最大点击位置（鼠标移动限制只针对无法移动单位）
-	if player_mouse_position_limit:
-		pass
+	var collision_point = ray_cast.get_collision_point()
+	if is_limit_move:
+		# 
+		var current_pos := Vector2(collision_point.x, collision_point.z)
+		var mouse_area_center := Vector2(SOS.main.player_controller.limit_center.x, SOS.main.player_controller.limit_center.z)
+		var distance_to_center = current_pos.distance_to(mouse_area_center)
 
-	select_area.global_position = ray_cast.get_collision_point()
-	player_mouse_position.global_position = ray_cast.get_collision_point()
+
+		print("distance to center %s, _radius %s" % [distance_to_center, SOS.main.player_controller.limit_radius])
+
+		# 如果鼠标超出了圆形范围，将其位置限制到圆形边界
+		if distance_to_center  >= SOS.main.player_controller.limit_radius:
+			var direction = (current_pos - mouse_area_center).normalized()
+			var clamped_pos = mouse_area_center + direction * SOS.main.player_controller.limit_radius
+			
+			select_area.global_position = Vector3(clamped_pos.x, collision_point.y, clamped_pos.y)
+			player_skill_target_indicator.global_position = Vector3(clamped_pos.x, collision_point.y, clamped_pos.y)
+		else:
+			select_area.global_position = collision_point
+			player_skill_target_indicator.global_position = collision_point
+	else:
+		select_area.global_position = collision_point
+		player_skill_target_indicator.global_position = collision_point
+
 
 
 # mouse coursor 切换
@@ -108,6 +149,68 @@ func refresh_selection_units(unit_map: Dictionary, mouse_pos: Vector3, on_select
 	
 	# emit signal player_selected_units
 	SignalBus.player_selected_units.emit(unit_map, mouse_pos, on_selected_player_status)
+
+
+
+# 单位进入触发
+# monitor when unit enter mouse scope
+func _on_select_area_area_entered(area: Area3D) -> void:
+	var unit = area.owner
+	if unit and unit is BaseUnit and unit.is_alive() and unit.has_method('show_selected_circle'):
+
+		# 添加单位到当前选中单位
+		cur_unit_map[unit.get_instance_id()] = unit
+
+		(unit as BaseUnit).show_selected_circle()
+		var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ)
+		if unit_mesh != null:
+			unit_mesh.material_overlay = outline_material
+
+# 单位退出触发
+# monitor when unit exit mouse scope(notice when selected, not hide)
+func _on_select_area_area_exited(area: Area3D) -> void:
+	var unit = area.owner
+
+	# 移出单位到当前选中单位
+	if unit:
+		cur_unit_map.erase(unit.get_instance_id())
+
+	
+	var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ)
+	if unit_mesh != null:
+		unit_mesh.material_overlay = null
+	
+	if PlayerSelect.is_selecting():
+		return
+	if unit and unit is BaseUnit and !PlayerSelect.contains_unit(unit) and unit.has_method('hide_selected_circle'):
+		(unit as BaseUnit).hide_selected_circle()
+
+
+# listening unit death
+func _on_unit_logic_death(id: int, unit: BaseUnit):
+	if unit.has_method('hide_selected_circle'):
+		unit.hide_selected_circle()
+	
+	# 单位逻辑死亡时，清除单位网格效果（outline）等
+	var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ)
+	unit_mesh.material_overlay = null
+
+	# 移出单位到当前选中单位
+	cur_unit_map.erase(id)
+
+
+
+# player select box 监听事件
+func _on_selection_box_selecting_started() -> void:
+	PlayerSelect._selecting = true
+
+# player select box 监听事件
+func _on_selection_box_selecting_finished(unit_map: Dictionary, mouse_pos: Vector3, on_selected_player_status: PLAYER_STATUS) -> void:
+	PlayerSelect._selecting = false
+	refresh_selection_units(unit_map, mouse_pos, on_selected_player_status)
+	
+	
+
 
 
 
@@ -167,60 +270,7 @@ class PlayerSelect:
 		if unit != null:
 			return _candidate_selected_unit.erase(unit.get_instance_id())
 		return unit == null
-		
-
-# monitor when unit enter mouse scope
-func _on_select_area_area_entered(area: Area3D) -> void:
-	var unit = area.owner
-	if unit is BaseUnit and unit.is_alive() and unit.has_method('show_selected_circle'):
-		(unit as BaseUnit).show_selected_circle()
-		var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ)
-		if unit_mesh != null:
-			unit_mesh.material_overlay = outline_material
-
-# monitor when unit exit mouse scope(notice when selected, not hide)
-func _on_select_area_area_exited(area: Area3D) -> void:
-	var unit = area.owner
-	
-	var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ)
-	if unit_mesh != null:
-		unit_mesh.material_overlay = null
-	
-	if PlayerSelect.is_selecting():
-		return
-	if unit is BaseUnit and !PlayerSelect.contains_unit(unit) and unit.has_method('hide_selected_circle'):
-		(unit as BaseUnit).hide_selected_circle()
 
 
 
-
-# Selection Box Event Callback
-func _on_selection_box_frame_selecting_unit_entered(unit: BaseUnit) -> void:
-	if unit is BaseUnit and unit.has_method('show_selected_circle'):
-		(unit as BaseUnit).show_selected_circle()
-
-
-
-func _on_selection_box_frame_selecting_unit_exited(unit: BaseUnit) -> void:
-	if unit is BaseUnit and unit.has_method('hide_selected_circle'):
-		(unit as BaseUnit).hide_selected_circle()
-
-
-
-func _on_selection_box_selecting_started() -> void:
-	PlayerSelect._selecting = true
-
-
-func _on_selection_box_selecting_finished(unit_map: Dictionary, mouse_pos: Vector3, on_selected_player_status: PLAYER_STATUS) -> void:
-	PlayerSelect._selecting = false
-	refresh_selection_units(unit_map, mouse_pos, on_selected_player_status)
-	
-	
-# listening unit death
-func _on_unit_logic_death(id: int, unit: BaseUnit):
-	if unit.has_method('hide_selected_circle'):
-		unit.hide_selected_circle()
-	
-	# 单位逻辑死亡时，清除单位网格效果（outline）等
-	var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ)
-	unit_mesh.material_overlay = null
+# 定义玩家单选单位（SelectArea）

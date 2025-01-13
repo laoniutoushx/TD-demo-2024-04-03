@@ -32,7 +32,7 @@ var code: String
 # 技能范围
 @export var range: float = 5.0
 # 释放距离
-@export var release_distance: float 
+@export var release_distance: float = 10.0
 # 技能点数（使用次数）
 @export var stock: int  = -1
 # 值
@@ -122,12 +122,13 @@ func _input(event: InputEvent) -> void:
         if current_state == SKILL_STATE.Targeted_Indicate or current_state == SKILL_STATE.Building_Indicate or current_state == SKILL_STATE.Circle_Range_Indicate:
             Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
             change_state(SKILL_STATE.Idle)
+            mouse_click_check = false
             get_viewport().set_input_as_handled()
 
 
 
 
-
+# 这个方法暂时标记为不使用
 func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3, on_selected_player_status: PlayerController.PLAYER_STATUS) -> void:
     if current_state == SKILL_STATE.Targeted_Indicate:
         if not unit_map.is_empty():
@@ -201,21 +202,22 @@ func change_state(new_state: SKILL_STATE) -> void:
         # player status 变更 DEFAULT
         SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DEFAULT
         # player cursor 变更 DEFAULT
+        Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
         SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.DEFAULT)
 
         slot.icon_texture.material.set_shader_parameter("enable_gradient", false)
         var tween = create_tween()
         tween.tween_property(slot, "scale", Vector2(1.0, 1.0), 0.1)
 
-        # if current_state == SKILL_STATE.Targeted_Indicate:
-            # 单位技能范围指示隐藏
+
         var range_comp = CommonUtil.get_component_by_name(unit, "RangeIndicator")
         if range_comp:
             range_comp.set_radius(unit.attack_range)
 
 
-        # # 恢复 cursor 移动
-        # SOS.main.player_controller.player_skill_scope_indicator.not_limit_move()
+        # 恢复 cursor 移动
+        SOS.main.player_controller.not_limit_move()
+
             
         if current_state == SKILL_STATE.Building_Indicate:
             # 关闭 BuildingKeyIndicator
@@ -230,6 +232,14 @@ func change_state(new_state: SKILL_STATE) -> void:
         if current_state == SKILL_STATE.Circle_Range_Indicate:
             # 隐藏技能指示器
             SOS.main.player_controller.player_skill_scope_indicator.hide_indicator()
+
+
+
+        if current_state == SKILL_STATE.Targeted_Indicate:
+
+            # 隐藏技能指示器
+            SOS.main.player_controller.player_skill_target_indicator.hide()
+
 
  
     
@@ -247,10 +257,10 @@ func change_state(new_state: SKILL_STATE) -> void:
             # 单位技能范围指示
             var range_comp = CommonUtil.get_component_by_name(unit, "RangeIndicator")
             if range_comp:
-                range_comp.set_radius(range)
+                range_comp.set_radius(release_distance / 2)
 
             # 限制 cursor 移动
-            SOS.main.player_controller.player_skill_scope_indicator.limit_move(unit.global_position, range)
+            SOS.main.player_controller.limit_move(unit.global_position, release_distance)
 
             # 单位全局技能状态处理
             unit.current_global_skill_state = 1
@@ -273,7 +283,13 @@ func change_state(new_state: SKILL_STATE) -> void:
             # 单位技能范围指示
             var range_comp = CommonUtil.get_component_by_name(unit, "RangeIndicator")
             if range_comp:
-                range_comp.set_radius(range)
+                range_comp.set_radius(release_distance)
+
+
+            # 限制 cursor 移动
+            SOS.main.player_controller.limit_move(unit.global_position, release_distance)     
+            SOS.main.player_controller.player_skill_target_indicator.show()
+
 
 
             # 单位全局技能状态处理
@@ -285,12 +301,16 @@ func change_state(new_state: SKILL_STATE) -> void:
             # PlayerStatus 切换
             SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.CHOOSING_TARGETED_UNIT
             # 切换鼠标光标
-            SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.TARGETED)
+            # SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.TARGETED)
+            # 隐藏鼠标光标（开始捕捉模式）
+            Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+            mouse_click_check = true
 
 
             # 监听玩家选择单位信号
             # 必须选中一个目标，才能切换状态（注意必须选中）
-            SignalBus.player_selected_units.connect(_on_player_selected_units)
+            # SignalBus.player_selected_units.connect(_on_player_selected_units)
+            set_process(true)
 
             # TODO 此处改为监听玩家 3d 空间鼠标位置附近碰撞单位，同时鼠标样式调整为 Sprite3D 或 Decel 模式，并禁止鼠标显示
             # 此时禁用 SelectionBox 与 RectangularSelection2D 的选择，启用程序目标选择
@@ -305,7 +325,7 @@ func change_state(new_state: SKILL_STATE) -> void:
             # 单位技能范围指示
             # var range_comp = CommonUtil.get_component_by_name(unit, "RangeIndicator")
             # if range_comp:
-            #     range_comp.set_radius(range)
+            #     range_comp.set_radius(release_distance)
 
             # 单位全局技能状态处理
             unit.current_global_skill_state = 1
@@ -332,9 +352,6 @@ func change_state(new_state: SKILL_STATE) -> void:
             
             change_state(SKILL_STATE.Cool_Down)
 
-            # var range_comp = CommonUtil.get_component_by_name(unit, "RangeIndicator")
-            # if range_comp:
-            #     range_comp.set_radius(unit.attack_range)
 
 
         SKILL_STATE.Cool_Down:
@@ -353,4 +370,57 @@ func change_state(new_state: SKILL_STATE) -> void:
         SKILL_STATE.Idle:
             print("skill [%s] is idle" % code)
 
-        
+
+
+# 专门处理 targeted 模式下，玩家选择单位的逻辑        
+func _process(delta: float) -> void:
+    # 监听 target mouse clicked
+    if Input.is_action_pressed("click"):
+        if mouse_click_check and current_state == SKILL_STATE.Targeted_Indicate:
+
+            var cur_unit_map = SOS.main.player_controller.cur_unit_map
+            if not cur_unit_map.is_empty():
+
+                # 停止监听
+                mouse_click_check = false
+                set_process(false)
+
+                # 获取选中单位
+                var min_unit = null
+                var min_distance = INF  # 使用 INF 作为初始最小距离
+                
+                # 遍历所有单位
+                for u_key in cur_unit_map.keys():
+                    var _unit = cur_unit_map.get(u_key)
+
+                    # 根据 skill target type 动态判断是否满足条件
+                    if not _skill_target_unit_cond_matched(_unit):
+                        continue
+
+                    # 计算单位到原点的距离
+                    var distance = Vector2(_unit.global_position.x, _unit.global_position.z).length()
+                    
+                    # 如果找到更近的单位，更新最小距离和对应的单位
+                    if distance < min_distance:
+                        min_distance = distance
+                        min_unit = _unit
+                
+                # 此时 min_unit 就是距离原点最近的单位
+                if min_unit:
+                    # 在这里处理最近的单位，比如选中它
+                    print("最近的单位距离: ", min_distance)
+                    print("最近的单位: ", min_unit)
+
+
+                    skill_context.target_position = SOS.main.player_controller.player_skill_target_indicator.global_position
+                    skill_context.target = min_unit
+
+                    change_state(SKILL_STATE.Release)
+
+                else:
+                    print("没有找到最近的单位")
+                    SOS.main.message_bar.set_message("没有选中任何单位")
+
+            else:
+                print("没有选中任何单位")
+                SOS.main.message_bar.set_message("没有选中任何单位")

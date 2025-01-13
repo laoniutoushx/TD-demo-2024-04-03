@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=6 format=3 uid="uid://batuffvaegvkn"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=8 format=3 uid="uid://batuffvaegvkn"]
 
 [ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Unit/turret/scenes/turret.tscn" id="1_o0rv6"]
 [ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_qx5mg"]
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="2_l8ipb"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_nv5yp"]
 [ext_resource type="Resource" uid="uid://dpnj33orc37b" path="res://System/skill_system/resources/damage/thunder_chain.tres" id="5_hvj38"]
+[ext_resource type="Resource" uid="uid://x4bivjxncvqm" path="res://System/skill_system/resources/damage/thunderclap.tres" id="6_vkqtv"]
+[ext_resource type="Resource" uid="uid://btoskpfy832ny" path="res://System/skill_system/resources/damage/fire_rain.tres" id="7_lee7t"]
 
 [resource]
 script = ExtResource("2_nv5yp")
@@ -43,4 +45,4 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_qx5mg")]([])
-skill_metas = Array[ExtResource("2_l8ipb")]([ExtResource("5_hvj38")])
+skill_metas = Array[ExtResource("2_l8ipb")]([ExtResource("5_hvj38"), ExtResource("6_vkqtv"), ExtResource("7_lee7t")])

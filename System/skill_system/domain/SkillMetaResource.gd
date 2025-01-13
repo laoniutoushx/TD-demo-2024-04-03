@@ -80,7 +80,7 @@ enum SKILL_EFFECT_TYPE{
 # 技能影响（释放）范围
 @export var range: float = 5.0
 # 释放距离
-@export var release_distance: float 
+@export var release_distance: float = 10.0
 # 技能点数（使用次数）
 @export var stock: int  = -1
 # 值
