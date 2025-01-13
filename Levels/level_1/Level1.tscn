@@ -257,4 +257,4 @@ mesh = SubResource("ArrayMesh_2ymjy")
 skeleton = NodePath("../../Floor")
 
 [node name="GDbotSkin" parent="." instance=ExtResource("1_umiea")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 9, 0.16514, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.16514, 0)

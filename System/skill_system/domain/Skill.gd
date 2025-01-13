@@ -257,7 +257,7 @@ func change_state(new_state: SKILL_STATE) -> void:
             # 单位技能范围指示
             var range_comp = CommonUtil.get_component_by_name(unit, "RangeIndicator")
             if range_comp:
-                range_comp.set_radius(release_distance / 2)
+                range_comp.set_radius(release_distance)
 
             # 限制 cursor 移动
             SOS.main.player_controller.limit_move(unit.global_position, release_distance)
