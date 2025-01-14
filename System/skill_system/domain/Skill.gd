@@ -251,6 +251,7 @@ func change_state(new_state: SKILL_STATE) -> void:
         SKILL_STATE.Circle_Range_Indicate:
             slot.icon_texture.material.set_shader_parameter("enable_gradient", true)
 
+            # 技能框放大
             var tween = create_tween()
             tween.tween_property(slot, "scale", Vector2(1.2, 1.2), 0.1)
 
@@ -277,6 +278,7 @@ func change_state(new_state: SKILL_STATE) -> void:
         SKILL_STATE.Targeted_Indicate:
             slot.icon_texture.material.set_shader_parameter("enable_gradient", true)
 
+            # 技能框放大
             var tween = create_tween()
             tween.tween_property(slot, "scale", Vector2(1.2, 1.2), 0.1)
 
@@ -319,6 +321,7 @@ func change_state(new_state: SKILL_STATE) -> void:
         SKILL_STATE.Building_Indicate:
             slot.icon_texture.material.set_shader_parameter("enable_gradient", true)
 
+            # 技能框放大
             var tween = create_tween()
             tween.tween_property(slot, "scale", Vector2(1.2, 1.2), 0.1)
 

@@ -14,7 +14,9 @@ func _ready() -> void:
 
 
 func set_radius(rad: float):
-	circle.radius = rad
+	var tween = create_tween()
+	tween.tween_property(circle, "radius", rad, 0.1)
+	# circle.radius = rad
 
 
 

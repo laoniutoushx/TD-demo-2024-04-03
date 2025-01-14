@@ -331,6 +331,13 @@ func show_selected_circle() -> void:
 	if select_circle:
 		select_circle.visible = true
 
+		# 添加动效
+		var tween = create_tween()
+		tween.tween_property(select_circle, "radius", select_circle.radius * 1.25, 0.0)
+		tween.tween_property(select_circle, "radius", select_circle.radius, 0.1)
+
+
+
 func hide_selected_circle() -> void:
 	var select_circle = CommonUtil.get_first_node_by_node_name(self, "FadedCircle3D")	
 	if select_circle:
