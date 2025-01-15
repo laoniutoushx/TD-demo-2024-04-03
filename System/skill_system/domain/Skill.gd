@@ -30,6 +30,7 @@ var code: String
 # 技能匹配目标对象范围（目标搜索范围，例如 light_chain 下一个目标匹配范围）
 @export var match_range: float = 30.0
 # 技能范围
+
 @export var range: float = 5.0
 # 释放距离
 @export var release_distance: float = 10.0

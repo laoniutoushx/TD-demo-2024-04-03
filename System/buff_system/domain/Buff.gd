@@ -3,13 +3,10 @@ class_name Buff extends BuffTpl
 
 
 # Reference
-var unit: BaseUnit
-var target: BaseUnit
-var item_res: ItemResource
-var skill_res: SkillMetaResource
-var slot: BaseSlot
+var entity: String     # 引用实例  (e.g. BaseUnit/Skill/LevelComp/Item/Buff)
+var prop: String        # 实例对应属性名称
 
-## Item 效果（属性提升，buff 叠加，技能释放，状态转变）
+var ref: Variant        # 引用实例
 
 
 
@@ -17,10 +14,10 @@ var slot: BaseSlot
 @export_group("Buff Meta Steup")
 @export var id: StringName
 @export var code: String
-@export var sort: int
+
 
 ## buff 类型（可以同时符合多个类型）
-@export_flags("BUFF", "DEBUFF", "DAMAGE", "HEAL", "RESTRICT", "STATUS") var type
+@export_flags("BUFF", "DEBUFF", "RESTRICT", "STATUS") var type
 
 @export var title: String
 @export var desc: String
@@ -29,13 +26,16 @@ var slot: BaseSlot
 
 # buff properity
 # 值单位类型
-enum VALUE_UNIT {
-    PERCENT,
-    VALUE
-}
-
 @export var value: float
-@export var value_unit: VALUE_UNIT
+@export var value_unit: BuffResource.VALUE_UNIT
+
+
+
+@export var priority: int   # 优先级
+@export var exclude_level: BuffResource.EXCLUDE_LEVEL = BuffResource.EXCLUDE_LEVEL.ALL   # 排除级别（叠加方式）
+
+
+
 
 # buff logic action
 @export var buff_script: Script
@@ -46,4 +46,3 @@ var buff_script_instance: Variant
 var cool_down_timer: Timer
 
 
-## Item 逻辑处理

@@ -7,3 +7,7 @@ func apply() -> void:
 
 func remove() -> void:
 	pass	
+
+
+func apply_cond(buff_ctx: BuffContext) -> bool:
+	return true	

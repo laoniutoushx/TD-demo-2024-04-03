@@ -42,18 +42,32 @@ func init_buff_for_unit_by_res(ref: Variant, unit: BaseUnit) -> Dictionary:
 
 		# 2. 初始化 buff
 		buff_instance = CommonUtil.bean_properties_copy(buff_res, buff_instance)
-		buff_instance.unit = unit
-
-		if ref is SkillMetaResource:
-			buff_instance.skill_res = ref
-
-		if ref is ItemResource:
-			buff_instance.item_res = ref
+		buff_instance.ref = unit
 
 		unit.buff_map[buff_instance.get_instance_id()] = buff_instance
 		buff_instances[buff_instance.get_instance_id()] = buff_instance
 
 	return buff_instances
+
+
+
+
+# apply apply 
+func apply(buff: Buff):
+	var entity = buff.entity
+	if entity:
+		var prop: String = buff.prop
+		var value = entity.get(prop)
+
+
+
+		# if buff.value_unit == BuffResource.VALUE_UNIT.PERCENT:
+	
+
+	buff.apply()
+
+	pass
+
 
 
 

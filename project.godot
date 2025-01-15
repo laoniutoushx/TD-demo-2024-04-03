@@ -52,7 +52,7 @@ movie_writer/disable_vsync=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/godot_resource_groups/plugin.cfg")
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/godot_resource_groups/plugin.cfg", "res://addons/script_property_selector/plugin.cfg")
 
 [global_group]
 
