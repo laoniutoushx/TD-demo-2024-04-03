@@ -85,12 +85,22 @@ func _on_slot_clicked(slot: BaseSlot):
 	var skill: Skill = (slot.reference as Skill)
 
 
+	# Target
 	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_RELEASE_TYPE.TARGETED, skill.release_type):
 		if CommonUtil.is_flag_set(SkillMetaResource.SKILL_EFFECT_TYPE.BUILDING, skill.effect_type):
 			skill.change_state(Skill.SKILL_STATE.Building_Indicate)
 		else:
 			skill.change_state(Skill.SKILL_STATE.Targeted_Indicate)
 
+	# Range 
 	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_RELEASE_TYPE.CIRCLE_RANGE, skill.release_type):
 		skill.change_state(Skill.SKILL_STATE.Circle_Range_Indicate)
+
+	# Self Cast
+	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_RELEASE_TYPE.SELF_CAST, skill.release_type):
+		skill.change_state(Skill.SKILL_STATE.Release)
+
+	# Self Cast
+	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_RELEASE_TYPE.NO_TARGET, skill.release_type):
+		skill.change_state(Skill.SKILL_STATE.Release)		
 

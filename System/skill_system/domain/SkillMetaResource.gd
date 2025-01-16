@@ -23,36 +23,6 @@ class_name SkillMetaResource extends Resource
 #范围技能: 以目标点为中心的范围生效，影响周围单位。
 
 
-enum SKILL_RELEASE_TYPE{
-	TARGETED,	
-	SELF_CAST,
-	NO_TARGET,
-	DIRECTION,
-	CIRCLE_RANGE
-}
-
-enum SKILL_TARGET_TYPE{
-	FLOOR,
-	UNIT,
-	NO_TARGET,
-	FRIEND,
-	ENEMY
-}
-
-enum SKILL_TARGET_TYPE_CHN{
-	地面,
-	单位,
-	无目标,
-	友军,
-	敌人
-}
-
-enum SKILL_EFFECT_TYPE{
-	DAMAGE,
-	HEAL,
-	BUILDING
-}
-
 
 
 @export_group("Skill Meta Steup")
@@ -105,10 +75,43 @@ enum SKILL_EFFECT_TYPE{
 # level up 
 # release skill
 
-
+enum SKILL_RELEASE_TYPE{
+	TARGETED,	
+	SELF_CAST,
+	NO_TARGET,
+	DIRECTION,
+	CIRCLE_RANGE
+}
 @export_flags("TARGETED", "SELF_CAST", "NO_TARGET", "DIRECTION", "CIRCLE_RANGE") var release_type: int = 1
+
+
+
+enum SKILL_TARGET_TYPE_CHN{
+	地面,
+	单位,
+	无目标,
+	友军,
+	敌人
+}
+enum SKILL_TARGET_TYPE{
+	FLOOR,
+	UNIT,
+	NO_TARGET,
+	FRIEND,
+	ENEMY
+}
 @export_flags("FLOOR", "UNIT", "NO_TARGET", "FRIEND", "ENEMY") var target_type: int = 1	# 0: 地面, 1: 目标, 2: 无目标
-@export_flags("DAMAGE","HEAL","BUILDING") var effect_type: int = 1	# 0: 伤害, 1: 治愈, 2: 建筑
+
+
+
+enum SKILL_EFFECT_TYPE{
+	DAMAGE,
+	HEAL,
+	BUILDING,
+	BUFF,
+	DEBUFF,
+}
+@export_flags("DAMAGE","HEAL","BUILDING","BUFF","DEBUFF") var effect_type: int = 1	# 0: 伤害, 1: 治愈, 2: 建筑，3：buff，4：debuff
 
 
 

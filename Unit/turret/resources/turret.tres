@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=8 format=3 uid="uid://batuffvaegvkn"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=9 format=3 uid="uid://batuffvaegvkn"]
 
 [ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Unit/turret/scenes/turret.tscn" id="1_o0rv6"]
 [ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_qx5mg"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://dpnj33orc37b" path="res://System/skill_system/resources/damage/thunder_chain.tres" id="5_hvj38"]
 [ext_resource type="Resource" uid="uid://x4bivjxncvqm" path="res://System/skill_system/resources/damage/thunderclap.tres" id="6_vkqtv"]
 [ext_resource type="Resource" uid="uid://btoskpfy832ny" path="res://System/skill_system/resources/damage/fire_rain.tres" id="7_lee7t"]
+[ext_resource type="Resource" uid="uid://bx5jjj52jdb13" path="res://System/skill_system/resources/effect/rage_power.tres" id="8_3t7p0"]
 
 [resource]
 script = ExtResource("2_nv5yp")
@@ -29,7 +30,7 @@ money_cost = 10.0
 max_health = 100.0
 move_speed = 5.0
 turn_speed = 10.0
-attack_speed = 0.1
+attack_speed = 0.5
 attack_range = 7.0
 attack_num = 1
 attack_value = 5.0
@@ -45,4 +46,4 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_qx5mg")]([])
-skill_metas = Array[ExtResource("2_l8ipb")]([ExtResource("5_hvj38"), ExtResource("6_vkqtv"), ExtResource("7_lee7t")])
+skill_metas = Array[ExtResource("2_l8ipb")]([ExtResource("5_hvj38"), ExtResource("6_vkqtv"), ExtResource("7_lee7t"), ExtResource("8_3t7p0")])

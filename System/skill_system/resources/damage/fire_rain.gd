@@ -1,4 +1,4 @@
-class_name FireRain extends Node3D
+class_name RagePower extends Node3D
 
 
 

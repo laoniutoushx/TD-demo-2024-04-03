@@ -44,8 +44,15 @@ enum VALUE_UNIT {
     VALUE
 }
 
-@export var value: float
+enum VALUE_DIR {
+    POSITIVE,
+    NEGATIVE
+}
+
+
+@export var value: float = 0.0
 @export var value_unit: VALUE_UNIT
+@export var value_dir: VALUE_DIR = VALUE_DIR.POSITIVE
 
 
 

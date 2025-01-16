@@ -3,6 +3,8 @@ class_name Buff extends BuffTpl
 
 
 # Reference
+var res: BuffResource
+
 var entity: String     # 引用实例  (e.g. BaseUnit/Skill/LevelComp/Item/Buff)
 var prop: String        # 实例对应属性名称
 
@@ -28,6 +30,13 @@ var reference_instance: Variant        # 引用实例
 # 值单位类型
 @export var value: float
 @export var value_unit: BuffResource.VALUE_UNIT
+@export var value_dir: int:
+    set(_val_dir):
+        if _val_dir == 0 :
+            value_dir = 1
+        else:
+            value_dir = -1
+
 
 
 
@@ -39,7 +48,7 @@ var reference_instance: Variant        # 引用实例
 
 # buff logic action
 @export var buff_script: Script
-var buff_script_instance: Variant
+var buff_instance: Variant
 
 
 # Timer
@@ -52,7 +61,7 @@ func apply(_reference: Variant) -> bool:
 
     if reference_instance and prop:
         # 添加 buff
-        reference_instance.add_child(buff_script_instance)
+        reference_instance.add_child(buff_instance)
 
         # reference_instance 属性值修改
         var ref_val = reference_instance.get(prop)
@@ -61,17 +70,17 @@ func apply(_reference: Variant) -> bool:
 
         if value_unit == BuffResource.VALUE_UNIT.PERCENT:
             if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-                ref_val += ref_val * ref_val
+                ref_val += ref_val * value / 100 * value_dir
 
             if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                ref_val -= ref_val * ref_val
+                ref_val -= ref_val * value / 100 * value_dir
 
         elif value_unit == BuffResource.VALUE_UNIT.VALUE:
             if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-                ref_val += ref_val
+                ref_val += value * value_dir
 
             if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                ref_val -= ref_val
+                ref_val -= value * value_dir
 
 
         reference_instance.set(prop, ref_val)
@@ -93,23 +102,23 @@ func remove() -> bool:
 
         if value_unit == BuffResource.VALUE_UNIT.PERCENT:
             if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-                ref_val -= ref_val * ref_val
+                ref_val -= ref_val * value / 100 * value_dir
 
             if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                ref_val += ref_val * ref_val
+                ref_val += ref_val * value / 100 * value_dir
 
         elif value_unit == BuffResource.VALUE_UNIT.VALUE:
             if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-                ref_val -= ref_val
+                ref_val -= value * value_dir
 
             if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                ref_val += ref_val
+                ref_val += value * value_dir
 
 
         reference_instance.set(prop, ref_val)
 
         # 删除 buff
-        (reference_instance as Node).remove_child(buff_script_instance)
+        (reference_instance as Node).remove_child(buff_instance)
         return true
 
     return false        

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="1_pse34"]
 [ext_resource type="Script" path="res://System/item_system/resources/axe.gd" id="2_0uamu"]
-[ext_resource type="Resource" uid="uid://c65qmoljjlnvn" path="res://System/buff_system/resources/attack_power_buff.tres" id="2_1fp0n"]
+[ext_resource type="Resource" uid="uid://c65qmoljjlnvn" path="res://System/buff_system/resources/power_buff.tres" id="2_1fp0n"]
 [ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="3_4jin5"]
 [ext_resource type="PackedScene" uid="uid://dfymti8t44nq4" path="res://System/item_system/resources/default.tscn" id="3_b8bgn"]
 

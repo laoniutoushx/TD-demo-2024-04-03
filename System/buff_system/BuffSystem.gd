@@ -28,7 +28,7 @@ func create_buff_by_code(code: String) -> Object:
 ## 初始化 buff（通过 skill or item）
 ## ref skill or item resource
 func init_buff_for_unit_by_res(ref: Variant, unit: BaseUnit) -> Dictionary:
-	var buff_instances = {}
+	var buff_instance_map = {}
 	var buff_reses
 	if ref is SkillMetaResource:
 		buff_reses = (ref as SkillMetaResource).skill_buff_config
@@ -41,19 +41,24 @@ func init_buff_for_unit_by_res(ref: Variant, unit: BaseUnit) -> Dictionary:
 	
 	for buff_res in buff_reses:
 		# 1. 创建 buff
-		var buff_script: Script = buff_res.buff_script
-		var buff_instance: Buff = buff_script.new()
+		
+		if buff_res.buff_script:
+			var buff_instance: Buff = buff_res.buff_script.new()
 
-		# 2. 初始化 buff
-		buff_instance = CommonUtil.bean_properties_copy(buff_res, buff_instance)
-		buff_instance.reference_instance = unit
+			# 2. 初始化 buff
+			buff_instance = CommonUtil.bean_properties_copy(buff_res, buff_instance)
+			buff_instance.reference_instance = unit
 
-		# 保存实例
-		apply(buff_instance, unit)
-		buff_instances[buff_instance.get_instance_id()] = buff_instance
+			print("value dir %s" % str(buff_instance.value_dir))
+			
+			buff_instance.res = buff_res
+
+			# 保存实例
+			unit.buff_map[buff_instance.get_instance_id()] = buff_instance
+			buff_instance_map[buff_instance.get_instance_id()] = buff_instance
 
 
-	return buff_instances
+	return buff_instance_map
 
 
 # _on_buff_enter
