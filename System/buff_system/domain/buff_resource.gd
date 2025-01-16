@@ -22,7 +22,15 @@ enum ENTITY{
 
 
 ## buff 类型（可以同时符合多个类型）
-@export_flags("BUFF", "DEBUFF", "DAMAGE", "HEAL", "RESTRICT", "STATUS") var type
+enum BUFF_TYPE{
+    BUFF,
+    DEBUFF,
+    DAMAGE,
+    HEAL,
+    RESTRICT,
+    STATUS,
+}
+@export_flags("BUFF", "DEBUFF", "DAMAGE", "HEAL", "RESTRICT", "STATUS") var type: int
 
 @export var title: String
 @export var desc: String

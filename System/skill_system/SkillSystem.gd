@@ -22,6 +22,9 @@ func _ready() -> void:
 	# load skill meta resources
 	load_skill_meta_res()
 
+
+
+
 # 加载技能信息
 func load_skill_meta_res():
 	CommonUtil.load_resources_to_container_from_directory("res://System/skill_system/resources", skill_meta_map)

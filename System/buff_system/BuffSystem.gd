@@ -7,6 +7,10 @@ func _ready() -> void:
 	# 在系统启动时，初始化所有 item template resource，将起保存在 container 当中
 	CommonUtil.load_resources_to_container_from_directory("res://System/buff_system/resources/", BuffManager.container())
 
+	# listener event
+	SignalBus.buff_enter.connect(_on_buff_enter)
+	SignalBus.buff_exit.connect(_on_buff_exit)
+
 
 
 ## 创建 buff
@@ -42,34 +46,57 @@ func init_buff_for_unit_by_res(ref: Variant, unit: BaseUnit) -> Dictionary:
 
 		# 2. 初始化 buff
 		buff_instance = CommonUtil.bean_properties_copy(buff_res, buff_instance)
-		buff_instance.ref = unit
+		buff_instance.reference_instance = unit
 
-		unit.buff_map[buff_instance.get_instance_id()] = buff_instance
+		# 保存实例
+		apply(buff_instance, unit)
 		buff_instances[buff_instance.get_instance_id()] = buff_instance
+
 
 	return buff_instances
 
 
+# _on_buff_enter
+func _on_buff_enter(buff: Buff):
 
+	pass
 
-# apply apply 
-func apply(buff: Buff):
-	var entity = buff.entity
-	if entity:
-		var prop: String = buff.prop
-		var value = entity.get(prop)
-
-
-
-		# if buff.value_unit == BuffResource.VALUE_UNIT.PERCENT:
-	
-
-	buff.apply()
+# _on_buff_exit
+func _on_buff_exit(buff: Buff):
 
 	pass
 
 
+# buff apply 
+func apply(buff: Buff, reference: Variant):
+	buff.apply(reference)
 
+	if reference is BaseUnit:
+		reference.buff_map[buff.get_instance_id()] = buff
+
+	if reference is Skill:
+		(reference as Skill).unit.buff_map[buff.get_instance_id()] = buff
+
+	if reference is Item:
+		(reference as Item).unit.buff_map[buff.get_instance_id()] = buff
+
+
+# buff remove
+func remove(buff: Buff):
+	var reference = buff.reference_instance
+
+
+	if reference is BaseUnit:
+		reference.buff_map.erase([buff.get_instance_id()])
+
+	if reference is Skill:
+		(reference as Skill).unit.erase([buff.get_instance_id()])
+
+	if reference is Item:
+		(reference as Item).unit.erase([buff.get_instance_id()])
+
+
+	buff.remove()
 
 
 
