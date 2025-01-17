@@ -205,6 +205,7 @@ size_flags_horizontal = 3
 [node name="BuffBar" type="GridContainer" parent="Container/MarginContainer/VBoxContainer/HBoxContainer/Buff"]
 unique_name_in_owner = true
 layout_mode = 2
+columns = 2
 
 [node name="BaseSlot" parent="Container/MarginContainer/VBoxContainer/HBoxContainer/Buff/BuffBar" instance=ExtResource("2_7x41a")]
 custom_minimum_size = Vector2(16, 16)

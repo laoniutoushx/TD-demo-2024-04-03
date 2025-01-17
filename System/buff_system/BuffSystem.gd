@@ -90,13 +90,18 @@ func apply(_buff: Buff, _reference: Variant):
 	var buff: Buff = _buff.duplicate()
 	buff = CommonUtil.bean_properties_copy(_buff.res, buff)
 
+	_reference.buff_map[buff.get_instance_id()] = buff
+
+	if _reference is BaseUnit:
+		buff.unit = _reference
 
 	# buff apply
 	if buff.apply(_reference):
 		# 开启计时器
 		if buff.cooldown > 0 and buff.cool_down_timer:
 			buff.cool_down_timer.timeout.connect(remove.bind(buff, _reference))
-			buff.cool_down_timer.start()
+			buff.change_state(Buff.BUFF_STATE.Cool_Down)
+			# buff.cool_down_timer.start()
 
 		# 添加到 buff action_bar ui 界面
 		SignalBus.buff_enter.emit(buff)
@@ -105,10 +110,15 @@ func apply(_buff: Buff, _reference: Variant):
 
 
 # buff remove
-func remove(buff: Buff, reference: Variant):
+func remove(buff: Buff, _reference: Variant):
 
+	_reference.buff_map.erase(buff.get_instance_id())
 
-	if buff.remove(reference):
+	# 删除 buff 之前，停止 slot 引用 buff 的 timer 计时器
+	if buff.slot and is_instance_valid(buff.slot):
+		buff.slot.set_process(false)
+
+	if buff.remove(_reference):
 
 		# 移出 buff action_bar ui 界面
 		SignalBus.buff_exit.emit(buff)

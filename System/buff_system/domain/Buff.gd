@@ -10,6 +10,9 @@ var prop: String        # 实例对应属性名称
 
 var reference_instance: Variant        # 引用实例（Skill、Item、Unit）
 
+var unit: BaseUnit
+var slot: BaseSlot
+
 
 
 # basic properity
@@ -40,7 +43,12 @@ var _value: float   # buff 记录的修改前的属性值
 
 @export var cooldown: float            
 
-
+# What state the turret is in
+enum BUFF_STATE {
+	Idle,
+    Cool_Down
+}
+var current_state: BUFF_STATE = BUFF_STATE.Idle
 
 
 @export var priority: int   # 优先级
@@ -72,6 +80,17 @@ func _ready() -> void:
     cool_down_timer.one_shot = true
     add_child(cool_down_timer)
 
+
+func change_state(state: BUFF_STATE) -> void:
+    current_state = state
+    match current_state:
+        BUFF_STATE.Idle:
+            if cool_down_timer:
+                cool_down_timer.stop()
+
+        BUFF_STATE.Cool_Down:            
+            if cool_down_timer:
+                cool_down_timer.start()
 
 
 func apply(_reference: Variant) -> bool:
@@ -115,6 +134,7 @@ func apply(_reference: Variant) -> bool:
 
 func remove(_reference: Variant) -> bool:
 
+    
     # reference_instance 属性值修改
     if _reference and prop:
         var ref_val = _reference.get(prop)

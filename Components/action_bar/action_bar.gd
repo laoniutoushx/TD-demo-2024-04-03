@@ -112,9 +112,7 @@ func open_item_bar(unit_map: Dictionary):
 func open_buff_bar(unit_map: Dictionary):
 	buff_bar_comp.clear()
 	# buff bar init
-	var unit: BaseUnit = unit_map.values()[0]
-	var buff_map: Dictionary = unit.buff_map
-	buff_bar_comp.add_elements(buff_map.values(), buff_bar_comp.add_element_hook)	
+	buff_bar_comp.setup_for_unit(unit_map)
 
 
 
@@ -246,10 +244,51 @@ class BuffBarComponent extends BaseBarComponent:
 		remove_element(buff)
 
 
+	# 装配 skill 时，需要检查 skill 状态，当 skill 处于 release 状态时，需要处理 progress_bar  等信息
+	func setup_for_unit(unit_map: Dictionary):
+		var unit: BaseUnit = unit_map.values()[0]
+		var buff_map: Dictionary = unit.buff_map
+		if buff_map != null and buff_map.keys().size() > 0:
+			for code in buff_map.keys():
+				if _slot_num <= 5:
+					var buff: Buff = buff_map[code]
+					var _slot = _create_buff_slot(buff)
+					buff.slot = _slot
+					# _bind_mapping_key(_slot, _slot_num)		
+
+
+	func _create_buff_slot(buff: Buff) -> BaseSlot:	
+		# 注意这里传递的 instance_id , 绑定了 slot id，删除时通过该 id 寻找节点树
+		var slot_instance: BaseSlot = super.add_element(str(buff.get_instance_id()), _buff_bar)
+		
+		slot_instance.custome_init(
+			buff,
+			buff.icon_path,
+			BaseSlot.SLOT_TYPE.ITEM, 
+			buff.unit.player_group == SOS.main.player_controller.get_player_group_idx()
+		)
+		# click signal listener
+		slot_instance.slot_clicked.connect(slot_buff_clicked)
+
+		# buff slot timer init
+		if buff.cooldown > 0:
+			slot_instance.timer = buff.cool_down_timer
+			# slot_instance.timer.timeout.connect(_on_slot_timer_timeout.bind(slot_instance))
+			slot_instance.progress_bar.max_value = buff.cooldown	
+
+			if buff.current_state == Buff.BUFF_STATE.Cool_Down:
+				slot_instance.progress_bar.value = buff.cool_down_timer.time_left
+				slot_instance.progress_bar.visible = true
+				slot_instance.set_process(true)
+
+		_slot_num += 1
+		return slot_instance					
+
+
 	func add_elements(elements: Array, hook: Callable):
 		
 		for element: Buff in elements:
-			if is_instance_valid(element) and _slot_num < 16 * 2:
+			if is_instance_valid(element) and _slot_num < 20:
 				var buff_slot_instance: BaseSlot = super.add_element(str(element.get_instance_id()), _buff_bar, add_element_hook)
 				
 				if element != null and is_instance_valid(element) and buff_slot_instance != null and is_instance_valid(buff_slot_instance):
@@ -264,6 +303,7 @@ class BuffBarComponent extends BaseBarComponent:
 
 					# buff timer init
 					buff_slot_instance.timer = element.cool_down_timer
+					# buff_slot_instance.timer.timeout.connect(_on_slot_timer_timeout.bind(buff_slot_instance))
 					buff_slot_instance.progress_bar.max_value = element.cooldown
 
 					# 如果 buff 有冷却时间
@@ -293,9 +333,10 @@ class BuffBarComponent extends BaseBarComponent:
 	
 	
 	func add_element_hook(ab: ActionBar, bs: BaseSlot):
-		bs.slot_clicked.connect(slot_item_clicked)
+		bs.slot_clicked.connect(slot_buff_clicked)
 		
-		
-	func slot_item_clicked(slot: BaseSlot):
+
+
+	func slot_buff_clicked(slot: BaseSlot):
 		print("slot print %s" % [slot.name])
 	
