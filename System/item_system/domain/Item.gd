@@ -51,6 +51,11 @@ var slot: BaseSlot
 @export var item_script: Script
 var item_script_instance: Variant
 
+@export_group("Skill Buff")
+# Buff（实例化后的buff列表）
+var buff_map: Dictionary = {}
+
+
 
 # Timer
 var cool_down_timer: Timer

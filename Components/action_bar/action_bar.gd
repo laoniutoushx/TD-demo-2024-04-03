@@ -30,6 +30,11 @@ func _ready() -> void:
 	item_bar_comp = ItemBarComponent.new(self)
 	skill_bar_comp = SkillBarComponent.new(self)
 	buff_bar_comp = BuffBarComponent.new(self)
+
+	add_child(selection_bar_comp)
+	add_child(item_bar_comp)
+	add_child(skill_bar_comp)
+	add_child(buff_bar_comp)
 	
 
 func register_active(cale: Callable):
@@ -147,6 +152,10 @@ class BaseBarComponent extends Node:
 		_slot_ps = action_bar.slot
 		_icon_res_container = ActionBar.icon_res_container
 
+	
+	func _ready() -> void:
+		pass
+
 		
 	func add_element(id: String, _bar: GridContainer, hook: Callable = func(ab: ActionBar, bs: BaseSlot): pass) -> BaseSlot:
 		# 只保留类型为 BaseUnit 且是 玩家所属单位
@@ -219,6 +228,24 @@ class SelectionBarComponent extends BaseBarComponent:
 
 # BUFF BAR	
 class BuffBarComponent extends BaseBarComponent:
+
+
+	func _ready() -> void:
+		super._ready()
+
+		# 监听 buff enter 事件
+		SignalBus.buff_enter.connect(_on_buff_enter)
+		SignalBus.buff_exit.connect(_on_buff_exit)
+
+
+	func _on_buff_enter(buff: Buff):
+		add_elements([buff], func(): )
+
+
+	func _on_buff_exit(buff: Buff):
+		remove_element(buff)
+
+
 	func add_elements(elements: Array, hook: Callable):
 		
 		for element: Buff in elements:
@@ -240,7 +267,7 @@ class BuffBarComponent extends BaseBarComponent:
 					buff_slot_instance.progress_bar.max_value = element.cooldown
 
 					# 如果 buff 有冷却时间
-					if element.cooldown > 0:
+					if element.cool_down_timer and element.cooldown > 0:
 						buff_slot_instance.progress_bar.value = element.cool_down_timer.time_left
 						buff_slot_instance.progress_bar.visible = true
 						buff_slot_instance.set_process(true)

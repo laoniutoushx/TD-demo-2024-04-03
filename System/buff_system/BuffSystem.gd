@@ -27,7 +27,7 @@ func create_buff_by_code(code: String) -> Object:
 
 ## 初始化 buff（通过 skill or item）
 ## ref skill or item resource
-func init_buff_for_unit_by_res(ref: Variant, unit: BaseUnit) -> Dictionary:
+func init_buff_for_unit_by_res(ref: Variant, ele: Variant) -> Dictionary:
 	var buff_instance_map = {}
 	var buff_reses
 	if ref is SkillMetaResource:
@@ -47,14 +47,14 @@ func init_buff_for_unit_by_res(ref: Variant, unit: BaseUnit) -> Dictionary:
 
 			# 2. 初始化 buff
 			buff_instance = CommonUtil.bean_properties_copy(buff_res, buff_instance)
-			buff_instance.reference_instance = unit
+			buff_instance.reference_instance = ele
 
 			print("value dir %s" % str(buff_instance.value_dir))
 			
 			buff_instance.res = buff_res
 
 			# 保存实例
-			unit.buff_map[buff_instance.get_instance_id()] = buff_instance
+			ele.buff_map[buff_instance.get_instance_id()] = buff_instance
 			buff_instance_map[buff_instance.get_instance_id()] = buff_instance
 
 
@@ -71,42 +71,48 @@ func _on_buff_exit(buff: Buff):
 
 	pass
 
+# func create_buff(buff_res: BuffResource):
+# 	if buff_res.buff_script:
+# 		var buff_instance: Buff = buff_res.buff_script.new()
+
+# 		# 2. 初始化 buff
+# 		buff_instance = CommonUtil.bean_properties_copy(buff_res, buff_instance)
+# 		buff_instance.reference_instance = ele
+
+# 		print("value dir %s" % str(buff_instance.value_dir))
+		
+# 		buff_instance.res = buff_res
+
 
 # buff apply 
-func apply(buff: Buff, reference: Variant):
+func apply(_buff: Buff, _reference: Variant):
+	# buff exclude level 处理
+	var buff: Buff = _buff.duplicate()
+	buff = CommonUtil.bean_properties_copy(_buff.res, buff)
+
+
 	# buff apply
-	if buff.apply(reference):
+	if buff.apply(_reference):
 		# 开启计时器
 		if buff.cooldown > 0 and buff.cool_down_timer:
+			buff.cool_down_timer.timeout.connect(remove.bind(buff, _reference))
 			buff.cool_down_timer.start()
 
-		# 挂接 buff
-		if reference is BaseUnit:
-			reference.buff_map[buff.get_instance_id()] = buff
+		# 添加到 buff action_bar ui 界面
+		SignalBus.buff_enter.emit(buff)
 
-		if reference is Skill:
-			(reference as Skill).unit.buff_map[buff.get_instance_id()] = buff
 
-		if reference is Item:
-			(reference as Item).unit.buff_map[buff.get_instance_id()] = buff
 
 
 # buff remove
-func remove(buff: Buff):
-	var reference = buff.reference_instance
+func remove(buff: Buff, reference: Variant):
 
-	if reference is BaseUnit:
-		reference.buff_map.erase([buff.get_instance_id()])
 
-	if reference is Skill:
-		(reference as Skill).unit.erase([buff.get_instance_id()])
+	if buff.remove(reference):
 
-	if reference is Item:
-		(reference as Item).unit.erase([buff.get_instance_id()])
-
-	if buff.remove():
+		# 移出 buff action_bar ui 界面
+		SignalBus.buff_exit.emit(buff)
 		buff.queue_free()
-
 
 
 # Inner Class

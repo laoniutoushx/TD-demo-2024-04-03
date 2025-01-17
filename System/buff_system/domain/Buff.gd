@@ -3,12 +3,12 @@ class_name Buff extends BuffTpl
 
 
 # Reference
-var res: BuffResource
+var res: BuffResource   # buff 元信息
 
-var entity: String     # 引用实例  (e.g. BaseUnit/Skill/LevelComp/Item/Buff)
+var entity: String      # 引用实例类型 Clazz  (e.g. BaseUnit/Skill/LevelComp/Item/Buff)
 var prop: String        # 实例对应属性名称
 
-var reference_instance: Variant        # 引用实例
+var reference_instance: Variant        # 引用实例（Skill、Item、Unit）
 
 
 
@@ -28,6 +28,7 @@ var reference_instance: Variant        # 引用实例
 
 # buff properity
 # 值单位类型
+var _value: float   # buff 记录的修改前的属性值
 @export var value: float
 @export var value_unit: BuffResource.VALUE_UNIT
 @export var value_dir: int:
@@ -61,24 +62,31 @@ var cool_down_timer: Timer
 func _ready() -> void:
     super._ready()
 
+    # 内部变量赋值 _value
+    _value = value
+
+
     # 初始化 buff timer
     cool_down_timer = Timer.new()
     cool_down_timer.wait_time = cooldown
     cool_down_timer.one_shot = true
-    cool_down_timer.timeout.connect(remove)
     add_child(cool_down_timer)
 
 
 
 func apply(_reference: Variant) -> bool:
 
-    if reference_instance and prop:
+    if _reference and prop:
+
+        # 添加到节点树
+        _reference.add_child(self)
+
         # 添加 buff
-        reference_instance.add_child(buff_instance)
+        # _reference.add_child(buff_instance)
 
         # reference_instance 属性值修改
-        var ref_val = reference_instance.get(prop)
-
+        var ref_val = _reference.get(prop)
+        _value = ref_val
 
 
         if value_unit == BuffResource.VALUE_UNIT.PERCENT:
@@ -96,7 +104,7 @@ func apply(_reference: Variant) -> bool:
                 ref_val -= value * value_dir
 
 
-        reference_instance.set(prop, ref_val)
+        _reference.set(prop, ref_val)
         return true
 
     return false
@@ -105,20 +113,19 @@ func apply(_reference: Variant) -> bool:
 
 
 
-func remove() -> bool:
+func remove(_reference: Variant) -> bool:
 
     # reference_instance 属性值修改
-    if reference_instance and prop:
-        var ref_val = reference_instance.get(prop)
-
+    if _reference and prop:
+        var ref_val = _reference.get(prop)
 
 
         if value_unit == BuffResource.VALUE_UNIT.PERCENT:
             if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-                ref_val -= ref_val * value / 100 * value_dir
+                ref_val = ref_val / (1.0 + value / 100 * value_dir)
 
             if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                ref_val += ref_val * value / 100 * value_dir
+                ref_val = ref_val * (1.0 + value / 100 * value_dir)
 
         elif value_unit == BuffResource.VALUE_UNIT.VALUE:
             if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
@@ -128,10 +135,12 @@ func remove() -> bool:
                 ref_val += value * value_dir
 
 
-        reference_instance.set(prop, ref_val)
+        _reference.set(prop, ref_val)
+        # 恢复为当前 buff 修改前的数值
+        # _reference.set(prop, _value)
 
         # 删除 buff
-        (reference_instance as Node).remove_child(buff_instance)
+        (_reference as Node).remove_child(self)
         return true
 
     return false        

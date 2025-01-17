@@ -7,6 +7,8 @@ var target: BaseUnit
 var slot: BaseSlot
 
 
+
+
 # meta info 
 @export_group("Skill Meta Steup")
 var id: StringName
@@ -65,6 +67,10 @@ var code: String
 # Skill Script Template( ClassDB )
 @export var skill_script: Script
 var skill_script_instance: Variant
+
+@export_group("Skill Buff")
+# Buff（实例化后的buff列表）
+var buff_map: Dictionary = {}
 
 
 # Timer
