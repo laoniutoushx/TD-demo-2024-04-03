@@ -234,6 +234,17 @@ class BuffBarComponent extends BaseBarComponent:
 						BaseSlot.SLOT_TYPE.BUFF, 
 						true
 					)
+
+					# buff timer init
+					buff_slot_instance.timer = element.cool_down_timer
+					buff_slot_instance.progress_bar.max_value = element.cooldown
+
+					# 如果 buff 有冷却时间
+					if element.cooldown > 0:
+						buff_slot_instance.progress_bar.value = element.cool_down_timer.time_left
+						buff_slot_instance.progress_bar.visible = true
+						buff_slot_instance.set_process(true)
+
 					_slot_num += 1
 					
 		

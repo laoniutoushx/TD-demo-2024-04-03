@@ -74,22 +74,26 @@ func _on_buff_exit(buff: Buff):
 
 # buff apply 
 func apply(buff: Buff, reference: Variant):
-	buff.apply(reference)
+	# buff apply
+	if buff.apply(reference):
+		# 开启计时器
+		if buff.cooldown > 0 and buff.cool_down_timer:
+			buff.cool_down_timer.start()
 
-	if reference is BaseUnit:
-		reference.buff_map[buff.get_instance_id()] = buff
+		# 挂接 buff
+		if reference is BaseUnit:
+			reference.buff_map[buff.get_instance_id()] = buff
 
-	if reference is Skill:
-		(reference as Skill).unit.buff_map[buff.get_instance_id()] = buff
+		if reference is Skill:
+			(reference as Skill).unit.buff_map[buff.get_instance_id()] = buff
 
-	if reference is Item:
-		(reference as Item).unit.buff_map[buff.get_instance_id()] = buff
+		if reference is Item:
+			(reference as Item).unit.buff_map[buff.get_instance_id()] = buff
 
 
 # buff remove
 func remove(buff: Buff):
 	var reference = buff.reference_instance
-
 
 	if reference is BaseUnit:
 		reference.buff_map.erase([buff.get_instance_id()])
@@ -100,8 +104,8 @@ func remove(buff: Buff):
 	if reference is Item:
 		(reference as Item).unit.erase([buff.get_instance_id()])
 
-
-	buff.remove()
+	if buff.remove():
+		buff.queue_free()
 
 
 

@@ -41,7 +41,7 @@ func initialize_skills(source_unit: BaseUnit, skill_metas: Array[SkillMetaResour
 		var skill: Skill = _initialize_skill(source_unit, skill_metas[idx], idx)
 
 		# 初始化 buff
-		SystemUtil.buff_system.init_buff_for_unit_by_res(skill.skill_meta_res, source_unit)
+		# SystemUtil.buff_system.init_buff_for_unit_by_res(skill.skill_meta_res, source_unit)
 
 		skill.unit = source_unit
 		if skill != null:

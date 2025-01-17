@@ -37,6 +37,8 @@ var reference_instance: Variant        # 引用实例
         else:
             value_dir = -1
 
+@export var cooldown: float            
+
 
 
 
@@ -54,6 +56,17 @@ var buff_instance: Variant
 # Timer
 var cool_down_timer: Timer
 
+
+
+func _ready() -> void:
+    super._ready()
+
+    # 初始化 buff timer
+    cool_down_timer = Timer.new()
+    cool_down_timer.wait_time = cooldown
+    cool_down_timer.one_shot = true
+    cool_down_timer.timeout.connect(remove)
+    add_child(cool_down_timer)
 
 
 

@@ -43,26 +43,27 @@ enum VALUE_UNIT {
     PERCENT,
     VALUE
 }
-
 enum VALUE_DIR {
     POSITIVE,
     NEGATIVE
 }
-
-
 @export var value: float = 0.0
 @export var value_unit: VALUE_UNIT
 @export var value_dir: VALUE_DIR = VALUE_DIR.POSITIVE
+
+@export var cooldown: float = -1.0
+
+
 
 
 
 @export var priority: int   # 优先级
 
 enum EXCLUDE_LEVEL {
-    NONE,       # 无（不允许任何叠加）
-    SELF,       # 自己（允许自己叠加）
-    TYPE,       # 同类BUFF（允许同类BUFF叠加）
-    ALL,        # 任意BUFF（允许任意BUFF叠加）
+    NONE,       # 无（允许任意BUFF叠加）
+    SELF,       # 自己（自己不可叠加）
+    TYPE,       # 同类BUFF（同类不可叠加）
+    ALL,        # 任意BUFF（不可和任何BUFF叠加）
 }
 @export var exclude_level: EXCLUDE_LEVEL = EXCLUDE_LEVEL.ALL   # 排除级别（叠加方式）
 
@@ -70,3 +71,6 @@ enum EXCLUDE_LEVEL {
 
 
 @export var buff_script: Script
+
+
+

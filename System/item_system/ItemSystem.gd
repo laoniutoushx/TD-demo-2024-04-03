@@ -25,7 +25,7 @@ func initialize_items(source_unit: BaseUnit, item_metas: Array[ItemResource]) ->
 		var item: Item = _initialize_item(source_unit, item_metas[idx], idx)
 
 		# 初始化 buff
-		SystemUtil.buff_system.init_buff_for_unit_by_res(item.item_res, source_unit)
+		# SystemUtil.buff_system.init_buff_for_unit_by_res(item.item_res, source_unit)
 
 		item.unit = source_unit
 		if item != null:
