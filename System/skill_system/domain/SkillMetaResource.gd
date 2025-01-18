@@ -35,14 +35,16 @@ class_name SkillMetaResource extends Resource
 @export var level_up_gap: int = 1
 @export var max_level: int = 3
 
+# 自动施法
+@export var auto_release: bool = false
 # 冷却时间
 @export var cooldown: float = 1.0
 # 魔法消耗
-@export var mana_cost: float = 10.0
+@export var mana_cost: float = -1
 # 木材消耗
-@export var wood_cost: float = 10.0
+@export var wood_cost: float = -1
 # 金钱消耗
-@export var money_cost: float = 10.0
+@export var money_cost: float = -1
 # 技能伤害范围
 @export var damage_range: float = 5.0
 # 技能匹配目标对象范围

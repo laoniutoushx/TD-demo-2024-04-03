@@ -163,4 +163,4 @@ func _on_mouse_exited() -> void:
 func _process(delta: float) -> void:
 	if timer:
 		progress_bar.value = timer.time_left
-		print(timer.time_left)
+		# print(timer.time_left)

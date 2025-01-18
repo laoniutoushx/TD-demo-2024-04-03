@@ -1,0 +1,63 @@
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=8 format=3 uid="uid://c4aggapaqdacr"]
+
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_uq73k"]
+[ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="2_knc3n"]
+[ext_resource type="Script" path="res://System/skill_system/resources/effect/slow_power.gd" id="3_5xmgm"]
+[ext_resource type="Script" path="res://System/buff_system/resources/power_buff.gd" id="3_suvox"]
+[ext_resource type="Script" path="res://addons/script_property_selector/property_selector_resource.gd" id="4_8hlgh"]
+
+[sub_resource type="Resource" id="Resource_wqbbn"]
+script = ExtResource("4_8hlgh")
+selected_script_name = ""
+selected_properties = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_12f74"]
+script = ExtResource("2_knc3n")
+id = &""
+code = "slow_move_power"
+entity = ""
+prop = "move_speed"
+property_selector = SubResource("Resource_wqbbn")
+type = 2
+title = "降低移动速度"
+desc = "降低移动速度"
+icon_path = "8"
+value = -50.0
+value_unit = 0
+value_dir = 1
+cooldown = -1.0
+priority = 1
+exclude_level = 0
+buff_script = ExtResource("3_suvox")
+
+[resource]
+script = ExtResource("1_uq73k")
+code = "slow_power"
+title = "减速"
+desc = "降低目标 ${value}% 移动速度"
+icon_path = "1158"
+level = 1
+level_up_gap = 1
+max_level = 3
+auto_release = true
+cooldown = 11.0
+mana_cost = -1.0
+wood_cost = -1.0
+money_cost = -1.0
+damage_range = 5.0
+match_range = 30.0
+range = 10.0
+release_distance = 10.0
+stock = 1
+value = 100.0
+init_num = 1
+internal_time = 0.2
+start_time = 0.1
+end_time = 0.1
+wave = 5
+release_type = 2
+target_type = 4
+effect_type = 8
+skill_script = ExtResource("3_5xmgm")
+skill_level_config = Array[ExtResource("1_uq73k")]([])
+skill_buff_config = Array[ExtResource("2_knc3n")]([SubResource("Resource_12f74")])

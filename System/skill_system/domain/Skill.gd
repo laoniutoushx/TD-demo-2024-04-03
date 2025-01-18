@@ -21,12 +21,16 @@ var code: String
 @export var level: int = 1
 @export var max_level: int = 3
 
+# 自动施法
+@export var auto_release: bool
 # 冷却时间
 @export var cooldown: float = 1.0
 # 魔法消耗
-@export var mana_cost: float = 10.0
-@export var wood_cost: float = 10.0
-@export var money_cost: float = 10.0
+@export var mana_cost: float = -1
+# 木材消耗
+@export var wood_cost: float = -1
+# 金钱消耗
+@export var money_cost: float = -1
 # 技能伤害范围
 @export var damage_range: float = 5.0
 # 技能匹配目标对象范围（目标搜索范围，例如 light_chain 下一个目标匹配范围）
@@ -108,6 +112,9 @@ func _ready() -> void:
     cool_down_timer.autostart = false
     cool_down_timer.wait_time = cooldown
     add_child(cool_down_timer)
+
+    if auto_release:
+        change_state(SKILL_STATE.Release)
 
 
 
@@ -360,19 +367,23 @@ func change_state(new_state: SKILL_STATE) -> void:
             # releasing
             SystemUtil.skill_system.release(skill_context)
             
-            change_state(SKILL_STATE.Cool_Down)
+            if cooldown > -1:
+                change_state(SKILL_STATE.Cool_Down)
+            else:
+                change_state(SKILL_STATE.Idle)
 
 
 
         SKILL_STATE.Cool_Down:
-            slot.progress_bar.visible = true
-            cool_down_timer.start()
-            slot.set_process(true)
-            await cool_down_timer.timeout
-            if is_instance_valid(slot) and is_instance_valid(slot.progress_bar):
-                slot.progress_bar.visible = false
-            if is_instance_valid(slot):                
-                slot.set_process(false)
+            if slot:
+                slot.progress_bar.visible = true
+                cool_down_timer.start()
+                slot.set_process(true)
+                await cool_down_timer.timeout
+                if is_instance_valid(slot) and is_instance_valid(slot.progress_bar):
+                    slot.progress_bar.visible = false
+                if is_instance_valid(slot):                
+                    slot.set_process(false)
 
             
             change_state(SKILL_STATE.Idle)

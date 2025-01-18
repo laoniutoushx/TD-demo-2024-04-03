@@ -98,13 +98,13 @@ func apply(_buff: Buff, _reference: Variant):
 	# buff apply
 	if buff.apply(_reference):
 		# 开启计时器
-		if buff.cooldown > 0 and buff.cool_down_timer:
+		if buff.cooldown > 0:
 			buff.cool_down_timer.timeout.connect(remove.bind(buff, _reference))
 			buff.change_state(Buff.BUFF_STATE.Cool_Down)
 			# buff.cool_down_timer.start()
 
 		# 添加到 buff action_bar ui 界面
-		SignalBus.buff_enter.emit(buff)
+		SignalBus.buff_enter.emit(buff, _reference)
 
 
 
@@ -121,7 +121,7 @@ func remove(buff: Buff, _reference: Variant):
 	if buff.remove(_reference):
 
 		# 移出 buff action_bar ui 界面
-		SignalBus.buff_exit.emit(buff)
+		SignalBus.buff_exit.emit(buff, _reference)
 		buff.queue_free()
 
 

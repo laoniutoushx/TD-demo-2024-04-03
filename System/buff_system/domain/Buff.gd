@@ -41,7 +41,8 @@ var _value: float   # buff 记录的修改前的属性值
         else:
             value_dir = -1
 
-@export var cooldown: float            
+@export var cooldown: float     
+@export var max_overlay_num: int    
 
 # What state the turret is in
 enum BUFF_STATE {
@@ -73,12 +74,13 @@ func _ready() -> void:
     # 内部变量赋值 _value
     _value = value
 
-
-    # 初始化 buff timer
-    cool_down_timer = Timer.new()
-    cool_down_timer.wait_time = cooldown
-    cool_down_timer.one_shot = true
-    add_child(cool_down_timer)
+    # 当冷却时间大于 -1 ，表示当前 buff 需要开启倒计时
+    if cooldown > 0:
+        # 初始化 buff timer
+        cool_down_timer = Timer.new()
+        cool_down_timer.wait_time = cooldown
+        cool_down_timer.one_shot = true
+        add_child(cool_down_timer)
 
 
 func change_state(state: BUFF_STATE) -> void:

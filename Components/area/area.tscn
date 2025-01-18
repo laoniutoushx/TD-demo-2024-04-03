@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://biovay1gsom0n"]
+
+[ext_resource type="Script" path="res://Components/area/area.gd" id="1_n5bba"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ds2rc"]
+margin = 0.0
+height = 5.0
+
+[node name="Area" type="Area3D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_n5bba")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_ds2rc")
+disabled = true

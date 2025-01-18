@@ -18,6 +18,9 @@ var buff_bar_comp: BuffBarComponent
 
 var active_callback_list: Array[Callable] = []
 
+var active_unit: BaseUnit
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hide()
@@ -73,12 +76,17 @@ func hidden() -> void:
 func _on_player_select_units(unit_map: Dictionary, mouse_pos: Vector3, on_selected_player_status: PlayerController.PLAYER_STATUS) -> void:
 	if on_selected_player_status == PlayerController.PLAYER_STATUS.DEFAULT:
 		if unit_map.size() == 0:
+			# 默认激活单位
+			active_unit = null
 			# skill bar clear
 			close_skill_bar()
 			close_item_bar()
 			close_buff_bar()
 			hide()
 		else:
+			# 默认激活单位
+			active_unit = unit_map.values()[0]
+			# 显示 action_bar
 			display()
 			# selection bar
 			open_selection_bar(unit_map)
@@ -138,6 +146,9 @@ class BaseBarComponent extends Node:
 	var _selection_bar: GridContainer
 	var _buff_bar: GridContainer
 
+
+
+
 	var _slot_num = 0
 	
 	func _init(action_bar: ActionBar):
@@ -149,6 +160,8 @@ class BaseBarComponent extends Node:
 	
 		_slot_ps = action_bar.slot
 		_icon_res_container = ActionBar.icon_res_container
+
+
 
 	
 	func _ready() -> void:
@@ -236,12 +249,16 @@ class BuffBarComponent extends BaseBarComponent:
 		SignalBus.buff_exit.connect(_on_buff_exit)
 
 
-	func _on_buff_enter(buff: Buff):
-		add_elements([buff], func(): )
+	func _on_buff_enter(buff: Buff, _ref: Variant):
+		# 确认时当前激活单位，添加 buff 图标
+		if _action_bar.active_unit and _ref.get_instance_id() == _action_bar.active_unit.get_instance_id():
+			add_elements([buff], func(): )
 
 
-	func _on_buff_exit(buff: Buff):
-		remove_element(buff)
+	func _on_buff_exit(buff: Buff, _ref: Variant):
+		# 确认时当前激活单位，删除 buff 图标
+		if _action_bar.active_unit and _ref.get_instance_id() == _action_bar.active_unit.get_instance_id():
+			remove_element(buff)
 
 
 	# 装配 skill 时，需要检查 skill 状态，当 skill 处于 release 状态时，需要处理 progress_bar  等信息
