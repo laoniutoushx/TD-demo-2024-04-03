@@ -239,9 +239,15 @@ class ResourceLoaderUtil:
 static func is_flag_set(flag: int, bit_set: int) -> bool:
 	return (int(pow(2, flag)) & bit_set) != 0
 
+# 改进的 is_flag_set，使用位移运算，更高效
+# static func is_flag_set(flag: int, bit_set: int) -> bool:
+# 	return (1 << flag) & bit_set != 0	
+
 static func set_flag(flag: int) -> int:
 	return int(pow(2, flag))
 
+static func has_overlapping_flags(bit_set1: int, bit_set2: int) -> bool:
+	return (bit_set1 & bit_set2) != 0	
 
 # 将传入 bit_set 从 10 进制转为 2 进制，并取出二进制位为 1 的位置，根据位置获取 type 中对应的枚举值，拼接成字符串返回
 static func bit_set_to_str(bit_set: int, type_dict: Dictionary, split_str: String = ', ') -> String:

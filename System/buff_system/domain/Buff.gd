@@ -60,12 +60,12 @@ var current_state: BUFF_STATE = BUFF_STATE.Idle
 
 # buff logic action
 @export var buff_script: Script
+
+
+# Inner Variable
 var buff_instance: Variant
-
-
-# Timer
 var cool_down_timer: Timer
-
+var __buff_stack_num: int = 0     # buff 创建次数（程序内部调用）
 
 
 func _ready() -> void:
@@ -96,6 +96,10 @@ func change_state(state: BUFF_STATE) -> void:
 
 
 func apply(_reference: Variant) -> bool:
+    # buff exclude level 检查
+    if not is_fit_exclude_level(self, _reference):
+        print("buff code %s exclude level %s" % [self.code, self.exclude_level])
+        return false 
 
     if _reference and prop:
 
@@ -111,21 +115,24 @@ func apply(_reference: Variant) -> bool:
 
 
         if value_unit == BuffResource.VALUE_UNIT.PERCENT:
-            if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
+            # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
                 ref_val += ref_val * value / 100 * value_dir
 
-            if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                ref_val -= ref_val * value / 100 * value_dir
+            # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
+                # ref_val -= ref_val * value / 100 * value_dir
 
         elif value_unit == BuffResource.VALUE_UNIT.VALUE:
-            if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
+            # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
                 ref_val += value * value_dir
 
-            if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                ref_val -= value * value_dir
+            # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
+                # ref_val -= value * value_dir
 
 
         _reference.set(prop, ref_val)
+
+        # print("REF_VAL %s" % ref_val)
+
         return true
 
     return false
@@ -143,18 +150,18 @@ func remove(_reference: Variant) -> bool:
 
 
         if value_unit == BuffResource.VALUE_UNIT.PERCENT:
-            if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
+            # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
                 ref_val = ref_val / (1.0 + value / 100 * value_dir)
 
-            if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                ref_val = ref_val * (1.0 + value / 100 * value_dir)
+            # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
+                # ref_val = ref_val * (1.0 + value / 100 * value_dir)
 
         elif value_unit == BuffResource.VALUE_UNIT.VALUE:
-            if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
+            # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
                 ref_val -= value * value_dir
 
-            if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                ref_val += value * value_dir
+            # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
+                # ref_val += value * value_dir
 
 
         _reference.set(prop, ref_val)
@@ -163,6 +170,39 @@ func remove(_reference: Variant) -> bool:
 
         # 删除 buff
         (_reference as Node).remove_child(self)
+
+        # print("REF_VAL %s" % ref_val)
+
         return true
 
     return false        
+
+
+
+# 判断排除等级
+func is_fit_exclude_level(_buff: Buff, _reference: Variant) -> bool:
+    # 
+    if _buff.exclude_level == BuffResource.EXCLUDE_LEVEL.ALL:
+        return true
+
+    if _buff.exclude_level == BuffResource.EXCLUDE_LEVEL.TYPE:
+        # 获取已有第一个 buff
+        if _reference.buff_map.size() == 0:
+            return true
+
+        var bm: Buff = _reference.buff_map.values()[0]
+        if CommonUtil.has_overlapping_flags(_buff.type, bm.type):
+            return true	
+        else: 
+            return false
+
+    if _buff.exclude_level == BuffResource.EXCLUDE_LEVEL.SELF:
+        for bm: Buff in _reference.buff_map.values():
+            if bm.code != _buff.code:
+                return false
+        return true
+    
+    if _buff.exclude_level == BuffResource.EXCLUDE_LEVEL.NONE:
+        return _reference.buff_map.size() == 0
+
+    return true

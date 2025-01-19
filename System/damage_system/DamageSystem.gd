@@ -30,7 +30,7 @@ func _process(delta: float) -> void:
 
 
 func skill_damage(skill: Skill, source: BaseUnit, target:BaseUnit):
-	print("skill value: %s, skill name: %s " % skill.value, skill.title)
+	# print("skill value: %s, skill name: %s " % skill.value, skill.title)
 	target.take_damage(skill.value)
 
 

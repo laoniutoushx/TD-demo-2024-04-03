@@ -50,11 +50,10 @@ radius = 10.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_yf35w"]
 size = Vector3(1, 2.5, 1)
 
-[node name="Turret" type="Node3D" node_paths=PackedStringArray("level_component")]
+[node name="Turret" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_xflch")
 projectile = ExtResource("2_r6i4c")
-level_component = NodePath("LevelComp")
 
 [node name="TurretBase" type="MeshInstance3D" parent="."]
 mesh = SubResource("CylinderMesh_uu4co")

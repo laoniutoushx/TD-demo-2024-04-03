@@ -13,6 +13,7 @@ icon_path = "619"
 level = 0
 level_up_gap = 1
 max_level = 3
+auto_release = false
 cooldown = 1.0
 mana_cost = 10.0
 wood_cost = 10.0

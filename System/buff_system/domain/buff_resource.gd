@@ -53,7 +53,7 @@ enum VALUE_DIR {
 
 @export var cooldown: float = -1.0
 
-@export var max_overlay_num: int = -1
+@export var max_overlay_num: int = 1
 
 
 

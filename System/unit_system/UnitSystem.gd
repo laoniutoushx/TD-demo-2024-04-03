@@ -9,8 +9,8 @@ func _ready() -> void:
 
 func create_unit(unit_res: Resource, player_idx: int) -> BaseUnit:
 
-	print(unit_res.clz_code)
-	print(unit_res.get_class())
+	# print(unit_res.clz_code)
+	# print(unit_res.get_class())
 
 	return _unit_create(unit_res, player_idx)
 
@@ -40,14 +40,14 @@ func get_units_in_range(source_unit: BaseUnit, range: float, unit_type: BaseUnit
 			units_within_range.append(unit)
 
 
-	print("chain chain chain")
+	# print("chain chain chain")
 	if unit_type == BaseUnit.ARMOR_TYPE_ENUM.ENEMY:
 		for unit in units_within_range:
 			if unit and unit.owner and unit.owner is BaseUnit and !unit.owner.is_logic_dead() and SOS.main.player_controller.player_group_idx != unit.owner.player_group:
 				units.append(unit.owner)
 				print(unit.owner.clz_code)
 
-	print("chain chain chain")
+	# print("chain chain chain")
 	return units
 
 

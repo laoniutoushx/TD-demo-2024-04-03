@@ -99,7 +99,7 @@ func select_area_pos_sync(ray_cast: RayCast3D) -> void:
 		var distance_to_center = current_pos.distance_to(mouse_area_center)
 
 
-		print("distance to center %s, _radius %s" % [distance_to_center, SOS.main.player_controller.limit_radius])
+		# print("distance to center %s, _radius %s" % [distance_to_center, SOS.main.player_controller.limit_radius])
 
 		# 如果鼠标超出了圆形范围，将其位置限制到圆形边界
 		if distance_to_center  >= SOS.main.player_controller.limit_radius:
