@@ -6,7 +6,7 @@ class_name BuffSystem extends Node
 
 
 # 一个 buff 被添加到某个 实例的次数
-# key: buff_id -> instance_id -> count(*)
+# key: buff_code&instance_id -> count(*)
 var __buff_inst_counter: Dictionary = {}
 
 
@@ -72,15 +72,12 @@ func init_buff_for_unit_by_res(ref: Variant, ele: Variant) -> Dictionary:
 func apply(_buff: Buff, _reference: Variant):	
 
 	# buff 计数
-	if __buff_inst_counter.has(_buff.code):
-		var inst_count: Dictionary =__buff_inst_counter[_buff.code]
-		if inst_count.has(_reference.get_instance_id()):
-			inst_count[_reference.get_instance_id()] += 1
-		else:
-			inst_count[_reference.get_instance_id()] = 1
+	var _id = str(_buff.code) + "&" + str(_reference.get_instance_id())
+	if __buff_inst_counter.has(_id):
+		__buff_inst_counter[_id] += 1
 	else:
-		__buff_inst_counter[_buff.code] = {}
-		__buff_inst_counter[_buff.code][_reference.get_instance_id()] = 1
+		__buff_inst_counter[_id] = 1
+
 
 	# 进入后，处理 buff 计数
 	print("buff enter %s" % __buff_inst_counter)	
@@ -123,43 +120,41 @@ func apply(_buff: Buff, _reference: Variant):
 	
 
 
-
-
 # buff remove
-func remove(buff: Buff, _reference: Variant):
+func remove(_buff: Buff, _reference: Variant):
 	# buff 计数（未达到最小数量时，不删除）
-	if __buff_inst_counter[buff.code][_reference.get_instance_id()] > 1:
-		__buff_inst_counter[buff.code][_reference.get_instance_id()] -= 1
+	var _id = str(_buff.code) + "&" + str(_reference.get_instance_id())
+	if __buff_inst_counter[_id] > 1:
+		__buff_inst_counter[_id] -= 1
 
 		# 退出时，处理 buff 计数
 		print("buff exit %s" % __buff_inst_counter)
 
 		return
 
-	_reference.buff_map.erase(buff.get_instance_id())
+	_reference.buff_map.erase(_buff.get_instance_id())
 
 	# 删除 buff 之前，停止 slot 引用 buff 的 timer 计时器
-	if buff.slot and is_instance_valid(buff.slot):
-		buff.slot.set_process(false)
+	if _buff.slot and is_instance_valid(_buff.slot):
+		_buff.slot.set_process(false)
 
-	if buff.remove(_reference):
+	if _buff.remove(_reference):
 
 		# 移出 buff action_bar ui 界面
-		SignalBus.buff_exit.emit(buff, _reference)
-		buff.queue_free()
+		SignalBus.buff_exit.emit(_buff, _reference)
+		_buff.queue_free()
+
+
 
 # buff 退出节点树
-func _on_buff_exiting_tree(buff: Buff, _reference: Variant):
-
-
+func _on_buff_exiting_tree(_buff: Buff, _reference: Variant):
 	# buff 计数
-	if __buff_inst_counter[buff.code][_reference.get_instance_id()] > 1:
-		__buff_inst_counter[buff.code][_reference.get_instance_id()] -= 1
+	var _id = str(_buff.code) + "&" + str(_reference.get_instance_id())
+	if __buff_inst_counter[_id] > 1:
+		__buff_inst_counter[_id] -= 1
 	else:
-		__buff_inst_counter[buff.code].erase(_reference.get_instance_id())
-
-		if __buff_inst_counter[buff.code].size() == 0:
-			__buff_inst_counter.erase(buff.code)		
+		__buff_inst_counter.erase(_id)
+	
 
 	# 退出时，处理 buff 计数
 	print("buff exit %s" % __buff_inst_counter)
