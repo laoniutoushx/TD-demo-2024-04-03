@@ -82,6 +82,10 @@ func apply(_buff: Buff, _reference: Variant):
 	# 进入后，处理 buff 计数
 	print("buff enter %s" % __buff_inst_counter)	
 
+	# 无论是否可以叠加，都应该增加 cooldown 时间
+	if _buff.cooldown > 0:
+		SignalBus.buff_cooldown_extend.emit(_buff, _reference)
+
 	# 叠加层数检查
 	if _buff.max_overlay_num > -1:
 		var buff_count = 0
@@ -150,10 +154,7 @@ func remove(_buff: Buff, _reference: Variant):
 func _on_buff_exiting_tree(_buff: Buff, _reference: Variant):
 	# buff 计数
 	var _id = str(_buff.code) + "&" + str(_reference.get_instance_id())
-	if __buff_inst_counter[_id] > 1:
-		__buff_inst_counter[_id] -= 1
-	else:
-		__buff_inst_counter.erase(_id)
+	__buff_inst_counter.erase(_id)
 	
 
 	# 退出时，处理 buff 计数

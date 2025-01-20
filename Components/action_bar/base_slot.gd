@@ -128,7 +128,22 @@ func do(active):
 		icon_texture.material.set_shader_parameter("modulate_color", Color.DIM_GRAY)
 		icon_texture.material.set_shader_parameter("show_border", false)
 		self.theme = slot_panel_container_unactive_theme
-	
+
+# 延长冷却时间
+func extend_cooldown(cooldown: float) -> void:
+	if timer:
+		timer.wait_time += cooldown
+		progress_bar.max_value = timer.wait_time
+		# 如果定时器正在运行，停止并重新启动
+		if timer.time_left > 0:
+			print("wait time %f, time left %f, recacualte time left %f" % [timer.wait_time, timer.time_left, timer.wait_time - timer.time_left])
+			var left_time = timer.wait_time - timer.time_left
+			# 停止定时器并重新设置剩余时间
+			timer.stop()
+			# print("time left %s" % str(timer.wait_time - timer.time_left))
+			timer.start(left_time)  # 重新启动定时器
+
+
 
 
 func _on_mouse_entered() -> void:

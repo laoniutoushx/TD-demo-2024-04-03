@@ -247,6 +247,7 @@ class BuffBarComponent extends BaseBarComponent:
 		# 监听 buff enter 事件
 		SignalBus.buff_enter.connect(_on_buff_enter)
 		SignalBus.buff_exit.connect(_on_buff_exit)
+		SignalBus.buff_cooldown_extend.connect(_on_buff_cooldown_extend)
 
 
 	func _on_buff_enter(buff: Buff, _ref: Variant):
@@ -259,6 +260,17 @@ class BuffBarComponent extends BaseBarComponent:
 		# 确认时当前激活单位，删除 buff 图标
 		if _action_bar.active_unit and _ref.get_instance_id() == _action_bar.active_unit.get_instance_id():
 			remove_element(buff)
+
+
+	func _on_buff_cooldown_extend(buff: Buff, _ref: Variant):
+		if _action_bar.active_unit and _ref.get_instance_id() == _action_bar.active_unit.get_instance_id():
+			# 延长 buff
+			# extend_slot_cooldown(buff)
+			for slot: BaseSlot in _buff_bar.get_children():
+				if slot.reference is Buff and slot.reference.code == buff.code:
+					slot.extend_cooldown(buff.cooldown)
+
+
 
 
 	# 装配 skill 时，需要检查 skill 状态，当 skill 处于 release 状态时，需要处理 progress_bar  等信息

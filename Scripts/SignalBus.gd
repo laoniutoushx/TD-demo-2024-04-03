@@ -34,3 +34,4 @@ signal building_floor_indicator_hide(skill_context: SkillContext)   # 建筑技�
 # Buff
 signal buff_enter(buff: Buff, _ref: Variant)   # buff 新增
 signal buff_exit(buff: Buff, _ref: Variant)    # buff 删除
+signal buff_cooldown_extend(buff: Buff, _ref: Variant)    # buff 删除
