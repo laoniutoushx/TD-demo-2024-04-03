@@ -1,0 +1,32 @@
+[gd_resource type="Skin" format=3 uid="uid://c517byfe3sd2u"]
+
+[resource]
+resource_name = "Skin"
+bind_count = 9
+bind/0/name = &"root"
+bind/0/bone = -1
+bind/0/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+bind/1/name = &"body"
+bind/1/bone = -1
+bind/1/pose = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, -0.00521345, 0)
+bind/2/name = &"tail.01"
+bind/2/bone = -1
+bind/2/pose = Transform3D(-1, 7.54244e-08, 1.30809e-07, -5.82077e-15, 0.866306, -0.499513, -1.50996e-07, -0.499513, -0.866306, -1.06197e-09, -0.00059613, 0.00703311)
+bind/3/name = &"ear.L"
+bind/3/bone = -1
+bind/3/pose = Transform3D(0.631568, 0, -0.775321, 0.613634, 0.611223, 0.49986, 0.473894, -0.791458, 0.386029, 0.00281368, -0.00339895, -0.00565915)
+bind/4/name = &"ear.R"
+bind/4/bone = -1
+bind/4/pose = Transform3D(0.631568, 0, 0.775321, -0.613634, 0.611223, 0.49986, -0.473894, -0.791458, 0.386029, -0.00281368, -0.00339895, -0.00565915)
+bind/5/name = &"leg.F.L"
+bind/5/bone = -1
+bind/5/pose = Transform3D(-1, 8.74228e-08, 0, 0, 0, -1, -8.74228e-08, -1, 0, 0.00192527, 0.00428221, -0.00205383)
+bind/6/name = &"leg.B.L"
+bind/6/bone = -1
+bind/6/pose = Transform3D(-1, 8.74228e-08, 0, 0, 0, -1, -8.74228e-08, -1, 0, 0.00228402, 0.00428221, 0.00287622)
+bind/7/name = &"leg.F.R"
+bind/7/bone = -1
+bind/7/pose = Transform3D(-1, 8.74228e-08, 0, 0, 0, -1, -8.74228e-08, -1, 0, -0.00192527, 0.00428221, -0.00205383)
+bind/8/name = &"leg.B.R"
+bind/8/bone = -1
+bind/8/pose = Transform3D(-1, 8.74228e-08, 0, 0, 0, -1, -8.74228e-08, -1, 0, -0.00228403, 0.00428221, 0.00287622)

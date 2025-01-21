@@ -301,9 +301,9 @@ class BuffBarComponent extends BaseBarComponent:
 
 		# buff slot timer init
 		if buff.cooldown > 0:
-			slot_instance.timer = buff.cool_down_timer
+			slot_instance.cimer = buff.cool_down_timer
 			# slot_instance.timer.timeout.connect(_on_slot_timer_timeout.bind(slot_instance))
-			slot_instance.progress_bar.max_value = buff.cooldown	
+			slot_instance.progress_bar.max_value = buff.cool_down_timer.wait_time	
 
 			if buff.current_state == Buff.BUFF_STATE.Cool_Down:
 				slot_instance.progress_bar.value = buff.cool_down_timer.time_left
@@ -331,7 +331,7 @@ class BuffBarComponent extends BaseBarComponent:
 					)
 
 					# buff timer init
-					buff_slot_instance.timer = element.cool_down_timer
+					buff_slot_instance.cimer = element.cool_down_timer
 					# buff_slot_instance.timer.timeout.connect(_on_slot_timer_timeout.bind(buff_slot_instance))
 					buff_slot_instance.progress_bar.max_value = element.cooldown
 

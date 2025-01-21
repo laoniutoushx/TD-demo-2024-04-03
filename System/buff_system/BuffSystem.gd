@@ -126,26 +126,27 @@ func apply(_buff: Buff, _reference: Variant):
 
 # buff remove
 func remove(_buff: Buff, _reference: Variant):
-	# buff 计数（未达到最小数量时，不删除）
-	var _id = str(_buff.code) + "&" + str(_reference.get_instance_id())
-	if __buff_inst_counter[_id] > 1:
-		__buff_inst_counter[_id] -= 1
+	# 当 buff 为永久 buff （cooldown == -1）时，检查 buff 计数
+	if _buff.cooldown == -1:
+		# buff 计数（未达到最小数量时，不删除）（只适合 范围类光辉类 buff）（单体延迟冷却时间类，这里到期后应该立即删除，后期没有机会再触发删除）
+		var _id = str(_buff.code) + "&" + str(_reference.get_instance_id())
+		if __buff_inst_counter[_id] > 1:
+			__buff_inst_counter[_id] -= 1
+			# 退出时，处理 buff 计数
+			print("buff exit %s" % __buff_inst_counter)
+			return
+	else:
+		# buff 可以倒计时，当前删除函数触发，则执行后续删除逻辑
+		pass
 
-		# 退出时，处理 buff 计数
-		print("buff exit %s" % __buff_inst_counter)
-
-		return
-
+	# 删除 reference 实体上关联的 buff 信息
 	_reference.buff_map.erase(_buff.get_instance_id())
 
-	# 删除 buff 之前，停止 slot 引用 buff 的 timer 计时器
-	if _buff.slot and is_instance_valid(_buff.slot):
-		_buff.slot.set_process(false)
-
 	if _buff.remove(_reference):
-
 		# 移出 buff action_bar ui 界面
 		SignalBus.buff_exit.emit(_buff, _reference)
+
+		# 删除 buff
 		_buff.queue_free()
 
 

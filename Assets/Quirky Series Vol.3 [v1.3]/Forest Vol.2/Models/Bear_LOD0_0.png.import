@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://cworhg3rvxlou"
+path.s3tc="res://.godot/imported/Bear_LOD0_0.png-b538ba5ac5addcf474f8d23ccd102e1e.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "8cc435d9b7c4a19ff6fa9a3624fb85f9"
+}
+
+[deps]
+
+source_file="res://Assets/Quirky Series Vol.3 [v1.3]/Forest Vol.2/Models/Bear_LOD0_0.png"
+dest_files=["res://.godot/imported/Bear_LOD0_0.png-b538ba5ac5addcf474f8d23ccd102e1e.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

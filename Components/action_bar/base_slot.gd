@@ -22,6 +22,7 @@ signal slot_clicked(s: BaseSlot)
 @onready var short_cut: Label = $ShortCut
 @onready var progress_bar: TextureProgressBar = $TextureProgressBar
 var timer: Timer
+var cimer: CommonUtil.Cimer
 
 static var action_bar: ActionBar
 
@@ -131,17 +132,10 @@ func do(active):
 
 # 延长冷却时间
 func extend_cooldown(cooldown: float) -> void:
-	if timer:
-		timer.wait_time += cooldown
-		progress_bar.max_value = timer.wait_time
-		# 如果定时器正在运行，停止并重新启动
-		if timer.time_left > 0:
-			print("wait time %f, time left %f, recacualte time left %f" % [timer.wait_time, timer.time_left, timer.wait_time - timer.time_left])
-			var left_time = timer.wait_time - timer.time_left
-			# 停止定时器并重新设置剩余时间
-			timer.stop()
-			# print("time left %s" % str(timer.wait_time - timer.time_left))
-			timer.start(left_time)  # 重新启动定时器
+	if cimer:
+		cimer.add_time(cooldown)
+		progress_bar.max_value = cimer.wait_time
+
 
 
 
@@ -179,3 +173,6 @@ func _process(delta: float) -> void:
 	if timer:
 		progress_bar.value = timer.time_left
 		# print(timer.time_left)
+	
+	if cimer:
+		progress_bar.value = cimer.time_left

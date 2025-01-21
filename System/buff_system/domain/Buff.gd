@@ -64,7 +64,7 @@ var current_state: BUFF_STATE = BUFF_STATE.Idle
 
 # Inner Variable
 var buff_instance: Variant
-var cool_down_timer: Timer
+var cool_down_timer: CommonUtil.Cimer
 var __buff_stack_num: int = 0     # buff 创建次数（程序内部调用）
 
 
@@ -77,9 +77,7 @@ func _ready() -> void:
     # 当冷却时间大于 -1 ，表示当前 buff 需要开启倒计时
     if cooldown > 0:
         # 初始化 buff timer
-        cool_down_timer = Timer.new()
-        cool_down_timer.wait_time = cooldown
-        cool_down_timer.one_shot = true
+        cool_down_timer = CommonUtil.create_timer(cooldown)
         add_child(cool_down_timer)
 
 

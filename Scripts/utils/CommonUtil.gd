@@ -41,7 +41,7 @@ static func delay_execution(delay: float, callback: Callable):
 
 		timer.timeout.connect(callable.bind(root, timer, callback), CONNECT_ONE_SHOT)
 		timer.start(delay)
-	pass
+
 
 
 func _process(delta: float) -> void:
@@ -296,3 +296,49 @@ static func arr_to_map(arr: Array) -> Dictionary:
 # 组件相关
 static func get_component_by_name(reference: Node, name: String) -> Variant:
 	return reference.find_child(name, true)
+
+
+
+
+# 自定义计时器
+static func create_timer(wait_time: float) -> Cimer:
+	return Cimer.new(wait_time)
+
+
+class Cimer extends Node:
+	var wait_time: float
+	var time_left: float
+
+	signal timeout
+
+	func _init(_wait_time: float) -> void:
+		self.wait_time = _wait_time
+		self.time_left = _wait_time
+
+	func _ready() -> void:
+		set_process(false)
+
+	
+	func start() -> void:
+		set_process(true)
+
+	func stop() -> void:
+		set_process(false)
+
+	func is_running() -> bool:
+		return is_processing()
+
+	func add_time(time: float) -> void:
+		wait_time += time
+		time_left += time
+
+	func _process(delta: float) -> void:
+		if time_left > 0:
+			time_left -= delta
+		else:
+			timeout.emit()
+			set_process(false)
+
+			await CommonUtil.await_timer(2)
+			queue_free()
+			

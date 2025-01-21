@@ -12,5 +12,3 @@ void fragment() {
 	EMISSION = emission_color.rgb * emission_amount;
 	ALPHA = pow(1.0 - dot(NORMAL, VIEW), rim_sharpness) * emission_color.a;
 }
-
-
