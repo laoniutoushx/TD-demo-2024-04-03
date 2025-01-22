@@ -16,7 +16,7 @@ dest_files=["res://.godot/imported/Cow.fbx-63a05f96721c54d0d8f2ca8ddd04a26f.scn"
 nodes/root_type=""
 nodes/root_name=""
 nodes/apply_root_scale=true
-nodes/root_scale=1.0
+nodes/root_scale=100.0
 nodes/import_as_skeleton_bones=false
 meshes/ensure_tangents=true
 meshes/generate_lods=true
@@ -26,7 +26,7 @@ meshes/lightmap_texel_size=0.2
 meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
-animation/fps=30
+animation/fps=60.0
 animation/trimming=true
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
@@ -7228,6 +7228,11 @@ _subresources={
 "slice_99/save_to_file/path": "",
 "slice_99/start_frame": 0,
 "slices/amount": 0
+}
+},
+"nodes": {
+"PATH:Armature/Skeleton3D": {
+"rest_pose/external_animation_library": null
 }
 }
 }

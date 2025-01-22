@@ -136,7 +136,7 @@ func remove(_buff: Buff, _reference: Variant):
 			print("buff exit %s" % __buff_inst_counter)
 			return
 	else:
-		# buff 可以倒计时，当前删除函数触发，则执行后续删除逻辑
+		# buff 可以倒计时，当前删除函数触发，执行后续删除逻辑
 		pass
 
 	# 删除 reference 实体上关联的 buff 信息

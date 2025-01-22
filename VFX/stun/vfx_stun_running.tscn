@@ -1,0 +1,80 @@
+[gd_scene load_steps=15 format=3 uid="uid://cppruxnoup3dr"]
+
+[ext_resource type="Texture2D" uid="uid://6t4t48fopqo2" path="res://VFX/stun/stun_imgs/eff_xuanyun_00000.png" id="1_h01bn"]
+[ext_resource type="Texture2D" uid="uid://ds8a1svijvj5t" path="res://VFX/stun/stun_imgs/eff_xuanyun_00001.png" id="2_psrp3"]
+[ext_resource type="Texture2D" uid="uid://naqsvesshij3" path="res://VFX/stun/stun_imgs/eff_xuanyun_00002.png" id="3_b6deh"]
+[ext_resource type="Texture2D" uid="uid://nv8d6ark6kqo" path="res://VFX/stun/stun_imgs/eff_xuanyun_00003.png" id="4_mhi1f"]
+[ext_resource type="Texture2D" uid="uid://qvxj7noshtj7" path="res://VFX/stun/stun_imgs/eff_xuanyun_00004.png" id="5_biyib"]
+[ext_resource type="Texture2D" uid="uid://cr3wjqmlqds5d" path="res://VFX/stun/stun_imgs/eff_xuanyun_00005.png" id="6_h1hjr"]
+[ext_resource type="Texture2D" uid="uid://ot86apqltn0q" path="res://VFX/stun/stun_imgs/eff_xuanyun_00006.png" id="7_8batp"]
+[ext_resource type="Texture2D" uid="uid://bebu0aam062e1" path="res://VFX/stun/stun_imgs/eff_xuanyun_00007.png" id="8_y7il2"]
+[ext_resource type="Texture2D" uid="uid://d4npnjej27o4u" path="res://VFX/stun/stun_imgs/eff_xuanyun_00008.png" id="9_5v2yg"]
+[ext_resource type="Texture2D" uid="uid://d16wo344d52ak" path="res://VFX/stun/stun_imgs/eff_xuanyun_00009.png" id="10_1bmud"]
+[ext_resource type="Texture2D" uid="uid://clvufdltajr18" path="res://VFX/stun/stun_imgs/eff_xuanyun_00010.png" id="11_amb27"]
+[ext_resource type="Texture2D" uid="uid://b2t4xf8oo1jgl" path="res://VFX/stun/stun_imgs/eff_xuanyun_00011.png" id="12_c8xrc"]
+
+[sub_resource type="GDScript" id="GDScript_077wa"]
+script/source = "extends Node3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n6j63"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_h01bn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_psrp3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_b6deh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_mhi1f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_biyib")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_h1hjr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_8batp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_y7il2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5v2yg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_1bmud")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_amb27")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_c8xrc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="VfxStunRunning" type="Node3D"]
+script = SubResource("GDScript_077wa")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+axis = 1
+sprite_frames = SubResource("SpriteFrames_n6j63")
+frame_progress = 0.689735

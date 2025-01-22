@@ -12,6 +12,8 @@ extends Resource
 
 @export var icon_path: String
 
+@export_range(0.0, 1.0) var aabb_scale: float = 1	# 通过参数修正 代码获取 aabb 尺寸偏差的问题 ？？ 
+
 enum ELEMENT_PHASE_STR{
 	木,
 	火,
@@ -34,6 +36,7 @@ enum ELEMENT_PHASE_STR{
 # create mesh outline
 @export var is_mesh_outline: bool = false
 @export var is_mesh_standing: bool = false
+
 
 # unit cost
 # 魔法消耗

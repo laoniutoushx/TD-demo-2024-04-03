@@ -29,9 +29,11 @@ func _health_bar_create():
 	await self.ready
 	var health_bar: HealthBar = preload("res://Components/health_bar/health_bar.tscn").instantiate()
 	var mesh_node = CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ)
-	var aabb = CommonUtil.get_scaled_aabb(mesh_node)
+	var aabb: AABB = CommonUtil.get_scaled_aabb(mesh_node)
+
+
 	var width = aabb.size.x
-	var height = aabb.size.y
+	var height = aabb.size.y * aabb_scale	# ☆ 此处特殊处理，手动修正部分导入模型 aabb 获取高度不匹配情况 （ BUG ？？）
 
 	var real_width = width
 	var real_height = height * health_bar.y_scale 
@@ -47,9 +49,11 @@ func _health_bar_create():
 	# 412px : 78px = 4
 	var w_w_scale = (health_bar_2d_width) / health_bar.get_health_bar2d_size().x
 	
-	health_bar.position.y = self.position.y + real_height
-
 	add_child(health_bar) 
+	# print("self.global_position.y %s" % self.global_position.y)
+	# print("height %s" % height)
+	health_bar.position.y = self.global_position.y + height
+
 	health_bar.prepare(max_health)
 	health_bar.resize(health_bar_2d_width, health_bar_2d_height, w_w_scale)
 

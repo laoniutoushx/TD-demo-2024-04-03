@@ -125,11 +125,33 @@ static func get_all_parent_node_by_node_type(node: Node, clazz: String) -> Array
 
 # 获取 transformed 之后的 aab
 static func get_scaled_aabb(mesh_instance: MeshInstance3D) -> AABB:
+	var mesh: Mesh = mesh_instance.mesh
+
 	var local_aabb = mesh_instance.mesh.get_aabb()
 	var basis = mesh_instance.global_transform.basis
 	var scale = basis.get_scale()
+
+	# print("local_aabb : %s" % local_aabb)
+	# print("basis : %s" % basis)
+	# print("scale : %s" % scale)
+
 	var scaled_aabb = AABB(local_aabb.position * scale, local_aabb.size * scale)
+	# print("scaled_aabb : %s" % scaled_aabb)
 	return scaled_aabb
+	
+# 获取 transformed 之后的 AABB
+# static func get_scaled_aabb(mesh_instance: MeshInstance3D) -> AABB:
+# 	var local_aabb = mesh_instance.mesh.get_aabb()  # 获取局部包围盒
+# 	var transform = mesh_instance.global_transform  # 获取全局变换
+# 	var scale = transform.basis.get_scale()  # 获取缩放因子
+
+# 	# 计算缩放后的包围盒
+# 	var scaled_position = local_aabb.position * scale
+# 	var scaled_size = local_aabb.size * scale
+# 	var scaled_aabb = AABB(scaled_position, scaled_size)
+
+# 	return scaled_aabb
+
 
 static func get_basic_scale(node: Node) -> Vector3:
 	var basis = node.global_transform.basis
