@@ -1,0 +1,85 @@
+[gd_scene load_steps=15 format=3 uid="uid://bg1lkqccck6ln"]
+
+[ext_resource type="Shader" uid="uid://drr4tfk0dv73p" path="res://VFX/projectiles/hammer/hammer_shader.tres" id="1_lp126"]
+[ext_resource type="Texture2D" uid="uid://jumgytthvsyy" path="res://addons/kenney_particle_pack/light_03.png" id="2_guwqp"]
+[ext_resource type="ArrayMesh" uid="uid://ethoxrsy15r5" path="res://Asserts/mesh/mjolnir.obj" id="2_l8n4n"]
+[ext_resource type="Shader" uid="uid://b77ms2mgesp1d" path="res://VFX/projectiles/hammer/hammer_spark.tres" id="4_4qpt6"]
+[ext_resource type="Texture2D" uid="uid://demtwfge20yb4" path="res://addons/kenney_particle_pack/spark_04.png" id="5_pscgw"]
+[ext_resource type="Texture2D" uid="uid://btpsylbkah4u1" path="res://addons/kenney_particle_pack/dirt_03.png" id="6_au8ww"]
+[ext_resource type="Script" path="res://Scripts/Trail3D.gd" id="6_rawme"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o3b3w"]
+render_priority = 0
+shader = ExtResource("1_lp126")
+shader_parameter/ColorParameter = Color(1, 1.5, 3, 1)
+shader_parameter/NoiseTexture = ExtResource("2_guwqp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_awkla"]
+gravity = Vector3(0, 0, 0)
+scale_min = 5.0
+scale_max = 5.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_adktr"]
+emission_shape_scale = Vector3(1, 0.5, 0.5)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = 1.07288e-05
+angle_max = 360.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j6te6"]
+render_priority = 0
+shader = ExtResource("4_4qpt6")
+shader_parameter/ColorParameter = Color(2, 2, 2, 1)
+shader_parameter/NoiseTexture = ExtResource("5_pscgw")
+
+[sub_resource type="QuadMesh" id="QuadMesh_yjg4k"]
+material = SubResource("ShaderMaterial_j6te6")
+size = Vector2(3, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1sjd2"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("6_au8ww")
+billboard_keep_scale = true
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_6ma0m"]
+
+[node name="Hammer" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+
+[node name="ham" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_o3b3w")
+amount = 1
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_awkla")
+draw_pass_1 = ExtResource("2_l8n4n")
+
+[node name="spark_light" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98475, 0)
+amount = 5
+lifetime = 5.0
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_adktr")
+draw_pass_1 = SubResource("QuadMesh_yjg4k")
+
+[node name="scope" type="GPUParticles3D" parent="."]
+visible = false
+
+[node name="Trail3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.37729, 0)
+material_override = SubResource("StandardMaterial3D_1sjd2")
+mesh = SubResource("ImmediateMesh_6ma0m")
+script = ExtResource("6_rawme")
+fromWidth = 1.0
+toWidth = 0.5
+startColor = Color(0, 0.59135, 0.975581, 0.681)
+endColor = Color(0.053, 0.575, 0.815, 0.059)

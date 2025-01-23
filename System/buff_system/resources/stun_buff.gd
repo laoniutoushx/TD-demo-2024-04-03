@@ -13,6 +13,12 @@ func _ready() -> void:
     # 添加 vfx 到单位
     _vfx = SystemUtil.vfx_system.create_vfx("stun", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
     _vfx.global_position = reference_instance.global_position
+
+    # 高度获取
+    if reference_instance is BaseUnit:
+        var height = CommonUtil.get_scaled_aabb_height(reference_instance)
+        _vfx.global_position.y += height
+
     add_child(_vfx)
 
 

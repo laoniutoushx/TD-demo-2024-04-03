@@ -138,19 +138,23 @@ static func get_scaled_aabb(mesh_instance: MeshInstance3D) -> AABB:
 	var scaled_aabb = AABB(local_aabb.position * scale, local_aabb.size * scale)
 	# print("scaled_aabb : %s" % scaled_aabb)
 	return scaled_aabb
+
+
 	
-# 获取 transformed 之后的 AABB
-# static func get_scaled_aabb(mesh_instance: MeshInstance3D) -> AABB:
-# 	var local_aabb = mesh_instance.mesh.get_aabb()  # 获取局部包围盒
-# 	var transform = mesh_instance.global_transform  # 获取全局变换
-# 	var scale = transform.basis.get_scale()  # 获取缩放因子
+# 获取 transformed 之后的 AABB 的 height 高度
+static func get_scaled_aabb_height(node: Node) -> float:
+	var mesh_instance: MeshInstance3D = get_first_node_by_node_type(node, Constants.MeshInstance3D_CLZ)
 
-# 	# 计算缩放后的包围盒
-# 	var scaled_position = local_aabb.position * scale
-# 	var scaled_size = local_aabb.size * scale
-# 	var scaled_aabb = AABB(scaled_position, scaled_size)
+	var local_aabb = mesh_instance.mesh.get_aabb()  # 获取局部包围盒
+	var transform = mesh_instance.global_transform  # 获取全局变换
+	var scale = transform.basis.get_scale()  # 获取缩放因子
 
-# 	return scaled_aabb
+	# 计算缩放后的包围盒
+	var scaled_position = local_aabb.position * scale
+	var scaled_size = local_aabb.size * scale
+
+	var height = scaled_size.y * mesh_instance.owner.aabb_scale
+	return height
 
 
 static func get_basic_scale(node: Node) -> Vector3:

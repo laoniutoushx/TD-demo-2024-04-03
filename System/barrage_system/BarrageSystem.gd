@@ -1,5 +1,4 @@
-extends Node
-class_name BarrageSystem
+class_name BarrageSystem extends Node
 
 var signal_dict = {}
 var projectile_res: PackedScene
@@ -9,7 +8,10 @@ func _ready() -> void:
 	projectile_res = preload("res://System/barrage_system/projectile.tscn")
 
 # 弹道执行
-func action(source, target):
+# source: BaseUnit
+# target: BaseUnit
+# projection: PackedScene 投射物
+func action(source, target, projection: PackedScene):
 
 	# TODO 不处理伤害，可以执行 等待，等待弹道完成后，触发
 
@@ -26,8 +28,8 @@ func action(source, target):
 		projectile_instance.source = source
 		projectile_instance.target = target
 		projectile_instance.fire_pos = get_fire_pos(source)
-		source.add_child(projectile_instance) 
 		projectile_instance.add_child(vfx_projectile_ins) 
+		source.add_child(projectile_instance) 
 		
 		
 		# 3. load projectile vfx destory scene instance
@@ -78,8 +80,8 @@ func action(source, target):
 # 寻找 fire_pos 节点，定义在 Metadata 当中（has_key fire_pos）
 func get_fire_pos(source):
 	var fire_pos_nodes: Array = find_nodes_by_meta(source, "fire_pos")
-	if fire_pos_nodes.size() == 1:
-		return fire_pos_nodes[0].global_position
+	if fire_pos_nodes and fire_pos_nodes.size() == 0:
+		return source.global_position
 	
 	# TODO 如果有多个发射位置，默认返回第一个，（后续有其他逻辑时处理）
 	return fire_pos_nodes[0].global_position

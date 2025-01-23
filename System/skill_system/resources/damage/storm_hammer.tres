@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=5 format=3 uid="uid://cefokvd7tj07l"]
+
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_d4hgj"]
+[ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="2_id2i7"]
+[ext_resource type="Script" path="res://System/skill_system/resources/damage/storm_hammer.gd" id="3_62inj"]
+[ext_resource type="Resource" uid="uid://x0wsml7ijl17" path="res://System/buff_system/resources/stun_buff.tres" id="3_bkawi"]
+
+[resource]
+script = ExtResource("1_d4hgj")
+code = "storm_hammer"
+title = "风暴之锤"
+desc = "释放一柄锤头砸向对方"
+icon_path = "620"
+level = 1
+level_up_gap = 1
+max_level = 3
+auto_release = false
+cooldown = 1.0
+mana_cost = -1.0
+wood_cost = -1.0
+money_cost = -1.0
+damage_range = 50.0
+match_range = 30.0
+range = 5.0
+release_distance = 20.0
+stock = -1
+init_num = 1
+internal_time = -1.0
+start_time = 0.1
+end_time = 0.1
+wave = 1
+release_type = 1
+target_type = 18
+effect_type = 1
+skill_script = ExtResource("3_62inj")
+skill_level_config = Array[ExtResource("1_d4hgj")]([])
+skill_buff_config = Array[ExtResource("2_id2i7")]([ExtResource("3_bkawi")])

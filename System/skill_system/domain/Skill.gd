@@ -42,8 +42,7 @@ var code: String
 @export var release_distance: float = 10.0
 # 技能点数（使用次数）
 @export var stock: int  = -1
-# 值
-@export var value: float
+
 
 # 技能内部控制变量
 @export_group("Skill Inner Steup") 
@@ -57,6 +56,8 @@ var code: String
 @export var end_time: float = 0.1
 # 技能轮次
 @export var wave: int = 1
+# 技能投射速度 米/秒
+@export var projection_speed: float = 1
 
 # consume 消耗
 # level up 

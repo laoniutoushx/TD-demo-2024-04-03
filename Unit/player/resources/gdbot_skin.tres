@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=10 format=3 uid="uid://sa00lx2hfecc"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=11 format=3 uid="uid://sa00lx2hfecc"]
 
 [ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_2sp2u"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_x8mob"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://f1j2insixtan" path="res://System/skill_system/resources/building/building_base_turret.tres" id="5_jcvry"]
 [ext_resource type="Resource" uid="uid://btoskpfy832ny" path="res://System/skill_system/resources/damage/fire_rain.tres" id="6_6vxlu"]
 [ext_resource type="Resource" uid="uid://dpnj33orc37b" path="res://System/skill_system/resources/damage/thunder_chain.tres" id="7_jsd2q"]
+[ext_resource type="Resource" uid="uid://cefokvd7tj07l" path="res://System/skill_system/resources/damage/storm_hammer.tres" id="10_semu7"]
 
 [resource]
 script = ExtResource("2_usrqw")
@@ -18,6 +19,7 @@ model_path = ExtResource("1_x8mob")
 title = "戈多"
 desc = "戈多"
 icon_path = "res://Asserts/Images/icon/player/gdbot.png"
+aabb_scale = 1.0
 element_phase = 31
 unit_move_type = 1
 unit_cate = 1
@@ -47,4 +49,4 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_2sp2u")]([ExtResource("2_2osqj")])
-skill_metas = Array[ExtResource("3_j65fo")]([ExtResource("7_jsd2q"), ExtResource("4_vdhal"), ExtResource("6_6vxlu"), ExtResource("5_jcvry")])
+skill_metas = Array[ExtResource("3_j65fo")]([ExtResource("7_jsd2q"), ExtResource("4_vdhal"), ExtResource("6_6vxlu"), ExtResource("5_jcvry"), ExtResource("10_semu7")])
