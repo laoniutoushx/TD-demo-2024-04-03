@@ -13,7 +13,7 @@ func action(source: BaseUnit, target:BaseUnit):
 	animation_action(source, target)
 	
 	# 1. 弹幕系统（源、目标
-	(SystemUtil.barrage_system as BarrageSystem).action(source, target)
+	(SystemUtil.barrage_system as BarrageSystem).action(source, target, null)
 	# 2. 计算伤害 buff 
 
 

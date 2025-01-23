@@ -55,6 +55,8 @@ class_name SkillMetaResource extends Resource
 @export var release_distance: float = 10.0
 # 技能点数（使用次数）
 @export var stock: int  = -1
+# 技能伤害值
+@export var value: float = 0.0
 
 
 

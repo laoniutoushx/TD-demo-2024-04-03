@@ -22,6 +22,8 @@ func action(skill_context: SkillContext) -> void:
 
         await handler.finished
 
+        handler.queue_free()
+
 
 
 
@@ -35,8 +37,8 @@ class InnerHandler extends Node3D:
     var source_unit: BaseUnit
     var target_unit: BaseUnit
 
-    var fire_pos: Vector3
-    var lerp_pos: float = 0
+    # 在 _process 函数中添加一个变量
+    var move_progress: float = 0.0
 
     func _init(skill_context: SkillContext) -> void:
         self.skill_context = skill_context
@@ -47,20 +49,27 @@ class InnerHandler extends Node3D:
     func projection_handler(point: Vector3) -> void:
 
 
-        vfx = SystemUtil.vfx_system.create_vfx("storm_hammer", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
-        vfx.global_position = source_unit.global_position
-        # vfx.rotate_x(90)
+        vfx = SystemUtil.vfx_system.create_vfx("hammer", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
+        vfx.global_position = Vector3(source_unit.global_position.x, 3, source_unit.global_position.z)
+        # vfx.rotate_z(90)
+        vfx.look_at(target_unit.global_position)
 
         self.add_child(vfx)
 
+        # var tween = create_tween()
+        # tween.tween_property(vfx, "global_position", target_unit.global_position, 0.5)
+        # await tween.finished
 
-    func _physics_process(delta: float) -> void:
-        if lerp_pos < 1: 
-            vfx.look_at(target_unit.global_position)
-            var mesh_node = CommonUtil.get_first_node_by_node_type(target_unit, Constants.MeshInstance3D_CLZ)
-            var aabb = CommonUtil.get_scaled_aabb(mesh_node)
-            var height = aabb.size.y
-            global_position = source_unit.global_position.lerp(Vector3(target_unit.global_position.x, height / 2.0, target_unit.global_position.z), lerp_pos)
-            lerp_pos += delta * skill.projection_speed
-        else:
-            finished.emit()
+
+
+    func _process(delta):
+        if target_unit:
+            move_progress = min(1.0, move_progress + skill.projection_speed * delta) # 限制在 0 到 1 之间
+            var target_pos = Vector3(target_unit.global_position.x, CommonUtil.get_scaled_aabb_height(target_unit) / 2, target_unit.global_position.z)
+            vfx.look_at(target_pos)
+            vfx.global_position = vfx.global_position.lerp(target_pos, move_progress) # vfx.global_position.lerp(target_unit.global_position, ease(move_progress, 1.0)) # ease(progress, curve)
+            # vfx.global_position = vfx.global_position.lerp(target_unit.global_position, move_progress) # ease(progress, curve)
+
+            if move_progress >= 0.97: # 使用 move_progress 判断是否到达
+                print("击中目标！")
+                finished.emit()

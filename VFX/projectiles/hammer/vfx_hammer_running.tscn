@@ -49,10 +49,9 @@ vertex_color_is_srgb = true
 albedo_texture = ExtResource("6_au8ww")
 billboard_keep_scale = true
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_6ma0m"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_2lh32"]
 
 [node name="Hammer" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 
 [node name="ham" type="GPUParticles3D" parent="."]
 material_override = SubResource("ShaderMaterial_o3b3w")
@@ -75,11 +74,11 @@ draw_pass_1 = SubResource("QuadMesh_yjg4k")
 visible = false
 
 [node name="Trail3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.37729, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.37729, 0)
 material_override = SubResource("StandardMaterial3D_1sjd2")
-mesh = SubResource("ImmediateMesh_6ma0m")
+mesh = SubResource("ImmediateMesh_2lh32")
 script = ExtResource("6_rawme")
 fromWidth = 1.0
 toWidth = 0.5
-startColor = Color(0, 0.59135, 0.975581, 0.681)
+startColor = Color(0, 0.588, 0.98, 0.92549)
 endColor = Color(0.053, 0.575, 0.815, 0.059)
