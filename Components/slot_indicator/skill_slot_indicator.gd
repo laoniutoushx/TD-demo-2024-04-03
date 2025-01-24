@@ -78,7 +78,7 @@ func _slot_info(_slot: BaseSlot) -> void:
 
 
 	# Functional
-	if skill.damage_value:
+	if skill.value:
 		damage.text = "伤害： %s" % str(skill.value)
 		damage.visible = true
 	else:

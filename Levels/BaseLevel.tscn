@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b6x0ifedubj2s"]
+[gd_scene load_steps=20 format=3 uid="uid://b6x0ifedubj2s"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_55flt"]
 [ext_resource type="MeshLibrary" uid="uid://b6ioecdsupr03" path="res://MeshLibraries/SpaceLibrary.tres" id="2_cnmp3"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bv2qhyy2b7sew" path="res://Unit/enemy/scenes/pig.tscn" id="9_3f0su"]
 [ext_resource type="Script" path="res://Scripts/controller/LevelController.gd" id="9_10et7"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="10_mdt28"]
+[ext_resource type="PackedScene" uid="uid://bg1lkqccck6ln" path="res://VFX/projectiles/hammer/vfx_hammer_running.tscn" id="10_q7emr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oopyi"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -162,3 +163,6 @@ transform = Transform3D(0.0863212, 0, 0.996267, 0, 1, 0, -0.996267, 0, 0.0863212
 
 [node name="Enemy5" parent="." instance=ExtResource("9_3f0su")]
 transform = Transform3D(0.0863212, 0, 0.996267, 0, 1, 0, -0.996267, 0, 0.0863212, 0, 0, 0)
+
+[node name="Hammer" parent="." instance=ExtResource("10_q7emr")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 36, 9, 11)

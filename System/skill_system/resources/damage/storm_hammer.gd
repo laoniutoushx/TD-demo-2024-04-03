@@ -50,26 +50,31 @@ class InnerHandler extends Node3D:
 
 
         vfx = SystemUtil.vfx_system.create_vfx("hammer", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
-        vfx.global_position = Vector3(source_unit.global_position.x, 3, source_unit.global_position.z)
-        # vfx.rotate_z(90)
-        vfx.look_at(target_unit.global_position)
+        # vfx.transform.basis = source_unit.transform.basis
+        # vfx.global_position = Vector3(0, 0, 5)
+        # vfx.rotate_x(-90)
+        # vfx.look_at(target_unit.global_position)
+        # vfx.look_at(Vector3(0, 0, 0), Vector3.FORWARD)
+
 
         self.add_child(vfx)
-
-        # var tween = create_tween()
-        # tween.tween_property(vfx, "global_position", target_unit.global_position, 0.5)
-        # await tween.finished
+        vfx.global_position = Vector3(source_unit.global_position.x, 2, source_unit.global_position.z)
+        # vfx.look_at(target_unit.global_position, Vector3(0, 0, -1) )
 
 
 
     func _process(delta):
         if target_unit:
-            move_progress = min(1.0, move_progress + skill.projection_speed * delta) # 限制在 0 到 1 之间
+            # 计算移动方向
             var target_pos = Vector3(target_unit.global_position.x, CommonUtil.get_scaled_aabb_height(target_unit) / 2, target_unit.global_position.z)
-            vfx.look_at(target_pos)
-            vfx.global_position = vfx.global_position.lerp(target_pos, move_progress) # vfx.global_position.lerp(target_unit.global_position, ease(move_progress, 1.0)) # ease(progress, curve)
+            var direction = (target_pos - vfx.global_position).normalized()
+
+            vfx.look_at(target_pos, Vector3.FORWARD)
+            vfx.global_position += (direction * delta * skill.projection_speed)
+            
+            # vfx.global_position = vfx.global_position.lerp(target_pos, move_progress) # vfx.global_position.lerp(target_unit.global_position, ease(move_progress, 1.0)) # ease(progress, curve)
             # vfx.global_position = vfx.global_position.lerp(target_unit.global_position, move_progress) # ease(progress, curve)
 
-            if move_progress >= 0.97: # 使用 move_progress 判断是否到达
+            if vfx.global_position.distance_to(target_pos) < 0.1:
                 print("击中目标！")
                 finished.emit()

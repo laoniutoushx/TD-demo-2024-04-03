@@ -417,6 +417,9 @@ func _process(delta: float) -> void:
                 # 遍历所有单位
                 for u_key in cur_unit_map.keys():
                     var _unit = cur_unit_map.get(u_key)
+                    
+                    if not _unit:
+                        continue
 
                     # 根据 skill target type 动态判断是否满足条件
                     if not _skill_target_unit_cond_matched(_unit):

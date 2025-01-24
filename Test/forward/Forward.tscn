@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://bbf1jprg7yy65"]
+
+[ext_resource type="Script" path="res://Test/forward/forward.gd" id="1_7gclk"]
+[ext_resource type="Script" path="res://Scripts/camera/camera.gd" id="2_ure5s"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_33uvc"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_48mtf"]
+sky_material = SubResource("ProceduralSkyMaterial_33uvc")
+
+[sub_resource type="Environment" id="Environment_h2icx"]
+background_mode = 2
+sky = SubResource("Sky_48mtf")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11ve5"]
+albedo_color = Color(0.310617, 0.310617, 0.310617, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_prk86"]
+material = SubResource("StandardMaterial3D_11ve5")
+size = Vector2(10, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3gd16"]
+albedo_color = Color(3, 3, 3, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ewcpo"]
+material = SubResource("StandardMaterial3D_3gd16")
+size = Vector3(0.3, 0.3, 0.3)
+
+[node name="Forward" type="Node3D"]
+script = ExtResource("1_7gclk")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_h2icx")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_prk86")
+
+[node name="FreeLookCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 1.6, 7)
+script = ExtResource("2_ure5s")
+
+[node name="Marker3D" type="Marker3D" parent="FreeLookCamera"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -10)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FreeLookCamera/Marker3D"]
+mesh = SubResource("BoxMesh_ewcpo")
