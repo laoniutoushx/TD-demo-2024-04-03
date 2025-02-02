@@ -18,6 +18,7 @@ func action(skill_context: SkillContext) -> void:
 
 	for wave in range(skill.wave):
 
+		CommonUtil.play_audio(target_unit, "爆炸电类击中－mcx20070509_爱给网_aigei_com")
 
 		if wave == 0:
 			var handler = InnerHandler.new(skill_context)
