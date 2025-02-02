@@ -17,6 +17,8 @@ func action(skill_context: SkillContext) -> void:
 	var damaged_units = []
 
 	for wave in range(skill.wave):
+
+
 		if wave == 0:
 			var handler = InnerHandler.new(skill_context)
 			add_child(handler)

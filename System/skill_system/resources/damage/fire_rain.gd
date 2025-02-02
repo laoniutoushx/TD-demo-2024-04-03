@@ -13,6 +13,8 @@ func action(skill_context: SkillContext) -> void:
 
     for wave in range(skill.wave):
 
+        CommonUtil.play_audio(source_unit, "消防(Fire)_爱给网_aigei_com")
+
         # 初始数量
         var init_num: int = skill.init_num
         var target_position: Vector3 = skill_context.target_position

@@ -27,6 +27,13 @@ func action(skill_context: SkillContext) -> void:
 
     # TODO 逻辑耦合 buliding turret
     await tween.finished
+
+    # player building place audio
+    CommonUtil.play_audio(source_unit, "building-placing")
+
+    # 创建 AudioStreamPlayer 节点
+    var audio_player = AudioStreamPlayer.new()
+
     skill_context.callback.call()
     # fixed bug when player building another turret（status changed to building）
     building.change_state(Turret.TurretState.IDLE)

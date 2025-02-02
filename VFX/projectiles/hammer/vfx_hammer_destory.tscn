@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://d311pi513s4hn"]
+
+[ext_resource type="Texture2D" uid="uid://cuhc2vr8fsvlc" path="res://addons/kenney_particle_pack/star_09.png" id="1_em8sx"]
+[ext_resource type="Script" path="res://VFX/projectiles/hammer/vfx_hammer_destory.gd" id="1_kssxl"]
+
+[sub_resource type="Curve" id="Curve_bl3ni"]
+max_value = 2.0
+_data = [Vector2(0, 1.11444), 0.0, 2.033, 0, 0, Vector2(0.5, 1.60327), 0.0, 0.0, 0, 0, Vector2(0.972603, 0), -7.28012, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_mpiva"]
+curve = SubResource("Curve_bl3ni")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_quknb"]
+gravity = Vector3(0, 0, 0)
+scale_min = 5.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_mpiva")
+color = Color(1.4, 1.6, 2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jcg8d"]
+transparency = 1
+cull_mode = 2
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("1_em8sx")
+
+[sub_resource type="QuadMesh" id="QuadMesh_v4v62"]
+material = SubResource("StandardMaterial3D_jcg8d")
+
+[node name="Hammer" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+script = ExtResource("1_kssxl")
+
+[node name="Star" type="GPUParticles3D" parent="."]
+unique_name_in_owner = true
+emitting = false
+amount = 1
+lifetime = 0.3
+one_shot = true
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_quknb")
+draw_pass_1 = SubResource("QuadMesh_v4v62")

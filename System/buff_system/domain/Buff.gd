@@ -99,40 +99,44 @@ func apply(_reference: Variant) -> bool:
         print("buff code %s exclude level %s" % [self.code, self.exclude_level])
         return false 
 
-    if _reference and prop:
+    # 引用单位存在
+    if _reference: 
+        reference_instance = _reference
 
         # 添加到节点树
         _reference.add_child(self)
 
-        # 添加 buff
-        # _reference.add_child(buff_instance)
+        # 属性修改
+        if prop:
+            # 添加 buff
+            # _reference.add_child(buff_instance)
 
-        # reference_instance 属性值修改
-        var ref_val = _reference.get(prop)
-        _value = ref_val
-
-
-        if value_unit == BuffResource.VALUE_UNIT.PERCENT:
-            # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-                ref_val += ref_val * value / 100 * value_dir
-
-            # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                # ref_val -= ref_val * value / 100 * value_dir
-
-        elif value_unit == BuffResource.VALUE_UNIT.VALUE:
-            # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-                ref_val += value * value_dir
-
-            # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                # ref_val -= value * value_dir
+            # reference_instance 属性值修改
+            var ref_val = _reference.get(prop)
+            _value = ref_val
 
 
-        _reference.set(prop, ref_val)
+            if value_unit == BuffResource.VALUE_UNIT.PERCENT:
+                # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
+                    ref_val += ref_val * value / 100 * value_dir
 
-        # print("REF_VAL %s" % ref_val)
+                # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
+                    # ref_val -= ref_val * value / 100 * value_dir
+
+            elif value_unit == BuffResource.VALUE_UNIT.VALUE:
+                # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
+                    ref_val += value * value_dir
+
+                # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
+                    # ref_val -= value * value_dir
+
+
+            _reference.set(prop, ref_val)
+
+            # print("REF_VAL %s" % ref_val)
 
         return true
-
+    
     return false
 
         
@@ -143,33 +147,35 @@ func remove(_reference: Variant) -> bool:
 
     
     # reference_instance 属性值修改
-    if _reference and prop:
-        var ref_val = _reference.get(prop)
+    if _reference:
+
+        if prop:
+            var ref_val = _reference.get(prop)
 
 
-        if value_unit == BuffResource.VALUE_UNIT.PERCENT:
-            # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-                ref_val = ref_val / (1.0 + value / 100 * value_dir)
+            if value_unit == BuffResource.VALUE_UNIT.PERCENT:
+                # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
+                    ref_val = ref_val / (1.0 + value / 100 * value_dir)
 
-            # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                # ref_val = ref_val * (1.0 + value / 100 * value_dir)
+                # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
+                    # ref_val = ref_val * (1.0 + value / 100 * value_dir)
 
-        elif value_unit == BuffResource.VALUE_UNIT.VALUE:
-            # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-                ref_val -= value * value_dir
+            elif value_unit == BuffResource.VALUE_UNIT.VALUE:
+                # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
+                    ref_val -= value * value_dir
 
-            # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                # ref_val += value * value_dir
+                # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
+                    # ref_val += value * value_dir
 
 
-        _reference.set(prop, ref_val)
-        # 恢复为当前 buff 修改前的数值
-        # _reference.set(prop, _value)
+            _reference.set(prop, ref_val)
+            # 恢复为当前 buff 修改前的数值
+            # _reference.set(prop, _value)
 
-        # 删除 buff
-        (_reference as Node).remove_child(self)
+            # 删除 buff
+            (_reference as Node).remove_child(self)
 
-        # print("REF_VAL %s" % ref_val)
+            # print("REF_VAL %s" % ref_val)
 
         return true
 

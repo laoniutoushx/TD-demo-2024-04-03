@@ -31,6 +31,10 @@ func _ready() -> void:
 	SOS.main = self
 
 
+	# 加载音频资源
+	CommonUtil.load_resources_to_container_from_directory("res://Asserts/waves/")
+
+
 func _input(event: InputEvent) -> void:
 	for input_event_callable in input_event_callable_list:
 		input_event_callable.call(event)

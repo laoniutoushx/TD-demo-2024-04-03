@@ -183,14 +183,7 @@ static func create_outline_mesh(mesh_instance: MeshInstance3D, outline_width: fl
 	return outline_mesh
 
 
-# common resource get
-static func get_resource(file_name):
-	if ResourceLoaderUtil.contains_resource(file_name):
-		return ResourceLoaderUtil.get_resource(file_name)
 
-# common resource load
-static func load_resources_to_container_from_directory(path: String, container: Dictionary):
-	ResourceLoaderUtil.load_resources_to_container_from_directory(path, container)
 
 
 
@@ -214,6 +207,16 @@ static func bean_properties_copy(src: Object, tar: Object) -> Variant:
 	return tar
 
 
+# 资源处理
+# common resource get
+static func get_resource(file_name):
+	if ResourceLoaderUtil.contains_resource(file_name):
+		return ResourceLoaderUtil.get_resource(file_name)
+
+# common resource load
+static func load_resources_to_container_from_directory(path: String, container = null) -> void:
+	ResourceLoaderUtil.load_resources_to_container_from_directory(path, container)
+
 
 # Inner Class
 # Resource Loader
@@ -221,7 +224,7 @@ class ResourceLoaderUtil:
 	static var _common_container = {}
 
 	# 主函数：加载指定目录下的所有 .tres 和 .tscn 文件到指定容器（不指定容器则加载到默认 自定义容器中 _common_container ）
-	static func load_resources_to_container_from_directory(path, container: Dictionary) -> Dictionary:
+	static func load_resources_to_container_from_directory(path, container = null) -> Dictionary:
 		var dir = DirAccess.open(path)
 		
 		if dir:
@@ -231,7 +234,10 @@ class ResourceLoaderUtil:
 				if dir.current_is_dir():
 					# 递归处理子目录
 					load_resources_to_container_from_directory(dir.get_current_dir() + "/" + file_name, container if container != null else _common_container)
-				elif file_name.ends_with(".tres") or file_name.ends_with(".tscn") or file_name.ends_with("png") or file_name.ends_with("svg"):
+				elif (file_name.ends_with(".tres") or file_name.ends_with(".tscn") 
+					or file_name.ends_with("png") or file_name.ends_with("svg")
+					or file_name.ends_with("wav") or file_name.ends_with("mp3")
+					):
 					# 加载资源
 					var full_path = path + "/" + file_name
 					var resource = load(full_path)
@@ -367,4 +373,25 @@ class Cimer extends Node:
 
 			await CommonUtil.await_timer(2)
 			queue_free()
-			
+
+
+
+# 声音播放
+static func play_audio(place: Variant, audio_name: String, volume_db: float = 1.0):
+	# 创建 AudioStreamPlayer 节点
+	var audio_player = AudioStreamPlayer.new()
+	
+	# 加载音频资源
+	var sound_effect = get_resource(audio_name)
+	
+	# 设置音频资源
+	audio_player.stream = sound_effect
+	
+	# 将节点添加到场景中
+	place.add_child(audio_player)
+	
+	# 播放音频
+	audio_player.play()
+	
+	# 播放完成后自动释放节点
+	audio_player.finished.connect(audio_player.queue_free)

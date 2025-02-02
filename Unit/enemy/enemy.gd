@@ -8,15 +8,17 @@ class_name Enemy extends BaseUnit
 
 
 var is_finish = false
+var ap: AnimationPlayer
+
+
 
 func _ready() -> void:
 	super._ready()	
 	# 初始化时创建 path3d 与 pathfollow3d
 	
 	# 初始化 walk 动画
-	var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_name(self, "AnimationPlayer")
-	if ap:
-		ap.play(anim_run)
+	ap = CommonUtil.get_first_node_by_node_name(self, "AnimationPlayer")
+	change_state(EnemyState.WALKING)
 	
 	# health bar
 	_health_bar_create()
@@ -76,3 +78,68 @@ func take_damage(damage: float):
 #func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	#print("++++" + anim_name)
 	#pass # Replace with function body.
+
+
+# 状态机
+# state   idle（呆滞状态）
+enum EnemyState {
+	IDLE, WALKING, STUN, DEAD
+}
+var pre_state: EnemyState
+var current_state: EnemyState
+
+
+func _physics_process(delta: float) -> void:
+
+	if pre_state == EnemyState.STUN:
+		set_process(true)
+		if ap:
+			ap.play()
+
+	match current_state:		
+		EnemyState.IDLE:
+			pass
+
+		EnemyState.STUN:
+			pass
+
+		EnemyState.WALKING:
+			pass
+
+
+		EnemyState.DEAD:
+			pass
+
+
+
+
+
+
+func change_state(new_state: EnemyState) -> void:
+	pre_state = current_state
+	current_state = new_state
+
+	if current_state == EnemyState.IDLE:
+		# 初始化 idle 动画
+		if ap:
+			ap.play(anim_idle)
+
+
+	if current_state == EnemyState.STUN:
+		set_process(false)
+		if ap:
+			ap.play(anim_idle)
+
+
+
+	if current_state == EnemyState.WALKING:
+		# 初始化 walk 动画
+		if ap:
+			print(anim_run)
+			ap.play(anim_run)
+
+
+
+	if current_state == EnemyState.DEAD:
+		if ap:
+			ap.play(anim_death)

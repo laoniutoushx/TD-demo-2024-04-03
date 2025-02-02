@@ -104,13 +104,13 @@ func apply(_buff: Buff, _reference: Variant):
 
 	_reference.buff_map[buff.get_instance_id()] = buff
 
-	if _reference is BaseUnit:
+	if _reference is BaseUnit or _reference is Enemy:
 		buff.unit = _reference
 
 	# buff apply
 	if buff.apply(_reference):
 		# buff exit tree 绑定
-		buff.tree_exiting.connect(_on_buff_exiting_tree.bind(buff, _reference))
+		buff.tree_exiting.connect(_on_buff_exiting_tree.bind(buff, _reference), CONNECT_ONE_SHOT)
 
 		# 开启计时器
 		if buff.cooldown > 0:

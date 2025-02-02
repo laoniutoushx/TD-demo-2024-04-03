@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://bg1lkqccck6ln"]
+[gd_scene load_steps=17 format=3 uid="uid://bg1lkqccck6ln"]
 
 [ext_resource type="Shader" uid="uid://drr4tfk0dv73p" path="res://VFX/projectiles/hammer/hammer_shader.tres" id="1_lp126"]
+[ext_resource type="PackedScene" uid="uid://cghosnld32yev" path="res://Asserts/mesh/hammer/hammer.glb" id="1_nyt1y"]
 [ext_resource type="Texture2D" uid="uid://jumgytthvsyy" path="res://addons/kenney_particle_pack/light_03.png" id="2_guwqp"]
 [ext_resource type="ArrayMesh" uid="uid://ethoxrsy15r5" path="res://Asserts/mesh/mjolnir_gltf/mjolnir.obj" id="2_l8n4n"]
 [ext_resource type="Shader" uid="uid://b77ms2mgesp1d" path="res://VFX/projectiles/hammer/hammer_spark.tres" id="4_4qpt6"]
@@ -50,14 +51,20 @@ vertex_color_is_srgb = true
 albedo_texture = ExtResource("6_au8ww")
 billboard_keep_scale = true
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_lsgee"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_6klqo"]
 
 [node name="Hammer" type="Node3D"]
+transform = Transform3D(-4.37114e-08, -4.37114e-08, -1, -1, 1.91069e-15, 4.37114e-08, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="hammer" parent="." instance=ExtResource("1_nyt1y")]
+transform = Transform3D(41, 0, 0, 0, 41, 0, 0, 0, 41, 0, -9.68575e-08, 4.23378e-15)
 
 [node name="ham_inner" parent="." instance=ExtResource("8_bbdbi")]
-transform = Transform3D(41, 0, 0, 0, 41, 0, 0, 0, 41, 0, 0.1, 0)
+transform = Transform3D(41, 0, 0, 0, 41, 0, 0, 0, 41, 0, -2.9, 1.31134e-07)
+visible = false
 
 [node name="ham_out_shader" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 1.31134e-07)
 material_override = SubResource("ShaderMaterial_o3b3w")
 amount = 1
 fixed_fps = 60
@@ -66,7 +73,7 @@ process_material = SubResource("ParticleProcessMaterial_awkla")
 draw_pass_1 = ExtResource("2_l8n4n")
 
 [node name="spark_light" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98475, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0152501, 1.31134e-07)
 amount = 5
 lifetime = 5.0
 fixed_fps = 60
@@ -75,16 +82,17 @@ process_material = SubResource("ParticleProcessMaterial_adktr")
 draw_pass_1 = SubResource("QuadMesh_yjg4k")
 
 [node name="scope" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 1.31134e-07)
 visible = false
 
 [node name="Trail3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.37729, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.62271, 1.31134e-07)
 material_override = SubResource("StandardMaterial3D_1sjd2")
-mesh = SubResource("ImmediateMesh_lsgee")
+mesh = SubResource("ImmediateMesh_6klqo")
 script = ExtResource("6_rawme")
 fromWidth = 2.0
 toWidth = 0.5
 motionDelta = 0.01
-lifespan = 0.3
+lifespan = 0.5
 startColor = Color(0, 0.588, 0.98, 0.92549)
 endColor = Color(0.053, 0.575, 0.815, 0.059)
