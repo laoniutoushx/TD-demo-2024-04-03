@@ -1,14 +1,14 @@
 [gd_resource type="Resource" script_class="SkillMetaResource" load_steps=6 format=3 uid="uid://f1j2insixtan"]
 
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_iajld"]
-[ext_resource type="Resource" uid="uid://batuffvaegvkn" path="res://Unit/turret/resources/turret.tres" id="1_icxeo"]
-[ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Unit/turret/scenes/turret.tscn" id="1_tqfdc"]
+[ext_resource type="Resource" uid="uid://7n44576jnsc1" path="res://Unit/turret/resources/Bomber_1.tres" id="1_trj0x"]
+[ext_resource type="PackedScene" uid="uid://u1iq3xrerays" path="res://Unit/turret/scenes/Bomber_1.tscn" id="2_n6lj1"]
 [ext_resource type="Script" path="res://System/skill_system/resources/building/building_base_turret.gd" id="2_yfq8n"]
 [ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="4_0kk1c"]
 
 [resource]
 script = ExtResource("1_iajld")
-code = "building_base_turret"
+code = "building_base_turret_1"
 title = "基础塔"
 desc = "在指定位置建造一个防御塔"
 icon_path = "default"
@@ -25,16 +25,18 @@ match_range = 30.0
 range = 5.0
 release_distance = 10.0
 stock = 1
+value = 0.0
 init_num = 1
 internal_time = 0.1
 start_time = 0.1
 end_time = 0.1
 wave = 1
+projection_speed = 1.0
 release_type = 1
 target_type = 1
 effect_type = 4
 skill_script = ExtResource("2_yfq8n")
-building_scene = ExtResource("1_tqfdc")
-building_res = ExtResource("1_icxeo")
+building_scene = ExtResource("2_n6lj1")
+building_res = ExtResource("1_trj0x")
 skill_level_config = Array[ExtResource("1_iajld")]([])
 skill_buff_config = Array[ExtResource("4_0kk1c")]([])

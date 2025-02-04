@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://d0gdqu6mbcenv"
+path="res://.godot/imported/fireball_mesh.obj-bbb63ba3cbe646517dbe81772dd6e12b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/fireball_mesh.obj-bbb63ba3cbe646517dbe81772dd6e12b.mesh"]
+
+source_file="res://Asserts/mesh/fireball/fireball_mesh.obj"
+dest_files=["res://.godot/imported/fireball_mesh.obj-bbb63ba3cbe646517dbe81772dd6e12b.mesh", "res://.godot/imported/fireball_mesh.obj-bbb63ba3cbe646517dbe81772dd6e12b.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

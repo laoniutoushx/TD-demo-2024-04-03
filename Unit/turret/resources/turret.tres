@@ -38,6 +38,7 @@ attack_num = 1
 attack_value = 5.0
 unit_growth_factor = 1.0
 vfx_projectile_name = "fireball"
+anim_attack = null
 anim_run = "Armature|Jump"
 anim_walk = null
 anim_idle = null

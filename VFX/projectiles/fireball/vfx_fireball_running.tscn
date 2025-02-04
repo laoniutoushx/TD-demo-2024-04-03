@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://bpbawpm7sb5as"]
 
 [ext_resource type="Shader" uid="uid://5c03f0gttle5" path="res://VFX/projectiles/fireball/fireball_shader.tres" id="1_cohjf"]
-[ext_resource type="ArrayMesh" uid="uid://d0gdqu6mbcenv" path="res://Asserts/Models/projectiles/fireball/fireball_mesh.obj" id="2_qq4jm"]
+[ext_resource type="ArrayMesh" uid="uid://d0gdqu6mbcenv" path="res://Asserts/mesh/fireball/fireball_mesh.obj" id="2_qq4jm"]
 [ext_resource type="Shader" uid="uid://46a4ttq8mwju" path="res://VFX/projectiles/fireball/fire_header_shader.tres" id="3_oy2iu"]
 [ext_resource type="Material" uid="uid://2ya114uel4m3" path="res://VFX/projectiles/fireball/m_fire_trail.tres" id="4_b86em"]
 [ext_resource type="Texture2D" uid="uid://dayvoj8qjupx0" path="res://Asserts/textures/vfx/T_VFX_basic1.PNG" id="5_br3k4"]

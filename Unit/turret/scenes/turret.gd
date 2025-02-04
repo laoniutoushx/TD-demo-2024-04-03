@@ -1,8 +1,9 @@
 class_name Turret extends BaseUnit
 
-@export var projectile: PackedScene
-@onready var barrel: MeshInstance3D = $TurretBase/TurretTop/Visor/Barrel
-@onready var turret_top: MeshInstance3D = $TurretBase/TurretTop
+# @export var projectile: PackedScene
+# @onready var barrel: MeshInstance3D = $TurretBase/TurretTop/Visor/Barrel
+@export var turret_top: Node3D
+@export var fire_poses: Array[Node3D]
 
 
 
@@ -24,8 +25,6 @@ var current_state: TurretState
 func _ready() -> void:
 	super._ready()
 	current_state = TurretState.BUILDING
-	vfx_projectile_name = "fireball"
-	
 	
 
 
@@ -54,7 +53,9 @@ func _physics_process(delta: float) -> void:
 				current_state = TurretState.IDLE
 			else:
 				var target_direction = turret_top.global_position.direction_to(Vector3(current_enemy.position.x, turret_top.global_position.y, current_enemy.position.z))
+
 				var target_basis:Basis = Basis.looking_at(target_direction)
+
 				turret_top.basis = turret_top.basis.slerp(target_basis, acquire_slerp_progress)
 				acquire_slerp_progress += delta * turn_speed
 				if acquire_slerp_progress >= 0.97:
@@ -118,29 +119,55 @@ func attack(target) -> void:
 	#projectile_ins.target = current_enemy
 	#projectile_ins.starting_position = turret_top.global_position
 	#add_child(projectile_ins) 
-	
+
+	# animation play
+	var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(self, Constants.AnimationPlayer_CLZ)
+	if ap != null and ap.has_animation(anim_attack):
+		ap.play(anim_attack)
+
+	# projectile fire
 	(SystemUtil.damage_system as DamageSystem).action(self, current_enemy)
 	
 	pass
 
 
-func _on_area_3d_area_entered(area: Area3D) -> void:
-	# TODO 获取当前节点实例化场景的顶级节点
-	var enemy = area.owner
-	if enemy != null && enemy is BaseUnit && enemy.player_owner_idx != self.player_owner_idx && !enemy.is_logic_dead():
-		enemies[enemy.get_instance_id()] = enemy
-		(enemy as BaseUnit).logical_death.connect(_on_enemy_logic_death, CONNECT_ONE_SHOT)
+# func _on_area_3d_area_entered(area: Area3D) -> void:
+# 	# TODO 获取当前节点实例化场景的顶级节点
+# 	var enemy = area.owner
+# 	if enemy != null && enemy is BaseUnit && enemy.player_owner_idx != self.player_owner_idx && !enemy.is_logic_dead():
+# 		enemies[enemy.get_instance_id()] = enemy
+# 		(enemy as BaseUnit).logical_death.connect(_on_enemy_logic_death, CONNECT_ONE_SHOT)
 
 				
 
 
-func _on_area_3d_area_exited(area: Area3D) -> void:
+# func _on_area_3d_area_exited(area: Area3D) -> void:
+# 	var enemy = area.owner
+# 	if enemy != null:
+# 		enemies.erase(enemy.get_instance_id())
+# 		if enemy == current_enemy:
+# 			current_enemy = null
+
+
+
+
+func _on_attacking_scope_area_entered(area:Area3D) -> void:
+	# TODO 获取当前节点实例化场景的顶级节点
+	var enemy = area.owner
+	if enemy != null && enemy is BaseUnit && enemy.player_owner_idx != self.player_owner_idx && !enemy.is_logic_dead():
+		enemies[enemy.get_instance_id()] = enemy
+		(enemy as BaseUnit).logical_death.connect(_on_enemy_logic_death, CONNECT_ONE_SHOT)	
+
+
+
+func _on_attacking_scope_area_exited(area:Area3D) -> void:
 	var enemy = area.owner
 	if enemy != null:
 		enemies.erase(enemy.get_instance_id())
 		if enemy == current_enemy:
 			current_enemy = null
-					
+
+				
 
 
 
@@ -154,3 +181,6 @@ func _on_enemy_logic_death(enemy: BaseUnit) -> void:
 func change_state(new_state: TurretState) -> void:
 	pre_state = current_state
 	current_state = new_state
+
+
+

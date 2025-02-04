@@ -17,6 +17,7 @@ var PHYSIC_DEAD = "physic_dead:"
 
 
 # ANIMATION
+var ANIM_ATTACK = "attack"
 var ANIM_RUN = "running"
 var ANIM_WALK = "walk"
 var ANIM_IDEL = "idel"

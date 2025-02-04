@@ -65,6 +65,7 @@ enum ELEMENT_PHASE_STR{
 
 # ANIMATION
 @export_group("Animation")
+@export var anim_attack = Constants.ANIM_ATTACK
 @export var anim_run = Constants.ANIM_RUN
 @export var anim_walk = Constants.ANIM_WALK
 @export var anim_idle = Constants.ANIM_IDEL

@@ -79,6 +79,10 @@ func action(source, target, projection: PackedScene):
 
 # 寻找 fire_pos 节点，定义在 Metadata 当中（has_key fire_pos）
 func get_fire_pos(source):
+	if source is Turret and source.fire_poses and source.fire_poses.size() > 0:
+		return source.fire_poses[0].global_position
+
+
 	var fire_pos_nodes: Array = find_nodes_by_meta(source, "fire_pos")
 	if fire_pos_nodes and fire_pos_nodes.size() == 0:
 		return source.global_position
