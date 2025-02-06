@@ -1,11 +1,11 @@
 class_name BarrageSystem extends Node
 
 var signal_dict = {}
-var projectile_res: PackedScene
+var projectile_scene: PackedScene
 
 func _ready() -> void:
 	SystemUtil.barrage_system = self
-	projectile_res = preload("res://System/barrage_system/projectile.tscn")
+	projectile_scene = preload("res://System/barrage_system/projectile.tscn")
 
 # 弹道执行
 # source: BaseUnit
@@ -24,10 +24,12 @@ func action(source, target, projection: PackedScene):
 		# 2. 加载弹道场景
 		# append projectile vfx instance to project instance
 		
-		var projectile_instance: Node3D = projectile_res.instantiate()
+		var projectile_instance: Node3D = projectile_scene.instantiate()
 		projectile_instance.source = source
 		projectile_instance.target = target
 		projectile_instance.fire_pos = get_fire_pos(source)
+		projectile_instance.speed = source.projectile_speed
+		projectile_instance.damage = source.attack_value
 		projectile_instance.add_child(vfx_projectile_ins) 
 		source.add_child(projectile_instance) 
 		
@@ -69,7 +71,8 @@ func action(source, target, projection: PackedScene):
 		
 		# destory vfx create
 		var vfx_projectile_destory_ins: Node3D = (SystemUtil.vfx_system as VFXSystem).create_vfx(vfx_projectile_name, VFXSystem.VFX_TYPE.DESTORY)
-		vfx_projectile_destory_ins.global_position = vfx_projectile_destory_pos
+		if vfx_projectile_destory_ins:
+			vfx_projectile_destory_ins.global_position = vfx_projectile_destory_pos
 		#self.add_child(vfx_projectile_destory_ins) 	# 当前节点类型为 Node，self.add_child 可能无法正常工作
 		#print("global position: (%f, %f, %f)" % [parent_node.global_position.x, parent_node.global_position.y, parent_node.global_position.z])
 		get_parent().add_child(vfx_projectile_destory_ins)

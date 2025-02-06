@@ -6,8 +6,8 @@ var fire_pos: Vector3
 var lerp_pos: float = 0
 
 
-@export var speed: float
-@export var damage: float
+var speed: float
+var damage: float
 
 func _ready() -> void:
 	# 初始位置定位
@@ -19,12 +19,13 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if target != null and !target.is_logic_dead():
-		if lerp_pos < 1: 
-			self.look_at(target.global_position)
-			var mesh_node = CommonUtil.get_first_node_by_node_type(target, Constants.MeshInstance3D_CLZ)
-			var aabb = CommonUtil.get_scaled_aabb(mesh_node)
-			var height = aabb.size.y
-			global_position = fire_pos.lerp(Vector3(target.global_position.x, height / 2.0, target.global_position.z), lerp_pos)
+		if lerp_pos < 1:  
+			# 获取 target 高度
+			var height = CommonUtil.get_scaled_aabb_height(target)
+			var target_pos = Vector3(target.global_position.x, height / 2.0, target.global_position.z)
+
+			self.look_at(target_pos, Vector3.UP)
+			global_position = fire_pos.lerp(target_pos, lerp_pos)
 			lerp_pos += delta * speed
 		else:
 			queue_free()

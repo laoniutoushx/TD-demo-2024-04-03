@@ -190,6 +190,21 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_aukvx")
 
+[sub_resource type="Animation" id="Animation_u6idx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bomber_1/Node3D2/Bomber_1_Gun:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.56167, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_mymbn"]
 resource_name = "attack"
 length = 0.3
@@ -204,21 +219,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 1.56167, 0), Vector3(0, 1.562, 0.5), Vector3(0, 1.56167, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_u6idx"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Bomber_1/Node3D2/Bomber_1_Gun:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 1.56167, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q0ijy"]

@@ -57,8 +57,13 @@ var attack_range : float
 var attack_num : int
 var attack_value: float	# 伤害值
 var unit_growth_factor: float = 1.0     # 单位成长率
+var projectile_speed: float:	# 弹道速率
+	set (value):
+		projectile_speed = value / 100	# 取值缩小 100 倍
 
-
+# FightRegion
+var vfx_projectile_name: String
+var projectile_trace: Curve3D
 
 
 
@@ -118,10 +123,7 @@ var is_selected_circle: bool
 @export var level_component: LevelComp
 
 
-# FightRegion
-var vfx_projectile_name: String
-var projectile_speed: String
-var projectile_trace: Curve3D
+
 
 
 @export_group("Item")

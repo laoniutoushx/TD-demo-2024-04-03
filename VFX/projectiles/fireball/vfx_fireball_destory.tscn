@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://ey350w7b70mt"]
+[gd_scene load_steps=12 format=3 uid="uid://ey350w7b70mt"]
 
 [ext_resource type="Script" path="res://VFX/projectiles/fireball/vfx_fireball_destory.gd" id="1_cm757"]
+[ext_resource type="Texture2D" uid="uid://c2ube7sc0frfs" path="res://addons/kenney_particle_pack/light_01.png" id="2_5ipac"]
 
 [sub_resource type="Curve" id="Curve_4fmju"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.56012, 0.0, 0, 0]
@@ -42,6 +43,7 @@ disable_ambient_light = true
 disable_fog = true
 vertex_color_use_as_albedo = true
 vertex_color_is_srgb = true
+albedo_texture = ExtResource("2_5ipac")
 
 [sub_resource type="QuadMesh" id="QuadMesh_6nhg4"]
 lightmap_size_hint = Vector2i(2, 3)

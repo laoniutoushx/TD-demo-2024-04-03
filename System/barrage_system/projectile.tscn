@@ -5,5 +5,3 @@
 [node name="Projectile" type="Node3D"]
 top_level = true
 script = ExtResource("1_5cluh")
-speed = 2.0
-damage = 5.0
