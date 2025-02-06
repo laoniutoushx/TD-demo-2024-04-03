@@ -98,11 +98,11 @@ func _on_building_floor_indicator_show(_skill_context: SkillContext):
 		var cell_position = grid_map.map_to_local(cell)
 		if item_idx == 0:
 			if not cell_mesh_container.keys().has(cell_position):
-				cell_position.y += 0.3
+				cell_position.y += 1
 				var _cellmesh_instance = _create_cell_mesh_indicator_in_position(grid_map, cell_position)
 				cell_mesh_container[cell_position] = _cellmesh_instance
 
-	# 在鼠标位置创建 building model
+	# 在鼠标位置创建 building model 
 	if skill_context.skill.skill_meta_res.building_scene != null:
 		# turret = skill_context.skill.skill_meta_res.building_scene.instantiate()
 		turret = SystemUtil.unit_system.create_unit(skill_context.skill.skill_meta_res.building_res, 0)
