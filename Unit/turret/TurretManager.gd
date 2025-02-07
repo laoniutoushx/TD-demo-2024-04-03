@@ -59,11 +59,13 @@ func callable_build_turret(ray_cast_3d: RayCast3D, _grid_map: GridMap) -> void:
 				var cell =  _grid_map.local_to_map(point)
 				var cell_center_pos: Vector3 = _grid_map.map_to_local(cell)
 
-				# 同步建筑位置
-				turret.global_position = cell_center_pos
+				# 当前 _grid_map 没有 cell 格子
+				if _grid_map.get_cell_item(cell) == 0: 
+					# 同步建筑位置
+					turret.global_position = cell_center_pos
 
-				# 同步 cell indicator 位置
-				cell_mesh_indicator.global_position = Vector3(cell_center_pos.x, 2, cell_center_pos.z)
+					# 同步 cell indicator 位置
+					cell_mesh_indicator.global_position = Vector3(cell_center_pos.x, 2, cell_center_pos.z)
 
 				if Input.is_action_pressed("click"):
 

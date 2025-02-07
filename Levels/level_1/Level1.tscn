@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://bxibobasihqmy"]
+[gd_scene load_steps=32 format=4 uid="uid://bxibobasihqmy"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_elhju"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_umiea"]
@@ -13,8 +13,11 @@
 [ext_resource type="Texture2D" uid="uid://crlqhhh1vd1hf" path="res://Asserts/materials/PavingStones131_2K-JPG/Level1_slot0_normal_roughness.png" id="7_5b0jq"]
 [ext_resource type="Script" path="res://Scripts/controller/RTSController.gd" id="7_xmjyx"]
 [ext_resource type="Script" path="res://Waves/WaveManager.gd" id="8_iynip"]
+[ext_resource type="Texture2D" uid="uid://fyg6yshil7wl" path="res://Asserts/materials/Tiles130_2K-JPG/Tiles130_2K-JPG_Color.jpg" id="10_56d2c"]
 [ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI/ui.tscn" id="10_i7dqg"]
+[ext_resource type="Texture2D" uid="uid://bfc5ana2pdo7a" path="res://Asserts/materials/Tiles130_2K-JPG/Tiles130_2K-JPG_NormalGL.jpg" id="11_ixhyk"]
 [ext_resource type="PackedScene" uid="uid://cwdfip6pck67" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/TownCenter_SecondAge_Level2.gltf" id="12_at28j"]
+[ext_resource type="Texture2D" uid="uid://cqployapdqqit" path="res://Asserts/materials/Tiles130_2K-JPG/Tiles130_2K-JPG_Roughness.jpg" id="12_utomj"]
 [ext_resource type="PackedScene" uid="uid://cddhheg1d4j32" path="res://Components/action_bar/action_bar.tscn" id="13_sr2b3"]
 [ext_resource type="PackedScene" uid="uid://btv2y2tfng4ob" path="res://Unit/turret/TurretManager.tscn" id="14_d0au5"]
 [ext_resource type="PackedScene" uid="uid://m4qd1674r2ft" path="res://Test/3d grid shader/cube_mesh_shader/cell_mesh_tri_ind.tscn" id="14_g50c0"]
@@ -46,6 +49,12 @@ point_count = 5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rcpim"]
 albedo_color = Color(0.607843, 0.607843, 0.607843, 1)
+albedo_texture = ExtResource("10_56d2c")
+roughness = 0.0
+roughness_texture = ExtResource("12_utomj")
+normal_enabled = true
+normal_texture = ExtResource("11_ixhyk")
+uv1_scale = Vector3(0.1, 5, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mo400"]
 vertex_color_use_as_albedo = true
