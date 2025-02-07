@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dndniy0uyhijr"]
+[gd_scene load_steps=12 format=3 uid="uid://dndniy0uyhijr"]
 
 [ext_resource type="Material" uid="uid://cgaedihpqlmgm" path="res://Test/glow shader test 2/glow 3d.tres" id="1_bb3bm"]
 [ext_resource type="Material" uid="uid://ch7clb1tmb3w2" path="res://Test/glow shader test 2/glow 3d - chocked.tres" id="2_5hptg"]
+[ext_resource type="Material" uid="uid://ji40ky8fib46" path="res://Test/glow shader test 2/plane_edge_trans.tres" id="3_kdeeb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6wh7c"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -23,6 +24,17 @@ size = Vector2(5, 5)
 [sub_resource type="BoxMesh" id="BoxMesh_2pcbv"]
 material = ExtResource("2_5hptg")
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_4cg6s"]
+material = ExtResource("3_kdeeb")
+size = Vector2(4, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cnr50"]
+albedo_color = Color(0.233925, 0.233925, 0.233925, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_n4a2g"]
+material = SubResource("StandardMaterial3D_cnr50")
+size = Vector2(20, 20)
+
 [node name="Glow3d" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -41,3 +53,11 @@ transform = Transform3D(-0.479425, -0.786771, 0.388771, 0, 0.443002, 0.896521, -
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
 mesh = SubResource("BoxMesh_2pcbv")
+
+[node name="FreeSpace" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+mesh = SubResource("PlaneMesh_4cg6s")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("PlaneMesh_n4a2g")

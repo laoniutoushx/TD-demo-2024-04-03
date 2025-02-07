@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqrw2kioo1rfv"
-path.s3tc="res://.godot/imported/flame_04.png-5507bcc2902252793582e15c0c54dd79.s3tc.ctex"
+uid="uid://b2xxa4352fsrd"
+path.s3tc="res://.godot/imported/T_disort_test2.PNG-e225e945b2c43ece9fad4cb933e9e35c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/kenney_particle_pack/flame_04.png"
-dest_files=["res://.godot/imported/flame_04.png-5507bcc2902252793582e15c0c54dd79.s3tc.ctex"]
+source_file="res://addons/kenney_particle_pack/T_disort_test2.PNG"
+dest_files=["res://.godot/imported/T_disort_test2.PNG-e225e945b2c43ece9fad4cb933e9e35c.s3tc.ctex"]
 
 [params]
 

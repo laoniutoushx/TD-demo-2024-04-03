@@ -6,4 +6,4 @@
 render_priority = 0
 shader = ExtResource("1_53g32")
 shader_parameter/outline_color = Color(1, 1, 1, 1)
-shader_parameter/outline_width = 5.0
+shader_parameter/outline_width = 1.0

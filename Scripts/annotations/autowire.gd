@@ -1,3 +1,3 @@
-extends Annotation
+extends Node
 
 

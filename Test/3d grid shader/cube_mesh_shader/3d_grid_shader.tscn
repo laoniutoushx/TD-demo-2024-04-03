@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://wwxmnayfx22x"]
+
+[ext_resource type="Script" path="res://Scripts/camera/camera.gd" id="1_87tns"]
+[ext_resource type="MeshLibrary" uid="uid://b6ioecdsupr03" path="res://MeshLibraries/SpaceLibrary.tres" id="1_kygws"]
+[ext_resource type="ArrayMesh" uid="uid://qpo8pedgf133" path="res://Test/3d grid shader/cube_mesh_shader/no_top_bottom_cube.obj" id="2_ngmjx"]
+[ext_resource type="Shader" uid="uid://dvhhlfdrvshmg" path="res://Test/3d grid shader/cube_mesh_shader/3d_grid_shader.tres" id="2_pj73b"]
+[ext_resource type="Texture2D" uid="uid://c2ube7sc0frfs" path="res://addons/kenney_particle_pack/light_01.png" id="3_va5ia"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nigtk"]
+render_priority = 0
+shader = ExtResource("2_pj73b")
+shader_parameter/ColorParameter = Color(0.8, 2, 0.869, 1)
+shader_parameter/Speed = Vector2(-1, 0)
+shader_parameter/NoiseTexture = ExtResource("3_va5ia")
+
+[node name="3dGridShader" type="Node3D"]
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_kygws")
+cell_size = Vector3(4, 0.01, 4)
+data = {
+"cells": PackedInt32Array(0, 0, 0)
+}
+
+[node name="FreeLookCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, -0.110521, 10.851, 23.1072)
+script = ExtResource("1_87tns")
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 2, 2, 2)
+material_override = SubResource("ShaderMaterial_nigtk")
+mesh = ExtResource("2_ngmjx")

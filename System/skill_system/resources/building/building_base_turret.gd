@@ -32,7 +32,7 @@ func action(skill_context: SkillContext) -> void:
     CommonUtil.play_audio(source_unit, "building-placing")
 
     # 创建 AudioStreamPlayer 节点
-    var audio_player = AudioStreamPlayer.new()
+    # var audio_player = AudioStreamPlayer.new()
 
     skill_context.callback.call()
     # fixed bug when player building another turret（status changed to building）

@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://m4qd1674r2ft"]
+
+[ext_resource type="Shader" uid="uid://dvhhlfdrvshmg" path="res://Test/3d grid shader/cube_mesh_shader/3d_grid_shader.tres" id="1_rpy7j"]
+[ext_resource type="Texture2D" uid="uid://b0sxtqtnp28gp" path="res://addons/kenney_particle_pack/T_PerlinNoise_Tiled.png" id="2_e0upy"]
+[ext_resource type="ArrayMesh" uid="uid://qpo8pedgf133" path="res://Test/3d grid shader/cube_mesh_shader/no_top_bottom_cube.obj" id="3_qbjd0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nigtk"]
+render_priority = 0
+shader = ExtResource("1_rpy7j")
+shader_parameter/ColorParameter = Color(0.8, 5, 0.869, 1)
+shader_parameter/Speed = Vector2(-0.1, 0.2)
+shader_parameter/NoiseTexture = ExtResource("2_e0upy")
+
+[node name="CellMeshTriInd" type="MeshInstance3D"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 4, 0)
+material_override = SubResource("ShaderMaterial_nigtk")
+mesh = ExtResource("3_qbjd0")

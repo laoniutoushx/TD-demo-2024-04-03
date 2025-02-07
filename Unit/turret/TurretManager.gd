@@ -1,18 +1,27 @@
 class_name TurretManager extends Node3D
 
 var turret: BaseUnit
+var cell_mesh_indicator: MeshInstance3D
 var ray_picker: RayPicker
 var skill_context: SkillContext
+
+@export var cell_mesh_indicator_scene: PackedScene
 
 # 自定义 Annotation
 
 var chock_material: Material = preload("res://Test/glow shader test 2/glow 3d - chocked.tres")
 
+var cell_mesh_indicator_inst: MeshInstance3D
+
 var cell_mesh_container: Dictionary = {}
+
+
 
 func _ready() -> void:
 	SignalBus.building_floor_indicator_show.connect(_on_building_floor_indicator_show)
 	SignalBus.building_floor_indicator_hide.connect(_on_building_floor_indicator_hide)
+
+
 
 	# 依赖注入
 	SOS.main.turret_manager = self
@@ -40,18 +49,23 @@ func build_turret(position: Vector3, turret_code) -> void:
 # 注册 build_turret function 到 RayPicker
 func callable_build_turret(ray_cast_3d: RayCast3D, _grid_map: GridMap) -> void:
 	if turret:
-		# 同步建筑位置
-		turret.global_position = ray_cast_3d.get_collision_point()
+		var collision_point = ray_cast_3d.get_collision_point()
 
 		if ray_cast_3d.is_colliding():
 			var collider = ray_cast_3d.get_collider()
-			if collider is GridMap:
+			if collider is GridMap: 
+
+				var point = collision_point
+				var cell =  _grid_map.local_to_map(point)
+				var cell_center_pos: Vector3 = _grid_map.map_to_local(cell)
+
+				# 同步建筑位置
+				turret.global_position = cell_center_pos
+
+				# 同步 cell indicator 位置
+				cell_mesh_indicator.global_position = Vector3(cell_center_pos.x, 2, cell_center_pos.z)
 
 				if Input.is_action_pressed("click"):
-					# get_viewport().set_input_as_handled()
-					
-					var point = ray_cast_3d.get_collision_point()
-					var cell =  _grid_map.local_to_map(point)
 
 					# 当前 _grid_map 没有 cell 格子
 					if _grid_map.get_cell_item(cell) == 0: 
@@ -75,7 +89,7 @@ func callable_build_turret(ray_cast_3d: RayCast3D, _grid_map: GridMap) -> void:
 
 
 						# skill state chagne
-						var cell_center_pos: Vector3 = _grid_map.map_to_local(cell)
+						# var cell_center_pos: Vector3 = _grid_map.map_to_local(cell)
 						cell_center_pos.y += 1.09
 						var bind_build_turret: Callable = build_turret.bind(cell_center_pos, null)
 						skill_context.callback = bind_build_turret
@@ -84,6 +98,9 @@ func callable_build_turret(ray_cast_3d: RayCast3D, _grid_map: GridMap) -> void:
 						skill_context.building.global_position = cell_center_pos
 						# skill_context.building.global_position = Vector3(turret.global_position.x, 10, turret.global_position.z)
 						skill_context.skill.change_state(Skill.SKILL_STATE.Release)
+
+						# 清除 cell mesh indicator
+						cell_mesh_indicator.queue_free()
 
 
 # 显示建筑指示
@@ -98,17 +115,20 @@ func _on_building_floor_indicator_show(_skill_context: SkillContext):
 		var cell_position = grid_map.map_to_local(cell)
 		if item_idx == 0:
 			if not cell_mesh_container.keys().has(cell_position):
-				cell_position.y += 1
+				cell_position.y += 0.1
 				var _cellmesh_instance = _create_cell_mesh_indicator_in_position(grid_map, cell_position)
 				cell_mesh_container[cell_position] = _cellmesh_instance
 
-	# 在鼠标位置创建 building model 
+	# 在鼠标位置创建 building model （将创建 turret 赋予全局变量）
 	if skill_context.skill.skill_meta_res.building_scene != null:
 		# turret = skill_context.skill.skill_meta_res.building_scene.instantiate()
 		turret = SystemUtil.unit_system.create_unit(skill_context.skill.skill_meta_res.building_res, 0)
 		# add_child(turret)
 		call_deferred("add_child", turret)
-
+	
+	if cell_mesh_indicator_scene:
+		cell_mesh_indicator = cell_mesh_indicator_scene.instantiate()
+		call_deferred("add_child", cell_mesh_indicator)
 
 	SignalBus.ray_picker_regist.emit(callable_build_turret)
 
@@ -126,7 +146,7 @@ func _on_building_floor_indicator_hide(_skill_context: SkillContext):
 func _create_cell_mesh_indicator_in_position(grid_map, cell_position: Vector3) -> MeshInstance3D:
 	var cellmesh_instance = MeshInstance3D.new()
 	cellmesh_instance.mesh = grid_map.mesh_library.get_item_mesh(1)  # 使用默认的块 Mesh
-	var m = load("res://Test/glow shader test 2/glow 3d - chocked.tres")
+	var m = load("res://Test/glow shader test 2/plane_edge_trans.tres")
 	cellmesh_instance.material_override = m
 	cellmesh_instance.global_transform.origin = cell_position
 	add_child(cellmesh_instance)

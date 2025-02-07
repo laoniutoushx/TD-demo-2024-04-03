@@ -279,6 +279,16 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_mve3k")
 draw_pass_1 = ExtResource("3_bu824")
 
+[node name="InnerGlowCylinder" type="GPUParticles3D" parent="InnerGlowCylinder"]
+material_override = SubResource("ShaderMaterial_c5dr8")
+cast_shadow = 0
+emitting = false
+amount = 1
+one_shot = true
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_mve3k")
+draw_pass_1 = ExtResource("3_bu824")
+
 [node name="OuterGlowCylinder" type="GPUParticles3D" parent="."]
 material_override = SubResource("ShaderMaterial_om4an")
 cast_shadow = 0

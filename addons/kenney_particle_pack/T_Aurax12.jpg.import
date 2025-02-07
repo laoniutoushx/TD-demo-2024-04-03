@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqrw2kioo1rfv"
-path.s3tc="res://.godot/imported/flame_04.png-5507bcc2902252793582e15c0c54dd79.s3tc.ctex"
+uid="uid://c2njlukh5n2el"
+path.s3tc="res://.godot/imported/T_Aurax12.jpg-2d295e793477ec5fa36d9bc39890d041.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/kenney_particle_pack/flame_04.png"
-dest_files=["res://.godot/imported/flame_04.png-5507bcc2902252793582e15c0c54dd79.s3tc.ctex"]
+source_file="res://addons/kenney_particle_pack/T_Aurax12.jpg"
+dest_files=["res://.godot/imported/T_Aurax12.jpg-2d295e793477ec5fa36d9bc39890d041.s3tc.ctex"]
 
 [params]
 

@@ -245,6 +245,7 @@ func change_state(new_state: SKILL_STATE) -> void:
             # 如果切换到 Idle 状态，直接删除 turret（耦合代码）
             if new_state == SKILL_STATE.Idle and SOS.main.turret_manager:
                 SOS.main.turret_manager.turret.queue_free()
+                SOS.main.turret_manager.cell_mesh_indicator.queue_free()
                 
 
         if current_state == SKILL_STATE.Circle_Range_Indicate:

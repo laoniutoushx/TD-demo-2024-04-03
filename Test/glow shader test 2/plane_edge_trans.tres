@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ji40ky8fib46"]
+
+[ext_resource type="Shader" path="res://Test/glow shader test 2/plane_edge_trans.gdshader" id="1_af7e4"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_af7e4")
+shader_parameter/edge_color = Color(0.270588, 1, 0.270588, 1)
+shader_parameter/fill_color = Color(0.235294, 1, 0, 0.0392157)
+shader_parameter/edge_thickness = 1.0

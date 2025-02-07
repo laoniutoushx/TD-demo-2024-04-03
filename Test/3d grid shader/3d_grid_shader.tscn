@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://0q1pw7hd3tl"]
+
+[ext_resource type="Script" path="res://Scripts/camera/camera.gd" id="2_fj62e"]
+[ext_resource type="Shader" path="res://Test/3d grid shader/3d_grid_shader.gdshader" id="2_x8reu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8idep"]
+render_priority = 0
+shader = ExtResource("2_x8reu")
+shader_parameter/grid_size = 512.0
+shader_parameter/cell_size = 32.0
+shader_parameter/gutter_size = 0.04
+shader_parameter/cell_color = Color(0.746284, 0.39931, 0.514077, 1)
+shader_parameter/gutter_color = Color(0.958503, 0.236957, 0.577461, 1)
+shader_parameter/cell_roundedness = 0.0
+shader_parameter/cell_manipulator_radius = 0.0
+shader_parameter/cell_manipulator_uv_pos = Vector2(0.5, 0.5)
+shader_parameter/manipulated_cell_size = 0.5
+shader_parameter/manipulator_gutter_color = Color(1, 1, 1, 1)
+shader_parameter/cell_manipulation_anim_speed = 1.0
+shader_parameter/gutter_noise_color = Color(1, 1, 1, 1)
+shader_parameter/gutter_noise_speed = 0.1
+shader_parameter/fresnel_color = Color(0.2832, 0.419976, 0.368409, 1)
+shader_parameter/fresnel_intensity = 0.2
+shader_parameter/fresnel_amount = 15.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_87bow"]
+material = SubResource("ShaderMaterial_8idep")
+size = Vector2(32, 32)
+
+[node name="3dGridShader" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_87bow")
+
+[node name="GridMap" type="GridMap" parent="."]
+
+[node name="FreeLookCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, -0.110521, 10.851, 23.1072)
+script = ExtResource("2_fj62e")
