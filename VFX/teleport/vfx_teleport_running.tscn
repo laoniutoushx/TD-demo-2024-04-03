@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://lpvl2p5oyaj0"]
+
+[ext_resource type="Material" uid="uid://dv5grref3fjbj" path="res://VFX/teleport/magic_circle.tres" id="1_03dsh"]
+[ext_resource type="Texture2D" uid="uid://841y1ar0y3u3" path="res://Asserts/Images/vfx/特效贴图 光波 光圈(113)_爱给网_aigei_com.png" id="2_7v64b"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t77lu"]
+gravity = Vector3(0, -8, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e0j67"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+disable_fog = true
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 2, 1)
+albedo_texture = ExtResource("2_7v64b")
+
+[sub_resource type="QuadMesh" id="QuadMesh_mr6y3"]
+material = SubResource("StandardMaterial3D_e0j67")
+orientation = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_31b7g"]
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_dv0kh"]
+material = ExtResource("1_03dsh")
+orientation = 1
+
+[node name="VfxTeleportRunning" type="Node3D"]
+
+[node name="Circle" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+emitting = false
+amount = 3
+lifetime = 0.7
+one_shot = true
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_t77lu")
+draw_pass_1 = SubResource("QuadMesh_mr6y3")
+
+[node name="MagicCircle" type="GPUParticles3D" parent="."]
+amount = 1
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_31b7g")
+draw_pass_1 = SubResource("QuadMesh_dv0kh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
