@@ -13,7 +13,7 @@ func action(skill_context: SkillContext) -> void:
 
     for wave in range(skill.wave):
 
-        CommonUtil.play_audio(source_unit, "消防(Fire)_爱给网_aigei_com")
+        CommonUtil.play_audio(source_unit, "消防(Fire)_爱给网_aigei_com", 0.5)
 
         # 初始数量
         var init_num: int = skill.init_num
@@ -65,7 +65,7 @@ class InnerHandler extends Node3D:
 
         var vfx_destory = SystemUtil.vfx_system.create_vfx("fireball_another", SystemUtil.vfx_system.VFX_TYPE.DESTORY)
         vfx_destory.look_at(point)
-        vfx_destory.global_position = point
+        vfx_destory.global_position = point 
         vfx_destory.rotate_z(90)
         self.add_child(vfx_destory)
 

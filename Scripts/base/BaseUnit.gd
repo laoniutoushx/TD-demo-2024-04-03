@@ -20,7 +20,8 @@ signal logical_death(unit: BaseUnit)
 @export var desc: String
 
 @export var icon_path: String
-@export_range(0.0, 1.0) var aabb_scale: float = 1	# 通过参数修正 代码获取 aabb 尺寸偏差的问题 ？？ 
+@export_range(0.0, 100.0, 0.01) var aabb_scale: float = 1	# 通过参数修正 代码获取 aabb 尺寸偏差的问题 ？？ 
+@export_range(0.0, 100.0, 0.01) var aabb_height_scale: float = 1	# 通过参数修正 代码获取 aabb 尺寸偏差的问题 ？？ 
 
 # define unit element phase
 @export_flags("WOOD", "FIRE", "METAL", "WATER", "EARCH") var element_phase: int = 0

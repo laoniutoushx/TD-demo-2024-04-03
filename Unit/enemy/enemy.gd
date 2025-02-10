@@ -32,10 +32,10 @@ func _health_bar_create():
 	var health_bar: HealthBar = preload("res://Components/health_bar/health_bar.tscn").instantiate()
 	var mesh_node = CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ)
 	var aabb: AABB = CommonUtil.get_scaled_aabb(mesh_node)
-
+	print(aabb)
 
 	var width = aabb.size.x
-	var height = aabb.size.y * aabb_scale	# ☆ 此处特殊处理，手动修正部分导入模型 aabb 获取高度不匹配情况 （ BUG ？？）
+	var height = aabb.size.y * aabb_height_scale	# ☆ 此处特殊处理，手动修正部分导入模型 aabb 获取高度不匹配情况 （ BUG ？？）
 
 	var real_width = width
 	var real_height = height * health_bar.y_scale 
@@ -45,7 +45,7 @@ func _health_bar_create():
 	var default_scale_of_healthbar2d_and_mesh3d = 78.0 / 2.0
 	
 	# 4x width 扩大
-	var health_bar_2d_width = real_width * default_scale_of_healthbar2d_and_mesh3d * 4
+	var health_bar_2d_width = real_width * default_scale_of_healthbar2d_and_mesh3d * 4 * aabb_scale
 	var health_bar_2d_height = health_bar_2d_width / default_scale_of_healthbar2d_x_y
 	
 	# 412px : 78px = 4
@@ -58,6 +58,7 @@ func _health_bar_create():
 
 	health_bar.prepare(max_health)
 	health_bar.resize(health_bar_2d_width, health_bar_2d_height, w_w_scale)
+	print("%s, %s, %s, %s" % [health_bar_2d_width, health_bar_2d_height, w_w_scale, health_bar.position.y])
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -2,8 +2,7 @@ class_name BaseUnitResource
 extends Resource
 
 @export_group("Unit Steup")
-# meta config
-@export var clz_code: String
+# meta config 
 @export var clz_name: String
 @export var model_path: PackedScene	# model like glb, gltf...
 
@@ -12,7 +11,8 @@ extends Resource
 
 @export var icon_path: String
 
-@export_range(0.0, 1.0) var aabb_scale: float = 1	# 通过参数修正 代码获取 aabb 尺寸偏差的问题 ？？ 
+@export_range(0.0, 100.0, 0.01) var aabb_scale: float = 1	# 通过参数修正 代码获取 aabb 尺寸偏差的问题 ？？ 
+@export_range(0.0, 100.0, 0.01) var aabb_height_scale: float = 1	# 通过参数修正 代码获取 aabb 尺寸偏差的问题 ？？ 
 
 enum ELEMENT_PHASE_STR{
 	木,

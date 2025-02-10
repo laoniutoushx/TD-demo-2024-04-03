@@ -80,7 +80,7 @@ func apply(_buff: Buff, _reference: Variant):
 
 
 	# 进入后，处理 buff 计数
-	print("buff enter %s" % __buff_inst_counter)	
+	# print("buff enter %s" % __buff_inst_counter)	
 
 	# 无论是否可以叠加，都应该增加 cooldown 时间
 	if _buff.cooldown > 0:
@@ -94,7 +94,7 @@ func apply(_buff: Buff, _reference: Variant):
 				buff_count += 1
 
 		if buff_count >= _buff.max_overlay_num:
-			print("buff code %s already has %s buff" % [_buff.code, buff_count])
+			# print("buff code %s already has %s buff" % [_buff.code, buff_count])
 			return
 
 
@@ -133,7 +133,7 @@ func remove(_buff: Buff, _reference: Variant):
 		if __buff_inst_counter[_id] > 1:
 			__buff_inst_counter[_id] -= 1
 			# 退出时，处理 buff 计数
-			print("buff exit %s" % __buff_inst_counter)
+			# print("buff exit %s" % __buff_inst_counter)
 			return
 	else:
 		# buff 可以倒计时，当前删除函数触发，执行后续删除逻辑
@@ -159,7 +159,7 @@ func _on_buff_exiting_tree(_buff: Buff, _reference: Variant):
 	
 
 	# 退出时，处理 buff 计数
-	print("buff exit %s" % __buff_inst_counter)
+	# print("buff exit %s" % __buff_inst_counter)
 
 
 

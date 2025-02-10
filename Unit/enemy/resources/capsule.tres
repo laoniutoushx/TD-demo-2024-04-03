@@ -8,17 +8,17 @@
 
 [resource]
 script = ExtResource("1_taj0b")
-clz_code = "capsule"
 clz_name = "capsule"
 model_path = ExtResource("1_7phoe")
 title = "？？？"
 desc = "？？？"
 icon_path = "res://Asserts/Images/icon/enemy/capsule.png"
+aabb_scale = 1.0
 element_phase = 2
 unit_move_type = 1
 unit_cate = 1
 armor_amount = 0.0
-armor_type = 2
+armor_type = 10
 is_mesh_outline = false
 is_mesh_standing = true
 mana_cost = 10.0
@@ -32,7 +32,9 @@ attack_range = 0.0
 attack_num = 1
 attack_value = 0.0
 unit_growth_factor = 1.0
+projectile_speed = 100.0
 vfx_projectile_name = ""
+anim_attack = null
 anim_run = "running"
 anim_walk = null
 anim_idle = null
