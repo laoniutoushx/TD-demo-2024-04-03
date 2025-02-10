@@ -51,6 +51,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="BuffSystem" parent="System" instance=ExtResource("11_3fiu1")]
+unique_name_in_owner = true
 
 [node name="UI" type="Node" parent="."]
 

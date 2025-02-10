@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bxibobasihqmy"]
+[gd_scene load_steps=32 format=3 uid="uid://bxibobasihqmy"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_elhju"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_umiea"]
@@ -21,6 +21,10 @@
 [ext_resource type="PackedScene" uid="uid://cddhheg1d4j32" path="res://Components/action_bar/action_bar.tscn" id="13_sr2b3"]
 [ext_resource type="PackedScene" uid="uid://btv2y2tfng4ob" path="res://Unit/turret/TurretManager.tscn" id="14_d0au5"]
 [ext_resource type="PackedScene" uid="uid://m4qd1674r2ft" path="res://Test/3d grid shader/cube_mesh_shader/cell_mesh_tri_ind.tscn" id="14_g50c0"]
+[ext_resource type="PackedScene" uid="uid://db0jb0y1rkt8c" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Houses_SecondAge_2_Level2.gltf" id="18_h4uq3"]
+[ext_resource type="PackedScene" uid="uid://dd4b4lnasc213" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree1.gltf" id="18_idpdn"]
+[ext_resource type="PackedScene" uid="uid://dan2sqr4q05tc" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree2.gltf" id="19_8kqgr"]
+[ext_resource type="PackedScene" uid="uid://cxhmatlnx4b1s" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree_Group.gltf" id="20_qdvia"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oopyi"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -42,15 +46,15 @@ textures = [[ExtResource("6_f3yss")], [ExtResource("7_5b0jq")]]
 
 [sub_resource type="Curve3D" id="Curve3D_g10yy"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -30, 0, 6, -2, 0, 2, 2, 0, -2, 18, 0, 6, 2, 0, 2, -2, 0, -2, 18, 0, -6, 2, 0, 2, -2, 0, -2, -18, 0, -6, 0, 0, 0, 0, 0, 0, -18, 0, -14),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -40.942, -3.8147e-06, 7.22268, -2, 0, 2, 2, 0, -2, 18, 0, 6, 2, 0, 2, -2, 0, -2, 18, 0, -6, 2, 0, 2, -2, 0, -2, -29.2242, 0, -7.33026, 0, 0, 0, 0, 0, 0, -29.8582, 0, -17.7681, 0, 0, 0, 0, 0, 0, 26.8472, 0, -17.7681),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
 }
-point_count = 5
+point_count = 6
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rcpim"]
 albedo_color = Color(0.607843, 0.607843, 0.607843, 1)
 albedo_texture = ExtResource("10_56d2c")
-roughness = 0.0
+roughness = 0.85
 roughness_texture = ExtResource("12_utomj")
 normal_enabled = true
 normal_texture = ExtResource("11_ixhyk")
@@ -94,7 +98,7 @@ shader_params/u_colormap_opacity_per_texture = Vector4(1, 1, 1, 1)
 shader_params/u_specular = 0.5
 
 [node name="RayPickerCamera" parent="." node_paths=PackedStringArray("grid_map") instance=ExtResource("1_elhju")]
-transform = Transform3D(1, 0, 0, 0, 0.317305, 0.948324, 0, -0.948324, 0.317305, 0, 32, 17)
+transform = Transform3D(1, 0, 0, 0, 0.317305, 0.948324, 0, -0.948324, 0.317305, -0.417316, 32, 17.3702)
 fov = 70.0
 grid_map = NodePath("../GridMap")
 
@@ -104,7 +108,7 @@ mesh_library = ExtResource("2_cynf3")
 cell_size = Vector3(4, 4, 4)
 cell_center_y = false
 data = {
-"cells": PackedInt32Array(65529, 65532, 0, 65529, 65533, 0, 65529, 65534, 0, 65529, 65535, 0, 65529, 0, 0, 65529, 2, 0, 65529, 3, 0, 65530, 65532, 0, 65530, 65533, 0, 65530, 65534, 0, 65530, 65535, 0, 65530, 0, 0, 65530, 2, 0, 65530, 3, 0, 65531, 65535, 0, 65531, 0, 0, 65531, 2, 0, 65531, 3, 0, 65532, 65535, 0, 65532, 0, 0, 65532, 2, 0, 65532, 3, 0, 65533, 65532, 0, 65533, 65535, 0, 65533, 0, 0, 65533, 2, 0, 65533, 3, 0, 65534, 65532, 0, 65534, 65535, 0, 65534, 0, 0, 65534, 2, 0, 65534, 3, 0, 65535, 65532, 0, 65535, 65535, 0, 65535, 0, 0, 65535, 2, 0, 65535, 3, 0, 0, 65532, 0, 0, 65533, 0, 0, 65535, 0, 0, 0, 0, 0, 2, 0, 0, 3, 0, 1, 65532, 0, 1, 65533, 0, 1, 65535, 0, 1, 0, 0, 1, 2, 0, 1, 3, 0, 2, 65532, 0, 2, 65533, 0, 2, 65535, 0, 2, 0, 0, 2, 2, 0, 2, 3, 0, 3, 65532, 0, 3, 65533, 0, 3, 65535, 0, 3, 0, 0, 3, 2, 0, 3, 3, 0, 4, 65532, 0, 4, 65533, 0, 4, 2, 0, 4, 3, 0, 5, 65532, 0, 5, 65533, 0, 5, 65534, 0, 5, 65535, 0, 5, 0, 0, 5, 1, 0, 5, 2, 0, 5, 3, 0, 6, 65532, 0, 6, 65533, 0, 6, 65534, 0, 6, 65535, 0, 6, 0, 0, 6, 1, 0, 6, 2, 0, 6, 3, 0, 65535, 65533, 0, 65534, 65533, 0, 65533, 65533, 0, 65532, 65533, 0, 65532, 65532, 0)
+"cells": PackedInt32Array(65529, 65532, 0, 65529, 65533, 0, 65529, 65534, 0, 65529, 65535, 0, 65529, 0, 0, 65529, 2, 0, 65529, 3, 0, 65530, 65532, 0, 65530, 65533, 0, 65530, 65534, 0, 65530, 65535, 0, 65530, 0, 0, 65530, 2, 0, 65530, 3, 0, 65531, 65535, 0, 65531, 0, 0, 65531, 2, 0, 65531, 3, 0, 65532, 65535, 0, 65532, 0, 0, 65532, 2, 0, 65532, 3, 0, 65533, 65532, 0, 65533, 65535, 0, 65533, 0, 0, 65533, 2, 0, 65533, 3, 0, 65534, 65532, 0, 65534, 65535, 0, 65534, 0, 0, 65534, 2, 0, 65534, 3, 0, 65535, 65532, 0, 65535, 65535, 0, 65535, 0, 0, 65535, 2, 0, 65535, 3, 0, 0, 65532, 0, 0, 65533, 0, 0, 65535, 0, 0, 0, 0, 0, 2, 0, 0, 3, 0, 1, 65532, 0, 1, 65533, 0, 1, 65535, 0, 1, 0, 0, 1, 2, 0, 1, 3, 0, 2, 65532, 0, 2, 65533, 0, 2, 65535, 0, 2, 0, 0, 2, 2, 0, 2, 3, 0, 3, 65532, 0, 3, 65533, 0, 3, 65535, 0, 3, 0, 0, 3, 2, 0, 3, 3, 0, 4, 65532, 0, 4, 65533, 0, 4, 2, 0, 4, 3, 0, 5, 65532, 0, 5, 65533, 0, 5, 65534, 0, 5, 65535, 0, 5, 0, 0, 5, 1, 0, 5, 2, 0, 5, 3, 0, 6, 65532, 0, 6, 65533, 0, 6, 65534, 0, 6, 65535, 0, 6, 0, 0, 6, 1, 0, 6, 2, 0, 6, 3, 0, 65535, 65533, 0, 65534, 65533, 0, 65533, 65533, 0, 65532, 65533, 0, 65532, 65532, 0, 7, 65532, 0, 8, 65532, 0, 8, 65533, 0, 7, 65533, 0, 7, 65534, 0, 8, 65534, 0, 8, 65535, 0, 7, 65535, 0, 7, 0, 0, 8, 0, 0, 8, 1, 0, 7, 1, 0, 7, 2, 0, 8, 2, 0, 8, 3, 0, 7, 3, 0, 65528, 3, 0, 65528, 2, 0, 65527, 2, 0, 65527, 3, 0, 65526, 3, 0, 65526, 2, 0, 65526, 0, 0, 65527, 0, 0, 65528, 0, 0, 65528, 65535, 0, 65527, 65535, 0, 65526, 65535, 0, 65526, 65534, 0, 65527, 65534, 0, 65528, 65534, 0, 65528, 65533, 0, 65527, 65533, 0, 65526, 65533, 0, 65526, 65532, 0, 65526, 65531, 0, 65527, 65531, 0, 65528, 65531, 0, 65528, 65532, 0, 65527, 65532, 0, 65529, 65531, 0, 65534, 65531, 0, 65531, 4, 0, 8, 65529, 0, 7, 65530, 0, 6, 65531, 0, 5, 65525, 0, 6, 65526, 0, 6, 65527, 0, 7, 65528, 0, 7, 65529, 0, 8, 65530, 0, 65531, 65532, 0, 65531, 65533, 0, 6, 65530, 0, 5, 65530, 0, 4, 65530, 0, 3, 65530, 0, 2, 65530, 0, 1, 65530, 0, 0, 65530, 0, 65535, 65530, 0, 65534, 65530, 0, 65533, 65530, 0, 65532, 65530, 0, 65531, 65530, 0, 65530, 65530, 0, 65529, 65530, 0, 65528, 65530, 0, 65527, 65530, 0, 65526, 65530, 0, 4, 65529, 0, 65535, 65529, 0, 65534, 65529, 0, 65532, 65529, 0, 65531, 65529, 0, 65529, 65529, 0, 65528, 65529, 0, 65527, 65529, 0, 65526, 65529, 0, 65533, 65529, 0, 65530, 65529, 0, 65535, 65528, 0, 65535, 65527, 0, 65534, 65527, 0, 65533, 65527, 0, 65532, 65527, 0, 65531, 65527, 0, 65530, 65527, 0, 65529, 65527, 0, 65528, 65527, 0, 65527, 65527, 0, 65526, 65527, 0, 65526, 65528, 0, 65527, 65528, 0, 65528, 65528, 0, 65529, 65528, 0, 65530, 65528, 0, 65531, 65528, 0, 65532, 65528, 0, 65533, 65528, 0, 65534, 65528, 0, 4, 65528, 0, 4, 65527, 0, 5, 65527, 0, 5, 65528, 0, 6, 65528, 0, 6, 65529, 0, 5, 65529, 0, 8, 65528, 0, 8, 65527, 0, 7, 65527, 0, 3, 4, 0, 65535, 4, 0)
 }
 
 [node name="Path3D" type="Path3D" parent="."]
@@ -113,7 +117,7 @@ curve = SubResource("Curve3D_g10yy")
 
 [node name="Road" type="CSGPolygon3D" parent="Path3D"]
 snap = 1e-06
-polygon = PackedVector2Array(-2, 0, -2, 0.1, 2, 0.1, 2, 0)
+polygon = PackedVector2Array(-3, 0, -2, 0.1, 2, 0.1, 2, 0)
 mode = 2
 path_node = NodePath("..")
 path_interval_type = 0
@@ -161,6 +165,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.4411, 0.103827, 5.59998)
 
 [node name="Base" parent="." instance=ExtResource("3_epmlt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.1161, 0, -17.6237)
 
 [node name="RTSController" type="Node3D" parent="." node_paths=PackedStringArray("cam")]
 script = ExtResource("7_xmjyx")
@@ -175,14 +180,74 @@ cell_mesh_indicator_scene = ExtResource("14_g50c0")
 
 [node name="Environment" type="Node3D" parent="."]
 
+[node name="Resource_Tree12" parent="Environment" instance=ExtResource("18_idpdn")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 35.9255, 0, 11.6911)
+
+[node name="Resource_Tree22" parent="Environment" instance=ExtResource("19_8kqgr")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 35.9134, -9.53674e-07, 1.27881)
+
+[node name="Resource_Tree_Group2" parent="Environment" instance=ExtResource("20_qdvia")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 41.5345, 0, 1.47907)
+
+[node name="Resource_Tree_Group3" parent="Environment" instance=ExtResource("20_qdvia")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 41.3855, -1.90735e-06, -8.81063)
+
+[node name="Resource_Tree_Group4" parent="Environment" instance=ExtResource("20_qdvia")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 41.5345, 0, -18.469)
+
+[node name="Resource_Tree_Group5" parent="Environment" instance=ExtResource("20_qdvia")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 41.3855, -1.90735e-06, -28.7588)
+
+[node name="Resource_Tree_Group6" parent="Environment" instance=ExtResource("20_qdvia")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 30.8767, 0, -40.7714)
+
+[node name="Resource_Tree_Group7" parent="Environment" instance=ExtResource("20_qdvia")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 20.6953, -1.90735e-06, -40.6788)
+
+[node name="Resource_Tree_Group8" parent="Environment" instance=ExtResource("20_qdvia")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 10.3453, 0, -40.8881)
+
+[node name="Resource_Tree_Group9" parent="Environment" instance=ExtResource("20_qdvia")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.163912, -1.90735e-06, -40.7954)
+
+[node name="Resource_Tree_Group10" parent="Environment" instance=ExtResource("20_qdvia")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -9.48613, 0, -41.0047)
+
+[node name="Resource_Tree_Group11" parent="Environment" instance=ExtResource("20_qdvia")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -19.6676, -1.90735e-06, -40.9121)
+
+[node name="Resource_Tree_Group12" parent="Environment" instance=ExtResource("20_qdvia")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -29.4342, 0, -41.3547)
+
+[node name="Resource_Tree_Group13" parent="Environment" instance=ExtResource("20_qdvia")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -39.6157, -1.90735e-06, -41.262)
+
+[node name="Resource_Tree_Group14" parent="Environment" instance=ExtResource("20_qdvia")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -41.991, 0, -21.5021)
+
+[node name="Resource_Tree_Group17" parent="Environment" instance=ExtResource("20_qdvia")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -41.991, 0, -31.4997)
+
+[node name="Resource_Tree_Group15" parent="Environment" instance=ExtResource("20_qdvia")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -42.9566, -1.90735e-06, -11.9603)
+
+[node name="Resource_Tree_Group16" parent="Environment" instance=ExtResource("20_qdvia")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -44.6969, -1.90735e-06, -1.71811)
+
+[node name="Resource_Tree_Group26" parent="Environment" instance=ExtResource("20_qdvia")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 42.3163, -1.90735e-06, 11.2139)
+
+[node name="Houses_SecondAge_2_Level22" parent="Environment" instance=ExtResource("18_h4uq3")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 9.73745, 0, -26.2595)
+
 [node name="TownCenter_SecondAge_Level22" parent="Environment" instance=ExtResource("12_at28j")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -17.5006, 0.147343, -20.6756)
+transform = Transform3D(-2.18557e-07, 0, -5, 0, 5, 0, 5, 0, -2.18557e-07, 31.5061, 0.147343, -17.6867)
 
 [node name="WallTowers_DoorClosed_FirstAge2" parent="Environment" instance=ExtResource("2_gg4ko")]
-transform = Transform3D(0.697853, 0, 4.95106, 0, 5, 0, -4.95106, 0, 0.697853, 26.3801, 0, -0.0290298)
+transform = Transform3D(-5, 0, -4.37114e-07, 0, 5, 0, 4.37114e-07, 0, -5, 26.18, 0, -27.6704)
 
 [node name="Rock2" parent="Environment" instance=ExtResource("3_03ljr")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 17.8017, 0.0681601, 13.8853)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -7.22688, 0, -14.9699)
 
 [node name="GDbotSkin" parent="." instance=ExtResource("1_umiea")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.16514, 0)
