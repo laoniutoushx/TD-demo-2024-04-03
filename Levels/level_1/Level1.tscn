@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bxibobasihqmy"]
+[gd_scene load_steps=33 format=3 uid="uid://bxibobasihqmy"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_elhju"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_umiea"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bdruiih1fouof" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Rock.gltf" id="3_03ljr"]
 [ext_resource type="PackedScene" uid="uid://cym641yvamusq" path="res://Unit/home/base.tscn" id="3_epmlt"]
 [ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain.gd" id="3_gvb4y"]
+[ext_resource type="Texture2D" uid="uid://ck1gvidor42pp" path="res://Asserts/Images/background/rogland_clear_night_4k.exr" id="3_ot2kt"]
 [ext_resource type="Resource" path="res://Asserts/h_terrain_data/data.hterrain" id="4_ivp0y"]
 [ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="5_xcclr"]
 [ext_resource type="Texture2D" uid="uid://d3p06pydk5kwn" path="res://Asserts/materials/PavingStones131_2K-JPG/Level1_slot0_albedo_bump.png" id="6_f3yss"]
@@ -26,18 +27,15 @@
 [ext_resource type="PackedScene" uid="uid://dan2sqr4q05tc" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree2.gltf" id="19_8kqgr"]
 [ext_resource type="PackedScene" uid="uid://cxhmatlnx4b1s" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree_Group.gltf" id="20_qdvia"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oopyi"]
-sky_top_color = Color(0.286232, 0.462671, 0.640766, 1)
-sky_horizon_color = Color(0.50167, 0.680447, 0.806522, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_35wnd"]
+panorama = ExtResource("3_ot2kt")
 
 [sub_resource type="Sky" id="Sky_12gdt"]
-sky_material = SubResource("ProceduralSkyMaterial_oopyi")
+sky_material = SubResource("PanoramaSkyMaterial_35wnd")
 
 [sub_resource type="Environment" id="Environment_tk0br"]
 background_mode = 2
 sky = SubResource("Sky_12gdt")
-tonemap_mode = 2
 ssao_enabled = true
 sdfgi_enabled = true
 glow_enabled = true
