@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelResource" load_steps=13 format=3 uid="uid://cfjres2fis310"]
+[gd_resource type="Resource" script_class="LevelResource" load_steps=22 format=3 uid="uid://cfjres2fis310"]
 
 [ext_resource type="PackedScene" uid="uid://bxibobasihqmy" path="res://Levels/level_1/Level1.tscn" id="1_n8mn6"]
 [ext_resource type="Script" path="res://Levels/level_resource.gd" id="1_oc6p8"]
@@ -50,12 +50,70 @@ enemy_res_name = "pug"
 spawn_interval = 2.0
 enemy_amount = 5
 
+[sub_resource type="Resource" id="Resource_c8hpo"]
+script = ExtResource("4_gg7ch")
+enemy_res_name = "dog"
+spawn_interval = 5.0
+enemy_amount = 2
+
 [sub_resource type="Resource" id="Resource_prnja"]
 script = ExtResource("3_o0ugr")
 start_delay = 0.0
 next_wave_delay = 5.0
 level_code = ""
-enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_xtm6e")])
+enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_xtm6e"), SubResource("Resource_c8hpo")])
+
+[sub_resource type="Resource" id="Resource_rj64l"]
+script = ExtResource("4_gg7ch")
+enemy_res_name = "horse"
+spawn_interval = 3.0
+enemy_amount = 10
+
+[sub_resource type="Resource" id="Resource_541jc"]
+script = ExtResource("3_o0ugr")
+start_delay = 0.0
+next_wave_delay = 5.0
+level_code = ""
+enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_rj64l")])
+
+[sub_resource type="Resource" id="Resource_x0enq"]
+script = ExtResource("4_gg7ch")
+enemy_res_name = "sheep"
+spawn_interval = 3.0
+enemy_amount = 10
+
+[sub_resource type="Resource" id="Resource_uu4er"]
+script = ExtResource("3_o0ugr")
+start_delay = 0.0
+next_wave_delay = 5.0
+level_code = ""
+enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_x0enq")])
+
+[sub_resource type="Resource" id="Resource_553at"]
+script = ExtResource("4_gg7ch")
+enemy_res_name = "zebra"
+spawn_interval = 4.0
+enemy_amount = 5
+
+[sub_resource type="Resource" id="Resource_v1rcb"]
+script = ExtResource("3_o0ugr")
+start_delay = 0.0
+next_wave_delay = 5.0
+level_code = ""
+enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_553at")])
+
+[sub_resource type="Resource" id="Resource_jeobp"]
+script = ExtResource("4_gg7ch")
+enemy_res_name = "llama"
+spawn_interval = 3.0
+enemy_amount = 10
+
+[sub_resource type="Resource" id="Resource_vltjb"]
+script = ExtResource("3_o0ugr")
+start_delay = 0.0
+next_wave_delay = 5.0
+level_code = ""
+enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_jeobp")])
 
 [resource]
 script = ExtResource("1_oc6p8")
@@ -64,4 +122,4 @@ name = "level1"
 scene = ExtResource("1_n8mn6")
 start_delay = 5.0
 end_delay = 10.0
-waves = Array[ExtResource("3_o0ugr")]([SubResource("Resource_6jk0d"), SubResource("Resource_n08pb"), SubResource("Resource_jmrcr"), SubResource("Resource_prnja"), null, null, null, null, null, null, null, null, null, null, null])
+waves = Array[ExtResource("3_o0ugr")]([SubResource("Resource_6jk0d"), SubResource("Resource_n08pb"), SubResource("Resource_jmrcr"), SubResource("Resource_prnja"), SubResource("Resource_541jc"), SubResource("Resource_uu4er"), SubResource("Resource_v1rcb"), SubResource("Resource_vltjb"), null, null, null, null, null, null])

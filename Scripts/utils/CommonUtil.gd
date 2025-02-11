@@ -153,7 +153,7 @@ static func get_scaled_aabb_height(node: Node) -> float:
 	var scaled_position = local_aabb.position * scale
 	var scaled_size = local_aabb.size * scale
 
-	var height = scaled_size.y * mesh_instance.owner.aabb_scale
+	var height = scaled_size.y * mesh_instance.owner.aabb_height_scale
 	return height
 
 

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://du2cd7tgpnqxw"]
 
-[ext_resource type="PackedScene" uid="uid://ca3nvrkfayrwg" path="res://Unit/enemy/scenes/cow.tscn" id="1_i6ap7"]
+[ext_resource type="PackedScene" uid="uid://ca3nvrkfayrwg" path="res://Unit/enemy/scenes/2_cow.tscn" id="1_i6ap7"]
 [ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_yonoe"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_1desw"]
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="3_6odkl"]

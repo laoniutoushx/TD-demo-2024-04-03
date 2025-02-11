@@ -43,7 +43,7 @@ default_value = 1.0
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_add, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+render_mode blend_add, depth_draw_never, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded, shadows_disabled, fog_disabled;
 
 uniform vec2 MainTextureSpeed = vec2(1.000000, 1.000000);
 uniform sampler2D MainTexture;
@@ -105,6 +105,10 @@ void fragment() {
 }
 "
 modes/blend = 1
+modes/depth_draw = 2
+flags/unshaded = true
+flags/shadows_disabled = true
+flags/fog_disabled = true
 nodes/fragment/0/position = Vector2(760, 120)
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_hpu2v")
 nodes/fragment/2/position = Vector2(-1040, 240)

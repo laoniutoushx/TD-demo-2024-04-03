@@ -27,7 +27,8 @@
 [ext_resource type="PackedScene" uid="uid://cxhmatlnx4b1s" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree_Group.gltf" id="20_qdvia"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oopyi"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+sky_top_color = Color(0.286232, 0.462671, 0.640766, 1)
+sky_horizon_color = Color(0.50167, 0.680447, 0.806522, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
 [sub_resource type="Sky" id="Sky_12gdt"]
@@ -37,6 +38,8 @@ sky_material = SubResource("ProceduralSkyMaterial_oopyi")
 background_mode = 2
 sky = SubResource("Sky_12gdt")
 tonemap_mode = 2
+ssao_enabled = true
+sdfgi_enabled = true
 glow_enabled = true
 
 [sub_resource type="Resource" id="Resource_vqpk2"]
@@ -170,7 +173,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.1161, 0, -17.6237)
 [node name="RTSController" type="Node3D" parent="." node_paths=PackedStringArray("cam")]
 script = ExtResource("7_xmjyx")
 cam = NodePath("../RayPickerCamera")
-map_bounds = Rect2(-8, -8, 50, 50)
+map_bounds = Rect2(0, -8, 50, 50)
 
 [node name="WaveManager" type="Node3D" parent="."]
 script = ExtResource("8_iynip")
