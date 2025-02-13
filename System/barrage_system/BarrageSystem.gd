@@ -66,7 +66,9 @@ func action(source, target, projection: PackedScene):
 			if mesh_standing != null:
 				mesh_standing.visible = true
 				# 等待 0.1 秒后恢复, wait to do
-				CommonUtil.delay_execution(0.1, func() -> void: if mesh_standing != null: mesh_standing.visible = false)
+				CommonUtil.delay_execution(0.1, 
+					(func(_mesh_standing) -> void: if _mesh_standing: _mesh_standing.visible = false).bind(mesh_standing)
+				)
 				
 		
 		# destory vfx create

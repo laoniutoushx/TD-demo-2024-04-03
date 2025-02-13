@@ -100,6 +100,9 @@ func _on_player_select_units(unit_map: Dictionary, mouse_pos: Vector3, on_select
 
 func _on_unit_logic_death(id:int, unit :BaseUnit):
 	selection_bar_comp.remove_element(unit)
+	if active_unit and id == active_unit.get_instance_id():
+		active_unit = null
+		buff_bar_comp.clear()
 
 
 func open_selection_bar(unit_map: Dictionary):
@@ -327,7 +330,7 @@ class BuffBarComponent extends BaseBarComponent:
 						element,
 						element.icon_path,
 						BaseSlot.SLOT_TYPE.BUFF, 
-						true
+						element.unit.player_group == SOS.main.player_controller.get_player_group_idx()
 					)
 
 					# buff timer init

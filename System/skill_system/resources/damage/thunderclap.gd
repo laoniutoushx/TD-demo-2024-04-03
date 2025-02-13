@@ -23,10 +23,10 @@ func action(skill_context: SkillContext) -> void:
 
     SystemUtil.damage_system.skill_damage(skill, source_unit, target_unit)
     
-    CommonUtil.delay_execution(2.0, func():     
-        if is_instance_valid(vfx): 
-            vfx.queue_free()
-    )
+    CommonUtil.delay_execution(2, (func(_vfx):
+        if _vfx and is_instance_valid(_vfx):
+            _vfx.queue_free()
+    ).bind(vfx))
 
 
 

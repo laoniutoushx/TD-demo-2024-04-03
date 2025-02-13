@@ -16,6 +16,7 @@ enum SLOT_STATE {
 }
 
 signal slot_clicked(s: BaseSlot)
+signal slot_right_clicked(s: BaseSlot)
 
 
 @onready var icon_texture: TextureRect = $IconTexture
@@ -69,6 +70,31 @@ func _input(event: InputEvent) -> void:
 				slot_clicked.emit(self)
 			# 阻止事件传递
 			get_viewport().set_input_as_handled()
+
+		# 绑定鼠标右键点击
+		if is_mouse_hover:
+			print(reference.unit.current_global_skill_state, reference.current_state)
+			if (reference.unit.current_global_skill_state == 0 and reference.SKILL_STATE.Idle == reference.current_state and 
+				(
+					event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed # event.is_released()
+				)
+			):
+				slot_right_clicked.emit(self)
+				# 直接设置关联技能属性（自动释放）
+
+				if reference.auto_release:
+					reference.auto_release = false
+				else:
+					reference.auto_release = true
+
+				# slot 自动释放动画效果添加
+
+				print("自动施法 %s %s" % [reference.title, reference.auto_release])
+
+
+
+			# 阻止事件传递
+			get_viewport().set_input_as_handled()			
 
 
 		# 按键主动绑定到显示的 slot 上（每次切换 action bar 时动态绑定）

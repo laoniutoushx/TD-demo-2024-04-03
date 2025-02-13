@@ -12,13 +12,13 @@
 
 [resource]
 script = ExtResource("2_nv5yp")
-clz_code = "turret"
 clz_name = "turret"
 model_path = ExtResource("1_o0rv6")
 title = "基础塔 Lv 1"
 desc = "一个普通的塔"
 icon_path = "res://Asserts/Images/icon/skill icon/27.png"
 aabb_scale = 1.0
+aabb_height_scale = 1.0
 element_phase = 31
 unit_move_type = 1
 unit_cate = 1
@@ -29,7 +29,7 @@ is_mesh_standing = false
 mana_cost = 10.0
 wood_cost = 10.0
 money_cost = 10.0
-max_health = 100.0
+max_health = 10000.0
 move_speed = 5.0
 turn_speed = 10.0
 attack_speed = 0.5
@@ -37,6 +37,7 @@ attack_range = 7.0
 attack_num = 1
 attack_value = 5.0
 unit_growth_factor = 1.0
+projectile_speed = 100.0
 vfx_projectile_name = "fireball"
 anim_attack = null
 anim_run = "Armature|Jump"

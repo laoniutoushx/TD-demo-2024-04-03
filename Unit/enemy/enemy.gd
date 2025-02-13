@@ -71,7 +71,6 @@ func _process(delta: float) -> void:
 
 
 func take_damage(damage: float):
-	var pos = self.global_position
 	super.take_damage(damage)
 
 

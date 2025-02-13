@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bxibobasihqmy"]
+[gd_scene load_steps=36 format=3 uid="uid://bxibobasihqmy"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_elhju"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_umiea"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://crlqhhh1vd1hf" path="res://Asserts/materials/PavingStones131_2K-JPG/Level1_slot0_normal_roughness.png" id="7_5b0jq"]
 [ext_resource type="Script" path="res://Scripts/controller/RTSController.gd" id="7_xmjyx"]
 [ext_resource type="Script" path="res://Waves/WaveManager.gd" id="8_iynip"]
+[ext_resource type="Shader" path="res://Levels/level_1/Level1.gdshader" id="9_25tn7"]
 [ext_resource type="Texture2D" uid="uid://fyg6yshil7wl" path="res://Asserts/materials/Tiles130_2K-JPG/Tiles130_2K-JPG_Color.jpg" id="10_56d2c"]
 [ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI/ui.tscn" id="10_i7dqg"]
 [ext_resource type="Texture2D" uid="uid://bfc5ana2pdo7a" path="res://Asserts/materials/Tiles130_2K-JPG/Tiles130_2K-JPG_NormalGL.jpg" id="11_ixhyk"]
@@ -48,6 +49,16 @@ script = ExtResource("5_xcclr")
 mode = 0
 textures = [[ExtResource("6_f3yss")], [ExtResource("7_5b0jq")]]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1726d"]
+render_priority = 0
+shader = ExtResource("9_25tn7")
+shader_parameter/albedo_color = null
+shader_parameter/uv_scale = 20.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_narih"]
+material = SubResource("ShaderMaterial_1726d")
+size = Vector2(100, 100)
+
 [sub_resource type="Curve3D" id="Curve3D_g10yy"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, -40.942, -3.8147e-06, 7.22268, -2, 0, 2, 2, 0, -2, 18, 0, 6, 2, 0, 2, -2, 0, -2, 18, 0, -6, 2, 0, 2, -2, 0, -2, -29.2242, 0, -7.33026, 0, 0, 0, 0, 0, 0, -29.8582, 0, -17.7681, 0, 0, 0, 0, 0, 0, 26.8472, 0, -17.7681),
@@ -78,7 +89,9 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 light_color = Color(0.909642, 0.925159, 0.922542, 1)
 shadow_enabled = true
 
-[node name="HTerrain" type="Node3D" parent="."]
+[node name="Ground" type="Node3D" parent="."]
+
+[node name="HTerrain" type="Node3D" parent="Ground"]
 script = ExtResource("3_gvb4y")
 map_scale = Vector3(0.5, 0.5, 0.5)
 centered = true
@@ -101,6 +114,11 @@ shader_params/u_globalmap_blend_start = null
 shader_params/u_globalmap_blend_distance = null
 shader_params/u_colormap_opacity_per_texture = Vector4(1, 1, 1, 1)
 shader_params/u_specular = 0.5
+
+[node name="GroundMesh" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.001, 0)
+mesh = SubResource("PlaneMesh_narih")
+skeleton = NodePath("../..")
 
 [node name="RayPickerCamera" parent="." node_paths=PackedStringArray("grid_map") instance=ExtResource("1_elhju")]
 transform = Transform3D(1, 0, 0, 0, 0.317305, 0.948324, 0, -0.948324, 0.317305, -0.417316, 32, 17.3702)

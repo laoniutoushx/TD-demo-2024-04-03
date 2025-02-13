@@ -7,6 +7,8 @@ var target: BaseUnit
 var slot: BaseSlot
 
 
+# Signal
+signal skill_cool_down(skill_context: SkillContext)
 
 
 # meta info 
@@ -21,8 +23,14 @@ var code: String
 @export var level: int = 1
 @export var max_level: int = 3
 
+# 初始化释放
+@export var init_release: bool
 # 自动施法
-@export var auto_release: bool
+@export var auto_release: bool = false :
+    set(value):
+        auto_release = value
+        SignalBus.skill_auto_release.emit(value, skill_context)
+
 # 冷却时间
 @export var cooldown: float = 1.0
 # 魔法消耗
@@ -67,9 +75,9 @@ var code: String
 # release skill
 
 
-@export_flags("TARGETED", "SELF_CAST", "NO_TARGET", "DIRECTION", "CIRCLE_RANGE") var release_type: int = 0
-@export_flags("FLOOR", "UNIT", "NO_TARGET") var target_type: int = 0	# 0: 地面, 1: 目标, 2: 无目标
-@export_flags("DAMAGE","HEAL","BUILDING") var effect_type: int = 0	# 0: 伤害, 1: 治愈, 2: 建筑
+@export_flags("TARGETED", "SELF_CAST", "NO_TARGET", "DIRECTION", "CIRCLE_RANGE") var release_type: int = 1
+@export_flags("FLOOR", "UNIT", "NO_TARGET", "SELF", "FRIEND", "ENEMY") var target_type: int = 1	# 0: 地面, 1: 目标, 2: 无目标
+@export_flags("DAMAGE","HEAL","BUILDING","BUFF","DEBUFF") var effect_type: int = 1	# 0: 伤害, 1: 治愈, 2: 建筑，3：buff，4：debuff
 
 
 # Skill Script Template( ClassDB )
@@ -104,6 +112,10 @@ var mouse_click_check = false
 
 var skill_context: SkillContext
 
+# AI 相关（技能范围判断 AREA)
+var _area_ai: Area3D
+
+
 func _ready() -> void:
     # 技能上下文构建
     # SkillContext 上下文，保存 skill: Skill, target: BaseUnit, source: BaseUnit, position: Vector3 等信息
@@ -117,7 +129,7 @@ func _ready() -> void:
     cool_down_timer.wait_time = cooldown
     add_child(cool_down_timer)
 
-    if auto_release:
+    if init_release:
         change_state(SKILL_STATE.Release)
 
 
@@ -146,7 +158,7 @@ func _input(event: InputEvent) -> void:
 
 
 
-# 这个方法暂时标记为不使用
+# Decription 这个方法暂时标记为不使用
 func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3, on_selected_player_status: PlayerController.PLAYER_STATUS) -> void:
     if current_state == SKILL_STATE.Targeted_Indicate:
         if not unit_map.is_empty():
@@ -381,10 +393,16 @@ func change_state(new_state: SKILL_STATE) -> void:
 
         SKILL_STATE.Cool_Down:
             if slot:
-                slot.progress_bar.visible = true
+                if is_instance_valid(slot) and is_instance_valid(slot.progress_bar):
+                    slot.progress_bar.visible = true    
+
                 cool_down_timer.start()
-                slot.set_process(true)
+
+                if is_instance_valid(slot):
+                    slot.set_process(true)
+
                 await cool_down_timer.timeout
+
                 if is_instance_valid(slot) and is_instance_valid(slot.progress_bar):
                     slot.progress_bar.visible = false
                 if is_instance_valid(slot):                
@@ -392,6 +410,9 @@ func change_state(new_state: SKILL_STATE) -> void:
 
             
             change_state(SKILL_STATE.Idle)
+
+            # 技能冷却完毕信号
+            skill_cool_down.emit(skill_context)
 
         SKILL_STATE.Idle:
             print("skill [%s] is idle" % code)

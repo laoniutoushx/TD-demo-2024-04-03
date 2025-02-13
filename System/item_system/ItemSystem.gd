@@ -33,7 +33,7 @@ func initialize_items(source_unit: BaseUnit, item_metas: Array[ItemResource]) ->
 
 			# add to unit tree
 			item.name = item.code
-			self.add_child(item)
+			source_unit.add_child(item)
 			item.add_child(item.item_script_instance)
 
 	return item_map

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="BuffResource" load_steps=5 format=3 uid="uid://bpod4pimcirxy"]
+
+[ext_resource type="Script" path="res://System/buff_system/resources/defence.gd" id="1_vwpko"]
+[ext_resource type="Script" path="res://addons/script_property_selector/property_selector_resource.gd" id="2_ghrjt"]
+[ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="3_o6t76"]
+
+[sub_resource type="Resource" id="Resource_wqbbn"]
+script = ExtResource("2_ghrjt")
+selected_script_name = ""
+selected_properties = Array[String]([])
+
+[resource]
+script = ExtResource("3_o6t76")
+id = &""
+code = "defence"
+entity = ""
+prop = ""
+property_selector = SubResource("Resource_wqbbn")
+type = 33
+title = "防御"
+desc = "防御"
+icon_path = ""
+value = 0.0
+value_unit = 0
+value_dir = 0
+cooldown = -1.0
+max_overlay_num = 1
+priority = 0
+exclude_level = 3
+buff_script = ExtResource("1_vwpko")

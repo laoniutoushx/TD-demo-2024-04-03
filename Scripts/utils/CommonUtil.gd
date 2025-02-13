@@ -282,6 +282,8 @@ class ResourceLoaderUtil:
 			print(key + ": " + str(_common_container[key]))
 
 
+
+## 二进制相关逻辑处理（多选）
 # 处理 export_flags 相关数据
 static func is_flag_set(flag: int, bit_set: int) -> bool:
 	return (int(pow(2, flag)) & bit_set) != 0

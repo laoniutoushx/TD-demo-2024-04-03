@@ -207,17 +207,16 @@ func _ready() -> void:
 
 
 	# AABB
-
 	var aabb: AABB = CommonUtil.get_scaled_aabb(CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ))
 	# _transformed_aabb = AABB(aabb.position * aabb_scale, aabb.size * aabb_scale)
 	_transformed_aabb = aabb.grow(aabb_scale)
 	_height = aabb.size.y * aabb_height_scale
 
-	print("clz - %s" % self.clz_name)
-	print(self.aabb_scale)
-	print(self.aabb_height_scale)
-	print(_transformed_aabb)
-	print(_height)
+
+	# take damage
+	unit_take_damage_regist.connect(_on_ray_picker_regist)
+	unit_take_damage_unregist.connect(_on_ray_picker_unregist)
+
 
 
 # clz 初始化
@@ -297,8 +296,31 @@ func _on_logic_dead(unit: BaseUnit) -> void:
 func is_logic_dead() -> bool:
 	return !is_alive()
 
+#### 单位伤害逻辑
+## 单位伤害事件回调注册
+signal unit_take_damage_regist(callable: Callable)
+signal unit_take_damage_unregist(callable: Callable)
+
+## Take Damage 回调处理（用于植入其他处理逻辑），先于回调函数执行
+var take_damage_callback_list: Array = []
+
+# Register Callable Function to be called when other Component need RayPicker Result
+func _on_ray_picker_regist(callable: Callable) -> void:
+	take_damage_callback_list.append(callable)
+
+
+func _on_ray_picker_unregist(callable: Callable) -> void:
+	take_damage_callback_list.erase(callable)
+
 # damage unit
 func take_damage(damage: float):
+	if not take_damage_callback_list.is_empty():
+		for callback in take_damage_callback_list:
+			damage = callback.call(damage)
+
+	if damage <= 0:
+		return 
+		
 	health -= damage
 	SignalBus.unit_take_damage.emit(get_instance_id(), self, damage)
 	if health + damage > 0 and health <= 0:

@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=5 format=3 uid="uid://bm3kcjrhtayri"]
+
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_0jhkb"]
+[ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="2_oobxg"]
+[ext_resource type="Resource" uid="uid://bpod4pimcirxy" path="res://System/buff_system/resources/defence.tres" id="3_anba0"]
+[ext_resource type="Script" path="res://System/skill_system/resources/effect/force_field.gd" id="5_s5uaj"]
+
+[resource]
+script = ExtResource("1_0jhkb")
+code = "force_field"
+title = "力场护盾"
+desc = "抵御 ${value} 伤害"
+icon_path = "1159"
+level = 1
+level_up_gap = 1
+max_level = 3
+init_release = false
+auto_release = false
+cooldown = 11.0
+mana_cost = -1.0
+wood_cost = -1.0
+money_cost = -1.0
+damage_range = 5.0
+match_range = 30.0
+range = 5.0
+release_distance = 10.0
+stock = 1
+value = 0.0
+init_num = 1
+internal_time = -1.0
+start_time = 0.1
+end_time = 0.1
+wave = 1
+projection_speed = 1.0
+release_type = 2
+target_type = 10
+effect_type = 8
+skill_script = ExtResource("5_s5uaj")
+skill_level_config = Array[ExtResource("1_0jhkb")]([])
+skill_buff_config = Array[ExtResource("2_oobxg")]([ExtResource("3_anba0")])

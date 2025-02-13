@@ -178,7 +178,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_pf62q")
 [node name="SkillBar" type="GridContainer" parent="Container/MarginContainer/VBoxContainer/HBoxContainer/Skill"]
 unique_name_in_owner = true
 layout_mode = 2
-columns = 3
+columns = 4
 
 [node name="BaseSlot" parent="Container/MarginContainer/VBoxContainer/HBoxContainer/Skill/SkillBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2

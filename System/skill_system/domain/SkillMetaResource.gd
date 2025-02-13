@@ -35,6 +35,8 @@ class_name SkillMetaResource extends Resource
 @export var level_up_gap: int = 1
 @export var max_level: int = 3
 
+# 初始化释放
+@export var init_release: bool
 # 自动施法
 @export var auto_release: bool = false
 # 冷却时间
@@ -95,6 +97,7 @@ enum SKILL_TARGET_TYPE_CHN{
 	地面,
 	单位,
 	无目标,
+	自己,
 	友军,
 	敌人
 }
@@ -102,10 +105,11 @@ enum SKILL_TARGET_TYPE{
 	FLOOR,
 	UNIT,
 	NO_TARGET,
+	SELF,
 	FRIEND,
 	ENEMY
 }
-@export_flags("FLOOR", "UNIT", "NO_TARGET", "FRIEND", "ENEMY") var target_type: int = 1	# 0: 地面, 1: 目标, 2: 无目标
+@export_flags("FLOOR", "UNIT", "NO_TARGET", "SELF", "FRIEND", "ENEMY") var target_type: int = 1	# 0: 地面, 1: 目标, 2: 无目标
 
 
 

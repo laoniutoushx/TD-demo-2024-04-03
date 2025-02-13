@@ -81,7 +81,7 @@ class InnerHandler extends Node3D:
 		# 设置透明度为 0.0
 		tween.tween_property(vfx, "transparency", 1, 0.8)
 		
-		CommonUtil.delay_execution(2, func():
-			if is_instance_valid(vfx):
-				vfx.queue_free()
-		)
+		CommonUtil.delay_execution(2, (func(_vfx):
+			if _vfx and is_instance_valid(_vfx):
+				_vfx.queue_free()
+		).bind(vfx))

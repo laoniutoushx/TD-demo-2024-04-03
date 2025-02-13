@@ -9,11 +9,12 @@ func setup_for_unit(unit_map: Dictionary):
 	var skill_map: Dictionary = unit.skill_map
 	if skill_map != null and skill_map.keys().size() > 0:
 		for code in skill_map.keys():
-			if _slot_num <= 5:
+			if _slot_num <= 20:
 				var skill: Skill = skill_map[code]
 				var _slot = _create_skill_slot(skill)
 				skill.slot = _slot
 				_bind_mapping_key(_slot, _slot_num)
+
 
 func _create_skill_slot(skill: Skill) -> BaseSlot:	
 	var slot_instance: BaseSlot = super.add_element(skill.id, _skill_bar)
@@ -44,6 +45,7 @@ func _create_skill_slot(skill: Skill) -> BaseSlot:
 
 	return slot_instance
 
+
 # 绑定快捷键
 # 按键主动绑定到显示的 slot 上（每次切换 action bar 时动态绑定）
 func _bind_mapping_key(slot: BaseSlot, idx: int):
@@ -61,6 +63,7 @@ func _bind_mapping_key(slot: BaseSlot, idx: int):
 
 	slot.mapping_key = short_cut_text
 	slot.short_cut.text = short_cut_text
+	
 	
 func remove_element(ele: Variant):
 	ele = (ele as Skill)

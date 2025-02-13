@@ -12,13 +12,13 @@ selected_properties = Array[String]([])
 [resource]
 script = ExtResource("3_hym50")
 id = &""
-code = ""
+code = "power_buff"
 entity = ""
 prop = ""
 property_selector = SubResource("Resource_wqbbn")
-type = 0
-title = ""
-desc = ""
+type = 1
+title = "属性修改"
+desc = "修改目标指定属性"
 icon_path = ""
 value = 0.0
 value_unit = 0
