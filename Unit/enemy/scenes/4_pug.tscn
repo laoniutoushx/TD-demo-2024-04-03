@@ -645,7 +645,7 @@ script = ExtResource("1_ohkdf")
 [node name="Pug2" type="Node3D" parent="."]
 
 [node name="Armature" type="Node3D" parent="Pug2"]
-transform = Transform3D(39.5492, 0, 0, 0, -4.71463e-06, 39.5492, 0, -39.5492, -4.71463e-06, 0, 0, 0)
+transform = Transform3D(39, 0, 0, 0, -1.70474e-06, 39, 0, -39, -1.70474e-06, 0, 0, 0)
 
 [node name="Skeleton3D" type="Skeleton3D" parent="Pug2/Armature"]
 bones/0/name = "root"

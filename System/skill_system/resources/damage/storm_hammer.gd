@@ -50,7 +50,7 @@ class InnerHandler extends Node3D:
 
         vfx = SystemUtil.vfx_system.create_vfx("hammer", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
         self.add_child(vfx)
-        vfx.global_position = Vector3(source_unit.global_position.x, CommonUtil.get_scaled_aabb_height(target_unit) / 2, source_unit.global_position.z)
+        vfx.global_position = Vector3(source_unit.global_position.x, target_unit._height / 2, source_unit.global_position.z)
         
         await finished
         vfx.queue_free()
@@ -62,7 +62,7 @@ class InnerHandler extends Node3D:
 
         # 销毁特效
         var vfx1 = SystemUtil.vfx_system.create_vfx("hammer", SystemUtil.vfx_system.VFX_TYPE.DESTORY)
-        vfx1.position.y = CommonUtil.get_scaled_aabb_height(target_unit) / 2
+        vfx1.position.y = target_unit._height / 2
         print(target_unit.global_transform.basis.get_scale())
         vfx1.scale = target_unit.global_transform.basis.get_scale()
         target_unit.add_child(vfx1)
@@ -82,7 +82,7 @@ class InnerHandler extends Node3D:
     # func _process(delta):
     #     if target_unit:
     #         # 计算移动方向
-    #         var target_pos = Vector3(target_unit.global_position.x, CommonUtil.get_scaled_aabb_height(target_unit) / 2, target_unit.global_position.z)
+    #         var target_pos = Vector3(target_unit.global_position.x, target_unit._height / 2, target_unit.global_position.z)
     #         var direction = (target_pos - vfx.global_position).normalized()
 
     #         vfx.look_at(target_pos, Vector3.FORWARD)
@@ -102,7 +102,7 @@ class InnerHandler extends Node3D:
     func _process(delta):
         if target_unit:
             # 计算目标点的位置
-            var target_pos = Vector3(target_unit.global_position.x, CommonUtil.get_scaled_aabb_height(target_unit) / 2, target_unit.global_position.z)
+            var target_pos = Vector3(target_unit.global_position.x, target_unit._height / 2, target_unit.global_position.z)
             
             # 计算移动方向
             var direction = (target_pos - vfx.global_position).normalized()

@@ -16,7 +16,7 @@ func _ready() -> void:
 
     # 高度获取
     if reference_instance is BaseUnit or reference_instance is Enemy:
-        var height = CommonUtil.get_scaled_aabb_height(reference_instance)
+        var height = reference_instance._height
         _vfx.position.y += height
 
 

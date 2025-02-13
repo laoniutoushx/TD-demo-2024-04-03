@@ -122,39 +122,54 @@ static func get_all_parent_node_by_node_type(node: Node, clazz: String) -> Array
 	return parent_nodes
 
 
+## AABB
+
 
 # 获取 transformed 之后的 aab
 static func get_scaled_aabb(mesh_instance: MeshInstance3D) -> AABB:
-	var mesh: Mesh = mesh_instance.mesh
+	if not mesh_instance:
+		return AABB()
 
-	var local_aabb = mesh_instance.mesh.get_aabb()
-	var basis = mesh_instance.global_transform.basis
-	var scale = basis.get_scale()
-
-	# print("local_aabb : %s" % local_aabb)
-	# print("basis : %s" % basis)
-	# print("scale : %s" % scale)
-
-	var scaled_aabb = AABB(local_aabb.position * scale, local_aabb.size * scale)
-	# print("scaled_aabb : %s" % scaled_aabb)
-	return scaled_aabb
-
+		
+	var local_aabb := mesh_instance.mesh.get_aabb()
+	var corners := PackedVector3Array()
+	corners.resize(8)
+	
+	# 获取本地AABB的8个角点
+	corners[0] = local_aabb.position
+	corners[1] = Vector3(local_aabb.position.x + local_aabb.size.x, local_aabb.position.y, local_aabb.position.z)
+	corners[2] = Vector3(local_aabb.position.x, local_aabb.position.y + local_aabb.size.y, local_aabb.position.z)
+	corners[3] = Vector3(local_aabb.position.x, local_aabb.position.y, local_aabb.position.z + local_aabb.size.z)
+	corners[4] = local_aabb.position + local_aabb.size
+	corners[5] = Vector3(local_aabb.position.x + local_aabb.size.x, local_aabb.position.y + local_aabb.size.y, local_aabb.position.z)
+	corners[6] = Vector3(local_aabb.position.x + local_aabb.size.x, local_aabb.position.y, local_aabb.position.z + local_aabb.size.z)
+	corners[7] = Vector3(local_aabb.position.x, local_aabb.position.y + local_aabb.size.y, local_aabb.position.z + local_aabb.size.z)
+	
+	# 转换到全局空间
+	var global_transform := mesh_instance.global_transform
+	var min_pos := global_transform * corners[0]
+	var max_pos := min_pos
+	
+	for i in range(1, 8):
+		var global_point := global_transform * corners[i]
+		min_pos = min_pos.min(global_point)
+		max_pos = max_pos.max(global_point)
+	
+	# 创建新的AABB并缓存
+	var global_aabb := AABB(min_pos, max_pos - min_pos)
 
 	
+	return global_aabb
+
+
 # 获取 transformed 之后的 AABB 的 height 高度
 static func get_scaled_aabb_height(node: Node) -> float:
 	var mesh_instance: MeshInstance3D = get_first_node_by_node_type(node, Constants.MeshInstance3D_CLZ)
-
-	var local_aabb = mesh_instance.mesh.get_aabb()  # 获取局部包围盒
-	var transform = mesh_instance.global_transform  # 获取全局变换
-	var scale = transform.basis.get_scale()  # 获取缩放因子
-
-	# 计算缩放后的包围盒
-	var scaled_position = local_aabb.position * scale
-	var scaled_size = local_aabb.size * scale
-
-	var height = scaled_size.y * mesh_instance.owner.aabb_height_scale
-	return height
+	if mesh_instance:
+		var global_scaled_aabb: AABB = get_scaled_aabb(mesh_instance)
+		return global_scaled_aabb.size.y
+	else:
+		return 0
 
 
 static func get_basic_scale(node: Node) -> Vector3:

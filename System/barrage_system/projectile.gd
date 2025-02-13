@@ -21,8 +21,7 @@ func _physics_process(delta: float) -> void:
 	if target != null and !target.is_logic_dead():
 		if lerp_pos < 1:  
 			# 获取 target 高度
-			var height = CommonUtil.get_scaled_aabb_height(target)
-			var target_pos = Vector3(target.global_position.x, height / 2.0, target.global_position.z)
+			var target_pos = Vector3(target.global_position.x, target._height / 2.0, target.global_position.z)
 
 			self.look_at(target_pos, Vector3.UP)
 			global_position = fire_pos.lerp(target_pos, lerp_pos)

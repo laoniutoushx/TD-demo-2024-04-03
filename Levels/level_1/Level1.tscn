@@ -27,15 +27,18 @@
 [ext_resource type="PackedScene" uid="uid://dan2sqr4q05tc" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree2.gltf" id="19_8kqgr"]
 [ext_resource type="PackedScene" uid="uid://cxhmatlnx4b1s" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree_Group.gltf" id="20_qdvia"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_35wnd"]
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ksqit"]
 panorama = ExtResource("3_ot2kt")
 
-[sub_resource type="Sky" id="Sky_12gdt"]
-sky_material = SubResource("PanoramaSkyMaterial_35wnd")
+[sub_resource type="Sky" id="Sky_ddk57"]
+sky_material = SubResource("PanoramaSkyMaterial_ksqit")
 
 [sub_resource type="Environment" id="Environment_tk0br"]
 background_mode = 2
-sky = SubResource("Sky_12gdt")
+sky = SubResource("Sky_ddk57")
+tonemap_mode = 2
+tonemap_exposure = 0.9
+tonemap_white = 2.0
 ssao_enabled = true
 sdfgi_enabled = true
 glow_enabled = true
@@ -72,6 +75,7 @@ environment = SubResource("Environment_tk0br")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+light_color = Color(0.909642, 0.925159, 0.922542, 1)
 shadow_enabled = true
 
 [node name="HTerrain" type="Node3D" parent="."]

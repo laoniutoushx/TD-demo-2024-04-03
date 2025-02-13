@@ -14,6 +14,7 @@ title = "？？？"
 desc = "？？？"
 icon_path = "res://Asserts/Images/icon/enemy/capsule.png"
 aabb_scale = 1.0
+aabb_height_scale = 1.0
 element_phase = 2
 unit_move_type = 1
 unit_cate = 1

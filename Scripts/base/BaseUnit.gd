@@ -147,8 +147,12 @@ var current_global_skill_state: int = 0
 var buff_map: Dictionary = {}
 
 
+# 内部变量
+var _transformed_aabb: AABB		# 当前对象全局空间 AABB 包围盒
+var _height: float				# 当前对象高度
 
-# 内部节点
+
+
 
 
 func _ready() -> void:
@@ -172,7 +176,7 @@ func _ready() -> void:
 		#_create_selected_circle()
 	
 	# hide select circle
-	var select_circle = CommonUtil.get_first_node_by_node_name(self, "FadedCircle3D")	
+	var select_circle = CommonUtil.get_first_node_by_node_name(self, "FadedCircle3D")
 	select_circle.hide()
 	
 	# attack area fixed
@@ -200,6 +204,21 @@ func _ready() -> void:
 	# signal register
 	logical_death.connect(_on_logic_dead, CONNECT_ONE_SHOT)
 	# physic_death.connect(_on_physic_dead, CONNECT_ONE_SHOT)
+
+
+	# AABB
+
+	var aabb: AABB = CommonUtil.get_scaled_aabb(CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ))
+	# _transformed_aabb = AABB(aabb.position * aabb_scale, aabb.size * aabb_scale)
+	_transformed_aabb = aabb.grow(aabb_scale)
+	_height = aabb.size.y * aabb_height_scale
+
+	print("clz - %s" % self.clz_name)
+	print(self.aabb_scale)
+	print(self.aabb_height_scale)
+	print(_transformed_aabb)
+	print(_height)
+
 
 # clz 初始化
 func clazz_init():
