@@ -15,7 +15,7 @@
 [ext_resource type="Script" path="res://System/skill_system/resources/building/building_base_turret.gd" id="12_03rxs"]
 [ext_resource type="Resource" uid="uid://7n44576jnsc1" path="res://Unit/turret/resources/Bomber_1.tres" id="14_s7ueq"]
 [ext_resource type="PackedScene" uid="uid://u1iq3xrerays" path="res://Unit/turret/scenes/Bomber_1.tscn" id="15_5ehoc"]
-[ext_resource type="Resource" uid="uid://bm3kcjrhtayri" path="res://System/skill_system/resources/effect/force_field.tres" id="16_2yx4i"]
+[ext_resource type="Resource" path="res://System/skill_system/resources/effect/force_field.tres" id="16_2yx4i"]
 
 [sub_resource type="Resource" id="Resource_b101j"]
 script = ExtResource("3_j65fo")
@@ -26,6 +26,7 @@ icon_path = "default"
 level = 0
 level_up_gap = 1
 max_level = 3
+init_release = false
 auto_release = false
 cooldown = 1.0
 mana_cost = 10.0
@@ -61,6 +62,7 @@ icon_path = "default"
 level = 0
 level_up_gap = 1
 max_level = 3
+init_release = false
 auto_release = false
 cooldown = 1.0
 mana_cost = 10.0

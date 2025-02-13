@@ -155,9 +155,12 @@ func _on_skill_auto_release(is_auto_release: bool, skill_context: SkillContext):
 
 				# 等待 area_ai 完成后，立即执行
 				skill_release_right_now(skill_context)
-
+ 
 	else:
+		skill.skill_cool_down.disconnect(_on_skill_cool_down)
 		if skill._area_ai:
+			skill._area_ai.area_entered.disconnect(_on_area_3d_area_entered)
+			skill._area_ai.area_exited.disconnect(_on_area_3d_area_exited)
 			skill._area_ai.queue_free()
 		skill._area_ai = null
 

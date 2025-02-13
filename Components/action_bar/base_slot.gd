@@ -59,9 +59,10 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void: 
 	# 技能 slot 监听
 	if is_instance_valid(reference) and reference is Skill:
+		# print("is mouse hover %s" % is_mouse_hover)
 		# 绑定鼠标左键点击
 		if is_mouse_hover:
-			print(reference.unit.current_global_skill_state, reference.current_state)
+			# print(reference.unit.current_global_skill_state, reference.current_state)
 			if (reference.unit.current_global_skill_state == 0 and reference.SKILL_STATE.Idle == reference.current_state and 
 				(
 					event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed 
@@ -73,8 +74,8 @@ func _input(event: InputEvent) -> void:
 
 		# 绑定鼠标右键点击
 		if is_mouse_hover:
-			print(reference.unit.current_global_skill_state, reference.current_state)
-			if (reference.unit.current_global_skill_state == 0 and reference.SKILL_STATE.Idle == reference.current_state and 
+			# print(reference.unit.current_global_skill_state, reference.current_state)
+			if (reference.unit.current_global_skill_state == 0 and 
 				(
 					event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed # event.is_released()
 				)
@@ -84,7 +85,7 @@ func _input(event: InputEvent) -> void:
 
 				if reference.auto_release:
 					reference.auto_release = false
-				else:
+				else: 
 					reference.auto_release = true
 
 				# slot 自动释放动画效果添加
@@ -167,6 +168,7 @@ func extend_cooldown(cooldown: float) -> void:
 
 
 func _on_mouse_entered() -> void:
+	print("mouse hover")
 	is_mouse_hover = true
 	icon_texture.material.set_shader_parameter("show_border", true)
 	
@@ -182,6 +184,7 @@ func _on_mouse_entered() -> void:
 
 
 func _on_mouse_exited() -> void:
+	print("mouse out")
 	is_mouse_hover = false
 	icon_texture.material.set_shader_parameter("show_border", false)
 
