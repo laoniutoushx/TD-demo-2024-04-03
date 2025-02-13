@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2fad1mnop0tn"]
+[gd_scene load_steps=24 format=3 uid="uid://d2fad1mnop0tn"]
 
 [ext_resource type="Theme" uid="uid://diau7m8wv81l3" path="res://Components/action_bar/slot_panel_container_unactive_theme.tres" id="1_agtpx"]
 [ext_resource type="Script" path="res://Components/action_bar/base_slot.gd" id="1_csdik"]
@@ -6,6 +6,78 @@
 [ext_resource type="LabelSettings" uid="uid://dddgoh2chfqp" path="res://Asserts/resources/action_bar_label_setting.tres" id="2_cwpij"]
 [ext_resource type="Material" uid="uid://bvuqnh7l05igc" path="res://Components/action_bar/corner_boder_color.tres" id="3_4x347"]
 [ext_resource type="Texture2D" uid="uid://b4ledf1xcnbsk" path="res://Asserts/Images/icon/white.jpg" id="6_kjqx3"]
+[ext_resource type="Texture2D" uid="uid://dehmc0uae454w" path="res://Components/action_bar/board_effect/1_01.png" id="7_lnur2"]
+[ext_resource type="Texture2D" uid="uid://qt5dfs3643wj" path="res://Components/action_bar/board_effect/1_02.png" id="8_c1jb5"]
+[ext_resource type="Texture2D" uid="uid://b16o2k7hpi1tj" path="res://Components/action_bar/board_effect/1_03.png" id="9_ampkp"]
+[ext_resource type="Texture2D" uid="uid://bputusne11kvh" path="res://Components/action_bar/board_effect/1_04.png" id="10_fy6fu"]
+[ext_resource type="Texture2D" uid="uid://xs7yi64nx2o2" path="res://Components/action_bar/board_effect/1_05.png" id="11_x5u3s"]
+[ext_resource type="Texture2D" uid="uid://djf00g6a6o1nj" path="res://Components/action_bar/board_effect/1_06.png" id="12_60j07"]
+[ext_resource type="Texture2D" uid="uid://cmm1ewn7sjrsp" path="res://Components/action_bar/board_effect/1_07.png" id="13_vvj8y"]
+[ext_resource type="Texture2D" uid="uid://cu46b7qqnmgw1" path="res://Components/action_bar/board_effect/1_08.png" id="14_qjon2"]
+[ext_resource type="Texture2D" uid="uid://b77arq00xov2t" path="res://Components/action_bar/board_effect/1_09.png" id="15_u3q42"]
+[ext_resource type="Texture2D" uid="uid://j0a0iiccn3w2" path="res://Components/action_bar/board_effect/1_10.png" id="16_d74iw"]
+[ext_resource type="Texture2D" uid="uid://dxtqwiu2cxdtl" path="res://Components/action_bar/board_effect/1_11.png" id="17_xafup"]
+[ext_resource type="Texture2D" uid="uid://bqkhwi7e43m2e" path="res://Components/action_bar/board_effect/1_12.png" id="18_p31rq"]
+[ext_resource type="Texture2D" uid="uid://dwj3xa5gtvc3a" path="res://Components/action_bar/board_effect/1_13.png" id="19_hyg82"]
+[ext_resource type="Texture2D" uid="uid://dtfpqd7wdyxml" path="res://Components/action_bar/board_effect/1_14.png" id="20_07b74"]
+[ext_resource type="Texture2D" uid="uid://dt8wfjdvktle6" path="res://Components/action_bar/board_effect/1_15.png" id="21_2r3gr"]
+[ext_resource type="Texture2D" uid="uid://dny3qrekvxsy5" path="res://Components/action_bar/board_effect/1_16.png" id="22_8xc6o"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gcfxd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_c1jb5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_lnur2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ampkp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_fy6fu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_x5u3s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_60j07")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_vvj8y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_qjon2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_u3q42")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_d74iw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_xafup")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_p31rq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_hyg82")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_07b74")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_2r3gr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_8xc6o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
 
 [node name="BaseSlot" type="PanelContainer"]
 material = ExtResource("3_4x347")
@@ -43,6 +115,12 @@ value = 0.7
 fill_mode = 5
 texture_progress = ExtResource("6_kjqx3")
 tint_progress = Color(0, 0, 0, 0.47)
+
+[node name="BoardEffect" type="AnimatedSprite2D" parent="."]
+position = Vector2(37, 37)
+scale = Vector2(0.9, 0.9)
+sprite_frames = SubResource("SpriteFrames_gcfxd")
+frame_progress = 0.62621
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

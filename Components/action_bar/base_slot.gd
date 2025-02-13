@@ -22,6 +22,8 @@ signal slot_right_clicked(s: BaseSlot)
 @onready var icon_texture: TextureRect = $IconTexture
 @onready var short_cut: Label = $ShortCut
 @onready var progress_bar: TextureProgressBar = $TextureProgressBar
+@onready var boarder_effect: AnimatedSprite2D = $BoardEffect
+
 var timer: Timer
 var cimer: CommonUtil.Cimer
 
@@ -49,6 +51,9 @@ func _ready() -> void:
 	slot_material = _slot_material.duplicate(true)
 	progress_bar.value = 0.0
 	progress_bar.visible = false
+
+	# board
+	boarder_effect.visible = false
 
 	# Assuming slot is a Control node or subclass like Button, Label, etc.
 	# 设置 slot 轴心位置（防止缩放时，图标位置偏移）
@@ -85,8 +90,12 @@ func _input(event: InputEvent) -> void:
 
 				if reference.auto_release:
 					reference.auto_release = false
+					boarder_effect.visible = false
+					boarder_effect.stop()
 				else: 
 					reference.auto_release = true
+					boarder_effect.visible = true
+					boarder_effect.play("default", 1.0, true)
 
 				# slot 自动释放动画效果添加
 
