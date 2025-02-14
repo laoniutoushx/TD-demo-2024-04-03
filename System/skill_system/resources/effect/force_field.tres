@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_0jhkb"]
 [ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="2_oobxg"]
-[ext_resource type="Resource" uid="uid://bpod4pimcirxy" path="res://System/buff_system/resources/defence.tres" id="3_anba0"]
+[ext_resource type="Resource" uid="uid://dk0cymr07pskk" path="res://System/buff_system/resources/defence.tres" id="3_anba0"]
 [ext_resource type="Script" path="res://System/skill_system/resources/effect/force_field.gd" id="5_s5uaj"]
 
 [resource]
@@ -15,8 +15,8 @@ level = 1
 level_up_gap = 1
 max_level = 3
 init_release = false
-auto_release = false
-cooldown = 11.0
+auto_release = true
+cooldown = 10.0
 mana_cost = -1.0
 wood_cost = -1.0
 money_cost = -1.0
@@ -25,7 +25,7 @@ match_range = 30.0
 range = 5.0
 release_distance = 10.0
 stock = 1
-value = 0.0
+value = 100.0
 init_num = 1
 internal_time = -1.0
 start_time = 0.1

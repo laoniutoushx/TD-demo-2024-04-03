@@ -68,7 +68,8 @@ func init_buff_for_unit_by_res(ref: Variant, ele: Variant) -> Dictionary:
 
 
 
-# buff apply 
+## buff apply 
+# apply 一般一定是 apply to some unit，故 这里 _reference 为 BaseUnit
 func apply(_buff: Buff, _reference: Variant):	
 
 	# buff 计数
@@ -100,7 +101,7 @@ func apply(_buff: Buff, _reference: Variant):
 
 	# buff 添加
 	var buff: Buff = _buff.duplicate()
-	buff = CommonUtil.bean_properties_copy(_buff.res, buff)
+	buff = CommonUtil.bean_properties_copy(_buff, buff)
 
 	_reference.buff_map[buff.get_instance_id()] = buff
 

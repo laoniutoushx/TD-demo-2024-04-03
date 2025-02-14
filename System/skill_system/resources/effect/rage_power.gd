@@ -1,4 +1,4 @@
-class_name SlowPower extends Node3D
+class_name RagePower extends Node3D
 
 
 

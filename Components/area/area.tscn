@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Components/area/area.gd" id="1_n5bba"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_ds2rc"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7ebog"]
 margin = 0.0
 height = 5.0
 
@@ -12,5 +12,5 @@ collision_mask = 3
 script = ExtResource("1_n5bba")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CylinderShape3D_ds2rc")
+shape = SubResource("CylinderShape3D_7ebog")
 disabled = true

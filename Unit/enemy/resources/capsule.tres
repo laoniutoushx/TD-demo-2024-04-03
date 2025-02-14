@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cjgsocu8i6efm" path="res://Unit/enemy/scenes/1_capsule.tscn" id="1_7phoe"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="1_taj0b"]
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="3_788m7"]
-[ext_resource type="Resource" uid="uid://x4bivjxncvqm" path="res://System/skill_system/resources/damage/thunderclap.tres" id="4_h3pjq"]
+[ext_resource type="Resource" uid="uid://bm3kcjrhtayri" path="res://System/skill_system/resources/effect/force_field.tres" id="5_msick"]
 
 [resource]
 script = ExtResource("1_taj0b")
@@ -46,4 +46,4 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_1mklm")]([])
-skill_metas = Array[ExtResource("3_788m7")]([ExtResource("4_h3pjq")])
+skill_metas = Array[ExtResource("3_788m7")]([ExtResource("5_msick")])

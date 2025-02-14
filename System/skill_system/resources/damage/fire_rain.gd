@@ -1,4 +1,4 @@
-class_name RagePower extends Node3D
+class_name FireRain extends Node3D
 
 
 
@@ -27,11 +27,17 @@ func action(skill_context: SkillContext) -> void:
             var distance = randf() * radius
             var new_point = target_position + Vector3(cos(angle) * distance, 0, sin(angle) * distance)
             points.append(new_point)
-    
-        for point in points:
+            
+
+            # 释放
             var handler = InnerHandler.new(skill_context)
             add_child(handler)
-            handler.vfx_handler(point)
+            handler.vfx_handler(new_point)
+    
+        # for point in points:
+        #     var handler = InnerHandler.new(skill_context)
+        #     add_child(handler)
+        #     handler.vfx_handler(point)
 
         if wave < skill.wave - 1:
             await CommonUtil.await_timer(skill.internal_time)
@@ -47,10 +53,12 @@ class InnerHandler extends Node3D:
     func vfx_handler(point: Vector3) -> void:
         var vfx = SystemUtil.vfx_system.create_vfx("fireball_another", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
 
-        vfx.global_position = Vector3(point.x, 30, point.z)
         # vfx.rotate_x(90)
-
+        
         self.add_child(vfx)
+        # 注意全局位置设置（必须在 add_child 生效之后）
+        vfx.global_position = Vector3(point.x, 30, point.z)
+
         
         var tween: Tween = create_tween()
         tween.tween_property(vfx, "global_position", point, 1)
@@ -64,10 +72,11 @@ class InnerHandler extends Node3D:
             vfx.queue_free()
 
         var vfx_destory = SystemUtil.vfx_system.create_vfx("fireball_another", SystemUtil.vfx_system.VFX_TYPE.DESTORY)
-        vfx_destory.look_at(point)
-        vfx_destory.global_position = point 
-        vfx_destory.rotate_z(90)
         self.add_child(vfx_destory)
+
+        vfx_destory.look_at(point)
+        vfx_destory.rotate_z(90)
+        vfx_destory.global_position = point 
 
         await CommonUtil.await_timer(1.0)
 

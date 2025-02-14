@@ -31,6 +31,12 @@ func _create_skill_slot(skill: Skill) -> BaseSlot:
 
 	# slot_state = SLOT_STATE.IN_ACTIVE
 
+	# board effect
+	if skill.auto_release:
+		slot_instance.boarder_effect.visible = true
+		slot_instance.boarder_effect.play("default", 1.0, true)
+
+
 	# skill init
 	slot_instance.timer = skill.cool_down_timer
 	slot_instance.progress_bar.max_value = skill.cooldown
@@ -99,11 +105,11 @@ func _on_slot_clicked(slot: BaseSlot):
 	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_RELEASE_TYPE.CIRCLE_RANGE, skill.release_type):
 		skill.change_state(Skill.SKILL_STATE.Circle_Range_Indicate)
 
-	# Self Cast
-	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_RELEASE_TYPE.SELF_CAST, skill.release_type):
+	# Self Cast | No Target
+	if (CommonUtil.is_flag_set(SkillMetaResource.SKILL_RELEASE_TYPE.SELF_CAST, skill.release_type)
+		or CommonUtil.is_flag_set(SkillMetaResource.SKILL_RELEASE_TYPE.NO_TARGET, skill.release_type)
+		):
 		skill.change_state(Skill.SKILL_STATE.Release)
 
-	# Self Cast
-	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_RELEASE_TYPE.NO_TARGET, skill.release_type):
-		skill.change_state(Skill.SKILL_STATE.Release)		
+
 

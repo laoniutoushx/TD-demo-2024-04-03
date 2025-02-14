@@ -1,6 +1,4 @@
-class_name FireRain extends Node3D
-
-
+class_name SlowPower extends Node3D
 
 
 
@@ -32,15 +30,18 @@ func _on_area_3d_area_entered(area: Area3D, skill_context):
     # print("---------- %s, skill state %s, skill buff_map state %s, " % [skill.title, is_instance_valid(skill), is_instance_valid(skill.buff_map.values())])
     # print("%s---------- %s" % [str((area.owner as BaseUnit).player_group), str(SOS.main.player_controller.player_group_idx)])
 
-    if area.owner is BaseUnit and (area.owner as BaseUnit).player_group != SOS.main.player_controller.player_group_idx:
+    if target_unit and target_unit.is_alive() and target_unit.player_group != SOS.main.player_controller.player_group_idx:
         for buff: Buff in skill.buff_map.values():
             # print("---------- %s, buff state %s" % [skill.title, is_instance_valid(buff)])
             SystemUtil.buff_system.apply(buff, target_unit)
+
+
 
 func _on_area_3d_area_exited(area: Area3D, skill_context):
     var skill: Skill = skill_context.skill
     var target_unit: BaseUnit = area.owner
 
-    if area.owner is BaseUnit and (area.owner as BaseUnit).player_group != SOS.main.player_controller.player_group_idx:
-        for buff: Buff in area.owner.buff_map.values():
-            SystemUtil.buff_system.remove(buff, target_unit)
+    if target_unit and target_unit.is_alive() and target_unit.player_group != SOS.main.player_controller.player_group_idx:
+        for buff: Buff in target_unit.buff_map.values():
+            if buff.reference_instance.get_instance_id() == skill.get_instance_id():
+                SystemUtil.buff_system.remove(buff, target_unit)

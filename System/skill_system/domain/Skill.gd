@@ -1,4 +1,4 @@
-class_name Skill extends Node
+class_name Skill extends Node3D
 
 # Reference
 var skill_meta_res: SkillMetaResource
@@ -29,6 +29,8 @@ var code: String
 @export var auto_release: bool = false :
     set(value):
         auto_release = value
+        if not is_inside_tree():
+            await ready
         SignalBus.skill_auto_release.emit(value, skill_context)
 
 # 冷却时间

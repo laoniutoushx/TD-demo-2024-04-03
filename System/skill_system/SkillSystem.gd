@@ -46,7 +46,6 @@ func initialize_skills(source_unit: BaseUnit, skill_metas: Array[SkillMetaResour
 		# 初始化 buff
 		SystemUtil.buff_system.init_buff_for_unit_by_res(skill.skill_meta_res, skill)
 
-		skill.unit = source_unit
 		if skill != null:
 			skill_map[skill.code] = skill
 
@@ -64,6 +63,11 @@ func _initialize_skill(source_unit: BaseUnit, skill_meta_res: SkillMetaResource,
 	if skill_meta_res != null:
 		var skill: Skill = Skill.new()
 		skill.unit = source_unit
+
+		# skill context init
+		# skill.skill_context = SkillContext.new(skill, null, source_unit, Vector3.ZERO)
+
+		# skill property init
 		CommonUtil.bean_properties_copy(skill_meta_res, skill)
 		# 手动赋值 skill_script
 		skill.skill_script = skill_meta_res.skill_script
@@ -134,15 +138,21 @@ func _on_skill_auto_release(is_auto_release: bool, skill_context: SkillContext):
 	var source_unit: BaseUnit = skill_context.source
 	var target_unit: BaseUnit = skill_context.target
 
+	# await skill.ready
+	# await skill.unit.ready
+
 	if is_auto_release:
 		# 判断技能类型（不是建筑类型）
 		if not CommonUtil.is_flag_set(SkillMetaResource.SKILL_EFFECT_TYPE.BUILDING, skill.effect_type):
 
+			# 技能需要范围判断（自释放除外）
+			if not CommonUtil.is_flag_set(SkillMetaResource.SKILL_RELEASE_TYPE.SELF_CAST, skill.release_type):
+
 				# load area_tscn
 				var area_tscn: PackedScene = load("res://Components/area/area.tscn")
-				var area_inst: Area3D = area_tscn.instantiate()
+				var area_inst: Area = area_tscn.instantiate().duplicate()
 
-				area_inst.init(skill.range)
+				area_inst.init(skill.release_distance)
 				source_unit.add_child(area_inst)
 
 				skill._area_ai = area_inst
@@ -153,8 +163,8 @@ func _on_skill_auto_release(is_auto_release: bool, skill_context: SkillContext):
 
 				await skill._area_ai.ready
 
-				# 等待 area_ai 完成后，立即执行
-				skill_release_right_now(skill_context)
+			# 等待 area_ai 完成后，立即执行
+			skill_release_right_now(skill_context)
  
 	else:
 		skill.skill_cool_down.disconnect(_on_skill_cool_down)
@@ -193,11 +203,8 @@ func skill_release_right_now(skill_context: SkillContext) -> void:
 		return
 
 	# 2. 技能释放条件是否满足
-	if not skill._area_ai.has_overlapping_areas():
-		return
-
-	var areas:Array[Area3D] =  skill._area_ai.get_overlapping_areas()
-	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.ENEMY, skill.target_type):
+	if skill._area_ai and skill._area_ai.has_overlapping_areas() and CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.ENEMY, skill.target_type):
+		var areas:Array[Area3D] =  skill._area_ai.get_overlapping_areas()
 		for area in areas:
 			var matched_unit = area.owner
 			if matched_unit is Enemy and matched_unit.is_alive() and matched_unit.player_group != SOS.main.player_controller.player_group_idx:
@@ -208,7 +215,8 @@ func skill_release_right_now(skill_context: SkillContext) -> void:
 				break
 		return
 
-	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.FRIEND, skill.target_type):
+	if skill._area_ai and skill._area_ai.has_overlapping_areas() and CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.FRIEND, skill.target_type):
+		var areas:Array[Area3D] =  skill._area_ai.get_overlapping_areas()
 		for area in areas:
 			var matched_unit = area.owner
 			if matched_unit is Turret and matched_unit.player_group == SOS.main.player_controller.player_group_idx:

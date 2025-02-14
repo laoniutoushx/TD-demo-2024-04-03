@@ -55,23 +55,34 @@ class InnerHandler extends Node3D:
         await finished
         vfx.queue_free()
 
+        # 销毁特效
+        var vfx1 = SystemUtil.vfx_system.create_vfx("hammer", SystemUtil.vfx_system.VFX_TYPE.DESTORY)
+        vfx1.position.y = target_unit._height / 2
+        # print(target_unit.global_transform.basis.get_scale())
+        vfx1.scale = target_unit.global_transform.basis.get_scale()
+        target_unit.add_child(vfx1)
+
+        # 造成伤害（单位逻辑死亡，则返回）
+        SOS.main.damage_system.skill_damage(skill, source_unit, target_unit)
+
         # stun buff
         for buff: Buff in skill.buff_map.values():
             # print("---------- %s, buff state %s" % [skill.title, is_instance_valid(buff)])
             SystemUtil.buff_system.apply(buff, target_unit)
 
-        # 销毁特效
-        var vfx1 = SystemUtil.vfx_system.create_vfx("hammer", SystemUtil.vfx_system.VFX_TYPE.DESTORY)
-        vfx1.position.y = target_unit._height / 2
-        print(target_unit.global_transform.basis.get_scale())
-        vfx1.scale = target_unit.global_transform.basis.get_scale()
-        target_unit.add_child(vfx1)
-
         # 播放音效(魔法击中)
         CommonUtil.play_audio(target_unit, "魔法击中-YS070510_爱给网_aigei_com")
 
+
+        # 等待销毁特性播放完毕
         await vfx1.tree_exited
-        queue_free()
+        vfx1.queue_free()
+
+
+
+        
+
+        
 
 
 

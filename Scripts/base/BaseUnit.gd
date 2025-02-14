@@ -313,13 +313,13 @@ func _on_ray_picker_unregist(callable: Callable) -> void:
 	take_damage_callback_list.erase(callable)
 
 # damage unit
-func take_damage(damage: float):
+func take_damage(damage: float) -> bool:
 	if not take_damage_callback_list.is_empty():
 		for callback in take_damage_callback_list:
 			damage = callback.call(damage)
 
 	if damage <= 0:
-		return 
+		return _is_logic_alive
 		
 	health -= damage
 	SignalBus.unit_take_damage.emit(get_instance_id(), self, damage)
@@ -327,6 +327,8 @@ func take_damage(damage: float):
 		_is_logic_alive = false
 		logical_death.emit(self)
 		SignalBus.unit_logic_death.emit(get_instance_id(), self)
+	
+	return _is_logic_alive
 
 
 # heal unit health
