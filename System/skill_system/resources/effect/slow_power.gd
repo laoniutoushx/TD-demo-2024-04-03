@@ -42,6 +42,7 @@ func _on_area_3d_area_exited(area: Area3D, skill_context):
     var target_unit: BaseUnit = area.owner
 
     if target_unit and target_unit.is_alive() and target_unit.player_group != SOS.main.player_controller.player_group_idx:
-        for buff: Buff in target_unit.buff_map.values():
-            if buff.reference_instance.get_instance_id() == skill.get_instance_id():
-                SystemUtil.buff_system.remove(buff, target_unit)
+        for unit_buff: Buff in target_unit.buff_map.values():
+            for skill_buff: Buff in skill.buff_map.values():
+                if unit_buff.code == skill_buff.code:
+                    SystemUtil.buff_system.remove(unit_buff, target_unit)

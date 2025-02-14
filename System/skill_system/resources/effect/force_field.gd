@@ -13,6 +13,7 @@ func action(skill_context: SkillContext) -> void:
 
     for buff: Buff in skill.buff_map.values():
         buff.value = skill.value
+        print("buff code %s, buff cooldown %s" % [buff.code, buff.cooldown])
         SystemUtil.buff_system.apply(buff, source_unit)
 
 

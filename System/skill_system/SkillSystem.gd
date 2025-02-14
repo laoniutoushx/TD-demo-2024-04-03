@@ -198,7 +198,7 @@ func _on_area_3d_area_exited(area: Area3D, skill_context: SkillContext):
 func skill_release_right_now(skill_context: SkillContext) -> void:
 	var skill: Skill = skill_context.skill
 
-	# 1. 技能状态判断（技能未在冷却中）
+	# 1. 技能状态判断（技能未在释放或冷却中）
 	if skill.current_state == Skill.SKILL_STATE.Cool_Down or skill.current_state == Skill.SKILL_STATE.Release :
 		return
 

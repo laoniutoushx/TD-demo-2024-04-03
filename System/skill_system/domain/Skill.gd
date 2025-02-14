@@ -394,28 +394,28 @@ func change_state(new_state: SKILL_STATE) -> void:
 
 
         SKILL_STATE.Cool_Down:
+
+            # 开始倒计时
+            cool_down_timer.start()
+
+            # 槽
             if slot:
                 if is_instance_valid(slot) and is_instance_valid(slot.progress_bar):
                     slot.progress_bar.visible = true    
-
-                cool_down_timer.start()
-
-                if is_instance_valid(slot):
                     slot.set_process(true)
 
-                await cool_down_timer.timeout
-
+            await cool_down_timer.timeout
+            
+            if slot:
                 if is_instance_valid(slot) and is_instance_valid(slot.progress_bar):
-                    slot.progress_bar.visible = false
-                if is_instance_valid(slot):                
+                    slot.progress_bar.visible = false             
                     slot.set_process(false)
 
-            
             change_state(SKILL_STATE.Idle)
 
             # 技能冷却完毕信号
             skill_cool_down.emit(skill_context)
-            
+
 
         SKILL_STATE.Idle:
             print("skill [%s] is idle" % code)

@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://du2cd7tgpnqxw"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=6 format=3 uid="uid://du2cd7tgpnqxw"]
 
 [ext_resource type="PackedScene" uid="uid://ca3nvrkfayrwg" path="res://Unit/enemy/scenes/2_cow.tscn" id="1_i6ap7"]
 [ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_yonoe"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_1desw"]
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="3_6odkl"]
+[ext_resource type="Resource" uid="uid://bm3kcjrhtayri" path="res://System/skill_system/resources/effect/force_field.tres" id="5_26ho2"]
 
 [resource]
 script = ExtResource("2_1desw")
@@ -45,4 +46,4 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_yonoe")]([])
-skill_metas = Array[ExtResource("3_6odkl")]([])
+skill_metas = Array[ExtResource("3_6odkl")]([ExtResource("5_26ho2")])
