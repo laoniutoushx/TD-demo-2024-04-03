@@ -145,9 +145,9 @@ func _on_skill_auto_release(is_auto_release: bool, skill_context: SkillContext):
 		# 判断技能类型（不是建筑类型）
 		if not CommonUtil.is_flag_set(SkillMetaResource.SKILL_EFFECT_TYPE.BUILDING, skill.effect_type):
 
+
 			# 技能需要范围判断（自释放除外）
 			if not CommonUtil.is_flag_set(SkillMetaResource.SKILL_RELEASE_TYPE.SELF_CAST, skill.release_type):
-
 				# load area_tscn
 				var area_tscn: PackedScene = load("res://Components/area/area.tscn")
 				var area_inst: Area = area_tscn.instantiate().duplicate()
@@ -156,12 +156,13 @@ func _on_skill_auto_release(is_auto_release: bool, skill_context: SkillContext):
 				source_unit.add_child(area_inst)
 
 				skill._area_ai = area_inst
-				skill.skill_cool_down.connect(_on_skill_cool_down)
-
 				area_inst.area_entered.connect(_on_area_3d_area_entered.bind(skill_context))
 				area_inst.area_exited.connect(_on_area_3d_area_exited.bind(skill_context))
 
 				await skill._area_ai.ready
+			
+			# 技能冷却
+			skill.skill_cool_down.connect(_on_skill_cool_down)
 
 			# 等待 area_ai 完成后，立即执行
 			skill_release_right_now(skill_context)
