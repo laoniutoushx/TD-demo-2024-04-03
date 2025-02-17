@@ -178,10 +178,14 @@ func _on_skill_auto_release(is_auto_release: bool, skill_context: SkillContext):
 
 
 
-## Skill AI Hanlder（事件驱动 - 技能冷却、进入释放范围）
+## Skill AI Hanlder（事件驱动 - 技能冷却、进入释放范围） + Command Queue
+var auto_release_skill_command_container: Dictionary = {}
+
+
 
 # 技能冷却完成
 func _on_skill_cool_down(skill_context: SkillContext) -> void:
+	await CommonUtil.await_timer(0.3)
 	skill_release_right_now(skill_context)
 
 

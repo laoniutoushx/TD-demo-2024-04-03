@@ -19,7 +19,7 @@ void fragment() {
     float depth_texture = textureLod(depth_texture_sampler, SCREEN_UV, 0.0).r;
     vec4 world_pos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0,depth_texture, 1.0);
     world_pos.xyz /= world_pos.w;
-    
+
     float f = fresnel(1.0, NORMAL, VIEW);
     float edge = clamp(smoothstep(world_pos.z + 0.1, world_pos.z, VERTEX.z)
         + fresnel(3.0, NORMAL, VIEW), 0.0, 1.0);
@@ -29,7 +29,7 @@ void fragment() {
     float hex_fill = smoothstep(0.01, 0.0,
         (sin(hex_color.y * 10.0 + TIME * 0.1) + 1.0) * 0.5) * height_mask * (1.0 - hex_color.x);
     float wave = step(sin((UV.y + TIME * 0.04) * 8.0 * PI), 0.0);
-    
+
     ROUGHNESS = 1.0;
     SPECULAR = 0.0;
     ALBEDO = base_color;

@@ -19,6 +19,7 @@ func _ready() -> void:
 	global_position = fire_pos
 
 	finished.connect(_on_projectile_finished, CONNECT_ONE_SHOT)
+	target.logical_death.connect(_on_target_logical_death, CONNECT_ONE_SHOT)
 
 
 func _physics_process(delta: float) -> void:
@@ -52,4 +53,9 @@ func _physics_process(delta: float) -> void:
 
 # 时间
 func _on_projectile_finished():
+	queue_free()
+
+
+
+func _on_target_logical_death(unit: BaseUnit) -> void:
 	queue_free()
