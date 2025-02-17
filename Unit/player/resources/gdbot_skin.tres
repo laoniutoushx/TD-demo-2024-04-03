@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=20 format=3 uid="uid://sa00lx2hfecc"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=23 format=3 uid="uid://sa00lx2hfecc"]
 
 [ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_2sp2u"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_x8mob"]
@@ -14,7 +14,9 @@
 [ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="11_cyjaq"]
 [ext_resource type="Script" path="res://System/skill_system/resources/building/building_base_turret.gd" id="12_03rxs"]
 [ext_resource type="Resource" uid="uid://7n44576jnsc1" path="res://Unit/turret/resources/Bomber_1.tres" id="14_s7ueq"]
+[ext_resource type="Resource" uid="uid://cr204fvc37686" path="res://Unit/turret/resources/Teleporter_1.tres" id="14_xmssx"]
 [ext_resource type="PackedScene" uid="uid://u1iq3xrerays" path="res://Unit/turret/scenes/Bomber_1.tscn" id="15_5ehoc"]
+[ext_resource type="PackedScene" uid="uid://g2pp4vopotbr" path="res://Unit/turret/scenes/Teleporter_1.tscn" id="15_n1t0i"]
 [ext_resource type="Resource" uid="uid://bm3kcjrhtayri" path="res://System/skill_system/resources/effect/force_field.tres" id="16_2yx4i"]
 [ext_resource type="Resource" uid="uid://c4aggapaqdacr" path="res://System/skill_system/resources/effect/slow_power.tres" id="17_f5vvt"]
 
@@ -54,9 +56,9 @@ building_res = ExtResource("9_r63e7")
 skill_level_config = Array[ExtResource("3_j65fo")]([])
 skill_buff_config = Array[ExtResource("11_cyjaq")]([])
 
-[sub_resource type="Resource" id="Resource_2ee0a"]
+[sub_resource type="Resource" id="Resource_3kxur"]
 script = ExtResource("3_j65fo")
-code = "building_base_turret_1"
+code = "building_base_turret_2"
 title = "基础塔"
 desc = "在指定位置建造一个防御塔"
 icon_path = "default"
@@ -87,6 +89,42 @@ effect_type = 4
 skill_script = ExtResource("12_03rxs")
 building_scene = ExtResource("15_5ehoc")
 building_res = ExtResource("14_s7ueq")
+skill_level_config = Array[ExtResource("3_j65fo")]([])
+skill_buff_config = Array[ExtResource("11_cyjaq")]([])
+
+[sub_resource type="Resource" id="Resource_4g75c"]
+script = ExtResource("3_j65fo")
+code = "building_base_turret_3"
+title = "基础塔"
+desc = "在指定位置建造一个防御塔"
+icon_path = "default"
+level = 0
+level_up_gap = 1
+max_level = 3
+init_release = false
+auto_release = false
+cooldown = 1.0
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+damage_range = 5.0
+match_range = 30.0
+range = 5.0
+release_distance = 10.0
+stock = 1
+value = 0.0
+init_num = 1
+internal_time = 0.1
+start_time = 0.1
+end_time = 0.1
+wave = 1
+projection_speed = 1.0
+release_type = 1
+target_type = 1
+effect_type = 4
+skill_script = ExtResource("12_03rxs")
+building_scene = ExtResource("15_n1t0i")
+building_res = ExtResource("14_xmssx")
 skill_level_config = Array[ExtResource("3_j65fo")]([])
 skill_buff_config = Array[ExtResource("11_cyjaq")]([])
 
@@ -130,4 +168,4 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_2sp2u")]([ExtResource("2_2osqj")])
-skill_metas = Array[ExtResource("3_j65fo")]([ExtResource("7_jsd2q"), ExtResource("4_vdhal"), ExtResource("6_6vxlu"), SubResource("Resource_b101j"), ExtResource("10_semu7"), SubResource("Resource_2ee0a"), ExtResource("16_2yx4i"), ExtResource("17_f5vvt")])
+skill_metas = Array[ExtResource("3_j65fo")]([ExtResource("7_jsd2q"), ExtResource("4_vdhal"), ExtResource("6_6vxlu"), SubResource("Resource_b101j"), ExtResource("10_semu7"), SubResource("Resource_3kxur"), ExtResource("16_2yx4i"), ExtResource("17_f5vvt"), SubResource("Resource_4g75c")])

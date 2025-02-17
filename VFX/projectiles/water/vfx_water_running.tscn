@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://38oho63ob3on"]
+
+[ext_resource type="Script" path="res://Scripts/Trail3D.gd" id="3_hds7r"]
+[ext_resource type="AudioStream" uid="uid://buq0byk7dwh4p" path="res://Asserts/waves/fire-ball.wav" id="4_2oh8h"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ohim7"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+depth_draw_mode = 2
+no_depth_test = true
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+albedo_color = Color(0, 0.541, 1.622, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_aku21"]
+material = SubResource("StandardMaterial3D_ohim7")
+size = Vector2(0.5, 0.01)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rp5xk"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+billboard_keep_scale = true
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_ghxql"]
+
+[node name="VfxWaterRunning" type="Node3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="WaterLine" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_aku21")
+
+[node name="Trail3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.999999, 0, -8.74227e-08, 0, 1, 0, 8.74227e-08, 0, -0.999999, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rp5xk")
+mesh = SubResource("ImmediateMesh_ghxql")
+script = ExtResource("3_hds7r")
+fromWidth = 0.25
+toWidth = 0.23
+scaleAcceleration = 1.5
+motionDelta = 0.01
+lifespan = 0.2
+startColor = Color(0, 0.541, 1.622, 1)
+endColor = Color(0, 0.541, 1.622, 0.108)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_2oh8h")
+autoplay = true

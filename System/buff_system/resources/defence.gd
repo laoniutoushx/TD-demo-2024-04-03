@@ -8,7 +8,9 @@ func _ready() -> void:
 
     
     # 添加 vfx 到单位
-    _vfx = SystemUtil.vfx_system.create_vfx("force_field", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
+    _vfx = SystemUtil.vfx_system.create_vfx("force_field", SystemUtil.vfx_system.VFX_TYPE.RUNNING).duplicate()
+
+
 
     # 高度获取
     if unit:
@@ -27,11 +29,17 @@ func _ready() -> void:
 
 func _exit_tree() -> void:
     unit.unit_take_damage_unregist.emit(_on_take_damge_logic)
-    _vfx.queue_free()
-    super._exit_tree()
+
+    # play death animation
+    var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(_vfx, Constants.AnimationPlayer_CLZ)
+    ap.animation_finished.connect(_on_animation_player_animation_finished, CONNECT_ONE_SHOT)
+    ap.play("death")
+    await ap.animation_finished
 
 
-# 防御值逻辑
+
+
+# 防御值逻辑（回调注入）
 func _on_take_damge_logic(damage: float) -> float:
     value = value - damage
 
@@ -40,3 +48,10 @@ func _on_take_damge_logic(damage: float) -> float:
         return abs(value)
 
     return 0
+
+
+# 自动kill
+func _on_animation_player_animation_finished(anim_name:StringName) -> void:
+    if anim_name == "death":
+        super._exit_tree()
+

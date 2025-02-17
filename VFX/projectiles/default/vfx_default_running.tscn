@@ -1,11 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://7yal56tc3smh"]
+[gd_scene load_steps=4 format=3 uid="uid://7yal56tc3smh"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lm726"]
-albedo_color = Color(0.784314, 0.529412, 1, 1)
+[ext_resource type="Texture2D" uid="uid://bsrvkq5mvk8x5" path="res://addons/kenney_particle_pack/T_VFX_Glo31.png" id="1_gwmbq"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_0ocjb"]
-material = SubResource("StandardMaterial3D_lm726")
-size = Vector3(0.1, 0.1, 0.3)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5wjdv"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+depth_draw_mode = 2
+no_depth_test = true
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+albedo_color = Color(1, 0.87451, 0, 1)
+albedo_texture = ExtResource("1_gwmbq")
+grow_amount = 1.959
+
+[sub_resource type="QuadMesh" id="QuadMesh_6krlb"]
+material = SubResource("StandardMaterial3D_5wjdv")
+size = Vector2(0.5, 2.5)
+orientation = 1
 
 [node name="Default" type="MeshInstance3D"]
-mesh = SubResource("BoxMesh_0ocjb")
+mesh = SubResource("QuadMesh_6krlb")

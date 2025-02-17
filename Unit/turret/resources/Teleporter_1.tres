@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=10 format=3 uid="uid://cr204fvc37686"]
+
+[ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_h3s57"]
+[ext_resource type="PackedScene" uid="uid://g2pp4vopotbr" path="res://Unit/turret/scenes/Teleporter_1.tscn" id="2_ff0ii"]
+[ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="3_jbjsj"]
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_gigtb"]
+[ext_resource type="Resource" uid="uid://dpnj33orc37b" path="res://System/skill_system/resources/damage/thunder_chain.tres" id="5_wield"]
+[ext_resource type="Resource" uid="uid://x4bivjxncvqm" path="res://System/skill_system/resources/damage/thunderclap.tres" id="6_f3x0o"]
+[ext_resource type="Resource" uid="uid://btoskpfy832ny" path="res://System/skill_system/resources/damage/fire_rain.tres" id="7_5h5fs"]
+[ext_resource type="Resource" uid="uid://bx5jjj52jdb13" path="res://System/skill_system/resources/effect/rage_power.tres" id="8_8c86y"]
+[ext_resource type="Resource" uid="uid://c4aggapaqdacr" path="res://System/skill_system/resources/effect/slow_power.tres" id="9_54mb4"]
+
+[resource]
+script = ExtResource("3_jbjsj")
+clz_name = "turret"
+model_path = ExtResource("2_ff0ii")
+title = "魔法塔 Lv 1"
+desc = "一个普通的魔法塔"
+icon_path = "res://Asserts/Images/icon/skill icon/27.png"
+aabb_scale = 1.0
+aabb_height_scale = 1.0
+element_phase = 31
+unit_move_type = 1
+unit_cate = 2
+armor_amount = 0.0
+armor_type = 2
+is_mesh_outline = true
+is_mesh_standing = false
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+max_health = 10000.0
+move_speed = 5.0
+turn_speed = 10.0
+attack_speed = 0.5
+attack_range = 7.0
+attack_num = 1
+attack_value = 5.0
+unit_growth_factor = 1.0
+projectile_speed = 800.0
+vfx_projectile_name = "water"
+anim_attack = null
+anim_run = null
+anim_walk = null
+anim_idle = null
+anim_death = null
+anim_release = null
+anim_ack_point = 0.03
+is_selected_circle = true
+component_systems = 0
+pickup_velocity = 1000.0
+item_metas = Array[ExtResource("1_h3s57")]([])
+skill_metas = Array[ExtResource("4_gigtb")]([ExtResource("5_wield"), ExtResource("6_f3x0o"), ExtResource("7_5h5fs"), ExtResource("8_8c86y"), ExtResource("9_54mb4")])

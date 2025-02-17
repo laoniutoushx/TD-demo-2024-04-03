@@ -208,7 +208,7 @@ func _on_mouse_exited() -> void:
 
 
 func _process(delta: float) -> void:
-	if timer:
+	if timer and is_instance_valid(timer):
 		progress_bar.value = timer.time_left
 		# print(timer.time_left)
 	

@@ -405,7 +405,8 @@ static func play_audio(place: Variant, audio_name: String, volume_db: float = 1.
 	audio_player.stream = sound_effect
 	
 	# 将节点添加到场景中
-	place.add_child(audio_player)
+	if is_instance_valid(place):
+		place.add_child(audio_player)
 	
 	# 播放音频
 	audio_player.play()

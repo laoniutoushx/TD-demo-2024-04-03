@@ -60,7 +60,7 @@ var attack_value: float	# 伤害值
 var unit_growth_factor: float = 1.0     # 单位成长率
 var projectile_speed: float:	# 弹道速率
 	set (value):
-		projectile_speed = value / 100	# 取值缩小 100 倍
+		projectile_speed = value / 10	# 取值缩小 100 倍
 
 # FightRegion
 var vfx_projectile_name: String
@@ -239,6 +239,7 @@ func do_after_logic_dead() -> void:
 
 	# stop moving
 	set_process(false)
+	set_physics_process(false)
 	
 	# 移出 health bar
 	var health_bar = CommonUtil.get_first_node_by_node_name(self, "HealthBar3D")
@@ -282,7 +283,7 @@ func _on_animation_player_animation_finished(anim_name: String, unit:BaseUnit, s
 # 物理死亡
 func _on_physic_dead(unit: BaseUnit) -> void:
 	unit.hide()
-	await CommonUtil.await_timer(5)	# waiting 5 second for everything is over
+	await CommonUtil.await_timer(1)	# waiting 3 second for everything is over
 	unit.queue_free()
 
 

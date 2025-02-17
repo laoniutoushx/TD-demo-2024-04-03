@@ -103,6 +103,8 @@ func _on_unit_logic_death(id:int, unit :BaseUnit):
 	if active_unit and id == active_unit.get_instance_id():
 		active_unit = null
 		buff_bar_comp.clear()
+		skill_bar_comp.clear()
+		item_bar_comp.clear()
 
 
 func open_selection_bar(unit_map: Dictionary):
