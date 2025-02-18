@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://38oho63ob3on"]
+[gd_scene load_steps=18 format=3 uid="uid://38oho63ob3on"]
 
+[ext_resource type="Texture2D" uid="uid://c6fs5xcepi5hm" path="res://addons/kenney_particle_pack/magic_05.png" id="1_fuxo7"]
 [ext_resource type="Shader" path="res://VFX/projectiles/water/fireball_impact_trail.gdshader" id="3_8exrf"]
 [ext_resource type="Script" path="res://Scripts/Trail3D.gd" id="3_hds7r"]
 [ext_resource type="AudioStream" uid="uid://buq0byk7dwh4p" path="res://Asserts/waves/fire-ball.wav" id="4_2oh8h"]
@@ -9,15 +10,33 @@ gravity = Vector3(0, 0, 0)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqn6m"]
 transparency = 1
+blend_mode = 1
 cull_mode = 2
 shading_mode = 0
 disable_ambient_light = true
 disable_fog = true
-albedo_color = Color(0.1, 0.7, 2, 1)
+albedo_color = Color(0, 0.2, 1.3, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_3hb1f"]
 material = SubResource("StandardMaterial3D_eqn6m")
 height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ssk2"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+albedo_color = Color(0.6, 1.8, 3, 1)
+albedo_texture = ExtResource("1_fuxo7")
+uv1_scale = Vector3(0.5, 1, 0.5)
+uv1_offset = Vector3(0.25, 0, 0)
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_h6y5p"]
+material = SubResource("StandardMaterial3D_3ssk2")
+orientation = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehl4a"]
 transparency = 1
@@ -45,7 +64,7 @@ vertex_color_use_as_albedo = true
 vertex_color_is_srgb = true
 billboard_keep_scale = true
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_4xf8w"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_i3pyh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bdvgk"]
 render_priority = 0
@@ -76,18 +95,20 @@ amount = 1
 lifetime = 5.0
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_h0r0k")
+draw_passes = 2
 draw_pass_1 = SubResource("SphereMesh_3hb1f")
+draw_pass_2 = SubResource("QuadMesh_h6y5p")
 
 [node name="WaterLine" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_aku21")
 
 [node name="Trail3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.999999, 0, -8.74227e-08, 0, 1, 0, 8.74227e-08, 0, -0.999999, 0, 0, 0)
+transform = Transform3D(0.999939, 0, 0.01091, 0, 1, 0, -0.01091, 0, 0.999939, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_rp5xk")
-mesh = SubResource("ImmediateMesh_4xf8w")
+mesh = SubResource("ImmediateMesh_i3pyh")
 script = ExtResource("3_hds7r")
-fromWidth = 0.25
-toWidth = 0.25
+fromWidth = 0.35
+toWidth = 0.35
 scaleAcceleration = 1.5
 motionDelta = 0.01
 lifespan = 0.2

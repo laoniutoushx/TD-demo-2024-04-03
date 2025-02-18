@@ -29,7 +29,7 @@ shader = ExtResource("1_ewqjc")
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_7swvs")
-shader_parameter/uv_offset = Vector2(0.833333, 0.333333)
+shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 shader_parameter/flags = 40
 shader_parameter/color_ramp = ExtResource("3_h0nms")
@@ -46,14 +46,15 @@ mesh = SubResource("PlaneMesh_hu6m5")
 
 [node name="GPUTrail3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-amount = 100
-lifetime = 100.0
+amount = 99
+lifetime = 99.0
 explosiveness = 1.0
 fixed_fps = 120
 process_material = SubResource("ShaderMaterial_shpre")
 draw_pass_1 = SubResource("QuadMesh_svesv")
 script = ExtResource("5_coe72")
-length_seconds = 0.833333
+length = 99
+length_seconds = 0.825
 color_ramp = ExtResource("3_h0nms")
 curve = ExtResource("4_guqrm")
 _defaults_have_been_set = true

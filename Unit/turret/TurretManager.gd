@@ -92,7 +92,7 @@ func callable_build_turret(ray_cast_3d: RayCast3D, _grid_map: GridMap) -> void:
 
 						# skill state chagne
 						# var cell_center_pos: Vector3 = _grid_map.map_to_local(cell)
-						cell_center_pos.y += 1.09
+						cell_center_pos.y += 0.01
 						var bind_build_turret: Callable = build_turret.bind(cell_center_pos, null)
 						skill_context.callback = bind_build_turret
 						skill_context.building = turret
@@ -117,7 +117,7 @@ func _on_building_floor_indicator_show(_skill_context: SkillContext):
 		var cell_position = grid_map.map_to_local(cell)
 		if item_idx == 0:
 			if not cell_mesh_container.keys().has(cell_position):
-				cell_position.y += 0.1
+				cell_position.y += 0.01
 				var _cellmesh_instance = _create_cell_mesh_indicator_in_position(grid_map, cell_position)
 				cell_mesh_container[cell_position] = _cellmesh_instance
 
