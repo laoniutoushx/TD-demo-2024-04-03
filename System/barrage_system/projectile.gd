@@ -33,7 +33,7 @@ func _physics_process(delta: float) -> void:
 
 		# 使用 look_at 让物体 A 的 X 轴朝向目标
 		# self.look_at(target_pos, Vector3.FORWARD)
-		self.look_at(target_pos, Vector3.UP)
+		self.look_at(target_pos)
 		
 		# 进行旋转调整，如果物体的默认方向不是你期望的
 		# self.rotate_object_local(Vector3(-1, 0, 0), deg_to_rad(90))

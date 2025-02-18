@@ -1,9 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://38oho63ob3on"]
+[gd_scene load_steps=15 format=3 uid="uid://38oho63ob3on"]
 
+[ext_resource type="Shader" path="res://VFX/projectiles/water/fireball_impact_trail.gdshader" id="3_8exrf"]
 [ext_resource type="Script" path="res://Scripts/Trail3D.gd" id="3_hds7r"]
 [ext_resource type="AudioStream" uid="uid://buq0byk7dwh4p" path="res://Asserts/waves/fire-ball.wav" id="4_2oh8h"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ohim7"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h0r0k"]
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqn6m"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+albedo_color = Color(0.1, 0.7, 2, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_3hb1f"]
+material = SubResource("StandardMaterial3D_eqn6m")
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehl4a"]
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -15,7 +31,7 @@ disable_fog = true
 albedo_color = Color(0, 0.541, 1.622, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_aku21"]
-material = SubResource("StandardMaterial3D_ohim7")
+material = SubResource("StandardMaterial3D_ehl4a")
 size = Vector2(0.5, 0.01)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rp5xk"]
@@ -29,10 +45,38 @@ vertex_color_use_as_albedo = true
 vertex_color_is_srgb = true
 billboard_keep_scale = true
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_ghxql"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_4xf8w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bdvgk"]
+render_priority = 0
+shader = ExtResource("3_8exrf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x37qa"]
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 3.0
+initial_velocity_max = 3.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = -2.23517e-06
+
+[sub_resource type="Curve" id="Curve_jsom0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.664813), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_2lbea"]
+shape = 0
+section_length = 0.1
+curve = SubResource("Curve_jsom0")
 
 [node name="VfxWaterRunning" type="Node3D"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="WaterCore" type="GPUParticles3D" parent="."]
+amount = 1
+lifetime = 5.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_h0r0k")
+draw_pass_1 = SubResource("SphereMesh_3hb1f")
 
 [node name="WaterLine" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_aku21")
@@ -40,16 +84,29 @@ mesh = SubResource("PlaneMesh_aku21")
 [node name="Trail3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.999999, 0, -8.74227e-08, 0, 1, 0, 8.74227e-08, 0, -0.999999, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_rp5xk")
-mesh = SubResource("ImmediateMesh_ghxql")
+mesh = SubResource("ImmediateMesh_4xf8w")
 script = ExtResource("3_hds7r")
 fromWidth = 0.25
-toWidth = 0.23
+toWidth = 0.25
 scaleAcceleration = 1.5
 motionDelta = 0.01
 lifespan = 0.2
 startColor = Color(0, 0.541, 1.622, 1)
 endColor = Color(0, 0.541, 1.622, 0.108)
+colorInterpolationMode = 3
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_2oh8h")
 autoplay = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.122745, 0.663263, 2.56619)
+visible = false
+material_override = SubResource("ShaderMaterial_bdvgk")
+amount = 1
+lifetime = 2.0
+explosiveness = 1.0
+transform_align = 3
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_x37qa")
+draw_pass_1 = SubResource("RibbonTrailMesh_2lbea")
