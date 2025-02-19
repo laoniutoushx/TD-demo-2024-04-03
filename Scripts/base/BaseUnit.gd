@@ -51,7 +51,15 @@ var max_health : float :
 var _is_logic_alive := true
 
 
-var move_speed : float
+var move_speed : float :
+	set(value):
+		move_speed = value
+		_anim_speed = move_speed * anim_speed_factor / 5
+
+		if _ap:
+			_ap.speed_scale = _anim_speed
+
+
 var turn_speed : float
 var attack_speed : float
 var attack_range : float
@@ -107,13 +115,27 @@ var is_selected_circle: bool
 
 # ANIMATION
 @export_group("Animation")
+
+var _ap: AnimationPlayer
+var _at: AnimationTree
+
 @export var anim_attack = Constants.ANIM_ATTACK
 @export var anim_run = Constants.ANIM_RUN
 @export var anim_walk = Constants.ANIM_WALK
 @export var anim_idle = Constants.ANIM_IDEL
 @export var anim_death = Constants.ANIM_DEATH
-
 @export var anim_release = Constants.ANIM_RELEASE
+
+
+var _anim_speed: float	# 动画播放速率
+@export var anim_speed_factor: float = 1.0:
+	set(value):
+		anim_speed_factor = value
+		_anim_speed = move_speed * anim_speed_factor / 5
+
+		if _ap:
+			_ap.speed_scale = _anim_speed
+
 
 @export var anim_ack_point = 0.03	# 攻击动画回复点
 
@@ -216,6 +238,11 @@ func _ready() -> void:
 	# take damage
 	unit_take_damage_regist.connect(_on_ray_picker_regist)
 	unit_take_damage_unregist.connect(_on_ray_picker_unregist)
+
+
+	# animation init
+	_ap = CommonUtil.get_first_node_by_node_name(self, Constants.AnimationPlayer_CLZ)
+	_at = CommonUtil.get_first_node_by_node_name(self, Constants.AnimationTree_CLZ)
 
 
 

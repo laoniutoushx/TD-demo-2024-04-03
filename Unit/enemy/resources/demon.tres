@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://dy4v5o1caoteg"]
+
+[ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_m44ay"]
+[ext_resource type="PackedScene" uid="uid://elccnreb1nvm" path="res://Unit/enemy/scenes/armabee.tscn" id="2_1rb6l"]
+[ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="3_xqf4c"]
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_vhxgn"]
+
+[resource]
+script = ExtResource("3_xqf4c")
+clz_name = "demon"
+model_path = ExtResource("2_1rb6l")
+title = "地狱恶魔"
+desc = "地狱恶魔是来自地狱的强大生物，它们拥有强大的魔法能力和近战 combat 能力。这些恶魔通常是地狱军团的精锐部队，是战场上非常危险的敌人。地狱恶魔拥有坚硬的皮肤和锋利的爪牙，能够轻松撕裂敌人的防御。"
+icon_path = "res://Asserts/Images/icon/enemy/pug.png"
+aabb_scale = 1.0
+aabb_height_scale = 1.0
+element_phase = 16
+unit_move_type = 1
+unit_cate = 1
+armor_amount = 0.0
+armor_type = 10
+is_mesh_outline = false
+is_mesh_standing = true
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+max_health = 1000.0
+move_speed = 5.0
+turn_speed = 0.0
+attack_speed = 100.0
+attack_range = 0.0
+attack_num = 1
+attack_value = 0.0
+unit_growth_factor = 1.0
+projectile_speed = 100.0
+vfx_projectile_name = ""
+anim_attack = ""
+anim_run = "Flying_Idle"
+anim_walk = "Flying_Idle"
+anim_idle = "Flying_Idle"
+anim_death = null
+anim_release = ""
+anim_speed_factor = 1.0
+anim_ack_point = 0.03
+is_selected_circle = true
+component_systems = 0
+pickup_velocity = 1000.0
+item_metas = Array[ExtResource("1_m44ay")]([])
+skill_metas = Array[ExtResource("4_vhxgn")]([])

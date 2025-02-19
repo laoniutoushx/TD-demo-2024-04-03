@@ -236,13 +236,14 @@ libraries = {
 
 [node name="AttackingScope" type="Area3D" parent="."]
 unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackingScope"]
 shape = SubResource("CylinderShape3D_4d15t")
 
 [node name="AttackedScope" type="Area3D" parent="." groups=["enemy"]]
 unique_name_in_owner = true
-collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackedScope" groups=["enemy"]]

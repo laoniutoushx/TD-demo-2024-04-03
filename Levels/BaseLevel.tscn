@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/controller/RTSController.gd" id="7_h85ip"]
 [ext_resource type="PackedScene" uid="uid://btv2y2tfng4ob" path="res://Unit/turret/TurretManager.tscn" id="8_alldu"]
 [ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI/ui.tscn" id="8_q6t8a"]
-[ext_resource type="PackedScene" uid="uid://bv2qhyy2b7sew" path="res://Unit/enemy/scenes/3_pig.tscn" id="9_3f0su"]
+[ext_resource type="PackedScene" uid="uid://bv2qhyy2b7sew" path="res://Unit/enemy/scenes/pig.tscn" id="9_3f0su"]
 [ext_resource type="Script" path="res://Scripts/controller/LevelController.gd" id="9_10et7"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="10_mdt28"]
 [ext_resource type="PackedScene" uid="uid://bg1lkqccck6ln" path="res://VFX/projectiles/hammer/vfx_hammer_running.tscn" id="10_q7emr"]

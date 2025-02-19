@@ -143,24 +143,27 @@ func remove(_buff: Buff, _reference: Variant):
 	# 删除 reference 实体上关联的 buff 信息
 	_reference.buff_map.erase(_buff.get_instance_id())
 
-	if _buff.remove(_reference):
-		# 移出 buff action_bar ui 界面
-		SignalBus.buff_exit.emit(_buff, _reference)
+	# if _buff.remove(_reference):
+	# 移出 buff action_bar ui 界面
+	SignalBus.buff_exit.emit(_buff, _reference)
 
-		# 删除 buff
-		_buff.queue_free()
+	# 删除 buff
+	_buff.queue_free()
 
 
 
 # buff 退出节点树
 func _on_buff_exiting_tree(_buff: Buff, _reference: Variant):
-	# buff 计数
+	# 销毁时，处理 属性问题
+	_buff.remove(_reference)
+
+
+	# 销毁时，处理 buff 计数
 	var _id = str(_buff.code) + "&" + str(_reference.get_instance_id())
 	__buff_inst_counter.erase(_id)
+	# print("buff exit %s" % __buff_inst_counter)
 	
 
-	# 退出时，处理 buff 计数
-	# print("buff exit %s" % __buff_inst_counter)
 
 
 

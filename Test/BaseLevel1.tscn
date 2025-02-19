@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI/ui.tscn" id="7_f2ule"]
 [ext_resource type="Script" path="res://Scripts/controller/LevelController.gd" id="8_ufc1v"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="9_wqmse"]
-[ext_resource type="PackedScene" uid="uid://cjgsocu8i6efm" path="res://Unit/enemy/scenes/1_capsule.tscn" id="10_64q00"]
+[ext_resource type="PackedScene" uid="uid://cjgsocu8i6efm" path="res://Unit/enemy/scenes/capsule.tscn" id="10_64q00"]
 [ext_resource type="PackedScene" uid="uid://b7a1nrfaoya4w" path="res://System/vfx_system/vfx_system.tscn" id="12_tuabp"]
 [ext_resource type="PackedScene" uid="uid://5kncg21bpaly" path="res://System/damage_system/damage_system.tscn" id="13_iiwq5"]
 [ext_resource type="PackedScene" uid="uid://7rvt2k3k1jwh" path="res://System/barrage_system/barrage_system.tscn" id="14_y7yt8"]

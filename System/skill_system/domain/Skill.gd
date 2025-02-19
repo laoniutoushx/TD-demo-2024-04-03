@@ -160,7 +160,7 @@ func _input(event: InputEvent) -> void:
 
 
 
-# Decription 这个方法暂时标记为不使用
+# 废弃 Decrease Decription 这个方法暂时标记为不使用
 func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3, on_selected_player_status: PlayerController.PLAYER_STATUS) -> void:
     if current_state == SKILL_STATE.Targeted_Indicate:
         if not unit_map.is_empty():

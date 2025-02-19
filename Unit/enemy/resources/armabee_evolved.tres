@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://dpq1ae42tsyvf"]
+
+[ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_7ig40"]
+[ext_resource type="PackedScene" uid="uid://dyj5ef3ay7ot0" path="res://Unit/enemy/scenes/armabee_evolved.tscn" id="2_oxydl"]
+[ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="3_rf7fr"]
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_2wbnn"]
+
+[resource]
+script = ExtResource("3_rf7fr")
+clz_name = "armabee_evolved"
+model_path = ExtResource("2_oxydl")
+title = " 高级装甲蜂"
+desc = "最初的装甲蜂是蜂巢意志为了适应战场环境而改造的生物兵器。它们坚硬的甲壳和锋利的螫针让它们成为战场上令人畏惧的存在。然而，随着战争的升级，敌人也变得越来越强大，蜂巢意志不得不对装甲蜂进行进一步的改造和进化。高级装甲蜂就是装甲蜂的进化形态。它们不仅拥有更强大的防御力和攻击力，还获得了新的能力。一些高级装甲蜂甚至可以释放电磁脉冲，干扰敌人的电子设备，或者喷射腐蚀性液体，对敌人造成持续伤害。它们是蜂巢意志空中力量的中坚力量，是敌人不可忽视的威胁。"
+icon_path = "res://Asserts/Images/icon/enemy/pug.png"
+aabb_scale = 1.0
+aabb_height_scale = 1.0
+element_phase = 16
+unit_move_type = 1
+unit_cate = 1
+armor_amount = 0.0
+armor_type = 10
+is_mesh_outline = false
+is_mesh_standing = true
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+max_health = 1000.0
+move_speed = 5.0
+turn_speed = 0.0
+attack_speed = 100.0
+attack_range = 0.0
+attack_num = 1
+attack_value = 0.0
+unit_growth_factor = 1.0
+projectile_speed = 100.0
+vfx_projectile_name = ""
+anim_attack = ""
+anim_run = "Armature|Run"
+anim_walk = "Armature|Walk"
+anim_idle = "Armature|Idle"
+anim_death = "Armature|Death"
+anim_release = ""
+anim_speed_factor = 1.0
+anim_ack_point = 0.03
+is_selected_circle = true
+component_systems = 0
+pickup_velocity = 1000.0
+item_metas = Array[ExtResource("1_7ig40")]([])
+skill_metas = Array[ExtResource("4_2wbnn")]([])

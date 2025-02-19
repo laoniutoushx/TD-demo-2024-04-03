@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_ooydm"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_gquih"]
-[ext_resource type="PackedScene" uid="uid://b21f0lumfd6hw" path="res://Unit/enemy/scenes/4_pug.tscn" id="2_ki07y"]
+[ext_resource type="PackedScene" uid="uid://b21f0lumfd6hw" path="res://Unit/enemy/scenes/pug.tscn" id="2_ki07y"]
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="3_8yvs0"]
 
 [resource]
@@ -40,6 +40,7 @@ anim_walk = null
 anim_idle = "Armature|Idle"
 anim_death = "death"
 anim_release = null
+anim_speed_factor = 1.0
 anim_ack_point = 0.03
 is_selected_circle = true
 component_systems = 0

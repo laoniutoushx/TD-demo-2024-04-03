@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=6 format=3 uid="uid://cffbb4c05twbf"]
+
+[ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_yonoe"]
+[ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="2_1desw"]
+[ext_resource type="PackedScene" uid="uid://wsthmrqyy1qu" path="res://Unit/enemy/scenes/cow_another.tscn" id="2_vvr6r"]
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="3_6odkl"]
+[ext_resource type="Resource" uid="uid://bm3kcjrhtayri" path="res://System/skill_system/resources/effect/force_field.tres" id="5_26ho2"]
+
+[resource]
+script = ExtResource("2_1desw")
+clz_name = "cow_another"
+model_path = ExtResource("2_vvr6r")
+title = "变异牛群"
+desc = "变异牛群是由多头受到不明原因辐射或魔法影响的牛组成的群体。这些牛不仅体型巨大，性情狂暴，而且还发生了变异，拥有了各种各样的特殊能力。变异牛群通常成群结队地活动，是战场上非常危险的敌人。"
+icon_path = "res://Asserts/Images/icon/enemy/cow.png"
+aabb_scale = 1.0
+aabb_height_scale = 1.0
+element_phase = 4
+unit_move_type = 1
+unit_cate = 1
+armor_amount = 0.0
+armor_type = 10
+is_mesh_outline = false
+is_mesh_standing = true
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+max_health = 500.0
+move_speed = 5.0
+turn_speed = 0.0
+attack_speed = 100.0
+attack_range = 0.0
+attack_num = 1
+attack_value = 0.0
+unit_growth_factor = 1.0
+projectile_speed = 100.0
+vfx_projectile_name = ""
+anim_attack = null
+anim_run = "Walk"
+anim_walk = "Walk"
+anim_idle = "Idle"
+anim_death = "Death"
+anim_release = null
+anim_speed_factor = 1.0
+anim_ack_point = 0.03
+is_selected_circle = true
+component_systems = 0
+pickup_velocity = 1000.0
+item_metas = Array[ExtResource("1_yonoe")]([])
+skill_metas = Array[ExtResource("3_6odkl")]([ExtResource("5_26ho2")])

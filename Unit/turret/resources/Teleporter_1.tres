@@ -45,6 +45,7 @@ anim_walk = null
 anim_idle = null
 anim_death = null
 anim_release = null
+anim_speed_factor = 1.0
 anim_ack_point = 0.03
 is_selected_circle = true
 component_systems = 0

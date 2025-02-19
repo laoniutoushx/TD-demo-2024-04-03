@@ -8,8 +8,6 @@ class_name Enemy extends BaseUnit
 
 
 var is_finish = false
-var ap: AnimationPlayer
-
 
 
 func _ready() -> void:
@@ -17,7 +15,7 @@ func _ready() -> void:
 	# 初始化时创建 path3d 与 pathfollow3d
 	
 	# 初始化 walk 动画
-	ap = CommonUtil.get_first_node_by_node_name(self, "AnimationPlayer")
+
 	change_state(EnemyState.WALKING)
 	
 	# health bar
@@ -92,8 +90,8 @@ func _physics_process(delta: float) -> void:
 
 	if pre_state == EnemyState.STUN:
 		set_process(true)
-		if ap:
-			ap.play()
+		if _ap:
+			_ap.play()
 
 	match current_state:		
 		EnemyState.IDLE:
@@ -120,25 +118,28 @@ func change_state(new_state: EnemyState) -> void:
 
 	if current_state == EnemyState.IDLE:
 		# 初始化 idle 动画
-		if ap:
-			ap.play(anim_idle)
+		if _ap:
+			_ap.play(anim_idle)
+			_ap.speed_scale = _anim_speed
 
 
 	if current_state == EnemyState.STUN:
 		set_process(false)
-		if ap:
-			ap.play(anim_idle)
+		if _ap:
+			_ap.play(anim_idle)
+			_ap.speed_scale = _anim_speed
 
 
 
 	if current_state == EnemyState.WALKING:
 		# 初始化 walk 动画
-		if ap:
-			print(anim_run)
-			ap.play(anim_run)
+		if _ap:
+			_ap.play(anim_run)
+			_ap.speed_scale = _anim_speed
 
 
 
 	if current_state == EnemyState.DEAD:
-		if ap:
-			ap.play(anim_death)
+		if _ap:
+			_ap.play(anim_death)
+			_ap.speed_scale = _anim_speed

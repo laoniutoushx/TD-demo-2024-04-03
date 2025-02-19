@@ -71,10 +71,9 @@ enum ELEMENT_PHASE_STR{
 @export var anim_walk = Constants.ANIM_WALK
 @export var anim_idle = Constants.ANIM_IDEL
 @export var anim_death = Constants.ANIM_DEATH
-
-
 @export var anim_release = Constants.ANIM_RELEASE
 
+@export var anim_speed_factor: float = 1.0
 @export var anim_ack_point = 0.03	# 攻击动画回复点
 
 

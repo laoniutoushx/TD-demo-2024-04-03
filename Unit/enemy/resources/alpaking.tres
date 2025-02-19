@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://b8sblpgiflce1"]
+
+[ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_31idq"]
+[ext_resource type="PackedScene" uid="uid://cvf1uofu50qnr" path="res://Unit/enemy/scenes/alpaking.tscn" id="2_rs4d5"]
+[ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="3_d5xkr"]
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_8cc3t"]
+
+[resource]
+script = ExtResource("3_d5xkr")
+clz_name = "alpaking"
+model_path = ExtResource("2_rs4d5")
+title = "异化战士"
+desc = "战士是一种受到神秘力量影响的特殊生物，它们拥有异化的外形，但却具备了强大的战斗能力。这些战士不仅擅长近身搏斗，还能够利用其独特的“羊驼化”能力为队友提供支援。它们通常成群结队地出现，是战场上不可忽视的力量。"
+icon_path = "res://Asserts/Images/icon/enemy/pug.png"
+aabb_scale = 1.0
+aabb_height_scale = 1.0
+element_phase = 16
+unit_move_type = 1
+unit_cate = 1
+armor_amount = 0.0
+armor_type = 10
+is_mesh_outline = false
+is_mesh_standing = true
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+max_health = 1000.0
+move_speed = 5.0
+turn_speed = 0.0
+attack_speed = 100.0
+attack_range = 0.0
+attack_num = 1
+attack_value = 0.0
+unit_growth_factor = 1.0
+projectile_speed = 100.0
+vfx_projectile_name = ""
+anim_attack = ""
+anim_run = "Fast_Flying"
+anim_walk = "Fast_Flying"
+anim_idle = "Flying_Idle"
+anim_death = "Death"
+anim_release = ""
+anim_speed_factor = 1.0
+anim_ack_point = 0.03
+is_selected_circle = true
+component_systems = 0
+pickup_velocity = 1000.0
+item_metas = Array[ExtResource("1_31idq")]([])
+skill_metas = Array[ExtResource("4_8cc3t")]([])
