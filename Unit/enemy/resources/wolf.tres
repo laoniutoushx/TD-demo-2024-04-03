@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://doi7ig8qs1r08"]
 
 [ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_m44ay"]
-[ext_resource type="PackedScene" path="res://Unit/enemy/scenes/wolf.tscn" id="2_oopjf"]
+[ext_resource type="PackedScene" uid="uid://elccnreb1nvm" path="res://Unit/enemy/scenes/wolf.tscn" id="2_oopjf"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="3_xqf4c"]
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_vhxgn"]
 
@@ -35,9 +35,9 @@ unit_growth_factor = 1.0
 projectile_speed = 100.0
 vfx_projectile_name = ""
 anim_attack = ""
-anim_run = "Fast_Flying"
-anim_walk = "Fast_Flying"
-anim_idle = "Flying_Idle"
+anim_run = "Walk"
+anim_walk = "Walk"
+anim_idle = "Idle"
 anim_death = "Death"
 anim_release = ""
 anim_speed_factor = 1.0

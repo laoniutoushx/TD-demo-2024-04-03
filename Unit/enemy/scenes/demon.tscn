@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=4 uid="uid://bl0cysp2x2beh"]
 
 [ext_resource type="Script" path="res://Unit/enemy/enemy.gd" id="1_rs53c"]
-[ext_resource type="Texture2D" uid="uid://c221lm7gpuyfm" path="res://Asserts/Models/ultimate monsters/glTF/Demon_Atlas_Monsters.png" id="2_y6jus"]
+[ext_resource type="Texture2D" uid="uid://dye1e534mx8rb" path="res://Asserts/Models/ulimate monster/glTF/Demon_Atlas_Monsters.png" id="2_y6jus"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_n2xhh"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_l2inq"]
 

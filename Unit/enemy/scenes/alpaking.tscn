@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Unit/enemy/enemy.gd" id="1_miuoy"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="2_65b84"]
-[ext_resource type="Texture2D" uid="uid://brqsufcncyrep" path="res://Asserts/Models/ultimate monsters/glTF/Alpaking_Atlas_Monsters.png" id="2_ybdt3"]
+[ext_resource type="Texture2D" uid="uid://cq53kotvyovaf" path="res://Asserts/Models/ulimate monster/glTF/Alpaking_Atlas_Monsters.png" id="2_ybdt3"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="3_owm1e"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kwqpu"]

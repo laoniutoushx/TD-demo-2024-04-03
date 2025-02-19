@@ -1,10 +1,6 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://diau7m8wv81l3"]
-
-[ext_resource type="FontFile" uid="uid://b2jmotgetkr7k" path="res://Asserts/resources/demo_ui/Font/KingGamingFreeTrial-gxrq6.otf" id="1_s67e4"]
-[ext_resource type="Texture2D" uid="uid://b6vx8m1k8vjl1" path="res://Asserts/resources/demo_ui/UI/img玩偶边框(img_doll_border)_爱给网_aigei_com.png" id="2_r4067"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://diau7m8wv81l3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5pm7c"]
-texture = ExtResource("2_r4067")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
@@ -13,5 +9,5 @@ modulate_color = Color(0.394353, 0.394353, 0.394353, 1)
 
 [resource]
 Label/font_sizes/font_size = 32
-Label/fonts/font = ExtResource("1_s67e4")
+Label/fonts/font = null
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_5pm7c")

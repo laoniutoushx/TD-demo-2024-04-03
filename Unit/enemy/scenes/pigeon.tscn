@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Unit/enemy/enemy.gd" id="1_rs53c"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_n2xhh"]
-[ext_resource type="Texture2D" uid="uid://bseoweqjolua7" path="res://Asserts/Models/ultimate monsters/glTF/Pigeon_Atlas_Monsters.png" id="4_46agp"]
+[ext_resource type="Texture2D" uid="uid://big8i4dvbwi7n" path="res://Asserts/Models/ulimate monster/glTF/Pigeon_Atlas_Monsters.png" id="4_46agp"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_l2inq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nde56"]
@@ -164,6 +164,7 @@ tracks/11/keys = PackedFloat32Array(0, 1, -0.99962, 0.0124439, 0.00829572, 0.023
 [sub_resource type="Animation" id="Animation_p2ema"]
 resource_name = "Fast_Flying"
 length = 0.833333
+loop_mode = 1
 tracks/0/type = "position_3d"
 tracks/0/imported = true
 tracks/0/enabled = true
@@ -812,7 +813,7 @@ bones/1/name = "Torso"
 bones/1/parent = 0
 bones/1/rest = Transform3D(0.999977, -0.00654694, -0.00197155, 0.00660181, 0.99955, 0.0292449, 0.0017792, -0.0292572, 0.99957, 0.00319718, 1.43152, -0.111039)
 bones/1/enabled = true
-bones/1/position = Vector3(0.00319718, 1.43152, -0.111039)
+bones/1/position = Vector3(0.00320156, 1.40727, -0.103079)
 bones/1/rotation = Quaternion(-0.0146272, -0.000937792, 0.00328756, 0.999887)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "Neck"
@@ -827,7 +828,7 @@ bones/3/parent = 2
 bones/3/rest = Transform3D(1, -1.36052e-06, -0.000551003, -0.000516418, 0.346397, -0.938088, 0.000192142, 0.938088, 0.346397, 9.86919e-11, 0.449233, -6.05156e-08)
 bones/3/enabled = true
 bones/3/position = Vector3(9.86919e-11, 0.449233, -6.05156e-08)
-bones/3/rotation = Quaternion(0.571666, -0.000226434, -0.000156937, 0.820487)
+bones/3/rotation = Quaternion(0.567816, -0.000227143, -0.000155859, 0.823156)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/name = "Wing1.L"
 bones/4/parent = 1
@@ -889,7 +890,7 @@ bones/12/name = "Body1"
 bones/12/parent = 0
 bones/12/rest = Transform3D(0.999558, -0.0252628, -0.0160087, -0.0244939, -0.998616, 0.0465363, -0.017162, -0.0461226, -0.998805, 0.00319719, 1.43464, -0.11128)
 bones/12/enabled = true
-bones/12/position = Vector3(0.00319719, 1.43464, -0.11128)
+bones/12/position = Vector3(0.00320347, 1.40919, -0.109318)
 bones/12/rotation = Quaternion(0.99962, -0.0124439, -0.00829572, -0.0231734)
 bones/12/scale = Vector3(1, 1, 1.00002)
 
