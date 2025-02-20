@@ -20,6 +20,8 @@ func _init(enemy_spawner_res: EnemySpawnerResource, path: Node, start_node: Node
 func start():
 	# spawning
 
+	await CommonUtil.await_timer(_enemy_spawner_res.spawn_start_delay)
+
 	for i in _enemy_spawner_res.enemy_amount:
 	
 		# enemy res name

@@ -310,7 +310,7 @@ func _on_animation_player_animation_finished(anim_name: String, unit:BaseUnit, s
 # 物理死亡
 func _on_physic_dead(unit: BaseUnit) -> void:
 	unit.hide()
-	await CommonUtil.await_timer(1)	# waiting 3 second for everything is over
+	await CommonUtil.await_timer(5)	# waiting 5 second for everything is over
 	unit.queue_free()
 
 

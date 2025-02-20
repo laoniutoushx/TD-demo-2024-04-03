@@ -91,8 +91,9 @@ func _wave_spawner_start(wave_spawner: WaveManager.WaveSpawner) -> WaveSpawner:
 	
 	# spawning	(parallel spawning unit)
 	for enemy_spawner_res: EnemySpawnerResource in enemy_spawner_reses:
-		var enemy_spawner =  EnemySpawner.new(enemy_spawner_res, %Path3D, %StartMark, wave_spawner)
+		var enemy_spawner: EnemySpawner =  EnemySpawner.new(enemy_spawner_res, %Path3D, %StartMark, wave_spawner)
 		#var enemy_spawner =  EnemySpawner.new(enemy_spawner_res, %OffsetNode, %StartMark, wave_spawner)
+
 		enemy_spawner.start()
 	
 	return wave_spawner

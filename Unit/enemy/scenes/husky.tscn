@@ -4463,6 +4463,7 @@ tracks/53/keys = PackedFloat32Array(0, 1, -6.17752e-07, -0.937708, 0.347424, 8.5
 [sub_resource type="Animation" id="Animation_e0tii"]
 resource_name = "Walk"
 length = 1.06667
+loop_mode = 1
 tracks/0/type = "position_3d"
 tracks/0/imported = true
 tracks/0/enabled = true

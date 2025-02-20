@@ -1,0 +1,70 @@
+[gd_scene load_steps=12 format=3 uid="uid://d1cr1cykcls0i"]
+
+[ext_resource type="Script" path="res://Unit/turret/scenes/turret.gd" id="1_qbgh6"]
+[ext_resource type="PackedScene" uid="uid://dhc3nvydn0s3u" path="res://Asserts/Models/CG_Home/【CG】 孙悟空Q版悟空齐天大圣_gltf_352683.gltf" id="2_ecffp"]
+[ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="4_pquju"]
+[ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="5_33bkb"]
+[ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="6_10ys3"]
+[ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="7_0fkwk"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_sodmm"]
+height = 1.0
+radius = 10.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yf35w"]
+size = Vector3(1, 2.5, 1)
+
+[sub_resource type="Animation" id="Animation_m547r"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_3ryhm"]
+resource_name = "attack"
+length = 0.3
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_og6kq"]
+_data = {
+"RESET": SubResource("Animation_m547r"),
+"attack": SubResource("Animation_3ryhm")
+}
+
+[node name="Magician" type="Node3D" node_paths=PackedStringArray("fire_poses")]
+script = ExtResource("1_qbgh6")
+fire_poses = [null]
+
+[node name="Root Scene" parent="." instance=ExtResource("2_ecffp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.608965, 0, -0.532514)
+
+[node name="AttackingScope" type="Area3D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackingScope"]
+shape = SubResource("CylinderShape3D_sodmm")
+
+[node name="AttackedScope" type="Area3D" parent="." groups=["enemy"]]
+unique_name_in_owner = true
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackedScope" groups=["enemy"]]
+shape = SubResource("BoxShape3D_yf35w")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_og6kq")
+}
+
+[node name="FadedCircle3D" parent="." instance=ExtResource("4_pquju")]
+width = 68.304
+inner_edge_width = 87.138
+color = Color(0.411765, 0.784314, 0.321569, 1)
+
+[node name="LevelComp" parent="." instance=ExtResource("5_33bkb")]
+
+[node name="DebugDraw" parent="." instance=ExtResource("6_10ys3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.33991, 0)
+
+[node name="RangeIndicator" parent="." instance=ExtResource("7_0fkwk")]
+
+[connection signal="area_entered" from="AttackingScope" to="." method="_on_attacking_scope_area_entered"]
+[connection signal="area_exited" from="AttackingScope" to="." method="_on_attacking_scope_area_exited"]

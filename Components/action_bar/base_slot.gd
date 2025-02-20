@@ -177,7 +177,7 @@ func extend_cooldown(cooldown: float) -> void:
 
 
 func _on_mouse_entered() -> void:
-	print("mouse hover")
+	# print("mouse hover")
 	is_mouse_hover = true
 	icon_texture.material.set_shader_parameter("show_border", true)
 	
@@ -193,7 +193,7 @@ func _on_mouse_entered() -> void:
 
 
 func _on_mouse_exited() -> void:
-	print("mouse out")
+	# print("mouse out")
 	is_mouse_hover = false
 	icon_texture.material.set_shader_parameter("show_border", false)
 

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://dvtj4x5rsw2v"]
 
 [ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_m44ay"]
-[ext_resource type="PackedScene" uid="uid://elccnreb1nvm" path="res://Unit/enemy/scenes/armabee.tscn" id="2_1rb6l"]
+[ext_resource type="PackedScene" uid="uid://elccnreb1nvm" path="res://Unit/enemy/scenes/wolf.tscn" id="2_1rb6l"]
 [ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="3_xqf4c"]
 [ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_vhxgn"]
 
@@ -13,7 +13,7 @@ title = "钢铁蜂兵"
 desc = "钢铁蜂兵是一种由机械改造的蜜蜂，它们装备了坚硬的金属外壳和锋利的武器。这些蜂兵通常成群结队地出现，是空中战场上 formidable 的敌人。它们不仅速度快，攻击力强，而且还具有一定的防御能力。"
 icon_path = "res://Asserts/Images/icon/enemy/pug.png"
 aabb_scale = 1.0
-aabb_height_scale = 1.0
+aabb_height_scale = 1.5
 element_phase = 18
 unit_move_type = 1
 unit_cate = 1
