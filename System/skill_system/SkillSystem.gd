@@ -97,11 +97,11 @@ func _initialize_skill(source_unit: BaseUnit, skill_meta_res: SkillMetaResource,
 	
 # 技能释放入口
 func release(skill_context: SkillContext) -> void:
-    # 加载技能 元数据 对应 action 脚本，执行
-    # 0. 鼠标等效果处理， 施法效果, UI interactive
-    # 1. skill 准备( anim/cooldown/vfx/audio )
-    # 2. skill 执行（ do action ）可包括任何逻辑, take_damage, vfx, other logic, audio 等
-    # 3. skill 完成( vfx/anim/audio )
+	# 加载技能 元数据 对应 action 脚本，执行
+	# 0. 鼠标等效果处理， 施法效果, UI interactive
+	# 1. skill 准备( anim/cooldown/vfx/audio )
+	# 2. skill 执行（ do action ）可包括任何逻辑, take_damage, vfx, other logic, audio 等
+	# 3. skill 完成( vfx/anim/audio )
 
 	var skill: Skill = skill_context.skill
 	var source_unit: BaseUnit = skill_context.source
