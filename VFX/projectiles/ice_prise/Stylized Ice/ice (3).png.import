@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://it3lumq1trxf"
-path.s3tc="res://.godot/imported/smoke_09.png-37da119eaa3f8ece92a4bb9df7057528.s3tc.ctex"
+uid="uid://ccwv10vd74rjx"
+path.s3tc="res://.godot/imported/ice (3).png-30461f663d912f2ea517b1e5af9a4696.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/kenney_particle_pack/smoke_09.png"
-dest_files=["res://.godot/imported/smoke_09.png-37da119eaa3f8ece92a4bb9df7057528.s3tc.ctex"]
+source_file="res://VFX/projectiles/ice_prise/Stylized Ice/ice (3).png"
+dest_files=["res://.godot/imported/ice (3).png-30461f663d912f2ea517b1e5af9a4696.s3tc.ctex"]
 
 [params]
 

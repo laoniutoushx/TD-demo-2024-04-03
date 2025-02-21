@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://it3lumq1trxf"
-path.s3tc="res://.godot/imported/smoke_09.png-37da119eaa3f8ece92a4bb9df7057528.s3tc.ctex"
+uid="uid://b0wkqbfy7ielj"
+path.s3tc="res://.godot/imported/特效贴图 冰 Ice_(4)_爱给网_aigei_com.png-f248e921dde8df13e6a5998127a14f60.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/kenney_particle_pack/smoke_09.png"
-dest_files=["res://.godot/imported/smoke_09.png-37da119eaa3f8ece92a4bb9df7057528.s3tc.ctex"]
+source_file="res://VFX/projectiles/ice_prise/特效贴图 冰 Ice_(4)_爱给网_aigei_com.png"
+dest_files=["res://.godot/imported/特效贴图 冰 Ice_(4)_爱给网_aigei_com.png-f248e921dde8df13e6a5998127a14f60.s3tc.ctex"]
 
 [params]
 
