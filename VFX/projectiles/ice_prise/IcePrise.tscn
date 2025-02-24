@@ -64,14 +64,15 @@ mesh = ExtResource("1_g6l4h")
 
 [node name="GPUTrail3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(-0.0357018, 0.999362, 0, -0.999362, -0.0357018, 0, 0, 0, 1, -7.50852, 3.7654, 0)
-amount = 100
-lifetime = 100.0
+amount = 99
+lifetime = 99.0
 explosiveness = 1.0
 fixed_fps = 120
 process_material = SubResource("ShaderMaterial_dsgaq")
 draw_pass_1 = SubResource("QuadMesh_1meer")
 script = ExtResource("10_dtbpv")
-length_seconds = 0.833333
+length = 99
+length_seconds = 0.825
 color_ramp = ExtResource("8_phmmn")
 curve = ExtResource("9_gpblc")
 billboard = true
