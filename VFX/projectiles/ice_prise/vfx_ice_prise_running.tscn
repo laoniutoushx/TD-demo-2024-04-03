@@ -59,7 +59,7 @@ shader_parameter/over_texture = ExtResource("2_6gi2q")
 shader_parameter/under_texture = ExtResource("2_6gi2q")
 shader_parameter/surface_normalmap = ExtResource("11_x2om4")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_qsh1s"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_625tt"]
 
 [node name="IcePrise" type="Node3D"]
 
@@ -111,7 +111,7 @@ _defaults_have_been_set = true
 [node name="TrailMesh2" type="MeshInstance3D" parent="IceSpikeCore2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0295529, 3.27025, 0)
 material_override = ExtResource("12_u5y7a")
-mesh = SubResource("ImmediateMesh_qsh1s")
+mesh = SubResource("ImmediateMesh_625tt")
 script = ExtResource("13_xl53t")
 fromWidth = 0.3
 toWidth = 0.3
