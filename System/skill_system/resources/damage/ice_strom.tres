@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=4 format=3 uid="uid://bs6w3mufvu6f1"]
+
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_txmjm"]
+[ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="2_o8ujh"]
+[ext_resource type="Script" path="res://System/skill_system/resources/damage/ice_storm.gd" id="3_cnmfe"]
+
+[resource]
+script = ExtResource("1_txmjm")
+code = "ice_strom"
+title = "暴风雪"
+desc = "暴风雪"
+icon_path = "500"
+level = 1
+level_up_gap = 1
+max_level = 3
+init_release = false
+auto_release = false
+cooldown = 10.0
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+damage_range = 5.0
+match_range = 30.0
+range = 5.0
+release_distance = 20.0
+stock = 1
+value = 5.0
+init_num = 15
+internal_time = 0.3
+start_time = 0.1
+end_time = 0.1
+wave = 5
+projection_speed = 1.0
+release_type = 16
+target_type = 33
+effect_type = 1
+skill_script = ExtResource("3_cnmfe")
+skill_level_config = Array[ExtResource("1_txmjm")]([])
+skill_buff_config = Array[ExtResource("2_o8ujh")]([])

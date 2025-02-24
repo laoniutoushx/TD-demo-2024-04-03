@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=23 format=3 uid="uid://sa00lx2hfecc"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=24 format=3 uid="uid://sa00lx2hfecc"]
 
 [ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_2sp2u"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_x8mob"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://g2pp4vopotbr" path="res://Unit/turret/scenes/Teleporter_1.tscn" id="15_n1t0i"]
 [ext_resource type="Resource" uid="uid://bm3kcjrhtayri" path="res://System/skill_system/resources/effect/force_field.tres" id="16_2yx4i"]
 [ext_resource type="Resource" uid="uid://c4aggapaqdacr" path="res://System/skill_system/resources/effect/slow_power.tres" id="17_f5vvt"]
+[ext_resource type="Resource" uid="uid://bs6w3mufvu6f1" path="res://System/skill_system/resources/damage/ice_strom.tres" id="20_eh75n"]
 
 [sub_resource type="Resource" id="Resource_b101j"]
 script = ExtResource("3_j65fo")
@@ -169,4 +170,4 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_2sp2u")]([ExtResource("2_2osqj")])
-skill_metas = Array[ExtResource("3_j65fo")]([ExtResource("7_jsd2q"), ExtResource("4_vdhal"), ExtResource("6_6vxlu"), SubResource("Resource_b101j"), ExtResource("10_semu7"), SubResource("Resource_3kxur"), ExtResource("16_2yx4i"), ExtResource("17_f5vvt"), SubResource("Resource_4g75c")])
+skill_metas = Array[ExtResource("3_j65fo")]([ExtResource("7_jsd2q"), ExtResource("4_vdhal"), ExtResource("6_6vxlu"), SubResource("Resource_b101j"), ExtResource("10_semu7"), SubResource("Resource_3kxur"), ExtResource("16_2yx4i"), ExtResource("17_f5vvt"), SubResource("Resource_4g75c"), ExtResource("20_eh75n")])

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cll88jekgo8hn"]
+
+[ext_resource type="Script" path="res://Test/vfx_moving_test/vfx_moving_test.gd" id="1_tmclt"]
+
+[node name="VfxMovingTest" type="Node3D" node_paths=PackedStringArray("target_node")]
+script = ExtResource("1_tmclt")
+target_node = NodePath("")
+start_position = Vector3(0, 10, 0)
+end_position = Vector3(0, 0, 0)

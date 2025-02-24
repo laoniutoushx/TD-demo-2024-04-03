@@ -2,7 +2,7 @@
 
 [sub_resource type="Curve" id="Curve_7ufs5"]
 bake_resolution = 16
-_data = [Vector2(0, 0.258049), 0.0, 0.0, 0, 0, Vector2(1, 0.0741463), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.635933), 0.0, 0.0, 0, 0, Vector2(1, 0.0741463), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [resource]

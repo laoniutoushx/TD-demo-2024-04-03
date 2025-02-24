@@ -1,0 +1,151 @@
+[gd_scene load_steps=22 format=3 uid="uid://ccoyle34gpo2v"]
+
+[ext_resource type="Shader" path="res://VFX/projectiles/ice_prise/IcePrise.gdshader" id="1_ewk43"]
+[ext_resource type="Texture2D" uid="uid://bfbj2kobyhtmy" path="res://VFX/projectiles/ice_prise/Stylized Ice/Stylized_Ice_001_basecolor.png" id="2_6gi2q"]
+[ext_resource type="ArrayMesh" uid="uid://crhvs8ik2pki3" path="res://VFX/projectiles/ice_prise/ice spike.obj" id="3_dkvv2"]
+[ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail.gdshader" id="4_3l2bg"]
+[ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail_draw_pass.gdshader" id="5_6g7pm"]
+[ext_resource type="Texture2D" uid="uid://crk6pkb7e5rwc" path="res://addons/GPUTrail/defaults/texture.tres" id="6_uojhk"]
+[ext_resource type="Texture2D" uid="uid://ct31fhxvcragr" path="res://addons/GPUTrail/defaults/curve.tres" id="7_rchfn"]
+[ext_resource type="Texture2D" uid="uid://5riuudcudygl" path="res://Asserts/textures/vfx/Voronoi.png" id="8_hhleo"]
+[ext_resource type="Script" path="res://addons/GPUTrail/GPUTrail3D.gd" id="9_b2l50"]
+[ext_resource type="Shader" path="res://VFX/projectiles/ice_prise/IcePrise_01.gdshader" id="10_iyrys"]
+[ext_resource type="Texture2D" uid="uid://5wdn5xit162h" path="res://VFX/projectiles/ice_prise/Stylized Ice/Stylized_Ice_001_normal.png" id="11_x2om4"]
+[ext_resource type="Material" uid="uid://2ya114uel4m3" path="res://VFX/projectiles/fireball/m_fire_trail.tres" id="12_u5y7a"]
+[ext_resource type="Script" path="res://Scripts/Trail3D.gd" id="13_xl53t"]
+[ext_resource type="PackedScene" uid="uid://cll88jekgo8hn" path="res://Test/vfx_moving_test/vfx_moving_test.tscn" id="14_ayfil"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_snjui"]
+render_priority = 0
+shader = ExtResource("1_ewk43")
+shader_parameter/ice_color = Color(0.171, 0.6384, 0.95, 1)
+shader_parameter/refraction_strength = 0.05
+shader_parameter/frost_mix = 0.5
+shader_parameter/frost_scale = 10.0
+shader_parameter/ice_depth = 5.0
+shader_parameter/ice_roughness = ExtResource("2_6gi2q")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dsgaq"]
+shader = ExtResource("4_3l2bg")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oq2bg"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_6g7pm")
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 44
+shader_parameter/tex = ExtResource("8_hhleo")
+shader_parameter/color_ramp = ExtResource("6_uojhk")
+shader_parameter/curve = ExtResource("7_rchfn")
+
+[sub_resource type="QuadMesh" id="QuadMesh_1meer"]
+material = SubResource("ShaderMaterial_oq2bg")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kgdwg"]
+load_path = "res://.godot/imported/fireball_trail.png-8bfde546e7f879ff345ce13850e6533f.s3tc.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_of25g"]
+render_priority = 0
+shader = ExtResource("10_iyrys")
+shader_parameter/top_color = Color(0.302, 0.502, 1, 1)
+shader_parameter/depth = 0.1
+shader_parameter/normal_depth = 0.5
+shader_parameter/roughness = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/refractive_index = 0.1
+shader_parameter/transparency = 0.95
+shader_parameter/over_texture = ExtResource("2_6gi2q")
+shader_parameter/under_texture = ExtResource("2_6gi2q")
+shader_parameter/surface_normalmap = ExtResource("11_x2om4")
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_qsh1s"]
+
+[node name="IcePrise" type="Node3D"]
+
+[node name="IceSpikeCore" type="MeshInstance3D" parent="."]
+visible = false
+material_override = SubResource("ShaderMaterial_snjui")
+mesh = ExtResource("3_dkvv2")
+
+[node name="GPUTrail3D2" type="GPUParticles3D" parent="IceSpikeCore"]
+transform = Transform3D(-0.0357018, 0.999362, 0, -0.999362, -0.0357018, 0, 0, 0, 1, 0, 0, 0)
+amount = 99
+lifetime = 99.0
+explosiveness = 1.0
+fixed_fps = 120
+process_material = SubResource("ShaderMaterial_dsgaq")
+draw_pass_1 = SubResource("QuadMesh_1meer")
+script = ExtResource("9_b2l50")
+length = 99
+length_seconds = 0.825
+texture = SubResource("CompressedTexture2D_kgdwg")
+color_ramp = ExtResource("6_uojhk")
+curve = ExtResource("7_rchfn")
+billboard = true
+_defaults_have_been_set = true
+
+[node name="IceSpikeCore2" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_of25g")
+mesh = ExtResource("3_dkvv2")
+
+[node name="GPUTrail3D" type="GPUParticles3D" parent="IceSpikeCore2"]
+transform = Transform3D(-0.0357018, 0.999362, 0, -0.999362, -0.0357018, 0, 0, 0, 1, 0, 2.92752, 0)
+amount = 99
+lifetime = 99.0
+explosiveness = 1.0
+fixed_fps = 120
+process_material = SubResource("ShaderMaterial_dsgaq")
+draw_pass_1 = SubResource("QuadMesh_1meer")
+script = ExtResource("9_b2l50")
+length = 99
+length_seconds = 0.825
+texture = ExtResource("8_hhleo")
+color_ramp = ExtResource("6_uojhk")
+curve = ExtResource("7_rchfn")
+vertical_texture = true
+use_red_as_alpha = true
+billboard = true
+_defaults_have_been_set = true
+
+[node name="TrailMesh2" type="MeshInstance3D" parent="IceSpikeCore2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0295529, 3.27025, 0)
+material_override = ExtResource("12_u5y7a")
+mesh = SubResource("ImmediateMesh_qsh1s")
+script = ExtResource("13_xl53t")
+fromWidth = 0.3
+toWidth = 0.3
+lifespan = 0.2
+startColor = Color(10, 10, 10, 1)
+endColor = Color(1, 1, 1, 0.622)
+
+[node name="IceSpikeCore3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9337, 0, 0)
+visible = false
+material_override = SubResource("ShaderMaterial_of25g")
+mesh = ExtResource("3_dkvv2")
+
+[node name="GPUTrail3D" type="GPUParticles3D" parent="IceSpikeCore3"]
+transform = Transform3D(-0.0357018, 0.999362, 0, -0.999362, -0.0357018, 0, 0, 0, 1, 0, 2.83106, 0)
+amount = 99
+lifetime = 99.0
+explosiveness = 1.0
+fixed_fps = 120
+process_material = SubResource("ShaderMaterial_dsgaq")
+draw_pass_1 = SubResource("QuadMesh_1meer")
+script = ExtResource("9_b2l50")
+length = 99
+length_seconds = 0.825
+texture = ExtResource("8_hhleo")
+color_ramp = ExtResource("6_uojhk")
+curve = ExtResource("7_rchfn")
+billboard = true
+_defaults_have_been_set = true
+
+[node name="VfxMovingTest" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("14_ayfil")]
+target_node = NodePath("../IceSpikeCore")
+start_position = Vector3(0, 20, 0)
+
+[node name="VfxMovingTest2" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("14_ayfil")]
+target_node = NodePath("../IceSpikeCore2")
+start_position = Vector3(0, 20, 0)
