@@ -1,0 +1,59 @@
+[gd_scene load_steps=11 format=3 uid="uid://sfpmibgydiin"]
+
+[ext_resource type="ArrayMesh" uid="uid://dndna2g30nb48" path="res://VFX/projectiles/ice_prise/ice_spike_small.obj" id="1_4livg"]
+[ext_resource type="Texture2D" uid="uid://ccwv10vd74rjx" path="res://VFX/projectiles/ice_prise/Stylized Ice/ice (3).png" id="1_3406i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8xeri"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+disable_fog = true
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.276911, 0.644388, 0.663763, 1)
+albedo_texture = ExtResource("1_3406i")
+
+[sub_resource type="Curve" id="Curve_l4m13"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7875, 0.871542), -0.540878, -0.540878, 0, 0, Vector2(0.997917, 0.00444663), -2.63547, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_7b185"]
+curve = SubResource("Curve_l4m13")
+
+[sub_resource type="Curve" id="Curve_brwvm"]
+max_value = 10.0
+_data = [Vector2(0, 0), 0.0, 8.91304, 0, 0, Vector2(0.139583, 9.19713), 0.0, 0.0, 0, 0, Vector2(1, 5.21492), -11.5613, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_4jtoe"]
+curve = SubResource("Curve_brwvm")
+
+[sub_resource type="Curve" id="Curve_mvb8c"]
+_data = [Vector2(0, 0.007658), 0.0, 2.97021, 0, 0, Vector2(0.025, 0.576087), -0.668954, -0.668954, 0, 0, Vector2(0.0958333, 0.437994), 2.37648, 2.37648, 0, 0, Vector2(0.1375, 0.511858), 0.0, 0.0, 0, 0, Vector2(0.99375, 0.242095), -0.634736, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_wokhr"]
+curve = SubResource("Curve_mvb8c")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nakv4"]
+particle_flag_align_y = true
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 0.5
+initial_velocity_max = 0.5
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_wokhr")
+alpha_curve = SubResource("CurveTexture_7b185")
+emission_curve = SubResource("CurveTexture_4jtoe")
+
+[node name="IcePrise" type="Node3D"]
+
+[node name="IceSpikeCore" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_8xeri")
+amount = 12
+amount_ratio = 0.8
+explosiveness = 0.9
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_nakv4")
+draw_pass_1 = ExtResource("1_4livg")
+
+[node name="IceWaveCircle" type="GPUParticles3D" parent="."]

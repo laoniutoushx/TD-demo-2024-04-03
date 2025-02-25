@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dndna2g30nb48"
+path="res://.godot/imported/ice_spike_small.obj-729c81ebd90440999d006fe35c3635ea.mesh"
+
+[deps]
+
+files=["res://.godot/imported/ice_spike_small.obj-729c81ebd90440999d006fe35c3635ea.mesh"]
+
+source_file="res://VFX/projectiles/ice_prise/ice_spike_small.obj"
+dest_files=["res://.godot/imported/ice_spike_small.obj-729c81ebd90440999d006fe35c3635ea.mesh", "res://.godot/imported/ice_spike_small.obj-729c81ebd90440999d006fe35c3635ea.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

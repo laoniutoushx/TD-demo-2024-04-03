@@ -75,8 +75,8 @@ class InnerHandler extends Node3D:
         if vfx_destory:
             self.add_child(vfx_destory)
 
-            vfx_destory.look_at(point)
-            vfx_destory.rotate_z(90)
+            # vfx_destory.look_at(point)
+            # vfx_destory.rotate_z(90)
             vfx_destory.global_position = point 
 
             await CommonUtil.await_timer(1.0)
