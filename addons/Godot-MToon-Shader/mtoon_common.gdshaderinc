@@ -239,7 +239,7 @@ void fragment() {
 
 	shade *= _ShadeColor;
 	lit *= _Color;
-	
+
 	//shade = min(shade, lit); ///// Mimic look of non-PBR min() clamp we commented out below.
 
 	// normal

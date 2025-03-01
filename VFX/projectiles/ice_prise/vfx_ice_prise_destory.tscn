@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://sfpmibgydiin"]
+[gd_scene load_steps=15 format=3 uid="uid://sfpmibgydiin"]
 
 [ext_resource type="ArrayMesh" uid="uid://dndna2g30nb48" path="res://VFX/projectiles/ice_prise/ice_spike_small.obj" id="1_4livg"]
 [ext_resource type="Texture2D" uid="uid://ccwv10vd74rjx" path="res://VFX/projectiles/ice_prise/Stylized Ice/ice (3).png" id="1_3406i"]
@@ -45,9 +45,23 @@ scale_curve = SubResource("CurveTexture_wokhr")
 alpha_curve = SubResource("CurveTexture_7b185")
 emission_curve = SubResource("CurveTexture_4jtoe")
 
+[sub_resource type="Curve" id="Curve_mfbx5"]
+_data = [Vector2(0, 0.0063113), 0.0, 0.0, 0, 0, Vector2(0.650519, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_217jl"]
+curve = SubResource("Curve_mfbx5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rie61"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_217jl")
+
+[sub_resource type="SphereMesh" id="SphereMesh_8wg2l"]
+
 [node name="IcePrise" type="Node3D"]
 
 [node name="IceSpikeCore" type="GPUParticles3D" parent="."]
+visible = false
 material_override = SubResource("StandardMaterial3D_8xeri")
 amount = 12
 amount_ratio = 0.8
@@ -57,3 +71,8 @@ process_material = SubResource("ParticleProcessMaterial_nakv4")
 draw_pass_1 = ExtResource("1_4livg")
 
 [node name="IceWaveCircle" type="GPUParticles3D" parent="."]
+amount = 1
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_rie61")
+draw_pass_1 = SubResource("SphereMesh_8wg2l")
