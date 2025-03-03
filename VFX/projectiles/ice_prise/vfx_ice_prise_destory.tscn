@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://sfpmibgydiin"]
+[gd_scene load_steps=21 format=3 uid="uid://sfpmibgydiin"]
 
 [ext_resource type="ArrayMesh" uid="uid://dndna2g30nb48" path="res://VFX/projectiles/ice_prise/ice_spike_small.obj" id="1_4livg"]
 [ext_resource type="Texture2D" uid="uid://ccwv10vd74rjx" path="res://VFX/projectiles/ice_prise/Stylized Ice/ice (3).png" id="1_3406i"]
+[ext_resource type="Shader" path="res://VFX/projectiles/ice_prise/vfx_ice_prise_double_ring.gdshader" id="3_ey65l"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8xeri"]
 transparency = 1
@@ -21,7 +22,7 @@ curve = SubResource("Curve_l4m13")
 
 [sub_resource type="Curve" id="Curve_brwvm"]
 max_value = 10.0
-_data = [Vector2(0, 0), 0.0, 8.91304, 0, 0, Vector2(0.139583, 9.19713), 0.0, 0.0, 0, 0, Vector2(1, 5.21492), -11.5613, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 8.91304, 0, 0, Vector2(0.0854167, 2.0998), 0.0, 0.0, 0, 0, Vector2(1, 0.5583), -4.07189, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_4jtoe"]
@@ -45,23 +46,54 @@ scale_curve = SubResource("CurveTexture_wokhr")
 alpha_curve = SubResource("CurveTexture_7b185")
 emission_curve = SubResource("CurveTexture_4jtoe")
 
-[sub_resource type="Curve" id="Curve_mfbx5"]
-_data = [Vector2(0, 0.0063113), 0.0, 0.0, 0, 0, Vector2(0.650519, 1), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_0scl1"]
+_data = [Vector2(0, 1), 0.0, -1.08696, 0, 0, Vector2(0.9875, 0.0301383), -1.08171, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_217jl"]
-curve = SubResource("Curve_mfbx5")
+[sub_resource type="CurveTexture" id="CurveTexture_3if7k"]
+curve = SubResource("Curve_0scl1")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rie61"]
+[sub_resource type="Curve" id="Curve_immy7"]
+max_value = 10.0
+_data = [Vector2(0, 2.74209), 0.0, 22.0215, 0, 0, Vector2(0.433333, 5.95356), 0.0, 0.0, 0, 0, Vector2(1, 1.52174), -14.7233, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_eyt7e"]
+curve = SubResource("Curve_immy7")
+
+[sub_resource type="Curve" id="Curve_mp8rw"]
+_data = [Vector2(0, 0.0429841), 0.0, 0.128459, 0, 0, Vector2(0.20625, 0.447628), 1.19895, 1.19895, 0, 0, Vector2(1, 1), 1.08606, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_rd1cl"]
+curve = SubResource("Curve_mp8rw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g7bbn"]
 gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_217jl")
+scale_curve = SubResource("CurveTexture_rd1cl")
+color = Color(0.906537, 0.336161, 0.278522, 1)
+alpha_curve = SubResource("CurveTexture_3if7k")
+emission_curve = SubResource("CurveTexture_eyt7e")
 
-[sub_resource type="SphereMesh" id="SphereMesh_8wg2l"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o6kuq"]
+render_priority = 0
+shader = ExtResource("3_ey65l")
+shader_parameter/inner_ring_color = Color(0.228, 0.595, 1.5, 0.486)
+shader_parameter/outer_ring_color = Color(0.184, 0.646, 1.5, 1)
+shader_parameter/inner_radius = 0.693
+shader_parameter/inner_thickness = 0.255
+shader_parameter/outer_radius = 0.44
+shader_parameter/outer_thickness = 0.13
+shader_parameter/edge_softness = 0.14
 
-[node name="IcePrise" type="Node3D"]
+[sub_resource type="QuadMesh" id="QuadMesh_ebrtg"]
+material = SubResource("ShaderMaterial_o6kuq")
+size = Vector2(10, 10)
+orientation = 1
+
+[node name="IcePrise2" type="Node3D"]
 
 [node name="IceSpikeCore" type="GPUParticles3D" parent="."]
-visible = false
 material_override = SubResource("StandardMaterial3D_8xeri")
 amount = 12
 amount_ratio = 0.8
@@ -74,5 +106,5 @@ draw_pass_1 = ExtResource("1_4livg")
 amount = 1
 fixed_fps = 60
 local_coords = true
-process_material = SubResource("ParticleProcessMaterial_rie61")
-draw_pass_1 = SubResource("SphereMesh_8wg2l")
+process_material = SubResource("ParticleProcessMaterial_g7bbn")
+draw_pass_1 = SubResource("QuadMesh_ebrtg")

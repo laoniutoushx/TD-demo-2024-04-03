@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://ccoyle34gpo2v"]
+[gd_scene load_steps=34 format=3 uid="uid://ccoyle34gpo2v"]
 
 [ext_resource type="Shader" path="res://VFX/projectiles/ice_prise/IcePrise.gdshader" id="1_ewk43"]
+[ext_resource type="Script" path="res://VFX/projectiles/ice_prise/vfx_ice_prise_running.gd" id="1_pahdq"]
 [ext_resource type="Texture2D" uid="uid://bfbj2kobyhtmy" path="res://VFX/projectiles/ice_prise/Stylized Ice/Stylized_Ice_001_basecolor.png" id="2_6gi2q"]
 [ext_resource type="ArrayMesh" uid="uid://crhvs8ik2pki3" path="res://VFX/projectiles/ice_prise/ice spike.obj" id="3_dkvv2"]
 [ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail.gdshader" id="4_3l2bg"]
@@ -9,11 +10,13 @@
 [ext_resource type="Texture2D" uid="uid://ct31fhxvcragr" path="res://addons/GPUTrail/defaults/curve.tres" id="7_rchfn"]
 [ext_resource type="Texture2D" uid="uid://5riuudcudygl" path="res://Asserts/textures/vfx/Voronoi.png" id="8_hhleo"]
 [ext_resource type="Script" path="res://addons/GPUTrail/GPUTrail3D.gd" id="9_b2l50"]
+[ext_resource type="Texture2D" uid="uid://bfjlratp6yanq" path="res://Asserts/textures/vfx/Voronoi-invert.png" id="9_upduj"]
 [ext_resource type="Shader" path="res://VFX/projectiles/ice_prise/IcePrise_01.gdshader" id="10_iyrys"]
 [ext_resource type="Texture2D" uid="uid://5wdn5xit162h" path="res://VFX/projectiles/ice_prise/Stylized Ice/Stylized_Ice_001_normal.png" id="11_x2om4"]
 [ext_resource type="Material" uid="uid://2ya114uel4m3" path="res://VFX/projectiles/fireball/m_fire_trail.tres" id="12_u5y7a"]
 [ext_resource type="Script" path="res://Scripts/Trail3D.gd" id="13_xl53t"]
 [ext_resource type="PackedScene" uid="uid://cll88jekgo8hn" path="res://Test/vfx_moving_test/vfx_moving_test.tscn" id="14_ayfil"]
+[ext_resource type="Texture2D" uid="uid://bna18rj80qxuk" path="res://Asserts/Images/vfx/T雪花(T_SnowFlake)_爱给网_aigei_com.png" id="14_f1cqy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_snjui"]
 render_priority = 0
@@ -59,9 +62,57 @@ shader_parameter/over_texture = ExtResource("2_6gi2q")
 shader_parameter/under_texture = ExtResource("2_6gi2q")
 shader_parameter/surface_normalmap = ExtResource("11_x2om4")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_djmju"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rpsyt"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 2
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_exnfc"]
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_e6dym"]
+
+[sub_resource type="Curve" id="Curve_qw7fn"]
+_data = [Vector2(0.00208333, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.20998), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_hbn62"]
+curve = SubResource("Curve_qw7fn")
+
+[sub_resource type="Curve" id="Curve_hsy8d"]
+_data = [Vector2(0.0104167, 0.344862), 0.0, 0.0, 0, 0, Vector2(1, 0.489377), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_w7x8o"]
+curve = SubResource("Curve_hsy8d")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_glame"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_max = 1.0
+damping_max = 0.2
+damping_curve = SubResource("CurveTexture_w7x8o")
+alpha_curve = SubResource("CurveTexture_hbn62")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u5gvj"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("14_f1cqy")
+
+[sub_resource type="QuadMesh" id="QuadMesh_gpbmr"]
+material = SubResource("StandardMaterial3D_u5gvj")
 
 [node name="IcePrise" type="Node3D"]
+script = ExtResource("1_pahdq")
 
 [node name="IceSpikeCore" type="MeshInstance3D" parent="."]
 visible = false
@@ -92,6 +143,7 @@ mesh = ExtResource("3_dkvv2")
 
 [node name="GPUTrail3D" type="GPUParticles3D" parent="IceSpikeCore2"]
 transform = Transform3D(-0.0357018, 0.999362, 0, -0.999362, -0.0357018, 0, 0, 0, 1, 0, 2.92752, 0)
+visible = false
 amount = 99
 lifetime = 99.0
 explosiveness = 1.0
@@ -101,7 +153,7 @@ draw_pass_1 = SubResource("QuadMesh_1meer")
 script = ExtResource("9_b2l50")
 length = 99
 length_seconds = 0.825
-texture = ExtResource("8_hhleo")
+texture = ExtResource("9_upduj")
 color_ramp = ExtResource("6_uojhk")
 curve = ExtResource("7_rchfn")
 vertical_texture = true
@@ -110,15 +162,35 @@ billboard = true
 _defaults_have_been_set = true
 
 [node name="TrailMesh2" type="MeshInstance3D" parent="IceSpikeCore2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0295529, 3.27025, 0)
-material_override = ExtResource("12_u5y7a")
-mesh = SubResource("ImmediateMesh_djmju")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0796744, 3.07537, 0)
+material_override = SubResource("StandardMaterial3D_rpsyt")
+mesh = SubResource("ImmediateMesh_exnfc")
 script = ExtResource("13_xl53t")
-fromWidth = 0.3
+fromWidth = 0.2
+toWidth = 0.1
+lifespan = 0.4
+startColor = Color(1, 1, 1, 0.176)
+
+[node name="TrailMesh3" type="MeshInstance3D" parent="IceSpikeCore2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0796744, 3.07537, 0)
+material_override = ExtResource("12_u5y7a")
+mesh = SubResource("ImmediateMesh_e6dym")
+skeleton = NodePath("../TrailMesh2")
+script = ExtResource("13_xl53t")
+fromWidth = 0.6
 toWidth = 0.3
-lifespan = 0.2
-startColor = Color(10, 10, 10, 1)
-endColor = Color(1, 1, 1, 0.622)
+lifespan = 0.5
+startColor = Color(7.12335e-06, 0.66059, 0.772268, 1)
+endColor = Color(4.42803e-06, 0.851579, 0.911981, 0.622)
+
+[node name="SnowFlake" type="GPUParticles3D" parent="IceSpikeCore2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.376984, 0, 0)
+emitting = false
+amount = 3
+one_shot = true
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_glame")
+draw_pass_1 = SubResource("QuadMesh_gpbmr")
 
 [node name="IceSpikeCore3" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9337, 0, 0)
