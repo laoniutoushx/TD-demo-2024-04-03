@@ -182,6 +182,3 @@ func _on_enemy_logic_death(enemy: BaseUnit) -> void:
 func change_state(new_state: TurretState) -> void:
 	pre_state = current_state
 	current_state = new_state
-
-
-

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=24 format=3 uid="uid://sa00lx2hfecc"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=27 format=3 uid="uid://sa00lx2hfecc"]
 
 [ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_2sp2u"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_x8mob"]
@@ -20,6 +20,8 @@
 [ext_resource type="Resource" uid="uid://bm3kcjrhtayri" path="res://System/skill_system/resources/effect/force_field.tres" id="16_2yx4i"]
 [ext_resource type="Resource" uid="uid://c4aggapaqdacr" path="res://System/skill_system/resources/effect/slow_power.tres" id="17_f5vvt"]
 [ext_resource type="Resource" uid="uid://bs6w3mufvu6f1" path="res://System/skill_system/resources/damage/ice_strom.tres" id="20_eh75n"]
+[ext_resource type="Resource" uid="uid://bil715vnpxxw" path="res://Unit/turret/resources/Queen.tres" id="21_c060r"]
+[ext_resource type="PackedScene" uid="uid://cueiau552hmu4" path="res://Unit/turret/scenes/Queen.tscn" id="22_frovs"]
 
 [sub_resource type="Resource" id="Resource_b101j"]
 script = ExtResource("3_j65fo")
@@ -129,6 +131,42 @@ building_res = ExtResource("14_xmssx")
 skill_level_config = Array[ExtResource("3_j65fo")]([])
 skill_buff_config = Array[ExtResource("11_cyjaq")]([])
 
+[sub_resource type="Resource" id="Resource_usn6u"]
+script = ExtResource("3_j65fo")
+code = "building_base_turret_5"
+title = "女王"
+desc = "在指定位置建造一个防御塔"
+icon_path = "default"
+level = 0
+level_up_gap = 1
+max_level = 3
+init_release = false
+auto_release = false
+cooldown = 1.0
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+damage_range = 5.0
+match_range = 30.0
+range = 5.0
+release_distance = 10.0
+stock = 1
+value = 0.0
+init_num = 1
+internal_time = 0.1
+start_time = 0.1
+end_time = 0.1
+wave = 1
+projection_speed = 1.0
+release_type = 1
+target_type = 1
+effect_type = 4
+skill_script = ExtResource("12_03rxs")
+building_scene = ExtResource("22_frovs")
+building_res = ExtResource("21_c060r")
+skill_level_config = Array[ExtResource("3_j65fo")]([])
+skill_buff_config = Array[ExtResource("11_cyjaq")]([])
+
 [resource]
 script = ExtResource("2_usrqw")
 clz_name = "gdbot_skin"
@@ -170,4 +208,4 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_2sp2u")]([ExtResource("2_2osqj")])
-skill_metas = Array[ExtResource("3_j65fo")]([ExtResource("7_jsd2q"), ExtResource("4_vdhal"), ExtResource("6_6vxlu"), SubResource("Resource_b101j"), ExtResource("10_semu7"), SubResource("Resource_3kxur"), ExtResource("16_2yx4i"), ExtResource("17_f5vvt"), SubResource("Resource_4g75c"), ExtResource("20_eh75n")])
+skill_metas = Array[ExtResource("3_j65fo")]([ExtResource("7_jsd2q"), ExtResource("4_vdhal"), ExtResource("6_6vxlu"), SubResource("Resource_b101j"), ExtResource("10_semu7"), SubResource("Resource_3kxur"), ExtResource("16_2yx4i"), ExtResource("17_f5vvt"), SubResource("Resource_4g75c"), ExtResource("20_eh75n"), SubResource("Resource_usn6u")])

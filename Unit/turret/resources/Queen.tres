@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=10 format=3 uid="uid://bil715vnpxxw"]
+
+[ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_lbysp"]
+[ext_resource type="PackedScene" uid="uid://cueiau552hmu4" path="res://Unit/turret/scenes/Queen.tscn" id="2_lvcig"]
+[ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="3_r62vt"]
+[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_pjjkk"]
+[ext_resource type="Resource" uid="uid://dpnj33orc37b" path="res://System/skill_system/resources/damage/thunder_chain.tres" id="5_myfhv"]
+[ext_resource type="Resource" uid="uid://x4bivjxncvqm" path="res://System/skill_system/resources/damage/thunderclap.tres" id="6_vhoqw"]
+[ext_resource type="Resource" uid="uid://btoskpfy832ny" path="res://System/skill_system/resources/damage/fire_rain.tres" id="7_6pm66"]
+[ext_resource type="Resource" uid="uid://bx5jjj52jdb13" path="res://System/skill_system/resources/effect/rage_power.tres" id="8_xc7l3"]
+[ext_resource type="Resource" uid="uid://c4aggapaqdacr" path="res://System/skill_system/resources/effect/slow_power.tres" id="9_jsoqf"]
+
+[resource]
+script = ExtResource("3_r62vt")
+clz_name = "queen"
+model_path = ExtResource("2_lvcig")
+title = "女王 Lv 1"
+desc = "痛苦女王"
+icon_path = "res://Asserts/Images/icon/skill icon/27.png"
+aabb_scale = 1.0
+aabb_height_scale = 1.0
+element_phase = 31
+unit_move_type = 1
+unit_cate = 2
+armor_amount = 0.0
+armor_type = 2
+is_mesh_outline = true
+is_mesh_standing = false
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+max_health = 10000.0
+move_speed = 5.0
+turn_speed = 10.0
+attack_speed = 0.5
+attack_range = 20.0
+attack_num = 1
+attack_value = 20.0
+unit_growth_factor = 1.0
+projectile_speed = 300.0
+vfx_projectile_name = "water"
+anim_attack = "attack"
+anim_run = "walk"
+anim_walk = "walk"
+anim_idle = "idle"
+anim_death = "death"
+anim_release = "attack"
+anim_speed_factor = 1.0
+anim_ack_point = 0.03
+is_selected_circle = true
+component_systems = 0
+pickup_velocity = 1000.0
+item_metas = Array[ExtResource("1_lbysp")]([])
+skill_metas = Array[ExtResource("4_pjjkk")]([ExtResource("5_myfhv"), ExtResource("6_vhoqw"), ExtResource("7_6pm66"), ExtResource("8_xc7l3"), ExtResource("9_jsoqf")])

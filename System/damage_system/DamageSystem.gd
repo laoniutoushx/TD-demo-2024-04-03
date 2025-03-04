@@ -20,6 +20,8 @@ func action(source: BaseUnit, target:BaseUnit):
 func animation_action(source: BaseUnit, target:BaseUnit):
 	var ap: AnimationPlayer = source.find_child(Constants.AnimationPlayer_CLZ)
 	if ap != null:
+		if ap.is_playing():
+			ap.stop()
 		ap.play(source.anim_attack)
 
 
