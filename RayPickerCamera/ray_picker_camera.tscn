@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://boulaxdrcplpg"]
 
-[ext_resource type="Script" path="res://RayPickerCamera/ray_picker_camera.gd" id="1_abr1g"]
+[ext_resource type="Script" uid="uid://c8ux0u0saixhh" path="res://RayPickerCamera/ray_picker_camera.gd" id="1_abr1g"]
 
 [node name="RayPickerCamera" type="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 0.317305, 0.948324, 0, -0.948324, 0.317305, 0, 19.8, 32)

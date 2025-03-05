@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dyj5ef3ay7ot0"]
 
-[ext_resource type="Script" path="res://Unit/enemy/enemy.gd" id="1_ueu5r"]
+[ext_resource type="Script" uid="uid://cb2myjgx6f2f" path="res://Unit/enemy/enemy.gd" id="1_ueu5r"]
 [ext_resource type="PackedScene" uid="uid://tpqcre5g6n6b" path="res://Asserts/Models/ulimate monster/glTF/Armabee_Evolved.gltf" id="4_442pv"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="4_eftx5"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="5_yq5t4"]

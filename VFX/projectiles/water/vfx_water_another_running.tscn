@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://ngfv8noop2ft"]
 
-[ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail.gdshader" id="1_ewqjc"]
-[ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail_draw_pass.gdshader" id="2_7swvs"]
+[ext_resource type="Shader" uid="uid://cylxj2kp4pu3g" path="res://addons/GPUTrail/shaders/trail.gdshader" id="1_ewqjc"]
+[ext_resource type="Shader" uid="uid://ba0getmd8j8qq" path="res://addons/GPUTrail/shaders/trail_draw_pass.gdshader" id="2_7swvs"]
 [ext_resource type="Texture2D" uid="uid://crk6pkb7e5rwc" path="res://addons/GPUTrail/defaults/texture.tres" id="3_h0nms"]
 [ext_resource type="Texture2D" uid="uid://ct31fhxvcragr" path="res://addons/GPUTrail/defaults/curve.tres" id="4_guqrm"]
-[ext_resource type="Script" path="res://addons/GPUTrail/GPUTrail3D.gd" id="5_coe72"]
+[ext_resource type="Script" uid="uid://slnsuby633to" path="res://addons/GPUTrail/GPUTrail3D.gd" id="5_coe72"]
 [ext_resource type="AudioStream" uid="uid://buq0byk7dwh4p" path="res://Asserts/waves/fire-ball.wav" id="6_et5y0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ohim7"]
@@ -30,10 +30,10 @@ resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_7swvs")
 shader_parameter/uv_offset = Vector2(0, 0)
-shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
-shader_parameter/flags = 40
 shader_parameter/color_ramp = ExtResource("3_h0nms")
 shader_parameter/curve = ExtResource("4_guqrm")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 40
 
 [sub_resource type="QuadMesh" id="QuadMesh_svesv"]
 material = SubResource("ShaderMaterial_y7gdo")

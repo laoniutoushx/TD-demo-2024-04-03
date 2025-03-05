@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://cppruxnoup3dr"]
 
-[ext_resource type="Script" path="res://VFX/stun/vfx_stunvfx_running.gd" id="1_ahml0"]
+[ext_resource type="Script" uid="uid://bf4awvcco3c6r" path="res://VFX/stun/vfx_stunvfx_running.gd" id="1_ahml0"]
 [ext_resource type="Texture2D" uid="uid://6t4t48fopqo2" path="res://VFX/stun/stun_imgs/eff_xuanyun_00000.png" id="1_h01bn"]
 [ext_resource type="Texture2D" uid="uid://ds8a1svijvj5t" path="res://VFX/stun/stun_imgs/eff_xuanyun_00001.png" id="2_psrp3"]
 [ext_resource type="Texture2D" uid="uid://naqsvesshij3" path="res://VFX/stun/stun_imgs/eff_xuanyun_00002.png" id="3_b6deh"]

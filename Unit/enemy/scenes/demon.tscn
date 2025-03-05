@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=4 uid="uid://bl0cysp2x2beh"]
 
-[ext_resource type="Script" path="res://Unit/enemy/enemy.gd" id="1_rs53c"]
+[ext_resource type="Script" uid="uid://cb2myjgx6f2f" path="res://Unit/enemy/enemy.gd" id="1_rs53c"]
 [ext_resource type="Texture2D" uid="uid://dye1e534mx8rb" path="res://Asserts/Models/ulimate monster/glTF/Demon_Atlas_Monsters.png" id="2_y6jus"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_n2xhh"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_l2inq"]
@@ -308,7 +308,7 @@ tracks/13/keys = PackedFloat32Array(0, 1, -0.99962, 0.0124439, 0.00829166, 0.023
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gthbd"]
 _data = {
-"Flying_Idle": SubResource("Animation_4dapv")
+&"Flying_Idle": SubResource("Animation_4dapv")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8iqam"]

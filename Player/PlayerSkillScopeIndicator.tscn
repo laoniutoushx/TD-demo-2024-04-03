@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://2stxp3tokjwq"]
 
 [ext_resource type="Texture2D" uid="uid://mfbpevuvekus" path="res://Asserts/Images/indicator/skill_release_indicator.png" id="1_5uq1c"]
-[ext_resource type="Script" path="res://Player/player_skill_scope_indicator.gd" id="1_i7fiu"]
+[ext_resource type="Script" uid="uid://3gb1t2x20cto" path="res://Player/player_skill_scope_indicator.gd" id="1_i7fiu"]
 
 [node name="PlayerSkillScopeIndicator" type="Node3D"]
 script = ExtResource("1_i7fiu")

@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://cj14knd613bv7"]
 
-[ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_bus5n"]
+[ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="1_bus5n"]
 [ext_resource type="PackedScene" uid="uid://bw3bh4lnqk833" path="res://Unit/enemy/scenes/dog.tscn" id="2_0v5or"]
-[ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="3_h476a"]
-[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_4coc2"]
+[ext_resource type="Script" uid="uid://cwoilst65vmq6" path="res://Unit/enemy/EnemyResource.gd" id="3_h476a"]
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_4coc2"]
 
 [resource]
 script = ExtResource("3_h476a")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://ey350w7b70mt"]
 
-[ext_resource type="Script" path="res://VFX/projectiles/fireball/vfx_fireball_destory.gd" id="1_cm757"]
+[ext_resource type="Script" uid="uid://b1jdi51ycejn1" path="res://VFX/projectiles/fireball/vfx_fireball_destory.gd" id="1_cm757"]
 [ext_resource type="Texture2D" uid="uid://c2ube7sc0frfs" path="res://addons/kenney_particle_pack/light_01.png" id="2_5ipac"]
 
 [sub_resource type="Curve" id="Curve_4fmju"]

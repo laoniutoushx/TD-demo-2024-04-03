@@ -7,7 +7,7 @@
 [ext_resource type="Shader" uid="uid://b77ms2mgesp1d" path="res://VFX/projectiles/hammer/hammer_spark.tres" id="4_4qpt6"]
 [ext_resource type="Texture2D" uid="uid://demtwfge20yb4" path="res://addons/kenney_particle_pack/spark_04.png" id="5_pscgw"]
 [ext_resource type="Texture2D" uid="uid://btpsylbkah4u1" path="res://addons/kenney_particle_pack/dirt_03.png" id="6_au8ww"]
-[ext_resource type="Script" path="res://Scripts/Trail3D.gd" id="6_rawme"]
+[ext_resource type="Script" uid="uid://b3w53u07ukurw" path="res://Scripts/Trail3D.gd" id="6_rawme"]
 [ext_resource type="PackedScene" uid="uid://qwvj86yv68ko" path="res://Asserts/mesh/mjolnir_gltf/mjolnir.gltf" id="8_bbdbi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o3b3w"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://dxd8xbpus6m6y"]
 
-[ext_resource type="Script" path="res://VFX/projectiles/fireball/vfx_fireball_destory.gd" id="1_raond"]
+[ext_resource type="Script" uid="uid://b1jdi51ycejn1" path="res://VFX/projectiles/fireball/vfx_fireball_destory.gd" id="1_raond"]
 
 [sub_resource type="Curve" id="Curve_4fmju"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.56012, 0.0, 0, 0]
@@ -17,7 +17,7 @@ point_count = 4
 curve = SubResource("Curve_twibl")
 
 [sub_resource type="Curve" id="Curve_7u5ai"]
-max_value = 2.0
+_limits = [0.0, 2.0, 0.0, 1.0]
 _data = [Vector2(0, 1.66703), 0.0, -0.979894, 0, 0, Vector2(0.746575, 0.73188), -1.60896, -1.60896, 0, 0, Vector2(0.979452, 0), -4.40879, 0.0, 0, 0]
 point_count = 3
 

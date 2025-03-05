@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://d311pi513s4hn"]
 
 [ext_resource type="Texture2D" uid="uid://cuhc2vr8fsvlc" path="res://addons/kenney_particle_pack/star_09.png" id="1_em8sx"]
-[ext_resource type="Script" path="res://VFX/projectiles/hammer/vfx_hammer_destory.gd" id="1_kssxl"]
+[ext_resource type="Script" uid="uid://cayfpqk1b7j33" path="res://VFX/projectiles/hammer/vfx_hammer_destory.gd" id="1_kssxl"]
 
 [sub_resource type="Curve" id="Curve_bl3ni"]
-max_value = 2.0
+_limits = [0.0, 2.0, 0.0, 1.0]
 _data = [Vector2(0, 1.11444), 0.0, 2.033, 0, 0, Vector2(0.5, 1.60327), 0.0, 0.0, 0, 0, Vector2(0.972603, 0), -7.28012, 0.0, 0, 0]
 point_count = 3
 

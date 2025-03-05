@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://ci8353ws2baf8"]
 
-[ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_7i3hd"]
+[ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="1_7i3hd"]
 [ext_resource type="PackedScene" uid="uid://do5bxrrfoty6f" path="res://Unit/enemy/scenes/alpaking_evolved.tscn" id="2_uh5rg"]
-[ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="3_rwmn1"]
-[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_od2k1"]
+[ext_resource type="Script" uid="uid://cwoilst65vmq6" path="res://Unit/enemy/EnemyResource.gd" id="3_rwmn1"]
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_od2k1"]
 
 [resource]
 script = ExtResource("3_rwmn1")

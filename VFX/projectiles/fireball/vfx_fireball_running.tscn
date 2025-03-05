@@ -5,7 +5,7 @@
 [ext_resource type="Shader" uid="uid://46a4ttq8mwju" path="res://VFX/projectiles/fireball/fire_header_shader.tres" id="3_oy2iu"]
 [ext_resource type="Material" uid="uid://2ya114uel4m3" path="res://VFX/projectiles/fireball/m_fire_trail.tres" id="4_b86em"]
 [ext_resource type="Texture2D" uid="uid://dayvoj8qjupx0" path="res://Asserts/textures/vfx/T_VFX_basic1.PNG" id="5_br3k4"]
-[ext_resource type="Script" path="res://Scripts/Trail3D.gd" id="6_mxcaf"]
+[ext_resource type="Script" uid="uid://b3w53u07ukurw" path="res://Scripts/Trail3D.gd" id="6_mxcaf"]
 [ext_resource type="AudioStream" uid="uid://buq0byk7dwh4p" path="res://Asserts/waves/fire-ball.wav" id="7_mojgr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x1k3y"]

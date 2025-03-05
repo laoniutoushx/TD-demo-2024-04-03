@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="SkillMetaResource" load_steps=9 format=3 uid="uid://bx5jjj52jdb13"]
 
-[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_i32qe"]
-[ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="2_55irh"]
-[ext_resource type="Script" path="res://System/skill_system/resources/effect/rage_power.gd" id="3_r7wtx"]
-[ext_resource type="Script" path="res://System/buff_system/resources/power_buff.gd" id="3_smy4v"]
-[ext_resource type="Script" path="res://addons/script_property_selector/property_selector_resource.gd" id="4_qk5ba"]
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_i32qe"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="2_55irh"]
+[ext_resource type="Script" uid="uid://w3sny4p3f6tg" path="res://System/skill_system/resources/effect/rage_power.gd" id="3_r7wtx"]
+[ext_resource type="Script" uid="uid://dhf7xdpvnn7gv" path="res://System/buff_system/resources/power_buff.gd" id="3_smy4v"]
+[ext_resource type="Script" uid="uid://cya1pifwbgjdk" path="res://addons/script_property_selector/property_selector_resource.gd" id="4_qk5ba"]
 
 [sub_resource type="Resource" id="Resource_wqbbn"]
 script = ExtResource("4_qk5ba")

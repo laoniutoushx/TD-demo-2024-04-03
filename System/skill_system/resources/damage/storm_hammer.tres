@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="SkillMetaResource" load_steps=5 format=3 uid="uid://cefokvd7tj07l"]
 
-[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_d4hgj"]
-[ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="2_id2i7"]
-[ext_resource type="Script" path="res://System/skill_system/resources/damage/storm_hammer.gd" id="3_62inj"]
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_d4hgj"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="2_id2i7"]
+[ext_resource type="Script" uid="uid://rycdt6h4gd8y" path="res://System/skill_system/resources/damage/storm_hammer.gd" id="3_62inj"]
 [ext_resource type="Resource" uid="uid://x0wsml7ijl17" path="res://System/buff_system/resources/stun_buff.tres" id="3_bkawi"]
 
 [resource]

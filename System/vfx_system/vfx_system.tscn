@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b7a1nrfaoya4w"]
 
-[ext_resource type="Script" path="res://System/vfx_system/VFXSystem.gd" id="1_xtb34"]
+[ext_resource type="Script" uid="uid://dxgqr1djrs08u" path="res://System/vfx_system/VFXSystem.gd" id="1_xtb34"]
 
 [node name="VfxSystem" type="Node"]
 script = ExtResource("1_xtb34")

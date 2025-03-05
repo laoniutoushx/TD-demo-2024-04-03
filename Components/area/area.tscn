@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://biovay1gsom0n"]
 
-[ext_resource type="Script" path="res://Components/area/area.gd" id="1_n5bba"]
+[ext_resource type="Script" uid="uid://c44x1vodqspm0" path="res://Components/area/area.gd" id="1_n5bba"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_7ebog"]
 margin = 0.0

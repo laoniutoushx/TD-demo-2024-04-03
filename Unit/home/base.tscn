@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cym641yvamusq"]
 
-[ext_resource type="Script" path="res://Unit/home/base.gd" id="1_8pvdi"]
+[ext_resource type="Script" uid="uid://dtgkemi3jg8sa" path="res://Unit/home/base.gd" id="1_8pvdi"]
 [ext_resource type="Texture2D" uid="uid://b1007h3e1stpr" path="res://Asserts/materials/Tiles019_2K-JPG/Tiles019_2K-JPG_Color.jpg" id="2_b7026"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n5m5e"]

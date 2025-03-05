@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cbqypojw4pb1c"]
 
-[ext_resource type="Script" path="res://Test/range/mouse_move_limit.gd" id="1_7oqn8"]
-[ext_resource type="Script" path="res://Test/range/ui.gd" id="2_81gy7"]
+[ext_resource type="Script" uid="uid://t6dtaefu6ptw" path="res://Test/range/mouse_move_limit.gd" id="1_7oqn8"]
+[ext_resource type="Script" uid="uid://oepatrxhpa01" path="res://Test/range/ui.gd" id="2_81gy7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m8utj"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)

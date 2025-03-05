@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://1rtrqwv5w5d5"]
 
 [ext_resource type="PackedScene" uid="uid://cpwm1os812h4l" path="res://VFX/building/vfx_build_located_running.tscn" id="1_jfoyx"]
-[ext_resource type="Script" path="res://Test/tween/tween_test.gd" id="1_qaem2"]
+[ext_resource type="Script" uid="uid://dftinqwaeil2q" path="res://Test/tween/tween_test.gd" id="1_qaem2"]
 
 [node name="TweenTest" type="Node3D"]
 script = ExtResource("1_qaem2")

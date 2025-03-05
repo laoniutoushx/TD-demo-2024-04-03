@@ -1,7 +1,7 @@
 [gd_scene load_steps=30 format=4 uid="uid://cw67xdve0vmkn"]
 
-[ext_resource type="Script" path="res://Test/aabb/aabb_demo.gd" id="1_cvkmq"]
-[ext_resource type="Script" path="res://Scripts/camera/camera.gd" id="2_8knyg"]
+[ext_resource type="Script" uid="uid://c52gs85h6urop" path="res://Test/aabb/aabb_demo.gd" id="1_cvkmq"]
+[ext_resource type="Script" uid="uid://6bm0evx8gqfs" path="res://Scripts/camera/camera.gd" id="2_8knyg"]
 [ext_resource type="PackedScene" uid="uid://cppruxnoup3dr" path="res://VFX/stun/vfx_stunvfx_running.tscn" id="3_ywxaf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ehfrk"]
@@ -1861,12 +1861,12 @@ tracks/38/keys = PackedFloat32Array(0, 1, 0.130384, 2.02545e-08, -1.59394e-08, 0
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jj78g"]
 _data = {
-"Armature|Death": SubResource("Animation_r3x7y"),
-"Armature|Idle": SubResource("Animation_8or17"),
-"Armature|Jump": SubResource("Animation_7qsp5"),
-"Armature|Run": SubResource("Animation_cfaqo"),
-"Armature|Walk": SubResource("Animation_0qmni"),
-"Armature|WalkSlow": SubResource("Animation_cacvk")
+&"Armature|Death": SubResource("Animation_r3x7y"),
+&"Armature|Idle": SubResource("Animation_8or17"),
+&"Armature|Jump": SubResource("Animation_7qsp5"),
+&"Armature|Run": SubResource("Animation_cfaqo"),
+&"Armature|Walk": SubResource("Animation_0qmni"),
+&"Armature|WalkSlow": SubResource("Animation_cacvk")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yubso"]
@@ -2509,8 +2509,8 @@ tracks/34/keys = PackedFloat32Array(0, 1, -0.450643, -0.229041, 0.0903876, 0.858
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1wfnl"]
 _data = {
-"Armature|Idle": SubResource("Animation_fp5fp"),
-"Armature|Jump": SubResource("Animation_uujeb")
+&"Armature|Idle": SubResource("Animation_fp5fp"),
+&"Armature|Jump": SubResource("Animation_uujeb")
 }
 
 [node name="AabbDemo" type="Node3D"]

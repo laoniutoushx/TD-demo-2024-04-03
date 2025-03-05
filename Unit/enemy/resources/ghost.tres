@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://bvtywek1k0uu5"]
 
-[ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_m44ay"]
-[ext_resource type="PackedScene" path="res://Unit/enemy/scenes/ghost.tscn" id="2_gtio1"]
-[ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="3_xqf4c"]
-[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_vhxgn"]
+[ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="1_m44ay"]
+[ext_resource type="PackedScene" uid="uid://cvh1ohnvbk6ts" path="res://Unit/enemy/scenes/ghost.tscn" id="2_gtio1"]
+[ext_resource type="Script" uid="uid://cwoilst65vmq6" path="res://Unit/enemy/EnemyResource.gd" id="3_xqf4c"]
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_vhxgn"]
 
 [resource]
 script = ExtResource("3_xqf4c")

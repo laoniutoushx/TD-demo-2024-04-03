@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=4 uid="uid://ollynrr1rnly"]
 
-[ext_resource type="Script" path="res://Unit/enemy/enemy.gd" id="1_sv4q6"]
+[ext_resource type="Script" uid="uid://cb2myjgx6f2f" path="res://Unit/enemy/enemy.gd" id="1_sv4q6"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="4_0b1m1"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="5_wr5bo"]
 
@@ -635,8 +635,8 @@ tracks/34/keys = PackedFloat32Array(0, 1, -0.656528, -0.197786, 0.146269, 0.7130
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6xddt"]
 _data = {
-"Armature|Idle": SubResource("Animation_qg4pg"),
-"Armature|Jump": SubResource("Animation_l7jdo")
+&"Armature|Idle": SubResource("Animation_qg4pg"),
+&"Armature|Jump": SubResource("Animation_l7jdo")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8iqam"]

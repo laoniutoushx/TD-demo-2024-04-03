@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://b2hcgeatgqoai"]
 
-[ext_resource type="Script" path="res://VFX/force_field/vfx_force_field_running.gd" id="1_onyra"]
+[ext_resource type="Script" uid="uid://vu44aryh35t3" path="res://VFX/force_field/vfx_force_field_running.gd" id="1_onyra"]
 [ext_resource type="Texture2D" uid="uid://dnlamfjv6ay03" path="res://VFX/force_field/hexagon_grid_sampler.png" id="2_xp50h"]
 
 [sub_resource type="Shader" id="Shader_rdbq6"]
@@ -46,9 +46,9 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rrlq7"]
 render_priority = 0
 shader = SubResource("Shader_rdbq6")
+shader_parameter/grid_sampler = ExtResource("2_xp50h")
 shader_parameter/base_color = Color(0, 0.776471, 0.333333, 1)
 shader_parameter/alpha_value = 1.0
-shader_parameter/grid_sampler = ExtResource("2_xp50h")
 
 [sub_resource type="SphereMesh" id="SphereMesh_8m85t"]
 radius = 1.0
@@ -104,7 +104,7 @@ shader = SubResource("Shader_tyd6g")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/point_size = 10.0
 shader_parameter/roughness = 1.0
-shader_parameter/metallic_texture_channel = null
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 0.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
@@ -214,8 +214,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0fsih"]
 _data = {
-"RESET": SubResource("Animation_6xyly"),
-"death": SubResource("Animation_q2tir")
+&"RESET": SubResource("Animation_6xyly"),
+&"death": SubResource("Animation_q2tir")
 }
 
 [node name="VfxForceFieldRunning" type="Node3D"]

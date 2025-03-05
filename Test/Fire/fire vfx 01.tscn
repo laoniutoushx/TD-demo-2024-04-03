@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://dysa7dbyn3mj2"]
 
-[ext_resource type="Shader" path="res://Test/Fire/fire vfx 01.gdshader" id="1_jsei6"]
-[ext_resource type="Shader" path="res://Test/Fire/fire vfx 01 - ball.gdshader" id="2_x6pw8"]
+[ext_resource type="Shader" uid="uid://bx31ab8lwl5ue" path="res://Test/Fire/fire vfx 01.gdshader" id="1_jsei6"]
+[ext_resource type="Shader" uid="uid://csxpqo8ntlnnt" path="res://Test/Fire/fire vfx 01 - ball.gdshader" id="2_x6pw8"]
 [ext_resource type="Shader" uid="uid://dhg0rn3r5336q" path="res://Test/Fire/meteor.tres" id="3_3007g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w00eh"]

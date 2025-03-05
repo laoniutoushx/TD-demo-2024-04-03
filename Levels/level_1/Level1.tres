@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="LevelResource" load_steps=73 format=3 uid="uid://cfjres2fis310"]
 
 [ext_resource type="PackedScene" uid="uid://bxibobasihqmy" path="res://Levels/level_1/Level1.tscn" id="1_n8mn6"]
-[ext_resource type="Script" path="res://Levels/level_resource.gd" id="1_oc6p8"]
-[ext_resource type="Script" path="res://Waves/WaveResource.gd" id="3_o0ugr"]
-[ext_resource type="Script" path="res://Unit/enemy/EnemySpawnResource.gd" id="4_gg7ch"]
+[ext_resource type="Script" uid="uid://dbmpwe6whmw1r" path="res://Levels/level_resource.gd" id="1_oc6p8"]
+[ext_resource type="Script" uid="uid://dkj2hwe7n0kae" path="res://Waves/WaveResource.gd" id="3_o0ugr"]
+[ext_resource type="Script" uid="uid://4w0o5ddi0bta" path="res://Unit/enemy/EnemySpawnResource.gd" id="4_gg7ch"]
 
 [sub_resource type="Resource" id="Resource_2tx4y"]
 script = ExtResource("4_gg7ch")

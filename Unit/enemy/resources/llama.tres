@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://b53mtwli2n0n1"]
 
-[ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_c60ni"]
+[ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="1_c60ni"]
 [ext_resource type="PackedScene" uid="uid://dxk5dbbohyjrg" path="res://Unit/enemy/scenes/llama.tscn" id="2_vm2of"]
-[ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="3_428mu"]
-[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_mj7rt"]
+[ext_resource type="Script" uid="uid://cwoilst65vmq6" path="res://Unit/enemy/EnemyResource.gd" id="3_428mu"]
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_mj7rt"]
 
 [resource]
 script = ExtResource("3_428mu")
@@ -40,6 +40,7 @@ anim_walk = "Armature|Jump"
 anim_idle = "Armature|Idle"
 anim_death = null
 anim_release = ""
+anim_speed_factor = 1.0
 anim_ack_point = 0.03
 is_selected_circle = true
 component_systems = 0

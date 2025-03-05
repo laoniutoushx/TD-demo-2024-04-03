@@ -1,7 +1,7 @@
 [gd_scene load_steps=40 format=3 uid="uid://ciii016bbbiur"]
 
 [ext_resource type="Shader" uid="uid://bhkav64atua32" path="res://VFX/level_up/level_up_tower.tres" id="1_n44c3"]
-[ext_resource type="Script" path="res://VFX/level_up/vfx_level_up_tower_no_ani_burning.gd" id="1_yfnc1"]
+[ext_resource type="Script" uid="uid://bgeqt6qkhwx63" path="res://VFX/level_up/vfx_level_up_tower_no_ani_burning.gd" id="1_yfnc1"]
 [ext_resource type="Texture2D" uid="uid://cts3hu0ch3yv" path="res://Asserts/textures/vfx/fireball_trail.png" id="2_w40ku"]
 [ext_resource type="ArrayMesh" uid="uid://bnfqibr0o5qkp" path="res://Asserts/Models/vfx/cylinder_long.obj" id="3_75qko"]
 [ext_resource type="Texture2D" uid="uid://5riuudcudygl" path="res://Asserts/textures/vfx/Voronoi.png" id="4_gc6y5"]
@@ -98,7 +98,7 @@ point_count = 2
 curve = SubResource("Curve_wjbld")
 
 [sub_resource type="Curve" id="Curve_5l86u"]
-max_value = 100.0
+_limits = [0.0, 100.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 100), 0.0, 0.0, 0, 0]
 point_count = 2
 
@@ -106,8 +106,7 @@ point_count = 2
 curve = SubResource("Curve_5l86u")
 
 [sub_resource type="Curve" id="Curve_locsj"]
-min_value = -200.0
-max_value = 200.0
+_limits = [-200.0, 200.0, 0.0, 1.0]
 _data = [Vector2(0, 66.0694), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 

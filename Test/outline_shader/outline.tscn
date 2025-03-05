@@ -1869,12 +1869,12 @@ tracks/38/keys = PackedFloat32Array(0, 1, 0.130384, 2.02545e-08, -1.59394e-08, 0
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1d8n2"]
 _data = {
-"Armature|Death": SubResource("Animation_ld1sw"),
-"Armature|Idle": SubResource("Animation_vsadd"),
-"Armature|Jump": SubResource("Animation_rskah"),
-"Armature|Run": SubResource("Animation_2yhhc"),
-"Armature|Walk": SubResource("Animation_5qyx4"),
-"Armature|WalkSlow": SubResource("Animation_ol87r")
+&"Armature|Death": SubResource("Animation_ld1sw"),
+&"Armature|Idle": SubResource("Animation_vsadd"),
+&"Armature|Jump": SubResource("Animation_rskah"),
+&"Armature|Run": SubResource("Animation_2yhhc"),
+&"Armature|Walk": SubResource("Animation_5qyx4"),
+&"Armature|WalkSlow": SubResource("Animation_ol87r")
 }
 
 [node name="Outline" type="Node3D"]

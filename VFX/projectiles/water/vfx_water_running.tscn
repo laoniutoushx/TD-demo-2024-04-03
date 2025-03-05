@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://c6fs5xcepi5hm" path="res://addons/kenney_particle_pack/magic_05.png" id="1_fuxo7"]
 [ext_resource type="Texture2D" uid="uid://it3lumq1trxf" path="res://addons/kenney_particle_pack/smoke_09.png" id="1_pe6gd"]
-[ext_resource type="Shader" path="res://VFX/projectiles/water/fireball_impact_trail.gdshader" id="3_8exrf"]
-[ext_resource type="Script" path="res://Scripts/Trail3D.gd" id="3_hds7r"]
+[ext_resource type="Shader" uid="uid://critlgjh6ip80" path="res://VFX/projectiles/water/fireball_impact_trail.gdshader" id="3_8exrf"]
+[ext_resource type="Script" uid="uid://b3w53u07ukurw" path="res://Scripts/Trail3D.gd" id="3_hds7r"]
 [ext_resource type="Texture2D" uid="uid://b0sxtqtnp28gp" path="res://addons/kenney_particle_pack/T_PerlinNoise_Tiled.png" id="3_y3j7m"]
 [ext_resource type="AudioStream" uid="uid://buq0byk7dwh4p" path="res://Asserts/waves/fire-ball.wav" id="4_2oh8h"]
 

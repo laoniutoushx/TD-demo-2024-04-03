@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dj86v171hg15a"]
 
-[ext_resource type="Script" path="res://Components/slot_indicator/base_slot_indicator.gd" id="1_7nnp2"]
+[ext_resource type="Script" uid="uid://cwvfq1h6pfj5i" path="res://Components/slot_indicator/base_slot_indicator.gd" id="1_7nnp2"]
 [ext_resource type="PackedScene" uid="uid://bk72dt5ar01dx" path="res://Components/background/background_slot_basic.tscn" id="2_mymhx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ljmcq"]

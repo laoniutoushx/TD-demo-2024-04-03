@@ -6,7 +6,7 @@
 [ext_resource type="ArrayMesh" uid="uid://81atb3yklasc" path="res://Asserts/Models/vfx/fireball_trail.obj" id="5_esxqr"]
 [ext_resource type="Texture2D" uid="uid://cts3hu0ch3yv" path="res://Asserts/textures/vfx/fireball_trail.png" id="5_h48fu"]
 [ext_resource type="Texture2D" uid="uid://b0sxtqtnp28gp" path="res://addons/kenney_particle_pack/T_PerlinNoise_Tiled.png" id="6_6gko7"]
-[ext_resource type="Script" path="res://Scripts/Trail3D.gd" id="7_jvd1b"]
+[ext_resource type="Script" uid="uid://b3w53u07ukurw" path="res://Scripts/Trail3D.gd" id="7_jvd1b"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l0e4u"]
 gravity = Vector3(0, 0, 0)
@@ -18,8 +18,8 @@ color = Color(5, 2, 1, 1)
 render_priority = 0
 shader = ExtResource("1_6cgu0")
 shader_parameter/MainTextureSpeed = Vector2(1, 1)
-shader_parameter/MainTexturePower = 5.0
 shader_parameter/MainTexture = ExtResource("2_baebv")
+shader_parameter/MainTexturePower = 5.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_k6q02"]
 material = SubResource("ShaderMaterial_pl5yn")
@@ -97,7 +97,7 @@ render_mode blend_add, depth_draw_never, cull_disabled, diffuse_lambert, specula
 uniform vec4 ColorParameter : source_color;
 uniform vec2 MainTextureSpeed = vec2(0.000000, 0.000000);
 uniform sampler2D MainTexture;
-uniform float MainTexturePower = 1;
+uniform float MainTexturePower = 1.0;
 
 
 
@@ -195,8 +195,8 @@ render_priority = 0
 shader = SubResource("VisualShader_pc6yh")
 shader_parameter/ColorParameter = Color(5, 3, 1, 1)
 shader_parameter/MainTextureSpeed = Vector2(1, 0)
-shader_parameter/MainTexturePower = 5.0
 shader_parameter/MainTexture = ExtResource("5_h48fu")
+shader_parameter/MainTexturePower = 5.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_klsiq"]
 gravity = Vector3(0, 0, 0)
@@ -256,7 +256,7 @@ render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specul
 uniform vec4 ColorParameter : source_color;
 uniform vec2 MainTextureSpeed = vec2(0.000000, 0.000000);
 uniform sampler2D MainTexture;
-uniform float MainTexturePower = 1;
+uniform float MainTexturePower = 1.0;
 
 
 
@@ -348,8 +348,8 @@ render_priority = 0
 shader = SubResource("VisualShader_hm4b3")
 shader_parameter/ColorParameter = Color(0, 0, 0, 1)
 shader_parameter/MainTextureSpeed = Vector2(1, 0)
-shader_parameter/MainTexturePower = 1.0
 shader_parameter/MainTexture = ExtResource("5_h48fu")
+shader_parameter/MainTexturePower = 1.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r2p3c"]
 gravity = Vector3(0, 0, 0)

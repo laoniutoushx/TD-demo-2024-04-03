@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://d1cr1cykcls0i"]
 
-[ext_resource type="Script" path="res://Unit/turret/scenes/turret.gd" id="1_qbgh6"]
+[ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_qbgh6"]
 [ext_resource type="PackedScene" uid="uid://dhc3nvydn0s3u" path="res://Asserts/Models/CG_Home/【CG】 孙悟空Q版悟空齐天大圣_gltf_352683.gltf" id="2_ecffp"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="4_pquju"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="5_33bkb"]
@@ -23,8 +23,8 @@ length = 0.3
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_og6kq"]
 _data = {
-"RESET": SubResource("Animation_m547r"),
-"attack": SubResource("Animation_3ryhm")
+&"RESET": SubResource("Animation_m547r"),
+&"attack": SubResource("Animation_3ryhm")
 }
 
 [node name="Magician" type="Node3D" node_paths=PackedStringArray("fire_poses")]

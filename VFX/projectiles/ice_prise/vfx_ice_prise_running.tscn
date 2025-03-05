@@ -1,32 +1,32 @@
 [gd_scene load_steps=34 format=3 uid="uid://ccoyle34gpo2v"]
 
-[ext_resource type="Shader" path="res://VFX/projectiles/ice_prise/IcePrise.gdshader" id="1_ewk43"]
-[ext_resource type="Script" path="res://VFX/projectiles/ice_prise/vfx_ice_prise_running.gd" id="1_pahdq"]
+[ext_resource type="Shader" uid="uid://dg7tw6chf32xt" path="res://VFX/projectiles/ice_prise/IcePrise.gdshader" id="1_ewk43"]
+[ext_resource type="Script" uid="uid://cfkpfsijve6ut" path="res://VFX/projectiles/ice_prise/vfx_ice_prise_running.gd" id="1_pahdq"]
 [ext_resource type="Texture2D" uid="uid://bfbj2kobyhtmy" path="res://VFX/projectiles/ice_prise/Stylized Ice/Stylized_Ice_001_basecolor.png" id="2_6gi2q"]
 [ext_resource type="ArrayMesh" uid="uid://crhvs8ik2pki3" path="res://VFX/projectiles/ice_prise/ice spike.obj" id="3_dkvv2"]
-[ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail.gdshader" id="4_3l2bg"]
-[ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail_draw_pass.gdshader" id="5_6g7pm"]
+[ext_resource type="Shader" uid="uid://cylxj2kp4pu3g" path="res://addons/GPUTrail/shaders/trail.gdshader" id="4_3l2bg"]
+[ext_resource type="Shader" uid="uid://ba0getmd8j8qq" path="res://addons/GPUTrail/shaders/trail_draw_pass.gdshader" id="5_6g7pm"]
 [ext_resource type="Texture2D" uid="uid://crk6pkb7e5rwc" path="res://addons/GPUTrail/defaults/texture.tres" id="6_uojhk"]
 [ext_resource type="Texture2D" uid="uid://ct31fhxvcragr" path="res://addons/GPUTrail/defaults/curve.tres" id="7_rchfn"]
 [ext_resource type="Texture2D" uid="uid://5riuudcudygl" path="res://Asserts/textures/vfx/Voronoi.png" id="8_hhleo"]
-[ext_resource type="Script" path="res://addons/GPUTrail/GPUTrail3D.gd" id="9_b2l50"]
+[ext_resource type="Script" uid="uid://slnsuby633to" path="res://addons/GPUTrail/GPUTrail3D.gd" id="9_b2l50"]
 [ext_resource type="Texture2D" uid="uid://bfjlratp6yanq" path="res://Asserts/textures/vfx/Voronoi-invert.png" id="9_upduj"]
-[ext_resource type="Shader" path="res://VFX/projectiles/ice_prise/IcePrise_01.gdshader" id="10_iyrys"]
+[ext_resource type="Shader" uid="uid://433q728dspno" path="res://VFX/projectiles/ice_prise/IcePrise_01.gdshader" id="10_iyrys"]
 [ext_resource type="Texture2D" uid="uid://5wdn5xit162h" path="res://VFX/projectiles/ice_prise/Stylized Ice/Stylized_Ice_001_normal.png" id="11_x2om4"]
 [ext_resource type="Material" uid="uid://2ya114uel4m3" path="res://VFX/projectiles/fireball/m_fire_trail.tres" id="12_u5y7a"]
-[ext_resource type="Script" path="res://Scripts/Trail3D.gd" id="13_xl53t"]
+[ext_resource type="Script" uid="uid://b3w53u07ukurw" path="res://Scripts/Trail3D.gd" id="13_xl53t"]
 [ext_resource type="PackedScene" uid="uid://cll88jekgo8hn" path="res://Test/vfx_moving_test/vfx_moving_test.tscn" id="14_ayfil"]
 [ext_resource type="Texture2D" uid="uid://bna18rj80qxuk" path="res://Asserts/Images/vfx/T雪花(T_SnowFlake)_爱给网_aigei_com.png" id="14_f1cqy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_snjui"]
 render_priority = 0
 shader = ExtResource("1_ewk43")
+shader_parameter/ice_roughness = ExtResource("2_6gi2q")
 shader_parameter/ice_color = Color(0.171, 0.6384, 0.95, 1)
 shader_parameter/refraction_strength = 0.05
 shader_parameter/frost_mix = 0.5
 shader_parameter/frost_scale = 10.0
 shader_parameter/ice_depth = 5.0
-shader_parameter/ice_roughness = ExtResource("2_6gi2q")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dsgaq"]
 shader = ExtResource("4_3l2bg")
@@ -35,12 +35,12 @@ shader = ExtResource("4_3l2bg")
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("5_6g7pm")
-shader_parameter/uv_offset = Vector2(0, 0)
-shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
-shader_parameter/flags = 44
 shader_parameter/tex = ExtResource("8_hhleo")
+shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/color_ramp = ExtResource("6_uojhk")
 shader_parameter/curve = ExtResource("7_rchfn")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 44
 
 [sub_resource type="QuadMesh" id="QuadMesh_1meer"]
 material = SubResource("ShaderMaterial_oq2bg")
@@ -51,6 +51,9 @@ load_path = "res://.godot/imported/fireball_trail.png-8bfde546e7f879ff345ce13850
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_of25g"]
 render_priority = 0
 shader = ExtResource("10_iyrys")
+shader_parameter/over_texture = ExtResource("2_6gi2q")
+shader_parameter/under_texture = ExtResource("2_6gi2q")
+shader_parameter/surface_normalmap = ExtResource("11_x2om4")
 shader_parameter/top_color = Color(0.302, 0.502, 1, 1)
 shader_parameter/depth = 0.1
 shader_parameter/normal_depth = 0.5
@@ -58,9 +61,6 @@ shader_parameter/roughness = 0.5
 shader_parameter/metallic = 0.0
 shader_parameter/refractive_index = 0.1
 shader_parameter/transparency = 0.95
-shader_parameter/over_texture = ExtResource("2_6gi2q")
-shader_parameter/under_texture = ExtResource("2_6gi2q")
-shader_parameter/surface_normalmap = ExtResource("11_x2om4")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rpsyt"]
 transparency = 1

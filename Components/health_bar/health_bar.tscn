@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d12bmpbqion2m"]
 
-[ext_resource type="Script" path="res://Components/health_bar/health_bar.gd" id="1_6qcik"]
+[ext_resource type="Script" uid="uid://cima6e8kd1kak" path="res://Components/health_bar/health_bar.gd" id="1_6qcik"]
 [ext_resource type="PackedScene" uid="uid://c183vsn54oua8" path="res://Components/health_bar/health_bar_2d.tscn" id="2_qd4gf"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_8gia4"]

@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="BuffResource" load_steps=5 format=3 uid="uid://dk0cymr07pskk"]
 
-[ext_resource type="Script" path="res://System/buff_system/resources/defence.gd" id="1_vwpko"]
-[ext_resource type="Script" path="res://addons/script_property_selector/property_selector_resource.gd" id="2_ghrjt"]
-[ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="3_o6t76"]
+[ext_resource type="Script" uid="uid://cv0yifhq1662r" path="res://System/buff_system/resources/defence.gd" id="1_vwpko"]
+[ext_resource type="Script" uid="uid://cya1pifwbgjdk" path="res://addons/script_property_selector/property_selector_resource.gd" id="2_ghrjt"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="3_o6t76"]
 
 [sub_resource type="Resource" id="Resource_wqbbn"]
 script = ExtResource("2_ghrjt")

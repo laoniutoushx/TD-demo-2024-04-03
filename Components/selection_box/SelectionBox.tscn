@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dwky2e2vyhklu"]
 
-[ext_resource type="Script" path="res://Components/selection_box/SelectionBox.gd" id="1_jrxse"]
+[ext_resource type="Script" uid="uid://2x4ltwv2ilcv" path="res://Components/selection_box/SelectionBox.gd" id="1_jrxse"]
 [ext_resource type="PackedScene" uid="uid://dk7sa3fkyxks5" path="res://Components/selection_box/RectangularSelection2D.tscn" id="1_odm8a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v812f"]

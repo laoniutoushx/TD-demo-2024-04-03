@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://vcfsit2dfe0l"]
 
 [ext_resource type="Material" uid="uid://20s2yib7focl" path="res://Test/draw_line/draw_line_material.tres" id="1_lqnt8"]
-[ext_resource type="Script" path="res://Test/draw_line/immediate_mesh/immediate_plane.gd" id="1_y68d5"]
-[ext_resource type="Script" path="res://Scripts/camera/camera.gd" id="2_l7y40"]
+[ext_resource type="Script" uid="uid://dpi0ykkx02qhx" path="res://Test/draw_line/immediate_mesh/immediate_plane.gd" id="1_y68d5"]
+[ext_resource type="Script" uid="uid://6bm0evx8gqfs" path="res://Scripts/camera/camera.gd" id="2_l7y40"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1wtpa"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)

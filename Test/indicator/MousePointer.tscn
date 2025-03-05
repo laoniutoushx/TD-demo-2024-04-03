@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://c6xjk3lvvm7g7"]
 
-[ext_resource type="Script" path="res://Test/indicator/mouse_pointer.gd" id="1_djnwl"]
-[ext_resource type="Script" path="res://Scripts/camera/camera.gd" id="2_dkeoc"]
+[ext_resource type="Script" uid="uid://c01o1uudbow46" path="res://Test/indicator/mouse_pointer.gd" id="1_djnwl"]
+[ext_resource type="Script" uid="uid://6bm0evx8gqfs" path="res://Scripts/camera/camera.gd" id="2_dkeoc"]
 [ext_resource type="PackedScene" uid="uid://2stxp3tokjwq" path="res://Player/PlayerSkillScopeIndicator.tscn" id="3_7jlaq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cdhyu"]

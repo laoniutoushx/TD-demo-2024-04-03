@@ -2,7 +2,7 @@
 
 [ext_resource type="ArrayMesh" uid="uid://dndna2g30nb48" path="res://VFX/projectiles/ice_prise/ice_spike_small.obj" id="1_4livg"]
 [ext_resource type="Texture2D" uid="uid://ccwv10vd74rjx" path="res://VFX/projectiles/ice_prise/Stylized Ice/ice (3).png" id="1_3406i"]
-[ext_resource type="Shader" path="res://VFX/projectiles/ice_prise/vfx_ice_prise_double_ring.gdshader" id="3_ey65l"]
+[ext_resource type="Shader" uid="uid://dbfi62kubww3u" path="res://VFX/projectiles/ice_prise/vfx_ice_prise_double_ring.gdshader" id="3_ey65l"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8xeri"]
 transparency = 1
@@ -21,7 +21,7 @@ point_count = 3
 curve = SubResource("Curve_l4m13")
 
 [sub_resource type="Curve" id="Curve_brwvm"]
-max_value = 10.0
+_limits = [0.0, 10.0, 0.0, 1.0]
 _data = [Vector2(0, 0), 0.0, 8.91304, 0, 0, Vector2(0.0854167, 2.0998), 0.0, 0.0, 0, 0, Vector2(1, 0.5583), -4.07189, 0.0, 0, 0]
 point_count = 3
 
@@ -54,7 +54,7 @@ point_count = 2
 curve = SubResource("Curve_0scl1")
 
 [sub_resource type="Curve" id="Curve_immy7"]
-max_value = 10.0
+_limits = [0.0, 10.0, 0.0, 1.0]
 _data = [Vector2(0, 2.74209), 0.0, 22.0215, 0, 0, Vector2(0.433333, 5.95356), 0.0, 0.0, 0, 0, Vector2(1, 1.52174), -14.7233, 0.0, 0, 0]
 point_count = 3
 

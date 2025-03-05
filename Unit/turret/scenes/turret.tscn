@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://cru16mbhnwx85"]
 
-[ext_resource type="Script" path="res://Unit/turret/scenes/turret.gd" id="1_xflch"]
+[ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_xflch"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_82e52"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_6u8xi"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="5_48m03"]
@@ -82,8 +82,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_og6kq"]
 _data = {
-"RESET": SubResource("Animation_m547r"),
-"attack": SubResource("Animation_3ryhm")
+&"RESET": SubResource("Animation_m547r"),
+&"attack": SubResource("Animation_3ryhm")
 }
 
 [node name="Turret" type="Node3D" node_paths=PackedStringArray("turret_top", "fire_poses")]

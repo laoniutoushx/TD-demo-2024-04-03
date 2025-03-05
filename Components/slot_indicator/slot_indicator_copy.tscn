@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bijmualw8imun"]
 
-[ext_resource type="Script" path="res://Components/slot_indicator/slot_indicator_copy.gd" id="1_n5scq"]
+[ext_resource type="Script" uid="uid://bkjwg12yulmdg" path="res://Components/slot_indicator/slot_indicator_copy.gd" id="1_n5scq"]
 [ext_resource type="Texture2D" uid="uid://cil63qfmw07vn" path="res://Asserts/Images/background/background-black-slot-basic.png" id="2_ybbti"]
 
 [node name="SlotIndicator" type="Control"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://wwxmnayfx22x"]
 
-[ext_resource type="Script" path="res://Scripts/camera/camera.gd" id="1_87tns"]
+[ext_resource type="Script" uid="uid://6bm0evx8gqfs" path="res://Scripts/camera/camera.gd" id="1_87tns"]
 [ext_resource type="MeshLibrary" uid="uid://b6ioecdsupr03" path="res://MeshLibraries/SpaceLibrary.tres" id="1_kygws"]
 [ext_resource type="ArrayMesh" uid="uid://qpo8pedgf133" path="res://Test/3d grid shader/cube_mesh_shader/no_top_bottom_cube.obj" id="2_ngmjx"]
 [ext_resource type="Shader" uid="uid://dvhhlfdrvshmg" path="res://Test/3d grid shader/cube_mesh_shader/3d_grid_shader.tres" id="2_pj73b"]

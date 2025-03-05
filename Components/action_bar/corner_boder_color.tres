@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bvuqnh7l05igc"]
 
-[ext_resource type="Shader" path="res://Components/action_bar/corner_boder_color.gdshader" id="1_cqdqu"]
+[ext_resource type="Shader" uid="uid://cph3rdujglko7" path="res://Components/action_bar/corner_boder_color.gdshader" id="1_cqdqu"]
 
 [resource]
 shader = ExtResource("1_cqdqu")

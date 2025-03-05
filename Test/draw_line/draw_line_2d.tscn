@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://c3rddlr3xb3c6"]
 
-[ext_resource type="Shader" uid="uid://dqtjgtdbynucm" path="res://Test/draw_line/draw_line_2d.tres" id="1_8nt0c"]
+[ext_resource type="Shader" uid="uid://dgugt6ulmyy31" path="res://Test/draw_line/draw_line_2d.tres" id="1_8nt0c"]
 [ext_resource type="Texture2D" uid="uid://brtx1k4o282bb" path="res://addons/kenney_particle_pack/spark_07.png" id="1_sr1lx"]
 [ext_resource type="Texture2D" uid="uid://b4ledf1xcnbsk" path="res://Asserts/Images/icon/white.jpg" id="3_fhvk6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oq0i5"]
 shader = ExtResource("1_8nt0c")
-shader_parameter/ColorParameter = Color(0.729, 4, 0.309, 1)
 shader_parameter/Texture2DParameter = ExtResource("1_sr1lx")
+shader_parameter/ColorParameter = Color(0.729, 4, 0.309, 1)
 
 [node name="DrawLine2d" type="Node2D"]
 

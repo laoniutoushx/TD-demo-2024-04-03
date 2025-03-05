@@ -1,11 +1,11 @@
 [gd_scene load_steps=17 format=3 uid="uid://ckhf1swc6vp84"]
 
-[ext_resource type="Script" path="res://Test/draw_line/draw_line.gd" id="1_mqalp"]
+[ext_resource type="Script" uid="uid://c3l57wvhhtfd8" path="res://Test/draw_line/draw_line.gd" id="1_mqalp"]
 [ext_resource type="Shader" uid="uid://bgirpi5ir5gxr" path="res://Test/draw_line/draw_line_shader.tres" id="3_34v7j"]
 [ext_resource type="Material" uid="uid://20s2yib7focl" path="res://Test/draw_line/draw_line_material.tres" id="3_ig2vv"]
-[ext_resource type="Script" path="res://Scripts/camera/camera.gd" id="4_m7gt2"]
+[ext_resource type="Script" uid="uid://6bm0evx8gqfs" path="res://Scripts/camera/camera.gd" id="4_m7gt2"]
 [ext_resource type="Material" uid="uid://dbyayvgnlg7tq" path="res://Test/draw_line/draw_line_standard_mat.tres" id="5_axy6o"]
-[ext_resource type="Script" path="res://Test/draw_line/lighting.gd" id="6_i8erj"]
+[ext_resource type="Script" uid="uid://byecgp4wyrqo8" path="res://Test/draw_line/lighting.gd" id="6_i8erj"]
 [ext_resource type="Texture2D" uid="uid://brtx1k4o282bb" path="res://addons/kenney_particle_pack/spark_07.png" id="6_iw45g"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ukg3"]
@@ -35,7 +35,7 @@ size = Vector2(1, 3)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jfdor"]
 render_priority = 0
 shader = ExtResource("3_34v7j")
-shader_parameter/ColorParameter = null
+shader_parameter/ColorParameter = Color(0, 0, 0, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ilcru"]
 material = ExtResource("3_ig2vv")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://djg6ewxcqfyp7"]
 
-[ext_resource type="Script" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.gd" id="1_serbs"]
+[ext_resource type="Script" uid="uid://idiy8g87vh13" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.gd" id="1_serbs"]
 
 [node name="FadedCircle3D" type="Node3D"]
 script = ExtResource("1_serbs")

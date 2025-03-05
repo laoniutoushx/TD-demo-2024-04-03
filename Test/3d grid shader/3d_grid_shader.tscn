@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://0q1pw7hd3tl"]
 
-[ext_resource type="Script" path="res://Scripts/camera/camera.gd" id="2_fj62e"]
-[ext_resource type="Shader" path="res://Test/3d grid shader/3d_grid_shader.gdshader" id="2_x8reu"]
+[ext_resource type="Script" uid="uid://6bm0evx8gqfs" path="res://Scripts/camera/camera.gd" id="2_fj62e"]
+[ext_resource type="Shader" uid="uid://k8p8ud8t10dx" path="res://Test/3d grid shader/3d_grid_shader.gdshader" id="2_x8reu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8idep"]
 render_priority = 0

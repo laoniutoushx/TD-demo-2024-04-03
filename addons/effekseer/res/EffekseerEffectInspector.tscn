@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://ckpyb8jcaxnmy"]
 
-[ext_resource type="Shader" path="res://addons/effekseer/res/EffekseerEffectInspector3D.gdshader" id="2_mfcjt"]
-[ext_resource type="Script" path="res://addons/effekseer/src/EffekseerEffectInspector.gd" id="3"]
-[ext_resource type="Shader" path="res://addons/effekseer/res/EffekseerEffectInspector2D.gdshader" id="3_bby3q"]
+[ext_resource type="Shader" uid="uid://cj8yqgwfquvvx" path="res://addons/effekseer/res/EffekseerEffectInspector3D.gdshader" id="2_mfcjt"]
+[ext_resource type="Script" uid="uid://bash0elnhfhld" path="res://addons/effekseer/src/EffekseerEffectInspector.gd" id="3"]
+[ext_resource type="Shader" uid="uid://cmv64go40pijp" path="res://addons/effekseer/res/EffekseerEffectInspector2D.gdshader" id="3_bby3q"]
 
 [sub_resource type="World3D" id="World3D_3kb0j"]
 

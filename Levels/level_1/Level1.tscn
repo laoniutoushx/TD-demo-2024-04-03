@@ -6,15 +6,15 @@
 [ext_resource type="PackedScene" uid="uid://wacj14cvr4eq" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/WallTowers_DoorClosed_FirstAge.gltf" id="2_gg4ko"]
 [ext_resource type="PackedScene" uid="uid://bdruiih1fouof" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Rock.gltf" id="3_03ljr"]
 [ext_resource type="PackedScene" uid="uid://cym641yvamusq" path="res://Unit/home/base.tscn" id="3_epmlt"]
-[ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain.gd" id="3_gvb4y"]
+[ext_resource type="Script" uid="uid://bcxq7ivuxy3up" path="res://addons/zylann.hterrain/hterrain.gd" id="3_gvb4y"]
 [ext_resource type="Texture2D" uid="uid://ck1gvidor42pp" path="res://Asserts/Images/background/rogland_clear_night_4k.exr" id="3_ot2kt"]
-[ext_resource type="Resource" path="res://Asserts/h_terrain_data/data.hterrain" id="4_ivp0y"]
-[ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="5_xcclr"]
+[ext_resource type="Resource" uid="uid://d07kpuyhw4vhh" path="res://Asserts/h_terrain_data/data.hterrain" id="4_ivp0y"]
+[ext_resource type="Script" uid="uid://dqh2rt0fn1vli" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="5_xcclr"]
 [ext_resource type="Texture2D" uid="uid://d3p06pydk5kwn" path="res://Asserts/materials/PavingStones131_2K-JPG/Level1_slot0_albedo_bump.png" id="6_f3yss"]
 [ext_resource type="Texture2D" uid="uid://crlqhhh1vd1hf" path="res://Asserts/materials/PavingStones131_2K-JPG/Level1_slot0_normal_roughness.png" id="7_5b0jq"]
-[ext_resource type="Script" path="res://Scripts/controller/RTSController.gd" id="7_xmjyx"]
-[ext_resource type="Script" path="res://Waves/WaveManager.gd" id="8_iynip"]
-[ext_resource type="Shader" path="res://Levels/level_1/Level1.gdshader" id="9_25tn7"]
+[ext_resource type="Script" uid="uid://cinc4wtj23xik" path="res://Scripts/controller/RTSController.gd" id="7_xmjyx"]
+[ext_resource type="Script" uid="uid://d386ucglmr21" path="res://Waves/WaveManager.gd" id="8_iynip"]
+[ext_resource type="Shader" uid="uid://bnm6ve400eljx" path="res://Levels/level_1/Level1.gdshader" id="9_25tn7"]
 [ext_resource type="Texture2D" uid="uid://fyg6yshil7wl" path="res://Asserts/materials/Tiles130_2K-JPG/Tiles130_2K-JPG_Color.jpg" id="10_56d2c"]
 [ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI/ui.tscn" id="10_i7dqg"]
 [ext_resource type="Texture2D" uid="uid://bfc5ana2pdo7a" path="res://Asserts/materials/Tiles130_2K-JPG/Tiles130_2K-JPG_NormalGL.jpg" id="11_ixhyk"]
@@ -52,7 +52,7 @@ textures = [[ExtResource("6_f3yss")], [ExtResource("7_5b0jq")]]
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1726d"]
 render_priority = 0
 shader = ExtResource("9_25tn7")
-shader_parameter/albedo_color = null
+shader_parameter/albedo_color = Color(0, 0, 0, 1)
 shader_parameter/uv_scale = 20.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_narih"]

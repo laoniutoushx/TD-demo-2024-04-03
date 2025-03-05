@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="SkillMetaResource" load_steps=5 format=3 uid="uid://bm3kcjrhtayri"]
 
-[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_0jhkb"]
-[ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="2_oobxg"]
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_0jhkb"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="2_oobxg"]
 [ext_resource type="Resource" uid="uid://dk0cymr07pskk" path="res://System/buff_system/resources/defence.tres" id="3_anba0"]
-[ext_resource type="Script" path="res://System/skill_system/resources/effect/force_field.gd" id="5_s5uaj"]
+[ext_resource type="Script" uid="uid://vddi18w1ygwl" path="res://System/skill_system/resources/effect/force_field.gd" id="5_s5uaj"]
 
 [resource]
 script = ExtResource("1_0jhkb")

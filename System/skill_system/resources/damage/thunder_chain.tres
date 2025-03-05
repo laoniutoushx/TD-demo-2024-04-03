@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="SkillMetaResource" load_steps=4 format=3 uid="uid://dpnj33orc37b"]
 
-[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_67cf5"]
-[ext_resource type="Script" path="res://System/buff_system/domain/buff_resource.gd" id="2_oo7f5"]
-[ext_resource type="Script" path="res://System/skill_system/resources/damage/thunder_chain.gd" id="2_rsmhd"]
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_67cf5"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="2_oo7f5"]
+[ext_resource type="Script" uid="uid://barieyn4j8plx" path="res://System/skill_system/resources/damage/thunder_chain.gd" id="2_rsmhd"]
 
 [resource]
 script = ExtResource("1_67cf5")

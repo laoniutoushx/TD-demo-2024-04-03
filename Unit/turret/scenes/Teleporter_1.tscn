@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=4 uid="uid://g2pp4vopotbr"]
 
-[ext_resource type="Script" path="res://Unit/turret/scenes/turret.gd" id="1_xycrk"]
+[ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_xycrk"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="2_7uf10"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="3_o5x7g"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="4_4rwit"]
@@ -190,8 +190,8 @@ length = 0.3
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q0ijy"]
 _data = {
-"RESET": SubResource("Animation_u6idx"),
-"attack": SubResource("Animation_mymbn")
+&"RESET": SubResource("Animation_u6idx"),
+&"attack": SubResource("Animation_mymbn")
 }
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_4d15t"]

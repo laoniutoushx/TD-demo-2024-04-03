@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=4 uid="uid://bxjielj8svpci"]
 
-[ext_resource type="Script" path="res://Unit/enemy/enemy.gd" id="1_rs53c"]
+[ext_resource type="Script" uid="uid://cb2myjgx6f2f" path="res://Unit/enemy/enemy.gd" id="1_rs53c"]
 [ext_resource type="Texture2D" uid="uid://csi6ocwl52ehs" path="res://Asserts/Models/ulimate monster/glTF/Hywirl_Atlas_Monsters.png" id="2_6dwu2"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_n2xhh"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_l2inq"]
@@ -1807,14 +1807,14 @@ tracks/28/keys = PackedFloat32Array(0, 1, 0.0515163, -0.740355, 0.664746, 0.0856
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hwoa8"]
 _data = {
-"Death": SubResource("Animation_2ld1v"),
-"Fast_Flying": SubResource("Animation_awkmp"),
-"Flying_Idle": SubResource("Animation_ip25m"),
-"Headbutt": SubResource("Animation_6q66d"),
-"HitReact": SubResource("Animation_j8ha0"),
-"No": SubResource("Animation_nugyi"),
-"Punch": SubResource("Animation_12s4i"),
-"Yes": SubResource("Animation_7rcfn")
+&"Death": SubResource("Animation_2ld1v"),
+&"Fast_Flying": SubResource("Animation_awkmp"),
+&"Flying_Idle": SubResource("Animation_ip25m"),
+&"Headbutt": SubResource("Animation_6q66d"),
+&"HitReact": SubResource("Animation_j8ha0"),
+&"No": SubResource("Animation_nugyi"),
+&"Punch": SubResource("Animation_12s4i"),
+&"Yes": SubResource("Animation_7rcfn")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8iqam"]

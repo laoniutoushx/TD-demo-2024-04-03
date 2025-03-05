@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://rv8l5sjnuaty"]
 
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="1_h31e5"]
-[ext_resource type="Script" path="res://Components/range_indicator/range_indicator.gd" id="1_jdetk"]
+[ext_resource type="Script" uid="uid://da4y1jeufwpxd" path="res://Components/range_indicator/range_indicator.gd" id="1_jdetk"]
 
 [node name="RangeIndicator" type="Node3D"]
 script = ExtResource("1_jdetk")

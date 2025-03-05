@@ -14,7 +14,7 @@ material = ExtResource("1_03dsh")
 orientation = 1
 
 [sub_resource type="Curve" id="Curve_br2u1"]
-max_value = 5.0
+_limits = [0.0, 5.0, 0.0, 1.0]
 _data = [Vector2(0, 5), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
@@ -691,10 +691,10 @@ tracks/4/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_oelfb"]
 _data = {
-"RESET": SubResource("Animation_5xar0"),
-"burning": SubResource("Animation_ujygs"),
-"destory": SubResource("Animation_48bfj"),
-"running": SubResource("Animation_tcik1")
+&"RESET": SubResource("Animation_5xar0"),
+&"burning": SubResource("Animation_ujygs"),
+&"destory": SubResource("Animation_48bfj"),
+&"running": SubResource("Animation_tcik1")
 }
 
 [node name="VfxTeleportRunning" type="Node3D"]

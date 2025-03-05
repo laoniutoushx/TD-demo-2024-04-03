@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=4 uid="uid://dp2vi3gxmik8a"]
 
-[ext_resource type="Script" path="res://Unit/enemy/enemy.gd" id="1_rs53c"]
+[ext_resource type="Script" uid="uid://cb2myjgx6f2f" path="res://Unit/enemy/enemy.gd" id="1_rs53c"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_n2xhh"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_l2inq"]
 
@@ -4845,18 +4845,18 @@ tracks/53/keys = PackedFloat32Array(0, 1, -6.17856e-07, -0.937708, 0.347424, 8.5
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5obmm"]
 _data = {
-"Attack": SubResource("Animation_4f2my"),
-"Death": SubResource("Animation_ii5lq"),
-"Eating": SubResource("Animation_85v2f"),
-"Gallop": SubResource("Animation_116fo"),
-"Gallop_Jump": SubResource("Animation_cek2a"),
-"Idle": SubResource("Animation_whr3n"),
-"Idle_2": SubResource("Animation_fqley"),
-"Idle_2_HeadLow": SubResource("Animation_0m2wk"),
-"Idle_HitReact1": SubResource("Animation_68o13"),
-"Idle_HitReact2": SubResource("Animation_2ajtd"),
-"Jump_ToIdle": SubResource("Animation_edc3t"),
-"Walk": SubResource("Animation_e0tii")
+&"Attack": SubResource("Animation_4f2my"),
+&"Death": SubResource("Animation_ii5lq"),
+&"Eating": SubResource("Animation_85v2f"),
+&"Gallop": SubResource("Animation_116fo"),
+&"Gallop_Jump": SubResource("Animation_cek2a"),
+&"Idle": SubResource("Animation_whr3n"),
+&"Idle_2": SubResource("Animation_fqley"),
+&"Idle_2_HeadLow": SubResource("Animation_0m2wk"),
+&"Idle_HitReact1": SubResource("Animation_68o13"),
+&"Idle_HitReact2": SubResource("Animation_2ajtd"),
+&"Jump_ToIdle": SubResource("Animation_edc3t"),
+&"Walk": SubResource("Animation_e0tii")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8iqam"]

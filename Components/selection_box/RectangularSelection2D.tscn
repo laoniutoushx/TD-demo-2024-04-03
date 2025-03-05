@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dk7sa3fkyxks5"]
 
-[ext_resource type="Script" path="res://Components/selection_box/RectangularSelection2D.gd" id="1_ak0ya"]
+[ext_resource type="Script" uid="uid://covl1qu6gdhf8" path="res://Components/selection_box/RectangularSelection2D.gd" id="1_ak0ya"]
 
 [node name="RectangularSelection2D" type="Panel"]
 script = ExtResource("1_ak0ya")

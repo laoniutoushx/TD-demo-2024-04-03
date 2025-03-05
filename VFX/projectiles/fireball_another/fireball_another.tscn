@@ -16,8 +16,8 @@ color = Color(5, 2, 1, 1)
 render_priority = 0
 shader = ExtResource("1_6cgu0")
 shader_parameter/MainTextureSpeed = Vector2(1, 1)
-shader_parameter/MainTexturePower = 5.0
 shader_parameter/MainTexture = ExtResource("2_baebv")
+shader_parameter/MainTexturePower = 5.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_k6q02"]
 material = SubResource("ShaderMaterial_pl5yn")
@@ -91,7 +91,7 @@ render_mode blend_add, depth_draw_opaque, cull_disabled, diffuse_lambert, specul
 
 uniform vec2 MainTextureSpeed = vec2(0.000000, 0.000000);
 uniform sampler2D MainTexture;
-uniform float MainTexturePower = 1;
+uniform float MainTexturePower = 1.0;
 
 
 
@@ -183,8 +183,8 @@ nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 5, 0, 0, 0, 5, 0, 6, 0
 render_priority = 0
 shader = SubResource("VisualShader_hm4b3")
 shader_parameter/MainTextureSpeed = Vector2(1, 0)
-shader_parameter/MainTexturePower = 5.0
 shader_parameter/MainTexture = ExtResource("5_h48fu")
+shader_parameter/MainTexturePower = 5.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6ffyk"]
 gravity = Vector3(0, 0, 0)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=28 format=4 uid="uid://blmc3jpla6x1b"]
 
-[ext_resource type="Script" path="res://Unit/enemy/enemy.gd" id="1_rs53c"]
+[ext_resource type="Script" uid="uid://cb2myjgx6f2f" path="res://Unit/enemy/enemy.gd" id="1_rs53c"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_n2xhh"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_l2inq"]
 
@@ -37,7 +37,6 @@ roughness = 0.5
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r4mag"]
 resource_name = "Eye_White"
 cull_mode = 2
-albedo_color = Color(1, 1, 1, 1)
 roughness = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1gyon"]
@@ -4608,19 +4607,19 @@ tracks/46/keys = PackedFloat32Array(0, 1, 2.39385e-08, -0.9998, -0.0199888, 5.52
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_76nqj"]
 _data = {
-"Attack_Headbutt": SubResource("Animation_uveio"),
-"Attack_Kick": SubResource("Animation_rfv03"),
-"Death": SubResource("Animation_0gxjy"),
-"Eating": SubResource("Animation_b7jhq"),
-"Gallop": SubResource("Animation_o6cu0"),
-"Gallop_Jump": SubResource("Animation_8ng0h"),
-"Idle": SubResource("Animation_acuy6"),
-"Idle_2": SubResource("Animation_0g4xs"),
-"Idle_Headlow": SubResource("Animation_rc8es"),
-"Idle_HitReact1": SubResource("Animation_pldvw"),
-"Idle_HitReact2": SubResource("Animation_ac2w2"),
-"Jump_toIdle": SubResource("Animation_05rby"),
-"Walk": SubResource("Animation_443ml")
+&"Attack_Headbutt": SubResource("Animation_uveio"),
+&"Attack_Kick": SubResource("Animation_rfv03"),
+&"Death": SubResource("Animation_0gxjy"),
+&"Eating": SubResource("Animation_b7jhq"),
+&"Gallop": SubResource("Animation_o6cu0"),
+&"Gallop_Jump": SubResource("Animation_8ng0h"),
+&"Idle": SubResource("Animation_acuy6"),
+&"Idle_2": SubResource("Animation_0g4xs"),
+&"Idle_Headlow": SubResource("Animation_rc8es"),
+&"Idle_HitReact1": SubResource("Animation_pldvw"),
+&"Idle_HitReact2": SubResource("Animation_ac2w2"),
+&"Jump_toIdle": SubResource("Animation_05rby"),
+&"Walk": SubResource("Animation_443ml")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8iqam"]

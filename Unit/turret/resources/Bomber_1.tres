@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://7n44576jnsc1"]
 
-[ext_resource type="Script" path="res://System/item_system/domain/item_resource.gd" id="1_jwp0u"]
+[ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="1_jwp0u"]
 [ext_resource type="PackedScene" uid="uid://u1iq3xrerays" path="res://Unit/turret/scenes/Bomber_1.tscn" id="2_0d1wl"]
-[ext_resource type="Script" path="res://Unit/enemy/EnemyResource.gd" id="3_anx1t"]
-[ext_resource type="Script" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_mo4o4"]
+[ext_resource type="Script" uid="uid://cwoilst65vmq6" path="res://Unit/enemy/EnemyResource.gd" id="3_anx1t"]
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_mo4o4"]
 
 [resource]
 script = ExtResource("3_anx1t")

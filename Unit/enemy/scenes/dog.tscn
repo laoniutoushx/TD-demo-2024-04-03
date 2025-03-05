@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=4 uid="uid://bw3bh4lnqk833"]
 
-[ext_resource type="Script" path="res://Unit/enemy/enemy.gd" id="1_bi0l7"]
+[ext_resource type="Script" uid="uid://cb2myjgx6f2f" path="res://Unit/enemy/enemy.gd" id="1_bi0l7"]
 [ext_resource type="Texture2D" uid="uid://bmtmmcylykxxe" path="res://Asserts/Models/farm animals/GLTF/textures/dogmat_baseColor.png" id="2_o680b"]
 [ext_resource type="Texture2D" uid="uid://u44s45cbye7d" path="res://Asserts/Models/farm animals/GLTF/textures/dogmat_normal.png" id="3_ugmlo"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="4_cdx87"]
@@ -5455,12 +5455,12 @@ tracks/124/keys = PackedFloat32Array(0, 1, -0.881615, -0.0547809, 0.0170055, 0.4
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b68i1"]
 _data = {
-"attack1": SubResource("Animation_pev01"),
-"iddle": SubResource("Animation_2v7m1"),
-"jump": SubResource("Animation_kgfpm"),
-"run": SubResource("Animation_iq3xd"),
-"walk": SubResource("Animation_786l6"),
-"walksent": SubResource("Animation_d3u20")
+&"attack1": SubResource("Animation_pev01"),
+&"iddle": SubResource("Animation_2v7m1"),
+&"jump": SubResource("Animation_kgfpm"),
+&"run": SubResource("Animation_iq3xd"),
+&"walk": SubResource("Animation_786l6"),
+&"walksent": SubResource("Animation_d3u20")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8iqam"]

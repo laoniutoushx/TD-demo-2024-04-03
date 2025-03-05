@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=4 uid="uid://ca3nvrkfayrwg"]
 
-[ext_resource type="Script" path="res://Unit/enemy/enemy.gd" id="1_5kd5q"]
+[ext_resource type="Script" uid="uid://cb2myjgx6f2f" path="res://Unit/enemy/enemy.gd" id="1_5kd5q"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="2_k35om"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="3_gowau"]
 
@@ -1842,12 +1842,12 @@ tracks/38/keys = PackedFloat32Array(0, 1, 0.130384, 2.02545e-08, -1.59394e-08, 0
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_aue6i"]
 _data = {
-"Armature|Death": SubResource("Animation_l1poi"),
-"Armature|Idle": SubResource("Animation_gclv6"),
-"Armature|Jump": SubResource("Animation_3xagt"),
-"Armature|Run": SubResource("Animation_76dc5"),
-"Armature|Walk": SubResource("Animation_jd0k5"),
-"Armature|WalkSlow": SubResource("Animation_qpvsx")
+&"Armature|Death": SubResource("Animation_l1poi"),
+&"Armature|Idle": SubResource("Animation_gclv6"),
+&"Armature|Jump": SubResource("Animation_3xagt"),
+&"Armature|Run": SubResource("Animation_76dc5"),
+&"Armature|Walk": SubResource("Animation_jd0k5"),
+&"Armature|WalkSlow": SubResource("Animation_qpvsx")
 }
 
 [node name="Enemy" type="PathFollow3D" groups=["enemy"]]

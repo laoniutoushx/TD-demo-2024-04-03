@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://byvfnv1m624t"]
 
-[ext_resource type="Script" path="res://Components/message_bar/message_bar.gd" id="1_2umr1"]
+[ext_resource type="Script" uid="uid://c1kbaidpmh6n4" path="res://Components/message_bar/message_bar.gd" id="1_2umr1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jbcne"]
 font_size = 30

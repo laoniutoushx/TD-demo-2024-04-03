@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://clemenxbxem6b"]
+
+[ext_resource type="Shader" uid="uid://kboib0b7mxg7" path="res://generic-scenes-and-nodes/vfx/distortion.gdshader" id="1_d0n0c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_avyuv"]
+shader = ExtResource("1_d0n0c")
+shader_parameter/x_offset = 36.22
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_d0n0c"]
+
+[node name="Shockwave" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.868242, 0.496141, 0, -0.496141, 0.868242, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_avyuv")
+mesh = SubResource("PlaneMesh_d0n0c")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=4 uid="uid://jddxbecorbc3"]
 
-[ext_resource type="Script" path="res://Test/anim_speed/anim_speed.gd" id="1_5bben"]
-[ext_resource type="Script" path="res://Scripts/camera/camera.gd" id="2_2xhd2"]
+[ext_resource type="Script" uid="uid://dtr4d1dgl7uf1" path="res://Test/anim_speed/anim_speed.gd" id="1_5bben"]
+[ext_resource type="Script" uid="uid://6bm0evx8gqfs" path="res://Scripts/camera/camera.gd" id="2_2xhd2"]
 [ext_resource type="Texture2D" uid="uid://bmtmmcylykxxe" path="res://Asserts/Models/farm animals/GLTF/textures/dogmat_baseColor.png" id="3_vt2cj"]
 [ext_resource type="Texture2D" uid="uid://u44s45cbye7d" path="res://Asserts/Models/farm animals/GLTF/textures/dogmat_normal.png" id="4_3no3l"]
 
@@ -642,8 +642,8 @@ tracks/34/keys = PackedFloat32Array(0, 1, -0.39442, -0.234179, 0.0754093, 0.8853
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u4sin"]
 _data = {
-"Armature|Idle": SubResource("Animation_iifel"),
-"Armature|Jump": SubResource("Animation_nc5fc")
+&"Armature|Idle": SubResource("Animation_iifel"),
+&"Armature|Jump": SubResource("Animation_nc5fc")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_svfoj"]
@@ -6094,12 +6094,12 @@ tracks/124/keys = PackedFloat32Array(0, 1, -0.881615, -0.0547809, 0.0170055, 0.4
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_icyx2"]
 _data = {
-"attack1": SubResource("Animation_oqx0x"),
-"iddle": SubResource("Animation_rsti0"),
-"jump": SubResource("Animation_vs06s"),
-"run": SubResource("Animation_iqvhb"),
-"walk": SubResource("Animation_qvg6q"),
-"walksent": SubResource("Animation_g2c4f")
+&"attack1": SubResource("Animation_oqx0x"),
+&"iddle": SubResource("Animation_rsti0"),
+&"jump": SubResource("Animation_vs06s"),
+&"run": SubResource("Animation_iqvhb"),
+&"walk": SubResource("Animation_qvg6q"),
+&"walksent": SubResource("Animation_g2c4f")
 }
 
 [node name="AnimSpeed" type="Node3D" node_paths=PackedStringArray("target")]
