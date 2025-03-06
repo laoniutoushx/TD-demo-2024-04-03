@@ -1,21 +1,25 @@
-shader_type canvas_item;
+shader_type spatial;
+render_mode world_vertex_coords, unshaded, cull_disabled ; // 关键：启用世界坐标计算
 
-uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
-uniform float x_offset : hint_range(-50.0, 50.0) = 10.0; // 可调节的像素偏移量
+uniform vec3 center;    // 冲击波中心（世界坐标）
+uniform float radius;   // 当前半径
+uniform float strength; // 扭曲强度
 
-void fragment() {
-    // 获取当前像素的屏幕坐标
-    vec2 screen_uv = SCREEN_UV;
+void vertex() {
+    // 正确获取世界坐标的两种方式：
+    // 方式1：使用内置转换 (需启用render_mode world_vertex_coords)
+    vec3 world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
     
-    // 计算偏移后的像素坐标
-    // 将偏移转换为 UV 空间的偏移量
-    vec2 pixel_size = 1.0 / vec2(textureSize(SCREEN_TEXTURE, 0));
-    vec2 offset_uv = screen_uv + vec2(x_offset * pixel_size.x, 0.0);
+    // 方式2：手动计算
+    // vec3 world_pos = (CAMERA_MATRIX * MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
     
-    // 完全忽略物体本身的纹理，只输出屏幕空间纹理
-    // 可以选择原始位置或偏移位置的采样
-    COLOR = texture(SCREEN_TEXTURE, offset_uv);
+    float dist = length(world_pos - center);
     
-    // 如果需要混合效果，可以取消注释下面这行
-    // COLOR = mix(texture(SCREEN_TEXTURE, screen_uv), texture(SCREEN_TEXTURE, offset_uv), 0.5);
+    if (dist < radius) {
+        float falloff = 1.0 - smoothstep(0.0, radius, dist);
+        vec3 dir = normalize(world_pos - center);
+        
+        // 沿法线方向偏移顶点
+        VERTEX += NORMAL * strength * falloff;
+    }
 }

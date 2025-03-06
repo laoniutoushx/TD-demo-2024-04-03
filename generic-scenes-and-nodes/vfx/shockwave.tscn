@@ -3,14 +3,20 @@
 [ext_resource type="Shader" uid="uid://kboib0b7mxg7" path="res://generic-scenes-and-nodes/vfx/distortion.gdshader" id="1_d0n0c"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_avyuv"]
+render_priority = 0
 shader = ExtResource("1_d0n0c")
-shader_parameter/x_offset = 36.22
+shader_parameter/center = Vector3(0, 0, 0)
+shader_parameter/radius = 0.865
+shader_parameter/strength = 3.016
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_d0n0c"]
+[sub_resource type="QuadMesh" id="QuadMesh_d0n0c"]
 
 [node name="Shockwave" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.868242, 0.496141, 0, -0.496141, 0.868242, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.868242, 0.496141, 0, -0.496141, 0.868242, -0.36813, 0, 0)
 material_override = SubResource("ShaderMaterial_avyuv")
-mesh = SubResource("PlaneMesh_d0n0c")
+mesh = SubResource("QuadMesh_d0n0c")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.760531, 0, 0)
