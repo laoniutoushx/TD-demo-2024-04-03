@@ -68,9 +68,9 @@ blend_mode = 1
 cull_mode = 2
 shading_mode = 2
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_7qqvc"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_im4yr"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_5mfte"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_bexnj"]
 
 [sub_resource type="Curve" id="Curve_qw7fn"]
 _data = [Vector2(0.00208333, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.20998), 0.0, 0.0, 0, 0]
@@ -164,7 +164,7 @@ _defaults_have_been_set = true
 [node name="TrailMesh2" type="MeshInstance3D" parent="IceSpikeCore2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0796744, 3.07537, 0)
 material_override = SubResource("StandardMaterial3D_rpsyt")
-mesh = SubResource("ImmediateMesh_7qqvc")
+mesh = SubResource("ImmediateMesh_im4yr")
 script = ExtResource("13_xl53t")
 fromWidth = 0.2
 toWidth = 0.1
@@ -174,7 +174,7 @@ startColor = Color(1, 1, 1, 0.176)
 [node name="TrailMesh3" type="MeshInstance3D" parent="IceSpikeCore2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0796744, 3.07537, 0)
 material_override = ExtResource("12_u5y7a")
-mesh = SubResource("ImmediateMesh_5mfte")
+mesh = SubResource("ImmediateMesh_bexnj")
 skeleton = NodePath("../TrailMesh2")
 script = ExtResource("13_xl53t")
 fromWidth = 0.6

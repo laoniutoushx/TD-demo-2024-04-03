@@ -4,12 +4,12 @@ class_name ResourceManager extends Node
 @export var extensions: Array[String] = []
 @export var res_paths: Array[String] = []
 
-func _ready() -> void:
-	if extensions.size() > 0:
-		set_supported_extensions(extensions)
-		if res_paths.size() > 0:
-			for res_path: String in res_paths:
-				load_resources_in_directory(res_path)
+# func _ready() -> void:
+# 	if extensions.size() > 0:
+# 		set_supported_extensions(extensions)
+# 		if res_paths.size() > 0:
+# 			for res_path: String in res_paths:
+# 				load_resources_in_directory(res_path)
 			
 
 

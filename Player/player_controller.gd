@@ -51,6 +51,9 @@ var is_limit_move: bool = false
 func _ready() -> void:
 	# 注册到 main
 
+	# 加载 图标 资源
+	CommonUtil.load_resources_to_container_from_directory("res://Asserts/Images/icon/")
+
 	# Signal 监听
 	#SignalBus.ray_picker_regist.emit(click_to_select)
 	SignalBufferSystem.buffer_signal(SignalBus.ray_picker_regist, select_area_pos_sync)

@@ -899,7 +899,7 @@ skin = SubResource("Skin_p785k")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Armabee2"]
 libraries = {
-"": SubResource("AnimationLibrary_ywp0m")
+&"": SubResource("AnimationLibrary_ywp0m")
 }
 
 [node name="AttackedScope" type="Area3D" parent="." groups=["enemy"]]
