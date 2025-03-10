@@ -38,9 +38,9 @@ SOS="*res://Scripts/utils/SOS.gd"
 [display]
 
 window/size/viewport_width=1080
+window/size/viewport_height=768
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
-window/size/viewport_height=768
 
 [dotnet]
 

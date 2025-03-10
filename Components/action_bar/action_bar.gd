@@ -196,6 +196,12 @@ class BaseBarComponent extends Node:
 
 
 class SelectionBarComponent extends BaseBarComponent:
+
+	func _ready() -> void:
+		# 加载 icon resource
+		CommonUtil.load_resources_to_container_from_directory("res://Asserts/Images/icon/enemy/")
+		CommonUtil.load_resources_to_container_from_directory("res://Asserts/Images/icon/player/")
+
 	
 	func add_elements(elements: Array, hook: Callable):
 		

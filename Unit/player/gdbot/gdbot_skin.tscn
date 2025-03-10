@@ -1,14 +1,178 @@
-[gd_scene load_steps=44 format=3 uid="uid://bdyptm7smjixm"]
+[gd_scene load_steps=68 format=3 uid="uid://bdyptm7smjixm"]
 
 [ext_resource type="Script" uid="uid://s735cotrkihs" path="res://Unit/player/gdbot/gdbot_skin.gd" id="1_dt082"]
 [ext_resource type="PackedScene" uid="uid://c4fba1hyqkstw" path="res://Unit/player/gdbot/gdbot.glb" id="1_no8yw"]
+[ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="2_jkmdk"]
 [ext_resource type="Material" uid="uid://cq6bdna8ieu87" path="res://Unit/player/gdbot/materials/heart_core_mat.tres" id="3_b5fb6"]
+[ext_resource type="Resource" uid="uid://5metv6bqqctl" path="res://System/item_system/resources/axe.tres" id="3_cpnta"]
 [ext_resource type="Shader" uid="uid://vclyxx4nvt80" path="res://Asserts/shared/shader/screen_shader.gdshader" id="3_johvk"]
 [ext_resource type="Material" uid="uid://4ugdxr58llu8" path="res://Unit/player/gdbot/materials/glass_mat.tres" id="4_jt2os"]
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_u5x4p"]
+[ext_resource type="Resource" uid="uid://dpnj33orc37b" path="res://System/skill_system/resources/damage/thunder_chain.tres" id="5_06vpb"]
 [ext_resource type="AnimationLibrary" uid="uid://dlohfyy3w0jbd" path="res://Unit/player/gdbot/custom_animations/custom_lib.res" id="6_dcd8b"]
+[ext_resource type="Resource" uid="uid://x4bivjxncvqm" path="res://System/skill_system/resources/damage/thunderclap.tres" id="6_m0g8c"]
 [ext_resource type="PackedScene" uid="uid://dvy2nao23i4rl" path="res://Unit/player/gdbot/gdbot_face.tscn" id="7_6dl0h"]
+[ext_resource type="Resource" uid="uid://btoskpfy832ny" path="res://System/skill_system/resources/damage/fire_rain.tres" id="7_f7l2q"]
+[ext_resource type="Resource" uid="uid://batuffvaegvkn" path="res://Unit/turret/resources/turret.tres" id="8_1t8s2"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="8_pto8v"]
+[ext_resource type="PackedScene" uid="uid://cru16mbhnwx85" path="res://Unit/turret/scenes/turret.tscn" id="9_b4l4s"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="9_ftb26"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="10_ghtsn"]
+[ext_resource type="Script" uid="uid://bd1uecf3lfsln" path="res://System/skill_system/resources/building/building_base_turret.gd" id="11_t88hu"]
+[ext_resource type="Resource" uid="uid://cefokvd7tj07l" path="res://System/skill_system/resources/damage/storm_hammer.tres" id="12_8dcp4"]
+[ext_resource type="Resource" uid="uid://7n44576jnsc1" path="res://Unit/turret/resources/Bomber_1.tres" id="13_rf4cb"]
+[ext_resource type="PackedScene" uid="uid://u1iq3xrerays" path="res://Unit/turret/scenes/Bomber_1.tscn" id="14_4lm5s"]
+[ext_resource type="Resource" uid="uid://bm3kcjrhtayri" path="res://System/skill_system/resources/effect/force_field.tres" id="15_3t5e5"]
+[ext_resource type="Resource" uid="uid://c4aggapaqdacr" path="res://System/skill_system/resources/effect/slow_power.tres" id="16_au4l2"]
+[ext_resource type="Resource" uid="uid://cr204fvc37686" path="res://Unit/turret/resources/Teleporter_1.tres" id="17_4d7c0"]
+[ext_resource type="PackedScene" uid="uid://g2pp4vopotbr" path="res://Unit/turret/scenes/Teleporter_1.tscn" id="18_rf1b2"]
+[ext_resource type="Resource" uid="uid://bs6w3mufvu6f1" path="res://System/skill_system/resources/damage/ice_strom.tres" id="19_6jx7g"]
+[ext_resource type="Resource" uid="uid://bil715vnpxxw" path="res://Unit/turret/resources/Queen.tres" id="20_0q7ho"]
+[ext_resource type="PackedScene" uid="uid://cueiau552hmu4" path="res://Unit/turret/scenes/Queen.tscn" id="21_x2k5u"]
+
+[sub_resource type="Resource" id="Resource_b101j"]
+script = ExtResource("4_u5x4p")
+code = "building_base_turret"
+title = "基础塔"
+desc = "在指定位置建造一个防御塔"
+icon_path = "default"
+level = 0
+level_up_gap = 1
+max_level = 3
+init_release = false
+auto_release = false
+cooldown = 1.0
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+damage_range = 5.0
+match_range = 30.0
+range = 5.0
+release_distance = 10.0
+stock = 1
+value = 0.0
+init_num = 1
+internal_time = 0.1
+start_time = 0.1
+end_time = 0.1
+wave = 1
+projection_speed = 1.0
+release_type = 1
+target_type = 1
+effect_type = 4
+skill_script = ExtResource("11_t88hu")
+building_scene = ExtResource("9_b4l4s")
+building_res = ExtResource("8_1t8s2")
+skill_level_config = Array[ExtResource("4_u5x4p")]([])
+skill_buff_config = Array[ExtResource("10_ghtsn")]([])
+
+[sub_resource type="Resource" id="Resource_3kxur"]
+script = ExtResource("4_u5x4p")
+code = "building_base_turret_2"
+title = "基础塔"
+desc = "在指定位置建造一个防御塔"
+icon_path = "default"
+level = 0
+level_up_gap = 1
+max_level = 3
+init_release = false
+auto_release = false
+cooldown = 1.0
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+damage_range = 5.0
+match_range = 30.0
+range = 5.0
+release_distance = 10.0
+stock = 1
+value = 0.0
+init_num = 1
+internal_time = 0.1
+start_time = 0.1
+end_time = 0.1
+wave = 1
+projection_speed = 1.0
+release_type = 1
+target_type = 1
+effect_type = 4
+skill_script = ExtResource("11_t88hu")
+building_scene = ExtResource("14_4lm5s")
+building_res = ExtResource("13_rf4cb")
+skill_level_config = Array[ExtResource("4_u5x4p")]([])
+skill_buff_config = Array[ExtResource("10_ghtsn")]([])
+
+[sub_resource type="Resource" id="Resource_4g75c"]
+script = ExtResource("4_u5x4p")
+code = "building_base_turret_3"
+title = "基础塔"
+desc = "在指定位置建造一个防御塔"
+icon_path = "default"
+level = 0
+level_up_gap = 1
+max_level = 3
+init_release = false
+auto_release = false
+cooldown = 1.0
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+damage_range = 5.0
+match_range = 30.0
+range = 5.0
+release_distance = 10.0
+stock = 1
+value = 0.0
+init_num = 1
+internal_time = 0.1
+start_time = 0.1
+end_time = 0.1
+wave = 1
+projection_speed = 1.0
+release_type = 1
+target_type = 1
+effect_type = 4
+skill_script = ExtResource("11_t88hu")
+building_scene = ExtResource("18_rf1b2")
+building_res = ExtResource("17_4d7c0")
+skill_level_config = Array[ExtResource("4_u5x4p")]([])
+skill_buff_config = Array[ExtResource("10_ghtsn")]([])
+
+[sub_resource type="Resource" id="Resource_usn6u"]
+script = ExtResource("4_u5x4p")
+code = "building_base_turret_5"
+title = "女王"
+desc = "在指定位置建造一个防御塔"
+icon_path = "default"
+level = 0
+level_up_gap = 1
+max_level = 3
+init_release = false
+auto_release = false
+cooldown = 1.0
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+damage_range = 5.0
+match_range = 30.0
+range = 5.0
+release_distance = 10.0
+stock = 1
+value = 0.0
+init_num = 1
+internal_time = 0.1
+start_time = 0.1
+end_time = 0.1
+wave = 1
+projection_speed = 1.0
+release_type = 1
+target_type = 1
+effect_type = 4
+skill_script = ExtResource("11_t88hu")
+building_scene = ExtResource("21_x2k5u")
+building_res = ExtResource("20_0q7ho")
+skill_level_config = Array[ExtResource("4_u5x4p")]([])
+skill_buff_config = Array[ExtResource("10_ghtsn")]([])
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_0dla7"]
 viewport_path = NodePath("SubViewport")
@@ -2667,6 +2831,23 @@ node_connections = [&"Add2", 0, &"StateMachine", &"Add2", 1, &"Animation 2", &"o
 
 [node name="GDbotSkin" type="Node3D"]
 script = ExtResource("1_dt082")
+clz_code = "gdbot_skin"
+clz_name = "gdbot_skin"
+model_path = null
+title = "戈多"
+desc = "戈多"
+icon_path = "res://Asserts/Images/icon/player/gdbot.png"
+element_phase = 31
+unit_move_type = 1
+unit_cate = 1
+armor_type = 18
+anim_attack = ""
+anim_run = "running"
+anim_idle = ""
+anim_death = "destory"
+anim_release = "simple_punch"
+item_metas = Array[ExtResource("2_jkmdk")]([ExtResource("3_cpnta")])
+skill_metas = Array[ExtResource("4_u5x4p")]([ExtResource("5_06vpb"), ExtResource("6_m0g8c"), ExtResource("7_f7l2q"), SubResource("Resource_b101j"), ExtResource("12_8dcp4"), SubResource("Resource_3kxur"), ExtResource("15_3t5e5"), ExtResource("16_au4l2"), SubResource("Resource_4g75c"), ExtResource("19_6jx7g"), SubResource("Resource_usn6u")])
 
 [node name="gdbot" parent="." instance=ExtResource("1_no8yw")]
 
@@ -2674,27 +2855,27 @@ script = ExtResource("1_dt082")
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 
 [node name="Skeleton3D" parent="gdbot/Armature" index="0"]
-bones/2/position = Vector3(-0.0136754, 1.19553e-09, 0.57665)
-bones/2/rotation = Quaternion(-0.0331671, 0.662656, 0.747588, -0.0299926)
-bones/3/rotation = Quaternion(0.994232, -7.77758e-09, -7.37042e-08, -0.107252)
-bones/4/rotation = Quaternion(-0.333652, -0.100216, -0.0765595, 0.934223)
-bones/5/rotation = Quaternion(0.486972, 2.62849e-08, -1.35738e-07, 0.873418)
-bones/7/rotation = Quaternion(-0.529163, 0.149065, 0.217935, 0.806393)
-bones/8/rotation = Quaternion(0.695358, -4.33754e-08, 2.43024e-07, 0.718663)
-bones/10/rotation = Quaternion(-0.504159, -0.454109, -0.547804, 0.489406)
+bones/2/position = Vector3(0.0080381, -7.02713e-10, 0.583572)
+bones/2/rotation = Quaternion(0.0480019, 0.662109, 0.746607, 0.0434145)
+bones/3/rotation = Quaternion(0.994232, -8.10797e-09, -7.50614e-08, -0.107252)
+bones/4/rotation = Quaternion(-0.232381, -0.2217, -0.12333, 0.938956)
+bones/5/rotation = Quaternion(0.402907, 6.48918e-08, -1.00023e-07, 0.915241)
+bones/7/rotation = Quaternion(-0.58175, 0.0565251, 0.124465, 0.801798)
+bones/8/rotation = Quaternion(0.702799, -3.53869e-08, 2.43998e-07, 0.711389)
+bones/10/rotation = Quaternion(-0.532584, -0.402599, -0.543248, 0.509068)
 bones/10/scale = Vector3(1, 1, 1)
-bones/11/rotation = Quaternion(2.52939e-09, 2.12845e-08, -0.281922, 0.959437)
+bones/11/rotation = Quaternion(8.92549e-09, 2.19979e-08, 0.0144795, 0.999895)
 bones/12/rotation = Quaternion(-3.2195e-11, -1.46771e-11, 0.0170611, 0.999854)
 bones/13/rotation = Quaternion(0.0371107, 1.61931e-07, 1.34689e-08, 0.999311)
-bones/14/rotation = Quaternion(-0.12332, -0.000651932, -0.0161273, 0.992236)
-bones/16/rotation = Quaternion(-0.693763, 0.03339, -0.716852, 0.0608365)
+bones/14/rotation = Quaternion(-0.122087, 0.000899129, 0.0215844, 0.992284)
+bones/16/rotation = Quaternion(-0.632009, 0.0206235, -0.77137, 0.0716072)
 bones/16/scale = Vector3(1, 1, 1)
-bones/17/rotation = Quaternion(-2.37513e-09, 2.33774e-08, -0.546771, 0.837282)
+bones/17/rotation = Quaternion(-2.25101e-08, -3.14303e-09, -0.58974, 0.807593)
 bones/18/rotation = Quaternion(-3.2195e-11, -1.46771e-11, 0.0170611, 0.999854)
 bones/19/rotation = Quaternion(-0.391114, -0.0079801, -0.00129221, 0.920307)
 bones/19/scale = Vector3(1, 1, 1)
 bones/20/rotation = Quaternion(-0.277507, -2.52358e-07, -9.94341e-08, 0.960724)
-bones/21/rotation = Quaternion(-0.38504, -0.130181, 0.00239688, 0.913669)
+bones/21/rotation = Quaternion(-0.38504, -0.130181, 0.00239687, 0.913669)
 bones/21/scale = Vector3(1, 1, 1)
 bones/22/rotation = Quaternion(-0.277506, 6.90892e-07, -4.39041e-08, 0.960724)
 bones/23/rotation = Quaternion(-0.391124, 0.0040795, 0.000660611, 0.920329)
@@ -2704,15 +2885,15 @@ bones/25/scale = Vector3(1, 1, 1)
 bones/26/rotation = Quaternion(-0.277506, -2.58293e-09, -9.82245e-08, 0.960724)
 bones/27/rotation = Quaternion(-0.293954, 0.794438, -0.105766, 0.520838)
 bones/28/rotation = Quaternion(-0.277506, -3.63708e-07, -5.31396e-07, 0.960724)
-bones/29/rotation = Quaternion(-0.693763, 0.03339, -0.716852, 0.0608365)
+bones/29/rotation = Quaternion(-0.632009, 0.0206235, -0.77137, 0.0716072)
 bones/29/scale = Vector3(1, 1, 1)
-bones/30/rotation = Quaternion(-2.37513e-09, 2.33774e-08, -0.546771, 0.837282)
+bones/30/rotation = Quaternion(-2.25101e-08, -3.14303e-09, -0.58974, 0.807593)
 bones/31/rotation = Quaternion(-3.2195e-11, -1.46771e-11, 0.0170611, 0.999854)
-bones/32/rotation = Quaternion(0.0583943, 0.0423962, -0.692239, 0.718051)
-bones/33/rotation = Quaternion(-0.516295, 0.433164, 0.546303, 0.497354)
-bones/34/rotation = Quaternion(1.21197e-08, 7.78696e-09, -0.0144811, 0.999895)
-bones/37/rotation = Quaternion(-0.643274, -0.0291643, 0.762485, 0.0629711)
-bones/38/rotation = Quaternion(1.3285e-08, 3.24706e-09, 0.588037, 0.808834)
+bones/32/rotation = Quaternion(0.115491, -0.0166836, -0.676883, 0.726783)
+bones/33/rotation = Quaternion(-0.471813, 0.470412, 0.580106, 0.468597)
+bones/34/rotation = Quaternion(1.27654e-08, 8.44427e-09, 0.227133, 0.973864)
+bones/37/rotation = Quaternion(-0.705012, -0.0275851, 0.705269, 0.0692232)
+bones/38/rotation = Quaternion(-1.03282e-08, 1.71692e-08, 0.531402, 0.84712)
 bones/40/rotation = Quaternion(-0.391114, 0.00798011, 0.00129221, 0.920307)
 bones/40/scale = Vector3(1, 1, 1)
 bones/41/rotation = Quaternion(-0.277507, 2.41907e-07, 1.20579e-07, 0.960724)
@@ -2726,17 +2907,17 @@ bones/46/scale = Vector3(1, 1, 1)
 bones/47/rotation = Quaternion(-0.277506, -2.36655e-08, 1.00422e-07, 0.960724)
 bones/48/rotation = Quaternion(-0.293954, -0.794438, 0.105766, 0.520838)
 bones/49/rotation = Quaternion(-0.277506, 3.69605e-07, 5.06519e-07, 0.960724)
-bones/50/rotation = Quaternion(-0.643274, -0.0291643, 0.762485, 0.0629711)
-bones/51/rotation = Quaternion(1.3285e-08, 3.24706e-09, 0.588037, 0.808834)
-bones/53/rotation = Quaternion(0.105456, 0.00665963, 0.686647, 0.719271)
-bones/54/position = Vector3(-0.174585, -0.0368275, 0.193107)
+bones/50/rotation = Quaternion(-0.705012, -0.0275851, 0.705269, 0.0692232)
+bones/51/rotation = Quaternion(-1.03282e-08, 1.71692e-08, 0.531402, 0.84712)
+bones/53/rotation = Quaternion(0.0481627, -0.0550849, 0.684974, 0.724884)
+bones/54/position = Vector3(-0.174585, -0.0368275, 0.193731)
 bones/54/rotation = Quaternion(-0.293442, -0.0436125, 0.140391, 0.944606)
 bones/55/position = Vector3(0, -1.49012e-08, 0)
 bones/55/rotation = Quaternion(-8.65246e-09, 0.980213, -0.197945, 4.28465e-08)
 bones/55/scale = Vector3(1, 1, 1)
-bones/58/position = Vector3(0.171403, -0.00167731, 0.272071)
+bones/58/position = Vector3(0.171403, -0.00167731, 0.26947)
 bones/58/rotation = Quaternion(0.0259115, -0.00397626, -0.151628, 0.98809)
-bones/59/position = Vector3(-1.05667e-05, 2.05507e-07, 2.94103e-05)
+bones/59/position = Vector3(-4.96384e-06, -3.2791e-06, 2.76719e-06)
 bones/59/rotation = Quaternion(-8.65246e-09, 0.980213, -0.197945, 4.28465e-08)
 bones/59/scale = Vector3(1, 1, 1)
 
@@ -2763,8 +2944,8 @@ shape = SubResource("BoxShape3D_tekh8")
 
 [node name="AnimationPlayer" parent="gdbot" index="1"]
 libraries = {
-"": SubResource("AnimationLibrary_n4s66"),
-"custom_lib": ExtResource("6_dcd8b")
+&"": SubResource("AnimationLibrary_n4s66"),
+&"custom_lib": ExtResource("6_dcd8b")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]

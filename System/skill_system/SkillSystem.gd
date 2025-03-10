@@ -22,6 +22,9 @@ func _ready() -> void:
 	# load skill meta resources
 	load_skill_meta_res()
 
+	# load skill resource
+	# CommonUtil.load_resources_to_container_from_directory("res://System/skill_system/resources", skill_meta_map)
+
 	# 自动释放逻辑处理
 	SignalBus.skill_auto_release.connect(_on_skill_auto_release)
 
