@@ -4935,7 +4935,7 @@ skin = SubResource("Skin_lqffq")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Cow2"]
 libraries = {
-"": SubResource("AnimationLibrary_dvr55")
+&"": SubResource("AnimationLibrary_dvr55")
 }
 
 [node name="AttackedScope" type="Area3D" parent="." groups=["enemy"]]

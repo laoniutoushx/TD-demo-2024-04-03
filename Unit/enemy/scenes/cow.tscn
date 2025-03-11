@@ -165,9 +165,6 @@ bind/27/name = &"BackFoot.L"
 bind/27/bone = -1
 bind/27/pose = Transform3D(1, 0, -2.71003e-06, 0, -1, 0, -2.71003e-06, 0, -1, -0.784985, 2.60472, 0.100006)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_g1sih"]
-size = Vector3(2.278, 4.5, 6)
-
 [sub_resource type="Animation" id="Animation_l1poi"]
 resource_name = "Armature|Death"
 length = 1.25
@@ -1850,6 +1847,9 @@ _data = {
 &"Armature|WalkSlow": SubResource("Animation_qpvsx")
 }
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_g1sih"]
+size = Vector3(2.278, 4.5, 6)
+
 [node name="Enemy" type="PathFollow3D" groups=["enemy"]]
 use_model_front = true
 script = ExtResource("1_5kd5q")
@@ -2138,20 +2138,19 @@ bones/38/scale = Vector3(1, 1, 1)
 mesh = SubResource("ArrayMesh_nql3m")
 skin = SubResource("Skin_h20mn")
 
-[node name="AttackedScope" type="Area3D" parent="Cow/Armature" groups=["enemy"]]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Cow"]
+libraries = {
+&"": SubResource("AnimationLibrary_aue6i")
+}
+
+[node name="AttackedScope" type="Area3D" parent="." groups=["enemy"]]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Cow/Armature/AttackedScope" groups=["enemy"]]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackedScope" groups=["enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00344238, 2.04319, -0.2)
 shape = SubResource("BoxShape3D_g1sih")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Cow"]
-libraries = {
-"": SubResource("AnimationLibrary_aue6i")
-}
 
 [node name="FadedCircle3D" parent="." instance=ExtResource("2_k35om")]
 radius = 3.286
