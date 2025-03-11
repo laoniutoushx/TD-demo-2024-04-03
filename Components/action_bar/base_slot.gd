@@ -198,11 +198,11 @@ func _on_mouse_exited() -> void:
 	icon_texture.material.set_shader_parameter("show_border", false)
 
 	# 关闭 slot_indicator 
-	if reference is Skill:
+	if is_instance_valid(reference) and  reference is Skill:
 		SOS.main.skill_slot_indicator.show_toggle(self)
-	elif reference is BaseUnit:
+	elif is_instance_valid(reference) and reference is BaseUnit:
 		SOS.main.unit_slot_indicator.show_toggle(self)
-	elif reference is Item:
+	elif is_instance_valid(reference) and reference is Item:
 		SOS.main.item_slot_indicator.show_toggle(self)
 
 
