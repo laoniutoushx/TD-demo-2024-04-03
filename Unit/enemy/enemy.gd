@@ -42,11 +42,11 @@ func _health_bar_create():
 	var default_scale_of_healthbar2d_x_y = float(health_bar.get_health_bar2d_size().x) / float(health_bar.get_health_bar2d_size().y)
 	var default_scale_of_healthbar2d_and_mesh3d = 78.0 / 2.0
 	
-	# 4x width 扩大
+	# 4x width 扩大 => 1x width 处理
 	var health_bar_2d_width = real_width * default_scale_of_healthbar2d_and_mesh3d * 1
 	var health_bar_2d_height = health_bar_2d_width / default_scale_of_healthbar2d_x_y
 	
-	# 412px : 78px = 4
+	# 412px : 78px = 4 => 78px : 78px = 1
 	var w_w_scale = (health_bar_2d_width) / health_bar.get_health_bar2d_size().x
 	
 	add_child(health_bar) 

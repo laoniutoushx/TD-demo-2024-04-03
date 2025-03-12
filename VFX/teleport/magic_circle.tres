@@ -1,11 +1,11 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dv5grref3fjbj"]
 
-[ext_resource type="Shader" path="res://VFX/teleport/magic_circle.gdshader" id="1_sjaba"]
+[ext_resource type="Shader" uid="uid://boi6fne52jxpl" path="res://VFX/teleport/magic_circle.gdshader" id="1_sjaba"]
 [ext_resource type="Texture2D" uid="uid://b1137aufm53c0" path="res://Asserts/Images/vfx/光效、特效、选中、法阵 (491)_爱给网_aigei_com.png" id="2_y78bm"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_sjaba")
+shader_parameter/texture_albedo = ExtResource("2_y78bm")
 shader_parameter/modulate = Color(1, 1, 2, 0.259)
 shader_parameter/rotation_speed = 1.0
-shader_parameter/texture_albedo = ExtResource("2_y78bm")

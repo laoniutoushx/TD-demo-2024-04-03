@@ -1,0 +1,123 @@
+[gd_scene load_steps=10 format=3 uid="uid://clemenxbxem6b"]
+
+[ext_resource type="Shader" uid="uid://dw5l7u7wlie28" path="res://VFX/shockwave/distortion_ring.gdshader" id="1_avyuv"]
+[ext_resource type="Texture2D" uid="uid://b0sxtqtnp28gp" path="res://addons/kenney_particle_pack/T_PerlinNoise_Tiled.png" id="2_uke1c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jq42w"]
+render_priority = 0
+shader = ExtResource("1_avyuv")
+shader_parameter/distortionView = 0.03
+shader_parameter/speedView = 0.5
+shader_parameter/tintColor = Color(0, 0, 0, 1)
+shader_parameter/fesnelAmount = 0.0
+shader_parameter/distortionVertex = 0.03
+shader_parameter/speedVertex = 0.1
+shader_parameter/outerRadius = 1.0
+shader_parameter/innerRadius = 0.39
+shader_parameter/ringCenter = Vector2(0.5, 0.5)
+shader_parameter/aspect = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_jq42w"]
+material = SubResource("ShaderMaterial_jq42w")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ri85v"]
+render_priority = 0
+shader = ExtResource("1_avyuv")
+shader_parameter/distortionView = 0.03
+shader_parameter/speedView = 0.135
+shader_parameter/noiseViewX = ExtResource("2_uke1c")
+shader_parameter/noiseViewY = ExtResource("2_uke1c")
+shader_parameter/tintColor = Color(0, 0, 0, 1)
+shader_parameter/fesnelAmount = 0.0
+shader_parameter/distortionVertex = 0.03
+shader_parameter/speedVertex = 0.1
+shader_parameter/noiseVertex = ExtResource("2_uke1c")
+shader_parameter/outerRadius = 0.5
+shader_parameter/innerRadius = 0.3
+shader_parameter/ringCenter = Vector2(0.5, 0.5)
+shader_parameter/aspect = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_gaevn"]
+material = SubResource("ShaderMaterial_ri85v")
+orientation = 1
+
+[sub_resource type="Animation" id="Animation_avyuv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShockRing:mesh:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShockRing:mesh:material:shader_parameter/distortionView")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.03]
+}
+
+[sub_resource type="Animation" id="Animation_ri85v"]
+resource_name = "running"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShockRing:mesh:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(10, 10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShockRing:mesh:material:shader_parameter/distortionView")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.03, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gaevn"]
+_data = {
+&"RESET": SubResource("Animation_avyuv"),
+&"running": SubResource("Animation_ri85v")
+}
+
+[node name="Shockwave" type="Node3D"]
+
+[node name="ShockSphere" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.105, 0, 0, 0, 0.01, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+mesh = SubResource("SphereMesh_jq42w")
+
+[node name="ShockRing" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_gaevn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gaevn")
+}
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.90509, -2, -0.476598)
+visible = false
+size = Vector3(6.69983, 1, 5.79395)
