@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://clemenxbxem6b"]
+[gd_scene load_steps=11 format=3 uid="uid://clemenxbxem6b"]
 
+[ext_resource type="Script" uid="uid://b2ka03jkndpuy" path="res://VFX/shockwave/vfx_shockwave_running.gd" id="1_3fvof"]
 [ext_resource type="Shader" uid="uid://dw5l7u7wlie28" path="res://VFX/shockwave/distortion_ring.gdshader" id="1_avyuv"]
 [ext_resource type="Texture2D" uid="uid://b0sxtqtnp28gp" path="res://addons/kenney_particle_pack/T_PerlinNoise_Tiled.png" id="2_uke1c"]
 
@@ -103,6 +104,7 @@ _data = {
 }
 
 [node name="Shockwave" type="Node3D"]
+script = ExtResource("1_3fvof")
 
 [node name="ShockSphere" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.105, 0, 0, 0, 0.01, 0, 0, 0, 1, 0, 0, 0)
