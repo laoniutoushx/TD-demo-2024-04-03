@@ -1,4 +1,4 @@
-class_name ScreamPain extends Node3D
+class_name ScreamWave extends Node3D
 
 
 
