@@ -1,0 +1,83 @@
+[gd_scene load_steps=8 format=3 uid="uid://dkcj8jqsjxeje"]
+
+[ext_resource type="Shader" uid="uid://bcgkj0mis7f52" path="res://VFX/scream_wave/scream_wave.gdshader" id="1_rsi2y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rsi2y"]
+render_priority = 0
+shader = ExtResource("1_rsi2y")
+shader_parameter/ring_color_1 = Color(0.8, 0.2, 0.3, 1)
+shader_parameter/ring_color_2 = Color(0.2, 0.3, 0.8, 1)
+shader_parameter/inner_radius_min = 0.2
+shader_parameter/inner_radius_max = 0.25
+shader_parameter/outer_radius_min = 0.4
+shader_parameter/outer_radius_max = 0.45
+shader_parameter/distortion_amount = 0.1
+shader_parameter/distortion_scale = 5.0
+shader_parameter/rotation_speed = 0.2
+shader_parameter/edge_softness = 0.03
+shader_parameter/alpha_variation = 0.3
+shader_parameter/alpha_noise_scale = 4.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3c628"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uvsj8"]
+render_priority = 0
+shader = ExtResource("1_rsi2y")
+shader_parameter/ring_color_1 = Color(0.4421, 0.390409, 0.126274, 1)
+shader_parameter/ring_color_2 = Color(0.263489, 0.38354, 0.889421, 1)
+shader_parameter/inner_radius_min = 0.2
+shader_parameter/inner_radius_max = 0.25
+shader_parameter/outer_radius_min = 0.4
+shader_parameter/outer_radius_max = 0.45
+shader_parameter/distortion_amount = 0.1
+shader_parameter/distortion_scale = 5.0
+shader_parameter/rotation_speed = 0.2
+shader_parameter/edge_softness = 0.03
+shader_parameter/alpha_variation = 0.3
+shader_parameter/alpha_noise_scale = 4.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_84m0v"]
+material = SubResource("ShaderMaterial_uvsj8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3c628"]
+render_priority = 0
+shader = ExtResource("1_rsi2y")
+shader_parameter/ring_color_1 = Color(0.8, 0.2, 0.3, 1)
+shader_parameter/ring_color_2 = Color(0.2, 0.3, 0.8, 1)
+shader_parameter/inner_radius_min = 0.2
+shader_parameter/inner_radius_max = 0.25
+shader_parameter/outer_radius_min = 0.455
+shader_parameter/outer_radius_max = 0.455
+shader_parameter/distortion_amount = 0.095
+shader_parameter/distortion_scale = 1.0
+shader_parameter/rotation_speed = 0.2
+shader_parameter/edge_softness = 0.03
+shader_parameter/alpha_variation = 0.3
+shader_parameter/alpha_noise_scale = 4.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_uvsj8"]
+material = SubResource("ShaderMaterial_3c628")
+orientation = 1
+
+[node name="ScreamWave" type="Node3D"]
+
+[node name="DoubleRingCore" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_rsi2y")
+process_material = SubResource("ParticleProcessMaterial_3c628")
+draw_pass_1 = SubResource("QuadMesh_84m0v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.69506, -0.718952, 0, 0.718952, 0.69506, 0, 0, 0.986299)
+mesh = SubResource("QuadMesh_uvsj8")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.69506, -0.718952, 0, 0.718952, 0.69506, 0, 0, 1.11507)
+mesh = SubResource("QuadMesh_uvsj8")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.69506, -0.718952, 0, 0.718952, 0.69506, 0, 0, 1.291)
+mesh = SubResource("QuadMesh_uvsj8")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.69506, -0.718952, 0, 0.718952, 0.69506, 0, 0, 1.4987)
+mesh = SubResource("QuadMesh_uvsj8")

@@ -48,15 +48,15 @@ void vertex() {
 void fragment() {
     // 计算片段所在的圆环因子
     float ringFactor = isInRing(UV, ringCenter, innerRadius, outerRadius);
-    
+
     float noiseValueX = (texture(noiseViewX, UV + (TIME * speedView)).r * 2.0) - 1.0;
     float noiseValueY = (texture(noiseViewY, UV + (TIME * speedView)).r * 2.0) - 1.0;
-    
+
     vec2 noiseDistort = vec2(noiseValueX, noiseValueY) * distortionView * ringFactor;
     vec3 distortedScreenTexture = texture(screenTexture, SCREEN_UV + noiseDistort).rgb;
-    
+
     vec3 fesnelTint = tintColor * fresnel(fesnelAmount, NORMAL, VIEW) * ringFactor;
-    
+
     vec3 screenColor = texture(screenTexture, SCREEN_UV).rgb;
     ALBEDO = mix(screenColor, distortedScreenTexture + fesnelTint, ringFactor);
 }

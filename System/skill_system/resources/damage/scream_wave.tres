@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=4 format=3 uid="uid://diaspe5frotvq"]
+
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_uejo4"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="2_4s3fd"]
+[ext_resource type="Script" uid="uid://dx0eid8tae2bk" path="res://System/skill_system/resources/damage/scream_pain.gd" id="3_enr8c"]
+
+[resource]
+script = ExtResource("1_uejo4")
+code = "scream_wave"
+title = "痛苦冲击"
+desc = "痛苦冲击"
+icon_path = "334"
+level = 1
+level_up_gap = 1
+max_level = 3
+init_release = false
+auto_release = false
+cooldown = 1.0
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+damage_range = 5.0
+match_range = 30.0
+range = 20.0
+release_distance = 20.0
+stock = 1
+value = 5.0
+init_num = 15
+internal_time = 0.3
+start_time = 0.1
+end_time = 0.1
+wave = 1
+projection_speed = 15.0
+release_type = 4
+target_type = 34
+effect_type = 1
+skill_script = ExtResource("3_enr8c")
+skill_level_config = Array[ExtResource("1_uejo4")]([])
+skill_buff_config = Array[ExtResource("2_4s3fd")]([])
