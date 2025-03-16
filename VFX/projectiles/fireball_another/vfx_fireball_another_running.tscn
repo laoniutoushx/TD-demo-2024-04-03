@@ -370,7 +370,7 @@ vertex_color_is_srgb = true
 albedo_texture = ExtResource("6_6gko7")
 billboard_keep_scale = true
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_4n0d1"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_du66r"]
 
 [node name="Fireball-another" type="Node3D"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
@@ -414,7 +414,7 @@ draw_pass_1 = ExtResource("5_esxqr")
 
 [node name="Trail3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_ts5t8")
-mesh = SubResource("ImmediateMesh_4n0d1")
+mesh = SubResource("ImmediateMesh_du66r")
 script = ExtResource("7_jvd1b")
 fromWidth = 0.3
 lifespan = 2.0

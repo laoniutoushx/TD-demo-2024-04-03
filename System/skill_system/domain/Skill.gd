@@ -335,6 +335,10 @@ func change_state(new_state: SKILL_STATE) -> void:
 
             # PlayerStatus 切换
             SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.CHOOSING_TARGETED_UNIT
+
+            # 等待3帧
+            await CommonUtil.await_timer(0.1)
+
             # 切换鼠标光标
             # SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.TARGETED)
             # 隐藏鼠标光标（开始捕捉模式）
@@ -427,53 +431,67 @@ func _process(delta: float) -> void:
     # 监听 target mouse clicked
     if Input.is_action_pressed("click"):
         if mouse_click_check and current_state == SKILL_STATE.Targeted_Indicate:
-
-            var cur_unit_map = SOS.main.player_controller.cur_unit_map
-            if not cur_unit_map.is_empty():
-
+            
+            # 目标类型检查-地面
+            if CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.FLOOR, target_type):
+                print("技能无需目标")
                 # 停止监听
                 mouse_click_check = false
                 set_process(false)
 
-                # 获取选中单位
-                var min_unit = null
-                var min_distance = INF  # 使用 INF 作为初始最小距离
-                
-                # 遍历所有单位
-                for u_key in cur_unit_map.keys():
-                    var _unit = cur_unit_map.get(u_key)
+                skill_context.target_position = SOS.main.player_controller.player_skill_target_indicator.global_position
+                skill_context.target = null
+
+                change_state(SKILL_STATE.Release)
+
+            # 目标类型检查-某个单位
+            if CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.UNIT, target_type):
+                var cur_unit_map = SOS.main.player_controller.cur_unit_map
+                if not cur_unit_map.is_empty():
+
+                    # 停止监听
+                    mouse_click_check = false
+                    set_process(false)
+
+                    # 获取选中单位
+                    var min_unit = null
+                    var min_distance = INF  # 使用 INF 作为初始最小距离
                     
-                    if not _unit:
-                        continue
+                    # 遍历所有单位
+                    for u_key in cur_unit_map.keys():
+                        var _unit = cur_unit_map.get(u_key)
+                        
+                        if not _unit:
+                            continue
 
-                    # 根据 skill target type 动态判断是否满足条件
-                    if not _skill_target_unit_cond_matched(_unit):
-                        continue
+                        # 根据 skill target type 动态判断是否满足条件
+                        if not _skill_target_unit_cond_matched(_unit):
+                            continue
 
-                    # 计算单位到原点的距离
-                    var distance = Vector2(_unit.global_position.x, _unit.global_position.z).length()
+                        # 计算单位到原点的距离
+                        var distance = Vector2(_unit.global_position.x, _unit.global_position.z).length()
+                        
+                        # 如果找到更近的单位，更新最小距离和对应的单位
+                        if distance < min_distance:
+                            min_distance = distance
+                            min_unit = _unit
                     
-                    # 如果找到更近的单位，更新最小距离和对应的单位
-                    if distance < min_distance:
-                        min_distance = distance
-                        min_unit = _unit
-                
-                # 此时 min_unit 就是距离原点最近的单位
-                if min_unit:
-                    # 在这里处理最近的单位，比如选中它
-                    print("最近的单位距离: ", min_distance)
-                    print("最近的单位: ", min_unit)
+                    # 此时 min_unit 就是距离原点最近的单位
+                    if min_unit:
+                        # 在这里处理最近的单位，比如选中它
+                        print("最近的单位距离: ", min_distance)
+                        print("最近的单位: ", min_unit)
 
 
-                    skill_context.target_position = SOS.main.player_controller.player_skill_target_indicator.global_position
-                    skill_context.target = min_unit
+                        skill_context.target_position = SOS.main.player_controller.player_skill_target_indicator.global_position
+                        skill_context.target = min_unit
 
-                    change_state(SKILL_STATE.Release)
+                        change_state(SKILL_STATE.Release)
+
+                    else:
+                        print("没有找到最近的单位")
+                        SOS.main.message_bar.set_message("没有选中任何单位")
 
                 else:
-                    print("没有找到最近的单位")
+                    print("没有选中任何单位")
                     SOS.main.message_bar.set_message("没有选中任何单位")
-
-            else:
-                print("没有选中任何单位")
-                SOS.main.message_bar.set_message("没有选中任何单位")

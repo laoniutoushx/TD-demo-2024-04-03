@@ -8,26 +8,20 @@ func action(skill_context: SkillContext) -> void:
     # 播放施法动画 & 声音
     var skill: Skill = skill_context.skill
     var source_unit: BaseUnit = skill_context.source
+    var target_position: Vector3 = skill_context.target_position
     
 
     for wave in range(skill.wave):
 
         # shockwave
-        var vfx = SystemUtil.vfx_system.create_vfx("shockwave", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
-        vfx.global_position = Vector3(source_unit.global_position.x, source_unit._height / 2, source_unit.global_position.z)
+        var vfx = SystemUtil.vfx_system.create_vfx("scream_wave", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
+        vfx.global_position.y = source_unit._height / 2
         self.add_child(vfx)
-        CommonUtil.delay_execution(0.5, (func(_vfx): _vfx.queue_free()).bind(vfx))
+        vfx.look_at(target_position, Vector3.UP)
+
 
         CommonUtil.play_audio(source_unit, "雷神之锤技巧(Leishenzhichui_SkillC)_爱给网_aigei_com")
 
-        var target_units: Array[BaseUnit] =  SystemUtil.unit_system.get_units_in_range(source_unit, skill.range, BaseUnit.ARMOR_TYPE_ENUM.ENEMY)
-        for target_unit in target_units:
-                
-            var handler = InnerHandler.new(skill, source_unit, target_unit)
-            add_child(handler)
-            handler.projection_handler() 
-
-            # player audio
 
 
         if wave < skill.wave - 1:
