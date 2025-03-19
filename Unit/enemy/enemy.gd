@@ -30,7 +30,7 @@ func _health_bar_create():
 	var health_bar: HealthBar = preload("res://Components/health_bar/health_bar.tscn").instantiate()
 	# var aabb: AABB = _transformed_aabb
 	var aabb: AABB = CommonUtil.get_scaled_aabb(CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ))
-	print("aabb %s" % aabb)
+	# print("aabb %s" % aabb)
 
 	var width = aabb.size.x
 	var height = aabb.size.y
@@ -50,13 +50,13 @@ func _health_bar_create():
 	var w_w_scale = (health_bar_2d_width) / health_bar.get_health_bar2d_size().x
 	
 	add_child(health_bar) 
-	print("self.global_position.y %s" % self.global_position.y)
-	print("height %s" % height)
+	# print("self.global_position.y %s" % self.global_position.y)
+	# print("height %s" % height)
 	health_bar.position.y = self.global_position.y + _height
 
 	health_bar.prepare(max_health)
 	health_bar.resize(health_bar_2d_width, health_bar_2d_height, w_w_scale)
-	print("%s, %s, %s, %s" % [health_bar_2d_width, health_bar_2d_height, w_w_scale, health_bar.position.y])
+	# print("%s, %s, %s, %s" % [health_bar_2d_width, health_bar_2d_height, w_w_scale, health_bar.position.y])
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

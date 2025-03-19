@@ -19,7 +19,11 @@ func action(skill_context: SkillContext) -> void:
         vfx.global_position.y = 1
         self.add_child(vfx)
 
-        (vfx.find_child("Area3D") as Area3D).area_entered.connect(_on_area3d_area_entered)
+
+        var area: Area3D = vfx.find_child("Area3D")
+        if area:
+            area.area_entered.connect(_on_area3d_area_entered)
+        
 
 
         # 先朝向目标
@@ -36,8 +40,7 @@ func action(skill_context: SkillContext) -> void:
             await CommonUtil.await_timer(skill.internal_time)    
 
 
-func _on_area3d_area_entered(area: Area) -> void:
-    print("dljflasdjfdlskajfl;asd")
+func _on_area3d_area_entered(area: Area3D) -> void:
     var target_unit = area.owner
     if target_unit is BaseUnit and target_unit.is_alive():
         SystemUtil.damage_system.skill_damage(skill, source_unit, target_unit)
