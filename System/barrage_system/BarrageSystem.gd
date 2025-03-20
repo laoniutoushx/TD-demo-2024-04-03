@@ -31,7 +31,13 @@ func action(source, target, projection: PackedScene):
 		projectile_instance.speed = source.projectile_speed
 		projectile_instance.damage = source.attack_value
 		projectile_instance.add_child(vfx_projectile_ins) 
+
+		var pi_ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(vfx_projectile_ins, Constants.AnimationPlayer_CLZ)
+		if pi_ap:
+			pi_ap.play("running")
+
 		source.add_child(projectile_instance) 
+
 		
 		
 		# 3. load projectile vfx destory scene instance

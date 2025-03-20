@@ -32,7 +32,7 @@ func action(skill_context: SkillContext) -> void:
         vfx.rotate_y(PI)
 
 
-        CommonUtil.play_audio(source_unit, "雷神之锤技巧(Leishenzhichui_SkillC)_爱给网_aigei_com")
+        # CommonUtil.play_audio(source_unit, "雷神之锤技巧(Leishenzhichui_SkillC)_爱给网_aigei_com")
 
 
  

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://y4cu02m7kryo"
+path="res://.godot/imported/魔法 魔术 冰 冲击_ 大的 炮弹_ 危险冰块_ 碎片_ 长_爱给网_aigei_com.mp3-6ee79b46dbb7cd7d759151072e88501b.mp3str"
+
+[deps]
+
+source_file="res://Asserts/waves/skill/魔法 魔术 冰 冲击_ 大的 炮弹_ 危险冰块_ 碎片_ 长_爱给网_aigei_com.mp3"
+dest_files=["res://.godot/imported/魔法 魔术 冰 冲击_ 大的 炮弹_ 危险冰块_ 碎片_ 长_爱给网_aigei_com.mp3-6ee79b46dbb7cd7d759151072e88501b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

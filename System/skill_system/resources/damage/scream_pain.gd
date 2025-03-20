@@ -18,7 +18,7 @@ func action(skill_context: SkillContext) -> void:
 		self.add_child(vfx)
 		CommonUtil.delay_execution(0.5, (func(_vfx): _vfx.queue_free()).bind(vfx))
 
-		CommonUtil.play_audio(source_unit, "雷神之锤技巧(Leishenzhichui_SkillC)_爱给网_aigei_com")
+		CommonUtil.play_audio(source_unit, "施法")
 
 		var target_units: Array[BaseUnit] =  SystemUtil.unit_system.get_units_in_range(source_unit, skill.range, BaseUnit.ARMOR_TYPE_ENUM.ENEMY)
 		for target_unit in target_units:

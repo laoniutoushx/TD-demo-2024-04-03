@@ -1,0 +1,79 @@
+[gd_scene load_steps=10 format=3 uid="uid://bhvfsij7cmlgu"]
+
+[ext_resource type="PackedScene" uid="uid://couah718ewewv" path="res://Asserts/Models/projectiles/asif20_kunai_knife.glb" id="1_0bms1"]
+[ext_resource type="Texture2D" uid="uid://da1iqi53byvde" path="res://Asserts/textures/vfx/T_VFX_Trail_Square.png" id="2_0tq6n"]
+[ext_resource type="Script" uid="uid://b3w53u07ukurw" path="res://Scripts/Trail3D.gd" id="3_ablpa"]
+[ext_resource type="PackedScene" uid="uid://cll88jekgo8hn" path="res://Test/vfx_moving_test/vfx_moving_test.tscn" id="4_i8jyn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ep5o"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_0tq6n")
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_0bms1"]
+
+[sub_resource type="Animation" id="Animation_yx0kk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("asif20_kunai_knife:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kxgn1"]
+resource_name = "running"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("asif20_kunai_knife:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8wevm"]
+_data = {
+&"RESET": SubResource("Animation_yx0kk"),
+&"running": SubResource("Animation_kxgn1")
+}
+
+[node name="Asif20KunaiKnife" type="Node3D"]
+
+[node name="asif20_kunai_knife" parent="." instance=ExtResource("1_0bms1")]
+
+[node name="ScreamTail" type="MeshInstance3D" parent="asif20_kunai_knife"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_5ep5o")
+mesh = SubResource("ImmediateMesh_0bms1")
+script = ExtResource("3_ablpa")
+fromWidth = 0.1
+toWidth = 0.05
+lifespan = 0.3
+startColor = Color(1, 0.367788, 0.300217, 0.219608)
+endColor = Color(1, 0, 0, 0.309804)
+metadata/_custom_type_script = "uid://b3w53u07ukurw"
+
+[node name="VfxMovingTest" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("4_i8jyn")]
+target_node = NodePath("..")
+start_position = Vector3(10, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_8wevm")
+}
