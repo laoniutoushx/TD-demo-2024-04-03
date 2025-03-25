@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_lg5ti"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="2_7ynwf"]
-[ext_resource type="Texture2D" uid="uid://d1q2eujl1283o" path="res://Asserts/Models/UE-Fab/UE-Dapper Feline Magician/tripo_convert_b641b219-6a52-4344-a47f-ec8a02e5964b_0.png" id="2_fa6bu"]
-[ext_resource type="Texture2D" uid="uid://4e2uh5v318y3" path="res://Asserts/Models/UE-Fab/UE-Dapper Feline Magician/tripo_convert_b641b219-6a52-4344-a47f-ec8a02e5964b_1.png" id="3_ilax2"]
+[ext_resource type="Texture2D" uid="uid://d1q2eujl1283o" path="res://Asserts/Models/turret pack/UE-Fab/UE-Dapper Feline Magician/tripo_convert_b641b219-6a52-4344-a47f-ec8a02e5964b_0.png" id="2_fa6bu"]
+[ext_resource type="Texture2D" uid="uid://4e2uh5v318y3" path="res://Asserts/Models/turret pack/UE-Fab/UE-Dapper Feline Magician/tripo_convert_b641b219-6a52-4344-a47f-ec8a02e5964b_1.png" id="3_ilax2"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="3_vlp70"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="4_nwksw"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="5_xq1q2"]
