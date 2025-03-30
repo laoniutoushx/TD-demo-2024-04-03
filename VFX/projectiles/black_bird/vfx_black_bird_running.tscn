@@ -1,0 +1,97 @@
+[gd_scene load_steps=16 format=3 uid="uid://b6j3wc40b3oyw"]
+
+[ext_resource type="Texture2D" uid="uid://ooqc2nnefkw1" path="res://addons/kenney_particle_pack/circle_05.png" id="1_xhjf1"]
+[ext_resource type="Texture2D" uid="uid://gqh3yo20s5cl" path="res://Asserts/textures/vfx/fade_circle.png" id="2_40plu"]
+[ext_resource type="Texture2D" uid="uid://x5sgfshxo4xh" path="res://Asserts/textures/vfx/蜀门特效_tlogin007_爱给网_aigei_com.png" id="3_xhjf1"]
+[ext_resource type="Script" uid="uid://b3w53u07ukurw" path="res://Scripts/Trail3D.gd" id="4_0kg13"]
+[ext_resource type="PackedScene" uid="uid://cll88jekgo8hn" path="res://Test/vfx_moving_test/vfx_moving_test.tscn" id="5_gg64i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wmse1"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.7, 1, 0.2, 1)
+albedo_texture = ExtResource("1_xhjf1")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_1cxc0"]
+_limits = [0.0, 5.0, 0.0, 1.0]
+_data = [Vector2(0, 1.98214), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveTexture" id="CurveTexture_vn7do"]
+curve = SubResource("Curve_1cxc0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cd30p"]
+gravity = Vector3(0, 0, 0)
+emission_curve = SubResource("CurveTexture_vn7do")
+
+[sub_resource type="QuadMesh" id="QuadMesh_vvrlf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jndak"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.3, 1, 0.3, 1)
+albedo_texture = ExtResource("2_40plu")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vmjb1"]
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_k7drv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1cxc0"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_xhjf1")
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_b32ht"]
+
+[node name="BlackBird" type="Node3D"]
+
+[node name="BlackCore" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_wmse1")
+amount = 1
+lifetime = 10.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_cd30p")
+draw_pass_1 = SubResource("QuadMesh_vvrlf")
+
+[node name="BlackCoreOuter" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_jndak")
+amount = 1
+lifetime = 10.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_vmjb1")
+draw_pass_1 = SubResource("QuadMesh_k7drv")
+
+[node name="ScreamTail" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_1cxc0")
+mesh = SubResource("ImmediateMesh_b32ht")
+script = ExtResource("4_0kg13")
+fromWidth = 0.4
+toWidth = 0.1
+lifespan = 0.3
+startColor = Color(0.5, 1, 0.3, 0.916)
+endColor = Color(0.4, 1, 0, 0.61)
+metadata/_custom_type_script = "uid://b3w53u07ukurw"
+
+[node name="VfxMovingTest" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("5_gg64i")]
+target_node = NodePath("..")

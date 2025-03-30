@@ -247,7 +247,7 @@ skeleton = NodePath("")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_q0ijy")
+&"": SubResource("AnimationLibrary_q0ijy")
 }
 
 [node name="AttackingScope" type="Area3D" parent="."]

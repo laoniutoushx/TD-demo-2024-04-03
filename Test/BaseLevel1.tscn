@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dx0lou5rmkhg8"]
+[gd_scene load_steps=26 format=3 uid="uid://dx0lou5rmkhg8"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_1lpu5"]
 [ext_resource type="Script" uid="uid://b7mg147y1himx" path="res://System/barrage_system/BarrageSystem.gd" id="1_mdmlk"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://b7a1nrfaoya4w" path="res://System/vfx_system/vfx_system.tscn" id="12_tuabp"]
 [ext_resource type="PackedScene" uid="uid://5kncg21bpaly" path="res://System/damage_system/damage_system.tscn" id="13_iiwq5"]
 [ext_resource type="PackedScene" uid="uid://7rvt2k3k1jwh" path="res://System/barrage_system/barrage_system.tscn" id="14_y7yt8"]
+[ext_resource type="PackedScene" uid="uid://bn6y16r1niwsj" path="res://Unit/turret/scenes/Fox_Mega.tscn" id="15_u2aab"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oopyi"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -95,7 +96,6 @@ data = {
 curve = SubResource("Curve3D_g10yy")
 
 [node name="Road" type="CSGPolygon3D" parent="Path3D"]
-snap = 1e-06
 polygon = PackedVector2Array(-2, 0, -2, 0.1, 2, 0.1, 2, 0)
 mode = 2
 path_node = NodePath("..")
@@ -103,6 +103,7 @@ path_interval_type = 0
 path_interval = 1.0
 path_simplify_angle = 0.0
 path_rotation = 2
+path_rotation_accurate = false
 path_local = false
 path_continuous_u = true
 path_u_distance = 1.0
@@ -110,7 +111,6 @@ path_joined = false
 material = SubResource("StandardMaterial3D_rcpim")
 
 [node name="LeftShoulder" type="CSGPolygon3D" parent="Path3D"]
-snap = 1e-06
 polygon = PackedVector2Array(-3, 0, -3, 0.5, -2, 0.5, -2, 0)
 mode = 2
 path_node = NodePath("..")
@@ -118,6 +118,7 @@ path_interval_type = 0
 path_interval = 1.0
 path_simplify_angle = 0.0
 path_rotation = 2
+path_rotation_accurate = false
 path_local = false
 path_continuous_u = true
 path_u_distance = 1.0
@@ -125,7 +126,6 @@ path_joined = false
 material = SubResource("StandardMaterial3D_rcpim")
 
 [node name="RightShoulder" type="CSGPolygon3D" parent="Path3D"]
-snap = 1e-06
 polygon = PackedVector2Array(3, 0, 3, 0.5, 2, 0.5, 2, 0)
 mode = 2
 path_node = NodePath("..")
@@ -133,6 +133,7 @@ path_interval_type = 0
 path_interval = 1.0
 path_simplify_angle = 0.0
 path_rotation = 2
+path_rotation_accurate = false
 path_local = false
 path_continuous_u = true
 path_u_distance = 1.0
@@ -171,3 +172,6 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.994,
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, 7)
 mesh = SubResource("BoxMesh_flgwt")
+
+[node name="FoxMega" parent="." instance=ExtResource("15_u2aab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.24721, 0, 0)

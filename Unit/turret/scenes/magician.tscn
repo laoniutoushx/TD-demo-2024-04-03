@@ -101,7 +101,7 @@ shape = SubResource("BoxShape3D_yf35w")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_og6kq")
+&"": SubResource("AnimationLibrary_og6kq")
 }
 
 [node name="FadedCircle3D" parent="." instance=ExtResource("2_7ynwf")]

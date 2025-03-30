@@ -31,13 +31,13 @@ void vertex()
 	VERTEX = VERTEX + displacement;
 }
 
-void fragment() 
+void fragment()
 {
 	float noiseValueX  = (texture(noiseViewX, UV + (TIME * speedView)).r * 2.0) - 1.0; // Range: -1.0 to 1.0
 	float noiseValueY  = (texture(noiseViewY, UV + (TIME * speedView)).r * 2.0) - 1.0; // Range: -1.0 to 1.0
 	vec2 noiseDistort = vec2(noiseValueX, noiseValueY) * distortionView;
 	vec3 distortedScreenTexture = vec3(texture(screenTexture, SCREEN_UV + noiseDistort).rgb);
 	vec3 fesnelTint = (tintColor * fresnel(fesnelAmount, NORMAL, VIEW));
-	
+
 	ALBEDO = distortedScreenTexture + fesnelTint;
 }

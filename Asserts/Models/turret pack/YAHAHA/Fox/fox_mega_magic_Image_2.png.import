@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://slt3ti64kob"
+path.s3tc="res://.godot/imported/fox_mega_magic_Image_2.png-506e26187a8a457a84d4e6e26a978e46.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "2f618ee5bb73ceb990230253ad47729f"
+}
+
+[deps]
+
+source_file="res://Asserts/Models/turret pack/YAHAHA/Fox/fox_mega_magic_Image_2.png"
+dest_files=["res://.godot/imported/fox_mega_magic_Image_2.png-506e26187a8a457a84d4e6e26a978e46.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=1
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=1
+roughness/src_normal="res://Asserts/Models/turret pack/YAHAHA/Fox/fox_mega_magic_Image_2.png"
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0
