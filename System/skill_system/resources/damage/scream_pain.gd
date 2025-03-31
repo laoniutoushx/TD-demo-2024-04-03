@@ -112,6 +112,6 @@ class InnerHandler extends Node3D:
 			# 判断是否接近目标并且方向正确
 			if remaining_distance < 1:
 				set_process(false)
-				print("击中目标！")
+				# print("击中目标！")
 				finished.emit()
 				
