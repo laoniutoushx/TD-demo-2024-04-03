@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b6j3wc40b3oyw"]
+[gd_scene load_steps=17 format=3 uid="uid://b6j3wc40b3oyw"]
 
 [ext_resource type="Texture2D" uid="uid://ooqc2nnefkw1" path="res://addons/kenney_particle_pack/circle_05.png" id="1_xhjf1"]
 [ext_resource type="Texture2D" uid="uid://gqh3yo20s5cl" path="res://Asserts/textures/vfx/fade_circle.png" id="2_40plu"]
@@ -54,15 +54,158 @@ scale_max = 2.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_k7drv"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1cxc0"]
-transparency = 1
-blend_mode = 1
-cull_mode = 2
-shading_mode = 0
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("3_xhjf1")
+[sub_resource type="Shader" id="Shader_xhjf1"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.4.stable.mono's StandardMaterial3D.
+// Modified to include texture scrolling for projectile trail effects
+shader_type spatial;
+render_mode blend_add, depth_draw_opaque, cull_disabled, diffuse_burley, specular_schlick_ggx, unshaded;
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_b32ht"]
+// Base properties
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform ivec2 albedo_texture_size;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+// UV transformation
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+// Trail effect properties
+uniform float scroll_speed : hint_range(-5.0, 5.0, 0.1) = 1.0;            // Scrolling speed
+uniform vec2 scroll_direction = vec2(1.0, 0.0);                           // Direction of scrolling
+uniform float trail_length : hint_range(0.1, 5.0, 0.1) = 1.0;             // Length of the trail
+uniform float trail_fade : hint_range(0.0, 1.0, 0.01) = 0.5;              // Fade at the end of trail
+uniform vec4 trail_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);       // Tint for the trail
+uniform float trail_distortion : hint_range(0.0, 1.0, 0.01) = 0.0;        // Distortion amount
+uniform float time_scale : hint_range(0.1, 10.0, 0.1) = 1.0;              // Time scale factor
+uniform float trail_width_begin : hint_range(0.0, 5.0, 0.1) = 1.0;        // Start width of trail
+uniform float trail_width_end : hint_range(0.0, 5.0, 0.1) = 0.5;          // End width of trail
+uniform bool use_vertex_color_alpha = true;                               // Use vertex color alpha for trail length
+
+// Distortion texture
+uniform sampler2D distortion_texture : hint_default_black, filter_linear_mipmap, repeat_enable;
+
+// Animation properties
+uniform bool animate_trail = true;                                        // Enable/disable animation
+uniform float pulse_speed : hint_range(0.0, 10.0, 0.1) = 0.0;             // Speed of pulsing effect
+uniform float pulse_intensity : hint_range(0.0, 1.0, 0.01) = 0.0;         // Intensity of pulsing
+
+// Time input - must be updated from GDScript
+uniform float time = 0.0;
+
+varying float trail_position;
+
+void vertex() {
+    // Calculate base UV
+    UV = UV * uv1_scale.xy + uv1_offset.xy;
+    
+    // Calculate trail position (0 at start, 1 at end)
+    trail_position = UV.y;
+    
+    // Apply width tapering
+    if (trail_width_begin != trail_width_end) {
+        float width_factor = mix(trail_width_begin, trail_width_end, trail_position);
+        VERTEX.x *= width_factor;
+    }
+}
+
+void fragment() {
+    // Calculate animated scroll offset
+    vec2 scroll_offset = vec2(0.0);
+    if (animate_trail) {
+        scroll_offset = normalize(scroll_direction) * scroll_speed * time * time_scale;
+    }
+    
+    // Apply distortion if enabled
+    vec2 distortion = vec2(0.0);
+    if (trail_distortion > 0.0) {
+        distortion = (texture(distortion_texture, UV + scroll_offset * 0.5).rg * 2.0 - 1.0) * trail_distortion;
+    }
+    
+    // Calculate final UV with scrolling and distortion
+    vec2 base_uv = UV + scroll_offset + distortion;
+    
+    // Sample textures
+    vec4 albedo_tex = texture(texture_albedo, base_uv);
+    
+    // Vertex Color Use as Albedo: Enabled
+    albedo_tex *= COLOR;
+    
+    // Apply trail color tint
+    vec4 final_color = albedo_tex * albedo * trail_color;
+    
+    // Apply pulse effect if enabled
+    if (pulse_speed > 0.0 && pulse_intensity > 0.0) {
+        float pulse = sin(time * pulse_speed) * 0.5 + 0.5;
+        final_color.rgb *= 1.0 + (pulse * pulse_intensity);
+    }
+    
+    // Apply trail length fade
+    float fade_factor = 1.0;
+    if (trail_fade > 0.0) {
+        fade_factor = 1.0 - (trail_position * trail_fade);
+    }
+    
+    // Apply the final color
+    ALBEDO = final_color.rgb;
+    
+    // Apply metallic properties
+    float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+    METALLIC = metallic_tex * metallic;
+    SPECULAR = specular;
+    
+    // Apply roughness
+    vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+    float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+    ROUGHNESS = roughness_tex * roughness;
+    
+    // Apply alpha
+    float alpha = albedo.a * albedo_tex.a * fade_factor;
+    if (use_vertex_color_alpha) {
+        alpha *= COLOR.a;
+    }
+    ALPHA = alpha;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_40plu"]
+render_priority = 0
+shader = SubResource("Shader_xhjf1")
+shader_parameter/albedo = Color(1, 3, 1, 1)
+shader_parameter/texture_albedo = ExtResource("3_xhjf1")
+shader_parameter/albedo_texture_size = Vector2i(256, 256)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/scroll_speed = 4.0
+shader_parameter/scroll_direction = Vector2(1, 1)
+shader_parameter/trail_length = 1.0
+shader_parameter/trail_fade = 0.5
+shader_parameter/trail_color = Color(1, 1, 1, 1)
+shader_parameter/trail_distortion = 0.0
+shader_parameter/time_scale = 1.0
+shader_parameter/trail_width_begin = 1.0
+shader_parameter/trail_width_end = 0.5
+shader_parameter/use_vertex_color_alpha = true
+shader_parameter/animate_trail = true
+shader_parameter/pulse_speed = 0.0
+shader_parameter/pulse_intensity = 0.0
+shader_parameter/time = 0.0
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_xhjf1"]
 
 [node name="BlackBird" type="Node3D"]
 
@@ -83,14 +226,15 @@ process_material = SubResource("ParticleProcessMaterial_vmjb1")
 draw_pass_1 = SubResource("QuadMesh_k7drv")
 
 [node name="ScreamTail" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_1cxc0")
-mesh = SubResource("ImmediateMesh_b32ht")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0690854, 0)
+material_override = SubResource("ShaderMaterial_40plu")
+mesh = SubResource("ImmediateMesh_xhjf1")
 script = ExtResource("4_0kg13")
-fromWidth = 0.4
-toWidth = 0.1
-lifespan = 0.3
-startColor = Color(0.5, 1, 0.3, 0.916)
-endColor = Color(0.4, 1, 0, 0.61)
+fromWidth = 0.2
+toWidth = 0.2
+lifespan = 3.0
+startColor = Color(0.5, 1, 0.3, 1)
+endColor = Color(0.4, 1, 0, 0.249)
 metadata/_custom_type_script = "uid://b3w53u07ukurw"
 
 [node name="VfxMovingTest" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("5_gg64i")]
