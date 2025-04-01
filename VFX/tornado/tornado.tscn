@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0nr78p3kumhk"]
+
+[ext_resource type="Script" uid="uid://bbkdm8f350ks" path="res://VFX/tornado/TornadoMesh.gd" id="1_pgfqc"]
+[ext_resource type="Script" uid="uid://6bm0evx8gqfs" path="res://Scripts/camera/camera.gd" id="2_a65si"]
+
+[node name="Tornado" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+script = ExtResource("1_pgfqc")
+
+[node name="FreeLookCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.09302)
+script = ExtResource("2_a65si")
+metadata/_custom_type_script = "uid://6bm0evx8gqfs"
