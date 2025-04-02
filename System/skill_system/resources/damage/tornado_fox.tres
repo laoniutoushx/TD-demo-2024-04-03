@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_v07ic"]
 [ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="2_88sn7"]
-[ext_resource type="Script" uid="uid://phmljj7fy5km" path="res://System/skill_system/resources/damage/scream_wave.gd" id="3_lfhwr"]
+[ext_resource type="Script" uid="uid://cvelqqp608klb" path="res://System/skill_system/resources/damage/tornado_fox.gd" id="3_v07ic"]
 
 [resource]
 script = ExtResource("1_v07ic")
@@ -34,6 +34,6 @@ projection_speed = 15.0
 release_type = 1
 target_type = 33
 effect_type = 1
-skill_script = ExtResource("3_lfhwr")
+skill_script = ExtResource("3_v07ic")
 skill_level_config = Array[ExtResource("1_v07ic")]([])
 skill_buff_config = Array[ExtResource("2_88sn7")]([])
