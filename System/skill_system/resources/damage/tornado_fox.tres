@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=4 format=3 uid="uid://bkogy56g0o3iq"]
+
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_v07ic"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="2_88sn7"]
+[ext_resource type="Script" uid="uid://phmljj7fy5km" path="res://System/skill_system/resources/damage/scream_wave.gd" id="3_lfhwr"]
+
+[resource]
+script = ExtResource("1_v07ic")
+code = "tornado_fox"
+title = "龙卷风"
+desc = "龙卷风"
+icon_path = "335"
+level = 1
+level_up_gap = 1
+max_level = 3
+init_release = false
+auto_release = false
+cooldown = 1.0
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+damage_range = 5.0
+match_range = 30.0
+range = 20.0
+release_distance = 20.0
+stock = 1
+value = 300.0
+init_num = 15
+internal_time = 0.3
+start_time = 0.1
+end_time = 0.1
+wave = 1
+projection_speed = 15.0
+release_type = 1
+target_type = 33
+effect_type = 1
+skill_script = ExtResource("3_lfhwr")
+skill_level_config = Array[ExtResource("1_v07ic")]([])
+skill_buff_config = Array[ExtResource("2_88sn7")]([])

@@ -1,14 +1,99 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0nr78p3kumhk"]
+[gd_scene load_steps=14 format=3 uid="uid://c0nr78p3kumhk"]
 
-[ext_resource type="Script" uid="uid://bbkdm8f350ks" path="res://VFX/tornado/TornadoMesh.gd" id="1_pgfqc"]
-[ext_resource type="Script" uid="uid://6bm0evx8gqfs" path="res://Scripts/camera/camera.gd" id="2_a65si"]
+[ext_resource type="Script" uid="uid://c4f8ddwdmq88p" path="res://VFX/tornado/tornado.gd" id="1_a65si"]
+[ext_resource type="Texture2D" uid="uid://cuhc2vr8fsvlc" path="res://addons/kenney_particle_pack/star_09.png" id="1_pgfqc"]
+[ext_resource type="AudioStream" uid="uid://bjra508h0s5t8" path="res://Asserts/waves/skill/怪物攻击技能音效boss_skill18_爱给网_aigei_com.mp3" id="3_5qs3r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a65si"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_pgfqc")
+use_particle_trails = true
+
+[sub_resource type="Curve" id="Curve_pgfqc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_a65si"]
+curve = SubResource("Curve_pgfqc")
+
+[sub_resource type="Gradient" id="Gradient_5qs3r"]
+offsets = PackedFloat32Array(0, 0.485477, 0.937759)
+colors = PackedColorArray(0.552941, 0.807843, 0, 1, 0.219608, 1, 0.164706, 0.862745, 0.682353, 0.454902, 0.117647, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ek0cg"]
+gradient = SubResource("Gradient_5qs3r")
+
+[sub_resource type="Curve" id="Curve_hbc6x"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 0.0296872), 0.0, 4.11433, 0, 0, Vector2(0.655431, 1.28906), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_dcckp"]
+curve = SubResource("Curve_hbc6x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dn74m"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 90, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 3.0
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+spread = 0.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 50, 0)
+radial_accel_min = -100.0
+radial_accel_max = -20.0
+tangential_accel_min = 20.0
+tangential_accel_max = 50.0
+damping_min = 10.0
+damping_max = 20.0
+color_ramp = SubResource("GradientTexture1D_ek0cg")
+alpha_curve = SubResource("CurveTexture_a65si")
+emission_curve = SubResource("CurveTexture_dcckp")
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_a65si"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5qs3r"]
+height = 10.0
+radius = 4.0
 
 [node name="Tornado" type="Node3D"]
+script = ExtResource("1_a65si")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-script = ExtResource("1_pgfqc")
+[node name="WindTrail" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_a65si")
+amount = 100
+lifetime = 2.0
+local_coords = true
+trail_enabled = true
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_dn74m")
+draw_pass_1 = SubResource("RibbonTrailMesh_a65si")
 
-[node name="FreeLookCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.09302)
-script = ExtResource("2_a65si")
-metadata/_custom_type_script = "uid://6bm0evx8gqfs"
+[node name="WindTrail2" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_a65si")
+amount = 10
+lifetime = 2.0
+trail_enabled = true
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_dn74m")
+draw_pass_1 = SubResource("RibbonTrailMesh_a65si")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.21184, 0)
+shape = SubResource("CylinderShape3D_5qs3r")
+debug_color = Color(0, 0.54, 0.631, 1)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_5qs3r")
+volume_db = 30.0
+autoplay = true
