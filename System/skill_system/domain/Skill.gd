@@ -54,6 +54,8 @@ var code: String
 @export var stock: int  = -1
 # 技能伤害值
 @export var value: float = 0.0
+# 技能运行距离（方向性技能）
+@export var run_distance: float = 10.0
 
 
 
@@ -77,7 +79,7 @@ var code: String
 # release skill
 
 
-@export_flags("TARGETED", "SELF_CAST", "NO_TARGET", "DIRECTION", "CIRCLE_RANGE") var release_type: int = 1
+@export_flags("TARGETED", "SELF_CAST", "NO_TARGET", "DIRECTION", "CIRCLE_RANGE", "PASSIVE") var release_type: int = 1
 @export_flags("FLOOR", "UNIT", "NO_TARGET", "SELF", "FRIEND", "ENEMY") var target_type: int = 1	# 0: 地面, 1: 目标, 2: 无目标
 @export_flags("DAMAGE","HEAL","BUILDING","BUFF","DEBUFF") var effect_type: int = 1	# 0: 伤害, 1: 治愈, 2: 建筑，3：buff，4：debuff
 

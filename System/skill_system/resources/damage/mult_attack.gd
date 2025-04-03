@@ -1,4 +1,4 @@
-class_name TornadoFox extends Node3D
+class_name MultAttack extends Node3D
 
 var skill: Skill 
 var source_unit: BaseUnit 

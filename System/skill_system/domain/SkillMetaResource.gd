@@ -59,6 +59,8 @@ class_name SkillMetaResource extends Resource
 @export var stock: int  = -1
 # 技能伤害值
 @export var value: float = 0.0
+# 技能运行距离（方向性技能）
+@export var run_distance: float = 10.0
 
 
 
@@ -87,9 +89,10 @@ enum SKILL_RELEASE_TYPE{
 	SELF_CAST,
 	NO_TARGET,
 	DIRECTION,
-	CIRCLE_RANGE
+	CIRCLE_RANGE,
+	PASSIVE
 }
-@export_flags("TARGETED", "SELF_CAST", "NO_TARGET", "DIRECTION", "CIRCLE_RANGE") var release_type: int = 1
+@export_flags("TARGETED", "SELF_CAST", "NO_TARGET", "DIRECTION", "CIRCLE_RANGE", "PASSIVE") var release_type: int = 1
 
 
 
