@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BuffResource" load_steps=5 format=3 uid="uid://0y0mntnumqi"]
 
-[ext_resource type="Script" uid="uid://qdncja2252cl" path="res://System/buff_system/resources/stun_buff.gd" id="1_g3ft8"]
+[ext_resource type="Script" uid="uid://mrn0edr5207o" path="res://System/buff_system/resources/mult_ack.gd" id="1_g3ft8"]
 [ext_resource type="Script" uid="uid://cya1pifwbgjdk" path="res://addons/script_property_selector/property_selector_resource.gd" id="2_tsw0d"]
 [ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="3_jtg0b"]
 
@@ -17,13 +17,13 @@ entity = ""
 prop = ""
 property_selector = SubResource("Resource_wqbbn")
 type = 1
-title = "眩晕"
-desc = "眩晕"
+title = "多重攻击"
+desc = "多重攻击"
 icon_path = ""
 value = 0.0
-value_unit = 0
+value_unit = 1
 value_dir = 0
-cooldown = 5.0
+cooldown = -1.0
 max_overlay_num = 1
 priority = 0
 exclude_level = 3

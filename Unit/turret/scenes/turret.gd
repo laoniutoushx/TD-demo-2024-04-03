@@ -114,7 +114,7 @@ func _physics_process(delta: float) -> void:
 
 
 
-func attack(target) -> void:
+func attack(turret_top) -> void:
 
 	#var projectile_ins = projectile.instantiate()
 	#projectile_ins.target = current_enemy
@@ -126,9 +126,16 @@ func attack(target) -> void:
 	if ap != null and ap.has_animation(anim_attack):
 		ap.play(anim_attack)
 
-	# projectile fire
-	(SystemUtil.damage_system as DamageSystem).action(self, current_enemy)
-	
+	# 选择 N 个单位
+	if attack_num == 1:
+		(SystemUtil.damage_system as DamageSystem).action(self, current_enemy)
+	else:
+		# 选取 attack_num 个敌人
+		for i in range(attack_num):
+			if enemies.size() > i:
+				# projectile fire
+				(SystemUtil.damage_system as DamageSystem).action(self, enemies.values()[i])
+				i += 1
 	pass
 
 
