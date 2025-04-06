@@ -19,7 +19,7 @@ func _ready() -> void:
 func _exit_tree() -> void:
     super._exit_tree()
 
-    # 恢复单位移动（process false）
+    # 恢复单位攻击数量
     if unit and unit.is_alive():
         unit.attack_num = unit.attack_num - attack_num_increase
 

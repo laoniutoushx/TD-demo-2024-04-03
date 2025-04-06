@@ -126,7 +126,7 @@ func attack(turret_top) -> void:
 	if ap != null and ap.has_animation(anim_attack):
 		ap.play(anim_attack)
 
-	# 选择 N 个单位
+	# 选择 N 个单位攻击
 	if attack_num == 1:
 		(SystemUtil.damage_system as DamageSystem).action(self, current_enemy)
 	else:

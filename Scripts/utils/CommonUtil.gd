@@ -413,3 +413,6 @@ static func play_audio(place: Variant, audio_name: String, volume_db: float = 1.
 	
 	# 播放完成后自动释放节点
 	audio_player.finished.connect(audio_player.queue_free)
+
+
+#

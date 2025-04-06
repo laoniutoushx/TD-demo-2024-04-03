@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 class_name DamageSystem
 
 var _tick := 0.0
@@ -9,12 +9,96 @@ func _ready() -> void:
 
 func action(source: BaseUnit, target:BaseUnit):
 	var cur_tick = _tick
+
+	var vfx_projectile_name: String = (source as BaseUnit).vfx_projectile_name
+
+	# 等待动画回复点
+	await CommonUtil.await_timer(source.anim_ack_point)
+	
 	# 1. AnimationPlayer => 动画回复点
 	animation_action(source, target)
 	
 	# 1. 弹幕系统（源、目标
-	(SystemUtil.barrage_system as BarrageSystem).action(source, target, null)
-	# 2. 计算伤害 buff 
+	var bs = await (SystemUtil.barrage_system as BarrageSystem).action(source, target, null)
+
+
+	# 伤害追加
+	if target and target is BaseUnit and (target as BaseUnit).is_alive(): 
+		target.take_damage(source.attack_value)
+	
+	# 受击动画（mesh_standing）
+	_under_attack_anim(source, target)
+	
+	# destory vfx create
+	_vfx_projectile_destory(source, target)
+
+	var dest_pos: Vector3 = bs[0]
+	var target_unit_id = bs[1]
+	target = bs[2]
+
+
+	# 2. 弹幕弹跳逻辑
+	for bt in range(source.bounce_times):
+
+		# 2.1 获取弹跳目标	
+		var selected_unit = get_units_in_range_physics_3d(dest_pos, source.bounce_distance, target_unit_id)
+
+		if selected_unit:
+			await (SystemUtil.barrage_system as BarrageSystem).action(target, selected_unit, null)
+
+			# 1. AnimationPlayer => 动画回复点
+		animation_action(source, target)
+		
+		# 1. 弹幕系统（源、目标
+		bs = await (SystemUtil.barrage_system as BarrageSystem).action(source, target, null)
+
+
+		# 伤害追加
+		if target and target is BaseUnit and (target as BaseUnit).is_alive(): 
+			target.take_damage(source.attack_value)
+		
+		# 受击动画（mesh_standing）
+		_under_attack_anim(source, target)
+		
+		# destory vfx create
+		_vfx_projectile_destory(source, target)
+
+		dest_pos = bs[0]
+		target_unit_id = bs[1]
+		target = bs[2]
+
+
+func _under_attack_anim(source: BaseUnit, target:BaseUnit):
+	# 受击动画（mesh_standing）
+	if target and target is BaseUnit:
+		var mesh_standing = (target as BaseUnit).get_mesh_standing()
+		if mesh_standing != null:
+			mesh_standing.visible = true
+			# 等待 0.1 秒后恢复, wait to do
+			CommonUtil.delay_execution(0.1, 
+				(func(_mesh_standing) -> void: if _mesh_standing: _mesh_standing.visible = false).bind(mesh_standing)
+			)
+
+func _vfx_projectile_destory(source: BaseUnit, target:BaseUnit):
+	# 受击动画（mesh_standing）
+	if target and target is BaseUnit:
+		var mesh_standing = (target as BaseUnit).get_mesh_standing()
+		if mesh_standing != null:
+			mesh_standing.visible = true
+			# 等待 0.1 秒后恢复, wait to do
+			CommonUtil.delay_execution(0.1, 
+				(func(_mesh_standing) -> void: if _mesh_standing: _mesh_standing.visible = false).bind(mesh_standing)
+			)		
+
+
+# 方法2：动态创建 Area3D 进行范围检测
+func get_units_in_range_physics_3d(center_position: Vector3, range_distance: float, target_unit_id: int) -> BaseUnit:
+	for unit in SOS.main.get_tree().get_nodes_in_group("enemy"):
+		# print(unit.global_position.distance_to(target_position))
+		if unit is BaseUnit and  unit.is_alive() and unit.get_instance_id() != target_unit_id and unit.global_position.distance_to(center_position) <= range_distance:
+			return unit
+	return null
+
 
 
 func animation_action(source: BaseUnit, target:BaseUnit):
@@ -77,5 +161,3 @@ func skill_range_damage(skill: Skill, source: BaseUnit, target_position: Vector3
 				# if target_position.x >= min_x and target_position.x <= max_x and target_position.z >= min_z and target_position.z <= max_z:
 				# 	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.ENEMY, skill.target_type) and unit.owner.player_group != source.player_group:
 				# 		unit.owner.take_damage(skill.value)
-
-

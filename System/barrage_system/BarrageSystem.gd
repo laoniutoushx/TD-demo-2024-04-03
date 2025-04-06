@@ -1,4 +1,4 @@
-class_name BarrageSystem extends Node
+class_name BarrageSystem extends Node3D
 
 var signal_dict = {}
 var projectile_scene: PackedScene
@@ -11,7 +11,9 @@ func _ready() -> void:
 # source: BaseUnit
 # target: BaseUnit
 # projection: PackedScene 投射物
-func action(source, target, projection: PackedScene):
+func action(source, target, projection: PackedScene) -> Array:
+
+	var target_unit_id: int = target.get_instance_id()
 
 	# TODO 不处理伤害，可以执行 等待，等待弹道完成后，触发
 
@@ -34,7 +36,7 @@ func action(source, target, projection: PackedScene):
 
 		var pi_ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(vfx_projectile_ins, Constants.AnimationPlayer_CLZ)
 		if pi_ap:
-			pi_ap.play("running")
+			pi_ap.play(Constants.ANIM_RUN)
 
 		source.add_child(projectile_instance) 
 
@@ -62,29 +64,11 @@ func action(source, target, projection: PackedScene):
 		var vfx_projectile_destory_pos = await signal_projectile
 		
 		
-		# 伤害追加
-		if target and target is BaseUnit and (target as BaseUnit).is_alive(): 
-			target.take_damage(source.attack_value)
 		
-		# 受击动画（mesh_standing）
-		if target and target is BaseUnit:
-			var mesh_standing = (target as BaseUnit).get_mesh_standing()
-			if mesh_standing != null:
-				mesh_standing.visible = true
-				# 等待 0.1 秒后恢复, wait to do
-				CommonUtil.delay_execution(0.1, 
-					(func(_mesh_standing) -> void: if _mesh_standing: _mesh_standing.visible = false).bind(mesh_standing)
-				)
-				
-		
-		# destory vfx create
-		var vfx_projectile_destory_ins: Node3D = (SystemUtil.vfx_system as VFXSystem).create_vfx(vfx_projectile_name, VFXSystem.VFX_TYPE.DESTORY)
-		if vfx_projectile_destory_ins:
-			vfx_projectile_destory_ins.global_position = vfx_projectile_destory_pos
-		#self.add_child(vfx_projectile_destory_ins) 	# 当前节点类型为 Node，self.add_child 可能无法正常工作
-		#print("global position: (%f, %f, %f)" % [parent_node.global_position.x, parent_node.global_position.y, parent_node.global_position.z])
-		get_parent().add_child(vfx_projectile_destory_ins)
-		self.add_user_signal(signal_name)
+
+		return [vfx_projectile_destory_pos, target_unit_id, target]
+	
+	return [null, null, null]
 
 
 

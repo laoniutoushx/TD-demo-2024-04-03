@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://b7mg147y1himx" path="res://System/barrage_system/BarrageSystem.gd" id="1_dkyyd"]
 
-[node name="BarrageSystem" type="Node"]
+[node name="BarrageSystem" type="Node3D"]
 script = ExtResource("1_dkyyd")
