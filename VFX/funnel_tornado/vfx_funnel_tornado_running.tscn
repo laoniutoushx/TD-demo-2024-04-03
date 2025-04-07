@@ -1,0 +1,87 @@
+[gd_scene load_steps=16 format=3 uid="uid://rjlc25jw3bsc"]
+
+[ext_resource type="Shader" uid="uid://26vwposf27om" path="res://VFX/funnel_tornado/vfx_funnel_tornado_running.gdshader" id="2_bnrvo"]
+[ext_resource type="Texture2D" uid="uid://x5sgfshxo4xh" path="res://Asserts/textures/vfx/蜀门特效_tlogin007_爱给网_aigei_com.png" id="3_5swh3"]
+[ext_resource type="Texture2D" uid="uid://cist5dvgeffd" path="res://addons/kenney_particle_pack/window_02.png" id="4_1j368"]
+[ext_resource type="Texture2D" uid="uid://cuhc2vr8fsvlc" path="res://addons/kenney_particle_pack/star_09.png" id="5_yhyef"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a65si"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("5_yhyef")
+use_particle_trails = true
+
+[sub_resource type="Curve" id="Curve_pgfqc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_a65si"]
+curve = SubResource("Curve_pgfqc")
+
+[sub_resource type="Gradient" id="Gradient_5qs3r"]
+offsets = PackedFloat32Array(0, 0.485477, 0.937759)
+colors = PackedColorArray(0.552941, 0.807843, 0, 1, 0.219608, 1, 0.164706, 0.862745, 0.682353, 0.454902, 0.117647, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ek0cg"]
+gradient = SubResource("Gradient_5qs3r")
+
+[sub_resource type="Curve" id="Curve_hbc6x"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 0.0296872), 0.0, 4.11433, 0, 0, Vector2(0.655431, 1.28906), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_dcckp"]
+curve = SubResource("Curve_hbc6x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dn74m"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 90, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 7.0
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+spread = 0.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 90, 0)
+radial_accel_min = -100.0
+radial_accel_max = -100.0
+tangential_accel_min = -6.0
+tangential_accel_max = 40.0
+damping_min = 10.0
+damping_max = 20.0
+color_ramp = SubResource("GradientTexture1D_ek0cg")
+alpha_curve = SubResource("CurveTexture_a65si")
+emission_curve = SubResource("CurveTexture_dcckp")
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_a65si"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mjf2x"]
+render_priority = 0
+shader = ExtResource("2_bnrvo")
+shader_parameter/noise_texture = ExtResource("3_5swh3")
+shader_parameter/skybox_texture = ExtResource("4_1j368")
+shader_parameter/time = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_kpyi0"]
+material = SubResource("ShaderMaterial_mjf2x")
+size = Vector2(100, 100)
+
+[node name="Tornado" type="Node3D"]
+
+[node name="WindTrail" type="GPUParticles3D" parent="."]
+visible = false
+material_override = SubResource("StandardMaterial3D_a65si")
+amount = 100
+lifetime = 3.0
+fixed_fps = 60
+local_coords = true
+trail_enabled = true
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_dn74m")
+draw_pass_1 = SubResource("RibbonTrailMesh_a65si")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_kpyi0")

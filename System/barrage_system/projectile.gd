@@ -55,6 +55,10 @@ func _physics_process(delta: float) -> void:
 		if remaining_distance < 1:
 			set_process(false)
 			finished.emit()
+	
+	else:
+		
+		finished.emit()
 
 
 # 时间
