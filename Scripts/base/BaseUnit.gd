@@ -66,7 +66,7 @@ var attack_range : float
 var attack_num : int
 var attack_value: float	# 
 @export var bounce_times: int = 0	# 弹射次数
-@export var bounce_distance: int = 5	# 弹射距离
+@export var bounce_distance: int = 20	# 弹射距离
 @export var bounce_decay_factor: float = 0.3	# 衰减因子
 var unit_growth_factor: float = 1.0     # 单位成长率
 var projectile_speed: float:	# 弹道速率

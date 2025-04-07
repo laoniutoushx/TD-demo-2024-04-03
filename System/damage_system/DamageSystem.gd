@@ -17,9 +17,11 @@ func action(source: BaseUnit, target:BaseUnit):
 	
 	# 1. AnimationPlayer => 动画回复点
 	animation_action(source, target)
+
+	var fire_pos: Vector3 = CommonUtil.get_fire_pos(source)
 	
 	# 1. 弹幕系统（源、目标
-	var bs = await (SystemUtil.barrage_system as BarrageSystem).action(source, target, null)
+	var bs = await (SystemUtil.barrage_system as BarrageSystem).action(source, fire_pos, target, null)
 
 
 	# 伤害追加
@@ -27,48 +29,52 @@ func action(source: BaseUnit, target:BaseUnit):
 		target.take_damage(source.attack_value)
 	
 	# 受击动画（mesh_standing）
-	_under_attack_anim(source, target)
+	_under_attack_anim(target)
 	
 	# destory vfx create
-	_vfx_projectile_destory(source, target)
+	_vfx_projectile_destory(target)
 
 	var dest_pos: Vector3 = bs[0]
 	var target_unit_id = bs[1]
 	target = bs[2]
 
 
-	# 2. 弹幕弹跳逻辑
+	# # 2. 弹幕弹跳逻辑
 	for bt in range(source.bounce_times):
 
-		# 2.1 获取弹跳目标	
-		var selected_unit = get_units_in_range_physics_3d(dest_pos, source.bounce_distance, target_unit_id)
+		if target_unit_id:
 
-		if selected_unit:
-			await (SystemUtil.barrage_system as BarrageSystem).action(target, selected_unit, null)
+			# 2.1 获取下一个弹跳目标	
+			var selected_unit = get_units_in_range_physics_3d(dest_pos, source.bounce_distance, target_unit_id)
 
-			# 1. AnimationPlayer => 动画回复点
-		animation_action(source, target)
-		
-		# 1. 弹幕系统（源、目标
-		bs = await (SystemUtil.barrage_system as BarrageSystem).action(source, target, null)
+			if selected_unit:
+				fire_pos = Vector3(target.global_position.x, target._height / 2, target.global_position.z)
+
+				bs = await (SystemUtil.barrage_system as BarrageSystem).action(source, fire_pos, selected_unit, null)
+
+				target = selected_unit
+
+				print("bounce target: %s" % target.get_instance_id())
+				print("到达目标")
+				
+				# 伤害追加
+				if selected_unit and target is BaseUnit and (target as BaseUnit).is_alive(): 
+					target.take_damage(source.attack_value)
+				
+				# 受击动画（mesh_standing）
+				_under_attack_anim(target)
+				
+				# destory vfx create
+				_vfx_projectile_destory(target)
+
+				dest_pos = bs[0]
+				target_unit_id = bs[1]
+				target = bs[2]
+			else:
+				break
 
 
-		# 伤害追加
-		if target and target is BaseUnit and (target as BaseUnit).is_alive(): 
-			target.take_damage(source.attack_value)
-		
-		# 受击动画（mesh_standing）
-		_under_attack_anim(source, target)
-		
-		# destory vfx create
-		_vfx_projectile_destory(source, target)
-
-		dest_pos = bs[0]
-		target_unit_id = bs[1]
-		target = bs[2]
-
-
-func _under_attack_anim(source: BaseUnit, target:BaseUnit):
+func _under_attack_anim(target:BaseUnit):
 	# 受击动画（mesh_standing）
 	if target and target is BaseUnit:
 		var mesh_standing = (target as BaseUnit).get_mesh_standing()
@@ -79,7 +85,7 @@ func _under_attack_anim(source: BaseUnit, target:BaseUnit):
 				(func(_mesh_standing) -> void: if _mesh_standing: _mesh_standing.visible = false).bind(mesh_standing)
 			)
 
-func _vfx_projectile_destory(source: BaseUnit, target:BaseUnit):
+func _vfx_projectile_destory(target:BaseUnit):
 	# 受击动画（mesh_standing）
 	if target and target is BaseUnit:
 		var mesh_standing = (target as BaseUnit).get_mesh_standing()

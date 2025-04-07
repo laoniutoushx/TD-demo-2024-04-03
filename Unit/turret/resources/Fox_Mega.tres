@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=10 format=3 uid="uid://b6shk3h11o5m7"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=9 format=3 uid="uid://b6shk3h11o5m7"]
 
 [ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="1_ajjne"]
 [ext_resource type="PackedScene" uid="uid://bn6y16r1niwsj" path="res://Unit/turret/scenes/Fox_Mega.tscn" id="2_ajjne"]
@@ -8,7 +8,6 @@
 [ext_resource type="Resource" uid="uid://diaspe5frotvq" path="res://System/skill_system/resources/damage/scream_wave.tres" id="6_awc7n"]
 [ext_resource type="Resource" uid="uid://bkogy56g0o3iq" path="res://System/skill_system/resources/damage/tornado_fox.tres" id="7_veaei"]
 [ext_resource type="Resource" uid="uid://dvxj0t85d6tcp" path="res://System/skill_system/resources/effect/mult_attack.tres" id="8_gob0w"]
-[ext_resource type="Resource" uid="uid://dxomy0eusald8" path="res://System/skill_system/resources/effect/bounce_attack.tres" id="9_hsk25"]
 
 [resource]
 script = ExtResource("3_gob0w")
@@ -54,4 +53,4 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_ajjne")]([])
-skill_metas = Array[ExtResource("4_hsk25")]([ExtResource("5_7kb3l"), ExtResource("6_awc7n"), ExtResource("7_veaei"), ExtResource("8_gob0w"), ExtResource("9_hsk25")])
+skill_metas = Array[ExtResource("4_hsk25")]([ExtResource("5_7kb3l"), ExtResource("6_awc7n"), ExtResource("7_veaei"), ExtResource("8_gob0w")])

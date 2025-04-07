@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=7 format=3 uid="uid://bil715vnpxxw"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=8 format=3 uid="uid://bil715vnpxxw"]
 
 [ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="1_lbysp"]
 [ext_resource type="PackedScene" uid="uid://cueiau552hmu4" path="res://Unit/turret/scenes/Queen.tscn" id="2_lvcig"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_pjjkk"]
 [ext_resource type="Resource" uid="uid://dwnfgrc4fqpjv" path="res://System/skill_system/resources/damage/scream_pain.tres" id="5_hbqc1"]
 [ext_resource type="Resource" uid="uid://diaspe5frotvq" path="res://System/skill_system/resources/damage/scream_wave.tres" id="6_02lla"]
+[ext_resource type="Resource" uid="uid://dxomy0eusald8" path="res://System/skill_system/resources/effect/bounce_attack.tres" id="7_81r1c"]
 
 [resource]
 script = ExtResource("3_r62vt")
@@ -29,10 +30,13 @@ money_cost = 10.0
 max_health = 10000.0
 move_speed = 5.0
 turn_speed = 10.0
-attack_speed = 0.5
+attack_speed = 0.3
 attack_range = 20.0
 attack_num = 1
-attack_value = 20.0
+bounce_times = 0
+bounce_distance = 200
+bounce_decay_factor = 0.3
+attack_value = 25.0
 unit_growth_factor = 1.0
 projectile_speed = 300.0
 vfx_projectile_name = "asif20_kunai_knife"
@@ -48,4 +52,4 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_lbysp")]([])
-skill_metas = Array[ExtResource("4_pjjkk")]([ExtResource("5_hbqc1"), ExtResource("6_02lla")])
+skill_metas = Array[ExtResource("4_pjjkk")]([ExtResource("5_hbqc1"), ExtResource("6_02lla"), ExtResource("7_81r1c")])

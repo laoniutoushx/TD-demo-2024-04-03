@@ -1,7 +1,7 @@
 extends Node3D
 
-var source: Node
-var target: Node
+var source: Node3D
+var target: Node3D
 var fire_pos: Vector3
 var lerp_pos: float = 0
 # 弧度参数，控制弹道弧度大小

@@ -55,7 +55,7 @@ enum ELEMENT_PHASE_STR{
 @export var attack_range : float
 @export var attack_num : int = 1
 @export var bounce_times: int = 0	# 弹射次数
-@export var bounce_distance: int = 5	# 弹射距离
+@export var bounce_distance: int = 20	# 弹射距离
 @export var bounce_decay_factor: float = 0.3	# 衰减因子
 
 @export var attack_value: float	# 伤害值
