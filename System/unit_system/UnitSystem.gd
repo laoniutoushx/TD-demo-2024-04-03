@@ -43,7 +43,8 @@ func get_units_in_range(source_unit: BaseUnit, range: float, unit_type: BaseUnit
 	# print("chain chain chain")
 	if unit_type == BaseUnit.ARMOR_TYPE_ENUM.ENEMY:
 		for unit in units_within_range:
-			if unit and unit.owner and unit.owner is BaseUnit and SOS.main.player_controller.player_group_idx != unit.owner.player_group:
+			# if unit and unit.owner and unit.owner is BaseUnit and SOS.main.player_controller.player_group_idx != unit.owner.player_group:
+			if unit and SOS.main.player_controller.player_group_idx != unit.player_group:
 				units.append(unit.owner)
 				# print(unit.owner.clz_code)
 
