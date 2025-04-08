@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=4 format=3 uid="uid://ckmaah6xpf36c"]
+
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_0357b"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="2_jcbbt"]
+[ext_resource type="Script" uid="uid://bbl7eh5f6qlhu" path="res://System/skill_system/resources/damage/tornado_fox_i.gd" id="3_0357b"]
+
+[resource]
+script = ExtResource("1_0357b")
+code = "tornado_fox_i"
+title = "白风"
+desc = "白风"
+icon_path = "335"
+level = 1
+level_up_gap = 1
+max_level = 3
+init_release = false
+auto_release = false
+cooldown = 1.0
+mana_cost = 10.0
+wood_cost = 10.0
+money_cost = 10.0
+damage_range = 5.0
+match_range = 30.0
+range = 30.0
+release_distance = 20.0
+stock = 1
+value = 5.0
+run_distance = 10.0
+epoch = 1
+init_num = 1
+internal_time = 0.3
+start_time = 0.0
+end_time = 0.0
+wave = 20
+projection_speed = 1.0
+release_type = 4
+target_type = 32
+effect_type = 1
+skill_script = ExtResource("3_0357b")
+skill_level_config = Array[ExtResource("1_0357b")]([])
+skill_buff_config = Array[ExtResource("2_jcbbt")]([])

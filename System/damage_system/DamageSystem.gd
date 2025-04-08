@@ -97,7 +97,7 @@ func _vfx_projectile_destory(target:BaseUnit):
 			)		
 
 
-# 方法2：动态创建 Area3D 进行范围检测
+# 方法1：距离计算
 func get_units_in_range_physics_3d(center_position: Vector3, range_distance: float, target_unit_id: int) -> BaseUnit:
 	for unit in SOS.main.get_tree().get_nodes_in_group("enemy"):
 		# print(unit.global_position.distance_to(target_position))

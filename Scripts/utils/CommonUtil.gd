@@ -439,3 +439,5 @@ static func _recursive_find_nodes_by_meta(node: Node, meta_key: String) -> Array
 	for child in node.get_children():
 		result += _recursive_find_nodes_by_meta(child, meta_key)
 	return result			
+
+

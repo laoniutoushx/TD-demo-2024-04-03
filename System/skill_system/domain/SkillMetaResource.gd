@@ -61,6 +61,9 @@ class_name SkillMetaResource extends Resource
 @export var value: float = 0.0
 # 技能运行距离（方向性技能）
 @export var run_distance: float = 10.0
+# 技能轮次（技能施法次数，触发多少次）
+@export var epoch: int = 1
+
 
 
 
@@ -74,7 +77,7 @@ class_name SkillMetaResource extends Resource
 @export var start_time: float = 0.1
 # 施法后摇
 @export var end_time: float = 0.1
-# 技能轮次
+# 技能轮次（内部频次控制）
 @export var wave: int = 1
 # 技能投射速度 米/秒
 @export var projection_speed: float = 1
