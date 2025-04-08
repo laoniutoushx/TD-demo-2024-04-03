@@ -43,13 +43,13 @@ class InnerHandler extends Node3D:
 	var vfxs: Array[Node3D]
 
 
-	func _init(skill_context: SkillContext, matched_units) -> void:
+	func _init(skill_context: SkillContext, _matched_units) -> void:
 		self.skill_context = skill_context
 		skill = skill_context.skill
 		source_unit = skill_context.source
 		target_unit = skill_context.target
 
-		matched_units = matched_units
+		matched_units = _matched_units
 
 
 
