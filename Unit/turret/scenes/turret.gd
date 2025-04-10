@@ -19,12 +19,16 @@ enum TurretState {
 }
 var pre_state: TurretState
 var current_state: TurretState
+var ap: AnimationPlayer
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
 	current_state = TurretState.BUILDING
+
+	# animation play
+	ap = CommonUtil.get_first_node_by_node_type(self, Constants.AnimationPlayer_CLZ)
 	
 
 
@@ -37,6 +41,10 @@ func _physics_process(delta: float) -> void:
 
 
 		TurretState.IDLE:
+			# animation play
+			if ap != null and ap.has_animation(anim_idle):
+				ap.play(anim_idle)
+
 			if enemies.size() > 0:
 				if current_enemy == null:
 					current_enemy = enemies.values()[0]
