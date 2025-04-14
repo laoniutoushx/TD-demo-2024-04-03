@@ -6,6 +6,8 @@ class_name ActionBar extends Control
 @onready var selection_bar: GridContainer = %SelectionBar
 @onready var buff_bar: GridContainer = %BuffBar
 
+@onready var progress_util_bar: ProgressUtilBar = %ProgressUtilBar
+
 
 @export var slot: PackedScene
 

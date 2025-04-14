@@ -36,6 +36,7 @@ projection_speed = 15.0
 release_type = 4
 target_type = 34
 effect_type = 1
+building_level_up_time = -1.0
 skill_script = ExtResource("3_vrrtd")
 skill_level_config = Array[ExtResource("1_vrrtd")]([])
 skill_buff_config = Array[ExtResource("2_lrgan")]([])

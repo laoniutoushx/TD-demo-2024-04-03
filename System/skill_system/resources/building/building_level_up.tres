@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=4 format=3 uid="uid://b55nxh8s0ih7"]
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=5 format=3 uid="uid://b55nxh8s0ih7"]
 
+[ext_resource type="Resource" uid="uid://b6shk3h11o5m7" path="res://Unit/turret/resources/Fox_Mega.tres" id="1_lohc3"]
 [ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="3_8qau1"]
 [ext_resource type="Script" uid="uid://d16rx3mg1e028" path="res://System/skill_system/resources/building/building_level_up.gd" id="4_lohc3"]
 [ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="4_oxtdv"]
@@ -36,6 +37,8 @@ projection_speed = 1.0
 release_type = 2
 target_type = 8
 effect_type = 4
+building_res = ExtResource("1_lohc3")
+building_level_up_time = 5.0
 skill_script = ExtResource("4_lohc3")
 skill_level_config = Array[ExtResource("3_8qau1")]([])
 skill_buff_config = Array[ExtResource("4_oxtdv")]([])

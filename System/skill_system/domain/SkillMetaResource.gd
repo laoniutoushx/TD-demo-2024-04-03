@@ -129,15 +129,21 @@ enum SKILL_EFFECT_TYPE{
 @export_flags("DAMAGE","HEAL","BUILDING","BUFF","DEBUFF") var effect_type: int = 1	# 0: 伤害, 1: 治愈, 2: 建筑，3：buff，4：debuff
 
 
-
-# Skill Script Template( ClassDB )
-@export var skill_script: Script
-
+# 建筑变量
+@export_group("Skill Build Steup")
 
 # Building
 @export var building_scene: PackedScene
 @export var building_res: BaseUnitResource
 
+# 建筑升级时间
+@export var building_level_up_time: float = -1
+
+
+# 其他配置
+@export_group("Skill Other Steup")
+# Skill Script Template( ClassDB )
+@export var skill_script: Script
 
 # skill level config
 @export var skill_level_config: Array[SkillMetaResource] = []

@@ -12,17 +12,23 @@ static func await_get_root_node() -> Node:
 
 
 
-static func await_timer(second):
+static func await_timer(second, callback = func(): pass) -> void:
 	if second is float or second is int:
 		second = float(second)
 		if second > 0:
 			var timer = Timer.new()
 			timer.one_shot = true
+
+
 			var root = await_get_root_node()
 			root.add_child(timer)
 			timer.start(second)
 			await timer.timeout
-			root.remove_child(timer)
+
+			# 回调
+			callback.call()
+
+			# 释放计时器
 			timer.queue_free()
 
 
@@ -349,23 +355,34 @@ static func get_component_by_name(reference: Node, name: String) -> Variant:
 
 
 
-# 自定义计时器
-static func create_timer(wait_time: float) -> Cimer:
-	return Cimer.new(wait_time)
+##  自定义计时器 Cimer
+# 
+static func create_timer(wait_time: float, callback: Callable = func(): pass, flag: int = CONNECT_ONE_SHOT) -> Cimer:
+	return Cimer.new(wait_time, callback, flag)
 
-
+# 可以延长时间的计时器（自定义）
 class Cimer extends Node:
 	var wait_time: float
 	var time_left: float
+	var callback: Callable
+	var flag: int
 
 	signal timeout
 
-	func _init(_wait_time: float) -> void:
+	func _init(_wait_time: float, callback: Callable, flag: int) -> void:
 		self.wait_time = _wait_time
 		self.time_left = _wait_time
+		self.callback = callback
+		self.flag = flag
+		
+
 
 	func _ready() -> void:
 		set_process(false)
+
+
+	func bind_callback(callback: Callable) -> void:
+		self.callback = callback
 
 	
 	func start() -> void:
@@ -384,12 +401,26 @@ class Cimer extends Node:
 	func _process(delta: float) -> void:
 		if time_left > 0:
 			time_left -= delta
+
+			if flag == CONNECT_PERSIST:
+				self.callback.call()
+
+
 		else:
 			timeout.emit()
 			set_process(false)
 
+			callback.call()
+
 			await CommonUtil.await_timer(2)
 			queue_free()
+
+# await cimer
+static func await_cimer(wait_time: float, callback: Callable = func(): pass, flag: int = CONNECT_ONE_SHOT) -> void:
+	var cimer = create_timer(wait_time, callback, flag)
+	cimer.start()
+
+	await cimer.timeout
 
 
 

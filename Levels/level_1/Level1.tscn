@@ -1,5 +1,6 @@
-[gd_scene load_steps=36 format=3 uid="uid://bxibobasihqmy"]
+[gd_scene load_steps=37 format=3 uid="uid://bxibobasihqmy"]
 
+[ext_resource type="Script" uid="uid://jiitdpiccclv" path="res://Levels/level_1/level.gd" id="1_chftm"]
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_elhju"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_umiea"]
 [ext_resource type="MeshLibrary" uid="uid://b6ioecdsupr03" path="res://MeshLibraries/SpaceLibrary.tres" id="2_cynf3"]
@@ -8,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cym641yvamusq" path="res://Unit/home/base.tscn" id="3_epmlt"]
 [ext_resource type="Script" uid="uid://bcxq7ivuxy3up" path="res://addons/zylann.hterrain/hterrain.gd" id="3_gvb4y"]
 [ext_resource type="Texture2D" uid="uid://ck1gvidor42pp" path="res://Asserts/Images/background/rogland_clear_night_4k.exr" id="3_ot2kt"]
-[ext_resource type="Resource" uid="uid://d07kpuyhw4vhh" path="res://Asserts/h_terrain_data/data.hterrain" id="4_ivp0y"]
+[ext_resource type="Resource" path="res://Asserts/h_terrain_data/data.hterrain" id="4_ivp0y"]
 [ext_resource type="Script" uid="uid://dqh2rt0fn1vli" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="5_xcclr"]
 [ext_resource type="Texture2D" uid="uid://d3p06pydk5kwn" path="res://Asserts/materials/PavingStones131_2K-JPG/Level1_slot0_albedo_bump.png" id="6_f3yss"]
 [ext_resource type="Texture2D" uid="uid://crlqhhh1vd1hf" path="res://Asserts/materials/PavingStones131_2K-JPG/Level1_slot0_normal_roughness.png" id="7_5b0jq"]
@@ -76,6 +77,7 @@ normal_texture = ExtResource("11_ixhyk")
 uv1_scale = Vector3(0.1, 5, 1)
 
 [node name="BaseLevel" type="Node3D"]
+script = ExtResource("1_chftm")
 
 [node name="UI" parent="." instance=ExtResource("10_i7dqg")]
 
@@ -110,8 +112,8 @@ shader_params/u_ground_uv_scale_per_texture = Vector4(20, 20, 20, 20)
 shader_params/u_depth_blending = true
 shader_params/u_triplanar = false
 shader_params/u_tile_reduction = Vector4(0, 0, 0, 0)
-shader_params/u_globalmap_blend_start = null
-shader_params/u_globalmap_blend_distance = null
+shader_params/u_globalmap_blend_start = 0.0
+shader_params/u_globalmap_blend_distance = 0.0
 shader_params/u_colormap_opacity_per_texture = Vector4(1, 1, 1, 1)
 shader_params/u_specular = 0.5
 
@@ -139,7 +141,6 @@ unique_name_in_owner = true
 curve = SubResource("Curve3D_g10yy")
 
 [node name="Road" type="CSGPolygon3D" parent="Path3D"]
-snap = 1e-06
 polygon = PackedVector2Array(-3, 0, -2, 0.1, 2, 0.1, 2, 0)
 mode = 2
 path_node = NodePath("..")
@@ -147,6 +148,7 @@ path_interval_type = 0
 path_interval = 1.0
 path_simplify_angle = 0.0
 path_rotation = 2
+path_rotation_accurate = false
 path_local = false
 path_continuous_u = true
 path_u_distance = 1.0
@@ -154,7 +156,6 @@ path_joined = false
 material = SubResource("StandardMaterial3D_rcpim")
 
 [node name="LeftShoulder" type="CSGPolygon3D" parent="Path3D"]
-snap = 1e-06
 polygon = PackedVector2Array(-3, 0, -3, 0.5, -2, 0.5, -2, 0)
 mode = 2
 path_node = NodePath("..")
@@ -162,6 +163,7 @@ path_interval_type = 0
 path_interval = 1.0
 path_simplify_angle = 0.0
 path_rotation = 2
+path_rotation_accurate = false
 path_local = false
 path_continuous_u = true
 path_u_distance = 1.0
@@ -169,7 +171,6 @@ path_joined = false
 material = SubResource("StandardMaterial3D_rcpim")
 
 [node name="RightShoulder" type="CSGPolygon3D" parent="Path3D"]
-snap = 1e-06
 polygon = PackedVector2Array(3, 0, 3, 0.5, 2, 0.5, 2, 0)
 mode = 2
 path_node = NodePath("..")
@@ -177,6 +178,7 @@ path_interval_type = 0
 path_interval = 1.0
 path_simplify_angle = 0.0
 path_rotation = 2
+path_rotation_accurate = false
 path_local = false
 path_continuous_u = true
 path_u_distance = 1.0

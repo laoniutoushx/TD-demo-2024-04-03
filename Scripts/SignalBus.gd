@@ -34,6 +34,8 @@ signal building_floor_indicator_hide(skill_context: SkillContext)   # 建筑技�
 
 signal skill_auto_release(is_auto_release: bool, skill_context: SkillContext)
 
+signal skill_level_up(skill_context: SkillContext)   # 技能升级开始
+
 
 
 # Buff

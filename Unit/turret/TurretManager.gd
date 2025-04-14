@@ -151,8 +151,8 @@ func _create_cell_mesh_indicator_in_position(grid_map, cell_position: Vector3) -
 	var m = load("res://Test/glow shader test 2/plane_edge_trans.tres")
 	cellmesh_instance.material_override = m
 	# cellmesh_instance.global_transform.origin = cell_position
-	cellmesh_instance.global_position = cell_position
 	add_child(cellmesh_instance)
+	cellmesh_instance.global_position = cell_position
 	return cellmesh_instance
 
 

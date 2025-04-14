@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0e53xq6hi3gr"
-path.s3tc="res://.godot/imported/Alpaking_Evolved_Atlas_Monsters.png-f4c71f8b550a543920a17770ac5c6666.s3tc.ctex"
+uid="uid://2b8cglje1pnj"
+path.s3tc="res://.godot/imported/Cactoro_Atlas_Monsters.png-5a73820bc92feff979654136024b0f54.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "054bb17e36fa3a9e47edd4dba127caf0"
+}
 
 [deps]
 
-source_file="res://Asserts/Models/ulimate monster/glTF/Alpaking_Evolved_Atlas_Monsters.png"
-dest_files=["res://.godot/imported/Alpaking_Evolved_Atlas_Monsters.png-f4c71f8b550a543920a17770ac5c6666.s3tc.ctex"]
+source_file="res://Asserts/Models/ulimate monster/glTF/Cactoro_Atlas_Monsters.png"
+dest_files=["res://.godot/imported/Cactoro_Atlas_Monsters.png-5a73820bc92feff979654136024b0f54.s3tc.ctex"]
 
 [params]
 

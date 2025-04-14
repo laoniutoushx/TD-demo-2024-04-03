@@ -36,10 +36,10 @@ void vertex() {
         cos(twist) * xz.x - sin(twist) * xz.y,
         sin(twist) * xz.x + cos(twist) * xz.y
     );
-    
+
     VERTEX.xz = rotated_xz;
     VERTEX.y += height_displacement;
-    
+
     UV = UV * uv1_scale.xy + uv1_offset.xy;
 }
 

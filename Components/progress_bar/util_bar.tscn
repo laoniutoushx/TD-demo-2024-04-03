@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://xmbtyfxey1y4"]
+
+[ext_resource type="Script" uid="uid://qpm3vq86nyth" path="res://Components/progress_bar/util_bar.gd" id="1_676y6"]
+[ext_resource type="Texture2D" uid="uid://cms66t6k1afxg" path="res://Components/progress_bar/tiao (15).png" id="1_oy2i3"]
+[ext_resource type="Texture2D" uid="uid://dhplu1tw5bluw" path="res://Components/progress_bar/tiao (16).png" id="2_676y6"]
+
+[node name="UtilBar" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_676y6")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Bar" type="TextureProgressBar" parent="CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 10.0
+step = 0.01
+value = 1.76
+texture_over = ExtResource("1_oy2i3")
+texture_progress = ExtResource("2_676y6")
+texture_progress_offset = Vector2(2.535, 4.445)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BarText" type="RichTextLabel" parent="MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+text = "升级中 {0}%"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1

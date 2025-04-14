@@ -63,6 +63,7 @@ projection_speed = 1.0
 release_type = 2
 target_type = 38
 effect_type = 16
+building_level_up_time = -1.0
 skill_script = ExtResource("3_5xmgm")
 skill_level_config = Array[ExtResource("1_uq73k")]([])
 skill_buff_config = Array[ExtResource("2_knc3n")]([SubResource("Resource_12f74")])
