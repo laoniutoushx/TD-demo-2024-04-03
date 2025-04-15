@@ -407,11 +407,11 @@ class Cimer extends Node:
 
 
 		else:
-			timeout.emit()
 			set_process(false)
-
 			callback.call()
-
+			timeout.emit()
+			
+			# 延迟释放
 			await CommonUtil.await_timer(2)
 			queue_free()
 

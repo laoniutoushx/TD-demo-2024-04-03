@@ -15,7 +15,7 @@ var acquire_slerp_progress:float = 0
 
 # state   idle（呆滞状态）
 enum TurretState {
-	BUILDING, IDLE, AIMMING, ATTACK, ATTACK_INTERVAL, AIMMING_WAITING
+	BUILDING, IDLE, AIMMING, ATTACK, ATTACK_INTERVAL, AIMMING_WAITING, FREEZEING
 }
 var pre_state: TurretState
 var current_state: TurretState
@@ -117,6 +117,9 @@ func _physics_process(delta: float) -> void:
 				else:
 					if enemies.size() > 0:
 						current_enemy = enemies.values()[0]
+
+		TurretState.FREEZEING:	# 冻结
+			set_physics_process(false)
 				
 
 

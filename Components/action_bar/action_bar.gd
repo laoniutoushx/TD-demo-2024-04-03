@@ -42,6 +42,9 @@ func _ready() -> void:
 	add_child(item_bar_comp)
 	add_child(skill_bar_comp)
 	add_child(buff_bar_comp)
+
+	# progress_util_bar
+	progress_util_bar.action_bar = self
 	
 
 func register_active(cale: Callable):
@@ -100,6 +103,8 @@ func _on_player_select_units(unit_map: Dictionary, mouse_pos: Vector3, on_select
 			open_item_bar(unit_map)
 			# item bar
 			open_buff_bar(unit_map)
+			# progress bar
+			progress_util_bar.close()
 		
 
 func _on_unit_logic_death(id:int, unit :BaseUnit):

@@ -361,6 +361,12 @@ func take_damage(damage: float) -> bool:
 	
 	return _is_logic_alive
 
+# 立即逻辑死亡
+func do_logical_death() -> void:
+	_is_logic_alive = false
+	logical_death.emit(self)
+	SignalBus.unit_logic_death.emit(get_instance_id(), self)
+
 
 # heal unit health
 func heal(amount: int):

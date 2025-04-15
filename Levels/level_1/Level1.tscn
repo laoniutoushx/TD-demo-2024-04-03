@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cym641yvamusq" path="res://Unit/home/base.tscn" id="3_epmlt"]
 [ext_resource type="Script" uid="uid://bcxq7ivuxy3up" path="res://addons/zylann.hterrain/hterrain.gd" id="3_gvb4y"]
 [ext_resource type="Texture2D" uid="uid://ck1gvidor42pp" path="res://Asserts/Images/background/rogland_clear_night_4k.exr" id="3_ot2kt"]
-[ext_resource type="Resource" path="res://Asserts/h_terrain_data/data.hterrain" id="4_ivp0y"]
+[ext_resource type="Resource" uid="uid://d07kpuyhw4vhh" path="res://Asserts/h_terrain_data/data.hterrain" id="4_ivp0y"]
 [ext_resource type="Script" uid="uid://dqh2rt0fn1vli" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="5_xcclr"]
 [ext_resource type="Texture2D" uid="uid://d3p06pydk5kwn" path="res://Asserts/materials/PavingStones131_2K-JPG/Level1_slot0_albedo_bump.png" id="6_f3yss"]
 [ext_resource type="Texture2D" uid="uid://crlqhhh1vd1hf" path="res://Asserts/materials/PavingStones131_2K-JPG/Level1_slot0_normal_roughness.png" id="7_5b0jq"]
