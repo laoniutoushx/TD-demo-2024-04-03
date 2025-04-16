@@ -1,0 +1,118 @@
+[gd_scene load_steps=13 format=4 uid="uid://iyqmvshf8qap"]
+
+[ext_resource type="Texture2D" uid="uid://c43w5cvbq3wk2" path="res://addons/kenney_particle_pack/trace_01.png" id="1_2buyb"]
+[ext_resource type="Texture2D" uid="uid://dcpg4vixijri3" path="res://Asserts/textures/vfx/蜀门特效_tlogin006_爱给网_aigei_com.png" id="2_3gjyp"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j0de0"]
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bkytb"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+disable_fog = true
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.383955, 0.352564, 1)
+albedo_texture = ExtResource("1_2buyb")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_eeer4"]
+material = SubResource("StandardMaterial3D_bkytb")
+size = Vector2(5, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_urp7m"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+disable_fog = true
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.414485, 0.36565, 1)
+albedo_texture = ExtResource("2_3gjyp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3gjyp"]
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_sk5ly"]
+_surfaces = [{
+"aabb": AABB(-0.569974, -0.003821, -0.569974, 1.13995, 2, 1.13995),
+"format": 34896613377,
+"index_count": 192,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAAAEAAEAAgADAAUABgAEAAAABQADAAcABgAIAAQABQAHAAkACgAIAAYACQAHAAsACgAMAAgACQALAA0ADgAMAAoADQALAA8ADgAQAAwADQAPABEAEgAQAA4AEQAPABMAEgAUABAAEQATABUAFgAUABIAFQATABcAFgAYABQAFQAXABkAGgAYABYAGQAXABsAGgAcABgAGQAbAB0AHgAcABoAHQAbAB8AHgAgABwAHQAfACEAIgAgAB4AIQAfACMAIgAkACAAIQAjACUAJgAkACIAJQAjACcAJgAoACQAJQAnACkAKgAoACYAKQAnACsAKgAsACgAKQArAC0ALgAsACoALQArAC8ALgAwACwALQAvADEAMgAwAC4AMQAvADMAMgA0ADAAMQAzADUANgA0ADIANQAzADcANgA4ADQANQA3ADkAOgA4ADYAOQA3ADsAOgA8ADgAOQA7AD0APgA8ADoAPQA7AD8APgA/ADwAPQA/AD4A"),
+"name": "Cylinder",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 64,
+"vertex_data": PackedByteArray("/3///wAAAAD/fwAAAAAAAPiY//91AgAA+JgAAHUCAAAGZwAAdQIAAPuw//++CQAABmf//3UCAAD7sAAAvgkAAANPAAC+CQAAHMf//5IVAAADT///vgkAABzHAACSFQAA4jgAAJIVAACB2v//fSUAAOI4//+SFQAAgdoAAH0lAAB9JQAAfSUAAGzq///iOAAAfSX//30lAABs6gAA4jgAAJIVAADiOAAAQPb//wNPAACSFf//4jgAAED2AAADTwAAvgkAAANPAACJ/f//BmcAAL4J//8DTwAAif0AAAZnAAB1AgAABmcAAP//////fwAAdQL//wZnAAD//wAA/38AAAAAAAD/fwAAif3///iYAAAAAP///38AAIn9AAD4mAAAdQIAAPiYAABA9v//+7AAAHUC///4mAAAQPYAAPuwAAC+CQAA+7AAAGzq//8cxwAAvgn///uwAABs6gAAHMcAAJIVAAAcxwAAgdr//4HaAACSFf//HMcAAIHaAACB2gAAfSUAAIHaAAAcx///bOoAAH0l//+B2gAAHMcAAGzqAADiOAAAbOoAAPuw//9A9gAA4jj//2zqAAD7sAAAQPYAAANPAABA9gAA+Jj//4n9AAADT///QPYAAPiYAACJ/QAABmcAAIn9AAD/f/////8AAAZn//+J/QAA/38AAP//AAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_j0de0"]
+_surfaces = [{
+"aabb": AABB(-0.569974, -0.003821, -0.569974, 1.13995, 2, 1.13995),
+"attribute_data": PackedByteArray("//8AAP//////9wAA//f////vAAD/7////+cAAP/n////3wAA/9/////XAAD/1////88AAP/P////xwAA/8f///+/AAD/v////7cAAP+3////rwAA/6////+nAAD/p////58AAP+f////lwAA/5f///+PAAD/j////4cAAP+H////fwAA/3////93AAD/d////28AAP9v////ZwAA/2f///9fAAD/X////1cAAP9X////TwAA/0////9HAAD/R////z8AAP8/////NwAA/zf///8vAAD/L////ycAAP8n////HwAA/x////8XAAD/F////w8AAP8P////BwAA/wf//wAAAAAAAP//"),
+"format": 34896613399,
+"index_count": 192,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAgADAAQABAADAAUABAAFAAYABgAFAAcABgAHAAgACAAHAAkACAAJAAoACgAJAAsACgALAAwADAALAA0ADAANAA4ADgANAA8ADgAPABAAEAAPABEAEAARABIAEgARABMAEgATABQAFAATABUAFAAVABYAFgAVABcAFgAXABgAGAAXABkAGAAZABoAGgAZABsAGgAbABwAHAAbAB0AHAAdAB4AHgAdAB8AHgAfACAAIAAfACEAIAAhACIAIgAhACMAIgAjACQAJAAjACUAJAAlACYAJgAlACcAJgAnACgAKAAnACkAKAApACoAKgApACsAKgArACwALAArAC0ALAAtAC4ALgAtAC8ALgAvADAAMAAvADEAMAAxADIAMgAxADMAMgAzADQANAAzADUANAA1ADYANgA1ADcANgA3ADgAOAA3ADkAOAA5ADoAOgA5ADsAOgA7ADwAPAA7AD0APAA9AD4APgA9AD8APgA/AEAAQAA/AEEA"),
+"name": "Cylinder",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 66,
+"vertex_data": PackedByteArray("/3///wAA////fwAAAAD///iY//91Av73+JgAAHUC/vf7sP//vgn+7/uwAAC+Cf7vHMf//5IV/+ccxwAAkhX/54Ha//99Jf/fgdoAAH0l/99s6v//4jj/12zqAADiOP/XQPb//wNP/89A9gAAA0//z4n9//8GZ//Hif0AAAZn/8f//////3//v///AAD/f/+/if3///iY/7eJ/QAA+Jj/t0D2///7sP+vQPYAAPuw/69s6v//HMf/p2zqAAAcx/+ngdr//4Ha/5+B2gAAgdr/nxzH//9s6v+XHMcAAGzq/5f7sP//QPb/j/uwAABA9v+P+Jj//4n9/4f4mAAAif3/h/9//////wCA/38AAP//AIAGZ///if3/hwZnAACJ/f+HA0///0D2/48DTwAAQPb/j+I4//9s6v+X4jgAAGzq/5d9Jf//gdr/n30lAACB2v+fkhX//xzH/6eSFQAAHMf/p74J///7sP+vvgkAAPuw/691Av//+Jj/t3UCAAD4mP+3AAD///9//78AAAAA/3//v3UC//8GZ//HdQIAAAZn/8e+Cf//A0//z74JAAADT//PkhX//+I4/9eSFQAA4jj/130l//99Jf/ffSUAAH0l/9/iOP//khX/5+I4AACSFf/nA0///74J/u8DTwAAvgn+7wZn//91Av73BmcAAHUC/vf/f///AAD///9/AAAAAP///3////9/////fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f///")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_sk5ly")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bkytb"]
+emission_shape = 3
+emission_box_extents = Vector3(0.5, 0.1, 0.5)
+direction = Vector3(0, 1, 0)
+spread = 30.0
+gravity = Vector3(0, 40, 0)
+radial_accel_min = -50.0
+radial_accel_max = -50.0
+tangential_accel_min = -10.0
+tangential_accel_max = -10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eeer4"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+disable_fog = true
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.374908, 0.335816, 1)
+albedo_texture = ExtResource("1_2buyb")
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_hel1x"]
+material = SubResource("StandardMaterial3D_eeer4")
+section_length = 0.3
+
+[node name="LevelUpSkill" type="Node3D"]
+
+[node name="InnerGlowCore" type="GPUParticles3D" parent="."]
+amount = 1
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_j0de0")
+draw_pass_1 = SubResource("QuadMesh_eeer4")
+
+[node name="OuterGlowCylinder" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_urp7m")
+amount = 1
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_3gjyp")
+draw_pass_1 = SubResource("ArrayMesh_j0de0")
+
+[node name="GlowLineUpon" type="GPUParticles3D" parent="."]
+amount = 16
+explosiveness = 1.0
+fixed_fps = 60
+local_coords = true
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_bkytb")
+draw_pass_1 = SubResource("RibbonTrailMesh_hel1x")
