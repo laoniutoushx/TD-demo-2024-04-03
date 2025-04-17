@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bymsang3xqpwc"]
+
+[ext_resource type="Shader" uid="uid://weruu5m2fm8b" path="res://VFX/Shaders/s_FireHead_B.tres" id="1_by8bo"]
+[ext_resource type="Texture2D" uid="uid://sfqnk8pph4px" path="res://VFX/Textures/T_VFX_Noise_075.png" id="2_poovh"]
+[ext_resource type="Texture2D" uid="uid://ceq0q2hrh3ppu" path="res://VFX/Textures/gradients/g2d_typeA.tres" id="3_8l2dh"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_by8bo")
+shader_parameter/Color = Color(2, 0.576471, 0.376471, 1)
+shader_parameter/Dissapear_Step = 0.05
+shader_parameter/Fire_Scale = Vector2(2, 2)
+shader_parameter/Fire_Speed = Vector2(0.1, 5)
+shader_parameter/Proximity_Fade = 0.2
+shader_parameter/Fire_Texture = ExtResource("2_poovh")
+shader_parameter/Gradient_Substract = ExtResource("3_8l2dh")

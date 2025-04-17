@@ -1,0 +1,122 @@
+[gd_scene load_steps=20 format=3 uid="uid://crd40ycge6qp1"]
+
+[ext_resource type="Texture2D" uid="uid://b7sqddmatavpl" path="res://Asserts/textures/vfx/projectiles/T_basic1_vfx.PNG" id="1_vjvyl"]
+[ext_resource type="Material" uid="uid://c2po8q8oho5y6" path="res://Asserts/Models/projectiles/m_fireTrail1.tres" id="2_ljk52"]
+[ext_resource type="Shader" uid="uid://bxslcncv0mhh1" path="res://VFX/projectiles/fireball/s_Trail_dynamic.tres" id="3_8jknl"]
+[ext_resource type="Texture2D" uid="uid://4brcnxrpup27" path="res://Asserts/textures/vfx/projectiles/T_FireTrail.jpg" id="4_f4e2w"]
+[ext_resource type="Script" uid="uid://b3w53u07ukurw" path="res://Scripts/Trail3D.gd" id="4_ig45u"]
+[ext_resource type="Shader" uid="uid://duvytfaft2817" path="res://VFX/projectiles/fireball/s_fireball_shader.tres" id="5_ixu2y"]
+[ext_resource type="ArrayMesh" uid="uid://dwr8m6juolyd8" path="res://Asserts/Models/projectiles/fireball_mesh_st.obj" id="6_ou60u"]
+[ext_resource type="Shader" uid="uid://dqd6vb4yowvwv" path="res://VFX/projectiles/fireball/s_FireHeader_shader.tres" id="7_wi8x6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0mdtd"]
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("1_vjvyl")
+
+[sub_resource type="Curve" id="Curve_em6q3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_7d0xg"]
+curve = SubResource("Curve_em6q3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_js6lq"]
+particle_flag_align_y = true
+emission_shape = 2
+emission_sphere_radius = 0.5
+direction = Vector3(0, 0, 1)
+spread = 0.0
+initial_velocity_min = 3.0
+initial_velocity_max = 8.0
+radial_velocity_min = 1.0
+radial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_7d0xg")
+color = Color(2, 1.3, 0.5, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_5ahtw"]
+size = Vector2(0.1, 0.5)
+
+[sub_resource type="QuadMesh" id="QuadMesh_mdojf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uwnww"]
+render_priority = -1
+shader = ExtResource("3_8jknl")
+shader_parameter/Scale = Vector2(0.2, 1)
+shader_parameter/Trail_Speed = Vector2(3, 0)
+shader_parameter/Texture2DParameter = ExtResource("4_f4e2w")
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_xvrp3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_66jmh"]
+render_priority = 1
+shader = ExtResource("5_ixu2y")
+shader_parameter/Fire_Color = Color(2, 1.3, 0.6, 1)
+shader_parameter/Speed = Vector2(0.1, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_80yvt"]
+render_priority = 0
+shader = ExtResource("7_wi8x6")
+shader_parameter/Ball_Color = Color(1, 0.545098, 0.14902, 1)
+shader_parameter/Fresnel_Power = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_3wyu6"]
+
+[node name="VFX_FireBall" type="Node3D"]
+
+[node name="Small Sparks" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.11828)
+material_override = SubResource("StandardMaterial3D_0mdtd")
+cast_shadow = 0
+amount = 10
+lifetime = 0.3
+explosiveness = 0.4
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_js6lq")
+draw_pass_1 = SubResource("QuadMesh_5ahtw")
+
+[node name="Trail1_static" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.94859e-07, 0, 1, 0, 1.41136, 0, -4.45785, 0, -4.37114e-08, 0, 0, 2.41229)
+material_override = ExtResource("2_ljk52")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_mdojf")
+
+[node name="Trail2_dynamic" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.682933, 0.730481, 0, -0.663721, 0.620518, -0.417649, -0.305085, 0.285226, 0.908609, 0, 0.00146139, 0)
+visible = false
+material_override = SubResource("ShaderMaterial_uwnww")
+cast_shadow = 0
+mesh = SubResource("ImmediateMesh_xvrp3")
+skeleton = NodePath("../..")
+script = ExtResource("4_ig45u")
+fromWidth = 1.3
+toWidth = 0.3
+motionDelta = 0.02
+lifespan = 0.12
+startColor = Color(1, 1, 0, 1)
+endColor = Color(0.792157, 0, 0, 0.647059)
+colorInterpolationMode = 1
+
+[node name="FireHead" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_66jmh")
+cast_shadow = 0
+mesh = ExtResource("6_ou60u")
+skeleton = NodePath("../..")
+
+[node name="InnerBall" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_80yvt")
+mesh = SubResource("SphereMesh_3wyu6")
+skeleton = NodePath("../..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.721569, 0.552941, 1)
+light_energy = 1.5

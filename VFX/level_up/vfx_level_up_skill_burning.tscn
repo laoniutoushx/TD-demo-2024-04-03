@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=4 uid="uid://iyqmvshf8qap"]
+[gd_scene load_steps=15 format=4 uid="uid://iyqmvshf8qap"]
 
 [ext_resource type="Texture2D" uid="uid://c43w5cvbq3wk2" path="res://addons/kenney_particle_pack/trace_01.png" id="1_2buyb"]
 [ext_resource type="Texture2D" uid="uid://dcpg4vixijri3" path="res://Asserts/textures/vfx/蜀门特效_tlogin006_爱给网_aigei_com.png" id="2_3gjyp"]
+[ext_resource type="Texture2D" uid="uid://ye55rj7kmnut" path="res://addons/kenney_particle_pack/trace_07.png" id="3_3gjyp"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j0de0"]
 gravity = Vector3(0, 0, 0)
@@ -67,16 +68,25 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_sk5ly")
 
+[sub_resource type="CurveTexture" id="CurveTexture_j0de0"]
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bkytb"]
-emission_shape = 3
-emission_box_extents = Vector3(0.5, 0.1, 0.5)
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 0.1
+emission_ring_radius = 1.2
+emission_ring_inner_radius = 1.0
+emission_ring_cone_angle = 90.0
 direction = Vector3(0, 1, 0)
-spread = 30.0
-gravity = Vector3(0, 40, 0)
-radial_accel_min = -50.0
-radial_accel_max = -50.0
-tangential_accel_min = -10.0
-tangential_accel_max = -10.0
+spread = 0.0
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+orbit_velocity_min = 0.585
+orbit_velocity_max = 0.585
+gravity = Vector3(0, 0, 0)
+radial_accel_curve = SubResource("CurveTexture_j0de0")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eeer4"]
 transparency = 1
@@ -86,7 +96,7 @@ shading_mode = 0
 disable_fog = true
 vertex_color_use_as_albedo = true
 albedo_color = Color(1, 0.374908, 0.335816, 1)
-albedo_texture = ExtResource("1_2buyb")
+albedo_texture = ExtResource("3_3gjyp")
 use_particle_trails = true
 
 [sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_hel1x"]
@@ -110,6 +120,7 @@ draw_pass_1 = SubResource("ArrayMesh_j0de0")
 
 [node name="GlowLineUpon" type="GPUParticles3D" parent="."]
 amount = 16
+lifetime = 2.0
 explosiveness = 1.0
 fixed_fps = 60
 local_coords = true

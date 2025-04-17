@@ -62,6 +62,12 @@ func action(skill_context: SkillContext) -> void:
 
     # 关闭进度条
     SOS.main.level_controller._cur_scene.action_bar.progress_util_bar.close()
+    
+    # 创建升级特效
+    var vfx = SystemUtil.vfx_system.create_vfx("LV_Up_style_b", VFXSystem.VFX_TYPE.BURNING)
+    unit_inst.add_child(vfx)
+
+
 
 
 

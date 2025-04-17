@@ -1,0 +1,30 @@
+[gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://bl8ri2x0dgylc"]
+
+[ext_resource type="Shader" uid="uid://c1660p2rs4lfs" path="res://VFX/projectiles/fireball/s_ProjectileSoft_B_Disp.tres" id="1_j6gte"]
+[ext_resource type="Texture2D" uid="uid://8fk5k1sbqvwh" path="res://Asserts/textures/vfx/projectiles/T_VFX_Noise_019.png" id="2_52ln0"]
+[ext_resource type="Gradient" uid="uid://bf1l1noj81h8o" path="res://Asserts/textures/vfx/projectiles/gradients/g_fireTypeC.tres" id="3_10xc7"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_oeum1"]
+gradient = ExtResource("3_10xc7")
+use_hdr = true
+
+[sub_resource type="Gradient" id="Gradient_j3hep"]
+offsets = PackedFloat32Array(0, 0.0781759, 0.579805, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0ve24"]
+gradient = SubResource("Gradient_j3hep")
+fill_from = Vector2(1, 1)
+
+[resource]
+render_priority = 1
+shader = ExtResource("1_j6gte")
+shader_parameter/Wave_Speed = 4.0
+shader_parameter/Wave_Intensity = 0.6
+shader_parameter/Dissapear_Step = 0.01
+shader_parameter/Fire_Scale = Vector2(1, 1)
+shader_parameter/Fire_Speed = Vector2(1, 3)
+shader_parameter/Fire_Texture = ExtResource("2_52ln0")
+shader_parameter/Gradient_Substract = SubResource("GradientTexture2D_0ve24")
+shader_parameter/power = 0.4
+shader_parameter/Gradient_1D_Color = SubResource("GradientTexture1D_oeum1")

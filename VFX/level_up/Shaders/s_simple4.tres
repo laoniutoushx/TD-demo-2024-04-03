@@ -1,0 +1,123 @@
+[gd_resource type="VisualShader" load_steps=9 format=3 uid="uid://b6smvthqbry5v"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_tp8cn"]
+expanded_output_ports = [0]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_yodj2"]
+parameter_name = "Hit_texture"
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_32n2n"]
+expanded_output_ports = [0]
+source = 5
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_w76gc"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeProximityFade" id="VisualShaderNodeProximityFade_6s82m"]
+default_input_values = [0, 0.2]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_ly0rt"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_e08pa"]
+parameter_name = "Proximity_Fade"
+default_value_enabled = true
+default_value = 1.0
+
+[sub_resource type="VisualShaderNodeBillboard" id="VisualShaderNodeBillboard_2mkhg"]
+billboard_type = 2
+keep_scale = true
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded, shadows_disabled, ambient_light_disabled, fog_disabled;
+
+uniform float Proximity_Fade = 1.0;
+uniform sampler2D depth_tex_frg_6 : hint_depth_texture;
+uniform sampler2D Hit_texture : source_color;
+
+
+
+void vertex() {
+	mat4 n_out2p0;
+// GetBillboardMatrix:2
+	{
+		mat4 __mvm = VIEW_MATRIX * mat4(INV_VIEW_MATRIX[0], MODEL_MATRIX[1], vec4(normalize(cross(INV_VIEW_MATRIX[0].xyz, MODEL_MATRIX[1].xyz)), 0.0), MODEL_MATRIX[3]);
+		__mvm = __mvm * mat4(vec4(length(MODEL_MATRIX[0].xyz), 0.0, 0.0, 0.0), vec4(0.0, 1.0, 0.0, 0.0), vec4(0.0, 0.0, length(MODEL_MATRIX[2].xyz), 0.0), vec4(0.0, 0.0, 0.0, 1.0));
+		n_out2p0 = __mvm;
+	}
+
+
+// Output:0
+	MODELVIEW_MATRIX = n_out2p0;
+
+
+}
+
+void fragment() {
+// Input:2
+	vec4 n_out2p0 = COLOR;
+	float n_out2p4 = n_out2p0.a;
+
+
+// FloatParameter:8
+	float n_out8p0 = Proximity_Fade;
+
+
+	float n_out6p0;
+// ProximityFade:6
+	{
+		float __depth_tex = texture(depth_tex_frg_6, SCREEN_UV).r;
+		vec4 __depth_world_pos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, __depth_tex, 1.0);
+		__depth_world_pos.xyz /= __depth_world_pos.w;
+		n_out6p0 = clamp(1.0 - smoothstep(__depth_world_pos.z + n_out8p0, __depth_world_pos.z, VERTEX.z), 0.0, 1.0);
+	}
+
+
+	vec4 n_out4p0;
+// Texture2D:4
+	n_out4p0 = texture(Hit_texture, UV);
+	float n_out4p1 = n_out4p0.r;
+
+
+// FloatOp:5
+	float n_out5p0 = n_out4p1 * n_out2p4;
+
+
+// FloatOp:7
+	float n_out7p0 = n_out6p0 * n_out5p0;
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+	ALPHA = n_out7p0;
+
+
+}
+"
+flags/unshaded = true
+flags/shadows_disabled = true
+flags/ambient_light_disabled = true
+flags/fog_disabled = true
+nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_2mkhg")
+nodes/vertex/2/position = Vector2(0, 340)
+nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10)
+nodes/fragment/0/position = Vector2(800, 120)
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_tp8cn")
+nodes/fragment/2/position = Vector2(-200, 80)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture2DParameter_yodj2")
+nodes/fragment/3/position = Vector2(-400, 560)
+nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_32n2n")
+nodes/fragment/4/position = Vector2(-60, 520)
+nodes/fragment/5/node = SubResource("VisualShaderNodeFloatOp_w76gc")
+nodes/fragment/5/position = Vector2(243.098, 335.999)
+nodes/fragment/6/node = SubResource("VisualShaderNodeProximityFade_6s82m")
+nodes/fragment/6/position = Vector2(240, 580)
+nodes/fragment/7/node = SubResource("VisualShaderNodeFloatOp_ly0rt")
+nodes/fragment/7/position = Vector2(523.507, 480.373)
+nodes/fragment/8/node = SubResource("VisualShaderNodeFloatParameter_e08pa")
+nodes/fragment/8/position = Vector2(80, 780)
+nodes/fragment/connections = PackedInt32Array(3, 0, 4, 2, 2, 4, 5, 1, 4, 1, 5, 0, 2, 0, 0, 0, 6, 0, 7, 0, 5, 0, 7, 1, 7, 0, 0, 1, 8, 0, 6, 0)

@@ -1,0 +1,65 @@
+[gd_resource type="VisualShader" load_steps=5 format=3 uid="uid://cudce0x8gpu7m"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_rvpef"]
+expanded_output_ports = [0]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_sts4r"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_mrfcx"]
+parameter_name = "Mask_Texture"
+texture_type = 1
+texture_filter = 2
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_6e68j"]
+expanded_output_ports = [0]
+source = 5
+texture_type = 1
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded, shadows_disabled, ambient_light_disabled, fog_disabled;
+
+uniform sampler2D Mask_Texture : source_color, filter_linear;
+
+
+
+void fragment() {
+// Input:10
+	vec4 n_out10p0 = COLOR;
+	float n_out10p4 = n_out10p0.a;
+
+
+	vec4 n_out9p0;
+// Texture2D:9
+	n_out9p0 = texture(Mask_Texture, UV);
+	float n_out9p1 = n_out9p0.r;
+
+
+// FloatOp:11
+	float n_out11p0 = n_out10p4 * n_out9p1;
+
+
+// Output:0
+	ALBEDO = vec3(n_out10p0.xyz);
+	ALPHA = n_out11p0;
+
+
+}
+"
+modes/cull = 2
+flags/unshaded = true
+flags/shadows_disabled = true
+flags/ambient_light_disabled = true
+flags/fog_disabled = true
+nodes/fragment/0/position = Vector2(700, 160)
+nodes/fragment/8/node = SubResource("VisualShaderNodeTexture2DParameter_mrfcx")
+nodes/fragment/8/position = Vector2(-320, 580)
+nodes/fragment/9/node = SubResource("VisualShaderNodeTexture_6e68j")
+nodes/fragment/9/position = Vector2(0, 500)
+nodes/fragment/10/node = SubResource("VisualShaderNodeInput_rvpef")
+nodes/fragment/10/position = Vector2(-80, 160)
+nodes/fragment/11/node = SubResource("VisualShaderNodeFloatOp_sts4r")
+nodes/fragment/11/position = Vector2(360.035, 365.383)
+nodes/fragment/connections = PackedInt32Array(8, 0, 9, 2, 10, 4, 11, 0, 9, 1, 11, 1, 11, 0, 0, 1, 10, 0, 0, 0)

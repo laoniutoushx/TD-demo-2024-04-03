@@ -1,0 +1,184 @@
+[gd_resource type="VisualShader" load_steps=16 format=3 uid="uid://cyvjn3wruj6o2"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_b4q30"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_ty8j3"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 0)]
+op_type = 0
+operator = 2
+
+[sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_rd50s"]
+
+[sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_75gn5"]
+default_input_values = [1, Vector2(3, 2), 2, Vector2(0, 0)]
+function = 1
+
+[sub_resource type="VisualShaderNodeVec2Parameter" id="VisualShaderNodeVec2Parameter_70paa"]
+parameter_name = "Trail_Scale"
+default_value_enabled = true
+default_value = Vector2(3, 2)
+
+[sub_resource type="VisualShaderNodeVec2Parameter" id="VisualShaderNodeVec2Parameter_kurjt"]
+parameter_name = "Trail_Speed"
+default_value_enabled = true
+default_value = Vector2(0.1, 2)
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_j60xo"]
+parameter_name = "Trail_Texture"
+texture_type = 1
+texture_repeat = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_yyxhg"]
+expanded_output_ports = [0]
+source = 5
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_i5wdu"]
+parameter_name = "Overlapping_Gradient"
+texture_type = 1
+texture_repeat = 2
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_8uavj"]
+expanded_output_ports = [0]
+source = 5
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_ofcia"]
+parameter_name = "Gradient_Disolver"
+texture_type = 1
+texture_filter = 2
+texture_repeat = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_ns1qx"]
+expanded_output_ports = [0]
+source = 5
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeSmoothStep" id="VisualShaderNodeSmoothStep_t4u0e"]
+default_input_values = [0, 0.0, 1, 0.4, 2, 0.5]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_1nyn1"]
+parameter_name = "Edge_Cut_Line"
+hint = 1
+default_value_enabled = true
+default_value = 0.4
+
+[sub_resource type="VisualShaderNodeBillboard" id="VisualShaderNodeBillboard_li46v"]
+billboard_type = 0
+keep_scale = true
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded, shadows_disabled, fog_disabled;
+
+uniform sampler2D Gradient_Disolver : source_color, filter_linear, repeat_enable;
+uniform float Edge_Cut_Line : hint_range(0.0, 1.0) = 0.40000000596046;
+uniform vec2 Trail_Scale = vec2(3.000000, 2.000000);
+uniform vec2 Trail_Speed = vec2(0.100000, 2.000000);
+uniform sampler2D Trail_Texture : source_color, repeat_enable;
+uniform sampler2D Overlapping_Gradient : source_color, repeat_disable;
+
+
+
+void vertex() {
+// GetBillboardMatrix:2
+	// Node is disabled and code is not generated.
+}
+
+void fragment() {
+	vec4 n_out66p0;
+// Texture2D:66
+	n_out66p0 = texture(Gradient_Disolver, UV);
+	float n_out66p1 = n_out66p0.r;
+
+
+// FloatParameter:68
+	float n_out68p0 = Edge_Cut_Line;
+
+
+// Vector2Parameter:54
+	vec2 n_out54p0 = Trail_Scale;
+
+
+// UVFunc:53
+	vec2 n_in53p2 = vec2(0.00000, 0.00000);
+	vec2 n_out53p0 = (UV - n_in53p2) * n_out54p0 + n_in53p2;
+
+
+// Input:50
+	float n_out50p0 = TIME;
+
+
+// Vector2Parameter:55
+	vec2 n_out55p0 = Trail_Speed;
+
+
+// VectorOp:51
+	vec2 n_out51p0 = vec2(n_out50p0) * n_out55p0;
+
+
+// UVFunc:52
+	vec2 n_in52p1 = vec2(1.00000, 1.00000);
+	vec2 n_out52p0 = n_out51p0 * n_in52p1 + n_out53p0;
+
+
+	vec4 n_out57p0;
+// Texture2D:57
+	n_out57p0 = texture(Trail_Texture, n_out52p0);
+	float n_out57p1 = n_out57p0.r;
+
+
+// SmoothStep:67
+	float n_out67p0 = smoothstep(n_out66p1, n_out68p0, n_out57p1);
+
+
+	vec4 n_out63p0;
+// Texture2D:63
+	n_out63p0 = texture(Overlapping_Gradient, vec2(n_out67p0));
+
+
+// Output:0
+	ALBEDO = vec3(n_out63p0.xyz);
+	ALPHA = n_out67p0;
+
+
+}
+"
+modes/cull = 2
+flags/unshaded = true
+flags/shadows_disabled = true
+flags/fog_disabled = true
+nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_li46v")
+nodes/vertex/2/position = Vector2(-100, 340)
+nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10)
+nodes/fragment/0/position = Vector2(1520, 480)
+nodes/fragment/50/node = SubResource("VisualShaderNodeInput_b4q30")
+nodes/fragment/50/position = Vector2(-180, 1100)
+nodes/fragment/51/node = SubResource("VisualShaderNodeVectorOp_ty8j3")
+nodes/fragment/51/position = Vector2(60, 1180)
+nodes/fragment/52/node = SubResource("VisualShaderNodeUVFunc_rd50s")
+nodes/fragment/52/position = Vector2(200, 960)
+nodes/fragment/53/node = SubResource("VisualShaderNodeUVFunc_75gn5")
+nodes/fragment/53/position = Vector2(-160, 860)
+nodes/fragment/54/node = SubResource("VisualShaderNodeVec2Parameter_70paa")
+nodes/fragment/54/position = Vector2(-500, 800)
+nodes/fragment/55/node = SubResource("VisualShaderNodeVec2Parameter_kurjt")
+nodes/fragment/55/position = Vector2(-380, 1260)
+nodes/fragment/56/node = SubResource("VisualShaderNodeTexture2DParameter_j60xo")
+nodes/fragment/56/position = Vector2(200, 640)
+nodes/fragment/57/node = SubResource("VisualShaderNodeTexture_yyxhg")
+nodes/fragment/57/position = Vector2(540, 980)
+nodes/fragment/62/node = SubResource("VisualShaderNodeTexture2DParameter_i5wdu")
+nodes/fragment/62/position = Vector2(440, 280)
+nodes/fragment/63/node = SubResource("VisualShaderNodeTexture_8uavj")
+nodes/fragment/63/position = Vector2(840, 340)
+nodes/fragment/65/node = SubResource("VisualShaderNodeTexture2DParameter_ofcia")
+nodes/fragment/65/position = Vector2(520, 1360)
+nodes/fragment/66/node = SubResource("VisualShaderNodeTexture_ns1qx")
+nodes/fragment/66/position = Vector2(880, 1300)
+nodes/fragment/67/node = SubResource("VisualShaderNodeSmoothStep_t4u0e")
+nodes/fragment/67/position = Vector2(1040, 780)
+nodes/fragment/68/node = SubResource("VisualShaderNodeFloatParameter_1nyn1")
+nodes/fragment/68/position = Vector2(734.001, 734.381)
+nodes/fragment/connections = PackedInt32Array(50, 0, 51, 0, 51, 0, 52, 2, 53, 0, 52, 0, 55, 0, 51, 1, 56, 0, 57, 2, 52, 0, 57, 0, 54, 0, 53, 1, 62, 0, 63, 2, 65, 0, 66, 2, 57, 1, 67, 2, 66, 1, 67, 0, 67, 0, 63, 0, 63, 0, 0, 0, 67, 0, 0, 1, 68, 0, 67, 1)

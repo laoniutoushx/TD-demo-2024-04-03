@@ -26,19 +26,20 @@ cull_mode = 2
 shading_mode = 0
 disable_fog = true
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 0.931167, 0.93, 1)
+albedo_color = Color(1.3, 1.2, 1.2, 1)
 albedo_texture = ExtResource("3_5swh3")
 use_particle_trails = true
 
 [sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_5swh3"]
 material = SubResource("StandardMaterial3D_be2n0")
+size = 1.5
 curve = SubResource("Curve_bnrvo")
 
 [node name="FunnelTornado" type="Node3D"]
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 amount = 35
-lifetime = 5.0
+lifetime = 6.0
 preprocess = 5.0
 fixed_fps = 60
 local_coords = true

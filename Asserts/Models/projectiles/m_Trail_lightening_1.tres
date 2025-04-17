@@ -1,0 +1,30 @@
+[gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://c7tmvatlueuuv"]
+
+[ext_resource type="Shader" uid="uid://cyvjn3wruj6o2" path="res://VFX/projectiles/fireball/s_Trail_TypeB.tres" id="1_7l0ys"]
+[ext_resource type="Texture2D" uid="uid://cpqjrilmucb6g" path="res://Asserts/textures/vfx/projectiles/T_VFX_thunder_texture.png" id="2_82e5y"]
+
+[sub_resource type="Gradient" id="Gradient_a37kg"]
+offsets = PackedFloat32Array(0, 0.175896, 0.921824, 1)
+colors = PackedColorArray(0.4, 0.4, 0.4, 1, 0.137143, 0.137143, 0.137143, 1, 0, 0, 0, 1, 0.4, 0.4, 0.4, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0sb2r"]
+gradient = SubResource("Gradient_a37kg")
+use_hdr = true
+
+[sub_resource type="Gradient" id="Gradient_djgjd"]
+offsets = PackedFloat32Array(0, 0.462541)
+colors = PackedColorArray(0.072, 0.2, 1, 1, 0.5, 1, 5, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8yfiq"]
+gradient = SubResource("Gradient_djgjd")
+use_hdr = true
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_7l0ys")
+shader_parameter/Gradient_Disolver = SubResource("GradientTexture2D_0sb2r")
+shader_parameter/Edge_Cut_Line = 0.4
+shader_parameter/Trail_Scale = Vector2(1, 1)
+shader_parameter/Trail_Speed = Vector2(3, 0)
+shader_parameter/Trail_Texture = ExtResource("2_82e5y")
+shader_parameter/Overlapping_Gradient = SubResource("GradientTexture1D_8yfiq")
