@@ -82,6 +82,8 @@ class_name SkillMetaResource extends Resource
 # 技能投射速度 米/秒
 @export var projection_speed: float = 1
 
+# 技能禁用检查（魔法、健康值、金钱、木材）
+@export_flags("MANA", "HEALTH", "MONEY", "WOOD") var disable_check: int = 0
 
 # consume 消耗
 # level up 

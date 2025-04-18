@@ -9,6 +9,7 @@ var slot: BaseSlot
 
 # Signal
 signal skill_cool_down(skill_context: SkillContext)
+signal skill_disabled(skill_context: SkillContext)
 
 
 # meta info 
@@ -75,6 +76,9 @@ var code: String
 # 技能投射速度 米/秒
 @export var projection_speed: float = 1
 
+# 技能禁用检查（魔法、健康值、金钱、木材）
+@export_flags("MANA", "HEALTH", "MONEY", "WOOD") var disable_check: int = 0
+
 # consume 消耗
 # level up 
 # release skill
@@ -106,11 +110,14 @@ var buff_map: Dictionary = {}
 # Timer
 var cool_down_timer: Timer
 
+# 
+var _is_disabled = false
+
 
 
 # FSM
 
-# What state the turret is in
+# which state the skill at
 enum SKILL_STATE {
 	Idle,
 	Targeted_Indicate,
@@ -118,7 +125,8 @@ enum SKILL_STATE {
     Direction_Indicate,
     Circle_Range_Indicate,
 	Release,
-    Cool_Down
+    Cool_Down,
+    Disabled
 }
 
 var current_state: SKILL_STATE
@@ -146,6 +154,16 @@ func _ready() -> void:
     if init_release:
         change_state(SKILL_STATE.Release)
 
+
+func _on_mana_changed(unit: BaseUnit, value: float):
+    if unit.get_instance_id() == self.unit.get_instance_id():
+
+        if mana_cost > -1 and value < mana_cost:
+            _is_disabled = true
+
+            skill_disabled.emit(skill_context)
+
+        # slot 
 
 
 func _input(event: InputEvent) -> void:
@@ -399,6 +417,13 @@ func change_state(new_state: SKILL_STATE) -> void:
 
             
         SKILL_STATE.Release:
+            # 前置条件检查（魔耗）
+            if mana_cost > -1:
+                if unit.mana < mana_cost:
+                    SOS.main.message_bar.set_message("魔法不足")
+                    change_state(SKILL_STATE.Idle)
+                    return
+
             # releasing
             SystemUtil.skill_system.release(skill_context)
             
@@ -431,6 +456,7 @@ func change_state(new_state: SKILL_STATE) -> void:
 
             # 技能冷却完毕信号
             skill_cool_down.emit(skill_context)
+            
 
 
         SKILL_STATE.Idle:

@@ -57,6 +57,9 @@ func initialize_skills(source_unit: BaseUnit, skill_metas: Array[SkillMetaResour
 			source_unit.add_child(skill)
 			skill.add_child(skill.skill_script_instance)
 
+			# listener skill disabled cond
+			source_unit.mana_changed.connect(skill._on_mana_changed)
+
 	return skill_map
 
 

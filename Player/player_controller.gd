@@ -7,7 +7,21 @@ class_name PlayerController extends Node3D
 @onready var player_skill_target_indicator = %PlayerSkillTargetIndicator
 
 
+var wood: int = 0
 
+func set_wood(s: Object, value: int) -> void:
+	wood = value
+	SignalBus.wood_changed.emit(s, wood)
+	# print("wood changed %s" % [wood])
+
+
+var money: int = 0
+
+func set_money(s: Object, value: int) -> void:
+	money = value
+	SignalBus.money_changed.emit(s, money)
+	# print("money changed %s" % [money])
+	
 
 var client_id: String = OS.get_unique_id()
 var player_idx: int
@@ -200,6 +214,10 @@ func _on_unit_logic_death(id: int, unit: BaseUnit):
 
 	# 移出单位到当前选中单位
 	cur_unit_map.erase(id)
+
+	# 树木、金钱处理
+	set_wood(unit, wood)
+	set_money(unit, money)
 
 
 

@@ -215,3 +215,10 @@ func _process(delta: float) -> void:
 	# cimer 引用 buff 实例，此处可能 buff 会先于这里释放，需要判断
 	if cimer and is_instance_valid(cimer):
 		progress_bar.value = cimer.time_left
+
+
+
+func _on_skill_disabled(skill_context: SkillContext):
+	# 禁用
+	do(false)
+	pass

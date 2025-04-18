@@ -26,6 +26,8 @@ signal ray_picker_unregist(callable: Callable)
 
 # PlayerController
 signal player_selected_units(unit_map: Dictionary, mouse_pos: Vector3, on_selected_player_status: PlayerController.PLAYER_STATUS)		# unit selected
+signal money_changed(source: Object, money: int)
+signal wood_changed(source: Object, wood: int)
 
 
 # Skill

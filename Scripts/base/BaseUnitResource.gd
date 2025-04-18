@@ -40,11 +40,11 @@ enum ELEMENT_PHASE_STR{
 
 # unit cost
 # 魔法消耗
-@export var mana_cost: float = 10.0
+@export var mana_cost: float = -1
 # 木材消耗
-@export var wood_cost: float = 10.0
+@export var wood_cost: float = -1
 # 金钱消耗
-@export var money_cost: float = 10.0
+@export var money_cost: float = -1
 
 # unit status
 

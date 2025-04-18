@@ -47,6 +47,9 @@ func _create_skill_slot(skill: Skill) -> BaseSlot:
 		slot_instance.progress_bar.visible = true
 		slot_instance.set_process(true)
 
+	# slot 监听技能禁用信号
+	skill.skill_disabled.connect(slot_instance._on_skill_disabled)
+
 	_slot_num += 1
 
 	return slot_instance

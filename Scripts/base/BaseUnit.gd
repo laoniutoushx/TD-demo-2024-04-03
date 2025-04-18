@@ -8,6 +8,8 @@ var clazz: BaseUnitResource
 
 # signal
 signal logical_death(unit: BaseUnit)
+signal mana_changed(unit: BaseUnit, value: float)
+
 # signal physic_death(unit: BaseUnit)
 
 
@@ -48,6 +50,21 @@ var max_health : float :
 		health = value
 		max_health = value
 		
+var mana : float : 
+	set(value):
+		mana = value
+		mana_changed.emit(self, mana)
+		if mana < 0:
+			mana = 0
+		elif mana > max_mana:
+			mana = max_mana
+
+var max_mana : float :
+	set(value):
+		mana = value
+		max_mana = value
+
+
 var _is_logic_alive := true
 
 
@@ -91,11 +108,13 @@ var _mesh_standing: MeshInstance3D
 
 # unit cost
 # 魔法消耗
-@export var mana_cost: float = 10.0
+@export var mana_cost: float = -1
+
+
 # 木材消耗
-@export var wood_cost: float = 10.0
+@export var wood_cost: float = -1
 # 金钱消耗
-@export var money_cost: float = 10.0
+@export var money_cost: float = -1
 
 
 
