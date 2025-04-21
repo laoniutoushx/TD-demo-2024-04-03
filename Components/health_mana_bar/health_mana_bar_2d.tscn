@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3 uid="uid://bvdugqt14upph"]
+
+[ext_resource type="Script" uid="uid://ncr50qyhkyrj" path="res://Components/health_mana_bar/health_mana_bar_2d.gd" id="1_v4cl2"]
+
+[sub_resource type="Gradient" id="Gradient_lfm1w"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lfm1w"]
+gradient = SubResource("Gradient_lfm1w")
+width = 78
+height = 8
+
+[sub_resource type="Gradient" id="Gradient_v4cl2"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_v4cl2"]
+gradient = SubResource("Gradient_v4cl2")
+width = 78
+height = 8
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jc3vj"]
+gradient = SubResource("Gradient_v4cl2")
+width = 78
+height = 3
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_csd2o"]
+width = 78
+height = 2
+
+[node name="HealthManaBar" type="CenterContainer"]
+offset_right = 78.0
+offset_bottom = 10.0
+script = ExtResource("1_v4cl2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HealthUnderBar" type="TextureProgressBar" parent="VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 100.0
+texture_progress = SubResource("GradientTexture2D_lfm1w")
+tint_progress = Color(0.921569, 0, 0.231373, 1)
+
+[node name="HealthOverBar" type="TextureProgressBar" parent="VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 100.0
+texture_progress = SubResource("GradientTexture2D_v4cl2")
+tint_progress = Color(0.368627, 1, 0.47451, 1)
+
+[node name="ManaOverBar" type="TextureProgressBar" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 100.0
+texture_progress = SubResource("GradientTexture2D_jc3vj")
+tint_progress = Color(0.2185, 0.3648, 0.95, 1)
+
+[node name="DefenceOverBar" type="TextureProgressBar" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 100.0
+texture_progress = SubResource("GradientTexture2D_csd2o")
+tint_progress = Color(1, 0.9325, 0.19, 1)

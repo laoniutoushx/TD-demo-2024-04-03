@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://bn6y16r1niwsj"]
+[gd_scene load_steps=35 format=4 uid="uid://bn6y16r1niwsj"]
 
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_2h34h"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="4_vea8r"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cmw3kakhjb2cr" path="res://Asserts/Models/turret pack/YAHAHA/Fox/fox_mega_magic_Image_7.png" id="11_31ynr"]
 [ext_resource type="Texture2D" uid="uid://d0yqur3270svo" path="res://Asserts/Models/turret pack/YAHAHA/Fox/fox_mega_magic_Image_0.png" id="12_qs241"]
 [ext_resource type="Texture2D" uid="uid://slt3ti64kob" path="res://Asserts/Models/turret pack/YAHAHA/Fox/fox_mega_magic_Image_2.png" id="13_p73ub"]
+[ext_resource type="PackedScene" uid="uid://c6fbveb8morud" path="res://Components/health_mana_bar/health_mana_bar.tscn" id="15_veo6v"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_4d15t"]
 height = 1.0
@@ -5717,10 +5718,14 @@ _data = {
 &"Walk": SubResource("Animation_p8o2g")
 }
 
-[node name="FoxMega" type="Node3D" node_paths=PackedStringArray("turret_top", "fire_poses")]
+[sub_resource type="ViewportTexture" id="ViewportTexture_ybtqb"]
+viewport_path = NodePath("SubViewport")
+
+[node name="FoxMega" type="Node3D" node_paths=PackedStringArray("turret_top", "fire_poses", "health_mana_bar")]
 script = ExtResource("1_2h34h")
 turret_top = NodePath("Pivot")
 fire_poses = [NodePath("Pivot/fox_mega_magic/Armature/Skeleton3D/BoneAttachment3D/Marker3D")]
+health_mana_bar = NodePath("HealthManaBar3D")
 
 [node name="AttackingScope" type="Area3D" parent="."]
 unique_name_in_owner = true
@@ -6942,6 +6947,10 @@ transform = Transform3D(0.429261, 0, 0, 0, 0.429261, 0, 0, 0, 0.429261, 2.5, 47.
 libraries = {
 &"": SubResource("AnimationLibrary_yrbm8")
 }
+
+[node name="HealthManaBar3D" parent="." instance=ExtResource("15_veo6v")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 5.48857, 0)
+texture = SubResource("ViewportTexture_ybtqb")
 
 [connection signal="area_entered" from="AttackingScope" to="." method="_on_attacking_scope_area_entered"]
 [connection signal="area_exited" from="AttackingScope" to="." method="_on_attacking_scope_area_exited"]

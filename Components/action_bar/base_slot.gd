@@ -217,8 +217,11 @@ func _process(delta: float) -> void:
 		progress_bar.value = cimer.time_left
 
 
+# 监听技能是否禁用
+func _on_skill_disabled(skill_context: SkillContext, disabled: bool):
+	var _skill = skill_context.skill
+	
+	if _skill.get_instance_id() == reference.get_instance_id():
+		print("skill %s - %s disabled %s" % [_skill.name, _skill.title, disabled])
+		do(disabled)
 
-func _on_skill_disabled(skill_context: SkillContext):
-	# 禁用
-	do(false)
-	pass

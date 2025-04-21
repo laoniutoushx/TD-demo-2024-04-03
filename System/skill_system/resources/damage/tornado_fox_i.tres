@@ -33,6 +33,7 @@ start_time = 0.0
 end_time = 0.0
 wave = 20
 projection_speed = 1.0
+disable_check = 0
 release_type = 4
 target_type = 32
 effect_type = 1

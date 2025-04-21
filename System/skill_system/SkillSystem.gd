@@ -59,6 +59,7 @@ func initialize_skills(source_unit: BaseUnit, skill_metas: Array[SkillMetaResour
 
 			# listener skill disabled cond
 			source_unit.mana_changed.connect(skill._on_mana_changed)
+			skill.skill_released.connect(source_unit._on_skill_released)
 
 	return skill_map
 

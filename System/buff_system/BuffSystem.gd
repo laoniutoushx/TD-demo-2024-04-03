@@ -155,7 +155,8 @@ func remove(_buff: Buff, _reference: Variant):
 # buff 退出节点树
 func _on_buff_exiting_tree(_buff: Buff, _reference: Variant):
 	# 销毁时，处理 属性问题
-	_buff.remove(_reference)
+	# _buff.remove(_reference)
+	_buff.call_deferred("remove", _reference)
 
 
 	# 销毁时，处理 buff 计数

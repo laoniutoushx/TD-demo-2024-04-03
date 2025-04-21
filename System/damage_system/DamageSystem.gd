@@ -54,8 +54,8 @@ func action(source: BaseUnit, target:BaseUnit):
 
 				target = selected_unit
 
-				print("bounce target: %s" % target.get_instance_id())
-				print("到达目标")
+				# print("bounce target: %s" % target.get_instance_id())
+				# print("到达目标")
 				
 				# 伤害追加
 				if selected_unit and target is BaseUnit and (target as BaseUnit).is_alive(): 

@@ -49,6 +49,7 @@ enum ELEMENT_PHASE_STR{
 # unit status
 
 @export var max_health : float
+@export var max_mana : float
 @export var move_speed : float
 @export var turn_speed : float
 @export var attack_speed : float

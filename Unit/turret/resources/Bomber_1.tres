@@ -25,6 +25,7 @@ mana_cost = 10.0
 wood_cost = 10.0
 money_cost = 10.0
 max_health = 100.0
+max_mana = 0.0
 move_speed = 5.0
 turn_speed = 10.0
 attack_speed = 0.5

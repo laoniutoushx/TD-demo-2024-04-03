@@ -8,8 +8,9 @@ var slot: BaseSlot
 
 
 # Signal
+signal skill_released(skill_context: SkillContext)      # initialize_skills 时注册
 signal skill_cool_down(skill_context: SkillContext)
-signal skill_disabled(skill_context: SkillContext)
+signal skill_disabled(skill_context: SkillContext, disabled: bool)      # action bar add_elements slot 时监听 skill_disabled 事件
 
 
 # meta info 
@@ -154,16 +155,19 @@ func _ready() -> void:
     if init_release:
         change_state(SKILL_STATE.Release)
 
-
-func _on_mana_changed(unit: BaseUnit, value: float):
+# 监听所属单位魔法值变化( SkillSystem initialize_skills 方法中监听 )
+func _on_mana_changed(unit: BaseUnit, left_mana: float):
     if unit.get_instance_id() == self.unit.get_instance_id():
 
-        if mana_cost > -1 and value < mana_cost:
-            _is_disabled = true
+        if mana_cost > -1:
+            if left_mana < mana_cost:
+                _is_disabled = true
+                skill_disabled.emit(skill_context, true)
+            else:
+                _is_disabled = false
+                skill_disabled.emit(skill_context, false)
 
-            skill_disabled.emit(skill_context)
 
-        # slot 
 
 
 func _input(event: InputEvent) -> void:
@@ -254,6 +258,13 @@ func _skill_target_unit_cond_matched(_u: BaseUnit) -> bool:
 # Handles everything related to changing states
 # You could also move each state's setup into a separate function if you had a lot to do.
 func change_state(new_state: SKILL_STATE) -> void:
+
+    # 前置条件检查（魔耗）
+    if _is_disabled:
+        SOS.main.message_bar.set_message("技能无法施放，魔法不足")
+        # change_state(SKILL_STATE.Idle)
+        return
+
 
     # 从前一个状态迁移过来时，执行操作
     if (current_state == SKILL_STATE.Targeted_Indicate 
@@ -417,12 +428,9 @@ func change_state(new_state: SKILL_STATE) -> void:
 
             
         SKILL_STATE.Release:
-            # 前置条件检查（魔耗）
-            if mana_cost > -1:
-                if unit.mana < mana_cost:
-                    SOS.main.message_bar.set_message("魔法不足")
-                    change_state(SKILL_STATE.Idle)
-                    return
+
+            # 技能释放魔法消耗
+            skill_released.emit(skill_context)
 
             # releasing
             SystemUtil.skill_system.release(skill_context)

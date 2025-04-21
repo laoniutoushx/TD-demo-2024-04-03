@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6fbveb8morud"]
+
+[ext_resource type="Script" uid="uid://betbebo5c648u" path="res://Components/health_mana_bar/health_mana_bar.gd" id="1_w7y23"]
+[ext_resource type="PackedScene" uid="uid://bvdugqt14upph" path="res://Components/health_mana_bar/health_mana_bar_2d.tscn" id="2_xs5hq"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_w7y23"]
+viewport_path = NodePath("SubViewport")
+
+[node name="HealthManaBar3D" type="Sprite3D"]
+billboard = 1
+render_priority = 127
+texture = SubResource("ViewportTexture_w7y23")
+region_enabled = true
+region_rect = Rect2(0, 0, 78, 12)
+script = ExtResource("1_w7y23")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(78, 13)
+
+[node name="HealthManaBar" parent="SubViewport" instance=ExtResource("2_xs5hq")]

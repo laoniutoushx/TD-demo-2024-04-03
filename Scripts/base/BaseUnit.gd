@@ -8,7 +8,7 @@ var clazz: BaseUnitResource
 
 # signal
 signal logical_death(unit: BaseUnit)
-signal mana_changed(unit: BaseUnit, value: float)
+signal mana_changed(unit: BaseUnit, left_mana: float)	# 魔法变化单位，剩余魔法值
 
 # signal physic_death(unit: BaseUnit)
 
@@ -59,7 +59,7 @@ var mana : float :
 		elif mana > max_mana:
 			mana = max_mana
 
-var max_mana : float :
+@export var max_mana : float :
 	set(value):
 		mana = value
 		max_mana = value
@@ -109,8 +109,6 @@ var _mesh_standing: MeshInstance3D
 # unit cost
 # 魔法消耗
 @export var mana_cost: float = -1
-
-
 # 木材消耗
 @export var wood_cost: float = -1
 # 金钱消耗
@@ -265,6 +263,9 @@ func _ready() -> void:
 	# animation init
 	_ap = CommonUtil.get_first_node_by_node_name(self, Constants.AnimationPlayer_CLZ)
 	_at = CommonUtil.get_first_node_by_node_name(self, Constants.AnimationTree_CLZ)
+
+	# 魔法值设置
+	mana = max_mana
 
 
 
@@ -446,3 +447,9 @@ func hide_selected_circle() -> void:
 	var select_circle = CommonUtil.get_first_node_by_node_name(self, "FadedCircle3D")	
 	if select_circle:
 		select_circle.visible = false
+
+
+# 监听技能释放事件
+func _on_skill_released(skill_context: SkillContext) -> void:
+	var skill = skill_context.skill
+	self.mana -= skill.mana_cost

@@ -5,6 +5,8 @@ class_name Turret extends BaseUnit
 @export var turret_top: Node3D
 @export var fire_poses: Array[Node3D]
 
+@export var health_mana_bar: HealthManaBar
+
 
 
 var enemies: Dictionary = {}
@@ -29,6 +31,11 @@ func _ready() -> void:
 
 	# animation play
 	ap = CommonUtil.get_first_node_by_node_type(self, Constants.AnimationPlayer_CLZ)
+
+	# health_mana_bar 初始化
+	health_mana_bar.init_mana_over_bar(mana)
+	# listener unit mana changed
+	mana_changed.connect(health_mana_bar._on_mana_changed)
 	
 
 
