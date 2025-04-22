@@ -43,10 +43,6 @@ class_name SkillMetaResource extends Resource
 @export var cooldown: float = 1.0
 # 魔法消耗
 @export var mana_cost: float = -1
-# 木材消耗
-@export var wood_cost: float = -1
-# 金钱消耗
-@export var money_cost: float = -1
 # 技能伤害范围
 @export var damage_range: float = 5.0
 # 技能匹配目标对象范围
@@ -83,6 +79,12 @@ class_name SkillMetaResource extends Resource
 @export var projection_speed: float = 1
 
 # 技能禁用检查（魔法、健康值、金钱、木材）
+enum SKILL_DISABLE_CHECK{
+	MANA,	
+	HEALTH,
+	MONEY,
+	WOOD
+}
 @export_flags("MANA", "HEALTH", "MONEY", "WOOD") var disable_check: int = 0
 
 # consume 消耗
@@ -134,12 +136,18 @@ enum SKILL_EFFECT_TYPE{
 # 建筑变量
 @export_group("Skill Build Steup")
 
-# Building
+# Building（这两个变量没有写入 Skill.gd 当中，防止循环依赖)
 @export var building_scene: PackedScene
 @export var building_res: BaseUnitResource
 
 # 建筑升级时间
 @export var building_level_up_time: float = -1
+# 建筑木材消耗
+@export var wood_cost: float = -1
+# 建筑金钱消耗
+@export var money_cost: float = -1
+
+
 
 
 # 其他配置

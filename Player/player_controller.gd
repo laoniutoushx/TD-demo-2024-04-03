@@ -83,6 +83,9 @@ func _ready() -> void:
 	# target_indicator 默认隐藏
 	player_skill_target_indicator.hide()
 
+	# player 监听 skill 释放信号
+
+
 
 # 获取玩家索引信息
 func get_player_idx():
@@ -231,7 +234,31 @@ func _on_selection_box_selecting_finished(unit_map: Dictionary, mouse_pos: Vecto
 	refresh_selection_units(unit_map, mouse_pos, on_selected_player_status)
 	
 	
+func _on_skill_released(skill_context: SkillContext) -> void:
+	# 处理技能释放
+	var skill: Skill = skill_context.skill
 
+	# 技能是建筑技能，触发金钱、木材消耗
+	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_EFFECT_TYPE.BUILDING, skill.effect_type):
+		
+		# 获取建筑技能对应建筑单位信息（元数据中）
+		var building_res: BaseUnitResource = skill.skill_meta_res.building_res
+
+		if building_res.wood_cost > -1:
+			if wood < building_res.wood_cost:
+				# TODO 提示木材不足
+				print("skill %s - %s wood not enough" % [skill.name, skill.title])
+				return
+			else:
+				set_wood(skill, wood - building_res.wood_cost)
+		
+		if building_res.money_cost > -1:
+			if money < building_res.money_cost:
+				# TODO 提示金钱不足
+				print("skill %s - %s money not enough" % [skill.name, skill.title])
+				return
+			else:
+				set_money(skill, money - building_res.money_cost)
 
 
 

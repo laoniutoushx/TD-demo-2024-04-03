@@ -222,6 +222,6 @@ func _on_skill_disabled(skill_context: SkillContext, disabled: bool):
 	var _skill = skill_context.skill
 	
 	if _skill.get_instance_id() == reference.get_instance_id():
-		print("skill %s - %s disabled %s" % [_skill.name, _skill.title, disabled])
+		# print("skill %s - %s disabled %s" % [_skill.name, _skill.title, disabled])
 		do(!disabled)
 

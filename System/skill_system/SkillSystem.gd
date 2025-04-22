@@ -55,10 +55,18 @@ func initialize_skills(source_unit: BaseUnit, skill_metas: Array[SkillMetaResour
 			# add to unit tree
 			skill.name = skill.code
 			source_unit.add_child(skill)
+
 			skill.add_child(skill.skill_script_instance)
 
 			# listener skill disabled cond
-			source_unit.mana_changed.connect(skill._on_mana_changed)
+			if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.MANA, skill.disable_check):
+				source_unit.mana_changed.connect(skill._on_mana_changed)
+			if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.WOOD, skill.disable_check):	
+				SignalBus.wood_changed.connect(skill._on_wood_changed)
+			if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.MONEY, skill.disable_check):	
+				SignalBus.money_changed.connect(skill._on_money_changed)
+
+			# skill released 监听
 			skill.skill_released.connect(source_unit._on_skill_released)
 
 	return skill_map
@@ -87,6 +95,9 @@ func _initialize_skill(source_unit: BaseUnit, skill_meta_res: SkillMetaResource,
 			
 		# skill id
 		skill.id = UUID.v4()
+
+		# skill unit
+		skill.unit = source_unit
 
 
 		# 实例化技能脚本

@@ -39,10 +39,6 @@ var code: String
 @export var cooldown: float = 1.0
 # 魔法消耗
 @export var mana_cost: float = -1
-# 木材消耗
-@export var wood_cost: float = -1
-# 金钱消耗
-@export var money_cost: float = -1
 # 技能伤害范围
 @export var damage_range: float = 5.0
 # 技能匹配目标对象范围（目标搜索范围，例如 light_chain 下一个目标匹配范围）
@@ -94,6 +90,10 @@ var code: String
 @export_group("Skill Build Steup")
 # 建筑升级时间
 @export var building_level_up_time: float = -1
+# 建筑木材消耗
+@export var wood_cost: float = -1
+# 建筑金钱消耗
+@export var money_cost: float = -1
 
 
 # 其他配置
@@ -111,9 +111,12 @@ var buff_map: Dictionary = {}
 # Timer
 var cool_down_timer: Timer
 
-# 
+# 禁用 skill
 var _is_disabled = false
-
+var _mana_disabled = false
+var _health_disabled = false
+var _money_disabled = false
+var _wood_disabled = false
 
 
 # FSM
@@ -155,17 +158,48 @@ func _ready() -> void:
     if init_release:
         change_state(SKILL_STATE.Release)
 
+    # player 监听技能释放
+    skill_released.connect(SOS.main.player_controller._on_skill_released)
+
+
+
 # 监听所属单位魔法值变化( SkillSystem initialize_skills 方法中监听 )
 func _on_mana_changed(unit: BaseUnit, left_mana: float):
     if unit.get_instance_id() == self.unit.get_instance_id():
 
         if mana_cost > -1:
             if left_mana < mana_cost:
-                _is_disabled = true
-                skill_disabled.emit(skill_context, true)
+                _mana_disabled = true
+                skill_disabled_check()
             else:
-                _is_disabled = false
-                skill_disabled.emit(skill_context, false)
+                _mana_disabled = false
+                skill_disabled_check()
+
+# 监听所属玩家木材变化( SkillSystem initialize_skills 方法中监听 )
+func _on_wood_changed(source: Object, left_wood: int):
+    if skill_meta_res.wood_cost > -1:
+        if left_wood < skill_meta_res.wood_cost:
+            _wood_disabled = true
+            skill_disabled_check()
+        else:
+            _wood_disabled = false
+            skill_disabled_check()
+
+
+# 监听所属玩家金钱变化( SkillSystem initialize_skills 方法中监听 )
+func _on_money_changed(source: Object, left_money: int):
+    if skill_meta_res.money_cost > -1:
+        if left_money < skill_meta_res.money_cost:
+            _money_disabled = true
+            skill_disabled_check()
+        else:
+            _money_disabled = false
+            skill_disabled_check()
+
+
+func skill_disabled_check() -> void:
+    _is_disabled = _mana_disabled || _health_disabled || _money_disabled || _wood_disabled
+    skill_disabled.emit(skill_context, _is_disabled)
 
 
 
