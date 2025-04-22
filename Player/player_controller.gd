@@ -9,7 +9,7 @@ class_name PlayerController extends Node3D
 
 var wood: int = 0
 
-func set_wood(s: Object, value: int) -> void:
+func set_wood(s: Object, value: int) -> void:	# from _on_unit_logic_death
 	wood = value
 	SignalBus.wood_changed.emit(s, wood)
 	# print("wood changed %s" % [wood])
@@ -17,7 +17,7 @@ func set_wood(s: Object, value: int) -> void:
 
 var money: int = 0
 
-func set_money(s: Object, value: int) -> void:
+func set_money(s: Object, value: int) -> void:	# from _on_unit_logic_death
 	money = value
 	SignalBus.money_changed.emit(s, money)
 	# print("money changed %s" % [money])
@@ -219,8 +219,11 @@ func _on_unit_logic_death(id: int, unit: BaseUnit):
 	cur_unit_map.erase(id)
 
 	# 树木、金钱处理
-	set_wood(unit, wood)
-	set_money(unit, money)
+	if unit.wood_reward > -1:
+		set_wood(unit, unit.wood_reward)
+
+	if unit.money_reward > -1:
+		set_money(unit, unit.money_reward)
 
 
 

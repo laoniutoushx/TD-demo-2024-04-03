@@ -1,4 +1,4 @@
-class_name Gdbot extends BaseUnit
+class_name Gdbot extends Turret
 
 ## Represents the blending between the walking and running animations. It can be set to different values (e.g. 0.0 to 1.0) to adjust the balance between the two animations, resulting in the model appearing to walk or run depending on the value.
 var walk_run_blending = 0.0 : set = _set_walk_run_blending

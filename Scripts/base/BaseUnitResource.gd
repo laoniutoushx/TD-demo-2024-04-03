@@ -45,6 +45,11 @@ enum ELEMENT_PHASE_STR{
 @export var wood_cost: float = -1
 # 金钱消耗
 @export var money_cost: float = -1
+# 金币奖励
+@export var money_reward: int = -1
+# 木材奖励
+@export var wood_reward: int = -1
+
 
 # unit status
 

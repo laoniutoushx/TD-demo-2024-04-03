@@ -114,6 +114,9 @@ var _mesh_standing: MeshInstance3D
 # 金钱消耗
 @export var money_cost: float = -1
 
+@export var money_reward: int = -1
+@export var wood_reward: int = -1
+
 
 
 
@@ -266,6 +269,8 @@ func _ready() -> void:
 
 	# 魔法值设置
 	mana = max_mana
+
+
 
 
 

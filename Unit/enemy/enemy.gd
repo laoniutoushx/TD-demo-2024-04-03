@@ -1,8 +1,5 @@
 class_name Enemy extends BaseUnit
 
-@export var money := 10
-@export var wood := 1
-
 @onready var path: PathFollow3D = $"."
 @onready var base = get_tree().get_first_node_in_group("base")
 
