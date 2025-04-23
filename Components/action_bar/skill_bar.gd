@@ -25,7 +25,8 @@ func _create_skill_slot(skill: Skill) -> BaseSlot:
 		BaseSlot.SLOT_TYPE.SKILL, 
 
 		# 选中单位所属（玩家） 并且 skill 是否禁用 = false
-		skill.unit.player_group == SOS.main.player_controller.get_player_group_idx() and skill._is_disabled == false
+		skill.unit.player_group == SOS.main.player_controller.get_player_group_idx() 
+			and skill._is_disabled == false
 	)
 	# click signal listener
 	slot_instance.slot_clicked.connect(_on_slot_clicked)

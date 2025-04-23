@@ -59,15 +59,30 @@ func initialize_skills(source_unit: BaseUnit, skill_metas: Array[SkillMetaResour
 			skill.add_child(skill.skill_script_instance)
 
 			# listener skill disabled cond
+			# 技能初始化时，判断技能是否应该禁用（手动触发）
 			if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.MANA, skill.disable_check):
+				skill._on_mana_changed(source_unit, source_unit.mana)
 				source_unit.mana_changed.connect(skill._on_mana_changed)
 			if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.WOOD, skill.disable_check):	
+				skill._on_wood_changed(source_unit, SOS.main.player_controller.wood)
 				SignalBus.wood_changed.connect(skill._on_wood_changed)
 			if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.MONEY, skill.disable_check):	
+				skill._on_money_changed(source_unit, SOS.main.player_controller.money)
 				SignalBus.money_changed.connect(skill._on_money_changed)
 
-			# skill released 监听
-			skill.skill_released.connect(source_unit._on_skill_released)
+			# # skill released 监听
+			# skill.skill_released.connect(source_unit._on_skill_released)
+
+			# 技能初始化时，判断技能是否应该禁用（手动触发）
+			# if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.MANA, skill.disable_check):
+			# 	skill._on_mana_changed(source_unit, source_unit.mana)
+			
+			# if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.WOOD, skill.disable_check):
+			# 	skill._on_wood_changed(source_unit, SOS.main.player_controller.wood)
+
+			# if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.MONEY, skill.disable_check):
+			# 	skill._on_money_changed(source_unit, SOS.main.player_controller.money)
+
 
 	return skill_map
 

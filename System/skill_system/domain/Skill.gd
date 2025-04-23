@@ -155,11 +155,14 @@ func _ready() -> void:
     cool_down_timer.wait_time = cooldown
     add_child(cool_down_timer)
 
+    # player 监听技能释放
+    skill_released.connect(SOS.main.player_controller._on_skill_released)
+
+    # 如果技能设置为初始化时自动施法，则在此手动激活
     if init_release:
         change_state(SKILL_STATE.Release)
 
-    # player 监听技能释放
-    skill_released.connect(SOS.main.player_controller._on_skill_released)
+
 
 
 
@@ -175,26 +178,37 @@ func _on_mana_changed(unit: BaseUnit, left_mana: float):
                 _mana_disabled = false
                 skill_disabled_check()
 
+
+
 # 监听所属玩家木材变化( SkillSystem initialize_skills 方法中监听 )
 func _on_wood_changed(source: Object, left_wood: int):
-    if skill_meta_res.wood_cost > -1:
-        if left_wood < skill_meta_res.wood_cost:
-            _wood_disabled = true
-            skill_disabled_check()
-        else:
-            _wood_disabled = false
-            skill_disabled_check()
+
+    # 判断是否是建筑技能
+    if CommonUtil.is_flag_set(SkillMetaResource.SKILL_EFFECT_TYPE.BUILDING, self.effect_type):
+        if skill_meta_res.building_res.wood_cost > -1:
+            if left_wood < skill_meta_res.building_res.wood_cost:
+                _wood_disabled = true
+                skill_disabled_check()
+            else:
+                _wood_disabled = false
+                skill_disabled_check()
+
 
 
 # 监听所属玩家金钱变化( SkillSystem initialize_skills 方法中监听 )
 func _on_money_changed(source: Object, left_money: int):
-    if skill_meta_res.money_cost > -1:
-        if left_money < skill_meta_res.money_cost:
-            _money_disabled = true
-            skill_disabled_check()
-        else:
-            _money_disabled = false
-            skill_disabled_check()
+
+    # 判断是否是建筑技能
+    if CommonUtil.is_flag_set(SkillMetaResource.SKILL_EFFECT_TYPE.BUILDING, self.effect_type):
+        print("skill name %s - %s， skill building money cost %s" % [self.code, self.name, skill_meta_res.building_res.money_cost])
+        if skill_meta_res.building_res.money_cost > -1:
+            if left_money < skill_meta_res.building_res.money_cost:
+                _money_disabled = true
+                skill_disabled_check()
+            else:
+                _money_disabled = false
+                skill_disabled_check()
+
 
 
 func skill_disabled_check() -> void:

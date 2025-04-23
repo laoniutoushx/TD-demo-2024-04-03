@@ -83,7 +83,9 @@ func _ready() -> void:
 	# target_indicator 默认隐藏
 	player_skill_target_indicator.hide()
 
-	# player 监听 skill 释放信号
+	# player 初始化 money、wood 值
+	set_money(self, 0)
+	set_wood(self, 0)
 
 
 
