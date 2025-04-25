@@ -58,23 +58,24 @@ func _slot_info(_slot: BaseSlot) -> void:
 	
 
 	# Cost
-	if skill.mana_cost:
+	if skill.mana_cost > -1:
 		mana_cost.text = "魔法消耗： %s" % str(skill.mana_cost)
 		mana_cost.visible = true
 	else:
 		mana_cost.visible = false
 
-	if skill.money_cost:
-		money_cost.text = "金钱： %s" % str(skill.money_cost)
-		money_cost.visible = true
-	else:
-		money_cost.visible = false
+	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_EFFECT_TYPE.BUILDING, skill.effect_type):
+		if skill.skill_meta_res.money_cost > -1:
+			money_cost.text = "金钱： %s" % str(skill.skill_meta_res.money_cost)
+			money_cost.visible = true
+		else:
+			money_cost.visible = false
 
-	if skill.wood_cost:
-		wood_cost.text = "木材： %s" % str(skill.wood_cost)
-		wood_cost.visible = true
-	else:
-		wood_cost.visible = false
+		if skill.skill_meta_res.wood_cost > -1:
+			wood_cost.text = "木材： %s" % str(skill.skill_meta_res.wood_cost)
+			wood_cost.visible = true
+		else:
+			wood_cost.visible = false
 
 
 	# Functional
@@ -84,7 +85,7 @@ func _slot_info(_slot: BaseSlot) -> void:
 	else:
 		damage.visible = false
 
-	if skill.init_num:
+	if skill.init_num > -1:
 		init_num.text = "数量： %s" % str(skill.init_num)
 		init_num.visible = true
 	else:
@@ -103,7 +104,7 @@ func _slot_info(_slot: BaseSlot) -> void:
 	else:
 		target_type.visible = false
 
-	if skill.wave:
+	if skill.wave > -1:
 		wave.text = "轮次： %s" % str(skill.wave)
 		wave.visible = true
 	else:

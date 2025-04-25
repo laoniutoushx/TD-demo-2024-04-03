@@ -173,10 +173,10 @@ func _on_mana_changed(unit: BaseUnit, left_mana: float):
         if mana_cost > -1:
             if left_mana < mana_cost:
                 _mana_disabled = true
-                skill_disabled_check()
+                call_deferred("skill_disabled_check")
             else:
                 _mana_disabled = false
-                skill_disabled_check()
+                call_deferred("skill_disabled_check")
 
 
 
@@ -188,10 +188,10 @@ func _on_wood_changed(source: Object, left_wood: int):
         if skill_meta_res.building_res.wood_cost > -1:
             if left_wood < skill_meta_res.building_res.wood_cost:
                 _wood_disabled = true
-                skill_disabled_check()
+                call_deferred("skill_disabled_check")
             else:
                 _wood_disabled = false
-                skill_disabled_check()
+                call_deferred("skill_disabled_check")
 
 
 
@@ -200,19 +200,22 @@ func _on_money_changed(source: Object, left_money: int):
 
     # 判断是否是建筑技能
     if CommonUtil.is_flag_set(SkillMetaResource.SKILL_EFFECT_TYPE.BUILDING, self.effect_type):
-        print("skill name %s - %s， skill building money cost %s" % [self.code, self.name, skill_meta_res.building_res.money_cost])
+        # print("skill name %s - %s， skill building money cost %s" % [self.code, self.name, skill_meta_res.building_res.money_cost])
         if skill_meta_res.building_res.money_cost > -1:
             if left_money < skill_meta_res.building_res.money_cost:
                 _money_disabled = true
-                skill_disabled_check()
+                call_deferred("skill_disabled_check")
             else:
                 _money_disabled = false
-                skill_disabled_check()
+                call_deferred("skill_disabled_check")
 
 
 
 func skill_disabled_check() -> void:
     _is_disabled = _mana_disabled || _health_disabled || _money_disabled || _wood_disabled
+    print("skill name %s - %s， skill status in mana %s, health %s, money %s, wood %s， real value mana %s, health %s, money %s, wood %s" 
+            % [self.code, self.name, _mana_disabled, _health_disabled, _money_disabled, _wood_disabled, 
+            unit.mana, null, SOS.main.player_controller.money, SOS.main.player_controller.wood])
     skill_disabled.emit(skill_context, _is_disabled)
 
 

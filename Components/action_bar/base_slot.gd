@@ -223,5 +223,5 @@ func _on_skill_disabled(skill_context: SkillContext, disabled: bool):
 	
 	if _skill.get_instance_id() == reference.get_instance_id():
 		# print("skill %s - %s disabled %s" % [_skill.name, _skill.title, disabled])
-		do(!disabled)
+		call_deferred("do", !disabled)
 

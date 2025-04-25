@@ -91,7 +91,7 @@ func initialize_skills(source_unit: BaseUnit, skill_metas: Array[SkillMetaResour
  # 实例化
 func _initialize_skill(source_unit: BaseUnit, skill_meta_res: SkillMetaResource, idx: int = 0) -> Skill:
 	if skill_meta_res != null:
-		var skill: Skill = Skill.new()
+		var skill: Skill = Skill.new().duplicate()
 		skill.unit = source_unit
 
 		# skill context init
