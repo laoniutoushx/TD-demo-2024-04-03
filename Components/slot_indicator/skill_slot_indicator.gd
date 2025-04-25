@@ -65,14 +65,14 @@ func _slot_info(_slot: BaseSlot) -> void:
 		mana_cost.visible = false
 
 	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_EFFECT_TYPE.BUILDING, skill.effect_type):
-		if skill.skill_meta_res.money_cost > -1:
-			money_cost.text = "金钱： %s" % str(skill.skill_meta_res.money_cost)
+		if skill.skill_meta_res.building_res.money_cost > -1:
+			money_cost.text = "金钱： %s" % str(skill.skill_meta_res.building_res.money_cost)
 			money_cost.visible = true
 		else:
 			money_cost.visible = false
 
-		if skill.skill_meta_res.wood_cost > -1:
-			wood_cost.text = "木材： %s" % str(skill.skill_meta_res.wood_cost)
+		if skill.skill_meta_res.building_res.wood_cost > -1:
+			wood_cost.text = "木材： %s" % str(skill.skill_meta_res.building_res.wood_cost)
 			wood_cost.visible = true
 		else:
 			wood_cost.visible = false
