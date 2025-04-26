@@ -4,7 +4,8 @@ class_name UnitSlotIndicator extends BaseSlotIndicator
 @onready var title: Label = %Title
 @onready var level: Label = %Level
 
-@onready var mana_cost: Label = %ManaCost
+@onready var mana: Label = %Mana
+@onready var health: Label = %Health
 @onready var money_cost: Label = %MoneyCost
 @onready var wood_cost: Label = %WoodCost
 
@@ -56,22 +57,28 @@ func _slot_info(_slot: BaseSlot) -> void:
 	
 
 	# Cost
-	if unit.mana_cost:
-		mana_cost.text = "魔法消耗： %s" % str(unit.mana_cost)
-		mana_cost.visible = true
+	if unit.health > -1:
+		health.text = "生命值： %s" % str(unit.health)
+		health.visible = true
 	else:
-		mana_cost.visible = false
+		health.visible = false
 
-	if unit.money_cost:
-		money_cost.text = "金钱： %s" % str(unit.money_cost)
+	if unit.mana > -1:
+		mana.text = "魔法值： %s" % str(unit.mana)
+		mana.visible = true
 	else:
-		money_cost.visible = false
+		mana.visible = false
 
-	if unit.wood_cost:
-		wood_cost.text = "木材： %s" % str(unit.wood_cost)
-		wood_cost.visible = true
-	else:
-		wood_cost.visible = false
+	# if unit.money_cost:
+	# 	money_cost.text = "金钱： %s" % str(unit.money_cost)
+	# else:
+	# 	money_cost.visible = false
+
+	# if unit.wood_cost:
+	# 	wood_cost.text = "木材： %s" % str(unit.wood_cost)
+	# 	wood_cost.visible = true
+	# else:
+	# 	wood_cost.visible = false
 
 
 	# Functional
@@ -89,7 +96,7 @@ func _slot_info(_slot: BaseSlot) -> void:
 		damage.visible = false
 
 	if unit.attack_num:
-		attack_num.text = "数量： %s" % str(unit.attack_num)
+		attack_num.text = "攻击数量： %s" % str(unit.attack_num)
 		attack_num.visible = true
 	else:
 		attack_num.visible = false

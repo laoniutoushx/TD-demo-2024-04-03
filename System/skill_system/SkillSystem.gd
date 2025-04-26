@@ -62,7 +62,10 @@ func initialize_skills(source_unit: BaseUnit, skill_metas: Array[SkillMetaResour
 			# 技能初始化时，判断技能是否应该禁用（手动触发）
 			if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.MANA, skill.disable_check):
 				skill._on_mana_changed(source_unit, source_unit.mana)
-				source_unit.mana_changed.connect(skill._on_mana_changed)
+
+				skill.skill_released.connect(source_unit._on_skill_released)	# 技能释放触发单位魔法变动
+				source_unit.mana_changed.connect(skill._on_mana_changed)		# 单位魔法变动触发技能魔法变动事件（管理 ui 等禁用）
+				
 			if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.WOOD, skill.disable_check):	
 				skill._on_wood_changed(source_unit, SOS.main.player_controller.wood)
 				SignalBus.wood_changed.connect(skill._on_wood_changed)

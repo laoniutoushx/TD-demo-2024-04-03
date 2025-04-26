@@ -115,6 +115,7 @@ layout_mode = 2
 
 [node name="MoneyCost" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HSplitContainer/CostContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 text = "金币：100"
 label_settings = SubResource("LabelSettings_xd57s")
@@ -122,15 +123,23 @@ vertical_alignment = 1
 
 [node name="WoodCost" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HSplitContainer/CostContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 text = "木材：1"
 label_settings = SubResource("LabelSettings_v0yym")
 vertical_alignment = 1
 
-[node name="ManaCost" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HSplitContainer/CostContainer"]
+[node name="Mana" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HSplitContainer/CostContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "魔法消耗：50"
+text = "魔法值：50"
+label_settings = SubResource("LabelSettings_1f6mj")
+vertical_alignment = 1
+
+[node name="Health" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HSplitContainer/CostContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "生命值：50"
 label_settings = SubResource("LabelSettings_1f6mj")
 vertical_alignment = 1
 
