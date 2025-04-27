@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://v7ppoiw21kdi"]
 
-[ext_resource type="Script" uid="uid://dq14ttrg0jq64" path="res://UI/ui.gd" id="1_64wmh"]
+[ext_resource type="Script" uid="uid://dq14ttrg0jq64" path="res://UI/UI.gd" id="1_64wmh"]
 [ext_resource type="Theme" uid="uid://bf5a24ang0c6j" path="res://Asserts/resources/demo_ui/panel_container_theme.tres" id="1_cvmv4"]
 [ext_resource type="Texture2D" uid="uid://nx6gcyhrqbr2" path="res://Asserts/resources/demo_ui/UI/2_爱给网_aigei_com.png" id="1_sx3px"]
 [ext_resource type="Texture2D" uid="uid://bkmrrcn6wmtew" path="res://Asserts/resources/demo_ui/UI/木支柱4(wood_prop4)_爱给网_aigei_com.png" id="2_pxfgc"]

@@ -36,10 +36,10 @@ var _value: float   # buff 记录的修改前的属性值
 @export var value_unit: BuffResource.VALUE_UNIT
 @export var value_dir: int:
     set(_val_dir):
-        if _val_dir == 0 :
+        if _val_dir == 0:
             value_dir = 1
         else:
-            value_dir = -1
+            value_dir = _val_dir
 
 @export var cooldown: float     
 @export var max_overlay_num: int    

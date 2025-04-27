@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=8 format=3 uid="uid://cqgqxbhrs2wge"]
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=9 format=3 uid="uid://cqgqxbhrs2wge"]
 
 [ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_fj00h"]
 [ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="2_4i4s6"]
-[ext_resource type="Script" uid="uid://dhf7xdpvnn7gv" path="res://System/buff_system/resources/power_buff.gd" id="3_7c8df"]
+[ext_resource type="Script" uid="uid://caib52nmgh5qd" path="res://System/buff_system/resources/rate_buff.gd" id="3_fj00h"]
 [ext_resource type="Script" uid="uid://cya1pifwbgjdk" path="res://addons/script_property_selector/property_selector_resource.gd" id="4_yj3jl"]
 [ext_resource type="Script" uid="uid://iturnmfrfl23" path="res://System/skill_system/resources/effect/recovery.gd" id="5_i62tr"]
 
@@ -11,25 +11,45 @@ script = ExtResource("4_yj3jl")
 selected_script_name = ""
 selected_properties = Array[String]([])
 
-[sub_resource type="Resource" id="Resource_12f74"]
+[sub_resource type="Resource" id="Resource_4i4s6"]
 script = ExtResource("2_4i4s6")
 id = &""
-code = "move_speed_power"
+code = "health_rate_buff"
 entity = ""
-prop = "move_speed"
+prop = "health_recove_rate_factor"
 property_selector = SubResource("Resource_wqbbn")
-type = 2
-title = "降低移动速度"
-desc = "降低移动速度"
-icon_path = "8"
-value = 80.0
-value_unit = 0
+type = 35
+title = "速率"
+desc = "修改目标指定属性速率值"
+icon_path = ""
+value = 1.0
+value_unit = 1
 value_dir = 1
 cooldown = -1.0
 max_overlay_num = 1
-priority = 1
+priority = 0
 exclude_level = 3
-buff_script = ExtResource("3_7c8df")
+buff_script = ExtResource("3_fj00h")
+
+[sub_resource type="Resource" id="Resource_7c8df"]
+script = ExtResource("2_4i4s6")
+id = &""
+code = "mana_rate_buff"
+entity = ""
+prop = "mana_recove_rate_factor"
+property_selector = SubResource("Resource_wqbbn")
+type = 35
+title = "速率"
+desc = "修改目标指定属性速率值"
+icon_path = ""
+value = 0.0
+value_unit = 1
+value_dir = 1
+cooldown = -1.0
+max_overlay_num = 1
+priority = 0
+exclude_level = 3
+buff_script = ExtResource("3_fj00h")
 
 [resource]
 script = ExtResource("1_fj00h")
@@ -49,7 +69,7 @@ match_range = 30.0
 range = 5.0
 release_distance = 10.0
 stock = -1
-value = 0.0
+value = 1.0
 run_distance = 10.0
 epoch = 1
 init_num = 1
@@ -67,4 +87,4 @@ wood_cost = -1.0
 money_cost = -1.0
 skill_script = ExtResource("5_i62tr")
 skill_level_config = Array[ExtResource("1_fj00h")]([])
-skill_buff_config = Array[ExtResource("2_4i4s6")]([SubResource("Resource_12f74")])
+skill_buff_config = Array[ExtResource("2_4i4s6")]([SubResource("Resource_4i4s6"), SubResource("Resource_7c8df")])
