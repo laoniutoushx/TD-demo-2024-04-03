@@ -68,6 +68,9 @@ enum ELEMENT_PHASE_STR{
 @export var unit_growth_factor: float = 1.0     # 单位成长率
 @export var projectile_speed: float = 100.0		# 弹道速率
 
+@export var health_recove_rate_factor: float = 0.0		# 生命值恢复速率
+@export var mana_recove_rate_factor: float = 0.0		# 魔法值恢复速率
+
 
 
 # FightRegion

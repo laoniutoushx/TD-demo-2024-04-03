@@ -90,6 +90,11 @@ var projectile_speed: float:	# 弹道速率
 	set (value):
 		projectile_speed = value / 10	# 取值缩小 100 倍
 
+
+@export var health_recove_rate_factor: float = 0.0		# 生命值恢复速率
+@export var mana_recove_rate_factor: float = 0.0		# 魔法值恢复速率
+
+
 # FightRegion
 var vfx_projectile_name: String
 var projectile_trace: Curve3D
