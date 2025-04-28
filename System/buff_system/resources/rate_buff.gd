@@ -30,13 +30,14 @@ func _on_rate_buff_ticked(unit: BaseUnit):
 	var prop_val = unit.get(prop)
 
 	if value_unit == BuffResource.VALUE_UNIT.PERCENT:
-		# if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-		unit.health += unit.health * value / 100 * value_dir
-		# if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-		# ref_val -= ref_val * value / 100 * value_dir
+		if prop == 'health_recove_rate_factor':
+			unit.health += unit.health * value / 100 * _value_dir
+		else:
+			unit.mana += unit.mana * value / 100 * _value_dir
+
 
 	elif value_unit == BuffResource.VALUE_UNIT.VALUE:
-		# if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-		unit.health += value * value_dir
-		# if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-		# ref_val -= value * value_dir
+		if prop == 'health_recove_rate_factor':
+			unit.health += value * _value_dir
+		else:
+			unit.mana += value * _value_dir

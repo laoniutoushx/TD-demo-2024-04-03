@@ -34,12 +34,17 @@ var slot: BaseSlot
 var _value: float   # buff 记录的修改前的属性值
 @export var value: float
 @export var value_unit: BuffResource.VALUE_UNIT
+
+var _value_dir: int # buff 记录的属性值方向（原始位 0 和 1， 这里映射为 0 => 1, 1 => -1 ，方便计算正负数）
 @export var value_dir: int:
-    set(_val_dir):
-        if _val_dir == 0:
-            value_dir = 1
+    set(value):
+        value_dir = value
+        if value_dir == 0:
+            _value_dir = 1
         else:
-            value_dir = _val_dir
+            _value_dir = -1
+        
+
 
 @export var cooldown: float     
 @export var max_overlay_num: int    
@@ -118,17 +123,17 @@ func apply(_reference: Variant) -> bool:
 
             if value_unit == BuffResource.VALUE_UNIT.PERCENT:
                 # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-                    ref_val += ref_val * value / 100 * value_dir
+                    ref_val += ref_val * value / 100 * _value_dir
 
                 # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                    # ref_val -= ref_val * value / 100 * value_dir
+                    # ref_val -= ref_val * value / 100 * _value_dir
 
             elif value_unit == BuffResource.VALUE_UNIT.VALUE:
                 # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-                    ref_val += value * value_dir
+                    ref_val += value * _value_dir
 
                 # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                    # ref_val -= value * value_dir
+                    # ref_val -= value * _value_dir
 
 
             _reference.set(prop, ref_val)
@@ -155,17 +160,17 @@ func remove(_reference: Variant) -> bool:
 
             if value_unit == BuffResource.VALUE_UNIT.PERCENT:
                 # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-                    ref_val = ref_val / (1.0 + value / 100 * value_dir)
+                    ref_val = ref_val / (1.0 + value / 100 * _value_dir)
 
                 # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                    # ref_val = ref_val * (1.0 + value / 100 * value_dir)
+                    # ref_val = ref_val * (1.0 + value / 100 * _value_dir)
 
             elif value_unit == BuffResource.VALUE_UNIT.VALUE:
                 # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-                    ref_val -= value * value_dir
+                    ref_val -= value * _value_dir
 
                 # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                    # ref_val += value * value_dir
+                    # ref_val += value * _value_dir
 
 
             _reference.set(prop, ref_val)
