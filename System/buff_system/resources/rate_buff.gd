@@ -31,13 +31,17 @@ func _on_rate_buff_ticked(unit: BaseUnit):
 
 	if value_unit == BuffResource.VALUE_UNIT.PERCENT:
 		if prop == 'health_recove_rate_factor':
-			unit.health += unit.health * value / 100 * _value_dir
+			var health = unit.health + unit.health * value / 100 * _value_dir
+			unit.health = min(health, unit.max_health)
 		else:
-			unit.mana += unit.mana * value / 100 * _value_dir
+			var mana = unit.mana + unit.mana * value / 100 * _value_dir
+			unit.mana = min(mana, unit.max_mana)
 
 
 	elif value_unit == BuffResource.VALUE_UNIT.VALUE:
 		if prop == 'health_recove_rate_factor':
-			unit.health += value * _value_dir
+			var health = unit.health + value * _value_dir
+			unit.health = min(health, unit.max_health) 
 		else:
-			unit.mana += value * _value_dir
+			var mana = unit.mana + value * _value_dir
+			unit.mana = min(mana, unit.max_mana)
