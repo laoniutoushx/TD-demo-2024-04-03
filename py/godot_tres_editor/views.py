@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import (QWidget, QFileDialog, QVBoxLayout, QHBoxLayout,
                              QPushButton, QTableView, QHeaderView, QAbstractItemView,
                              QSplitter, QComboBox, QMenu, QAction, QLabel, QLineEdit,
-                             QMessageBox)
+                             QMessageBox, QListWidget, QListWidgetItem, QCheckBox, QDialog)
 from PyQt5.QtCore import Qt, QSettings, QModelIndex
 import os
 import sys
@@ -62,9 +62,13 @@ class TresEditor(QWidget):
         
         # 操作按钮
         action_layout = QHBoxLayout()
-        self.save_btn = QPushButton("保存修改")
+        self.save_btn = QPushButton("保存所有修改")
         self.save_btn.clicked.connect(self.save_changes)
         self.save_btn.setEnabled(False)
+        
+        self.save_row_btn = QPushButton("保存选中行")
+        self.save_row_btn.clicked.connect(self.save_selected_row)
+        self.save_row_btn.setEnabled(False)
         
         self.add_row_btn = QPushButton("添加行")
         self.add_row_btn.clicked.connect(self.add_row)
@@ -75,6 +79,7 @@ class TresEditor(QWidget):
         self.delete_row_btn.setEnabled(False)
         
         action_layout.addWidget(self.save_btn)
+        action_layout.addWidget(self.save_row_btn)
         action_layout.addWidget(self.add_row_btn)
         action_layout.addWidget(self.delete_row_btn)
         action_layout.addStretch(1)
@@ -110,24 +115,35 @@ class TresEditor(QWidget):
         self.frozen_table.verticalHeader().sectionClicked.connect(self.on_row_selected)
         self.table.verticalHeader().sectionClicked.connect(self.on_row_selected)
         
+        # 添加单元格点击事件，使点击任何单元格都能选中整行
+        self.frozen_table.clicked.connect(self.on_cell_clicked)
+        self.table.clicked.connect(self.on_cell_clicked)
+        
         splitter.addWidget(self.frozen_table)
         splitter.addWidget(self.table)
         splitter.setSizes([300, 900])  # 设置初始大小
         
         main_layout.addWidget(splitter, 1)  # 给表格区域最多空间
         
-        # 选择冻结列的下拉框
+        # 替换冻结列下拉框为选择按钮
         frozen_layout = QHBoxLayout()
         frozen_label = QLabel("冻结列:")
-        self.column_select_combo = QComboBox()
-        self.column_select_combo.setEditable(True)
-        self.column_select_combo.setInsertPolicy(QComboBox.InsertAtTop)
-        self.column_select_combo.setDuplicatesEnabled(False)
-        self.column_select_combo.setToolTip("选择冻结的列 (输入多列名用逗号分隔)")
-        self.column_select_combo.currentTextChanged.connect(self.update_frozen_columns)
+        self.frozen_columns_display = QLineEdit()
+        self.frozen_columns_display.setReadOnly(True)
+        self.frozen_columns_display.setPlaceholderText("未选择任何列")
+        
+        self.select_columns_btn = QPushButton("选择列")
+        self.select_columns_btn.clicked.connect(self.show_column_selector)
+        self.select_columns_btn.setFixedWidth(80)
+        
+        self.clear_frozen_btn = QPushButton("清除冻结")
+        self.clear_frozen_btn.clicked.connect(self.clear_frozen_columns)
+        self.clear_frozen_btn.setFixedWidth(80)
         
         frozen_layout.addWidget(frozen_label)
-        frozen_layout.addWidget(self.column_select_combo, 1)
+        frozen_layout.addWidget(self.frozen_columns_display, 1)
+        frozen_layout.addWidget(self.select_columns_btn)
+        frozen_layout.addWidget(self.clear_frozen_btn)
         
         main_layout.addLayout(frozen_layout)
     
@@ -209,40 +225,75 @@ class TresEditor(QWidget):
             
         self.headers = [h for h in list(self.data[0].keys()) if not h.startswith('_')]
         self.types = detect_types(self.data[0])
-
+    
         self.model = TresTableModel(self.data, self.headers, self.types)
         self.table.setModel(self.model)
         self.frozen_table.setModel(self.model)
         
         # 连接到数据更改信号
         self.model.dataChanged.connect(self.on_data_changed)
-
-        # 用标题填充下拉框
-        self.column_select_combo.clear()
-        self.column_select_combo.addItems(self.headers)  # 默认建议
-        
-        # 设置冻结列视图（默认为 id 和 name，如果存在）
-        default_frozen = []
-        for col in ["id", "name"]:
-            if col in self.headers:
-                default_frozen.append(self.headers.index(col))
-        
-        self.setup_frozen_columns(default_frozen)
+    
+        # 加载上次保存的冻结列设置
+        last_frozen = self.settings.value(f"frozen_columns_{class_name}", "")
+        if last_frozen:
+            # 这里需要修改，不再使用 column_select_combo
+            self.frozen_columns_display.setText(last_frozen)
+            
+            # 获取选中列的索引
+            frozen_indices = []
+            for col_name in last_frozen.split(","):
+                col_name = col_name.strip()
+                if col_name in self.headers:
+                    frozen_indices.append(self.headers.index(col_name))
+            self.setup_frozen_columns(frozen_indices)
+        else:
+            # 设置默认冻结列（id 和 name，如果存在）
+            default_frozen = []
+            default_frozen_names = []
+            for col in ["id", "name"]:
+                if col in self.headers:
+                    default_frozen.append(self.headers.index(col))
+                    default_frozen_names.append(col)
+            
+            if default_frozen:
+                self.setup_frozen_columns(default_frozen)
+                # 这里需要修改，不再使用 column_select_combo
+                self.frozen_columns_display.setText(",".join(default_frozen_names))
+    
         self.save_btn.setEnabled(False)
         self.add_row_btn.setEnabled(True)
         self.delete_row_btn.setEnabled(False)
     
+    # 删除这个方法
     def update_frozen_columns(self):
         """根据用户选择更新冻结列"""
         frozen_columns_text = self.column_select_combo.currentText().split(",")
         frozen_indices = []
+        frozen_names = []
         
         for text in frozen_columns_text:
             col_name = text.strip()
             if col_name and col_name in self.headers:
                 frozen_indices.append(self.headers.index(col_name))
+                frozen_names.append(col_name)
         
-        self.setup_frozen_columns(frozen_indices)
+        if frozen_indices:
+            self.setup_frozen_columns(frozen_indices)
+            # 保存冻结列设置到 QSettings
+            self.settings.setValue(f"frozen_columns_{self.current_class}", ",".join(frozen_names))
+            QMessageBox.information(self, "冻结列", f"已冻结以下列: {', '.join(frozen_names)}")
+        else:
+            QMessageBox.warning(self, "冻结列", "没有找到指定的列名，请检查输入")
+
+    def clear_frozen_columns(self):
+        """清除所有冻结列"""
+        self.setup_frozen_columns([])
+        # 这里需要修改，不再使用 column_select_combo
+        self.frozen_columns_display.setText("")
+        # 清除保存的冻结列设置
+        self.settings.remove(f"frozen_columns_{self.current_class}")
+        QMessageBox.information(self, "冻结列", "已清除所有冻结列")
+
     
     def setup_frozen_columns(self, frozen_columns):
         """设置冻结列"""
@@ -257,38 +308,76 @@ class TresEditor(QWidget):
             else:
                 self.frozen_table.setColumnHidden(col, True)
                 self.table.setColumnHidden(col, False)  # 在主表中显示
+        
+        # 调整冻结表的大小
+        if frozen_columns:
+            # 计算冻结表的总宽度
+            frozen_width = 0
+            for col in frozen_columns:
+                frozen_width += self.frozen_table.columnWidth(col)
+            
+            # 确保冻结表有合理的最小宽度
+            min_width = max(300, frozen_width + 50)  # 添加一些额外空间
+            
+            # 获取当前的分割器大小
+            total_width = sum(self.frozen_table.parent().sizes())
+            
+            # 设置新的分割器大小
+            self.frozen_table.parent().setSizes([min_width, total_width - min_width])
     
-    def on_data_changed(self):
-        """当模型中的数据更改时调用"""
+    def on_data_changed(self, topLeft, bottomRight):
+        """当数据变化时更新UI状态"""
         self.save_btn.setEnabled(True)
-    
+        
+        # 如果有选中的行，并且该行被修改，启用保存行按钮
+        indexes = self.table.selectionModel().selectedRows()
+        if not indexes:
+            indexes = self.frozen_table.selectionModel().selectedRows()
+        
+        if indexes:
+            row = indexes[0].row()
+            if row in self.model.get_modified_rows():
+                self.save_row_btn.setEnabled(True)
+
     def save_changes(self):
-        """保存更改到 .tres 文件"""
+        """保存所有修改"""
         if not hasattr(self, 'model') or not self.model.is_modified():
             return
             
-        # 按文件路径分组数据
-        files_to_update = {}
-        for item in self.data:
-            filepath = item.get('_filepath')
-            if filepath:
-                if filepath not in files_to_update:
-                    files_to_update[filepath] = []
-                files_to_update[filepath].append(item)
+        # 获取所有已修改的文件
+        modified_files = self.model.get_modified_files()
         
-        # 更新每个文件
-        success = True
-        for filepath, items in files_to_update.items():
-            # 目前只处理每个文件的第一个项目 (TODO: 处理每个文件的多个项目)
-            if not save_tres_file(filepath, items[0]):
-                success = False
-                QMessageBox.warning(self, "保存失败", f"无法保存文件 {filepath}")
+        if not modified_files:
+            QMessageBox.information(self, "保存", "没有修改需要保存")
+            return
         
-        if success:
-            # 标记为已保存
+        success_count = 0
+        error_files = []
+        
+        # 按文件分组保存数据
+        for filepath in modified_files:
+            # 收集此文件的所有数据项
+            file_items = [item for item in self.data if item.get('_filepath') == filepath]
+            
+            if not file_items:
+                continue
+                
+            # 尝试保存文件
+            if save_tres_file(filepath, file_items[0]):  # 目前只处理每个文件的第一个项目
+                success_count += 1
+            else:
+                error_files.append(os.path.basename(filepath))
+        
+        # 如果所有文件都保存成功，清除修改状态
+        if not error_files:
             self.model.set_modified(False)
             self.save_btn.setEnabled(False)
-            QMessageBox.information(self, "保存成功", "所有修改已保存")
+            self.save_row_btn.setEnabled(False)
+            QMessageBox.information(self, "保存成功", f"已成功保存 {success_count} 个文件的修改")
+        else:
+            # 有些文件保存失败
+            error_msg = "以下文件保存失败:\n" + "\n".join(error_files)
+            QMessageBox.warning(self, "部分保存失败", error_msg)
     
     def add_row(self):
         """向表格添加新行"""
@@ -348,13 +437,69 @@ class TresEditor(QWidget):
         self.table.selectRow(row)
         self.frozen_table.selectRow(row)
         self.delete_row_btn.setEnabled(True)
-    
+        
+        # 如果选中的行已被修改，启用"保存选中行"按钮
+        self.save_row_btn.setEnabled(row in self.model._modified_rows)
+
+    def save_selected_row(self):
+        """保存选中的行"""
+        indexes = self.table.selectionModel().selectedRows()
+        if not indexes:
+            indexes = self.frozen_table.selectionModel().selectedRows()
+        
+        if not indexes:
+            return
+            
+        # 获取选中的行
+        row = indexes[0].row()
+        
+        # 检查此行是否已修改
+        if row not in self.model.get_modified_rows():
+            QMessageBox.information(self, "保存", "选中的行没有修改，无需保存")
+            return
+            
+        # 获取此行对应的文件路径
+        filepath = self.data[row].get('_filepath')
+        if not filepath:
+            QMessageBox.warning(self, "保存失败", "无法确定此行对应的文件路径")
+            return
+            
+        # 保存此行数据到对应的文件
+        if save_tres_file(filepath, self.data[row]):
+            # 清除此行的修改状态
+            self.model.clear_row_modified_state(row)
+            
+            # 如果此文件没有其他修改的行，清除文件的修改状态
+            file_still_modified = False
+            for i, item in enumerate(self.data):
+                if i != row and i in self.model.get_modified_rows() and item.get('_filepath') == filepath:
+                    file_still_modified = True
+                    break
+                    
+            if not file_still_modified:
+                self.model.clear_file_modified_state(filepath)
+                
+            # 更新保存按钮状态
+            self.save_btn.setEnabled(self.model.is_modified())
+            self.save_row_btn.setEnabled(False)
+            
+            # 刷新表格显示
+            self.model.dataChanged.emit(
+                self.model.index(row, 0),
+                self.model.index(row, self.model.columnCount() - 1)
+            )
+            
+            QMessageBox.information(self, "保存成功", f"已成功保存行 {row+1} 到文件 {os.path.basename(filepath)}")
+        else:
+            QMessageBox.warning(self, "保存失败", f"无法保存行 {row+1} 到文件 {filepath}")
+
     def show_context_menu(self, pos):
         """显示表格的上下文菜单"""
         table = self.sender()
         index = table.indexAt(pos)
         
         if index.isValid():
+            row = index.row()
             menu = QMenu(self)
             
             edit_action = QAction("编辑单元格", self)
@@ -363,7 +508,94 @@ class TresEditor(QWidget):
             delete_action = QAction("删除此行", self)
             delete_action.triggered.connect(self.delete_row)
             
+            # 如果行已修改，添加保存此行的选项
+            if row in self.model._modified_rows:
+                save_row_action = QAction("保存此行", self)
+                save_row_action.triggered.connect(self.save_selected_row)
+                menu.addAction(save_row_action)
+            
             menu.addAction(edit_action)
             menu.addAction(delete_action)
             
             menu.exec_(table.viewport().mapToGlobal(pos))
+
+
+    def show_column_selector(self):
+        """显示列选择对话框"""
+        if not hasattr(self, 'headers') or not self.headers:
+            return
+            
+        # 创建对话框
+        dialog = QDialog(self)
+        dialog.setWindowTitle("选择要冻结的列")
+        dialog.setMinimumWidth(300)
+        dialog.setMinimumHeight(400)
+        
+        layout = QVBoxLayout(dialog)
+        
+        # 创建列表控件
+        list_widget = QListWidget()
+        
+        # 获取当前冻结的列
+        current_frozen = self.frozen_columns_display.text().split(", ") if self.frozen_columns_display.text() else []
+        
+        # 添加所有列到列表中
+        for header in self.headers:
+            item = QListWidgetItem(header)
+            item.setFlags(item.flags() | Qt.ItemIsUserCheckable)
+            item.setCheckState(Qt.Checked if header in current_frozen else Qt.Unchecked)
+            list_widget.addItem(item)
+        
+        layout.addWidget(list_widget)
+        
+        # 添加按钮
+        button_layout = QHBoxLayout()
+        ok_button = QPushButton("确定")
+        cancel_button = QPushButton("取消")
+        
+        button_layout.addWidget(ok_button)
+        button_layout.addWidget(cancel_button)
+        
+        layout.addLayout(button_layout)
+        
+        # 连接按钮信号
+        ok_button.clicked.connect(lambda: self.apply_column_selection(list_widget, dialog))
+        cancel_button.clicked.connect(dialog.reject)
+        
+        # 显示对话框
+        dialog.exec_()
+
+    def apply_column_selection(self, list_widget, dialog):
+        """应用列选择"""
+        selected_columns = []
+        
+        # 获取所有选中的列
+        for i in range(list_widget.count()):
+            item = list_widget.item(i)
+            if item.checkState() == Qt.Checked:
+                selected_columns.append(item.text())
+        
+        # 更新显示
+        if selected_columns:
+            self.frozen_columns_display.setText(", ".join(selected_columns))
+            
+            # 获取选中列的索引
+            frozen_indices = [self.headers.index(col) for col in selected_columns if col in self.headers]
+            
+            # 应用冻结
+            self.setup_frozen_columns(frozen_indices)
+            
+            # 保存设置
+            self.settings.setValue(f"frozen_columns_{self.current_class}", ",".join(selected_columns))
+        else:
+            self.clear_frozen_columns()
+        
+        # 关闭对话框
+        dialog.accept()
+
+
+    def on_cell_clicked(self, index):
+        """处理单元格点击事件，选中整行"""
+        if index.isValid():
+            row = index.row()
+            self.on_row_selected(row)

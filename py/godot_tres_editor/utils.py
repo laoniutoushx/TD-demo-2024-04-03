@@ -19,8 +19,11 @@ def parse_tres(filepath):
             continue
         key, value = map(str.strip, line.split("=", 1))
         
+        # 处理 null 值
+        if value == "null":
+            fields[key] = None
         # 处理 Godot 4 的 Array 引用
-        if value.startswith('Array['):
+        elif value.startswith('Array['):
             # 保存原始格式，以便后续保存时保持一致
             fields[key] = {
                 'type': 'godot_array',
@@ -42,15 +45,22 @@ def parse_tres(filepath):
         # 处理布尔值
         elif value in ("true", "false"):
             fields[key] = value == "true"
-        # 处理字符串
+        # 处理字符串 - 使用双引号作为判断依据
         elif value.startswith('"') and value.endswith('"'):
-            fields[key] = value[1:-1]
+            fields[key] = {
+                'type': 'string',
+                'value': value[1:-1]
+            }
         # 处理数字
         else:
             try:
                 fields[key] = float(value) if '.' in value else int(value)
             except:
-                fields[key] = value
+                # 如果不是数字，则标记为其他类型
+                fields[key] = {
+                    'type': 'other',
+                    'raw_value': value
+                }
 
     return script_class, fields
 
@@ -93,26 +103,48 @@ def detect_types(sample):
             types[k] = "float"
         elif isinstance(v, list):
             types[k] = "array"
-        elif isinstance(v, dict) and v.get('type') == 'godot_array':
-            types[k] = "godot_array"
-        elif isinstance(v, dict) and v.get('type') in ('ext_resource', 'sub_resource'):
-            types[k] = v.get('type')
+        elif isinstance(v, dict):
+            # 根据字典中的类型字段判断
+            if 'type' in v:
+                if v['type'] == 'godot_array':
+                    types[k] = "godot_array"
+                elif v['type'] in ('ext_resource', 'sub_resource'):
+                    types[k] = v['type']
+                elif v['type'] == 'string':
+                    types[k] = "string"
+                elif v['type'] == 'other':
+                    types[k] = "other"
+                else:
+                    types[k] = v['type']
+            else:
+                types[k] = "dict"
         else:
-            types[k] = "string"
+            # 如果是简单字符串，也标记为字符串类型
+            if isinstance(v, str):
+                types[k] = "string"
+            else:
+                types[k] = "unknown"
     return types
 
 def save_tres_file(filepath, item):
-    """保存 .tres 文件"""
+    """保存 .tres 文件，保留所有资源引用"""
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # 获取头部
+        # 分离文件的三个主要部分：头部、资源引用和资源块
         header_match = re.search(r'(\[gd_resource.*?\])', content, re.DOTALL)
         if not header_match:
             return False
         
         header = header_match.group(1)
+        
+        # 提取资源引用部分（位于头部和资源块之间的所有内容）
+        resource_start = content.find("[resource]")
+        if resource_start == -1:
+            return False
+            
+        references_section = content[len(header):resource_start].strip()
         
         # 生成新的资源块
         resource_block = "[resource]\n"
@@ -122,16 +154,29 @@ def save_tres_file(filepath, item):
                 continue
                 
             # 根据类型格式化值
-            if isinstance(value, bool):
+            if value is None:
+                # 特殊处理 null 值
+                formatted_value = "null"
+            elif isinstance(value, bool):
                 formatted_value = "true" if value else "false"
             elif isinstance(value, (int, float)):
                 formatted_value = str(value)
-            elif isinstance(value, dict) and value.get('type') == 'godot_array':
-                # 使用原始格式保存 Godot Array
-                formatted_value = value.get('raw_value')
-            elif isinstance(value, dict) and value.get('type') in ('ext_resource', 'sub_resource'):
-                # 使用原始格式保存资源引用
-                formatted_value = value.get('raw_value')
+            elif isinstance(value, dict):
+                if value.get('type') == 'godot_array':
+                    # 使用原始格式保存 Godot Array
+                    formatted_value = value.get('raw_value')
+                elif value.get('type') in ('ext_resource', 'sub_resource'):
+                    # 使用原始格式保存资源引用
+                    formatted_value = value.get('raw_value')
+                elif value.get('type') == 'string':
+                    # 为字符串添加双引号
+                    formatted_value = f'"{value.get("value")}"'
+                elif value.get('type') == 'other':
+                    # 保持原始格式
+                    formatted_value = value.get('raw_value')
+                else:
+                    # 未知类型，尝试转换为字符串
+                    formatted_value = f'"{str(value)}"'
             elif isinstance(value, list):
                 # 为普通数组生成 Godot 格式
                 formatted_value = f"[{', '.join(map(str, value))}]"
@@ -144,8 +189,8 @@ def save_tres_file(filepath, item):
             
             resource_block += f"{key} = {formatted_value}\n"
         
-        # 合并头部和资源块
-        new_content = f"{header}\n{resource_block}"
+        # 合并所有部分：头部、资源引用和新的资源块
+        new_content = f"{header}\n\n{references_section}\n\n{resource_block}"
         
         # 将更新后的内容写回文件
         with open(filepath, 'w', encoding='utf-8') as f:
