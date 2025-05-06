@@ -18,6 +18,11 @@ class TresEditor(QWidget):
         self.current_dir = ""
         self.current_class = ""
         
+        # 初始化排序相关属性
+        self.current_sort_column = -1  # 当前排序列
+        self.current_sort_order = 0    # 0: 不排序, 1: 升序, 2: 降序
+        self.original_data_order = None  # 原始数据顺序
+        
         self._init_ui()
         self.data = []
         self.types = {}
@@ -98,6 +103,9 @@ class TresEditor(QWidget):
         self.frozen_table.verticalHeader().setDefaultSectionSize(25)
         self.frozen_table.setContextMenuPolicy(Qt.CustomContextMenu)
         self.frozen_table.customContextMenuRequested.connect(self.show_context_menu)
+        # 添加表头点击事件
+        self.frozen_table.horizontalHeader().setSectionsClickable(True)
+        self.frozen_table.horizontalHeader().sectionClicked.connect(self.on_header_clicked)
         
         # 主表格
         self.table = QTableView()
@@ -108,6 +116,9 @@ class TresEditor(QWidget):
         self.table.verticalHeader().setDefaultSectionSize(25)
         self.table.setContextMenuPolicy(Qt.CustomContextMenu)
         self.table.customContextMenuRequested.connect(self.show_context_menu)
+        # 添加表头点击事件
+        self.table.horizontalHeader().setSectionsClickable(True)
+        self.table.horizontalHeader().sectionClicked.connect(self.on_header_clicked)
         
         # 连接表格选择
         self.frozen_table.verticalScrollBar().valueChanged.connect(self.table.verticalScrollBar().setValue)
@@ -232,7 +243,12 @@ class TresEditor(QWidget):
         
         # 连接到数据更改信号
         self.model.dataChanged.connect(self.on_data_changed)
-    
+
+        # 重置排序状态
+        self.current_sort_column = -1
+        self.current_sort_order = 0
+        self.original_data_order = None
+        
         # 加载上次保存的冻结列设置
         last_frozen = self.settings.value(f"frozen_columns_{class_name}", "")
         if last_frozen:
@@ -497,28 +513,93 @@ class TresEditor(QWidget):
         """显示表格的上下文菜单"""
         table = self.sender()
         index = table.indexAt(pos)
+        if not index.isValid():
+            return
+            
+        menu = QMenu(self)
         
-        if index.isValid():
-            row = index.row()
-            menu = QMenu(self)
+        # 添加复制单元格内容的操作
+        copy_action = QAction("复制单元格内容", self)
+        copy_action.triggered.connect(lambda: self.copy_cell_content(index))
+        menu.addAction(copy_action)
+        
+        # 添加批量修改列的操作
+        batch_edit_action = QAction("批量修改此列", self)
+        batch_edit_action.triggered.connect(lambda: self.batch_edit_column(index.column()))
+        menu.addAction(batch_edit_action)
+        
+        menu.exec_(table.viewport().mapToGlobal(pos))
+    
+    def batch_edit_column(self, column):
+        """批量修改指定列的所有单元格"""
+        if column < 0 or column >= len(self.headers):
+            return
             
-            edit_action = QAction("编辑单元格", self)
-            edit_action.triggered.connect(lambda: table.edit(index))
+        column_name = self.headers[column]
+        column_type = self.types.get(column_name)
+        
+        # 创建批量编辑对话框
+        dialog = QDialog(self)
+        dialog.setWindowTitle(f"批量修改列: {column_name}")
+        dialog.setMinimumWidth(300)
+        
+        layout = QVBoxLayout(dialog)
+        
+        # 添加说明标签
+        type_info = f"列类型: {column_type}" if column_type else ""
+        layout.addWidget(QLabel(f"请输入新值，将应用到所有行\n{type_info}"))
+        
+        # 添加输入框
+        input_field = QLineEdit()
+        layout.addWidget(input_field)
+        
+        # 添加按钮
+        button_layout = QHBoxLayout()
+        ok_button = QPushButton("确定")
+        cancel_button = QPushButton("取消")
+        
+        button_layout.addWidget(ok_button)
+        button_layout.addWidget(cancel_button)
+        layout.addLayout(button_layout)
+        
+        # 连接按钮信号
+        ok_button.clicked.connect(dialog.accept)
+        cancel_button.clicked.connect(dialog.reject)
+        
+        # 显示对话框
+        if dialog.exec_() == QDialog.Accepted:
+            new_value = input_field.text()
+            self.apply_batch_edit(column, new_value)
+    
+    def apply_batch_edit(self, column, value_text):
+        """将新值应用到指定列的所有单元格"""
+        if not hasattr(self, 'model') or not self.model:
+            return
             
-            delete_action = QAction("删除此行", self)
-            delete_action.triggered.connect(self.delete_row)
-            
-            # 如果行已修改，添加保存此行的选项
-            if row in self.model._modified_rows:
-                save_row_action = QAction("保存此行", self)
-                save_row_action.triggered.connect(self.save_selected_row)
-                menu.addAction(save_row_action)
-            
-            menu.addAction(edit_action)
-            menu.addAction(delete_action)
-            
-            menu.exec_(table.viewport().mapToGlobal(pos))
-
+        column_name = self.headers[column]
+        column_type = self.types.get(column_name)
+        
+        # 根据列类型转换值
+        try:
+            if column_type == "int":
+                new_value = int(value_text)
+            elif column_type == "float":
+                new_value = float(value_text)
+            elif column_type == "bool":
+                new_value = value_text.lower() in ("true", "yes", "1")
+            else:
+                new_value = value_text
+        except ValueError:
+            QMessageBox.warning(self, "类型错误", f"输入的值无法转换为 {column_type} 类型")
+            return
+        
+        # 应用到所有行
+        row_count = self.model.rowCount()
+        for row in range(row_count):
+            index = self.model.index(row, column)
+            self.model.setData(index, new_value, Qt.EditRole)
+        
+        QMessageBox.information(self, "批量修改完成", f"已将 {column_name} 列的所有单元格修改为: {value_text}")
 
     def show_column_selector(self):
         """显示列选择对话框"""
@@ -599,3 +680,106 @@ class TresEditor(QWidget):
         if index.isValid():
             row = index.row()
             self.on_row_selected(row)
+
+    def on_header_clicked(self, logical_index):
+        """处理表头点击事件，实现排序功能"""
+        if not hasattr(self, 'model') or not self.model:
+            return
+            
+        # 如果点击的是当前排序列，则切换排序顺序
+        if logical_index == self.current_sort_column:
+            # 循环切换：不排序 -> 升序 -> 降序 -> 不排序
+            self.current_sort_order = (self.current_sort_order + 1) % 3
+        else:
+            # 如果点击的是新列，则设置为升序
+            self.current_sort_column = logical_index
+            self.current_sort_order = 1  # 升序
+        
+        # 清除所有表头的排序指示器
+        self.table.horizontalHeader().setSortIndicatorShown(False)
+        self.frozen_table.horizontalHeader().setSortIndicatorShown(False)
+        
+        # 根据排序状态执行排序
+        if self.current_sort_order == 0:
+            # 不排序，恢复原始顺序
+            self.restore_original_order()
+        else:
+            # 显示排序指示器
+            sort_order = Qt.AscendingOrder if self.current_sort_order == 1 else Qt.DescendingOrder
+            
+            # 设置主表和冻结表的排序指示器
+            if not self.table.isColumnHidden(logical_index):
+                self.table.horizontalHeader().setSortIndicatorShown(True)
+                self.table.horizontalHeader().setSortIndicator(logical_index, sort_order)
+            
+            if not self.frozen_table.isColumnHidden(logical_index):
+                self.frozen_table.horizontalHeader().setSortIndicatorShown(True)
+                self.frozen_table.horizontalHeader().setSortIndicator(logical_index, sort_order)
+            
+            # 执行排序
+            self.sort_data(logical_index, sort_order)
+    
+    def restore_original_order(self):
+        """恢复数据的原始顺序"""
+        if not hasattr(self, 'model') or not self.model:
+            return
+            
+        # 如果没有保存原始顺序，则无法恢复
+        if not hasattr(self, 'original_data_order'):
+            return
+            
+        # 根据原始顺序重新排列数据
+        sorted_data = [None] * len(self.data)
+        for i, original_index in enumerate(self.original_data_order):
+            if original_index < len(self.data):
+                sorted_data[original_index] = self.data[i]
+        
+        # 过滤掉可能的 None 值
+        self.data = [item for item in sorted_data if item is not None]
+        
+        # 刷新表格
+        self.model.layoutChanged.emit()
+    
+    def sort_data(self, column, order):
+        """对数据进行排序"""
+        if not hasattr(self, 'model') or not self.model:
+            return
+            
+        # 第一次排序时保存原始顺序
+        if not hasattr(self, 'original_data_order'):
+            self.original_data_order = list(range(len(self.data)))
+        
+        # 获取列名
+        column_name = self.headers[column]
+        
+        # 根据列的数据类型进行排序
+        column_type = self.types.get(column_name)
+        
+        # 定义排序键函数
+        def get_sort_key(item):
+            value = item.get(column_name)
+            
+            # 处理不同类型的值
+            if isinstance(value, dict):
+                if value.get('type') == 'string':
+                    return value.get('value', '')
+                elif 'raw_value' in value:
+                    return value.get('raw_value', '')
+            
+            # 处理 None 值
+            if value is None:
+                if column_type == "int" or column_type == "float":
+                    return float('-inf') if order == Qt.AscendingOrder else float('inf')
+                else:
+                    return "" if order == Qt.AscendingOrder else "zzzzzzzzz"
+            
+            return value
+        
+        # 排序数据
+        self.data.sort(
+            key=get_sort_key,
+            reverse=(order == Qt.DescendingOrder)
+        )
+        
+        # 通知模型数据已更改
+        self.model.layoutChanged.emit()
