@@ -2,6 +2,7 @@ from PyQt5.QtCore import Qt, QAbstractTableModel, QModelIndex, QVariant
 from PyQt5.QtGui import QBrush, QColor
 import json
 import copy
+import os
 
 class TresTableModel(QAbstractTableModel):
     def __init__(self, data, headers, types):
@@ -14,6 +15,17 @@ class TresTableModel(QAbstractTableModel):
         self._modified_rows = set()
         # 跟踪每个文件的修改状态，使用集合而不是字典
         self._modified_files = set()
+        # 跟踪重命名的文件
+        self._renamed_files = {}
+        
+        # 添加特殊列：文件名
+        if '_filepath' in data[0] and 'filename' not in self._headers:
+            self._headers.append('filename')
+            self._types['filename'] = 'string'
+            # 为每行数据添加文件名字段
+            for row in self._data:
+                if '_filepath' in row:
+                    row['filename'] = os.path.basename(row['_filepath'])
 
     def rowCount(self, parent=None):
         return len(self._data)
@@ -32,6 +44,18 @@ class TresTableModel(QAbstractTableModel):
             return None
         
         key = self._headers[col]
+        
+        # 特殊处理文件名列
+        if key == 'filename' and '_filepath' in self._data[row]:
+            if role == Qt.DisplayRole or role == Qt.EditRole:
+                return os.path.basename(self._data[row]['_filepath'])
+            # 为文件名列添加特殊背景色
+            elif role == Qt.BackgroundRole:
+                return QBrush(QColor(220, 230, 255))  # 淡蓝色背景
+            elif role == Qt.ToolTipRole:
+                return "点击编辑以重命名文件"
+            return None
+            
         value = self._data[row].get(key)
         
         if role == Qt.DisplayRole or role == Qt.EditRole:
@@ -70,6 +94,48 @@ class TresTableModel(QAbstractTableModel):
             
         key = self._headers[col]
         old_value = self._data[row].get(key)
+        
+        # 特殊处理文件名列 - 实现文件重命名
+        if key == 'filename':
+            old_filepath = self._data[row].get('_filepath', '')
+            if not old_filepath or not os.path.exists(old_filepath):
+                return False
+                
+            # 获取目录和新文件路径
+            directory = os.path.dirname(old_filepath)
+            new_filename = value.strip()
+            
+            # 验证新文件名
+            if not new_filename or new_filename == os.path.basename(old_filepath):
+                return False
+                
+            # 确保文件名以.tres结尾
+            if not new_filename.endswith('.tres'):
+                new_filename += '.tres'
+                
+            new_filepath = os.path.join(directory, new_filename)
+            
+            # 检查新文件是否已存在
+            if os.path.exists(new_filepath):
+                return False
+                
+            # 标记为已修改
+            self._modified_rows.add(row)
+            self._modified = True
+            
+            # 更新数据模型中的文件路径
+            self._data[row]['_filepath'] = new_filepath
+            self._data[row]['filename'] = new_filename
+            
+            # 添加到修改文件列表，但不立即执行文件系统操作
+            # 文件重命名将在保存时执行
+            if not hasattr(self, '_renamed_files'):
+                self._renamed_files = {}
+            self._renamed_files[old_filepath] = new_filepath
+            
+            # 发出数据更改信号
+            self.dataChanged.emit(index, index)
+            return True
         
         # 根据字段类型处理输入值
         field_type = self._types.get(key)

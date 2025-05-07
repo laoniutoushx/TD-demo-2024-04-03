@@ -1,8 +1,11 @@
 from PyQt5.QtWidgets import (QWidget, QFileDialog, QVBoxLayout, QHBoxLayout,
                              QPushButton, QTableView, QHeaderView, QAbstractItemView,
                              QSplitter, QComboBox, QMenu, QAction, QLabel, QLineEdit,
-                             QMessageBox, QListWidget, QListWidgetItem, QCheckBox, QDialog)
+                             QMessageBox, QListWidget, QListWidgetItem, QCheckBox, QDialog,
+                             QInputDialog)
 from PyQt5.QtCore import Qt, QSettings, QModelIndex
+
+
 import os
 import sys
 
@@ -363,7 +366,57 @@ class TresEditor(QWidget):
         if not hasattr(self, 'model') or not self.model.is_modified():
             return
             
-        # 获取所有已修改的文件
+        # 首先处理文件重命名
+        renamed_files = getattr(self.model, '_renamed_files', {})
+        if renamed_files:
+            # 执行文件重命名操作
+            for old_path, new_path in renamed_files.items():
+                try:
+                    # 确保目标文件不存在
+                    if os.path.exists(new_path):
+                        # 如果目标文件已存在，生成一个唯一的名称
+                        base, ext = os.path.splitext(new_path)
+                        counter = 1
+                        while os.path.exists(f"{base}_{counter}{ext}"):
+                            counter += 1
+                        new_path = f"{base}_{counter}{ext}"
+                        
+                        # 更新数据模型中的路径
+                        for row in self.data:
+                            if row.get('_filepath') == old_path:
+                                row['_filepath'] = new_path
+                                if 'filename' in row:
+                                    row['filename'] = os.path.basename(new_path)
+                    
+                    # 执行重命名
+                    if os.path.exists(old_path):
+                        os.rename(old_path, new_path)
+                        
+                        # 更新所有引用此文件的资源
+                        self.update_references(old_path, new_path)
+                        
+                        # 更新修改文件列表
+                        if old_path in self.model._modified_files:
+                            self.model._modified_files.remove(old_path)
+                        self.model._modified_files.add(new_path)
+                        
+                except Exception as e:
+                    QMessageBox.warning(self, "重命名失败", f"无法重命名文件 {old_path} 到 {new_path}: {str(e)}")
+            
+            # 清除重命名记录
+            self.model._renamed_files.clear()
+        
+        # 继续原有的保存逻辑
+        # 按文件路径分组数据
+        files_to_update = {}
+        for item in self.data:
+            filepath = item.get('_filepath')
+            if filepath:
+                if filepath not in files_to_update:
+                    files_to_update[filepath] = []
+                files_to_update[filepath].append(item)
+        
+        # 更新每个文件
         modified_files = self.model.get_modified_files()
         
         if not modified_files:
@@ -813,3 +866,30 @@ class TresEditor(QWidget):
         
         # 通知模型数据已更改
         self.model.layoutChanged.emit()
+
+    def update_references(self, old_path, new_path):
+        """更新所有引用了重命名文件的资源"""
+        # 获取相对路径，用于在引用中匹配
+        old_rel_path = os.path.basename(old_path)
+        new_rel_path = os.path.basename(new_path)
+        
+        # 遍历所有.tres文件，更新引用
+        for root, _, files in os.walk(self.current_dir):
+            for f in files:
+                if f.endswith(".tres") and f != old_rel_path and f != new_rel_path:
+                    file_path = os.path.join(root, f)
+                    try:
+                        # 读取文件内容
+                        with open(file_path, 'r', encoding='utf-8') as file:
+                            content = file.read()
+                        
+                        # 查找并替换ExtResource引用
+                        # 例如: ExtResource("res://path/to/old_file.tres")
+                        updated_content = content.replace(f'"{old_rel_path}"', f'"{new_rel_path}"')
+                        
+                        # 如果内容有变化，写回文件
+                        if updated_content != content:
+                            with open(file_path, 'w', encoding='utf-8') as file:
+                                file.write(updated_content)
+                    except Exception as e:
+                        print(f"更新引用失败: {file_path} - {str(e)}")
