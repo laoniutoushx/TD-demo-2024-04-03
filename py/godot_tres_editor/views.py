@@ -745,9 +745,9 @@ class TresEditor(QWidget):
             self.data.clear()
             self.data.extend(self.original_data.copy())
             
-            # 恢复修改状态
-            self.model._modified_rows = modified_rows
-            self.model._modified_files = modified_files
+            # 恢复修改状态 - 确保使用集合类型
+            self.model._modified_rows = set(modified_rows)
+            self.model._modified_files = set(modified_files)
             
             # 清除排序状态
             self.current_sort_column = -1

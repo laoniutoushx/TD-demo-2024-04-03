@@ -8,9 +8,9 @@
 
 [resource]
 script = ExtResource("1_taj0b")
-clz_name = "capsule"
+clz_name = "00_capsule"
 model_path = ExtResource("1_7phoe")
-title = "？？？"
+title = "？？？1"
 desc = "？？？"
 icon_path = "res://Asserts/Images/icon/enemy/capsule.png"
 aabb_scale = 1.0
@@ -26,9 +26,9 @@ mana_cost = 10.0
 wood_cost = 10.0
 money_cost = 10.0
 money_reward = 10
-wood_reward = 1
+wood_reward = -1
 max_health = 200.0
-max_mana = 0.0
+max_mana = 200.0
 move_speed = 10.0
 turn_speed = 0.0
 attack_speed = 100.0

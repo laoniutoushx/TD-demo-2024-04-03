@@ -7,8 +7,8 @@ class TresTableModel(QAbstractTableModel):
     def __init__(self, data, headers, types):
         super().__init__()
         self._data = data
-        self.headers = headers
-        self.types = types
+        self._headers = headers
+        self._types = types
         self._modified = False
         # 跟踪每行的修改状态，使用集合而不是字典
         self._modified_rows = set()
@@ -19,7 +19,7 @@ class TresTableModel(QAbstractTableModel):
         return len(self._data)
 
     def columnCount(self, parent=None):
-        return len(self.headers)
+        return len(self._headers)
 
     def data(self, index, role):
         if not index.isValid():
@@ -28,10 +28,10 @@ class TresTableModel(QAbstractTableModel):
         row = index.row()
         col = index.column()
         
-        if row >= len(self._data) or col >= len(self.headers):
+        if row >= len(self._data) or col >= len(self._headers):
             return None
         
-        key = self.headers[col]
+        key = self._headers[col]
         value = self._data[row].get(key)
         
         if role == Qt.DisplayRole or role == Qt.EditRole:
@@ -65,14 +65,14 @@ class TresTableModel(QAbstractTableModel):
         row = index.row()
         col = index.column()
         
-        if row >= len(self._data) or col >= len(self.headers):
+        if row >= len(self._data) or col >= len(self._headers):
             return False
             
-        key = self.headers[col]
+        key = self._headers[col]
         old_value = self._data[row].get(key)
         
         # 根据字段类型处理输入值
-        field_type = self.types.get(key)
+        field_type = self._types.get(key)
         
         if field_type == "int":
             try:
@@ -123,6 +123,10 @@ class TresTableModel(QAbstractTableModel):
             # 更新数据
             self._data[row][key] = new_value
             
+            # 确保 _modified_rows 是集合类型
+            if not isinstance(self._modified_rows, set):
+                self._modified_rows = set(self._modified_rows if isinstance(self._modified_rows, list) else [])
+            
             # 标记为已修改
             self._modified_rows.add(row)
             self._modified = True
@@ -130,6 +134,9 @@ class TresTableModel(QAbstractTableModel):
             # 如果有文件路径，记录此文件已修改
             filepath = self._data[row].get('_filepath')
             if filepath:
+                # 确保 _modified_files 是集合类型
+                if not isinstance(self._modified_files, set):
+                    self._modified_files = set(self._modified_files if isinstance(self._modified_files, list) else [])
                 self._modified_files.add(filepath)
             
             # 发出数据更改信号
@@ -139,7 +146,7 @@ class TresTableModel(QAbstractTableModel):
 
     def headerData(self, section, orientation, role=Qt.DisplayRole):
         if orientation == Qt.Horizontal and role == Qt.DisplayRole:
-            return self.headers[section]
+            return self._headers[section]
         return super().headerData(section, orientation, role)
 
     def flags(self, index):
@@ -188,6 +195,10 @@ class TresTableModel(QAbstractTableModel):
             
         del self._data[row]
         self.endRemoveRows()
+        
+        # 确保 _modified_rows 是集合类型
+        if not isinstance(self._modified_rows, set):
+            self._modified_rows = set(self._modified_rows if isinstance(self._modified_rows, list) else [])
         
         # 更新已修改行的索引（删除行后，后面的行索引会减1）
         updated_modified_rows = set()

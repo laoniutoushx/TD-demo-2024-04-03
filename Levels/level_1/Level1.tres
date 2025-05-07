@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_2tx4y"]
 script = ExtResource("4_gg7ch")
-enemy_res_name = "capsule"
+enemy_res_name = "00_capsule"
 spawn_start_delay = 0.0
 spawn_interval = 5.0
 enemy_amount = 1
@@ -21,7 +21,7 @@ enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_2t
 
 [sub_resource type="Resource" id="Resource_nciru"]
 script = ExtResource("4_gg7ch")
-enemy_res_name = "cow"
+enemy_res_name = "01_cow"
 spawn_start_delay = 0.0
 spawn_interval = 2.0
 enemy_amount = 2
@@ -35,7 +35,7 @@ enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_nc
 
 [sub_resource type="Resource" id="Resource_gf1ss"]
 script = ExtResource("4_gg7ch")
-enemy_res_name = "pig"
+enemy_res_name = "02_pig"
 spawn_start_delay = 0.0
 spawn_interval = 2.0
 enemy_amount = 10
@@ -49,14 +49,14 @@ enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_gf
 
 [sub_resource type="Resource" id="Resource_xtm6e"]
 script = ExtResource("4_gg7ch")
-enemy_res_name = "pug"
+enemy_res_name = "03_pug"
 spawn_start_delay = 2.0
 spawn_interval = 4.0
 enemy_amount = 5
 
 [sub_resource type="Resource" id="Resource_c8hpo"]
 script = ExtResource("4_gg7ch")
-enemy_res_name = "dog"
+enemy_res_name = "04_dog"
 spawn_start_delay = 0.0
 spawn_interval = 4.0
 enemy_amount = 5
@@ -70,7 +70,7 @@ enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_xt
 
 [sub_resource type="Resource" id="Resource_rj64l"]
 script = ExtResource("4_gg7ch")
-enemy_res_name = "horse"
+enemy_res_name = "05_horse"
 spawn_start_delay = 0.0
 spawn_interval = 3.0
 enemy_amount = 10
@@ -84,7 +84,7 @@ enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_rj
 
 [sub_resource type="Resource" id="Resource_x0enq"]
 script = ExtResource("4_gg7ch")
-enemy_res_name = "sheep"
+enemy_res_name = "06_sheep"
 spawn_start_delay = 0.0
 spawn_interval = 3.0
 enemy_amount = 10
@@ -98,7 +98,7 @@ enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_x0
 
 [sub_resource type="Resource" id="Resource_553at"]
 script = ExtResource("4_gg7ch")
-enemy_res_name = "zebra"
+enemy_res_name = "07_zebra"
 spawn_start_delay = 0.0
 spawn_interval = 4.0
 enemy_amount = 5

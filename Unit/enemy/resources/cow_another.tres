@@ -10,7 +10,7 @@
 script = ExtResource("2_1desw")
 clz_name = "cow_another"
 model_path = ExtResource("2_vvr6r")
-title = "变异牛群"
+title = "变异牛群1"
 desc = "变异牛群是由多头受到不明原因辐射或魔法影响的牛组成的群体。这些牛不仅体型巨大，性情狂暴，而且还发生了变异，拥有了各种各样的特殊能力。变异牛群通常成群结队地活动，是战场上非常危险的敌人。"
 icon_path = "res://Asserts/Images/icon/enemy/cow.png"
 aabb_scale = 1.0
