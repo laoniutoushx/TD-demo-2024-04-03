@@ -234,6 +234,9 @@ class TresEditor(QWidget):
         if not self.data:
             return
             
+        # 保存原始数据的副本，用于恢复排序
+        self.original_data = self.data.copy()
+            
         self.headers = [h for h in list(self.data[0].keys()) if not h.startswith('_')]
         self.types = detect_types(self.data[0])
     
@@ -243,11 +246,11 @@ class TresEditor(QWidget):
         
         # 连接到数据更改信号
         self.model.dataChanged.connect(self.on_data_changed)
-
+    
         # 重置排序状态
         self.current_sort_column = -1
         self.current_sort_order = 0
-        self.original_data_order = None
+        self.original_data_order = list(range(len(self.data)))  # 初始化为默认顺序
         
         # 加载上次保存的冻结列设置
         last_frozen = self.settings.value(f"frozen_columns_{class_name}", "")
@@ -275,7 +278,7 @@ class TresEditor(QWidget):
                 self.setup_frozen_columns(default_frozen)
                 # 这里需要修改，不再使用 column_select_combo
                 self.frozen_columns_display.setText(",".join(default_frozen_names))
-    
+        
         self.save_btn.setEnabled(False)
         self.add_row_btn.setEnabled(True)
         self.delete_row_btn.setEnabled(False)
@@ -702,7 +705,11 @@ class TresEditor(QWidget):
         # 根据排序状态执行排序
         if self.current_sort_order == 0:
             # 不排序，恢复原始顺序
-            self.restore_original_order()
+            if self.original_data_order is not None:
+                self.restore_original_order()
+            else:
+                # 如果没有原始顺序记录，只是清除排序指示器
+                self.current_sort_column = -1
         else:
             # 显示排序指示器
             sort_order = Qt.AscendingOrder if self.current_sort_order == 1 else Qt.DescendingOrder
@@ -728,25 +735,48 @@ class TresEditor(QWidget):
         if not hasattr(self, 'original_data_order'):
             return
             
-        # 根据原始顺序重新排列数据
-        sorted_data = [None] * len(self.data)
-        for i, original_index in enumerate(self.original_data_order):
-            if original_index < len(self.data):
-                sorted_data[original_index] = self.data[i]
-        
-        # 过滤掉可能的 None 值
-        self.data = [item for item in sorted_data if item is not None]
-        
-        # 刷新表格
-        self.model.layoutChanged.emit()
+        # 使用保存的原始数据副本恢复顺序
+        if hasattr(self, 'original_data') and self.original_data:
+            # 保留修改状态
+            modified_rows = self.model.get_modified_rows()
+            modified_files = self.model.get_modified_files()
+            
+            # 恢复原始数据
+            self.data.clear()
+            self.data.extend(self.original_data.copy())
+            
+            # 恢复修改状态
+            self.model._modified_rows = modified_rows
+            self.model._modified_files = modified_files
+            
+            # 清除排序状态
+            self.current_sort_column = -1
+            self.current_sort_order = 0
+            
+            # 通知模型数据已更改
+            self.model.layoutChanged.emit()
+        else:
+            # 如果没有原始数据副本，则使用原始顺序索引
+            if hasattr(self, 'original_data_order') and self.original_data_order:
+                # 根据原始顺序重新排列数据
+                sorted_data = [None] * len(self.data)
+                for i, original_index in enumerate(self.original_data_order):
+                    if original_index < len(self.data):
+                        sorted_data[original_index] = self.data[i]
+                
+                # 过滤掉可能的 None 值
+                self.data = [item for item in sorted_data if item is not None]
+                
+                # 通知模型数据已更改
+                self.model.layoutChanged.emit()
     
     def sort_data(self, column, order):
         """对数据进行排序"""
         if not hasattr(self, 'model') or not self.model:
             return
             
-        # 第一次排序时保存原始顺序
-        if not hasattr(self, 'original_data_order'):
+        # 确保原始顺序已初始化
+        if not hasattr(self, 'original_data_order') or self.original_data_order is None:
             self.original_data_order = list(range(len(self.data)))
         
         # 获取列名
