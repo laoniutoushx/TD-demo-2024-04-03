@@ -200,6 +200,8 @@ func _on_skill_auto_release(is_auto_release: bool, skill_context: SkillContext):
 			# 技能冷却
 			skill.skill_cool_down.connect(_on_skill_cool_down)
 
+			
+
 			# 等待 area_ai 完成后，立即执行
 			skill_release_right_now(skill_context)
  
@@ -241,8 +243,9 @@ func skill_release_right_now(skill_context: SkillContext) -> void:
 	if not is_instance_valid(skill):
 		return
 
-	# 1. 技能状态判断（技能未在释放或冷却中）
-	if skill.current_state == Skill.SKILL_STATE.Cool_Down or skill.current_state == Skill.SKILL_STATE.Release :
+	# 1. 技能状态判断（技能未在释放或冷却中 或 技能禁用）
+	if (skill.current_state == Skill.SKILL_STATE.Cool_Down or skill.current_state == Skill.SKILL_STATE.Release 
+			or skill._is_disabled):
 		return
 
 	# 2. 技能释放条件是否满足

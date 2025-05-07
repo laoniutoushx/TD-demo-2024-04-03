@@ -12,7 +12,7 @@
 
 [resource]
 script = ExtResource("3_jbjsj")
-clz_name = "turret"
+clz_name = "teleporter_1"
 model_path = ExtResource("2_ff0ii")
 title = "魔法塔 Lv 1"
 desc = "一个普通的魔法塔"
@@ -27,12 +27,12 @@ armor_type = 2
 is_mesh_outline = true
 is_mesh_standing = false
 mana_cost = 10.0
-wood_cost = 1.0
-money_cost = 10.0
+wood_cost = -1.0
+money_cost = 50.0
 money_reward = -1
 wood_reward = -1
 max_health = 10000.0
-max_mana = 0.0
+max_mana = 500.0
 move_speed = 5.0
 turn_speed = 10.0
 attack_speed = 0.5
@@ -41,9 +41,11 @@ attack_num = 1
 bounce_times = 0
 bounce_distance = 20
 bounce_decay_factor = 0.3
-attack_value = 20.0
+attack_value = 100.0
 unit_growth_factor = 1.0
 projectile_speed = 300.0
+health_recove_rate_factor = 0.0
+mana_recove_rate_factor = 2.0
 vfx_projectile_name = "water"
 anim_attack = null
 anim_run = null

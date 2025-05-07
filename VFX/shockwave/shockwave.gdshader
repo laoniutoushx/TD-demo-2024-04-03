@@ -15,23 +15,23 @@ void fragment() {
     // 计算到中心的距离
     vec2 center_uv = UV - vec2(0.5, 0.5);
     float distance_from_center = length(center_uv);
-    
+
     // 创建波浪效果
     float wave = sin(distance_from_center * 10.0 - TIME * wave_speed) * wave_amplitude;
-    
+
     // 添加噪声失真
     float noise_value = noise(UV * 10.0 + TIME) * distortion_strength;
-    
+
     // 计算波浪遮罩
     float wave_mask = 1.0 - smoothstep(
-        wave_width, 
-        wave_width + 0.1, 
+        wave_width,
+        wave_width + 0.1,
         abs(distance_from_center - (wave + noise_value))
     );
-    
+
     // 应用波浪颜色和透明度
     vec4 final_color = wave_color * wave_mask;
-    
+
     // 设置片段颜色和透明度
     ALBEDO = final_color.rgb;
     ALPHA = final_color.a;
