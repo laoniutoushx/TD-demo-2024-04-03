@@ -27,6 +27,13 @@ func action(source: BaseUnit, target:BaseUnit):
 	# 伤害追加
 	if target and target is BaseUnit and (target as BaseUnit).is_alive(): 
 		target.take_damage(source.attack_value)
+		# 显示漂浮文字
+		if SystemUtil.floating_text_system:
+			SystemUtil.floating_text_system.spawn(
+				target.global_position,
+				str(source.attack_value),
+				Color.RED if source.attack_value > 0 else Color.GREEN
+			)
 	
 	# 受击动画（mesh_standing）
 	_under_attack_anim(target)

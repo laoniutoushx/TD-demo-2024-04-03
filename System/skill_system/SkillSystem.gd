@@ -58,33 +58,24 @@ func initialize_skills(source_unit: BaseUnit, skill_metas: Array[SkillMetaResour
 
 			skill.add_child(skill.skill_script_instance)
 
-			# listener skill disabled cond
-			# 技能初始化时，判断技能是否应该禁用（手动触发）
-			if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.MANA, skill.disable_check):
-				skill._on_mana_changed(source_unit, source_unit.mana)
 
-				skill.skill_released.connect(source_unit._on_skill_released)	# 技能释放触发单位魔法变动
-				source_unit.mana_changed.connect(skill._on_mana_changed)		# 单位魔法变动触发技能魔法变动事件（管理 ui 等禁用）
-				
-			if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.WOOD, skill.disable_check):	
-				skill._on_wood_changed(source_unit, SOS.main.player_controller.wood)
-				SignalBus.wood_changed.connect(skill._on_wood_changed)
-			if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.MONEY, skill.disable_check):	
-				skill._on_money_changed(source_unit, SOS.main.player_controller.money)
-				SignalBus.money_changed.connect(skill._on_money_changed)
+			## 只处理玩家单位（不涉及敌人单位）
+			if SystemUtil.unit_system.is_player_unit(source_unit):
+				# listener skill disabled cond
+				# 技能初始化时，判断技能是否应该禁用（手动触发）
+				if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.MANA, skill.disable_check):
+					skill._on_mana_changed(source_unit, source_unit.mana)
 
-			# # skill released 监听
-			# skill.skill_released.connect(source_unit._on_skill_released)
+					skill.skill_released.connect(source_unit._on_skill_released)	# 技能释放触发单位魔法变动
+					source_unit.mana_changed.connect(skill._on_mana_changed)		# 单位魔法变动触发技能魔法变动事件（管理 ui 等禁用）
+					
+				if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.WOOD, skill.disable_check):	
+					skill._on_wood_changed(source_unit, SOS.main.player_controller.wood)
+					SignalBus.wood_changed.connect(skill._on_wood_changed)
+				if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.MONEY, skill.disable_check):	
+					skill._on_money_changed(source_unit, SOS.main.player_controller.money)
+					SignalBus.money_changed.connect(skill._on_money_changed)
 
-			# 技能初始化时，判断技能是否应该禁用（手动触发）
-			# if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.MANA, skill.disable_check):
-			# 	skill._on_mana_changed(source_unit, source_unit.mana)
-			
-			# if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.WOOD, skill.disable_check):
-			# 	skill._on_wood_changed(source_unit, SOS.main.player_controller.wood)
-
-			# if CommonUtil.is_flag_set(SkillMetaResource.SKILL_DISABLE_CHECK.MONEY, skill.disable_check):
-			# 	skill._on_money_changed(source_unit, SOS.main.player_controller.money)
 
 
 	return skill_map

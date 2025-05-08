@@ -6,7 +6,7 @@ func _ready() -> void:
 	SystemUtil.unit_system = self
 
 
-
+# 创建单位
 func create_unit(unit_res: Resource, player_idx: int) -> BaseUnit:
 
 	# print(unit_res.clz_code)
@@ -15,7 +15,7 @@ func create_unit(unit_res: Resource, player_idx: int) -> BaseUnit:
 	return _unit_create(unit_res, player_idx)
 
 
-
+# 实例化单位（内部）
 func _unit_create(unit_resource: BaseUnitResource, player_idx) -> BaseUnit:
 	var unit_instance: BaseUnit = unit_resource.model_path.instantiate()
 	unit_instance = CommonUtil.bean_properties_copy(unit_resource, unit_instance)
@@ -27,7 +27,7 @@ func _unit_create(unit_resource: BaseUnitResource, player_idx) -> BaseUnit:
 	return unit_instance
 
 
-
+# 获取范围内所有单位
 func get_units_in_range(source_unit: BaseUnit, range: float, unit_type: BaseUnit.ARMOR_TYPE_ENUM) -> Array[BaseUnit]:
 	var position: Vector3 = source_unit.global_position
  
@@ -60,4 +60,10 @@ func get_component_from_unit(unit: BaseUnit, component_type: BaseUnitResource.CO
 
 	return null
 	
-	
+
+
+# 是否是玩家单位
+func is_player_unit(unit: BaseUnit) -> bool:
+	if unit and unit.player_group == SOS.main.player_controller.player_group_idx:
+		return true
+	return false

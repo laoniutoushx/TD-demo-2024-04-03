@@ -99,6 +99,13 @@ func _on_slot_clicked(slot: BaseSlot):
 	# skill indicator show
 	var skill: Skill = (slot.reference as Skill)
 
+	# 技能禁用状态检测
+	# 前置条件检查（魔耗）
+	if skill._is_disabled:
+		SOS.main.message_bar.set_message("技能无法施放，魔法不足")
+		# change_state(SKILL_STATE.Idle)
+		return
+
 
 	# Target
 	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_RELEASE_TYPE.TARGETED, skill.release_type):

@@ -311,10 +311,10 @@ func _skill_target_unit_cond_matched(_u: BaseUnit) -> bool:
 func change_state(new_state: SKILL_STATE) -> void:
 
     # 前置条件检查（魔耗）
-    if _is_disabled:
-        SOS.main.message_bar.set_message("技能无法施放，魔法不足")
-        # change_state(SKILL_STATE.Idle)
-        return
+    # if _is_disabled:
+    #     SOS.main.message_bar.set_message("技能无法施放，魔法不足")
+    #     # change_state(SKILL_STATE.Idle)
+    #     return
 
 
     # 从前一个状态迁移过来时，执行操作
@@ -479,6 +479,12 @@ func change_state(new_state: SKILL_STATE) -> void:
 
             
         SKILL_STATE.Release:
+
+            # # 前置条件检查（魔耗）
+            # if _is_disabled:
+            #     SOS.main.message_bar.set_message("技能无法施放，魔法不足")
+            #     change_state(SKILL_STATE.Idle)
+            #     return            
 
             # 技能释放魔法消耗
             skill_released.emit(skill_context)
