@@ -9,3 +9,6 @@ var unit_system: UnitSystem
 var skill_system: SkillSystem
 var item_system: ItemSystem
 var buff_system: BuffSystem
+var floating_text_system: FloatingTextSystem
+
+

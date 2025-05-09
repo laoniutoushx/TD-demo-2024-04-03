@@ -1,5 +1,5 @@
 class_name FloatingTextSystem
-extends Node
+extends Node3D
 
 @export var floating_text_scene: PackedScene
 @export var pool_size: int = 10
@@ -13,19 +13,43 @@ func _ready():
         add_child(instance)
         available_texts.append(instance)
 
+    SystemUtil.floating_text_system = self
+
 func spawn(position: Vector3, text: String, color: Color = Color.WHITE) -> void:
-    var instance: Node3D
-    if available_texts.is_empty():
-        instance = floating_text_scene.instantiate()
-        add_child(instance)
-    else:
+    var instance: Node3D = null
+    
+    # 清理无效实例
+    while not available_texts.is_empty() and not is_instance_valid(available_texts.back()):
+        available_texts.pop_back()
+    
+    if not available_texts.is_empty():
         instance = available_texts.pop_back()
+        if is_instance_valid(instance):
+            instance.visible = true
+        else:
+            instance = null
     
-    instance.global_position = position + Vector3(0, 1.5, 0)  # 调整到单位头顶
-    instance.setup(text, color)
-    instance.visible = true
+    if not instance:
+        instance = floating_text_scene.instantiate()
+        # 添加自动清理监听
+        instance.tree_exiting.connect(_on_instance_exiting.bind(instance))
+        add_child(instance)
     
-    # 回收完成后重新加入可用池
-    await instance.get_tree().create_timer(instance.lifetime).timeout
-    instance.visible = false
-    available_texts.append(instance)
+    if is_instance_valid(instance):
+        instance.global_position = position + Vector3(0, 1.5, 0)
+        instance.setup(text, color)
+        instance.visible = true
+        
+        # 自动回收机制
+        var timer = instance.get_tree().create_timer(instance.lifetime)
+        timer.timeout.connect(_recycle_instance.bind(instance))
+
+func _recycle_instance(instance: Node3D) -> void:
+    if is_instance_valid(instance) and instance.is_inside_tree():
+        instance.visible = false
+        if not available_texts.has(instance):
+            available_texts.append(instance)
+
+func _on_instance_exiting(instance: Node3D) -> void:
+    if available_texts.has(instance):
+        available_texts.erase(instance)

@@ -23,6 +23,7 @@ var turret_manager: TurretManager
 @onready var skill_system: SkillSystem = %SkillSystem
 @onready var item_system: ItemSystem = %ItemSystem
 @onready var buff_system: BuffSystem = %BuffSystem
+@onready var floating_text_system: FloatingTextSystem = %FloatingTextSystem
 
 
 var input_event_callable_list: Array[Callable] = []
