@@ -287,7 +287,7 @@ class BuffBarComponent extends BaseBarComponent:
 			# 延长 buff
 			# extend_slot_cooldown(buff)
 			for slot: BaseSlot in _buff_bar.get_children():
-				if is_instance_valid(slot) and is_instance_valid(buff) and slot.reference is Buff and slot.reference.code == buff.code:
+				if is_instance_valid(slot) and is_instance_valid(buff) and is_instance_valid(slot.reference) and slot.reference is Buff and slot.reference.code == buff.code:
 					slot.extend_cooldown(buff.cooldown)
 
 

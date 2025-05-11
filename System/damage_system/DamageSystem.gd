@@ -29,7 +29,7 @@ func action(source: BaseUnit, target:BaseUnit):
 		target.take_damage(source.attack_value)
 		# 显示漂浮文字
 		SystemUtil.floating_text_system.spawn(
-				target.global_position,
+				Vector3(target.global_position.x, target._height, target.global_position.z),
 				str(source.attack_value),
 				Color.RED if source.attack_value > 0 else Color.GREEN
 			)
