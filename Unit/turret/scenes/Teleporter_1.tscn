@@ -1,11 +1,11 @@
-[gd_scene load_steps=23 format=4 uid="uid://g2pp4vopotbr"]
+[gd_scene load_steps=22 format=4 uid="uid://g2pp4vopotbr"]
 
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_xycrk"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="2_7uf10"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="3_o5x7g"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="4_4rwit"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="5_df8au"]
-[ext_resource type="PackedScene" uid="uid://c6fbveb8morud" path="res://Components/health_mana_bar/health_mana_bar.tscn" id="6_eygql"]
+[ext_resource type="PackedScene" uid="uid://d00chkod5txim" path="res://Components/hud/hud.tscn" id="6_eygql"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_77mqj"]
 resource_name = "Light"
@@ -202,14 +202,11 @@ radius = 10.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_q2oqp"]
 size = Vector3(1, 2.5, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_g8j40"]
-viewport_path = NodePath("SubViewport")
-
-[node name="Bomber1" type="Node3D" node_paths=PackedStringArray("turret_top", "fire_poses", "health_mana_bar")]
+[node name="Bomber1" type="Node3D" node_paths=PackedStringArray("turret_top", "fire_poses", "hud")]
 script = ExtResource("1_xycrk")
 turret_top = NodePath("Teleporter1/Node3D")
 fire_poses = [NodePath("Teleporter1/Node3D/Teleporter1_Top/Marker3D")]
-health_mana_bar = NodePath("HealthManaBar3D")
+hud = NodePath("Hud")
 
 [node name="Teleporter1" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0972279, 0)
@@ -268,9 +265,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.86151, 0)
 
 [node name="RangeIndicator" parent="." instance=ExtResource("5_df8au")]
 
-[node name="HealthManaBar3D" parent="." instance=ExtResource("6_eygql")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 3.11924, 0)
-texture = SubResource("ViewportTexture_g8j40")
+[node name="Hud" parent="." instance=ExtResource("6_eygql")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 3.0873, 0)
 
 [connection signal="area_entered" from="AttackingScope" to="." method="_on_attacking_scope_area_entered"]
 [connection signal="area_exited" from="AttackingScope" to="." method="_on_attacking_scope_area_exited"]

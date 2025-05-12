@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://xkdh3o2wdatp"]
+
+[ext_resource type="Script" uid="uid://0ylrmj1g8leq" path="res://Components/level/level_bar.gd" id="1_dlstg"]
+[ext_resource type="PackedScene" uid="uid://b4llfcx28nk36" path="res://Components/level/level_bar_2d.tscn" id="2_dlstg"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_w7y23"]
+viewport_path = NodePath("SubViewport")
+
+[node name="LevelBar3D" type="Sprite3D"]
+billboard = 1
+render_priority = 127
+texture = SubResource("ViewportTexture_w7y23")
+region_enabled = true
+region_rect = Rect2(0, 0, 78, 12)
+script = ExtResource("1_dlstg")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="LevelBar" parent="SubViewport" instance=ExtResource("2_dlstg")]

@@ -8,7 +8,7 @@ viewport_path = NodePath("SubViewport")
 
 [node name="HealthManaBar3D" type="Sprite3D"]
 billboard = 1
-render_priority = 127
+render_priority = 64
 texture = SubResource("ViewportTexture_w7y23")
 region_enabled = true
 region_rect = Rect2(0, 0, 78, 12)

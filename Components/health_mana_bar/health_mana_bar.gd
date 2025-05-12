@@ -2,7 +2,7 @@ class_name HealthManaBar extends Sprite3D
 
 
 @onready var health_mana_bar2d: HealthManaBar2D = $SubViewport/HealthManaBar
-var unit: BaseUnit
+# var unit: BaseUnit
 
 
 # Called when the node enters the scene tree for the first time.

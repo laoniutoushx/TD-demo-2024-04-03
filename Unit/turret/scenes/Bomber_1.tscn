@@ -1,11 +1,11 @@
-[gd_scene load_steps=21 format=4 uid="uid://u1iq3xrerays"]
+[gd_scene load_steps=20 format=4 uid="uid://u1iq3xrerays"]
 
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_wqpta"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="2_t87cn"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="3_pxv65"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="4_4dsim"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="5_ed55g"]
-[ext_resource type="PackedScene" uid="uid://c6fbveb8morud" path="res://Components/health_mana_bar/health_mana_bar.tscn" id="6_5be68"]
+[ext_resource type="PackedScene" uid="uid://d00chkod5txim" path="res://Components/hud/hud.tscn" id="6_5be68"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d2h61"]
 resource_name = "Light"
@@ -211,14 +211,11 @@ radius = 10.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_q2oqp"]
 size = Vector3(1, 2.5, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_8vtg0"]
-viewport_path = NodePath("SubViewport")
-
-[node name="Bomber1" type="Node3D" node_paths=PackedStringArray("turret_top", "fire_poses", "health_mana_bar")]
+[node name="Bomber1" type="Node3D" node_paths=PackedStringArray("turret_top", "fire_poses", "hud")]
 script = ExtResource("1_wqpta")
 turret_top = NodePath("Bomber_2/Node3D2")
 fire_poses = [NodePath("Bomber_2/Node3D2/Bomber_1_Gun/Marker3D"), NodePath("Bomber_2/Node3D2/Bomber_1_Gun/Marker3D2")]
-health_mana_bar = NodePath("HealthManaBar3D")
+hud = NodePath("Hud")
 
 [node name="Bomber_2" type="Node3D" parent="."]
 
@@ -283,9 +280,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.00247, 0)
 
 [node name="RangeIndicator" parent="." instance=ExtResource("5_ed55g")]
 
-[node name="HealthManaBar3D" parent="." instance=ExtResource("6_5be68")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 4.35569, 0)
-texture = SubResource("ViewportTexture_8vtg0")
+[node name="Hud" parent="." instance=ExtResource("6_5be68")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 4.13708, 0)
 
 [connection signal="area_entered" from="AttackingScope" to="." method="_on_attacking_scope_area_entered"]
 [connection signal="area_exited" from="AttackingScope" to="." method="_on_attacking_scope_area_exited"]

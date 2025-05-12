@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://d00chkod5txim"]
+
+[ext_resource type="Script" uid="uid://cj7y8kelphsm1" path="res://Components/hud/hud.gd" id="1_3krhh"]
+[ext_resource type="PackedScene" uid="uid://c6fbveb8morud" path="res://Components/health_mana_bar/health_mana_bar.tscn" id="1_c27l5"]
+[ext_resource type="PackedScene" uid="uid://xkdh3o2wdatp" path="res://Components/level/level_bar.tscn" id="2_cm4jw"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cm4jw"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3krhh"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Hud" type="Node3D"]
+script = ExtResource("1_3krhh")
+
+[node name="HealthManaBar3D" parent="." instance=ExtResource("1_c27l5")]
+texture = SubResource("ViewportTexture_cm4jw")
+
+[node name="LevelBar3D" parent="." instance=ExtResource("2_cm4jw")]
+offset = Vector2(1.21, 0.845)
+texture = SubResource("ViewportTexture_3krhh")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d1cr1cykcls0i"]
+[gd_scene load_steps=13 format=3 uid="uid://d1cr1cykcls0i"]
 
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_qbgh6"]
 [ext_resource type="PackedScene" uid="uid://dhc3nvydn0s3u" path="res://Asserts/Models/CG_Home/【CG】 孙悟空Q版悟空齐天大圣_gltf_352683.gltf" id="2_ecffp"]
@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="5_33bkb"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="6_10ys3"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="7_0fkwk"]
-[ext_resource type="PackedScene" uid="uid://c6fbveb8morud" path="res://Components/health_mana_bar/health_mana_bar.tscn" id="7_fn46k"]
+[ext_resource type="PackedScene" uid="uid://d00chkod5txim" path="res://Components/hud/hud.tscn" id="7_fn46k"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_sodmm"]
 height = 1.0
@@ -28,13 +28,10 @@ _data = {
 &"attack": SubResource("Animation_3ryhm")
 }
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_0crfp"]
-viewport_path = NodePath("SubViewport")
-
-[node name="Wukong" type="Node3D" node_paths=PackedStringArray("fire_poses", "health_mana_bar")]
+[node name="Wukong" type="Node3D" node_paths=PackedStringArray("fire_poses", "hud")]
 script = ExtResource("1_qbgh6")
 fire_poses = [null]
-health_mana_bar = NodePath("HealthManaBar3D")
+hud = NodePath("Hud")
 
 [node name="Root Scene" parent="." instance=ExtResource("2_ecffp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.608965, 0, -0.532514)
@@ -71,9 +68,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.42161, 0)
 
 [node name="RangeIndicator" parent="." instance=ExtResource("7_0fkwk")]
 
-[node name="HealthManaBar3D" parent="." instance=ExtResource("7_fn46k")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 4.75726, 0)
-texture = SubResource("ViewportTexture_0crfp")
+[node name="Hud" parent="." instance=ExtResource("7_fn46k")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 4.757, 0)
 
 [connection signal="area_entered" from="AttackingScope" to="." method="_on_attacking_scope_area_entered"]
 [connection signal="area_exited" from="AttackingScope" to="." method="_on_attacking_scope_area_exited"]
