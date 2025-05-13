@@ -82,11 +82,12 @@ var attack_speed : float
 var attack_range : float
 var attack_num : int
 var attack_value: float	# 
+# @export var critical_hit_factor: float = 1.0	# 致命一击
 @export var bounce_times: int = 0	# 弹射次数
 @export var bounce_distance: int = 20	# 弹射距离
 @export var bounce_decay_factor: float = 0.3	# 衰减因子
-var unit_growth_factor: float = 1.0     # 单位成长率
-var projectile_speed: float:	# 弹道速率
+@export var unit_growth_factor: float = 0.0     # 单位成长率
+@export var projectile_speed: float:	# 弹道速率
 	set (value):
 		projectile_speed = value / 10	# 取值缩小 100 倍
 
@@ -275,6 +276,9 @@ func _ready() -> void:
 	# 魔法值设置
 	mana = max_mana
 
+	# 监听自己的等级升级事件
+	SignalBus.unit_level_up.connect(_on_unit_level_up)
+
 
 
 
@@ -289,7 +293,7 @@ func clazz_init():
 	# bean property copy
 	if clazz != null:
 		CommonUtil.bean_properties_copy(clazz, self)
-	
+
 	
 func is_alive() -> bool:
 	return _is_logic_alive
@@ -373,8 +377,20 @@ func _on_ray_picker_regist(callable: Callable) -> void:
 func _on_ray_picker_unregist(callable: Callable) -> void:
 	take_damage_callback_list.erase(callable)
 
+# 单位升级
+func _on_unit_level_up(id: int, unit: BaseUnit, level: int) -> void:
+	if self.get_instance_id() == id:
+		# 升级后攻击力=前一级攻击力×(1+成长率+随机波动)
+		attack_value = attack_value *  (1 + unit_growth_factor + randf_range(SOS.main.player_controller.lucky_factor, 1))  
+
+
 # damage unit
-func take_damage(damage: float) -> bool:
+func take_damage(source: BaseUnit) -> bool:
+	var damage = source.attack_value
+	# TODO 伤害前置处理（暴击、闪避等），附加到某一次攻击当中
+
+
+
 	if not take_damage_callback_list.is_empty():
 		for callback in take_damage_callback_list:
 			damage = callback.call(damage)
@@ -384,6 +400,14 @@ func take_damage(damage: float) -> bool:
 		
 	health -= damage
 	SignalBus.unit_take_damage.emit(get_instance_id(), self, damage)
+
+	# 显示漂浮文字
+	SystemUtil.floating_text_system.spawn(
+		Vector3(self.global_position.x, self._height, self.global_position.z),
+		str(source.attack_value),
+		Color.RED if source.attack_value > 0 else Color.GREEN
+	)
+
 	if health + damage > 0 and health <= 0:
 		_is_logic_alive = false
 		logical_death.emit(self)

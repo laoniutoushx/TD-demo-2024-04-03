@@ -1,4 +1,4 @@
-class_name CommonUtil extends Node
+class_name CommonUtil extends RefCounted
 
 
 # get main scene tree

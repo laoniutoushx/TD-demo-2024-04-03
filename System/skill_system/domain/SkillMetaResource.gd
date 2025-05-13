@@ -53,8 +53,15 @@ class_name SkillMetaResource extends Resource
 @export var release_distance: float = 10.0
 # 技能点数（使用次数）
 @export var stock: int  = -1
+
 # 技能伤害值
 @export var value: float = 0.0
+
+# 技能伤害值（动态扩展）
+@export var value_ext: Dictionary = {
+	
+}
+
 # 技能运行距离（方向性技能）
 @export var run_distance: float = 10.0
 # 技能轮次（技能施法次数，触发多少次）

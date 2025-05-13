@@ -113,8 +113,12 @@ func _initialize_skill(source_unit: BaseUnit, skill_meta_res: SkillMetaResource,
 		# assert(skill.skill_script != null, "skill script not define")
 		if skill.skill_script != null:
 			skill.skill_script_instance = skill.skill_script.new()
+			# if skill.skill_script_instance.has_method("init"):
+			# 	skill.skill_script_instance.init(skill)
+			# else:
+			# 	printerr("INFO: %s skill script method [init] not define" % [skill.title])
 		else:
-			printerr("ERROR: skill script not define")
+			printerr("ERROR: %s skill script not define" % [skill.title])
 		
 		return skill
 	

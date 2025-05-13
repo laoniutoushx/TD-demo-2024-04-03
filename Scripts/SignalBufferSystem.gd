@@ -1,5 +1,5 @@
 # SignalBufferSystem.gd
-extends Node
+extends RefCounted
 
 var _signal_buffers = {}
 

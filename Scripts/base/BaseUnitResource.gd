@@ -65,7 +65,7 @@ enum ELEMENT_PHASE_STR{
 @export var bounce_decay_factor: float = 0.3	# 衰减因子
 
 @export var attack_value: float	# 伤害值
-@export var unit_growth_factor: float = 1.0     # 单位成长率
+@export var unit_growth_factor: float = 0.0     # 单位成长率
 @export var projectile_speed: float = 100.0		# 弹道速率
 
 @export var health_recove_rate_factor: float = 0.0		# 生命值恢复速率

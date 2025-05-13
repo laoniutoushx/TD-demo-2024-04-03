@@ -7,6 +7,10 @@ class_name PlayerController extends Node3D
 @onready var player_skill_target_indicator = %PlayerSkillTargetIndicator
 
 
+# 玩家幸运值（随机因子）
+var lucky_factor: float = randf_range(0.0, 1.0)
+
+
 var wood: int = 0
 func set_wood(s: Object, value: int) -> void:	# from _on_unit_logic_death
 	wood = value

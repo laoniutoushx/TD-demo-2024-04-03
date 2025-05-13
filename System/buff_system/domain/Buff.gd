@@ -72,6 +72,16 @@ var buff_instance: Variant
 var cool_down_timer: CommonUtil.Cimer
 var __buff_stack_num: int = 0     # buff 创建次数（程序内部调用）
 
+var prop_value_delta: float = 0.0   # buff 属性值变化量（buff 叠加时，属性值变化量）
+
+## TODO
+var _prob_controller: ProbabilityController = null
+
+
+func init(skill: Skill) -> void:
+    # 初始化独立概率控制器
+    _prob_controller = ProbabilityController.new(skill.value_ext.get("critical_chance"))
+
 
 func _ready() -> void:
     super._ready()
@@ -122,18 +132,14 @@ func apply(_reference: Variant) -> bool:
 
 
             if value_unit == BuffResource.VALUE_UNIT.PERCENT:
-                # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-                    ref_val += ref_val * value / 100 * _value_dir
+                prop_value_delta = ref_val * value / 100 * _value_dir
+                ref_val += prop_value_delta
 
-                # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                    # ref_val -= ref_val * value / 100 * _value_dir
 
             elif value_unit == BuffResource.VALUE_UNIT.VALUE:
-                # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-                    ref_val += value * _value_dir
+                prop_value_delta = value * _value_dir
+                ref_val += prop_value_delta
 
-                # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                    # ref_val -= value * _value_dir
 
 
             _reference.set(prop, ref_val)
@@ -159,18 +165,14 @@ func remove(_reference: Variant) -> bool:
 
 
             if value_unit == BuffResource.VALUE_UNIT.PERCENT:
-                # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-                    ref_val = ref_val / (1.0 + value / 100 * _value_dir)
+                # ref_val -= ref_val / (1.0 + value / 100 * _value_dir)
+                ref_val -= prop_value_delta
 
-                # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                    # ref_val = ref_val * (1.0 + value / 100 * _value_dir)
 
             elif value_unit == BuffResource.VALUE_UNIT.VALUE:
-                # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.BUFF, type):
-                    ref_val -= value * _value_dir
+                # ref_val -= value * _value_dir
+                ref_val -= prop_value_delta
 
-                # if CommonUtil.is_flag_set(BuffResource.BUFF_TYPE.DEBUFF, type):
-                    # ref_val += value * _value_dir
 
 
             _reference.set(prop, ref_val)
