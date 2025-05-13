@@ -66,8 +66,8 @@ func _process(delta: float) -> void:
 		set_process(false)
 
 
-func take_damage(damage: float):
-	super.take_damage(damage)
+func take_damage(source: BaseUnit):
+	super.take_damage(source)
 
 
 #func _on_animation_player_animation_finished(anim_name: StringName) -> void:

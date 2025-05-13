@@ -125,7 +125,7 @@ func _process(delta: float) -> void:
 
 func skill_damage(skill: Skill, source: BaseUnit, target:BaseUnit) -> bool:
 	# print("skill value: %s, skill name: %s " % skill.value, skill.title)
-	return target.take_damage(skill.value)
+	return target.take_skill_damage(skill.value)
 
 
 func skill_range_damage(skill: Skill, source: BaseUnit, target_position: Vector3, affect_range: float = 5):
