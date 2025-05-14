@@ -11,10 +11,13 @@ func action(skill_context: SkillContext) -> void:
     for buff: Buff in skill.buff_map.values():
 
         # 预先设置概率控制器初始化回调
-        buff.prob_callback = (func(_skill: Skill) -> void:
+        buff.is_prob = true
+        buff.prob_callback = (func(_skill: Skill) -> ProbabilityController:
             return ProbabilityController.new(_skill.value_ext.get("critical_chance"))).bind(skill)
 
         buff.value = skill.value_ext.get("critical_multiplier")
+
+
 
         SystemUtil.buff_system.apply(buff, source_unit)
 
