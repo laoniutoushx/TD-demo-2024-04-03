@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dufuxk02yxxkf"]
 
-[ext_resource type="Script" path="res://Components/floating_text/FloatingTextSystem.gd" id="1_lxr2a"]
+[ext_resource type="Script" uid="uid://ro602mo22t31" path="res://Components/floating_text/FloatingTextSystem.gd" id="1_lxr2a"]
 [ext_resource type="PackedScene" uid="uid://cpjo8oh27e54o" path="res://Components/floating_text/floating_text.tscn" id="2_hxtro"]
 
 [node name="FloatingTextSystem" type="Node3D"]

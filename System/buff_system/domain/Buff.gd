@@ -74,13 +74,10 @@ var __buff_stack_num: int = 0     # buff 创建次数（程序内部调用）
 
 var prop_value_delta: float = 0.0   # buff 属性值变化量（buff 叠加时，属性值变化量）
 
-## TODO
+## 独立概率器是否初始化
 var _prob_controller: ProbabilityController = null
+var prob_callback: Callable
 
-
-func init(skill: Skill) -> void:
-    # 初始化独立概率控制器
-    _prob_controller = ProbabilityController.new(skill.value_ext.get("critical_chance"))
 
 
 func _ready() -> void:
@@ -94,6 +91,10 @@ func _ready() -> void:
         # 初始化 buff timer
         cool_down_timer = CommonUtil.create_timer(cooldown)
         add_child(cool_down_timer)
+
+    # 初始化独立概率控制器
+    if prob_callback:
+        _prob_controller = prob_callback.call()
 
 
 func change_state(state: BUFF_STATE) -> void:

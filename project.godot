@@ -31,12 +31,12 @@ config/icon="res://icon.svg"
 [autoload]
 
 SignalBus="*res://Scripts/SignalBus.gd"
+SignalBufferSystem="*res://Scripts/SignalBufferSystem.gd"
 Constants="*res://Scripts/Constants.gd"
 SystemUtil="*res://Scripts/utils/SystemUtil.gd"
 UUID="*res://Scripts/utils/uuid.gd"
-DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
-SignalBufferSystem="*res://Scripts/SignalBufferSystem.gd"
 SOS="*res://Scripts/utils/SOS.gd"
+DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 
 [display]
 

@@ -197,10 +197,44 @@ var current_global_skill_state: int = 0
 # Buff（实例化后的buff列表）
 var buff_map: Dictionary = {}
 
-
 # 内部变量
 var _transformed_aabb: AABB		# 当前对象全局空间 AABB 包围盒
 var _height: float				# 当前对象高度
+
+
+
+##################################################################
+#### 单位伤害逻辑
+## 单位伤害事件回调注册
+signal unit_take_damage_regist(callable: Callable)
+signal unit_take_damage_unregist(callable: Callable)
+
+## Take Damage 回调处理（用于植入其他处理逻辑），先于回调函数执行
+var take_damage_callback_list: Array = []
+
+# Register Callable Function to be called when other Component 
+func _on_unit_take_damage_regist(callable: Callable) -> void:
+	take_damage_callback_list.append(callable)
+
+
+func _on_unit_take_damage_unregist(callable: Callable) -> void:
+	take_damage_callback_list.erase(callable)
+
+
+signal unit_action_damage_regist(callable: Callable)
+signal unit_action_damage_unregist(callable: Callable)
+
+## Take Damage 回调处理（用于植入其他处理逻辑），先于回调函数执行
+var action_damage_callback_list: Array = []
+
+# Register Callable Function to be called when other Component 
+func _on_unit_action_damage_regist(callable: Callable) -> void:
+	action_damage_callback_list.append(callable)
+
+
+func _on_unit_action_damage_unregist(callable: Callable) -> void:
+	action_damage_callback_list.erase(callable)
+
 
 
 
@@ -265,9 +299,10 @@ func _ready() -> void:
 
 
 	# take damage
-	unit_take_damage_regist.connect(_on_ray_picker_regist)
-	unit_take_damage_unregist.connect(_on_ray_picker_unregist)
-
+	unit_take_damage_regist.connect(_on_unit_take_damage_regist)
+	unit_take_damage_unregist.connect(_on_unit_take_damage_unregist)
+	unit_action_damage_regist.connect(_on_unit_action_damage_regist)
+	unit_action_damage_unregist.connect(_on_unit_action_damage_unregist)
 
 	# animation init
 	_ap = CommonUtil.get_first_node_by_node_name(self, Constants.AnimationPlayer_CLZ)
@@ -361,21 +396,7 @@ func _on_logic_dead(unit: BaseUnit) -> void:
 func is_logic_dead() -> bool:
 	return !is_alive()
 
-#### 单位伤害逻辑
-## 单位伤害事件回调注册
-signal unit_take_damage_regist(callable: Callable)
-signal unit_take_damage_unregist(callable: Callable)
 
-## Take Damage 回调处理（用于植入其他处理逻辑），先于回调函数执行
-var take_damage_callback_list: Array = []
-
-# Register Callable Function to be called when other Component need RayPicker Result
-func _on_ray_picker_regist(callable: Callable) -> void:
-	take_damage_callback_list.append(callable)
-
-
-func _on_ray_picker_unregist(callable: Callable) -> void:
-	take_damage_callback_list.erase(callable)
 
 # 单位升级
 func _on_unit_level_up(id: int, unit: BaseUnit, level: int) -> void:
@@ -384,42 +405,70 @@ func _on_unit_level_up(id: int, unit: BaseUnit, level: int) -> void:
 		attack_value = attack_value *  (1 + unit_growth_factor + randf_range(SOS.main.player_controller.lucky_factor, 1))  
 
 
+
+# 源伤害逻辑处理
+func action_damage(source: BaseUnit) -> float:
+	var final_attack_value = source.attack_value
+
+	# TODO 伤害前置处理（暴击、闪避等），附加到某一次攻击当中
+	if not action_damage_callback_list.is_empty():
+		for callback in action_damage_callback_list:
+			final_attack_value = callback.call(source, self, final_attack_value)
+
+	return final_attack_value
+
+
+
+# 技能伤害
+func take_skill_damage(damage: int) -> bool:
+	return _damage(damage)
+
+
 # damage unit
 func take_damage(source: BaseUnit) -> bool:
-	var damage = source.attack_value
+	var final_damage = source.action_damage(source)
+
+
 	# TODO 伤害前置处理（暴击、闪避等），附加到某一次攻击当中
-
-
-
 	if not take_damage_callback_list.is_empty():
 		for callback in take_damage_callback_list:
-			damage = callback.call(damage)
+			final_damage = callback.call(source, self, final_damage)
 
-	if damage <= 0:
+
+	return _damage(final_damage)
+
+
+
+# 伤害单位
+func _damage(value: float) -> bool:
+	if value <= 0:
 		return _is_logic_alive
-		
-	health -= damage
-	SignalBus.unit_take_damage.emit(get_instance_id(), self, damage)
+
+	health -= value
+	SignalBus.unit_take_damage.emit(get_instance_id(), self, value)
 
 	# 显示漂浮文字
 	SystemUtil.floating_text_system.spawn(
 		Vector3(self.global_position.x, self._height, self.global_position.z),
-		str(source.attack_value),
-		Color.RED if source.attack_value > 0 else Color.GREEN
+		str(value),
+		Color.RED if value > 0 else Color.GREEN
 	)
-
-	if health + damage > 0 and health <= 0:
+	
+	if health + value > 0 and health <= 0:
 		_is_logic_alive = false
 		logical_death.emit(self)
 		SignalBus.unit_logic_death.emit(get_instance_id(), self)
 	
 	return _is_logic_alive
 
+
+
 # 立即逻辑死亡
 func do_logical_death() -> void:
 	_is_logic_alive = false
 	logical_death.emit(self)
 	SignalBus.unit_logic_death.emit(get_instance_id(), self)
+
 
 
 # heal unit health
@@ -434,6 +483,7 @@ func _create_mesh_outline():
 	if origin_mesh != null:
 		var om: MeshInstance3D = (origin_mesh as MeshInstance3D)
 		om.material_overlay = _outline_material
+
 	
 func _create_mesh_standing():
 	var origin_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(self, "MeshInstance3D")
@@ -447,6 +497,7 @@ func _create_mesh_standing():
 	var skeleton: Skeleton3D = CommonUtil.get_first_node_by_node_type(self, "Skeleton3D")
 	if skeleton != null:
 		_mesh_standing.skeleton = _mesh_standing.get_path_to(skeleton)
+
 
 func _create_selected_circle() -> void:
 	var selected_circle_scene: PackedScene = preload("res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn")
@@ -464,6 +515,7 @@ func _create_selected_circle() -> void:
 
 func get_mesh_standing() -> MeshInstance3D:
 	return _mesh_standing	
+
 
 func show_selected_circle() -> void:
 	var select_circle = CommonUtil.get_first_node_by_node_name(self, "FadedCircle3D")	

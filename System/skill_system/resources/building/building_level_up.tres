@@ -24,6 +24,7 @@ range = 5.0
 release_distance = 10.0
 stock = 1
 value = 0.0
+value_ext = {}
 run_distance = 10.0
 epoch = 1
 init_num = 1

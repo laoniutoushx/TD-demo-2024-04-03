@@ -102,6 +102,7 @@ func apply(_buff: Buff, _reference: Variant):
 	# buff 添加
 	var buff: Buff = _buff.duplicate()
 	buff = CommonUtil.bean_properties_copy(_buff, buff)
+	buff.prob_callback = _buff.prob_callback
 
 	_reference.buff_map[buff.get_instance_id()] = buff
 

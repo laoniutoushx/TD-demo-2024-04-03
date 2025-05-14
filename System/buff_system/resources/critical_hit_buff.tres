@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="BuffResource" load_steps=5 format=3 uid="uid://dgiclh44p0yq1"]
+
+[ext_resource type="Script" uid="uid://dg0amwy0fps2t" path="res://System/buff_system/resources/critical_hit_buff.gd" id="1_tt4fm"]
+[ext_resource type="Script" uid="uid://cya1pifwbgjdk" path="res://addons/script_property_selector/property_selector_resource.gd" id="2_fft4m"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="3_hhym2"]
+
+[sub_resource type="Resource" id="Resource_wqbbn"]
+script = ExtResource("2_fft4m")
+selected_script_name = ""
+selected_properties = Array[String]([])
+
+[resource]
+script = ExtResource("3_hhym2")
+id = &""
+code = "critical_hit_buff"
+entity = ""
+prop = ""
+property_selector = SubResource("Resource_wqbbn")
+type = 33
+title = "致命攻击"
+desc = "致命攻击"
+icon_path = ""
+value = 0.0
+value_unit = 0
+value_dir = 0
+cooldown = -1.0
+max_overlay_num = 1
+priority = 0
+exclude_level = 3
+buff_script = ExtResource("1_tt4fm")

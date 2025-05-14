@@ -40,7 +40,7 @@ func _exit_tree() -> void:
 
 
 # 防御值逻辑（回调注入）
-func _on_take_damge_logic(damage: float) -> float:
+func _on_take_damge_logic(source: BaseUnit, target: BaseUnit, damage: float) -> float:
     value = value - damage
 
     if value <= 0:
