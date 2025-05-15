@@ -34,13 +34,12 @@ var is_critical: bool = false
 
 # 基本设置函数 - 接口保持简单，新增 damage_type 参数
 func setup(text: String, color: Color = Color.WHITE, damage_type: int = DamageCtx.DamageType.NORMAL, direction: Vector2 = Vector2.ZERO):
-    label.text = text
-    label.modulate = color
-    
+
     # 应用不同伤害类型的设置
     match damage_type:
         DamageCtx.DamageType.CRITICAL:
             apply_critical_effect()
+            color = Color.DARK_RED
         DamageCtx.DamageType.HEAL:
             apply_heal_effect()
         DamageCtx.DamageType.MISS:
@@ -51,6 +50,10 @@ func setup(text: String, color: Color = Color.WHITE, damage_type: int = DamageCt
             apply_debuff_effect()
         _:  # 默认为普通伤害
             apply_normal_effect()
+
+    label.text = text
+    label.modulate = color
+
     
     # 设置随机方向
     random_direction = Vector3(

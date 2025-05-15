@@ -15,7 +15,7 @@ func _ready():
 
     SystemUtil.floating_text_system = self
 
-func spawn(position: Vector3, text: String, color: Color = Color.WHITE) -> void:
+func spawn(position: Vector3, text: String, color: Color = Color.WHITE, damage_type: DamageCtx.DamageType = DamageCtx.DamageType.NORMAL) -> void:
     var instance: Node3D = null
     
     # 清理无效实例
@@ -37,7 +37,7 @@ func spawn(position: Vector3, text: String, color: Color = Color.WHITE) -> void:
     
     if is_instance_valid(instance):
         instance.global_position = position + Vector3(0, 1.5, 0)
-        instance.setup(text, color)
+        instance.setup(text, color, damage_type)
         instance.visible = true
         
         # 自动回收机制

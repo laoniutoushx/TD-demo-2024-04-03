@@ -15,7 +15,7 @@ var damage_type: DamageType = DamageType.NORMAL
 var source: BaseUnit
 var target: BaseUnit
 
-func _init(_source: BaseUnit, _target: BaseUnit, _damage: float, _damage_type: DamageType = DamageType) -> void:
+func _init(_source: BaseUnit, _target: BaseUnit, _damage: float, _damage_type: DamageType = DamageCtx.DamageType.NORMAL) -> void:
     self.source = _source
     self.target = _target
     self.damage = _damage

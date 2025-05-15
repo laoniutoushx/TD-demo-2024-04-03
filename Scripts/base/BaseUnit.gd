@@ -408,20 +408,19 @@ func _on_unit_level_up(id: int, unit: BaseUnit, level: int) -> void:
 
 # 源伤害逻辑处理
 func action_damage(damage_ctx: DamageCtx) -> DamageCtx:
-	var final_attack_value = damage_ctx.damage
 
 	# TODO 伤害前置处理（暴击、闪避等），附加到某一次攻击当中
 	if not action_damage_callback_list.is_empty():
 		for callback in action_damage_callback_list:
-			final_attack_value = callback.call(damage_ctx)
+			damage_ctx = callback.call(damage_ctx)
 
-	return final_attack_value
+	return damage_ctx
 
 
 
 # 技能伤害
-func take_skill_damage(damage: int) -> bool:
-	return _damage(damage)
+func take_skill_damage(damage_ctx: DamageCtx) -> bool:
+	return _damage(damage_ctx)
 
 
 # damage unit
@@ -454,7 +453,8 @@ func _damage(damage_ctx: DamageCtx) -> bool:
 	SystemUtil.floating_text_system.spawn(
 		Vector3(self.global_position.x, self._height, self.global_position.z),
 		str(int(value)),
-		Color.WHITE if value > 0 else Color.GREEN
+		Color.WHITE if value > 0 else Color.GREEN,
+		damage_ctx.damage_type
 	)
 	
 	if health + value > 0 and health <= 0:

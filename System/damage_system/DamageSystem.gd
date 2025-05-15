@@ -26,7 +26,7 @@ func action(source: BaseUnit, target:BaseUnit):
 
 	# 伤害追加
 	if target and target is BaseUnit and (target as BaseUnit).is_alive(): 
-		target.take_damage(DamageCtx.new(source, target, source.attack_value, DamageCtx.DamageType.NORMAL))
+		target.take_damage(DamageCtx.new(source, target, source.attack_value))
 
 
 	
@@ -61,7 +61,7 @@ func action(source: BaseUnit, target:BaseUnit):
 				
 				# 伤害追加
 				if selected_unit and target is BaseUnit and (target as BaseUnit).is_alive(): 
-					target.take_damage(DamageCtx.new(source, target, source.attack_value, DamageCtx.DamageType.NORMAL))
+					target.take_damage(DamageCtx.new(source, target, source.attack_value))
 				
 				# 受击动画（mesh_standing）
 				_under_attack_anim(target)
@@ -125,7 +125,7 @@ func _process(delta: float) -> void:
 
 func skill_damage(skill: Skill, source: BaseUnit, target:BaseUnit) -> bool:
 	# print("skill value: %s, skill name: %s " % skill.value, skill.title)
-	return target.take_skill_damage(skill.value)
+	return target.take_skill_damage(DamageCtx.new(source, target, skill.value))
 
 
 func skill_range_damage(skill: Skill, source: BaseUnit, target_position: Vector3, affect_range: float = 5):
@@ -159,7 +159,7 @@ func skill_range_damage(skill: Skill, source: BaseUnit, target_position: Vector3
 				var is_in_range = target_position.x >= unit_position.x - world_unit_size.x / 2 and target_position.x <= unit_position.x + world_unit_size.x / 2 and target_position.z >= unit_position.z - world_unit_size.z / 2 and target_position.z <= unit_position.z + world_unit_size.z / 2
 				if is_in_range:
 					if CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.ENEMY, skill.target_type) and unit.owner.player_group != source.player_group:
-						unit.owner.take_skill_damage(skill.value)
+						unit.owner.take_damage(DamageCtx.new(source, unit.owner, skill.value))
 				
 				# var min_x = unit_position.x - world_unit_size.x / 2
 				# var max_x = unit_position.x + world_unit_size.x / 2
