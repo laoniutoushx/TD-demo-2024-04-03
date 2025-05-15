@@ -40,14 +40,15 @@ func _exit_tree() -> void:
 
 
 # 防御值逻辑（回调注入）
-func _on_take_damge_logic(source: BaseUnit, target: BaseUnit, damage: float) -> float:
-    value = value - damage
+func _on_take_damge_logic(damage_ctx: DamageCtx) -> DamageCtx:
+    value = value - damage_ctx.damage
+    damage_ctx.damage = clamp(value, damage_ctx.damage)
 
     if value <= 0:
         SystemUtil.buff_system.remove(self, unit)
         return abs(value)
 
-    return 0
+    return damage_ctx
 
 
 # 自动kill

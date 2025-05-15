@@ -10,15 +10,16 @@ func _ready() -> void:
         unit.unit_action_damage_regist.emit(_on_action_damge_logic)
         
 # 暴击逻辑（回调注入）
-func _on_action_damge_logic(source: BaseUnit, target: BaseUnit, damage: float) -> float:
+func _on_action_damge_logic(damage_ctx: DamageCtx) -> DamageCtx:
 
     if _prob_controller.next():
         # 触发暴击
-        return damage * value
+        damage_ctx.damage = damage_ctx.damage * value
+        return damage_ctx
     else:
         pass
 
-    return damage
+    return damage_ctx
 
 
 func _exit_tree() -> void:

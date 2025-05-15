@@ -407,13 +407,13 @@ func _on_unit_level_up(id: int, unit: BaseUnit, level: int) -> void:
 
 
 # 源伤害逻辑处理
-func action_damage(source: BaseUnit) -> float:
-	var final_attack_value = source.attack_value
+func action_damage(damage_ctx: DamageCtx) -> DamageCtx:
+	var final_attack_value = damage_ctx.damage
 
 	# TODO 伤害前置处理（暴击、闪避等），附加到某一次攻击当中
 	if not action_damage_callback_list.is_empty():
 		for callback in action_damage_callback_list:
-			final_attack_value = callback.call(source, self, final_attack_value)
+			final_attack_value = callback.call(damage_ctx)
 
 	return final_attack_value
 
@@ -425,22 +425,25 @@ func take_skill_damage(damage: int) -> bool:
 
 
 # damage unit
-func take_damage(source: BaseUnit) -> bool:
-	var final_damage = source.action_damage(source)
+func take_damage(damage_ctx: DamageCtx) -> bool:
+	damage_ctx = damage_ctx.source.action_damage(damage_ctx)
 
+# CRITICAL
 
 	# TODO 伤害前置处理（暴击、闪避等），附加到某一次攻击当中
 	if not take_damage_callback_list.is_empty():
 		for callback in take_damage_callback_list:
-			final_damage = callback.call(source, self, final_damage)
+			damage_ctx = callback.call(damage_ctx)
 
 
-	return _damage(final_damage)
+	return _damage(damage_ctx)
 
 
 
 # 伤害单位
-func _damage(value: float) -> bool:
+func _damage(damage_ctx: DamageCtx) -> bool:
+	var value = damage_ctx.damage
+
 	if value <= 0:
 		return _is_logic_alive
 
@@ -450,8 +453,8 @@ func _damage(value: float) -> bool:
 	# 显示漂浮文字
 	SystemUtil.floating_text_system.spawn(
 		Vector3(self.global_position.x, self._height, self.global_position.z),
-		str(value),
-		Color.RED if value > 0 else Color.GREEN
+		str(int(value)),
+		Color.WHITE if value > 0 else Color.GREEN
 	)
 	
 	if health + value > 0 and health <= 0:
