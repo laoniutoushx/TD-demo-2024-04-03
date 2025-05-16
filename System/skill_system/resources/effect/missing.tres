@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=5 format=3 uid="uid://w7qj0bg1wsuy"]
+
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_pvr86"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="2_kbksv"]
+[ext_resource type="Resource" uid="uid://di2qm42hi5ln0" path="res://System/buff_system/resources/miss_buff.tres" id="3_pvr86"]
+[ext_resource type="Script" uid="uid://crjf5guwcl5e1" path="res://System/skill_system/resources/effect/missing.gd" id="4_pvr86"]
+
+[resource]
+script = ExtResource("1_pvr86")
+code = "missing"
+title = "闪避"
+desc = " {value}% 概率闪避敌人物理攻击"
+icon_path = "3"
+level = 1
+level_up_gap = 1
+max_level = 3
+init_release = true
+auto_release = false
+cooldown = 1.0
+mana_cost = -1.0
+damage_range = 5.0
+match_range = 30.0
+range = 5.0
+release_distance = 10.0
+stock = -1
+value = 0.25
+value_ext = {}
+run_distance = 10.0
+epoch = 1
+init_num = 1
+internal_time = -1.0
+start_time = 0.1
+end_time = 0.1
+wave = 1
+projection_speed = 1.0
+disable_check = 0
+release_type = 32
+target_type = 8
+effect_type = 8
+building_level_up_time = -1.0
+wood_cost = -1.0
+money_cost = -1.0
+skill_script = ExtResource("4_pvr86")
+skill_level_config = Array[ExtResource("1_pvr86")]([])
+skill_buff_config = Array[ExtResource("2_kbksv")]([ExtResource("3_pvr86")])

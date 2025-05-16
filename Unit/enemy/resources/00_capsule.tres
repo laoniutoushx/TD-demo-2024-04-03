@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=6 format=3 uid="uid://cs0lrsvor327p"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=7 format=3 uid="uid://cs0lrsvor327p"]
 
 [ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="1_1mklm"]
 [ext_resource type="PackedScene" uid="uid://cjgsocu8i6efm" path="res://Unit/enemy/scenes/capsule.tscn" id="1_7phoe"]
 [ext_resource type="Script" uid="uid://cwoilst65vmq6" path="res://Unit/enemy/EnemyResource.gd" id="1_taj0b"]
 [ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="3_788m7"]
 [ext_resource type="Resource" uid="uid://bm3kcjrhtayri" path="res://System/skill_system/resources/effect/force_field.tres" id="5_msick"]
+[ext_resource type="Resource" uid="uid://w7qj0bg1wsuy" path="res://System/skill_system/resources/effect/missing.tres" id="6_bhyq6"]
 
 [resource]
 script = ExtResource("1_taj0b")
@@ -55,4 +56,4 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_1mklm")]([])
-skill_metas = Array[ExtResource("3_788m7")]([ExtResource("5_msick")])
+skill_metas = Array[ExtResource("3_788m7")]([ExtResource("5_msick"), ExtResource("6_bhyq6")])

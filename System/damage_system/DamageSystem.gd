@@ -125,7 +125,9 @@ func _process(delta: float) -> void:
 
 func skill_damage(skill: Skill, source: BaseUnit, target:BaseUnit) -> bool:
 	# print("skill value: %s, skill name: %s " % skill.value, skill.title)
-	return target.take_skill_damage(DamageCtx.new(source, target, skill.value))
+	if target.is_alive():
+		return target.take_skill_damage(DamageCtx.new(source, target, skill.value, DamageCtx.DamageType.NORMAL, DamageCtx.DamageSourceType.SKILL))
+	return true
 
 
 func skill_range_damage(skill: Skill, source: BaseUnit, target_position: Vector3, affect_range: float = 5):
@@ -137,7 +139,7 @@ func skill_range_damage(skill: Skill, source: BaseUnit, target_position: Vector3
 			units_within_range.append(unit)
 
 	for unit in units_within_range:
-		if unit and unit.owner and unit.owner is BaseUnit:
+		if unit and unit.owner and unit.owner is BaseUnit and unit.owner.is_alive():
 			var unit_position = unit.owner.global_position
 			var area = CommonUtil.get_first_node_by_node_name(unit.owner, "AttackedScope")
 			if area:
@@ -159,7 +161,7 @@ func skill_range_damage(skill: Skill, source: BaseUnit, target_position: Vector3
 				var is_in_range = target_position.x >= unit_position.x - world_unit_size.x / 2 and target_position.x <= unit_position.x + world_unit_size.x / 2 and target_position.z >= unit_position.z - world_unit_size.z / 2 and target_position.z <= unit_position.z + world_unit_size.z / 2
 				if is_in_range:
 					if CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.ENEMY, skill.target_type) and unit.owner.player_group != source.player_group:
-						unit.owner.take_damage(DamageCtx.new(source, unit.owner, skill.value))
+						unit.owner.take_skill_damage(DamageCtx.new(source, unit.owner, skill.value, DamageCtx.DamageType.NORMAL, DamageCtx.DamageSourceType.SKILL))
 				
 				# var min_x = unit_position.x - world_unit_size.x / 2
 				# var max_x = unit_position.x + world_unit_size.x / 2

@@ -434,6 +434,18 @@ func take_damage(damage_ctx: DamageCtx) -> bool:
 		for callback in take_damage_callback_list:
 			damage_ctx = callback.call(damage_ctx)
 
+	if damage_ctx.damage_type == DamageCtx.DamageType.MISS:
+
+		# 显示漂浮文字
+		SystemUtil.floating_text_system.spawn(
+			Vector3(self.global_position.x, self._height, self.global_position.z),
+			'miss',
+			Color.RED,
+			damage_ctx.damage_type
+		)
+
+		return false
+
 
 	return _damage(damage_ctx)
 
@@ -453,7 +465,7 @@ func _damage(damage_ctx: DamageCtx) -> bool:
 	SystemUtil.floating_text_system.spawn(
 		Vector3(self.global_position.x, self._height, self.global_position.z),
 		str(int(value)),
-		Color.WHITE if value > 0 else Color.GREEN,
+		Color.WHITE if damage_ctx.damage_source_type == DamageCtx.DamageSourceType.UNIT else Color.DEEP_PINK ,
 		damage_ctx.damage_type
 	)
 	

@@ -1,20 +1,16 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=10 format=3 uid="uid://cr204fvc37686"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=6 format=3 uid="uid://cr204fvc37686"]
 
 [ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="1_h3s57"]
 [ext_resource type="PackedScene" uid="uid://g2pp4vopotbr" path="res://Unit/turret/scenes/Teleporter_1.tscn" id="2_ff0ii"]
 [ext_resource type="Script" uid="uid://cwoilst65vmq6" path="res://Unit/enemy/EnemyResource.gd" id="3_jbjsj"]
 [ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_gigtb"]
-[ext_resource type="Resource" uid="uid://dpnj33orc37b" path="res://System/skill_system/resources/damage/thunder_chain.tres" id="5_wield"]
-[ext_resource type="Resource" uid="uid://x4bivjxncvqm" path="res://System/skill_system/resources/damage/thunderclap.tres" id="6_f3x0o"]
-[ext_resource type="Resource" uid="uid://btoskpfy832ny" path="res://System/skill_system/resources/damage/fire_rain.tres" id="7_5h5fs"]
-[ext_resource type="Resource" uid="uid://bx5jjj52jdb13" path="res://System/skill_system/resources/effect/rage_power.tres" id="8_8c86y"]
-[ext_resource type="Resource" uid="uid://c4aggapaqdacr" path="res://System/skill_system/resources/effect/slow_power.tres" id="9_54mb4"]
+[ext_resource type="Resource" uid="uid://b55nxh8s0ih7" path="res://System/skill_system/resources/building/building_level_up.tres" id="5_hij31"]
 
 [resource]
 script = ExtResource("3_jbjsj")
 clz_name = "teleporter_1"
 model_path = ExtResource("2_ff0ii")
-title = "魔法塔 Lv 1"
+title = "魔法塔 I"
 desc = "一个普通的魔法塔"
 icon_path = "res://Asserts/Images/icon/skill icon/27.png"
 aabb_scale = 1.0
@@ -26,9 +22,9 @@ armor_amount = 0.0
 armor_type = 2
 is_mesh_outline = true
 is_mesh_standing = false
-mana_cost = 10.0
+mana_cost = 100.0
 wood_cost = -1.0
-money_cost = 50.0
+money_cost = 200.0
 money_reward = -1
 wood_reward = -1
 max_health = 10000.0
@@ -42,7 +38,7 @@ bounce_times = 0
 bounce_distance = 20
 bounce_decay_factor = 0.3
 attack_value = 100.0
-unit_growth_factor = 0.0
+unit_growth_factor = 0.05
 projectile_speed = 300.0
 health_recove_rate_factor = 0.0
 mana_recove_rate_factor = 2.0
@@ -59,4 +55,4 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_h3s57")]([])
-skill_metas = Array[ExtResource("4_gigtb")]([ExtResource("5_wield"), ExtResource("6_f3x0o"), ExtResource("7_5h5fs"), ExtResource("8_8c86y"), ExtResource("9_54mb4")])
+skill_metas = Array[ExtResource("4_gigtb")]([ExtResource("5_hij31")])

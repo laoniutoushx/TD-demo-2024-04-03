@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SkillMetaResource" load_steps=5 format=3 uid="uid://b55nxh8s0ih7"]
 
-[ext_resource type="Resource" uid="uid://b6shk3h11o5m7" path="res://Unit/turret/resources/Fox_Mega.tres" id="1_lohc3"]
+[ext_resource type="Resource" uid="uid://cmq42rp4ss8x0" path="res://Unit/turret/resources/Teleporter_2.tres" id="1_lohc3"]
 [ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="3_8qau1"]
 [ext_resource type="Script" uid="uid://d16rx3mg1e028" path="res://System/skill_system/resources/building/building_level_up.gd" id="4_lohc3"]
 [ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="4_oxtdv"]

@@ -1,4 +1,4 @@
-class_name CriticalHit extends Node3D
+class_name Missing extends Node3D
 
 
 func action(skill_context: SkillContext) -> void:
@@ -14,10 +14,9 @@ func action(skill_context: SkillContext) -> void:
             # 预先设置概率控制器初始化回调
             buff.is_prob = true
             buff.prob_callback = (func(_skill: Skill) -> ProbabilityController:
-                return ProbabilityController.new(_skill.value_ext.get("critical_chance"))).bind(skill)
+                return ProbabilityController.new(_skill.value)).bind(skill)
 
-            buff.value = skill.value_ext.get("critical_multiplier")
-
+            buff.value = skill.value
 
 
             SystemUtil.buff_system.apply(buff, source_unit)

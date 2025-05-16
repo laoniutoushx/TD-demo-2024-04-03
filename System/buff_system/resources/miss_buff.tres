@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="BuffResource" load_steps=5 format=3 uid="uid://di2qm42hi5ln0"]
+
+[ext_resource type="Script" uid="uid://cm5ufm4jwop2g" path="res://System/buff_system/resources/miss_buff.gd" id="1_5u1w8"]
+[ext_resource type="Script" uid="uid://cya1pifwbgjdk" path="res://addons/script_property_selector/property_selector_resource.gd" id="2_sxljd"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="3_qluim"]
+
+[sub_resource type="Resource" id="Resource_wqbbn"]
+script = ExtResource("2_sxljd")
+selected_script_name = ""
+selected_properties = Array[String]([])
+
+[resource]
+script = ExtResource("3_qluim")
+id = &""
+code = "miss_buff"
+entity = ""
+prop = ""
+property_selector = SubResource("Resource_wqbbn")
+type = 33
+title = "闪避"
+desc = "闪避状态"
+icon_path = ""
+value = 0.0
+value_unit = 0
+value_dir = 0
+cooldown = -1.0
+max_overlay_num = 1
+priority = 0
+exclude_level = 3
+buff_script = ExtResource("1_5u1w8")
