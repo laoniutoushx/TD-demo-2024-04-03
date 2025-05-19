@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyResource" load_steps=6 format=3 uid="uid://b0hfu5unkf3pn"]
 
 [ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="1_5iqgs"]
-[ext_resource type="PackedScene" uid="uid://dqf2uw14i3m62" path="res://Unit/turret/scenes/Teleporter_4.tscn" id="2_raoqg"]
+[ext_resource type="PackedScene" uid="uid://uak8oeqdewxe" path="res://Unit/turret/scenes/Teleporter_5.tscn" id="2_5iqgs"]
 [ext_resource type="Script" uid="uid://cwoilst65vmq6" path="res://Unit/enemy/EnemyResource.gd" id="3_kqhl8"]
 [ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_4siew"]
 [ext_resource type="Resource" uid="uid://btoskpfy832ny" path="res://System/skill_system/resources/damage/fire_rain.tres" id="5_42prn"]
@@ -9,7 +9,7 @@
 [resource]
 script = ExtResource("3_kqhl8")
 clz_name = "teleporter_5"
-model_path = ExtResource("2_raoqg")
+model_path = ExtResource("2_5iqgs")
 title = "魔法塔 MAX"
 desc = "魔法塔 MAX"
 icon_path = "res://Asserts/Images/icon/skill icon/27.png"
@@ -38,7 +38,7 @@ bounce_times = 0
 bounce_distance = 20
 bounce_decay_factor = 0.3
 attack_value = 20000.0
-unit_growth_factor = 0.5
+unit_growth_factor = 0.05
 projectile_speed = 300.0
 health_recove_rate_factor = 0.0
 mana_recove_rate_factor = 2.0

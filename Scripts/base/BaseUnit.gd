@@ -402,7 +402,7 @@ func is_logic_dead() -> bool:
 func _on_unit_level_up(id: int, unit: BaseUnit, level: int) -> void:
 	if self.get_instance_id() == id:
 		# 升级后攻击力=前一级攻击力×(1+成长率+随机波动)
-		attack_value = attack_value *  (1 + unit_growth_factor + randf_range(SOS.main.player_controller.lucky_factor, 1))  
+		attack_value = attack_value *  (1 + unit_growth_factor + randf_range(0, SOS.main.player_controller.lucky_factor))  
 
 
 

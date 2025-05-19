@@ -8,7 +8,8 @@ class_name PlayerController extends Node3D
 
 
 # 玩家幸运值（随机因子）
-var lucky_factor: float = randf_range(0.0, 1.0)
+var lucky_factor: float = 0.0
+
 
 
 var wood: int = 0
