@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://p4ijak3k7b6"
+uid="uid://chkfvcpgkpoym"
 path="res://.godot/imported/Teleporter3.fbx-a35a850bf5397b1d890308f66d3bd62d.scn"
 
 [deps]
@@ -16,7 +16,7 @@ dest_files=["res://.godot/imported/Teleporter3.fbx-a35a850bf5397b1d890308f66d3bd
 nodes/root_type=""
 nodes/root_name=""
 nodes/apply_root_scale=true
-nodes/root_scale=3.0
+nodes/root_scale=2.0
 nodes/import_as_skeleton_bones=false
 nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
