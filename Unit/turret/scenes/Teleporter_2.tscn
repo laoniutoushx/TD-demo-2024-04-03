@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://dbouc0hqkcev1"]
+[gd_scene load_steps=19 format=4 uid="uid://dbouc0hqkcev1"]
 
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_2bxpu"]
 [ext_resource type="Texture2D" uid="uid://bu8x50lf1bnym" path="res://Asserts/Models/turret pack/FBX/Teleporter2_0.png" id="2_t20by"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="4_l2a3n"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="5_lc5xt"]
 [ext_resource type="PackedScene" uid="uid://d00chkod5txim" path="res://Components/hud/hud.tscn" id="6_chsuy"]
+[ext_resource type="PackedScene" uid="uid://na1cbt4s5xar" path="res://Components/decal_mesh_ground_4_turret/decal_mesh_ground.tscn" id="8_t20by"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q6bvh"]
 resource_name = "Material.001"
@@ -162,6 +163,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.14895, 0)
 
 [node name="Hud" parent="." instance=ExtResource("6_chsuy")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 4.37474, 0)
+
+[node name="DecalMeshGround" parent="." instance=ExtResource("8_t20by")]
 
 [connection signal="area_entered" from="AttackingScope" to="." method="_on_attacking_scope_area_entered"]
 [connection signal="area_exited" from="AttackingScope" to="." method="_on_attacking_scope_area_exited"]

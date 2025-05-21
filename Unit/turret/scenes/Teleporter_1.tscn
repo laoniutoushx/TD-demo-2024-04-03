@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://g2pp4vopotbr"]
+[gd_scene load_steps=19 format=4 uid="uid://g2pp4vopotbr"]
 
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_xycrk"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="2_7uf10"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="4_4rwit"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="5_df8au"]
 [ext_resource type="PackedScene" uid="uid://d00chkod5txim" path="res://Components/hud/hud.tscn" id="6_eygql"]
+[ext_resource type="PackedScene" uid="uid://na1cbt4s5xar" path="res://Components/decal_mesh_ground_4_turret/decal_mesh_ground.tscn" id="8_my725"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g8j40"]
 resource_name = "Material.001"
@@ -163,6 +164,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.87861, 0)
 
 [node name="Hud" parent="." instance=ExtResource("6_eygql")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 4.1044, 0)
+
+[node name="DecalMeshGround" parent="." instance=ExtResource("8_my725")]
 
 [connection signal="area_entered" from="AttackingScope" to="." method="_on_attacking_scope_area_entered"]
 [connection signal="area_exited" from="AttackingScope" to="." method="_on_attacking_scope_area_exited"]

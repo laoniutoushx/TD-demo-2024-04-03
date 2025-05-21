@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode unshaded;
+render_mode blend_mix, depth_draw_never, cull_disabled, unshaded;
 
 uniform vec4 color : source_color = vec4(1.0);
 uniform float width_pixels = 15.0;

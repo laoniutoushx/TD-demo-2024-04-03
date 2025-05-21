@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cru16mbhnwx85"]
+[gd_scene load_steps=29 format=3 uid="uid://cru16mbhnwx85"]
 
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_xflch"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_82e52"]
@@ -6,6 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="5_48m03"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="6_2vby5"]
 [ext_resource type="PackedScene" uid="uid://d00chkod5txim" path="res://Components/hud/hud.tscn" id="6_s15r0"]
+[ext_resource type="Shader" uid="uid://eay4ew13wkwc" path="res://Components/decal_mesh_ground_4_turret/decal_mesh_shader.gdshader" id="7_w4x0o"]
+[ext_resource type="Texture2D" uid="uid://mmt11f870nph" path="res://Asserts/materials/Stylized_Grass_003/Stylized_Grass_003_basecolor.jpg" id="8_rbcyp"]
+[ext_resource type="Texture2D" uid="uid://b0oo8ohwx0cds" path="res://Asserts/materials/Stylized_Grass_003/Stylized_Grass_003_ambientOcclusion.jpg" id="9_jnnbh"]
+[ext_resource type="Texture2D" uid="uid://biw2uwucg38ux" path="res://Asserts/materials/Stylized_Grass_003/Stylized_Grass_003_height.png" id="10_lbt2h"]
+[ext_resource type="Texture2D" uid="uid://bqvvrl2a6ryax" path="res://Asserts/materials/Stylized_Grass_003/Stylized_Grass_003_normal.jpg" id="11_84al3"]
+[ext_resource type="Texture2D" uid="uid://6dwjyv3v7hwp" path="res://Asserts/materials/Stylized_Grass_003/Stylized_Grass_003_roughness.jpg" id="12_tdfe5"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f7p6l"]
 
@@ -87,6 +93,40 @@ _data = {
 &"attack": SubResource("Animation_3ryhm")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5w4ji"]
+render_priority = 0
+shader = ExtResource("7_w4x0o")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("8_rbcyp")
+shader_parameter/albedo_texture_size = Vector2i(1024, 1024)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/texture_roughness = ExtResource("12_tdfe5")
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/texture_normal = ExtResource("11_84al3")
+shader_parameter/normal_scale = 1.0
+shader_parameter/texture_ambient_occlusion = ExtResource("9_jnnbh")
+shader_parameter/ao_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/texture_heightmap = ExtResource("10_lbt2h")
+shader_parameter/heightmap_scale = 5.0
+shader_parameter/heightmap_min_layers = 8
+shader_parameter/heightmap_max_layers = 32
+shader_parameter/heightmap_flip = Vector2(1, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/edge_fade_width = 0.15
+shader_parameter/edge_radius = 0.4
+
+[sub_resource type="QuadMesh" id="QuadMesh_cs4ib"]
+material = SubResource("ShaderMaterial_5w4ji")
+size = Vector2(6, 6)
+orientation = 1
+
 [node name="Turret" type="Node3D" node_paths=PackedStringArray("turret_top", "fire_poses", "hud")]
 script = ExtResource("1_xflch")
 turret_top = NodePath("TurretBase/TurretTop")
@@ -144,6 +184,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.22337, 0)
 
 [node name="Hud" parent="." instance=ExtResource("6_s15r0")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 2.471, 0)
+
+[node name="DecalMeshGround" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_cs4ib")
 
 [connection signal="area_entered" from="AttackingScope" to="." method="_on_attacking_scope_area_entered"]
 [connection signal="area_exited" from="AttackingScope" to="." method="_on_attacking_scope_area_exited"]

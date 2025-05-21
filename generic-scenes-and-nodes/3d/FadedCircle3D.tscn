@@ -3,5 +3,7 @@
 [ext_resource type="Script" uid="uid://idiy8g87vh13" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.gd" id="1_serbs"]
 
 [node name="FadedCircle3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
 script = ExtResource("1_serbs")
 color = Color(1, 1, 1, 1)
+render_priority = 128

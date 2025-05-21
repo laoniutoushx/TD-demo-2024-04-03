@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=3 uid="uid://na1cbt4s5xar"]
+
+[ext_resource type="Texture2D" uid="uid://mmt11f870nph" path="res://Asserts/materials/Stylized_Grass_003/Stylized_Grass_003_basecolor.jpg" id="1_c8ywq"]
+[ext_resource type="Shader" uid="uid://eay4ew13wkwc" path="res://Components/decal_mesh_ground_4_turret/decal_mesh_shader.gdshader" id="1_eb6gs"]
+[ext_resource type="Texture2D" uid="uid://b0oo8ohwx0cds" path="res://Asserts/materials/Stylized_Grass_003/Stylized_Grass_003_ambientOcclusion.jpg" id="2_eb6gs"]
+[ext_resource type="Texture2D" uid="uid://biw2uwucg38ux" path="res://Asserts/materials/Stylized_Grass_003/Stylized_Grass_003_height.png" id="3_6g8g3"]
+[ext_resource type="Texture2D" uid="uid://bqvvrl2a6ryax" path="res://Asserts/materials/Stylized_Grass_003/Stylized_Grass_003_normal.jpg" id="4_85nf3"]
+[ext_resource type="Texture2D" uid="uid://6dwjyv3v7hwp" path="res://Asserts/materials/Stylized_Grass_003/Stylized_Grass_003_roughness.jpg" id="5_x208j"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ley2p"]
+render_priority = 0
+shader = ExtResource("1_eb6gs")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("1_c8ywq")
+shader_parameter/albedo_texture_size = Vector2i(1024, 1024)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/texture_roughness = ExtResource("5_x208j")
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/texture_normal = ExtResource("4_85nf3")
+shader_parameter/normal_scale = 1.0
+shader_parameter/texture_ambient_occlusion = ExtResource("2_eb6gs")
+shader_parameter/ao_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/texture_heightmap = ExtResource("3_6g8g3")
+shader_parameter/heightmap_scale = 5.0
+shader_parameter/heightmap_min_layers = 8
+shader_parameter/heightmap_max_layers = 32
+shader_parameter/heightmap_flip = Vector2(1, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/edge_fade_width = 0.3
+shader_parameter/edge_radius = 0.6
+
+[sub_resource type="QuadMesh" id="QuadMesh_2vmiw"]
+material = SubResource("ShaderMaterial_ley2p")
+size = Vector2(6, 6)
+orientation = 1
+
+[node name="DecalMeshGround" type="MeshInstance3D"]
+mesh = SubResource("QuadMesh_2vmiw")

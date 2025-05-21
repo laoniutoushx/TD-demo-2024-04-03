@@ -21,7 +21,9 @@ func _ready():
 	_plane = MeshInstance3D.new()
 	_plane.mesh = PlaneMesh.new()
 	_plane.material_override = ShaderMaterial.new()
-	_plane.material_override.shader = preload("res://Asserts/shared/shader/3d/faded_circle.gdshader")
+	# _plane.material_override.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	# _plane.material_override.albedo.a = 1
+	_plane.material_override.shader = preload("res://generic-scenes-and-nodes/3d/faded_circle.gdshader")
 	_recalculate_plane_parameters()
 	add_child(_plane)
 
