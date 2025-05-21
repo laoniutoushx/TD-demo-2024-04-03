@@ -330,7 +330,6 @@ collision_mask = 0
 shape = SubResource("BoxShape3D_q2oqp")
 
 [node name="FadedCircle3D" parent="." instance=ExtResource("2_t87cn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
 radius = 3.0
 width = 68.304
 inner_edge_width = 87.138
