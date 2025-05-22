@@ -8,18 +8,18 @@ class_name PlayerController extends Node3D
 
 
 # 玩家幸运值（随机因子）
-var lucky_factor: float = 0.0
+@export var lucky_factor: float = 0.0
 
 
 
-var wood: int = 0
+@export var wood: int = 0
 func set_wood(s: Object, value: int) -> void:	# from _on_unit_logic_death
 	wood = value
 	SignalBus.wood_changed.emit(s, wood)
 	# print("wood changed %s" % [wood])
 
 
-var money: int = 0
+@export var money: int = 0
 func set_money(s: Object, value: int) -> void:	# from _on_unit_logic_death
 	money = value
 	SignalBus.money_changed.emit(s, money)

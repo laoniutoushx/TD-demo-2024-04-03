@@ -1,0 +1,100 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=9 format=3 uid="uid://1cxiayw4lg2i"]
+
+[ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="1_bby7s"]
+[ext_resource type="PackedScene" uid="uid://3v8xlf8qvy3x" path="res://Unit/turret/scenes/Cannon_2.tscn" id="2_bby7s"]
+[ext_resource type="Script" uid="uid://cwoilst65vmq6" path="res://Unit/enemy/EnemyResource.gd" id="3_4s6k6"]
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_lbfal"]
+[ext_resource type="Resource" uid="uid://bf0q35eb5u1aj" path="res://Unit/turret/resources/Cannon3.tres" id="5_lbfal"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="6_07yqr"]
+[ext_resource type="Script" uid="uid://d16rx3mg1e028" path="res://System/skill_system/resources/building/building_level_up.gd" id="7_tp4xu"]
+
+[sub_resource type="Resource" id="Resource_amf87"]
+script = ExtResource("4_lbfal")
+code = "building_level_up"
+title = "升级"
+desc = "升级当前单位为指定 ${TARGET_UNIT}"
+icon_path = "20"
+level = 1
+level_up_gap = 1
+max_level = 3
+init_release = false
+auto_release = false
+cooldown = 60.0
+mana_cost = -1.0
+damage_range = 5.0
+match_range = 30.0
+range = 5.0
+release_distance = 10.0
+stock = 1
+value = 0.0
+value_ext = {}
+run_distance = 10.0
+epoch = 1
+init_num = 1
+internal_time = -1.0
+start_time = 0.1
+end_time = 0.1
+wave = 1
+projection_speed = 1.0
+disable_check = 13
+release_type = 2
+target_type = 8
+effect_type = 4
+building_res = ExtResource("5_lbfal")
+building_level_up_time = 1.0
+wood_cost = -1.0
+money_cost = -1.0
+skill_script = ExtResource("7_tp4xu")
+skill_level_config = Array[ExtResource("4_lbfal")]([])
+skill_buff_config = Array[ExtResource("6_07yqr")]([])
+
+[resource]
+script = ExtResource("3_4s6k6")
+clz_name = "Cannon_2"
+model_path = ExtResource("2_bby7s")
+title = "大炮 Lv 2"
+desc = "大炮2"
+icon_path = "res://Asserts/Images/icon/skill icon/27.png"
+aabb_scale = 1.0
+aabb_height_scale = 1.0
+element_phase = 31
+unit_move_type = 1
+unit_cate = 1
+armor_amount = 0.0
+armor_type = 2
+is_mesh_outline = true
+is_mesh_standing = false
+mana_cost = 10.0
+wood_cost = -1.0
+money_cost = 50.0
+money_reward = -1
+wood_reward = -1
+max_health = 100.0
+max_mana = 100.0
+move_speed = 5.0
+turn_speed = 10.0
+attack_speed = 0.5
+attack_range = 37.0
+attack_num = 1
+bounce_times = 0
+bounce_distance = 20
+bounce_decay_factor = 0.3
+attack_value = 200.0
+unit_growth_factor = 0.01
+projectile_speed = 200.0
+health_recove_rate_factor = 0.0
+mana_recove_rate_factor = 1.0
+vfx_projectile_name = "missile_07"
+anim_attack = null
+anim_run = "Armature|Jump"
+anim_walk = null
+anim_idle = null
+anim_death = "death"
+anim_release = null
+anim_speed_factor = 1.0
+anim_ack_point = 0.03
+is_selected_circle = true
+component_systems = 0
+pickup_velocity = 1000.0
+item_metas = Array[ExtResource("1_bby7s")]([])
+skill_metas = Array[ExtResource("4_lbfal")]([SubResource("Resource_amf87")])

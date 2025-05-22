@@ -6,4 +6,4 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
 script = ExtResource("1_serbs")
 color = Color(1, 1, 1, 1)
-render_priority = 128
+render_priority = 127

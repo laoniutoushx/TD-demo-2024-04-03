@@ -17,8 +17,10 @@ func _ready() -> void:
 	# 初始位置定位
 	# WARNING 某些特殊情况下，在 projectile 不初始化情况下，
 	# 有可能其位置在 0，0，0 点位，导致bug，某些帧可能会获取到 projectile 在 0，0，0 位置的的 position，影响 borning 与 death 特性的创建位置
-	self.look_at(target.global_position)
+
 	global_position = fire_pos
+	# self.look_at(target.global_position)
+	CommonUtil.safe_look_at(self, global_position, target.global_position)
 
 	finished.connect(_on_projectile_finished, CONNECT_ONE_SHOT)
 	target.logical_death.connect(_on_target_logical_death, CONNECT_ONE_SHOT)
@@ -45,8 +47,8 @@ func _physics_process(delta: float) -> void:
 
 
 		# 使用 look_at 让物体 朝向目标
-		self.look_at(target_pos)
-
+		# self.look_at(target_pos)
+		CommonUtil.safe_look_at(self, global_position, target_pos)
 
 		# 判断物体是否接近目标
 		var remaining_distance = self.global_position.distance_to(target_pos)

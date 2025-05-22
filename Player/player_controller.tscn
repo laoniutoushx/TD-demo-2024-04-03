@@ -11,6 +11,8 @@ size = Vector3(0.1, 3, 0.1)
 
 [node name="PlayerController" type="Node3D"]
 script = ExtResource("1_q3nwc")
+wood = 2000
+money = 2000
 
 [node name="SelectArea" type="Area3D" parent="."]
 unique_name_in_owner = true

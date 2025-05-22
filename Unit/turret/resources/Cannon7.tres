@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://cn7hh7lx7emfe"]
+
+[ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="1_tb6py"]
+[ext_resource type="PackedScene" uid="uid://bqsi574bs2w1q" path="res://Unit/turret/scenes/Cannon_5.tscn" id="2_b6h2c"]
+[ext_resource type="Script" uid="uid://cwoilst65vmq6" path="res://Unit/enemy/EnemyResource.gd" id="3_keaqc"]
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_tebfu"]
+
+[resource]
+script = ExtResource("3_keaqc")
+clz_name = "Cannon_7"
+model_path = ExtResource("2_b6h2c")
+title = "大炮 Lv 7"
+desc = "大炮7"
+icon_path = "res://Asserts/Images/icon/skill icon/27.png"
+aabb_scale = 1.0
+aabb_height_scale = 1.0
+element_phase = 31
+unit_move_type = 1
+unit_cate = 1
+armor_amount = 0.0
+armor_type = 2
+is_mesh_outline = true
+is_mesh_standing = false
+mana_cost = 10.0
+wood_cost = -1.0
+money_cost = 50.0
+money_reward = -1
+wood_reward = -1
+max_health = 100.0
+max_mana = 100.0
+move_speed = 5.0
+turn_speed = 10.0
+attack_speed = 0.5
+attack_range = 37.0
+attack_num = 1
+bounce_times = 0
+bounce_distance = 20
+bounce_decay_factor = 0.3
+attack_value = 200.0
+unit_growth_factor = 0.01
+projectile_speed = 200.0
+health_recove_rate_factor = 0.0
+mana_recove_rate_factor = 1.0
+vfx_projectile_name = "missile_07"
+anim_attack = null
+anim_run = "Armature|Jump"
+anim_walk = null
+anim_idle = null
+anim_death = "death"
+anim_release = null
+anim_speed_factor = 1.0
+anim_ack_point = 0.03
+is_selected_circle = true
+component_systems = 0
+pickup_velocity = 1000.0
+item_metas = Array[ExtResource("1_tb6py")]([])
+skill_metas = Array[ExtResource("4_tebfu")]([])

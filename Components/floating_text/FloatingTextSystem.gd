@@ -41,15 +41,22 @@ func spawn(position: Vector3, text: String, color: Color = Color.WHITE, damage_t
         instance.visible = true
         
         # 自动回收机制
-        var timer = instance.get_tree().create_timer(instance.lifetime)
+        
+        var timer = get_tree().create_timer(instance.lifetime)
         timer.timeout.connect(_recycle_instance.bind(instance))
+        # timer.timeout.connect((func(_instance): _recycle_instance(_instance)).bind(instance))
 
-func _recycle_instance(instance: Node3D) -> void:
-    if is_instance_valid(instance) and instance.is_inside_tree():
-        instance.visible = false
-        if not available_texts.has(instance):
-            available_texts.append(instance)
 
-func _on_instance_exiting(instance: Node3D) -> void:
+func _recycle_instance(instance) -> void:
+    if not is_instance_valid(instance):
+        return
+    if not instance.is_inside_tree():
+        return
+    instance.visible = false
+    if not available_texts.has(instance):
+        available_texts.append(instance)          
+
+
+func _on_instance_exiting(instance) -> void:
     if available_texts.has(instance):
         available_texts.erase(instance)

@@ -55,6 +55,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="FloatingTextSystem" parent="System" instance=ExtResource("12_sc1dx")]
+unique_name_in_owner = true
 
 [node name="UI" type="Node" parent="."]
 

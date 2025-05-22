@@ -206,8 +206,41 @@ static func create_outline_mesh(mesh_instance: MeshInstance3D, outline_width: fl
 
 
 
+# 计算相关
+# "det == 0"	 look at 共线错误修复
+static func safe_look_at(node: Node3D, from: Vector3, to: Vector3, up: Vector3 = Vector3.UP) -> void:
+	var direction = (to - from).normalized()
+
+	# 检查是否和 up 向量共线（即点积接近 ±1）
+	if abs(direction.dot(up)) > 0.999:
+		up = Vector3.FORWARD if abs(direction.dot(Vector3.FORWARD)) < 0.999 else Vector3.RIGHT
+
+	node.look_at(to, up)
 
 
+# static func safe_look_at(node: Node3D, from: Vector3, to: Vector3) -> void:
+# 	var direction := (to - from).normalized()
+# 	if direction.length() < 0.001:
+# 		return # 避免无效方向
+
+# 	# 计算安全的 up 向量：尝试默认 UP，如果共线则用 FORWARD，再不行用 RIGHT
+# 	var up := Vector3.UP
+# 	if abs(direction.dot(up)) > 0.99:
+# 		up = Vector3.FORWARD
+# 		if abs(direction.dot(up)) > 0.99:
+# 			up = Vector3.RIGHT
+
+# 	# 确保 up 与方向正交
+# 	var right = direction.cross(up).normalized()
+# 	up = right.cross(direction).normalized()
+
+# 	node.global_transform = Transform3D().looking_at(to, up).translated(from)
+
+
+
+
+
+# 属性拷贝
 static func bean_properties_copy(src: Object, tar: Object) -> Variant:
 	# 获取源对象的属性列表
 	var src_properties = src.get_property_list()

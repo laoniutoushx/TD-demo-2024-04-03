@@ -180,7 +180,8 @@ func _on_attacking_scope_area_entered(area:Area3D) -> void:
 	var enemy = area.owner
 	if enemy != null && enemy is BaseUnit && enemy.player_owner_idx != self.player_owner_idx && !enemy.is_logic_dead():
 		enemies[enemy.get_instance_id()] = enemy
-		(enemy as BaseUnit).logical_death.connect(_on_enemy_logic_death, CONNECT_ONE_SHOT)	
+		if not (enemy as BaseUnit).logical_death.is_connected(_on_enemy_logic_death):
+			(enemy as BaseUnit).logical_death.connect(_on_enemy_logic_death, CONNECT_ONE_SHOT)	
 
 
 
