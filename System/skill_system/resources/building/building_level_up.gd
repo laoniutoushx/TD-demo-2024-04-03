@@ -39,6 +39,17 @@ func action(skill_context: SkillContext) -> void:
     add_child(cimer)
     cimer.start()
 
+
+    # 创建升级特效
+    var vfx_leveling_up = SystemUtil.vfx_system.create_vfx("leveling_up_circle", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
+    source_unit.add_child(vfx_leveling_up)
+
+    # 创建升级特效
+    vfx_leveling_up = SystemUtil.vfx_system.create_vfx("leveling_up_arrow", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
+    source_unit.add_child(vfx_leveling_up)
+    vfx_leveling_up.position = Vector3(vfx_leveling_up.position.x, source_unit._height, vfx_leveling_up.position.z)
+
+
     await cimer.timeout
 
     # 升级完成，替换单位

@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqclavdtgj777"]
+
+[ext_resource type="Shader" uid="uid://c6t5tqp8jte2k" path="res://VFX/level_up/vfx_leveling_up_circle_running.gdshader" id="1_5h8as"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hi3my"]
+render_priority = 0
+shader = ExtResource("1_5h8as")
+shader_parameter/ring_count = 5
+shader_parameter/ring_radius = 0.5
+shader_parameter/ring_width = 0.05
+shader_parameter/ring_spacing = 0.15
+shader_parameter/ring_color = Color(1, 0.272, 0.09, 1)
+shader_parameter/shrink_speed = 0.7
+shader_parameter/auto_restart = true
+shader_parameter/animation_offset = 0.0
+shader_parameter/expand_mode = false
+shader_parameter/enable_gradient = true
+shader_parameter/gradient_color = Color(1, 0.558, 0.22, 1)
+shader_parameter/edge_softness = 0.02
+shader_parameter/base_alpha = 1.0
+shader_parameter/fade_on_shrink = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_bvg5p"]
+material = SubResource("ShaderMaterial_hi3my")
+size = Vector2(8, 8)
+orientation = 1
+
+[node name="VfxLevelingUpRunning" type="Node3D"]
+
+[node name="RingCircle" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_bvg5p")
