@@ -12,7 +12,7 @@ var _cur_scene
 
 func _ready():
 	# listener signal 
-	SignalBus.connect("next_level", next_level)
+	SignalBus.next_level.connect(next_level)
 	
 	level_res_load()
 	await self.ready

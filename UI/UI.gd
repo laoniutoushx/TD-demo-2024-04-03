@@ -14,11 +14,11 @@ func _ready() -> void:
 	pass
 
 func _on_money_changed(enemy: Object, money: int):
-	var money_label = $CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer/MoneyLabel
+	var money_label = %MoneyLabel
 	money_label.text = str(money)
 
 
 func _on_wood_changed(enemy: Object, wood: int):
-	var wood_label = $CanvasLayer/PanelContainer/MarginContainer/GridContainer/HSplitContainer2/WoodLabel
+	var wood_label = %WoodLabel
 	wood_label.text = str(wood)
 	
