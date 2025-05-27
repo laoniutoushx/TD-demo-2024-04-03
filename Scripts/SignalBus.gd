@@ -45,3 +45,8 @@ signal skill_level_up(skill_context: SkillContext)   # 技能升级开始
 signal buff_enter(buff: Buff, _ref: Variant)   # buff 新增
 signal buff_exit(buff: Buff, _ref: Variant)    # buff 删除
 signal buff_cooldown_extend(buff: Buff, _ref: Variant)    # buff 删除
+
+
+# UI
+signal wave_start(wave_index: int, wave_resource: WaveResource, wave_resources: Array)	# wave start
+signal wave_end(wave_index: int, wave_resource: WaveResource, wave_resources: Array)	# wave end

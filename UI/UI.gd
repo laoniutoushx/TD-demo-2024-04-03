@@ -1,10 +1,15 @@
 extends Node
 
 
+
 func _ready() -> void:
 	# SignalBus.unit_logic_death.connect(_on_enemy_death)
 	SignalBus.money_changed.connect(_on_money_changed)
 	SignalBus.wood_changed.connect(_on_wood_changed)
+
+	SignalBus.wave_start.connect(_on_wave_start)
+	SignalBus.wave_end.connect(_on_wave_end)
+
 
 	# 初始化
 	_on_money_changed(null, SOS.main.player_controller.money)
@@ -22,3 +27,25 @@ func _on_wood_changed(enemy: Object, wood: int):
 	var wood_label = %WoodLabel
 	wood_label.text = str(wood)
 	
+
+func _on_wave_start(wave_index: int, wave_resource: WaveResource, wave_resources: Array):
+	var wave_label = %WaveLabel
+	wave_label.text = "Wave: " + str(wave_index + 1) + "/" + str(wave_resources.size())
+	
+	# var wave_progress = %WaveProgress
+	# wave_progress.max_value = base_level.wave_resources.size()
+	# wave_progress.value = wave_index + 1
+
+	var wave_tip = %WaveTip
+	wave_tip.text = "第 " + str(wave_index + 1) + " 波怪物正在赶来！"
+
+func _on_wave_end(wave_index: int, wave_resource: WaveResource, wave_resources: Array):
+	var wave_label = %WaveLabel
+	wave_label.text = "Wave: " + str(wave_index + 1) + "/" + str(wave_resources.size())
+	
+	# var wave_progress = %WaveProgress
+	# wave_progress.max_value = base_level.wave_resources.size()
+	# wave_progress.value = wave_index + 1	
+
+	var wave_tip = %WaveTip
+	wave_tip.text = "准备防御第 " + str(wave_index + 1) + " 波怪物！"

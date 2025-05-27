@@ -1,12 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://v7ppoiw21kdi"]
+[gd_scene load_steps=11 format=3 uid="uid://v7ppoiw21kdi"]
 
 [ext_resource type="Script" uid="uid://dq14ttrg0jq64" path="res://UI/UI.gd" id="1_64wmh"]
 [ext_resource type="Theme" uid="uid://bf5a24ang0c6j" path="res://Asserts/resources/demo_ui/panel_container_theme.tres" id="1_cvmv4"]
 [ext_resource type="Texture2D" uid="uid://nx6gcyhrqbr2" path="res://Asserts/resources/demo_ui/UI/2_爱给网_aigei_com.png" id="1_sx3px"]
 [ext_resource type="Texture2D" uid="uid://bkmrrcn6wmtew" path="res://Asserts/resources/demo_ui/UI/木支柱4(wood_prop4)_爱给网_aigei_com.png" id="2_pxfgc"]
 [ext_resource type="FontFile" uid="uid://b2jmotgetkr7k" path="res://Asserts/resources/demo_ui/Font/KingGamingFreeTrial-gxrq6.otf" id="5_3sbvi"]
+[ext_resource type="FontFile" uid="uid://cat6s1t257mgd" path="res://Asserts/resources/demo_ui/Font/KingGamingFreeTrial-owdrz.ttf" id="5_c7tqi"]
+[ext_resource type="Texture2D" uid="uid://boagolswk1t65" path="res://Asserts/Images/icon/player/gdbot.png" id="6_nm1m0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hat8c"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cbfhl"]
+font = ExtResource("5_c7tqi")
+font_size = 30
 
 [sub_resource type="LabelSettings" id="LabelSettings_nm1m0"]
 font = ExtResource("5_3sbvi")
@@ -85,18 +91,32 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_hat8c")
 layout_mode = 2
 
 [node name="WaveLabel" type="Label" parent="CanvasLayer/WavePanel/VSplitContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "WAVE 1/45"
+text = "WAVE 0/1"
+label_settings = SubResource("LabelSettings_cbfhl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="WaveTip" type="Label" parent="CanvasLayer/WavePanel/VSplitContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "准备防御第一波怪物"
 label_settings = SubResource("LabelSettings_nm1m0")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Container" type="Container" parent="CanvasLayer"]
-offset_right = 152.0
-offset_bottom = 150.0
+[node name="Container" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_right = 0.105
+anchor_bottom = 0.146
+offset_left = 1.0
+offset_right = -0.400002
+offset_bottom = -0.128006
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Container"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("6_nm1m0")
+expand_mode = 1

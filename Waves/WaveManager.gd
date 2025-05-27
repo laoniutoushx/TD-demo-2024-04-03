@@ -50,8 +50,13 @@ func _ready() -> void:
 
 
 func wave_start():
-	for wave_resource in wave_resources:
+	for idx in wave_resources.size():	
+		var wave_resource: WaveResource = wave_resources[idx]
 		if wave_resource:
+
+			SignalBus.wave_start.emit(idx, wave_resource, wave_resources)
+			print("wave start: ", idx, wave_resource.level_code)
+
 			# init
 			var wave_spawner = _wave_spawner_initial(wave_resource)
 

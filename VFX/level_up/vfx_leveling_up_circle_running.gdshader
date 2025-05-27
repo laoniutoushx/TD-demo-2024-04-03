@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode unshaded, cull_disabled, depth_draw_opaque, depth_test_disabled, blend_mix;
+render_mode unshaded, cull_disabled, depth_draw_opaque,  blend_mix;
 
 // 圆环控制参数
 uniform int ring_count : hint_range(1, 20) = 5;

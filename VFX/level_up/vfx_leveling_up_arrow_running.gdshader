@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode unshaded, cull_disabled, depth_draw_opaque, blend_mix, depth_test_disabled;
+render_mode unshaded, cull_disabled, depth_draw_opaque, blend_mix;
 
 uniform float arrow_width : hint_range(0.1, 1.0) = 0.4;
 uniform float arrow_height : hint_range(0.1, 1.0) = 0.6;
