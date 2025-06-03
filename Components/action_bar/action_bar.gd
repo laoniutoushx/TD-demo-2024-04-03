@@ -1,7 +1,8 @@
 class_name ActionBar extends Control
 
-
 @onready var skill_bar: GridContainer = %SkillBar
+
+@onready var layer: CanvasLayer = %CanvasLayer
 @onready var item_bar: GridContainer = %ItemBar
 @onready var selection_bar: GridContainer = %SelectionBar
 @onready var buff_bar: GridContainer = %BuffBar
@@ -25,7 +26,7 @@ var active_unit: BaseUnit
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	hide()
+	hidden()
 	# Action Bar Icon Container
 	CommonUtil.load_resources_to_container_from_directory("res://Asserts/Images/icon/", icon_res_container)
 
@@ -60,14 +61,14 @@ func register_active_exec(is_active: bool):
 
 func show_toggle() -> void:
 	# toggle
-	visible = !visible
+	layer.visible = !layer.visible
 
 func display() -> void:
-	visible = true	
+	layer.visible = true	
 	register_active_exec(true)
 
 func hidden() -> void:
-	visible = false	
+	layer.visible = false	
 	register_active_exec(false)
 
 
@@ -89,7 +90,7 @@ func _on_player_select_units(unit_map: Dictionary, mouse_pos: Vector3, on_select
 			close_skill_bar()
 			close_item_bar()
 			close_buff_bar()
-			hide()
+			hidden()
 		else:
 			# 默认激活单位
 			active_unit = unit_map.values()[0]

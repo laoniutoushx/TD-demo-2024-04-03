@@ -27,7 +27,7 @@ func _on_wood_changed(enemy: Object, wood: int):
 	var wood_label = %WoodLabel
 	wood_label.text = str(wood)
 	
-
+ 
 func _on_wave_start(wave_index: int, wave_resource: WaveResource, wave_resources: Array):
 	var wave_label = %WaveLabel
 	wave_label.text = "Wave: " + str(wave_index + 1) + "/" + str(wave_resources.size())
@@ -36,9 +36,9 @@ func _on_wave_start(wave_index: int, wave_resource: WaveResource, wave_resources
 	# wave_progress.max_value = base_level.wave_resources.size()
 	# wave_progress.value = wave_index + 1
 
+	# 你的代码修改为：
 	var wave_tip = %WaveTip
-	wave_tip.text = "敌人开始进攻!!!\n
-						-第%s波-" % [str(wave_index + 1)]
+	wave_tip.text = "敌人开始进攻!!!\n-第%s波-" % [CommonUtil.number_to_chinese(wave_index + 1)]
 	# wave_tip.text = "第 " + str(wave_index + 1) + " 波怪物正在赶来！"
 
 func _on_wave_end(wave_index: int, wave_resource: WaveResource, wave_resources: Array):

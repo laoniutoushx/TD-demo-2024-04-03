@@ -505,3 +505,32 @@ static func _recursive_find_nodes_by_meta(node: Node, meta_key: String) -> Array
 	return result			
 
 
+
+
+
+# 将数字转换为中文数字的函数
+static func number_to_chinese(num: int) -> String:
+	if num == 0:
+		return "零"
+	
+	var units = ["", "十", "百", "千"]
+	var digits = ["", "一", "二", "三", "四", "五", "六", "七", "八", "九"]
+	
+	var result = ""
+	var str_num = str(num)
+	var length = str_num.length()
+	
+	for i in range(length):
+		var digit = int(str_num[i])
+		var unit_index = length - i - 1
+		
+		if digit != 0:
+			result += digits[digit]
+			if unit_index > 0:
+				result += units[unit_index]
+	
+	# 处理特殊情况（如"一十"简化为"十"）
+	if result.begins_with("一十"):
+		result = result.substr(1)
+	
+	return result
