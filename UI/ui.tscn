@@ -27,7 +27,7 @@ shadow_size = 0
 script = ExtResource("1_64wmh")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 2
+layer = 127
 
 [node name="ResourcePanel" type="PanelContainer" parent="CanvasLayer"]
 custom_minimum_size = Vector2(200, 0)
