@@ -110,7 +110,7 @@ func _on_selected_area_area_exited(area: Area3D) -> void:
 		frame_selecting_unit_exited.emit(area.owner)
 
 # listening unit death
-func _on_unit_logic_death(id:int, enemy :Enemy):
+func _on_unit_logic_death(id:int, enemy):
 	DoubleCacheSelection.remove(enemy)
 
 # 多重选择缓存

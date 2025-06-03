@@ -218,9 +218,9 @@ func _on_money_changed(source: Object, left_money: int):
 
 func skill_disabled_check() -> void:
     _is_disabled = _mana_disabled || _health_disabled || _money_disabled || _wood_disabled
-    print("skill name %s - %s， skill status in [mana %s, health %s, money %s, wood %s]， [ real value mana %s, health %s, money %s, wood %s]" 
-            % [self.code, self.name, _mana_disabled, _health_disabled, _money_disabled, _wood_disabled, 
-            unit.mana, null, SOS.main.player_controller.money, SOS.main.player_controller.wood])
+    # print("skill name %s - %s， skill status in [mana %s, health %s, money %s, wood %s]， [ real value mana %s, health %s, money %s, wood %s]" 
+            # % [self.code, self.name, _mana_disabled, _health_disabled, _money_disabled, _wood_disabled, 
+            # unit.mana, null, SOS.main.player_controller.money, SOS.main.player_controller.wood])
     skill_disabled.emit(skill_context, _is_disabled)
 
 

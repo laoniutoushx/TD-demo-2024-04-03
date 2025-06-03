@@ -15,7 +15,7 @@ enemy_amount = 1
 [sub_resource type="Resource" id="Resource_6jk0d"]
 script = ExtResource("3_o0ugr")
 start_delay = 3.0
-next_wave_delay = 1.0
+next_wave_delay = 3.0
 level_code = "Level1"
 enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_2tx4y")])
 
@@ -28,8 +28,8 @@ enemy_amount = 2
 
 [sub_resource type="Resource" id="Resource_n08pb"]
 script = ExtResource("3_o0ugr")
-start_delay = 1.0
-next_wave_delay = 1.0
+start_delay = 3.0
+next_wave_delay = 3.0
 level_code = "Level1"
 enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_nciru")])
 
@@ -42,8 +42,8 @@ enemy_amount = 10
 
 [sub_resource type="Resource" id="Resource_jmrcr"]
 script = ExtResource("3_o0ugr")
-start_delay = 0.0
-next_wave_delay = 1.0
+start_delay = 3.0
+next_wave_delay = 3.0
 level_code = ""
 enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_gf1ss")])
 
@@ -63,7 +63,7 @@ enemy_amount = 5
 
 [sub_resource type="Resource" id="Resource_prnja"]
 script = ExtResource("3_o0ugr")
-start_delay = 0.0
+start_delay = 3.0
 next_wave_delay = 5.0
 level_code = ""
 enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_xtm6e"), SubResource("Resource_c8hpo")])
@@ -77,7 +77,7 @@ enemy_amount = 10
 
 [sub_resource type="Resource" id="Resource_541jc"]
 script = ExtResource("3_o0ugr")
-start_delay = 0.0
+start_delay = 5.0
 next_wave_delay = 5.0
 level_code = ""
 enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_rj64l")])
@@ -91,7 +91,7 @@ enemy_amount = 10
 
 [sub_resource type="Resource" id="Resource_uu4er"]
 script = ExtResource("3_o0ugr")
-start_delay = 0.0
+start_delay = 5.0
 next_wave_delay = 5.0
 level_code = ""
 enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_x0enq")])
@@ -105,7 +105,7 @@ enemy_amount = 5
 
 [sub_resource type="Resource" id="Resource_v1rcb"]
 script = ExtResource("3_o0ugr")
-start_delay = 0.0
+start_delay = 5.0
 next_wave_delay = 5.0
 level_code = ""
 enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_553at")])
@@ -119,7 +119,7 @@ enemy_amount = 10
 
 [sub_resource type="Resource" id="Resource_vltjb"]
 script = ExtResource("3_o0ugr")
-start_delay = 0.0
+start_delay = 5.0
 next_wave_delay = 5.0
 level_code = ""
 enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_jeobp")])
@@ -133,7 +133,7 @@ enemy_amount = 10
 
 [sub_resource type="Resource" id="Resource_85fqy"]
 script = ExtResource("3_o0ugr")
-start_delay = 0.0
+start_delay = 5.0
 next_wave_delay = 5.0
 level_code = ""
 enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_war0u")])

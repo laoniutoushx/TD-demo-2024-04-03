@@ -37,7 +37,9 @@ func _on_wave_start(wave_index: int, wave_resource: WaveResource, wave_resources
 	# wave_progress.value = wave_index + 1
 
 	var wave_tip = %WaveTip
-	wave_tip.text = "第 " + str(wave_index + 1) + " 波怪物正在赶来！"
+	wave_tip.text = "敌人开始进攻!!!\n
+						-第%s波-" % [str(wave_index + 1)]
+	# wave_tip.text = "第 " + str(wave_index + 1) + " 波怪物正在赶来！"
 
 func _on_wave_end(wave_index: int, wave_resource: WaveResource, wave_resources: Array):
 	var wave_label = %WaveLabel

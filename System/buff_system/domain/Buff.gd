@@ -181,8 +181,9 @@ func remove(_reference: Variant) -> bool:
             # 恢复为当前 buff 修改前的数值
             # _reference.set(prop, _value)
 
-            # 删除 buff
-            (_reference as Node).remove_child(self)
+            # 删除 buff（这里暂时不调用 remove_child，此处方法是在 触发 buff queue_free 时调用的）
+            # (_reference as Node).remove_child(self)
+            # (_reference as Node).remove_child.call_deferred(self)
 
             # print("REF_VAL %s" % ref_val)
 
