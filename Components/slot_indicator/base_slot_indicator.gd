@@ -1,7 +1,7 @@
 class_name BaseSlotIndicator extends Control
 
 
-@onready var panel: PanelContainer = $PanelContainer
+@onready var panel: PanelContainer = %PanelContainer
 
 
 # slot_indicator 下边界 与 slot 中心点的距离

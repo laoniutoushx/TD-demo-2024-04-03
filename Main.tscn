@@ -60,11 +60,19 @@ unique_name_in_owner = true
 [node name="UI" type="Node" parent="."]
 
 [node name="MessageBar" parent="UI" instance=ExtResource("10_s4ypy")]
+unique_name_in_owner = true
 
 [node name="BuildingKeyIndicator" parent="UI" instance=ExtResource("11_al8tg")]
+unique_name_in_owner = true
 
-[node name="SkillSlotIndicator" parent="UI" instance=ExtResource("12_kj6y6")]
+[node name="CanvasLayer" type="CanvasLayer" parent="UI"]
+layer = 127
 
-[node name="UnitSlotIndicator" parent="UI" instance=ExtResource("13_1oenx")]
+[node name="SkillSlotIndicator" parent="UI/CanvasLayer" instance=ExtResource("12_kj6y6")]
+unique_name_in_owner = true
 
-[node name="ItemSlotIndicator" parent="UI" instance=ExtResource("14_56wfn")]
+[node name="UnitSlotIndicator" parent="UI/CanvasLayer" instance=ExtResource("13_1oenx")]
+unique_name_in_owner = true
+
+[node name="ItemSlotIndicator" parent="UI/CanvasLayer" instance=ExtResource("14_56wfn")]
+unique_name_in_owner = true

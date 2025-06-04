@@ -15,6 +15,7 @@ gradient = SubResource("Gradient_5ufjc")
 texture = SubResource("GradientTexture1D_ig33x")
 
 [node name="BackgroundSlotBasic" type="NinePatchRect"]
+z_index = -1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
