@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://v7ppoiw21kdi"]
+[gd_scene load_steps=14 format=3 uid="uid://v7ppoiw21kdi"]
 
 [ext_resource type="Script" uid="uid://dq14ttrg0jq64" path="res://UI/UI.gd" id="1_64wmh"]
 [ext_resource type="Theme" uid="uid://bf5a24ang0c6j" path="res://Asserts/resources/demo_ui/panel_container_theme.tres" id="1_cvmv4"]
 [ext_resource type="Texture2D" uid="uid://nx6gcyhrqbr2" path="res://Asserts/resources/demo_ui/UI/2_爱给网_aigei_com.png" id="1_sx3px"]
 [ext_resource type="Texture2D" uid="uid://bkmrrcn6wmtew" path="res://Asserts/resources/demo_ui/UI/木支柱4(wood_prop4)_爱给网_aigei_com.png" id="2_pxfgc"]
-[ext_resource type="FontFile" uid="uid://cat6s1t257mgd" path="res://Asserts/resources/demo_ui/Font/KingGamingFreeTrial-owdrz.ttf" id="5_c7tqi"]
+[ext_resource type="FontFile" uid="uid://m6iwjdk2oqpf" path="res://Asserts/resources/demo_ui/Font/江城圆体 700W.ttf" id="5_c7tqi"]
+[ext_resource type="FontFile" uid="uid://bce2telnqh8yo" path="res://Asserts/resources/demo_ui/Font/江城圆体 500W.ttf" id="6_cbfhl"]
 [ext_resource type="Texture2D" uid="uid://boagolswk1t65" path="res://Asserts/Images/icon/player/gdbot.png" id="6_nm1m0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cbfhl"]
@@ -16,12 +17,39 @@ outline_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hat8c"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nm1m0"]
-font = ExtResource("5_c7tqi")
-font_size = 50
+font = ExtResource("6_cbfhl")
+font_size = 60
 font_color = Color(1, 0.11, 0.11, 1)
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 0
+
+[sub_resource type="Animation" id="Animation_c7tqi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/WavePanel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/WavePanel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_nm1m0"]
 resource_name = "wave_tip"
@@ -49,33 +77,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_c7tqi"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/WavePanel:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer/WavePanel:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cbfhl"]
