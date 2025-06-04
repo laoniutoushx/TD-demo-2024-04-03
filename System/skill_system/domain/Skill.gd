@@ -478,6 +478,9 @@ func change_state(new_state: SKILL_STATE) -> void:
             # 切换鼠标光标
             SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.HAND)
 
+            # 针对无目标点击地面技能，停顿 0.1 s（修复点击建筑单位图标，立即再对应位置建造单位的 BUG）
+            await CommonUtil.await_timer(0.1)  # 等待一帧，确保状态切换
+
             # building floor indicator show by signal
             SignalBus.building_floor_indicator_show.emit(skill_context)
 

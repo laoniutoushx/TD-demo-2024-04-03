@@ -9,4 +9,4 @@ float_speed = 3.0
 [node name="Label3D" type="Label3D" parent="."]
 billboard = 1
 font_size = 128
-outline_size = 8
+outline_size = 0

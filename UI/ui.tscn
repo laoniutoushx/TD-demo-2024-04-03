@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://v7ppoiw21kdi"]
+[gd_scene load_steps=13 format=3 uid="uid://v7ppoiw21kdi"]
 
 [ext_resource type="Script" uid="uid://dq14ttrg0jq64" path="res://UI/UI.gd" id="1_64wmh"]
 [ext_resource type="Theme" uid="uid://bf5a24ang0c6j" path="res://Asserts/resources/demo_ui/panel_container_theme.tres" id="1_cvmv4"]
@@ -22,6 +22,67 @@ font_color = Color(1, 0.11, 0.11, 1)
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 0
+
+[sub_resource type="Animation" id="Animation_nm1m0"]
+resource_name = "wave_tip"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/WavePanel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(3.73213, 1, 1),
+"update": 0,
+"values": [Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/WavePanel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_c7tqi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/WavePanel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/WavePanel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cbfhl"]
+_data = {
+&"RESET": SubResource("Animation_c7tqi"),
+&"wave_tip": SubResource("Animation_nm1m0")
+}
 
 [node name="Node" type="Node"]
 script = ExtResource("1_64wmh")
@@ -102,11 +163,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="WavePanel" type="PanelContainer" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+unique_name_in_owner = true
+anchors_preset = -1
+anchor_left = 0.327
+anchor_top = 0.406
+anchor_right = 0.673
+anchor_bottom = 0.594
+offset_left = -0.160034
+offset_top = -0.308014
+offset_right = 0.159973
+offset_bottom = 0.307983
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(187, 72.5)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_hat8c")
 
@@ -132,3 +201,9 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("6_nm1m0")
 expand_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_cbfhl")
+}
