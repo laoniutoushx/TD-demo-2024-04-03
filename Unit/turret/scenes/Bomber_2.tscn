@@ -276,7 +276,7 @@ mesh = SubResource("ArrayMesh_7tao6")
 skeleton = NodePath("")
 
 [node name="Bomber_2_Base_top_back" type="MeshInstance3D" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D3"]
-transform = Transform3D(-100, -6.60024e-13, 8.74228e-06, -6.60024e-13, 100, 9.09495e-13, -8.74228e-06, 9.09495e-13, -100, 0.00126611, 2.68875, 0.434958)
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0.00126611, 2.68875, 0.434958)
 mesh = SubResource("ArrayMesh_2xixl")
 skeleton = NodePath("")
 

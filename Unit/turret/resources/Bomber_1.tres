@@ -4,11 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://u1iq3xrerays" path="res://Unit/turret/scenes/Bomber_1.tscn" id="2_0d1wl"]
 [ext_resource type="Script" uid="uid://cwoilst65vmq6" path="res://Unit/enemy/EnemyResource.gd" id="3_anx1t"]
 [ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_mo4o4"]
-[ext_resource type="Resource" uid="uid://cn7hh7lx7emfe" path="res://Unit/turret/resources/Cannon7.tres" id="5_4sn3r"]
+[ext_resource type="Resource" uid="uid://c2oj3nupnq304" path="res://Unit/turret/resources/Bomber_2.tres" id="5_4sn3r"]
 [ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="6_hkgb7"]
 [ext_resource type="Script" uid="uid://d16rx3mg1e028" path="res://System/skill_system/resources/building/building_level_up.gd" id="7_tb51q"]
 
-[sub_resource type="Resource" id="Resource_amf87"]
+[sub_resource type="Resource" id="Resource_hkgb7"]
 script = ExtResource("4_mo4o4")
 code = "building_level_up"
 title = "升级"
@@ -97,4 +97,4 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_jwp0u")]([])
-skill_metas = Array[ExtResource("4_mo4o4")]([SubResource("Resource_amf87")])
+skill_metas = Array[ExtResource("4_mo4o4")]([SubResource("Resource_hkgb7")])
