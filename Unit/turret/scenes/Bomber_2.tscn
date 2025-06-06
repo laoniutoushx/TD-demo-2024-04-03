@@ -291,8 +291,12 @@ skeleton = NodePath("")
 [node name="Marker3D" type="Marker3D" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left"]
 transform = Transform3D(-1, 2.62269e-07, 4.86389e-15, -6.60025e-15, -4.37114e-08, 1, 2.62269e-07, 1, 4.37114e-08, 0, 0.00322706, 0)
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left/Marker3D"]
+
 [node name="Marker3D2" type="Marker3D" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left"]
 transform = Transform3D(-1, 2.62269e-07, 4.86389e-15, -6.60025e-15, -4.37114e-08, 1, 2.62269e-07, 1, 4.37114e-08, 0, -0.00302683, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left/Marker3D2"]
 
 [node name="Bomber_2_Base_top_fire_right" type="MeshInstance3D" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2"]
 transform = Transform3D(-100, -6.60024e-13, 8.74228e-06, -6.60024e-13, 100, 0, -8.74228e-06, 0, -100, 0.300847, 2.67201, -1.7087)
@@ -302,8 +306,12 @@ skeleton = NodePath("")
 [node name="Marker3D2" type="Marker3D" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right"]
 transform = Transform3D(-1, 2.62269e-07, 4.86389e-15, -6.60025e-15, -4.37114e-08, 1, 2.62269e-07, 1, 4.37114e-08, 0, 0.00320148, 0)
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right/Marker3D2"]
+
 [node name="Marker3D3" type="Marker3D" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right"]
 transform = Transform3D(-1, 2.62269e-07, 4.86389e-15, -6.60025e-15, -4.37114e-08, 1, 2.62269e-07, 1, 4.37114e-08, 0, -0.00295894, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right/Marker3D3"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
