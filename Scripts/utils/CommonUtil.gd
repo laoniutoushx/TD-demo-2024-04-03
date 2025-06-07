@@ -64,13 +64,12 @@ static func get_all_mesh_instances(node: Node) -> Array[MeshInstance3D]:
 	return mesh_instances
 	
 
-
-static func get_first_node_by_node_type(node: Node, clazz: String, use_bfs: bool = false) -> Variant:
+static func get_first_node_by_node_type(node: Node, clazz: String, use_bfs: bool = true) -> Variant:
 	if not is_instance_valid(node):
 		return null
 	
 	if use_bfs:
-		# 广度优先遍历 (默认)
+		# 广度优先遍历
 		var queue: Array[Node] = [node]
 		
 		while queue.size() > 0:
@@ -87,26 +86,24 @@ static func get_first_node_by_node_type(node: Node, clazz: String, use_bfs: bool
 		
 		return null
 	else:
-		# 深度优先遍历 (原方法)
+		# 深度优先遍历
 		if node.is_class(clazz):
 			return node
-		else:
-			for child in node.get_children():
-				var _node = get_first_node_by_node_type(child, clazz, false)
-				if _node != null and _node.is_class(clazz):
-					return _node
-				else:
-					continue
+		
+		for child in node.get_children():
+			var result = get_first_node_by_node_type(child, clazz, false)
+			if result != null:  # 简化条件检查
+				return result
+		
 		return null
-	
 
 
-static func get_first_node_by_node_name(node: Node, name: String, use_bfs: bool = false) -> Variant:
+static func get_first_node_by_node_name(node: Node, name: String, use_bfs: bool = true) -> Variant:
 	if not is_instance_valid(node):
 		return null
 	
 	if use_bfs:
-		# 广度优先遍历 (默认)
+		# 广度优先遍历
 		var queue: Array[Node] = [node]
 		
 		while queue.size() > 0:
@@ -123,16 +120,15 @@ static func get_first_node_by_node_name(node: Node, name: String, use_bfs: bool 
 		
 		return null
 	else:
-		# 深度优先遍历 (原方法)
+		# 深度优先遍历
 		if node.name == name:
 			return node
-		else:
-			for child in node.get_children():
-				var _node = get_first_node_by_node_name(child, name, false)
-				if _node != null and _node.name == name:
-					return _node
-				else:
-					continue
+		
+		for child in node.get_children():
+			var result = get_first_node_by_node_name(child, name, false)
+			if result != null:  # 简化条件检查
+				return result
+		
 		return null
 
 

@@ -8,12 +8,14 @@ class_name FirePosCmp extends Marker3D
 
 func _ready() -> void:
     await owner.ready
+
+    # await CommonUtil.await_timer(1.0)  # 等待1秒，确保所有组件都已准备好
     
     print("Owner ready: ", owner.name)
     print("FirePosCmp ready: ", fire_name)
     
     # 将父节点 owner AnimationPlayer 的动画设置为 fire_animation
-    var parent_ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(owner, Constants.AnimationPlayer_CLZ)
+    var parent_ap: AnimationPlayer = owner.ap
     if parent_ap and ap:
 
         print("动画列表:")
@@ -74,8 +76,15 @@ func copy_and_setup_animation(source_ap: AnimationPlayer, target_ap: AnimationPl
         new_animation.track_set_path(track_idx, new_path)
         print("新轨道路径[%d]: %s" % [track_idx, new_path])
     
-    # 添加动画到目标AnimationPlayer
-    target_ap.add_animation(anim_name, new_animation)
+    # 修复：使用正确的方法添加动画到目标AnimationPlayer
+    # 方法1：获取默认动画库并添加动画
+    var anim_library = target_ap.get_animation_library("")
+    if not anim_library:
+        # 如果没有默认动画库，创建一个新的
+        anim_library = AnimationLibrary.new()
+        target_ap.add_animation_library("", anim_library)
+    
+    anim_library.add_animation(anim_name, new_animation)
     print("动画复制完成: ", anim_name)
 
 func play_fire_animation():
@@ -96,6 +105,46 @@ func is_fire_animation_playing() -> bool:
     if ap:
         return ap.is_playing() and ap.current_animation == fire_animation
     return false
+
+# 替代方法：直接复制整个动画库
+func copy_animation_library(source_ap: AnimationPlayer, target_ap: AnimationPlayer, library_name: StringName = ""):
+    """复制整个动画库的方法"""
+    var source_library = source_ap.get_animation_library(library_name)
+    if not source_library:
+        print("错误: 源动画库不存在: ", library_name)
+        return
+    
+    # 复制动画库
+    var new_library = source_library.duplicate(true)
+    
+    # 修改库中所有动画的路径
+    var animation_list = new_library.get_animation_list()
+    for anim_name in animation_list:
+        var animation = new_library.get_animation(anim_name)
+        _modify_animation_paths(animation)
+    
+    # 添加到目标AnimationPlayer
+    target_ap.add_animation_library(library_name, new_library)
+
+func _modify_animation_paths(animation: Animation):
+    """修改动画中所有轨道的路径"""
+    var owner_path_str = str(get_path_to(owner))
+    
+    for track_idx in animation.get_track_count():
+        var old_path = animation.track_get_path(track_idx)
+        var old_path_str = str(old_path)
+        var new_path_str: String
+        
+        if old_path_str.contains(":"):
+            var parts = old_path_str.split(":", false, 1)
+            var node_path = parts[0]
+            var property = parts[1]
+            new_path_str = owner_path_str + "/" + node_path + ":" + property
+        else:
+            new_path_str = owner_path_str + "/" + old_path_str
+        
+        var new_path = NodePath(new_path_str)
+        animation.track_set_path(track_idx, new_path)
 
 # 可选：更高级的路径处理方法
 func copy_and_setup_animation_advanced(source_ap: AnimationPlayer, target_ap: AnimationPlayer, anim_name: StringName):
@@ -135,7 +184,13 @@ func copy_and_setup_animation_advanced(source_ap: AnimationPlayer, target_ap: An
         for failed in failed_tracks:
             print("  轨道[%d]: %s" % [failed.index, failed.path])
     
-    target_ap.add_animation(anim_name, new_animation)
+    # 修复：使用正确的方法添加动画
+    var anim_library = target_ap.get_animation_library("")
+    if not anim_library:
+        anim_library = AnimationLibrary.new()
+        target_ap.add_animation_library("", anim_library)
+    
+    anim_library.add_animation(anim_name, new_animation)
 
 func _map_direct_path(old_path: NodePath) -> NodePath:
     """直接路径映射"""

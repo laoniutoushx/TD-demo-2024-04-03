@@ -35,6 +35,11 @@ func _ready() -> void:
 	# animation play
 	ap = CommonUtil.get_first_node_by_node_type(self, Constants.AnimationPlayer_CLZ)
 
+	print("动画列表:")
+	var animations = ap.get_animation_list()
+	for anim_name in animations:
+		print("  - ", anim_name)
+
 	# HUD 初始化
 	hud.init_hud_bar(self)
 	
