@@ -526,20 +526,22 @@ static func play_audio(place: Variant, audio_name: String, volume_db: float = 1.
 
 
 # 寻找 fire_pos 节点，定义在 Metadata 当中（has_key fire_pos）
-static func get_fire_pos(source):
+static func get_fire_pos(source) -> Marker3D:
 	if source is Turret and source.fire_poses and source.fire_poses.size() > 0:
-		return source.fire_poses[0].global_position
+		return source.fire_poses[0]
 
 
 	var fire_pos_nodes: Array = find_nodes_by_meta(source, "fire_pos")
 	if fire_pos_nodes and fire_pos_nodes.size() == 0:
-		return source.global_position
+		return source
 	
 	# TODO 如果有多个发射位置，默认返回第一个，（后续有其他逻辑时处理）
-	return fire_pos_nodes[0].global_position
+	return fire_pos_nodes[0]
+
 
 static func find_nodes_by_meta(source: Node, meta_key: String) -> Array:
 	return _recursive_find_nodes_by_meta(source, meta_key)	
+
 
 static func _recursive_find_nodes_by_meta(node: Node, meta_key: String) -> Array:
 	var result = []

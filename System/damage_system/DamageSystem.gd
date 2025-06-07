@@ -16,9 +16,14 @@ func action(source: BaseUnit, target:BaseUnit):
 	await CommonUtil.await_timer(source.anim_ack_point)
 	
 	# 1. AnimationPlayer => 动画回复点
-	animation_action(source, target)
+	# animation_action(source, target)
 
-	var fire_pos: Vector3 = CommonUtil.get_fire_pos(source)
+	var fire_pos_mark: Marker3D = CommonUtil.get_fire_pos(source)
+	var fire_pos = fire_pos_mark.global_position
+
+	# fire_pos anim
+	if fire_pos_mark and fire_pos_mark.ap and fire_pos_mark.fire_animation:
+		fire_pos_mark.ap.play(fire_pos_mark.fire_animation)
 	
 	# 1. 弹幕系统（源、目标
 	var bs = await (SystemUtil.barrage_system as BarrageSystem).action(source, fire_pos, target, null)
