@@ -1,6 +1,7 @@
-[gd_scene load_steps=29 format=3 uid="uid://cru16mbhnwx85"]
+[gd_scene load_steps=30 format=3 uid="uid://cru16mbhnwx85"]
 
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_xflch"]
+[ext_resource type="PackedScene" uid="uid://c67x47iij80kn" path="res://Components/fire_pos/fire_pos_cmp.tscn" id="2_rbcyp"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_82e52"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_6u8xi"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="5_48m03"]
@@ -130,7 +131,7 @@ orientation = 1
 [node name="Turret" type="Node3D" node_paths=PackedStringArray("turret_top", "fire_poses", "hud")]
 script = ExtResource("1_xflch")
 turret_top = NodePath("TurretBase/TurretTop")
-fire_poses = [NodePath("TurretBase/TurretTop/Visor/Barrel")]
+fire_poses = [NodePath("TurretBase/TurretTop/Visor/Barrel/FirePosCmp")]
 hud = NodePath("Hud")
 
 [node name="TurretBase" type="MeshInstance3D" parent="."]
@@ -149,6 +150,8 @@ mesh = SubResource("BoxMesh_kw3k6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -0.4)
 mesh = SubResource("BoxMesh_h7o0e")
 metadata/fire_pos = false
+
+[node name="FirePosCmp" parent="TurretBase/TurretTop/Visor/Barrel" instance=ExtResource("2_rbcyp")]
 
 [node name="AttackingScope" type="Area3D" parent="."]
 unique_name_in_owner = true

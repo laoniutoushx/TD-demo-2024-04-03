@@ -110,7 +110,8 @@ func get_units_in_range_physics_3d(center_position: Vector3, range_distance: flo
 
 
 func animation_action(source: BaseUnit, target:BaseUnit):
-	var ap: AnimationPlayer = source.find_child(Constants.AnimationPlayer_CLZ)
+	var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(source, Constants.AnimationPlayer_CLZ) 
+	# var ap: AnimationPlayer =  source.find_child(Constants.AnimationPlayer_CLZ)
 	if ap != null:
 		if ap.is_playing():
 			ap.stop()

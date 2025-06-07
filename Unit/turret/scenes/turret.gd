@@ -3,7 +3,7 @@ class_name Turret extends BaseUnit
 # @export var projectile: PackedScene
 # @onready var barrel: MeshInstance3D = $TurretBase/TurretTop/Visor/Barrel
 @export var turret_top: Node3D
-@export var fire_poses: Array[Node3D]
+@export var fire_poses: Array[Marker3D]
 
 @export var hud: HUD
 
@@ -27,6 +27,9 @@ var ap: AnimationPlayer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
+
+
+	# 塔防单位状态设置
 	current_state = TurretState.BUILDING
 
 	# animation play
