@@ -292,7 +292,7 @@ func _ready() -> void:
 
 
 	# AABB
-	var aabb: AABB = CommonUtil.get_scaled_aabb(CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ))
+	var aabb: AABB = CommonUtil.get_scaled_aabb(CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ, false))
 	# _transformed_aabb = AABB(aabb.position * aabb_scale, aabb.size * aabb_scale)
 	_transformed_aabb = aabb.grow(aabb_scale)
 	_height = aabb.size.y * aabb_height_scale
