@@ -11,7 +11,11 @@ func _ready() -> void:
 # source: BaseUnit
 # target: BaseUnit
 # projection: PackedScene 投射物
-func action(source, fire_pos: Vector3, target, projection: PackedScene) -> Array:
+func action(source, fire_pos: Vector3, target, fire_pos_mark: Marker3D) -> Array:
+
+	# 检查 fire_pos 是否为 null
+	if not fire_pos:
+		fire_pos = fire_pos_mark.global_position
 
 	var target_unit_id: int = target.get_instance_id()
 
@@ -20,8 +24,9 @@ func action(source, fire_pos: Vector3, target, projection: PackedScene) -> Array
 	# 1. 获取弹道模型
 	if source is BaseUnit:
 		# load projectile vfx scene instance
-		var vfx_projectile_name: String = (source as BaseUnit).vfx_projectile_name
-		var vfx_projectile_ins: Node3D = (SystemUtil.vfx_system as VFXSystem).create_vfx(vfx_projectile_name, VFXSystem.VFX_TYPE.RUNNING)
+		# var vfx_projectile_name: String = (source as BaseUnit).vfx_projectile_name
+		# var vfx_projectile_ins: Node3D = (SystemUtil.vfx_system as VFXSystem).create_vfx(vfx_projectile_name, VFXSystem.VFX_TYPE.RUNNING)
+		var vfx_projectile_ins = fire_pos_mark.fire_projectile.instantiate()
 		
 		# 2. 加载弹道场景
 		# append projectile vfx instance to project instance

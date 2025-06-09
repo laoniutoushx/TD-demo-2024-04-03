@@ -1,8 +1,9 @@
-[gd_scene load_steps=30 format=3 uid="uid://cru16mbhnwx85"]
+[gd_scene load_steps=31 format=3 uid="uid://cru16mbhnwx85"]
 
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_xflch"]
 [ext_resource type="PackedScene" uid="uid://c67x47iij80kn" path="res://Components/fire_pos/fire_pos_cmp.tscn" id="2_rbcyp"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_82e52"]
+[ext_resource type="PackedScene" uid="uid://dq3xxe6os2ekj" path="res://VFX/projectiles/missile/vfx_missile_07_running.tscn" id="3_jnnbh"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_6u8xi"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="5_48m03"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="6_2vby5"]
@@ -152,6 +153,7 @@ mesh = SubResource("BoxMesh_h7o0e")
 metadata/fire_pos = false
 
 [node name="FirePosCmp" parent="TurretBase/TurretTop/Visor/Barrel" instance=ExtResource("2_rbcyp")]
+fire_projectile = ExtResource("3_jnnbh")
 
 [node name="AttackingScope" type="Area3D" parent="."]
 unique_name_in_owner = true

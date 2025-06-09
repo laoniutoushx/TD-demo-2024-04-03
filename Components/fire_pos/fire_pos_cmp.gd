@@ -2,6 +2,7 @@ class_name FirePosCmp extends Marker3D
 
 @export var fire_name: StringName = "fire"
 @export var fire_animation: StringName = "attack"
+@export var fire_projectile: PackedScene
 
 @onready var ap: AnimationPlayer = $AnimationPlayer
 

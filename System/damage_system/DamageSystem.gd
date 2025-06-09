@@ -8,9 +8,6 @@ func _ready() -> void:
 
 
 func action(source: BaseUnit, target:BaseUnit):
-	var cur_tick = _tick
-
-	var vfx_projectile_name: String = (source as BaseUnit).vfx_projectile_name
 
 	# 等待动画回复点
 	await CommonUtil.await_timer(source.anim_ack_point)
@@ -26,7 +23,7 @@ func action(source: BaseUnit, target:BaseUnit):
 		fire_pos_mark.ap.play(fire_pos_mark.fire_animation)
 	
 	# 1. 弹幕系统（源、目标
-	var bs = await (SystemUtil.barrage_system as BarrageSystem).action(source, fire_pos, target, null)
+	var bs = await (SystemUtil.barrage_system as BarrageSystem).action(source, fire_pos, target, fire_pos_mark)
 
 
 	# 伤害追加
@@ -57,7 +54,7 @@ func action(source: BaseUnit, target:BaseUnit):
 			if selected_unit:
 				fire_pos = Vector3(target.global_position.x, target._height / 2, target.global_position.z)
 
-				bs = await (SystemUtil.barrage_system as BarrageSystem).action(source, fire_pos, selected_unit, null)
+				bs = await (SystemUtil.barrage_system as BarrageSystem).action(source, fire_pos, selected_unit, fire_pos_mark)
 
 				target = selected_unit
 

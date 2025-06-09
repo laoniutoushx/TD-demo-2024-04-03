@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://u1iq3xrerays"]
+[gd_scene load_steps=28 format=4 uid="uid://u1iq3xrerays"]
 
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_wqpta"]
 [ext_resource type="Texture2D" uid="uid://hu2y8pfqaq3g" path="res://Asserts/Models/turret pack/FBX/Bomber1_0.png" id="2_8vtg0"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="3_pxv65"]
 [ext_resource type="PackedScene" uid="uid://c67x47iij80kn" path="res://Components/fire_pos/fire_pos_cmp.tscn" id="3_q1a6g"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="4_4dsim"]
+[ext_resource type="PackedScene" uid="uid://dq3xxe6os2ekj" path="res://VFX/projectiles/missile/vfx_missile_07_running.tscn" id="4_rhiok"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="5_ed55g"]
 [ext_resource type="PackedScene" uid="uid://d00chkod5txim" path="res://Components/hud/hud.tscn" id="6_5be68"]
 [ext_resource type="PackedScene" uid="uid://na1cbt4s5xar" path="res://Components/decal_mesh_ground_4_turret/decal_mesh_ground.tscn" id="8_sml1n"]
@@ -301,6 +302,7 @@ skeleton = NodePath("")
 
 [node name="FirePosCmp" parent="Bomber1/Node3D/Bomber_1_Base_mid/Node3D2/Bomber_1_Base_top_firepos_left" instance=ExtResource("3_q1a6g")]
 fire_animation = &"attack_left"
+fire_projectile = ExtResource("4_rhiok")
 
 [node name="Bomber_1_Base_top_firepos_right" type="MeshInstance3D" parent="Bomber1/Node3D/Bomber_1_Base_mid/Node3D2"]
 transform = Transform3D(100, 0, 0, 0, 100, 7.54979e-06, 0, -7.54979e-06, 100, -0.32263, 2.86915, 1.21926)
@@ -309,6 +311,7 @@ skeleton = NodePath("")
 
 [node name="FirePosCmp" parent="Bomber1/Node3D/Bomber_1_Base_mid/Node3D2/Bomber_1_Base_top_firepos_right" instance=ExtResource("3_q1a6g")]
 fire_animation = &"attack_right"
+fire_projectile = ExtResource("4_rhiok")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
