@@ -4,13 +4,16 @@ class_name Turret extends BaseUnit
 # @onready var barrel: MeshInstance3D = $TurretBase/TurretTop/Visor/Barrel
 @export var turret_top: Node3D
 @export var fire_poses: Array[Marker3D]
-
+@export var fire_poses_spec: Array[Marker3D]	# fire_poses_spec 用于指定特定的 fire_pos
 @export var hud: HUD
+
 
 
 
 var enemies: Dictionary = {}
 var current_enemy
+var fire_poses_map: Dictionary = {}
+var current_fire_pos_key: String = "甲"	# 当前使用的 fire_pos 的 fire_group 键
 
 # aiming
 var acquire_slerp_progress:float = 0
@@ -27,6 +30,13 @@ var ap: AnimationPlayer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
+
+	# 将 fire_poses 按照 fire_group 分组，放入 fire_poses_map 中
+	for fire_pos in fire_poses:
+		if fire_pos.fire_group not in fire_poses_map:
+			fire_poses_map[fire_pos.fire_group] = []
+		fire_poses_map[fire_pos.fire_group].append(fire_pos)
+	# print(fire_poses_map)
 
 
 	# 塔防单位状态设置

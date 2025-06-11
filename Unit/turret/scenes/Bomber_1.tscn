@@ -312,6 +312,7 @@ skeleton = NodePath("")
 [node name="FirePosCmp" parent="Bomber1/Node3D/Bomber_1_Base_mid/Node3D2/Bomber_1_Base_top_firepos_right" instance=ExtResource("3_q1a6g")]
 fire_animation = &"attack_right"
 fire_projectile = ExtResource("4_rhiok")
+fire_group = "乙"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

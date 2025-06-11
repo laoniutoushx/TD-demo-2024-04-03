@@ -3,8 +3,10 @@ class_name FirePosCmp extends Marker3D
 @export var fire_name: StringName = "fire"
 @export var fire_animation: StringName = "attack"
 @export var fire_projectile: PackedScene
-
+@export_enum( "甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸") var fire_group: String = "甲"
 @onready var ap: AnimationPlayer = $AnimationPlayer
+
+
 
 
 func _ready() -> void:
