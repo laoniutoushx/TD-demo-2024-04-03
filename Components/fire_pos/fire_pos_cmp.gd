@@ -4,13 +4,16 @@ class_name FirePosCmp extends Marker3D
 @export var fire_animation: StringName = "attack"
 @export var fire_projectile: PackedScene
 @export_enum( "甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸") var fire_group: String = "甲"
-@onready var ap: AnimationPlayer = $AnimationPlayer
+@onready var ap: AnimationPlayer # = $AnimationPlayer
 
 
 
 
 func _ready() -> void:
     await owner.ready
+
+    ap = AnimationPlayer.new()
+    add_child(ap)
 
     # await CommonUtil.await_timer(1.0)  # 等待1秒，确保所有组件都已准备好
     
@@ -34,61 +37,94 @@ func _ready() -> void:
     else:
         print("错误: 未找到AnimationPlayer组件")
 
-
 func copy_and_setup_animation(source_ap: AnimationPlayer, target_ap: AnimationPlayer, anim_name: StringName):
-    """复制动画并修改轨道路径，使目标AnimationPlayer能控制源场景中的节点"""
+    """
+    通过设置根节点来复制动画，这是更稳定、更推荐的方法。
+    """
     
     # 获取源动画
     var source_animation = source_ap.get_animation(anim_name)
     if not source_animation:
         print("错误: 源动画不存在: ", anim_name)
         return
+
+    # 1. 将目标 AnimationPlayer 的根节点(root_node)设置为 owner
+    # 注意：路径必须从目标 AnimationPlayer 自身(target_ap)开始计算
+    target_ap.root_node = target_ap.get_path_to(owner)
     
-    # 创建动画副本
+    # 2. 复制动画，但不对其进行任何修改
+    # 因为根节点已经正确设置，原始的轨道路径现在可以直接工作
     var new_animation = source_animation.duplicate(true)
-    
-    print("开始复制动画: ", anim_name)
-    print("轨道数量: ", new_animation.get_track_count())
-    
-    # 获取到owner的路径字符串
-    var owner_path_str = str(get_path_to(owner))
-    
-    # 修改每个轨道的路径
-    for track_idx in new_animation.get_track_count():
-        var old_path = new_animation.track_get_path(track_idx)
-        print("原始轨道路径[%d]: %s" % [track_idx, old_path])
-        
-        # 解析原始路径
-        var old_path_str = str(old_path)
-        var new_path_str: String
-        
-        if old_path_str.contains(":"):
-            # 包含属性的路径，如 "Unit:position"
-            var parts = old_path_str.split(":", false, 1)
-            var node_path = parts[0]
-            var property = parts[1]
-            
-            # 创建指向owner中对应节点的新路径字符串
-            new_path_str = owner_path_str + "/" + node_path + ":" + property
-        else:
-            # 纯节点路径
-            new_path_str = owner_path_str + "/" + old_path_str
-        
-        # 创建新的NodePath并设置
-        var new_path = NodePath(new_path_str)
-        new_animation.track_set_path(track_idx, new_path)
-        print("新轨道路径[%d]: %s" % [track_idx, new_path])
-    
-    # 修复：使用正确的方法添加动画到目标AnimationPlayer
-    # 方法1：获取默认动画库并添加动画
+
+    # 3. 将新的动画添加到目标 AnimationPlayer 的库中
     var anim_library = target_ap.get_animation_library("")
     if not anim_library:
-        # 如果没有默认动画库，创建一个新的
         anim_library = AnimationLibrary.new()
         target_ap.add_animation_library("", anim_library)
     
+    # 如果动画已存在，先移除旧的，避免冲突
+    if anim_library.has_animation(anim_name):
+        anim_library.remove_animation(anim_name)
+        
     anim_library.add_animation(anim_name, new_animation)
-    print("动画复制完成: ", anim_name)
+    print("动画 '%s' 已成功设置, 根节点指向: '%s'" % [anim_name, target_ap.root_node])
+
+
+# func copy_and_setup_animation(source_ap: AnimationPlayer, target_ap: AnimationPlayer, anim_name: StringName):
+#     """复制动画并修改轨道路径，使目标AnimationPlayer能控制源场景中的节点"""
+    
+#     # 获取源动画
+#     var source_animation = source_ap.get_animation(anim_name)
+#     if not source_animation:
+#         print("错误: 源动画不存在: ", anim_name)
+#         return
+    
+#     # 创建动画副本
+#     var new_animation = source_animation.duplicate(true)
+    
+#     print("开始复制动画: ", anim_name)
+#     print("轨道数量: ", new_animation.get_track_count())
+    
+#     # 获取到owner的路径字符串
+#     var owner_path_str = str(get_path_to(owner))
+    
+#     # 修改每个轨道的路径
+#     for track_idx in new_animation.get_track_count():
+#         var old_path = new_animation.track_get_path(track_idx)
+#         print("原始轨道路径[%d]: %s" % [track_idx, old_path])
+        
+#         # 解析原始路径
+#         var old_path_str = str(old_path)
+#         var new_path_str: String
+        
+#         if old_path_str.contains(":"):
+#             # 包含属性的路径，如 "Unit:position"
+#             var parts = old_path_str.split(":", false, 1)
+#             var node_path = parts[0]
+#             var property = parts[1]
+            
+#             # 创建指向owner中对应节点的新路径字符串
+#             new_path_str = owner_path_str + "/" + node_path + ":" + property
+#         else:
+#             # 纯节点路径
+#             new_path_str = owner_path_str + "/" + old_path_str
+        
+#         # 创建新的NodePath并设置
+#         var new_path = NodePath(new_path_str)
+#         new_animation.track_set_path(track_idx, new_path)
+#         print("新轨道路径[%d]: %s" % [track_idx, new_path])
+    
+#     # 修复：使用正确的方法添加动画到目标AnimationPlayer
+#     # 方法1：获取默认动画库并添加动画
+#     var anim_library = target_ap.get_animation_library("")
+#     if not anim_library:
+#         # 如果没有默认动画库，创建一个新的
+#         anim_library = AnimationLibrary.new()
+#         target_ap.add_animation_library("", anim_library)
+    
+#     anim_library.add_animation(anim_name, new_animation)
+#     print("动画复制完成: ", anim_name)
+
 
 func play_fire_animation():
     """播放火焰动画"""

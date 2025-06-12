@@ -520,7 +520,7 @@ static func play_audio(place: Variant, audio_name: String, volume_db: float = 1.
 	audio_player.finished.connect(audio_player.queue_free)
 
 
-
+#### 火力点相关
 # 寻找 fire_pos 节点，定义在 Metadata 当中（has_key fire_pos）
 static func get_fire_pos(source) -> Array:
 	# 获取 fire_pos_map 中 current_fire_pos_key 对应的所有 pos(mark3d)
@@ -531,6 +531,25 @@ static func get_fire_pos(source) -> Array:
 		return source.fire_poses_map.get(source.current_fire_pos_key, null)
 
 	return []
+
+# 方法1：顺序轮换 (推荐)
+static func get_next_fire_pos_key(source: BaseUnit) -> String:
+	var fire_poses_map = source.fire_poses_map  # 假设这是火力点映射
+	var keys = fire_poses_map.keys()
+	
+	if keys.is_empty():
+		return ""
+	
+	var current_key = source.current_fire_pos_key
+	var current_index = keys.find(current_key)
+	
+	# 如果当前key不存在或者是最后一个，回到第一个
+	if current_index == -1 or current_index >= keys.size() - 1:
+		return keys[0]
+	else:
+		return keys[current_index + 1]
+
+
 
 
 static func find_nodes_by_meta(source: Node, meta_key: String) -> Array:

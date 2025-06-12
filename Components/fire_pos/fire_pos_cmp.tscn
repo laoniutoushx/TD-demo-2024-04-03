@@ -1,19 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://c67x47iij80kn"]
+[gd_scene load_steps=2 format=3 uid="uid://c67x47iij80kn"]
 
 [ext_resource type="Script" uid="uid://d3t5amuijf20m" path="res://Components/fire_pos/fire_pos_cmp.gd" id="1_yxggs"]
 
-[sub_resource type="Animation" id="Animation_yxggs"]
-resource_name = "new_animation"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ui7hm"]
-_data = {
-&"new_animation": SubResource("Animation_yxggs")
-}
-
 [node name="FirePosCmp" type="Marker3D"]
 script = ExtResource("1_yxggs")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_ui7hm")
-}

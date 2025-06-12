@@ -36,7 +36,8 @@ func _ready() -> void:
 		if fire_pos.fire_group not in fire_poses_map:
 			fire_poses_map[fire_pos.fire_group] = []
 		fire_poses_map[fire_pos.fire_group].append(fire_pos)
-	# print(fire_poses_map)
+	print("fire_poses_map:")
+	print(fire_poses_map)
 
 
 	# 塔防单位状态设置
