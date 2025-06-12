@@ -12,6 +12,7 @@ class_name FirePosCmp extends Marker3D
 func _ready() -> void:
     await owner.ready
 
+    # 实例化 AnimationPlayer
     ap = AnimationPlayer.new()
     add_child(ap)
 
