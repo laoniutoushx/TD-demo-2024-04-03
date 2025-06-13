@@ -69,7 +69,7 @@ vertex_color_is_srgb = true
 albedo_texture = ExtResource("3_y3j7m")
 billboard_keep_scale = true
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_cdrvg"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_xk0yr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bdvgk"]
 render_priority = 0
@@ -110,7 +110,7 @@ mesh = SubResource("PlaneMesh_aku21")
 [node name="Trail3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_rp5xk")
-mesh = SubResource("ImmediateMesh_cdrvg")
+mesh = SubResource("ImmediateMesh_xk0yr")
 script = ExtResource("3_hds7r")
 toWidth = 0.5
 scaleAcceleration = 1.5

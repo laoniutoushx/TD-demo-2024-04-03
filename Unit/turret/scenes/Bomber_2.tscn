@@ -1,8 +1,10 @@
-[gd_scene load_steps=28 format=4 uid="uid://d4afc18jjsdqj"]
+[gd_scene load_steps=30 format=4 uid="uid://d4afc18jjsdqj"]
 
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_coljx"]
+[ext_resource type="PackedScene" uid="uid://c67x47iij80kn" path="res://Components/fire_pos/fire_pos_cmp.tscn" id="3_l52fc"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_tl8x6"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_l52fc"]
+[ext_resource type="PackedScene" uid="uid://dq3xxe6os2ekj" path="res://VFX/projectiles/missile/vfx_missile_07_running.tscn" id="4_w3koj"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="5_w3koj"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="6_vl3ar"]
 [ext_resource type="PackedScene" uid="uid://d00chkod5txim" path="res://Components/hud/hud.tscn" id="7_sdmr2"]
@@ -223,14 +225,62 @@ shadow_mesh = SubResource("ArrayMesh_wjp76")
 
 [sub_resource type="Animation" id="Animation_u6idx"]
 length = 0.001
-
-[sub_resource type="Animation" id="Animation_mymbn"]
-resource_name = "attack_left"
-length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.299526, 2.67201, -1.7087)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.300847, 2.67201, -1.7087)]
+}
 
 [sub_resource type="Animation" id="Animation_8vtg0"]
 resource_name = "attack_right"
 length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.300847, 2.67201, -1.7087), Vector3(0.301, 2.672, -1), Vector3(0.300847, 2.67201, -1.7087)]
+}
+
+[sub_resource type="Animation" id="Animation_mymbn"]
+resource_name = "attack_left"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.299526, 2.67201, -1.7087), Vector3(-0.3, 2.672, -1), Vector3(-0.299526, 2.67201, -1.7087)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q0ijy"]
 _data = {
@@ -249,7 +299,7 @@ size = Vector3(1, 2.5, 1)
 [node name="Bomber2" type="Node3D" node_paths=PackedStringArray("turret_top", "fire_poses", "hud")]
 script = ExtResource("1_coljx")
 turret_top = NodePath("Bomber2/Node3D")
-fire_poses = [NodePath("Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left/Marker3D"), NodePath("Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left/Marker3D2"), NodePath("Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right/Marker3D2"), NodePath("Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right/Marker3D3")]
+fire_poses = [NodePath("Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left/FirePosCmp"), NodePath("Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left/FirePosCmp2"), NodePath("Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right/FirePosCmp"), NodePath("Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right/FirePosCmp2")]
 hud = NodePath("Hud")
 
 [node name="Bomber2" type="Node3D" parent="."]
@@ -288,30 +338,28 @@ transform = Transform3D(-100, -6.60024e-13, 8.74228e-06, -6.60024e-13, 100, 0, -
 mesh = SubResource("ArrayMesh_pvwjw")
 skeleton = NodePath("")
 
-[node name="Marker3D" type="Marker3D" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left"]
-transform = Transform3D(-1, 2.62269e-07, 4.86389e-15, -6.60025e-15, -4.37114e-08, 1, 2.62269e-07, 1, 4.37114e-08, 0, 0.00322706, 0)
+[node name="FirePosCmp" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left" instance=ExtResource("3_l52fc")]
+fire_animation = &"attack_left"
+fire_projectile = ExtResource("4_w3koj")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left/Marker3D"]
-
-[node name="Marker3D2" type="Marker3D" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left"]
-transform = Transform3D(-1, 2.62269e-07, 4.86389e-15, -6.60025e-15, -4.37114e-08, 1, 2.62269e-07, 1, 4.37114e-08, 0, -0.00302683, 0)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left/Marker3D2"]
+[node name="FirePosCmp2" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left" instance=ExtResource("3_l52fc")]
+fire_animation = &""
+fire_projectile = ExtResource("4_w3koj")
 
 [node name="Bomber_2_Base_top_fire_right" type="MeshInstance3D" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2"]
 transform = Transform3D(-100, -6.60024e-13, 8.74228e-06, -6.60024e-13, 100, 0, -8.74228e-06, 0, -100, 0.300847, 2.67201, -1.7087)
 mesh = SubResource("ArrayMesh_kwux7")
 skeleton = NodePath("")
 
-[node name="Marker3D2" type="Marker3D" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right"]
-transform = Transform3D(-1, 2.62269e-07, 4.86389e-15, -6.60025e-15, -4.37114e-08, 1, 2.62269e-07, 1, 4.37114e-08, 0, 0.00320148, 0)
+[node name="FirePosCmp" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right" instance=ExtResource("3_l52fc")]
+fire_animation = &"attack_right"
+fire_projectile = ExtResource("4_w3koj")
+fire_group = "乙"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right/Marker3D2"]
-
-[node name="Marker3D3" type="Marker3D" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right"]
-transform = Transform3D(-1, 2.62269e-07, 4.86389e-15, -6.60025e-15, -4.37114e-08, 1, 2.62269e-07, 1, 4.37114e-08, 0, -0.00295894, 0)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right/Marker3D3"]
+[node name="FirePosCmp2" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right" instance=ExtResource("3_l52fc")]
+fire_animation = &""
+fire_projectile = ExtResource("4_w3koj")
+fire_group = "乙"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

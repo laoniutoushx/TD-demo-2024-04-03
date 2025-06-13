@@ -1,9 +1,11 @@
-[gd_scene load_steps=21 format=4 uid="uid://vo6fglt65ifu"]
+[gd_scene load_steps=23 format=4 uid="uid://vo6fglt65ifu"]
 
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_86npm"]
 [ext_resource type="Texture2D" uid="uid://doime8vik6r6" path="res://Asserts/Models/turret pack/FBX/Teleporter3_0.png" id="2_73w11"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="2_h2ev2"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="3_73w11"]
+[ext_resource type="PackedScene" uid="uid://c67x47iij80kn" path="res://Components/fire_pos/fire_pos_cmp.tscn" id="3_mirve"]
+[ext_resource type="PackedScene" uid="uid://38oho63ob3on" path="res://VFX/projectiles/water/vfx_water_running.tscn" id="4_wjfwt"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="4_xsiln"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="5_mirve"]
 [ext_resource type="PackedScene" uid="uid://d00chkod5txim" path="res://Components/hud/hud.tscn" id="6_wjfwt"]
@@ -142,7 +144,7 @@ size = Vector3(1, 2.5, 1)
 [node name="Teleporter3" type="Node3D" node_paths=PackedStringArray("turret_top", "fire_poses", "hud")]
 script = ExtResource("1_86npm")
 turret_top = NodePath("Teleporter3/Node3D")
-fire_poses = [NodePath("Teleporter3/Node3D/Teleporter3_top1/Marker3D")]
+fire_poses = [NodePath("Teleporter3/Node3D/Teleporter3_top1/FirePosCmp")]
 hud = NodePath("Hud")
 
 [node name="Teleporter3" type="Node3D" parent="."]
@@ -160,8 +162,9 @@ transform = Transform3D(100, 0, 0, 0, 100, 7.54979e-06, 0, -7.54979e-06, 100, -2
 mesh = SubResource("ArrayMesh_jnfno")
 skeleton = NodePath("")
 
-[node name="Marker3D" type="Marker3D" parent="Teleporter3/Node3D/Teleporter3_top1"]
-transform = Transform3D(1, 0, 0, 0, -4.37107e-08, 1, 0, -1, -4.37107e-08, 2.12874e-12, 0.0291297, 2.93765e-09)
+[node name="FirePosCmp" parent="Teleporter3/Node3D/Teleporter3_top1" instance=ExtResource("3_mirve")]
+fire_animation = &""
+fire_projectile = ExtResource("4_wjfwt")
 
 [node name="Teleporter3_top2" type="MeshInstance3D" parent="Teleporter3/Node3D"]
 transform = Transform3D(100, 0, 0, 0, 100, 7.54979e-06, 0, -7.54979e-06, 100, -0.00110408, 2.24713, -5.70365e-07)

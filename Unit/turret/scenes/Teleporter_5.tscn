@@ -1,9 +1,11 @@
-[gd_scene load_steps=19 format=4 uid="uid://uak8oeqdewxe"]
+[gd_scene load_steps=21 format=4 uid="uid://uak8oeqdewxe"]
 
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_56pm5"]
 [ext_resource type="Texture2D" uid="uid://bt0vwvg1pt84y" path="res://Asserts/Models/turret pack/FBX/Teleporter5_0.png" id="2_hwuwd"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="2_s1fty"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="3_hwuwd"]
+[ext_resource type="PackedScene" uid="uid://c67x47iij80kn" path="res://Components/fire_pos/fire_pos_cmp.tscn" id="3_mveva"]
+[ext_resource type="PackedScene" uid="uid://38oho63ob3on" path="res://VFX/projectiles/water/vfx_water_running.tscn" id="4_3bwfj"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="4_g76bw"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="5_mveva"]
 [ext_resource type="PackedScene" uid="uid://d00chkod5txim" path="res://Components/hud/hud.tscn" id="6_3bwfj"]
@@ -108,7 +110,7 @@ size = Vector3(1, 2.5, 1)
 [node name="Teleporter5" type="Node3D" node_paths=PackedStringArray("turret_top", "fire_poses", "hud")]
 script = ExtResource("1_56pm5")
 turret_top = NodePath("Teleporter5/Node3D")
-fire_poses = [NodePath("Teleporter5/Node3D/Teleporter5_top/Marker3D")]
+fire_poses = [NodePath("Teleporter5/Node3D/Teleporter5_top/FirePosCmp")]
 hud = NodePath("Hud")
 
 [node name="Teleporter5" type="Node3D" parent="."]
@@ -125,8 +127,9 @@ transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, 
 mesh = SubResource("ArrayMesh_sjlcx")
 skeleton = NodePath("")
 
-[node name="Marker3D" type="Marker3D" parent="Teleporter5/Node3D/Teleporter5_top"]
-transform = Transform3D(1, 0, 0, 0, 1, -1.27898e-12, 0, 1.27898e-12, 1, 0, -5.06442e-09, 0.0424828)
+[node name="FirePosCmp" parent="Teleporter5/Node3D/Teleporter5_top" instance=ExtResource("3_mveva")]
+fire_animation = &""
+fire_projectile = ExtResource("4_3bwfj")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
