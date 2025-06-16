@@ -1,12 +1,13 @@
-[gd_scene load_steps=30 format=4 uid="uid://b82w3roi7aolp"]
+[gd_scene load_steps=31 format=4 uid="uid://b82w3roi7aolp"]
 
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_sc247"]
 [ext_resource type="Texture2D" uid="uid://bbbqv7ptfhp1m" path="res://Asserts/Models/turret pack/FBX/Cannon4_0.png" id="2_sc247"]
 [ext_resource type="PackedScene" uid="uid://c67x47iij80kn" path="res://Components/fire_pos/fire_pos_cmp.tscn" id="3_n3vt7"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_okh3n"]
-[ext_resource type="PackedScene" uid="uid://38oho63ob3on" path="res://VFX/projectiles/water/vfx_water_running.tscn" id="4_mopjc"]
+[ext_resource type="PackedScene" uid="uid://ch1cgf7h1v2cc" path="res://VFX/projectiles/missile/vfx_missile_03_running.tscn" id="4_mopjc"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_n3vt7"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="5_mopjc"]
+[ext_resource type="PackedScene" uid="uid://xdaakni06sl0" path="res://VFX/projectiles/missile/vfx_missile_01_running.tscn" id="5_n3vt7"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="6_ils2v"]
 [ext_resource type="PackedScene" uid="uid://d00chkod5txim" path="res://Components/hud/hud.tscn" id="7_nboxs"]
 [ext_resource type="PackedScene" uid="uid://na1cbt4s5xar" path="res://Components/decal_mesh_ground_4_turret/decal_mesh_ground.tscn" id="8_004ir"]
@@ -286,6 +287,7 @@ mesh = SubResource("ArrayMesh_e7gan")
 skeleton = NodePath("")
 
 [node name="FirePosCmp" parent="Cannon4/Node3D/Cannon_4_Base_mid/Node3D2/Cannon_4_Base_top_fire_left" instance=ExtResource("3_n3vt7")]
+transform = Transform3D(1, 0, 0, -3.38813e-21, 1, 0, 0, 0, 1, -1.86265e-09, 0, 0.0049855)
 fire_animation = &""
 fire_projectile = ExtResource("4_mopjc")
 
@@ -295,12 +297,14 @@ mesh = SubResource("ArrayMesh_mtcew")
 skeleton = NodePath("")
 
 [node name="FirePosCmp" parent="Cannon4/Node3D/Cannon_4_Base_mid/Node3D2/Cannon_4_Base_top_fire_mid" instance=ExtResource("3_n3vt7")]
+transform = Transform3D(1, 0, 0, -1.01644e-20, 1, 0, 0, 0, 1, -6.4756e-09, 0.00222245, 0.0166315)
 fire_animation = &""
-fire_projectile = ExtResource("4_mopjc")
+fire_projectile = ExtResource("5_n3vt7")
 
 [node name="FirePosCmp2" parent="Cannon4/Node3D/Cannon_4_Base_mid/Node3D2/Cannon_4_Base_top_fire_mid" instance=ExtResource("3_n3vt7")]
+transform = Transform3D(1, 0, 0, -6.77626e-21, 1, 0, 0, 0, 1, -6.4756e-09, -0.00174192, 0.0166315)
 fire_animation = &""
-fire_projectile = ExtResource("4_mopjc")
+fire_projectile = ExtResource("5_n3vt7")
 
 [node name="Cannon_4_Base_top_fire_right" type="MeshInstance3D" parent="Cannon4/Node3D/Cannon_4_Base_mid/Node3D2"]
 transform = Transform3D(-100, 9.5991e-13, -2.14568e-05, -6.60015e-13, 100, 7.54979e-06, 2.14568e-05, 7.54979e-06, -100, 1.07304, 1.84473, -0.764732)
@@ -308,6 +312,7 @@ mesh = SubResource("ArrayMesh_l7nr4")
 skeleton = NodePath("")
 
 [node name="FirePosCmp" parent="Cannon4/Node3D/Cannon_4_Base_mid/Node3D2/Cannon_4_Base_top_fire_right" instance=ExtResource("3_n3vt7")]
+transform = Transform3D(1, 0, 0, -3.38813e-21, 1, 0, 0, 0, 1, -1.86265e-09, 0, 0.0049855)
 fire_animation = &""
 fire_projectile = ExtResource("4_mopjc")
 

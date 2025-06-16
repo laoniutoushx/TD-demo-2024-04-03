@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c67x47iij80kn" path="res://Components/fire_pos/fire_pos_cmp.tscn" id="3_1pjir"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_u0phf"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_1pjir"]
-[ext_resource type="PackedScene" uid="uid://38oho63ob3on" path="res://VFX/projectiles/water/vfx_water_running.tscn" id="4_diiy1"]
+[ext_resource type="PackedScene" uid="uid://ch1cgf7h1v2cc" path="res://VFX/projectiles/missile/vfx_missile_03_running.tscn" id="4_u0phf"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="5_diiy1"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="6_5vy7v"]
 [ext_resource type="PackedScene" uid="uid://d00chkod5txim" path="res://Components/hud/hud.tscn" id="7_2entt"]
@@ -254,11 +254,11 @@ skeleton = NodePath("")
 [node name="FirePosCmp2" parent="Cannon5/Node3D/Cannon_5_Base_mid/Node3D2/Cannon_5_Base_top_fire_left" instance=ExtResource("3_1pjir")]
 transform = Transform3D(1, -7.70372e-34, -1.47911e-33, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 fire_animation = &""
-fire_projectile = ExtResource("4_diiy1")
+fire_projectile = ExtResource("4_u0phf")
 
 [node name="FirePosCmp" parent="Cannon5/Node3D/Cannon_5_Base_mid/Node3D2/Cannon_5_Base_top_fire_left" instance=ExtResource("3_1pjir")]
 fire_animation = &""
-fire_projectile = ExtResource("4_diiy1")
+fire_projectile = ExtResource("4_u0phf")
 
 [node name="Cannon_5_Base_top_fire_right" type="MeshInstance3D" parent="Cannon5/Node3D/Cannon_5_Base_mid/Node3D2"]
 transform = Transform3D(100, 1.74846e-05, 1.42429e-12, 6.60012e-13, -1.19209e-05, 100, 1.74846e-05, -100, -1.19209e-05, 0.939951, 2.09924, -0.735708)
@@ -268,11 +268,11 @@ skeleton = NodePath("")
 [node name="FirePosCmp2" parent="Cannon5/Node3D/Cannon_5_Base_mid/Node3D2/Cannon_5_Base_top_fire_right" instance=ExtResource("3_1pjir")]
 transform = Transform3D(1, -7.70372e-34, -1.47911e-33, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 fire_animation = &""
-fire_projectile = ExtResource("4_diiy1")
+fire_projectile = ExtResource("4_u0phf")
 
 [node name="FirePosCmp" parent="Cannon5/Node3D/Cannon_5_Base_mid/Node3D2/Cannon_5_Base_top_fire_right" instance=ExtResource("3_1pjir")]
 fire_animation = &""
-fire_projectile = ExtResource("4_diiy1")
+fire_projectile = ExtResource("4_u0phf")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
