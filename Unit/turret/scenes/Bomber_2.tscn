@@ -250,22 +250,6 @@ tracks/1/keys = {
 "values": [Vector3(0.300847, 2.67201, -1.7087)]
 }
 
-[sub_resource type="Animation" id="Animation_8vtg0"]
-resource_name = "attack_right"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0.300847, 2.67201, -1.7087), Vector3(0.301, 2.672, -1), Vector3(0.300847, 2.67201, -1.7087)]
-}
-
 [sub_resource type="Animation" id="Animation_mymbn"]
 resource_name = "attack_left"
 length = 0.2
@@ -280,6 +264,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(-0.299526, 2.67201, -1.7087), Vector3(-0.3, 2.672, -1), Vector3(-0.299526, 2.67201, -1.7087)]
+}
+
+[sub_resource type="Animation" id="Animation_8vtg0"]
+resource_name = "attack_right"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.300847, 2.67201, -1.7087), Vector3(0.301, 2.672, -1), Vector3(0.300847, 2.67201, -1.7087)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q0ijy"]

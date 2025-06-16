@@ -91,7 +91,7 @@ vertex_color_is_srgb = true
 albedo_texture = ExtResource("2_vlp8q")
 billboard_keep_scale = true
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_mea6u"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_2ffid"]
 
 [node name="VfxMissleRunning" type="Node3D"]
 
@@ -108,7 +108,7 @@ skeleton = NodePath("")
 [node name="Trail3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_rp5xk")
-mesh = SubResource("ImmediateMesh_mea6u")
+mesh = SubResource("ImmediateMesh_2ffid")
 script = ExtResource("3_mea6u")
 fromWidth = 1.0
 toWidth = 1.0

@@ -6830,7 +6830,7 @@ mesh = SubResource("ArrayMesh_f53j4")
 skin = SubResource("Skin_sr1vb")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Pivot/fox_mega_magic/Armature/Skeleton3D"]
-transform = Transform3D(0.0990277, -0.884756, -0.455413, -0.995075, -0.0900906, -0.0413513, -0.00444266, 0.457265, -0.88932, 0.072748, 1.42034, 0.58011)
+transform = Transform3D(0.0990278, -0.884756, -0.455413, -0.995075, -0.0900907, -0.0413511, -0.0044429, 0.457265, -0.88932, 0.0727479, 1.42034, 0.58011)
 bone_name = "mixamorig_LeftHand"
 bone_idx = 10
 
