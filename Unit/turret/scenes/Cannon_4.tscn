@@ -226,20 +226,92 @@ shadow_mesh = SubResource("ArrayMesh_vly7e")
 
 [sub_resource type="Animation" id="Animation_u6idx"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cannon4/Node3D/Cannon_4_Base_mid/Node3D2/Cannon_4_Base_top_fire_left:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.09504, 1.84473, -0.764732)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cannon4/Node3D/Cannon_4_Base_mid/Node3D2/Cannon_4_Base_top_fire_right:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.07304, 1.84473, -0.764732)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Cannon4/Node3D/Cannon_4_Base_mid/Node3D2/Cannon_4_Base_top_fire_mid:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.0155868, 2.71639, -1.45423)]
+}
 
 [sub_resource type="Animation" id="Animation_mymbn"]
 resource_name = "attack"
 length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cannon4/Node3D/Cannon_4_Base_mid/Node3D2/Cannon_4_Base_top_fire_left:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.09504, 1.84473, -0.764732), Vector3(-1.095, 1.845, -0.2), Vector3(-1.09504, 1.84473, -0.764732)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cannon4/Node3D/Cannon_4_Base_mid/Node3D2/Cannon_4_Base_top_fire_right:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1.07304, 1.84473, -0.764732), Vector3(1.073, 1.845, -0.2), Vector3(1.07304, 1.84473, -0.764732)]
+}
 
 [sub_resource type="Animation" id="Animation_8vtg0"]
-resource_name = "attack_right"
-length = 0.2
+resource_name = "attack_top"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cannon4/Node3D/Cannon_4_Base_mid/Node3D2/Cannon_4_Base_top_fire_mid:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.0155868, 2.71639, -1.45423), Vector3(0.016, 2.716, -1), Vector3(0.0155868, 2.71639, -1.45423)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q0ijy"]
 _data = {
 &"RESET": SubResource("Animation_u6idx"),
 &"attack": SubResource("Animation_mymbn"),
-&"attack_right": SubResource("Animation_8vtg0")
+&"attack_top": SubResource("Animation_8vtg0")
 }
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_4d15t"]
@@ -288,7 +360,6 @@ skeleton = NodePath("")
 
 [node name="FirePosCmp" parent="Cannon4/Node3D/Cannon_4_Base_mid/Node3D2/Cannon_4_Base_top_fire_left" instance=ExtResource("3_n3vt7")]
 transform = Transform3D(1, 0, 0, -3.38813e-21, 1, 0, 0, 0, 1, -1.86265e-09, 0, 0.0049855)
-fire_animation = &""
 fire_projectile = ExtResource("4_mopjc")
 
 [node name="Cannon_4_Base_top_fire_mid" type="MeshInstance3D" parent="Cannon4/Node3D/Cannon_4_Base_mid/Node3D2"]
@@ -298,7 +369,7 @@ skeleton = NodePath("")
 
 [node name="FirePosCmp" parent="Cannon4/Node3D/Cannon_4_Base_mid/Node3D2/Cannon_4_Base_top_fire_mid" instance=ExtResource("3_n3vt7")]
 transform = Transform3D(1, 0, 0, -1.01644e-20, 1, 0, 0, 0, 1, -6.4756e-09, 0.00222245, 0.0166315)
-fire_animation = &""
+fire_animation = &"attack_top"
 fire_projectile = ExtResource("5_n3vt7")
 
 [node name="FirePosCmp2" parent="Cannon4/Node3D/Cannon_4_Base_mid/Node3D2/Cannon_4_Base_top_fire_mid" instance=ExtResource("3_n3vt7")]

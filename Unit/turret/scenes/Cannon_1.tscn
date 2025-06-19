@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://b2u3hcfhyja54"]
+[gd_scene load_steps=25 format=4 uid="uid://b2u3hcfhyja54"]
 
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_w1ih2"]
 [ext_resource type="PackedScene" uid="uid://c67x47iij80kn" path="res://Components/fire_pos/fire_pos_cmp.tscn" id="3_gcr4w"]
@@ -184,15 +184,10 @@ tracks/0/keys = {
 "values": [Vector3(-0.0150529, 3.16248, -1.27005), Vector3(-0.015, 3.162, 0), Vector3(-0.0150529, 3.16248, -1.27005)]
 }
 
-[sub_resource type="Animation" id="Animation_8vtg0"]
-resource_name = "attack_right"
-length = 0.2
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q0ijy"]
 _data = {
 &"RESET": SubResource("Animation_u6idx"),
-&"attack": SubResource("Animation_mymbn"),
-&"attack_right": SubResource("Animation_8vtg0")
+&"attack": SubResource("Animation_mymbn")
 }
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_4d15t"]

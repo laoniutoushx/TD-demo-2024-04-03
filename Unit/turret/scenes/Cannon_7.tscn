@@ -192,14 +192,62 @@ shadow_mesh = SubResource("ArrayMesh_atg6t")
 
 [sub_resource type="Animation" id="Animation_u6idx"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_main:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.00653629, 2.27327, -0.976508)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_side:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.00970065, 2.25645, -1.16027)]
+}
 
 [sub_resource type="Animation" id="Animation_mymbn"]
 resource_name = "attack"
 length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_main:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.00653629, 2.27327, -0.976508), Vector3(0.007, 2.273, 0), Vector3(0.00653629, 2.27327, -0.976508)]
+}
 
 [sub_resource type="Animation" id="Animation_8vtg0"]
 resource_name = "attack_right"
-length = 0.2
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_side:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.00970065, 2.25645, -1.16027), Vector3(0.01, 2.256, 0), Vector3(0.00970065, 2.25645, -1.16027)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q0ijy"]
 _data = {
@@ -253,7 +301,6 @@ mesh = SubResource("ArrayMesh_jt5c7")
 skeleton = NodePath("")
 
 [node name="FirePosCmp" parent="Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_main" instance=ExtResource("3_b38nf")]
-fire_animation = &""
 fire_projectile = ExtResource("4_43ohs")
 
 [node name="FirePosCmp2" parent="Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_main" instance=ExtResource("3_b38nf")]
@@ -271,7 +318,7 @@ skeleton = NodePath("")
 
 [node name="FirePosCmp" parent="Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_side" instance=ExtResource("3_b38nf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0145961, -1.86265e-09, 0.00396438)
-fire_animation = &""
+fire_animation = &"attack_right"
 fire_projectile = ExtResource("5_b38nf")
 
 [node name="FirePosCmp2" parent="Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_side" instance=ExtResource("3_b38nf")]
