@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://v7ppoiw21kdi"]
+[gd_scene load_steps=29 format=3 uid="uid://v7ppoiw21kdi"]
 
 [ext_resource type="Script" uid="uid://dq14ttrg0jq64" path="res://UI/UI.gd" id="1_64wmh"]
 [ext_resource type="Theme" uid="uid://bf5a24ang0c6j" path="res://Asserts/resources/demo_ui/panel_container_theme.tres" id="1_cvmv4"]
@@ -8,7 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://bkmrrcn6wmtew" path="res://Asserts/resources/demo_ui/UI/木支柱4(wood_prop4)_爱给网_aigei_com.png" id="2_pxfgc"]
 [ext_resource type="FontFile" uid="uid://m6iwjdk2oqpf" path="res://Asserts/resources/demo_ui/Font/江城圆体 700W.ttf" id="5_c7tqi"]
 [ext_resource type="FontFile" uid="uid://bce2telnqh8yo" path="res://Asserts/resources/demo_ui/Font/江城圆体 500W.ttf" id="6_cbfhl"]
+[ext_resource type="Shader" uid="uid://d1g7arohlq6ec" path="res://UI/uil_player_bar_bg.gdshader" id="6_h81ot"]
 [ext_resource type="Texture2D" uid="uid://boagolswk1t65" path="res://Asserts/Images/icon/player/gdbot.png" id="6_nm1m0"]
+[ext_resource type="Shader" uid="uid://drrcb1fdwb2ul" path="res://UI/ui_border.gdshader" id="7_6rr40"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hat8c"]
 
@@ -85,11 +87,36 @@ _data = {
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ow1yt"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4fiuh"]
+
 [sub_resource type="LabelSettings" id="LabelSettings_cbfhl"]
 font = ExtResource("5_c7tqi")
 font_size = 30
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2jkc"]
+shader = ExtResource("7_6rr40")
+shader_parameter/border_width = 0.032
+shader_parameter/border_color = Color(0.144, 0.3796, 0.6, 0.65098)
+shader_parameter/fill_color = Color(0.2, 0.4, 0.8, 0)
+shader_parameter/corner_radius = 0.0
+shader_parameter/smoothness = 0.1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h81ot"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.288267, 0.32, 0.208, 0.529412)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0w6e5"]
+shader = ExtResource("6_h81ot")
+shader_parameter/border_width = 5.0
+shader_parameter/border_start_color = Color(0.17, 0.153, 0.1275, 0.345098)
+shader_parameter/border_end_color = Color(0, 0, 1, 0.25098)
+shader_parameter/border_smoothness = 0.1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6rr40"]
 shader = ExtResource("2_4fiuh")
@@ -246,6 +273,7 @@ vertical_alignment = 1
 
 [node name="Panel2" type="Panel" parent="HeaderContainer/LayoutCtl/Center"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4fiuh")
 
 [node name="Wave" type="VBoxContainer" parent="HeaderContainer/LayoutCtl/Center/Panel2"]
 layout_mode = 1
@@ -264,6 +292,25 @@ text = "WAVE 0/1"
 label_settings = SubResource("LabelSettings_cbfhl")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="HeaderContainer/LayoutCtl/Center/Panel2"]
+material = SubResource("ShaderMaterial_o2jkc")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 73.0
+offset_top = 44.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h81ot")
+
+[node name="ColorRect" type="ColorRect" parent="HeaderContainer/LayoutCtl/Center/Panel2/PanelContainer"]
+z_index = -1
+material = SubResource("ShaderMaterial_0w6e5")
+layout_mode = 2
+color = Color(0.017, 0.02945, 0.1, 0.45098)
 
 [node name="Right" type="PanelContainer" parent="HeaderContainer/LayoutCtl"]
 layout_mode = 2
