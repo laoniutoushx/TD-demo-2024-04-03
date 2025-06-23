@@ -228,44 +228,44 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_ow1yt")
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="HSplitContainer" type="HSplitContainer" parent="HeaderContainer/LayoutCtl/Center/Panel"]
-z_index = 1
-layout_mode = 1
-anchors_preset = -1
+[node name="GridContainer" type="GridContainer" parent="HeaderContainer/LayoutCtl/Center/Panel"]
+layout_mode = 2
 anchor_bottom = 1.0
-offset_left = -240.0
+offset_left = -280.0
 offset_top = 53.0
+offset_right = 61.0
 offset_bottom = -53.0
 grow_horizontal = 2
 grow_vertical = 2
+columns = 3
 
-[node name="HSplitContainer" type="HSplitContainer" parent="HeaderContainer/LayoutCtl/Center/Panel/HSplitContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="HeaderContainer/LayoutCtl/Center/Panel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="MoneyIcon" type="TextureRect" parent="HeaderContainer/LayoutCtl/Center/Panel/HSplitContainer/HSplitContainer"]
+[node name="MoneyIcon" type="TextureRect" parent="HeaderContainer/LayoutCtl/Center/Panel/GridContainer/HSplitContainer"]
 layout_mode = 2
 texture = ExtResource("1_sx3px")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="MoneyLabel" type="Label" parent="HeaderContainer/LayoutCtl/Center/Panel/HSplitContainer/HSplitContainer"]
+[node name="MoneyLabel" type="Label" parent="HeaderContainer/LayoutCtl/Center/Panel/GridContainer/HSplitContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0"
 vertical_alignment = 1
 
-[node name="HSplitContainer2" type="HSplitContainer" parent="HeaderContainer/LayoutCtl/Center/Panel/HSplitContainer"]
+[node name="HSplitContainer2" type="HSplitContainer" parent="HeaderContainer/LayoutCtl/Center/Panel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="WoodIcon" type="TextureRect" parent="HeaderContainer/LayoutCtl/Center/Panel/HSplitContainer/HSplitContainer2"]
+[node name="WoodIcon" type="TextureRect" parent="HeaderContainer/LayoutCtl/Center/Panel/GridContainer/HSplitContainer2"]
 layout_mode = 2
 texture = ExtResource("2_pxfgc")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="WoodLabel" type="Label" parent="HeaderContainer/LayoutCtl/Center/Panel/HSplitContainer/HSplitContainer2"]
+[node name="WoodLabel" type="Label" parent="HeaderContainer/LayoutCtl/Center/Panel/GridContainer/HSplitContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0"
@@ -300,8 +300,8 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 73.0
-offset_top = 44.0
-offset_bottom = -46.0
+offset_top = 40.0
+offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_h81ot")
