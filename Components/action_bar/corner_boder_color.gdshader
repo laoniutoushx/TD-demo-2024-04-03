@@ -40,34 +40,6 @@ float calculate_gradient_factor(vec2 uv, vec2 size) {
     return clamp(smoothed_factor * gradient_power, 0.0, 1.0);
 }
 
-// 边框检测函数
-bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, sampler2D texture) {
-    if (!show_border) return false;                          // 如果不显示边框，直接返回false
-
-    for (float i = -ceil(border_width); i <= ceil(border_width); i++) {
-        float x = abs(i) > border_width ? border_width * sign(i) : i;
-        float offset;
-
-        if (border_pattern == 0) {                           // 菱形边框
-            offset = border_width - abs(x);
-        } else if (border_pattern == 1) {                    // 圆形边框
-            offset = floor(sqrt(pow(border_width + 0.5, 2) - x * x));
-        } else if (border_pattern == 2) {                    // 方形边框
-            offset = border_width;
-        }
-
-        for (float j = -ceil(offset); j <= ceil(offset); j++) {
-            float y = abs(j) > offset ? offset * sign(j) : j;
-            vec2 xy = uv + texture_pixel_size * vec2(x, y);
-
-            if ((xy != clamp(xy, vec2(0.0), vec2(1.0)) || texture(texture, xy).a <= 0.0) == inside) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
 // 检查点是否在矩形区域内
 bool in_rect(vec2 uv, vec2 orign, vec2 end) {
     return all(lessThan(uv, end)) && all(greaterThan(uv, orign));
@@ -105,6 +77,71 @@ bool is_hid(vec2 uv, vec2 size, float radius) {
     return false;
 }
 
+// 检查像素是否应该被圆角隐藏（考虑圆角的边框检测）
+bool should_hide_for_corner(vec2 uv, vec2 texture_pixel_size) {
+    float pixel_size_x = 1.0 / texture_pixel_size.x;
+    float pixel_size_y = 1.0 / texture_pixel_size.y;
+    float max_r = min(pixel_size_x, pixel_size_y) / 2.0;
+    
+    return is_hid(vec2(uv.x * pixel_size_x, uv.y * pixel_size_y),
+                  vec2(pixel_size_x, pixel_size_y),
+                  min(corner_radius, max_r));
+}
+
+// 边框检测函数（修复版本，支持圆角）
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, sampler2D texture) {
+    if (!show_border) return false;                          // 如果不显示边框，直接返回false
+
+    // 首先检查当前像素是否应该因为圆角而被隐藏
+    bool current_hidden = should_hide_for_corner(uv, texture_pixel_size);
+    
+    // 获取当前像素的alpha值
+    float current_alpha = texture(texture, uv).a;
+    bool current_transparent = current_alpha <= 0.0 || current_hidden;
+
+    for (float i = -ceil(border_width); i <= ceil(border_width); i++) {
+        float x = abs(i) > border_width ? border_width * sign(i) : i;
+        float offset;
+
+        if (border_pattern == 0) {                           // 菱形边框
+            offset = border_width - abs(x);
+        } else if (border_pattern == 1) {                    // 圆形边框
+            offset = floor(sqrt(pow(border_width + 0.5, 2) - x * x));
+        } else if (border_pattern == 2) {                    // 方形边框
+            offset = border_width;
+        }
+
+        for (float j = -ceil(offset); j <= ceil(offset); j++) {
+            float y = abs(j) > offset ? offset * sign(j) : j;
+            vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+            // 检查采样点是否在纹理范围内
+            bool in_bounds = (xy == clamp(xy, vec2(0.0), vec2(1.0)));
+            
+            // 检查采样点是否应该因为圆角而被隐藏
+            bool neighbor_hidden = should_hide_for_corner(xy, texture_pixel_size);
+            
+            // 检查采样点的alpha值
+            float neighbor_alpha = in_bounds ? texture(texture, xy).a : 0.0;
+            bool neighbor_transparent = !in_bounds || neighbor_alpha <= 0.0 || neighbor_hidden;
+
+            // 边框检测逻辑：如果当前像素和邻居像素的透明状态不同，则认为是边框
+            if (inside) {
+                // 内边框：当前像素不透明，邻居像素透明
+                if (!current_transparent && neighbor_transparent) {
+                    return true;
+                }
+            } else {
+                // 外边框：当前像素透明，邻居像素不透明
+                if (current_transparent && !neighbor_transparent) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
 // 顶点着色器
 void vertex() {
     if (add_margins && !inside && show_border) {
@@ -120,20 +157,12 @@ void fragment() {
 
     // 处理内边框模式
     if (inside && show_border) {
-        vec2 border_uv = uv;
-        vec2 texture_uv = uv;
-
-        if (hasContraryNeighbour(border_uv, TEXTURE_PIXEL_SIZE, TEXTURE)) {
+        // 直接使用原始UV坐标采样纹理，不进行缩放
+        texture_color = texture(TEXTURE, uv);
+        
+        // 检查是否是边框位置
+        if (hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, TEXTURE)) {
             is_border = true;
-        }
-
-        float scale = max(0.0001, 1.0 - (2.0 * border_width * TEXTURE_PIXEL_SIZE.x));
-        texture_uv = (texture_uv - 0.5) / scale + 0.5;
-
-        if (texture_uv == clamp(texture_uv, vec2(0.0), vec2(1.0))) {
-            texture_color = texture(TEXTURE, texture_uv);
-        } else {
-            texture_color = vec4(0.0);
         }
     }
     // 处理外边框模式或无边框模式

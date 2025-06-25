@@ -1,6 +1,5 @@
 [gd_scene load_steps=24 format=3 uid="uid://d2fad1mnop0tn"]
 
-[ext_resource type="Theme" uid="uid://diau7m8wv81l3" path="res://Components/action_bar/slot_panel_container_unactive_theme.tres" id="1_agtpx"]
 [ext_resource type="Script" uid="uid://brlg4583nsr33" path="res://Components/action_bar/base_slot.gd" id="1_csdik"]
 [ext_resource type="Texture2D" uid="uid://dowc03iavj7w8" path="res://Asserts/Images/item/1.png" id="1_fdg41"]
 [ext_resource type="LabelSettings" uid="uid://dddgoh2chfqp" path="res://Asserts/resources/action_bar_label_setting.tres" id="2_cwpij"]
@@ -22,6 +21,8 @@
 [ext_resource type="Texture2D" uid="uid://dtfpqd7wdyxml" path="res://Components/action_bar/board_effect/1_14.png" id="20_07b74"]
 [ext_resource type="Texture2D" uid="uid://dt8wfjdvktle6" path="res://Components/action_bar/board_effect/1_15.png" id="21_2r3gr"]
 [ext_resource type="Texture2D" uid="uid://dny3qrekvxsy5" path="res://Components/action_bar/board_effect/1_16.png" id="22_8xc6o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0vryi"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gcfxd"]
 animations = [{
@@ -80,7 +81,6 @@ animations = [{
 }]
 
 [node name="BaseSlot" type="PanelContainer"]
-material = ExtResource("3_4x347")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -88,14 +88,15 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -37.0
 offset_top = -37.0
-offset_right = 37.0
-offset_bottom = 37.0
+offset_right = 27.0
+offset_bottom = 27.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_agtpx")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 script = ExtResource("1_csdik")
 
 [node name="IconTexture" type="TextureRect" parent="."]
+material = ExtResource("3_4x347")
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("1_fdg41")
@@ -111,16 +112,18 @@ label_settings = ExtResource("2_cwpij")
 layout_mode = 2
 max_value = 1.0
 step = 0.01
-value = 0.7
+value = 0.71
 fill_mode = 5
 texture_progress = ExtResource("6_kjqx3")
 tint_progress = Color(0, 0, 0, 0.47)
 
 [node name="BoardEffect" type="AnimatedSprite2D" parent="."]
-position = Vector2(37, 37)
-scale = Vector2(0.9, 0.9)
+visible = false
+position = Vector2(32, 32)
+scale = Vector2(0.86, 0.86)
 sprite_frames = SubResource("SpriteFrames_gcfxd")
-frame_progress = 0.62621
+frame = 12
+frame_progress = 0.575432
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
