@@ -45,7 +45,7 @@ var is_mouse_hover: bool = false
 var slot_type: SLOT_TYPE
 # 快捷键（写死）
 var mapping_key: String = ""
-
+ 
 func _ready() -> void:
 	set_process(false)
 	slot_material = _slot_material.duplicate(true)
