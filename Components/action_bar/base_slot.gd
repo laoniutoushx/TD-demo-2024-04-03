@@ -31,7 +31,7 @@ static var action_bar: ActionBar
 
 static var slot_panel_container_unactive_theme: Theme = preload("res://Components/action_bar/slot_panel_container_unactive_theme.tres")
 static var _slot_material = preload("res://Components/action_bar/corner_boder_color.tres")
-static var _slot_shader = preload("res://Components/action_bar/corner_boder_color.gdshader")
+# static var _slot_shader = preload("res://Components/action_bar/corner_boder_color.gdshader")
 
 # 槽位引用的实体对象
 @export var reference: Variant = null
@@ -164,7 +164,7 @@ func do(active):
 	else:
 		icon_texture.material.set_shader_parameter("modulate_color", Color.DIM_GRAY)
 		icon_texture.material.set_shader_parameter("show_border", false)
-		self.theme = slot_panel_container_unactive_theme
+		self.theme = null # slot_panel_container_unactive_theme
 
 # 延长冷却时间
 func extend_cooldown(cooldown: float) -> void:

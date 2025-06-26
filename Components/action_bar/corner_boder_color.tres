@@ -4,16 +4,21 @@
 
 [resource]
 shader = ExtResource("1_cqdqu")
-shader_parameter/border_color = Color(0.144, 0.3796, 0.6, 0.65098)
-shader_parameter/border_width = 10.0
+shader_parameter/default_border_color = Color(0.8775, 1, 0.65, 0.486275)
+shader_parameter/default_border_width = 2.5
+shader_parameter/default_border_pattern = 0
+shader_parameter/default_inside = true
+shader_parameter/show_default_border = true
+shader_parameter/border_color = Color(0.8775, 1, 0.65, 0.486275)
+shader_parameter/border_width = 5.0
 shader_parameter/border_pattern = 0
 shader_parameter/inside = true
 shader_parameter/add_margins = true
-shader_parameter/show_border = true
-shader_parameter/corner_radius = 40.0
+shader_parameter/show_border = false
+shader_parameter/corner_radius = 10.0
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
 shader_parameter/enable_gradient = false
-shader_parameter/gradient_color = Color(0, 0, 0, 0)
+shader_parameter/gradient_color = Color(0.893667, 1, 0.42, 0.517647)
 shader_parameter/gradient_power = 0.5
 shader_parameter/gradient_threshold = 0.5
 shader_parameter/gradient_smoothness = 0.1

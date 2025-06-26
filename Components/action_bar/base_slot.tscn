@@ -22,15 +22,17 @@
 [ext_resource type="Texture2D" uid="uid://dny3qrekvxsy5" path="res://Components/action_bar/board_effect/1_16.png" id="22_8xc6o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1akp"]
+bg_color = Color(0.29, 0.29, 0.29, 0.52549)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="Gradient" id="Gradient_34q4x"]
+[sub_resource type="Gradient" id="Gradient_a1akp"]
+colors = PackedColorArray(0, 0, 0, 0.490196, 0, 0, 0, 0.490196)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_vaoaa"]
-gradient = SubResource("Gradient_34q4x")
+gradient = SubResource("Gradient_a1akp")
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gcfxd"]
 animations = [{
@@ -89,7 +91,6 @@ animations = [{
 }]
 
 [node name="BaseSlot" type="PanelContainer"]
-clip_contents = true
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -127,9 +128,8 @@ texture_progress = SubResource("GradientTexture2D_vaoaa")
 tint_progress = Color(1, 1, 1, 0.435294)
 
 [node name="BoardEffect" type="AnimatedSprite2D" parent="."]
-visible = false
 position = Vector2(32, 32)
-scale = Vector2(0.86, 0.86)
+scale = Vector2(0.85, 0.85)
 sprite_frames = SubResource("SpriteFrames_gcfxd")
 frame = 12
 frame_progress = 0.575432

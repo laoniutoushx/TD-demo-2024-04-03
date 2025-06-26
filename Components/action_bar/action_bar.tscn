@@ -1,16 +1,24 @@
-[gd_scene load_steps=8 format=3 uid="uid://cddhheg1d4j32"]
+[gd_scene load_steps=12 format=3 uid="uid://cddhheg1d4j32"]
 
 [ext_resource type="Script" uid="uid://dajj0nq7ygyay" path="res://Components/action_bar/action_bar.gd" id="1_dpfvq"]
 [ext_resource type="PackedScene" uid="uid://d2fad1mnop0tn" path="res://Components/action_bar/base_slot.tscn" id="2_7x41a"]
 [ext_resource type="PackedScene" uid="uid://xmbtyfxey1y4" path="res://Components/progress_bar/util_bar.tscn" id="3_l42a4"]
+[ext_resource type="PackedScene" uid="uid://bod0utmk5rbbb" path="res://Components/action_bar/buff_slot.tscn" id="3_v252o"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y5he4"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0vryi"]
+
 [sub_resource type="Theme" id="Theme_w1r8r"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pf62q"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l42a4"]
+bg_color = Color(0.25, 0.25, 0.25, 0.517647)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v252o"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xo0aq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sjy83"]
 
 [node name="ActionBar" type="Control"]
 layout_mode = 3
@@ -58,60 +66,79 @@ columns = 10
 
 [node name="BaseSlot" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot2" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot3" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot4" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot5" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot6" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot7" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot8" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot9" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot10" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot11" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot12" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot13" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot14" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot15" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot16" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot17" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot18" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot19" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/SelectionBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BulildingBar" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -123,60 +150,77 @@ columns = 4
 
 [node name="BaseSlot" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BulildingBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot2" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BulildingBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot3" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BulildingBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot4" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BulildingBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot5" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BulildingBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot6" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BulildingBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot7" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BulildingBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot8" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BulildingBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot9" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BulildingBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot10" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BulildingBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot11" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BulildingBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot12" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BulildingBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot13" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BulildingBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot14" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BulildingBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot15" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BulildingBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot16" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BulildingBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 3
 alignment = 1
 
 [node name="Skill" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_pf62q")
+theme_override_styles/panel = SubResource("StyleBoxFlat_l42a4")
 
 [node name="SkillBar" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Skill"]
 unique_name_in_owner = true
@@ -185,76 +229,200 @@ columns = 4
 
 [node name="BaseSlot" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Skill/SkillBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot2" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Skill/SkillBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot3" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Skill/SkillBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot4" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Skill/SkillBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot5" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Skill/SkillBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
 [node name="BaseSlot6" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Skill/SkillBar" instance=ExtResource("2_7x41a")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
 
-[node name="Buff" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_v252o")
 
-[node name="BuffBar" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Buff"]
-unique_name_in_owner = true
-layout_mode = 2
-columns = 2
-
-[node name="BaseSlot" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Buff/BuffBar" instance=ExtResource("2_7x41a")]
-custom_minimum_size = Vector2(16, 16)
+[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="BaseSlot2" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Buff/BuffBar" instance=ExtResource("2_7x41a")]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-
-[node name="Item" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Item" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_xo0aq")
 
-[node name="ItemBar" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Item"]
+[node name="ItemBar" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Item"]
 unique_name_in_owner = true
 layout_mode = 2
 columns = 5
 
-[node name="BaseSlot" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+[node name="BaseSlot" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot2" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot3" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot4" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot5" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot6" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot7" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot8" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot9" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot10" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="Buff" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxEmpty_sjy83")
+
+[node name="BuffBar" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Buff"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 8
+
+[node name="BuffSlot" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
 layout_mode = 2
 
-[node name="BaseSlot2" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+[node name="BuffSlot3" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
 layout_mode = 2
 
-[node name="BaseSlot3" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+[node name="BuffSlot2" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
 layout_mode = 2
 
-[node name="BaseSlot4" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+[node name="BuffSlot4" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
 layout_mode = 2
 
-[node name="BaseSlot5" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+[node name="BuffSlot5" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
 layout_mode = 2
 
-[node name="BaseSlot6" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+[node name="BuffSlot6" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
 layout_mode = 2
 
-[node name="BaseSlot7" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+[node name="BuffSlot7" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VSplitContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
 layout_mode = 2
 
-[node name="BaseSlot8" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_v252o")
+
+[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2"]
 layout_mode = 2
 
-[node name="BaseSlot9" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+[node name="Item" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_xo0aq")
+
+[node name="ItemBar" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Item"]
+layout_mode = 2
+columns = 5
+
+[node name="BaseSlot" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot2" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot3" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot4" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot5" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot6" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot7" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot8" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot9" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="BaseSlot10" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0vryi")
+
+[node name="Buff" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxEmpty_sjy83")
+
+[node name="BuffBar" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Buff"]
+layout_mode = 2
+columns = 8
+
+[node name="BuffSlot" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
 layout_mode = 2
 
-[node name="BaseSlot10" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/Item/ItemBar" instance=ExtResource("2_7x41a")]
+[node name="BuffSlot3" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
+layout_mode = 2
+
+[node name="BuffSlot2" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
+layout_mode = 2
+
+[node name="BuffSlot4" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
+layout_mode = 2
+
+[node name="BuffSlot5" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
+layout_mode = 2
+
+[node name="BuffSlot6" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
+layout_mode = 2
+
+[node name="BuffSlot7" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/VSplitContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
 layout_mode = 2
 
 [node name="ProgressUtilBar" parent="CanvasLayer" instance=ExtResource("3_l42a4")]

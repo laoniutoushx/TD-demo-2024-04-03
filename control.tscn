@@ -1,17 +1,13 @@
 [gd_scene load_steps=2 format=3 uid="uid://bto6c4mjfxfet"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtu10"]
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0.822321, 0.8004, 0.731574, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uchyk"]
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [node name="Control" type="Control"]
+clip_contents = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,14 +15,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_left = 172.0
-offset_top = 68.0
-offset_right = 282.0
-offset_bottom = 178.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_qtu10")
-
-[node name="ColorRect" type="ColorRect" parent="PanelContainer"]
+[node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
+layout_mode = 1
+offset_left = 42.0
+offset_top = 25.0
+offset_right = 142.0
+offset_bottom = 125.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_uchyk")
+
+[node name="ColorRect" type="ColorRect" parent="Panel"]
+clip_contents = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+offset_right = 110.0
+offset_bottom = 110.0
