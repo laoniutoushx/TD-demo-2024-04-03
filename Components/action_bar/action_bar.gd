@@ -11,6 +11,8 @@ class_name ActionBar extends Control
 
 
 @export var slot: PackedScene
+@export var item_slot: PackedScene
+@export var buff_slot: PackedScene
 
 static var icon_res_container := {}
 
@@ -183,9 +185,9 @@ class BaseBarComponent extends Node:
 		pass
 
 		
-	func add_element(id: String, _bar: GridContainer, hook: Callable = func(ab: ActionBar, bs: BaseSlot): pass) -> BaseSlot:
+	func add_element(id: String, _bar: GridContainer, hook: Callable = func(ab: ActionBar, bs: BaseSlot): pass, slot_scene: PackedScene = _action_bar.slot) -> BaseSlot:
 		# 只保留类型为 BaseUnit 且是 玩家所属单位
-		var slot_instance: BaseSlot = _slot_ps.instantiate()
+		var slot_instance: BaseSlot = slot_scene.instantiate()
 		slot_instance.name = id
 		slot_instance.icon_res_container = _icon_res_container
 		slot_instance.action_bar = _action_bar
@@ -309,7 +311,7 @@ class BuffBarComponent extends BaseBarComponent:
 
 	func _create_buff_slot(buff: Buff) -> BaseSlot:	
 		# 注意这里传递的 instance_id , 绑定了 slot id，删除时通过该 id 寻找节点树
-		var slot_instance: BaseSlot = super.add_element(str(buff.get_instance_id()), _buff_bar)
+		var slot_instance: BaseSlot = super.add_element(str(buff.get_instance_id()), _buff_bar, func(a1, a2): pass, _action_bar.buff_slot)
 		
 		slot_instance.custome_init(
 			buff,

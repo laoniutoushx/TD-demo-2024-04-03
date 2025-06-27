@@ -146,7 +146,7 @@ func custome_init(ref: Variant, icon_path: String, type: SLOT_TYPE = SLOT_TYPE.D
 	icon_texture.material = slot_material
 	
 	# slot label name
-	if label != null:
+	if short_cut and label != null:
 		short_cut.text = label
 	
 	slot_type = type

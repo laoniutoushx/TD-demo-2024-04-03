@@ -17,7 +17,7 @@ func setup_for_unit(unit_map: Dictionary):
 
 
 func _create_item_slot(item: Item) -> BaseSlot:	
-	var slot_instance: BaseSlot = super.add_element(item.id, _item_bar)
+	var slot_instance: BaseSlot = super.add_element(item.id, _item_bar, func(a1, a2): pass, _action_bar.item_slot)
 	
 	slot_instance.custome_init(
 		item,
@@ -48,6 +48,9 @@ func _create_item_slot(item: Item) -> BaseSlot:
 # 绑定快捷键
 # 按键主动绑定到显示的 slot 上（每次切换 action bar 时动态绑定）
 func _bind_mapping_key(slot: BaseSlot, idx: int):
+	if slot.short_cut == null:
+		return
+
 	var short_cut_text = ""
 	if idx == 1:
 		short_cut_text = "1"
