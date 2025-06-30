@@ -26,8 +26,8 @@ colors = PackedColorArray(0, 0, 0, 0.490196, 0, 0, 0, 0.490196)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_v8uaq"]
 gradient = SubResource("Gradient_pj8m8")
-width = 128
-height = 128
+width = 146
+height = 146
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wmc0m"]
 animations = [{
@@ -101,7 +101,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_3lpd8")
 script = ExtResource("1_s17b8")
 
 [node name="IconTexture" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(146, 146)
 layout_mode = 2
 texture = ExtResource("2_lf80w")
 expand_mode = 1
@@ -117,6 +117,6 @@ texture_progress = SubResource("GradientTexture2D_v8uaq")
 tint_progress = Color(1, 1, 1, 0.435294)
 
 [node name="BoardEffect" type="AnimatedSprite2D" parent="."]
-position = Vector2(64, 64)
-scale = Vector2(1.715, 1.715)
+position = Vector2(73, 73)
+scale = Vector2(1.94, 1.94)
 sprite_frames = SubResource("SpriteFrames_wmc0m")

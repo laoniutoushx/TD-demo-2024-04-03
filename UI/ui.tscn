@@ -97,11 +97,11 @@ outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o2jkc"]
 shader = ExtResource("7_6rr40")
-shader_parameter/border_width = 0.032
+shader_parameter/border_width_px = 2.0
 shader_parameter/border_color = Color(0.144, 0.3796, 0.6, 0.65098)
 shader_parameter/fill_color = Color(0.2, 0.4, 0.8, 0)
-shader_parameter/corner_radius = 0.0
-shader_parameter/smoothness = 0.1
+shader_parameter/corner_radius_px = 0.0
+shader_parameter/smoothness_px = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h81ot"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
