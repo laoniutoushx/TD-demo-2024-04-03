@@ -341,7 +341,7 @@ class BuffBarComponent extends BaseBarComponent:
 		
 		for element: Buff in elements:
 			if is_instance_valid(element) and _slot_num < 20:
-				var buff_slot_instance: BaseSlot = super.add_element(str(element.get_instance_id()), _buff_bar, add_element_hook)
+				var buff_slot_instance: BaseSlot = super.add_element(str(element.get_instance_id()), _buff_bar, add_element_hook, _action_bar.buff_slot)
 				
 				if element != null and is_instance_valid(element) and buff_slot_instance != null and is_instance_valid(buff_slot_instance):
 					print(" buff title : %s" % [element.title])					

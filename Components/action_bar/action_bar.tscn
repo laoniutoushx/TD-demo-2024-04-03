@@ -15,8 +15,8 @@ shader = ExtResource("5_7eai8")
 shader_parameter/border_width_px = 2.5
 shader_parameter/border_color = Color(0.41503, 0.49, 0.2254, 1)
 shader_parameter/fill_color = Color(0, 0.0509804, 0, 0.592157)
-shader_parameter/corner_radius_px = 0.0
-shader_parameter/smoothness_px = 5.0
+shader_parameter/corner_radius_px = 20.0
+shader_parameter/smoothness_px = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7eai8"]
 
@@ -312,12 +312,11 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_v252o")
 
 [node name="GridContainer" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/MarginContainer/BottomContainer/ItemABuff"]
 layout_mode = 2
-size_flags_vertical = 4
 
 [node name="Item" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/MarginContainer/BottomContainer/ItemABuff/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 10
+size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_xo0aq")
 
 [node name="ItemBar" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/MarginContainer/BottomContainer/ItemABuff/GridContainer/Item"]
@@ -339,7 +338,7 @@ layout_mode = 2
 [node name="Buff" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/MarginContainer/BottomContainer/ItemABuff/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 10
+size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_sjy83")
 
 [node name="BuffBar" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/MarginContainer/BottomContainer/ItemABuff/GridContainer/Buff"]
@@ -348,24 +347,6 @@ layout_mode = 2
 columns = 8
 
 [node name="BuffSlot" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/MarginContainer/BottomContainer/ItemABuff/GridContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
-layout_mode = 2
-
-[node name="BuffSlot3" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/MarginContainer/BottomContainer/ItemABuff/GridContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
-layout_mode = 2
-
-[node name="BuffSlot2" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/MarginContainer/BottomContainer/ItemABuff/GridContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
-layout_mode = 2
-
-[node name="BuffSlot4" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/MarginContainer/BottomContainer/ItemABuff/GridContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
-layout_mode = 2
-
-[node name="BuffSlot5" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/MarginContainer/BottomContainer/ItemABuff/GridContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
-layout_mode = 2
-
-[node name="BuffSlot6" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/MarginContainer/BottomContainer/ItemABuff/GridContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
-layout_mode = 2
-
-[node name="BuffSlot7" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/MarginContainer/BottomContainer/ItemABuff/GridContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
 layout_mode = 2
 
 [node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/MarginContainer/BottomContainer/ItemABuff"]

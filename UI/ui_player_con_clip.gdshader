@@ -44,16 +44,16 @@ void vertex() {
 void fragment() {
     vec2 uv = UV;
     vec2 center = vec2(0.5, 0.5);
-    
+
     float min_edge_dist;
     bool is_outside_circle = false;
-    
+
     if (circular_border) {
         // 圆形边框 - 基于到中心的距离
         float dist_to_center = distance(uv, center);
         float max_radius = 0.5;
         min_edge_dist = max_radius - dist_to_center;
-        
+
         // 检查是否超出圆形范围
         is_outside_circle = dist_to_center > max_radius;
     } else {
@@ -64,16 +64,16 @@ void fragment() {
         );
         min_edge_dist = min(edge_dist.x, edge_dist.y);
     }
-    
+
     if (is_outside_circle) {
         COLOR = vec4(0.0, 0.0, 0.0, 0.0);
     } else {
         // 边框遮罩
         float border_mask = 1.0 - smoothstep(border_width - border_softness, border_width + border_softness, min_edge_dist);
-        
+
         // 内部区域遮罩
         float inner_mask = 1.0 - border_mask;
-        
+
         // 计算旋转后的UV坐标
         vec2 rotated_uv = uv;
         if (animate_border || animate_gradient) {
@@ -85,7 +85,7 @@ void fragment() {
                 rotated_uv = rotate_point(uv, center, time_angle);
             }
         }
-        
+
         // 计算边框颜色
         vec4 final_border_color = border_color;
         if (use_rainbow_border) {
@@ -97,15 +97,15 @@ void fragment() {
             final_border_color.rgb = hsv_to_rgb(vec3(hue, 1.0, 1.0));
             final_border_color.a = border_color.a;
         }
-        
+
         // 计算内部渐变
         float gradient_rad = radians(gradient_angle);
         vec2 gradient_uv = rotated_uv;
         float gradient_factor = dot(gradient_uv - center, vec2(cos(gradient_rad), sin(gradient_rad))) + 0.5;
         gradient_factor = clamp(gradient_factor, 0.0, 1.0);
-        
+
         vec4 inner_color = mix(inner_color_start, inner_color_end, gradient_factor);
-        
+
         // 混合最终颜色
         COLOR = mix(inner_color, final_border_color, border_mask);
     }

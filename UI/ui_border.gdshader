@@ -12,32 +12,32 @@ float rect_sdf(vec2 p, vec2 size, float radius) {
 }
 
 void fragment() {
-    // 直接使用UV坐标，避免复杂的像素转换
-    vec2 uv_centered = UV - vec2(0.5);
-    
-    // 更准确的纹理尺寸计算
+    // 计算纹理的像素尺寸
     vec2 texture_size = 1.0 / fwidth(UV);
     
-    // 分别计算X和Y方向的边框宽度，保持像素精度
-    vec2 border_width_uv = vec2(border_width_px) / texture_size;
-    vec2 corner_radius_uv = vec2(corner_radius_px) / texture_size;
-    vec2 smoothness_uv = vec2(smoothness_px) / texture_size;
+    // 使用较小的尺寸作为基准，确保圆角在所有方向上都是圆形
+    float min_size = min(texture_size.x, texture_size.y);
     
-    // UV空间中的半尺寸
-    vec2 half_size = vec2(0.5);
-    vec2 rect_size = half_size - border_width_uv;
+    // 将像素值转换为UV空间，使用统一的缩放比例
+    float corner_radius_uv = corner_radius_px / min_size;
+    float border_width_uv = border_width_px / min_size;
+    float smoothness_uv = smoothness_px / min_size;
     
-    // 使用平均半径和平滑度来避免变形
-    float avg_corner_radius = (corner_radius_uv.x + corner_radius_uv.y) * 0.5;
-    float avg_smoothness = (smoothness_uv.x + smoothness_uv.y) * 0.5;
+    // 计算UV坐标，但需要按纹理比例调整
+    vec2 aspect_ratio = texture_size / min_size;
+    vec2 uv_centered = (UV - vec2(0.5)) * aspect_ratio;
+    
+    // UV空间中的半尺寸（已按比例调整）
+    vec2 half_size = aspect_ratio * 0.5;
+    vec2 rect_size = half_size - vec2(border_width_uv);
     
     // 计算SDF距离
-    float outer_dist = rect_sdf(uv_centered, half_size, avg_corner_radius);
-    float inner_dist = rect_sdf(uv_centered, rect_size, max(0.0, avg_corner_radius - max(border_width_uv.x, border_width_uv.y)));
+    float outer_dist = rect_sdf(uv_centered, half_size, corner_radius_uv);
+    float inner_dist = rect_sdf(uv_centered, rect_size, max(0.0, corner_radius_uv - border_width_uv));
     
     // 创建平滑边缘
-    float outer_alpha = 1.0 - smoothstep(-avg_smoothness, avg_smoothness, outer_dist);
-    float inner_alpha = 1.0 - smoothstep(-avg_smoothness, avg_smoothness, inner_dist);
+    float outer_alpha = 1.0 - smoothstep(-smoothness_uv, smoothness_uv, outer_dist);
+    float inner_alpha = 1.0 - smoothstep(-smoothness_uv, smoothness_uv, inner_dist);
     
     float border_alpha = outer_alpha - inner_alpha;
     
