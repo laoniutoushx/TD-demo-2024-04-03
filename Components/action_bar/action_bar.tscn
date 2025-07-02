@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cddhheg1d4j32"]
+[gd_scene load_steps=24 format=3 uid="uid://cddhheg1d4j32"]
 
 [ext_resource type="Script" uid="uid://dajj0nq7ygyay" path="res://Components/action_bar/action_bar.gd" id="1_dpfvq"]
 [ext_resource type="PackedScene" uid="uid://d2fad1mnop0tn" path="res://Components/action_bar/base_slot.tscn" id="2_7x41a"]
@@ -7,13 +7,21 @@
 [ext_resource type="PackedScene" uid="uid://blh2umnltcfbg" path="res://Components/action_bar/buff_slot.tscn" id="3_v252o"]
 [ext_resource type="Shader" uid="uid://drrcb1fdwb2ul" path="res://UI/ui_border.gdshader" id="5_7eai8"]
 [ext_resource type="PackedScene" uid="uid://0pwttra0hfwy" path="res://Components/action_bar/player_slot.tscn" id="5_cc1it"]
+[ext_resource type="PackedScene" uid="uid://c2f5edaxam3r8" path="res://Components/action_bar/item_slot_empty.tscn" id="6_t2jrh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y5he4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t2jrh"]
 shader = ExtResource("5_7eai8")
 shader_parameter/border_width_px = 2.5
-shader_parameter/border_color = Color(0.49973, 0.59, 0.2714, 1)
+shader_parameter/top_border_color = Color(0.316412, 0.37, 0.0777, 1)
+shader_parameter/right_border_color = Color(0.316412, 0.37, 0.0777, 1)
+shader_parameter/bottom_border_color = Color(0.316412, 0.37, 0.0777, 1)
+shader_parameter/left_border_color = Color(0.316412, 0.37, 0.0777, 1)
+shader_parameter/top_gradient = 0.0
+shader_parameter/right_gradient = 0.0
+shader_parameter/bottom_gradient = 0.0
+shader_parameter/left_gradient = 0.0
 shader_parameter/fill_color = Color(0, 0.0509804, 0, 0.592157)
 shader_parameter/corner_radius_px = 20.0
 shader_parameter/smoothness_px = 1.0
@@ -215,7 +223,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gevm2"]
 shader = SubResource("Shader_7eai8")
-shader_parameter/border_width_px = 5.0
+shader_parameter/border_width_px = 2.0
 shader_parameter/top_border_color = Color(0.701237, 0.82, 0.1722, 1)
 shader_parameter/right_border_color = Color(0.316412, 0.37, 0.0777, 1)
 shader_parameter/bottom_border_color = Color(0.189, 0.22815, 0.27, 0.0823529)
@@ -240,9 +248,24 @@ border_width_bottom = 1
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v252o"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xo0aq"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t2jrh"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sjy83"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tnudx"]
+shader = ExtResource("5_7eai8")
+shader_parameter/border_width_px = 2.0
+shader_parameter/top_border_color = Color(0.316412, 0.37, 0.0777, 1)
+shader_parameter/right_border_color = Color(0.316412, 0.37, 0.0777, 1)
+shader_parameter/bottom_border_color = Color(0.316412, 0.37, 0.0777, 1)
+shader_parameter/left_border_color = Color(0.316412, 0.37, 0.0777, 1)
+shader_parameter/top_gradient = 0.0
+shader_parameter/right_gradient = 0.0
+shader_parameter/bottom_gradient = 0.0
+shader_parameter/left_gradient = 0.0
+shader_parameter/fill_color = Color(0, 0, 0, 0.188235)
+shader_parameter/corner_radius_px = 5.0
+shader_parameter/smoothness_px = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5vfmd"]
 
 [node name="ActionBar" type="Control"]
 layout_mode = 3
@@ -254,6 +277,7 @@ grow_vertical = 2
 script = ExtResource("1_dpfvq")
 slot = ExtResource("2_7x41a")
 item_slot = ExtResource("3_sjy83")
+item_slot_empty = ExtResource("6_t2jrh")
 buff_slot = ExtResource("3_v252o")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -521,52 +545,68 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_cc1it")
 
-[node name="ItemABuff" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ItemABuff" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_stretch_ratio = 2.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v252o")
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/ItemABuff"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff"]
 layout_mode = 2
 
-[node name="Item" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/ItemABuff/GridContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff/GridContainer"]
+layout_mode = 2
+
+[node name="Item" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff/GridContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxEmpty_xo0aq")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_t2jrh")
 
-[node name="ItemBar" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/ItemABuff/GridContainer/Item"]
+[node name="ItemBar" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff/GridContainer/MarginContainer/Item"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 5
 
-[node name="ItemSlot" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/ItemABuff/GridContainer/Item/ItemBar" instance=ExtResource("3_sjy83")]
+[node name="ItemSlot" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff/GridContainer/MarginContainer/Item/ItemBar" instance=ExtResource("6_t2jrh")]
 layout_mode = 2
 
-[node name="ItemSlot2" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/ItemABuff/GridContainer/Item/ItemBar" instance=ExtResource("3_sjy83")]
+[node name="ItemSlot2" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff/GridContainer/MarginContainer/Item/ItemBar" instance=ExtResource("6_t2jrh")]
 layout_mode = 2
 
-[node name="ItemSlot3" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/ItemABuff/GridContainer/Item/ItemBar" instance=ExtResource("3_sjy83")]
+[node name="ItemSlot3" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff/GridContainer/MarginContainer/Item/ItemBar" instance=ExtResource("6_t2jrh")]
 layout_mode = 2
 
-[node name="Buff" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/ItemABuff/GridContainer"]
+[node name="Buff" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff/GridContainer"]
+material = SubResource("ShaderMaterial_tnudx")
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxEmpty_sjy83")
+size_flags_vertical = 10
+theme_override_styles/panel = SubResource("StyleBoxFlat_5vfmd")
 
-[node name="BuffBar" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/ItemABuff/GridContainer/Buff"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff/GridContainer/Buff"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="BuffBar" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff/GridContainer/Buff/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 columns = 8
 
-[node name="BuffSlot" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/ItemABuff/GridContainer/Buff/BuffBar" instance=ExtResource("3_v252o")]
+[node name="BuffSlot" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff/GridContainer/Buff/MarginContainer/BuffBar" instance=ExtResource("3_v252o")]
 layout_mode = 2
 
-[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/ItemABuff"]
+[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff"]
 layout_mode = 2
 theme_override_constants/separation = -355
 dragging_enabled = false

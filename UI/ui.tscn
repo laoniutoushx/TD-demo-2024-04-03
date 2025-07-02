@@ -7,10 +7,10 @@
 [ext_resource type="Shader" uid="uid://1i6e3lc8ttr3" path="res://UI/ui_player_clip.gdshader" id="2_cbfhl"]
 [ext_resource type="Texture2D" uid="uid://bkmrrcn6wmtew" path="res://Asserts/resources/demo_ui/UI/木支柱4(wood_prop4)_爱给网_aigei_com.png" id="2_pxfgc"]
 [ext_resource type="FontFile" uid="uid://m6iwjdk2oqpf" path="res://Asserts/resources/demo_ui/Font/江城圆体 700W.ttf" id="5_c7tqi"]
+[ext_resource type="Shader" uid="uid://b7urpgeddc173" path="res://UI/ui_border_plain.gdshader" id="6_0w6e5"]
 [ext_resource type="FontFile" uid="uid://bce2telnqh8yo" path="res://Asserts/resources/demo_ui/Font/江城圆体 500W.ttf" id="6_cbfhl"]
 [ext_resource type="Shader" uid="uid://d1g7arohlq6ec" path="res://UI/uil_player_bar_bg.gdshader" id="6_h81ot"]
 [ext_resource type="Texture2D" uid="uid://boagolswk1t65" path="res://Asserts/Images/icon/player/gdbot.png" id="6_nm1m0"]
-[ext_resource type="Shader" uid="uid://drrcb1fdwb2ul" path="res://UI/ui_border.gdshader" id="7_6rr40"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hat8c"]
 
@@ -96,12 +96,12 @@ outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o2jkc"]
-shader = ExtResource("7_6rr40")
+shader = ExtResource("6_0w6e5")
 shader_parameter/border_width_px = 2.0
 shader_parameter/border_color = Color(0.144, 0.3796, 0.6, 0.65098)
 shader_parameter/fill_color = Color(0.2, 0.4, 0.8, 0)
 shader_parameter/corner_radius_px = 0.0
-shader_parameter/smoothness_px = 1.0
+shader_parameter/smoothness_px = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h81ot"]
 bg_color = Color(0.6, 0.6, 0.6, 0)

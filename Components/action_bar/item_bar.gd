@@ -9,11 +9,16 @@ func setup_for_unit(unit_map: Dictionary):
 	var item_map: Dictionary = unit.item_map
 	if item_map != null and item_map.keys().size() > 0:
 		for code in item_map.keys():
-			if _slot_num <= 5:
+			if _slot_num < 3:	# 0,1,2 三个槽位
 				var item: Item = item_map[code]
 				var _slot = _create_item_slot(item)
 				item.slot = _slot
 				_bind_mapping_key(_slot, _slot_num)
+
+		# 如果 _slot_num < 3 ，剩余槽位创建 item_slot_empty 占位槽，保持 UI 布局一致
+		while _slot_num < 3:
+			var _slot = super.add_element(UUID.v4(), _item_bar, func(a1, a2): pass, _action_bar.item_slot_empty)
+			_slot_num += 1
 
 
 func _create_item_slot(item: Item) -> BaseSlot:	
@@ -77,8 +82,10 @@ func remove_element(ele: Variant):
 		
 		
 func clear():
-	for child: BaseSlot in _item_bar.get_children():
-		_action_bar.deregister_active(child.active_callback)
+	for child in _item_bar.get_children():
+		if child is BaseSlot:
+			_action_bar.deregister_active(child.active_callback)
+
 		child.queue_free()
 	_slot_num = 0
 

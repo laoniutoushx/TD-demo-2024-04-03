@@ -12,7 +12,10 @@ class_name ActionBar extends Control
 
 @export var slot: PackedScene
 @export var item_slot: PackedScene
+@export var item_slot_empty: PackedScene
 @export var buff_slot: PackedScene
+@export var player_slot: PackedScene
+@export var player_slot_empty: PackedScene
 
 static var icon_res_container := {}
 
@@ -185,19 +188,22 @@ class BaseBarComponent extends Node:
 		pass
 
 		
-	func add_element(id: String, _bar: GridContainer, hook: Callable = func(ab: ActionBar, bs: BaseSlot): pass, slot_scene: PackedScene = _action_bar.slot) -> BaseSlot:
+	func add_element(id: String, _bar: GridContainer, hook: Callable = func(ab: ActionBar, bs: BaseSlot): pass, slot_scene: PackedScene = _action_bar.slot):
 		# 只保留类型为 BaseUnit 且是 玩家所属单位
-		var slot_instance: BaseSlot = slot_scene.instantiate()
-		slot_instance.name = id
-		slot_instance.icon_res_container = _icon_res_container
-		slot_instance.action_bar = _action_bar
-		_bar.add_child(slot_instance)
-		_action_bar.register_active(slot_instance.active_callback)
-		
-		# 添加 element 时的钩子函数
-		if hook != null:
-			hook.call(_action_bar, slot_instance)
+		var slot_instance = slot_scene.instantiate()
+		if slot_instance is BaseSlot:
+			slot_instance.name = id
+			slot_instance.icon_res_container = _icon_res_container
+			slot_instance.action_bar = _action_bar
+			_bar.add_child(slot_instance)
+			_action_bar.register_active(slot_instance.active_callback)
 			
+			# 添加 element 时的钩子函数
+			if hook != null:
+				hook.call(_action_bar, slot_instance)
+		else:
+			_bar.add_child(slot_instance)
+
 		return slot_instance
 		
 	func remove_element(ele: Variant):
