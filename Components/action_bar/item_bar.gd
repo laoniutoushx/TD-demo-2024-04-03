@@ -15,10 +15,10 @@ func setup_for_unit(unit_map: Dictionary):
 				item.slot = _slot
 				_bind_mapping_key(_slot, _slot_num)
 
-		# 如果 _slot_num < 3 ，剩余槽位创建 item_slot_empty 占位槽，保持 UI 布局一致
-		while _slot_num < 3:
-			var _slot = super.add_element(UUID.v4(), _item_bar, func(a1, a2): pass, _action_bar.item_slot_empty)
-			_slot_num += 1
+	# 如果 _slot_num < 3 ，剩余槽位创建 item_slot_empty 占位槽，保持 UI 布局一致
+	while _slot_num < 3:
+		var _slot = super.add_element(UUID.v4(), _item_bar, func(a1, a2): pass, _action_bar.item_slot_empty)
+		_slot_num += 1
 
 
 func _create_item_slot(item: Item) -> BaseSlot:	
