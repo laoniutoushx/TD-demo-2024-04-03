@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cddhheg1d4j32"]
+[gd_scene load_steps=31 format=3 uid="uid://cddhheg1d4j32"]
 
 [ext_resource type="Script" uid="uid://dajj0nq7ygyay" path="res://Components/action_bar/action_bar.gd" id="1_dpfvq"]
 [ext_resource type="PackedScene" uid="uid://d2fad1mnop0tn" path="res://Components/action_bar/base_slot.tscn" id="2_7x41a"]
@@ -655,6 +655,25 @@ shader_parameter/smoothness_px = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5vfmd"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7c2rw"]
+shader = ExtResource("5_7eai8")
+shader_parameter/border_width_px = 2.0
+shader_parameter/top_border_color = Color(0.735443, 0.86, 0.1806, 1)
+shader_parameter/right_border_color = Color(0.658478, 0.77, 0.1617, 1)
+shader_parameter/bottom_border_color = Color(0.658478, 0.77, 0.1617, 1)
+shader_parameter/left_border_color = Color(0.658478, 0.77, 0.1617, 1)
+shader_parameter/top_gradient = 0.0
+shader_parameter/right_gradient = 0.626
+shader_parameter/bottom_gradient = 0.0
+shader_parameter/left_gradient = 0.0
+shader_parameter/fill_color = Color(0, 0.0509804, 0, 0.592157)
+shader_parameter/corner_radius_px = 10.0
+shader_parameter/smoothness_px = 2.5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4bm7g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5vfmd"]
+
 [node name="ActionBar" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -912,12 +931,14 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_cc1it")
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="ItemABuff" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 2
+size_flags_vertical = 8
 size_flags_stretch_ratio = 2.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v252o")
 
@@ -977,17 +998,33 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 theme_override_styles/panel = SubResource("StyleBoxEmpty_cc1it")
 
-[node name="PlayerContainer" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer"]
+material = SubResource("ShaderMaterial_7c2rw")
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_4bm7g")
+
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="PlayerContainer" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/PanelContainer/MarginContainer3"]
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5vfmd")
 
-[node name="PlayerSlotEmpty" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/PlayerContainer" instance=ExtResource("7_t2jrh")]
+[node name="PlayerSlotEmpty" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/PanelContainer/MarginContainer3/PlayerContainer" instance=ExtResource("7_t2jrh")]
 layout_mode = 2
 
 [node name="PadBox3" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 8
 size_flags_stretch_ratio = 0.15
 theme_override_styles/panel = SubResource("StyleBoxEmpty_cc1it")
 
