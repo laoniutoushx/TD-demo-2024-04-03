@@ -108,8 +108,8 @@ var _hit_flash_material = preload("res://Asserts/materials/hit_flash.tres")
 var _outline_material = preload("res://Asserts/materials/outline_mat.tres")
 
 # create mesh outline
-var is_mesh_outline: bool
-var is_mesh_standing: bool
+@export var is_mesh_outline: bool
+@export var is_mesh_standing: bool
 var _mesh_standing: MeshInstance3D
 
 # unit cost
@@ -261,7 +261,7 @@ func _ready() -> void:
 		#_create_selected_circle()
 	
 	# hide select circle
-	var select_circle = CommonUtil.get_first_node_by_node_name(self, "FadedCircle3D")
+	var select_circle = CommonUtil.get_first_node_by_node_name(self, Constants.FadedCircle3D_CLZ)
 	select_circle.hide()
 	
 	# attack area fixed
@@ -494,14 +494,14 @@ func heal(amount: int):
 	
 func _create_mesh_outline():
 	# 1. 获取对象 mesh 网格
-	var origin_mesh = CommonUtil.get_first_node_by_node_type(self, "MeshInstance3D")
+	var origin_mesh = CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ, false)
 	if origin_mesh != null:
 		var om: MeshInstance3D = (origin_mesh as MeshInstance3D)
 		om.material_overlay = _outline_material
 
 	
 func _create_mesh_standing():
-	var origin_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(self, "MeshInstance3D")
+	var origin_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ, false)
 	_mesh_standing = origin_mesh.duplicate()
 	_mesh_standing.transform.origin = Vector3(0, 0, 0)
 	_mesh_standing.scale = Vector3(1.01, 1.01, 1.01)
@@ -509,7 +509,7 @@ func _create_mesh_standing():
 	_mesh_standing.visible = false
 	origin_mesh.add_child(_mesh_standing)
 	# 如果有骨骼，设置 mesh_standing 骨骼（添加到场景树当中后再获取相对路径）
-	var skeleton: Skeleton3D = CommonUtil.get_first_node_by_node_type(self, "Skeleton3D")
+	var skeleton: Skeleton3D = CommonUtil.get_first_node_by_node_type(self, Constants.Skeleton3D_CLZ)
 	if skeleton != null:
 		_mesh_standing.skeleton = _mesh_standing.get_path_to(skeleton)
 
@@ -533,7 +533,7 @@ func get_mesh_standing() -> MeshInstance3D:
 
 
 func show_selected_circle() -> void:
-	var select_circle = CommonUtil.get_first_node_by_node_name(self, "FadedCircle3D")	
+	var select_circle = CommonUtil.get_first_node_by_node_name(self, Constants.FadedCircle3D_CLZ)	
 	if select_circle:
 		select_circle.visible = true
 
@@ -545,7 +545,7 @@ func show_selected_circle() -> void:
 
 
 func hide_selected_circle() -> void:
-	var select_circle = CommonUtil.get_first_node_by_node_name(self, "FadedCircle3D")	
+	var select_circle = CommonUtil.get_first_node_by_node_name(self, Constants.FadedCircle3D_CLZ)	
 	if select_circle:
 		select_circle.visible = false
 

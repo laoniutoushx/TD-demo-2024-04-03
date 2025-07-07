@@ -98,6 +98,59 @@ static func get_first_node_by_node_type(node: Node, clazz: String, use_bfs: bool
 		return null
 
 
+# 获取所有匹配类型的节点
+static func get_all_nodes_by_node_type(node: Node, clazz: String, use_bfs: bool = true) -> Array[Node]:
+	if not is_instance_valid(node):
+		return []
+	
+	var result: Array[Node] = []
+	
+	if use_bfs:
+		# 广度优先遍历
+		var queue: Array[Node] = [node]
+		
+		while queue.size() > 0:
+			var current_node = queue.pop_front()
+			
+			# 检查当前节点是否匹配
+			if current_node.is_class(clazz):
+				result.append(current_node)
+			
+			# 将当前节点的所有子节点加入队列
+			for child in current_node.get_children():
+				if is_instance_valid(child):
+					queue.push_back(child)
+	else:
+		# 深度优先遍历
+		if node.is_class(clazz):
+			result.append(node)
+		
+		for child in node.get_children():
+			var child_results = get_all_nodes_by_node_type(child, clazz, false)
+			result.append_array(child_results)
+	
+	return result		
+
+
+# 为单位的所有 MeshInstance3D 添加描边效果
+static func add_outline_to_unit(unit: Node3D, outline_material: Material):
+	var mesh_nodes = CommonUtil.get_all_nodes_by_node_type(unit, Constants.MeshInstance3D_CLZ, false)
+	
+	for mesh_node in mesh_nodes:
+		var mesh_instance = mesh_node as MeshInstance3D
+		if mesh_instance != null:
+			mesh_instance.material_overlay = outline_material
+
+# 移除单位的所有描边效果
+static func remove_outline_from_unit(unit: Node3D):
+	var mesh_nodes = CommonUtil.get_all_nodes_by_node_type(unit, Constants.MeshInstance3D_CLZ, false)
+	
+	for mesh_node in mesh_nodes:
+		var mesh_instance = mesh_node as MeshInstance3D
+		if mesh_instance != null:
+			mesh_instance.material_overlay = null	
+
+
 static func get_first_node_by_node_name(node: Node, name: String, use_bfs: bool = true) -> Variant:
 	if not is_instance_valid(node):
 		return null

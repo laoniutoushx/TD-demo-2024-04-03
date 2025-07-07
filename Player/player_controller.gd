@@ -187,9 +187,13 @@ func _on_select_area_area_entered(area: Area3D) -> void:
 		cur_unit_map[unit.get_instance_id()] = unit
 
 		(unit as BaseUnit).show_selected_circle()
-		var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ)
-		if unit_mesh != null:
-			unit_mesh.material_overlay = outline_material
+	
+		# 描边特效
+		unit = unit.get_child(0)	# 向下一级，获取单位实体
+		CommonUtil.add_outline_to_unit(unit, outline_material)
+		# var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ, false)
+		# if unit_mesh != null:
+		# 	unit_mesh.material_overlay = outline_material
 
 # 单位退出触发
 # monitor when unit exit mouse scope(notice when selected, not hide)
@@ -200,10 +204,12 @@ func _on_select_area_area_exited(area: Area3D) -> void:
 	if unit:
 		cur_unit_map.erase(unit.get_instance_id())
 
-	
-	var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ)
-	if unit_mesh != null:
-		unit_mesh.material_overlay = null
+	# 描边特效
+	# unit = unit.get_child(0)	# 向下一级，获取单位实体
+	CommonUtil.remove_outline_from_unit(unit)
+	# var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ, false)
+	# if unit_mesh != null:
+	# 	unit_mesh.material_overlay = null
 	
 	if PlayerSelect.is_selecting():
 		return
@@ -217,7 +223,7 @@ func _on_unit_logic_death(id: int, unit: BaseUnit):
 		unit.hide_selected_circle()
 	
 	# 单位逻辑死亡时，清除单位网格效果（outline）等
-	var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ)
+	var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ, false)
 	unit_mesh.material_overlay = null
 
 	# 移出单位到当前选中单位

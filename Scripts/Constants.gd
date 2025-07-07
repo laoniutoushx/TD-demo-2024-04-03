@@ -26,6 +26,8 @@ var ANIM_RELEASE = "release"
 
 
 # Script Type
+var Skeleton3D_CLZ = "Skeleton3D"
+var FadedCircle3D_CLZ = "FadedCircle3D"
 var MeshInstance3D_CLZ = "MeshInstance3D"
 var CollisionShape3D_CLZ = "CollisionShape3D"
 var AnimationPlayer_CLZ = "AnimationPlayer"
