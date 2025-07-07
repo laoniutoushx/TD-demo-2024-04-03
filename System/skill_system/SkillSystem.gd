@@ -154,8 +154,9 @@ func release(skill_context: SkillContext) -> void:
 		ap.play(anim_release_code)
 
 	await CommonUtil.await_timer(skill_context.skill.start_time)
-	skill.skill_script_instance.action(skill_context)
-	await CommonUtil.await_timer(skill_context.skill.end_time)
+	if is_instance_valid(skill):
+		skill.skill_script_instance.action(skill_context)
+		await CommonUtil.await_timer(skill_context.skill.end_time)
 
 
 
