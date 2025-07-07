@@ -141,7 +141,7 @@ content_margin_bottom = 2.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4fiuh"]
 shader = ExtResource("2_4fiuh")
 shader_parameter/border_width = 0.036
-shader_parameter/border_color = Color(0.74783, 0.83, 0.3818, 1)
+shader_parameter/border_color = Color(0.901, 1, 0.46, 1)
 shader_parameter/inner_color_start = Color(0.2, 0.4, 1, 1)
 shader_parameter/inner_color_end = Color(1, 0.2, 0.4, 1)
 shader_parameter/gradient_angle = 45.0

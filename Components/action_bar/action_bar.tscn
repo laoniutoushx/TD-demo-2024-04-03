@@ -889,11 +889,12 @@ theme_override_constants/margin_bottom = 10
 [node name="Skill" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
-size_flags_vertical = 4
+size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_7eai8")
 
 [node name="SkillBar" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer/PanelContainer/MarginContainer/Skill"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(286, 138)
 layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
@@ -949,6 +950,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Item" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff/GridContainer/MarginContainer"]
+custom_minimum_size = Vector2(328, 96)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -972,6 +974,7 @@ layout_mode = 2
 
 [node name="Buff" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff/GridContainer"]
 material = SubResource("ShaderMaterial_tnudx")
+custom_minimum_size = Vector2(328, 42)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -998,27 +1001,31 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 theme_override_styles/panel = SubResource("StyleBoxEmpty_cc1it")
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer"]
-material = SubResource("ShaderMaterial_7c2rw")
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
-size_flags_vertical = 4
+size_flags_vertical = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer3"]
+material = SubResource("ShaderMaterial_7c2rw")
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4bm7g")
 
-[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/PanelContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer3/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="PlayerContainer" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/PanelContainer/MarginContainer3"]
+[node name="PlayerContainer" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer3/PanelContainer/MarginContainer3"]
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_5vfmd")
 
-[node name="PlayerSlotEmpty" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/PanelContainer/MarginContainer3/PlayerContainer" instance=ExtResource("7_t2jrh")]
+[node name="PlayerSlotEmpty" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer3/PanelContainer/MarginContainer3/PlayerContainer" instance=ExtResource("7_t2jrh")]
 layout_mode = 2
 
 [node name="PadBox3" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer"]
