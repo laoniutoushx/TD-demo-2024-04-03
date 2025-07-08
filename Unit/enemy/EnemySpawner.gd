@@ -42,8 +42,8 @@ func start():
 		if _path != null:
 			_path.add_child(enemy_instance)
 
-			if _start_node != null:
-				enemy_instance.global_position = _start_node.global_position
+			# if _start_node != null:
+			# 	enemy_instance.global_position = _start_node.global_position
 			#enemy_instance.find_child()
 
 			await CommonUtil.await_timer(_enemy_spawner_res.spawn_interval)
