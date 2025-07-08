@@ -1,7 +1,8 @@
 class_name PlayerController extends Node3D
 
 # Scope Node Define
-@onready var select_area: Area3D = %SelectArea
+@onready var select_area: Area3D = %SelectArea		# （单个单位鼠标高亮检测）
+
 @onready var selection_box: SelectionBox = %SelectionBox
 @onready var player_skill_scope_indicator: PlayerSkillScopeIndicator = %PlayerSkillScopeIndicator
 @onready var player_skill_target_indicator = %PlayerSkillTargetIndicator
@@ -66,7 +67,8 @@ var is_limit_move: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# 注册到 main
+	# 关闭输入监听
+	set_process_input(false)	
 
 	# 加载 图标 资源
 	CommonUtil.load_resources_to_container_from_directory("res://Asserts/Images/icon/")
@@ -176,26 +178,59 @@ func refresh_selection_units(unit_map: Dictionary, mouse_pos: Vector3, on_select
 	SignalBus.player_selected_units.emit(unit_map, mouse_pos, on_selected_player_status)
 
 
+# 单位进入时，监听右键事件（攻击）
+func _input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+		print("监听到右键点击")
+		# 获取到玩家选择的所有单位，过滤出 所有玩家单位，判断
+		if cur_unit_map.size() > 0:
+			var target_unit
+			for cur_unit in cur_unit_map.values():
+				print("cur unit %s" % cur_unit.clz_name)
+				if cur_unit is BaseUnit and cur_unit.is_alive() and cur_unit.player_group != player_group_idx:
+					target_unit = cur_unit
+					break
 
-# 单位进入触发
+			if target_unit:
+				for turret in PlayerSelect.units():
+					if is_instance_valid(turret) and turret is Turret:
+						# 如果单位再防御塔候选攻击单位中 enemies 
+						if turret.enemies.has(target_unit.get_instance_id()):
+							# 直接设置当前敌人
+							turret.current_enemy = target_unit
+						else:
+							# 提示敌人不在防御塔攻击范围内
+							print("敌人 %s 不在防御塔攻击范围内" % target_unit.clz_name)
+							SOS.main.message_bar.set_message("敌人不在防御塔攻击范围内")
+			else:
+				SOS.main.message_bar.set_message("没有可攻击的敌人单位")
+						
+
+
+
+# 单位进入触发（单个单位鼠标高亮检测）
 # monitor when unit enter mouse scope
 func _on_select_area_area_entered(area: Area3D) -> void:
 	var unit = area.owner
-	if unit and unit is BaseUnit and unit.is_alive() and unit.has_method('show_selected_circle'):
+	if unit and unit is BaseUnit and unit.is_alive():
+		
+		# 开启右键输入检测
+		if PlayerSelect.units().size() > 0:
+			set_process_input(true)	
 
 		# 添加单位到当前选中单位
 		cur_unit_map[unit.get_instance_id()] = unit
 
-		(unit as BaseUnit).show_selected_circle()
+		if unit.has_method('show_selected_circle'):
+			(unit as BaseUnit).show_selected_circle()
 	
+
 		# 描边特效
 		unit = unit.get_child(0)	# 向下一级，获取单位实体
 		CommonUtil.add_outline_to_unit(unit, outline_material)
-		# var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ, false)
-		# if unit_mesh != null:
-		# 	unit_mesh.material_overlay = outline_material
 
-# 单位退出触发
+
+# 单位退出触发（单个单位鼠标高亮检测）
 # monitor when unit exit mouse scope(notice when selected, not hide)
 func _on_select_area_area_exited(area: Area3D) -> void:
 	var unit = area.owner
@@ -204,17 +239,22 @@ func _on_select_area_area_exited(area: Area3D) -> void:
 	if unit:
 		cur_unit_map.erase(unit.get_instance_id())
 
+	# 如果当前玩家候选单位为 0
+	if cur_unit_map.size() == 0:
+		# 关闭右键输入检测
+		set_process_input(false)	
+
+
 	# 描边特效
 	# unit = unit.get_child(0)	# 向下一级，获取单位实体
 	CommonUtil.remove_outline_from_unit(unit)
-	# var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ, false)
-	# if unit_mesh != null:
-	# 	unit_mesh.material_overlay = null
-	
+
 	if PlayerSelect.is_selecting():
 		return
 	if unit and unit is BaseUnit and !PlayerSelect.contains_unit(unit) and unit.has_method('hide_selected_circle'):
 		(unit as BaseUnit).hide_selected_circle()
+
+
 
 
 # listening unit death
@@ -223,8 +263,8 @@ func _on_unit_logic_death(id: int, unit: BaseUnit):
 		unit.hide_selected_circle()
 	
 	# 单位逻辑死亡时，清除单位网格效果（outline）等
-	var unit_mesh: MeshInstance3D = CommonUtil.get_first_node_by_node_type(unit, Constants.MeshInstance3D_CLZ, false)
-	unit_mesh.material_overlay = null
+	CommonUtil.remove_outline_from_unit(unit)
+
 
 	# 移出单位到当前选中单位
 	cur_unit_map.erase(id)

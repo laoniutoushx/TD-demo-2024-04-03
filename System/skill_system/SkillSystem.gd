@@ -155,6 +155,14 @@ func release(skill_context: SkillContext) -> void:
 
 	await CommonUtil.await_timer(skill_context.skill.start_time)
 	if is_instance_valid(skill):
+		
+		# 显示技能释放漂浮文字
+		SystemUtil.floating_text_system.spawn(
+			Vector3(source_unit.global_position.x, source_unit._height, source_unit.global_position.z),
+			skill.title,
+			Color.GREEN_YELLOW
+		)
+
 		skill.skill_script_instance.action(skill_context)
 		await CommonUtil.await_timer(skill_context.skill.end_time)
 

@@ -142,7 +142,7 @@ static func add_outline_to_unit(unit: Node3D, outline_material: Material):
 			mesh_instance.material_overlay = outline_material
 
 # 移除单位的所有描边效果
-static func remove_outline_from_unit(unit: Node3D):
+static func remove_outline_from_unit(unit: Variant):
 	var mesh_nodes = CommonUtil.get_all_nodes_by_node_type(unit, Constants.MeshInstance3D_CLZ, false)
 	
 	for mesh_node in mesh_nodes:
