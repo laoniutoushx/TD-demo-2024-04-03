@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6a5dy68f6x6c"
-path="res://.godot/imported/43.png-5225e1157c67504aa0da39ee1a651d59.ctex"
+uid="uid://bwfxc17xu8mqg"
+path="res://.godot/imported/bomber1.png-9e14a2eb53c30b29d2375d30ed6fb9a8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Asserts/Images/item/43.png"
-dest_files=["res://.godot/imported/43.png-5225e1157c67504aa0da39ee1a651d59.ctex"]
+source_file="res://Asserts/Images/icon/turret/bomber1.png"
+dest_files=["res://.godot/imported/bomber1.png-9e14a2eb53c30b29d2375d30ed6fb9a8.ctex"]
 
 [params]
 
