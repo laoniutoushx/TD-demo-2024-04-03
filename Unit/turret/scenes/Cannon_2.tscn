@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c67x47iij80kn" path="res://Components/fire_pos/fire_pos_cmp.tscn" id="3_j3hp5"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_unnm8"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_j3hp5"]
-[ext_resource type="PackedScene" uid="uid://xdaakni06sl0" path="res://VFX/projectiles/missile/vfx_missile_01_running.tscn" id="4_unnm8"]
+[ext_resource type="PackedScene" uid="uid://crd40ycge6qp1" path="res://VFX/projectiles/fireball/vfx_Fire_ball_standar_running.tscn" id="4_unnm8"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="5_wmx7t"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="6_bks3x"]
 [ext_resource type="PackedScene" uid="uid://d00chkod5txim" path="res://Components/hud/hud.tscn" id="7_sxvi7"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://iacwdvn0aaa3"]
+[gd_scene load_steps=32 format=4 uid="uid://iacwdvn0aaa3"]
 
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_1laxj"]
 [ext_resource type="Texture2D" uid="uid://cneeuukajnxko" path="res://Asserts/Models/turret pack/FBX/Cannon3_0.png" id="2_1laxj"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c67x47iij80kn" path="res://Components/fire_pos/fire_pos_cmp.tscn" id="3_ah3wd"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_ah3wd"]
 [ext_resource type="PackedScene" uid="uid://xdaakni06sl0" path="res://VFX/projectiles/missile/vfx_missile_01_running.tscn" id="5_ah3wd"]
+[ext_resource type="PackedScene" uid="uid://crd40ycge6qp1" path="res://VFX/projectiles/fireball/vfx_Fire_ball_standar_running.tscn" id="5_kb3tl"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="5_se3je"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="6_kb3tl"]
 [ext_resource type="PackedScene" uid="uid://d00chkod5txim" path="res://Components/hud/hud.tscn" id="7_i12xu"]
@@ -278,6 +279,21 @@ tracks/0/keys = {
 "values": [Vector3(0.0229254, 2.66878, -1.17392), Vector3(0.023, 2.669, -0.7), Vector3(0.0229254, 2.66878, -1.17392)]
 }
 
+[sub_resource type="Animation" id="Animation_3y1yd"]
+resource_name = "attack_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cannon3/Node3D/Cannon_3_Base_mid/Node3D2/Cannon_3_Base_top_fire_left:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.547959, 2.69185, -1.77316), Vector3(-0.548, 2.692, -1), Vector3(-0.547959, 2.69185, -1.77316)]
+}
+
 [sub_resource type="Animation" id="Animation_8vtg0"]
 resource_name = "attack_right"
 length = 0.2
@@ -292,21 +308,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(0.553823, 2.69185, -1.77316), Vector3(0.554, 2.692, -1), Vector3(0.553823, 2.69185, -1.77316)]
-}
-
-[sub_resource type="Animation" id="Animation_3y1yd"]
-resource_name = "attack_left"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Cannon3/Node3D/Cannon_3_Base_mid/Node3D2/Cannon_3_Base_top_fire_left:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(-0.547959, 2.69185, -1.77316), Vector3(-0.548, 2.692, -1), Vector3(-0.547959, 2.69185, -1.77316)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q0ijy"]
@@ -327,7 +328,7 @@ size = Vector3(1, 2.5, 1)
 [node name="Cannon3" type="Node3D" node_paths=PackedStringArray("turret_top", "fire_poses", "fire_poses_spec", "hud")]
 script = ExtResource("1_1laxj")
 turret_top = NodePath("Cannon3/Node3D")
-fire_poses = [NodePath("Cannon3/Node3D/Cannon_3_Base_mid/Node3D2/Cannon_3_Base_top_fire_left/FirePosCmp"), NodePath("Cannon3/Node3D/Cannon_3_Base_mid/Node3D2/Cannon_3_Base_top_fire_right/FirePosCmp")]
+fire_poses = [NodePath("Cannon3/Node3D/Cannon_3_Base_mid/Node3D2/Cannon_3_Base_top_fire_left/FirePosCmp"), NodePath("Cannon3/Node3D/Cannon_3_Base_mid/Node3D2/Cannon_3_Base_top_fire_right/FirePosCmp"), NodePath("Cannon3/Node3D/Cannon_3_Base_mid/Node3D2/Cannon_3_Base_top_fire_mid/FirePosCmp")]
 fire_poses_spec = [NodePath("Cannon3/Node3D/Cannon_3_Base_mid/Node3D2/Cannon_3_Base_top_fire_mid/FirePosCmp")]
 hud = NodePath("Hud")
 
@@ -372,7 +373,7 @@ mesh = SubResource("ArrayMesh_e8o5m")
 skeleton = NodePath("")
 
 [node name="FirePosCmp" parent="Cannon3/Node3D/Cannon_3_Base_mid/Node3D2/Cannon_3_Base_top_fire_mid" instance=ExtResource("3_ah3wd")]
-fire_projectile = ExtResource("5_ah3wd")
+fire_projectile = ExtResource("5_kb3tl")
 
 [node name="Cannon_3_Base_top_fire_right" type="MeshInstance3D" parent="Cannon3/Node3D/Cannon_3_Base_mid/Node3D2"]
 transform = Transform3D(-100, 9.59916e-13, -2.14568e-05, -6.60018e-13, 100, 7.54979e-06, 2.14568e-05, 7.54979e-06, -100, 0.553823, 2.69185, -1.77316)

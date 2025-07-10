@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c67x47iij80kn" path="res://Components/fire_pos/fire_pos_cmp.tscn" id="3_gcr4w"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_q6b74"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_gcr4w"]
-[ext_resource type="PackedScene" uid="uid://xdaakni06sl0" path="res://VFX/projectiles/missile/vfx_missile_01_running.tscn" id="4_mc8ra"]
+[ext_resource type="PackedScene" uid="uid://crd40ycge6qp1" path="res://VFX/projectiles/fireball/vfx_Fire_ball_standar_running.tscn" id="4_q6b74"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="5_mc8ra"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="6_lcwv4"]
 [ext_resource type="PackedScene" uid="uid://d00chkod5txim" path="res://Components/hud/hud.tscn" id="7_nvm1l"]
@@ -235,7 +235,7 @@ mesh = SubResource("ArrayMesh_4nv1l")
 skeleton = NodePath("")
 
 [node name="FirePosCmp" parent="Cannon/Node3D/Cannon_1_Base_mid/Node3D2/Cannon_1_Base_top_fire" instance=ExtResource("3_gcr4w")]
-fire_projectile = ExtResource("4_mc8ra")
+fire_projectile = ExtResource("4_q6b74")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

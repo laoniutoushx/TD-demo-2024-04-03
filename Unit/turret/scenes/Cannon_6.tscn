@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://xdaakni06sl0" path="res://VFX/projectiles/missile/vfx_missile_01_running.tscn" id="4_25g1q"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_dath4"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="5_25g1q"]
-[ext_resource type="PackedScene" uid="uid://ch1cgf7h1v2cc" path="res://VFX/projectiles/missile/vfx_missile_03_running.tscn" id="5_dath4"]
+[ext_resource type="PackedScene" uid="uid://crd40ycge6qp1" path="res://VFX/projectiles/fireball/vfx_Fire_ball_standar_running.tscn" id="5_dath4"]
 [ext_resource type="PackedScene" uid="uid://rv8l5sjnuaty" path="res://Components/range_indicator/range_indicator.tscn" id="6_sj50d"]
 [ext_resource type="PackedScene" uid="uid://d00chkod5txim" path="res://Components/hud/hud.tscn" id="7_5j7rc"]
 [ext_resource type="Texture2D" uid="uid://dduqcjfr0gxxo" path="res://Asserts/Models/turret pack/FBX/Cannon6_0.png" id="8_bm1kr"]
@@ -279,22 +279,6 @@ tracks/0/keys = {
 "values": [Vector3(-0.0128963, 3.06966, -1.19577), Vector3(-0.013, 3.07, -0.3), Vector3(-0.0128963, 3.06966, -1.19577)]
 }
 
-[sub_resource type="Animation" id="Animation_8vtg0"]
-resource_name = "attack_right"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Cannon6/Node3D/Cannon_6_Base_mid/Node3D2/Cannon_6_Base_top_fire_right:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0.588363, 3.09472, -1.46933), Vector3(0.588, 3.095, -0.4), Vector3(0.588363, 3.09472, -1.46933)]
-}
-
 [sub_resource type="Animation" id="Animation_dath4"]
 resource_name = "attack_left"
 length = 0.1
@@ -309,6 +293,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(-0.642424, 3.09472, -1.46933), Vector3(-0.642, 3.095, -0.4), Vector3(-0.642424, 3.09472, -1.46933)]
+}
+
+[sub_resource type="Animation" id="Animation_8vtg0"]
+resource_name = "attack_right"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cannon6/Node3D/Cannon_6_Base_mid/Node3D2/Cannon_6_Base_top_fire_right:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.588363, 3.09472, -1.46933), Vector3(0.588, 3.095, -0.4), Vector3(0.588363, 3.09472, -1.46933)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q0ijy"]

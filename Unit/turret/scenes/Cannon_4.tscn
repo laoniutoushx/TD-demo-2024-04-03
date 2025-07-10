@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bbbqv7ptfhp1m" path="res://Asserts/Models/turret pack/FBX/Cannon4_0.png" id="2_sc247"]
 [ext_resource type="PackedScene" uid="uid://c67x47iij80kn" path="res://Components/fire_pos/fire_pos_cmp.tscn" id="3_n3vt7"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_okh3n"]
-[ext_resource type="PackedScene" uid="uid://ch1cgf7h1v2cc" path="res://VFX/projectiles/missile/vfx_missile_03_running.tscn" id="4_mopjc"]
+[ext_resource type="PackedScene" uid="uid://crd40ycge6qp1" path="res://VFX/projectiles/fireball/vfx_Fire_ball_standar_running.tscn" id="4_mopjc"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_n3vt7"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="5_mopjc"]
 [ext_resource type="PackedScene" uid="uid://xdaakni06sl0" path="res://VFX/projectiles/missile/vfx_missile_01_running.tscn" id="5_n3vt7"]

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dtwbrr8gb4ohh" path="res://Unit/turret/scenes/turret.gd" id="1_nx1hr"]
 [ext_resource type="PackedScene" uid="uid://c67x47iij80kn" path="res://Components/fire_pos/fire_pos_cmp.tscn" id="3_b38nf"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_vi2i4"]
-[ext_resource type="PackedScene" uid="uid://ch1cgf7h1v2cc" path="res://VFX/projectiles/missile/vfx_missile_03_running.tscn" id="4_43ohs"]
+[ext_resource type="PackedScene" uid="uid://crd40ycge6qp1" path="res://VFX/projectiles/fireball/vfx_Fire_ball_standar_running.tscn" id="4_60v4n"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_b38nf"]
 [ext_resource type="PackedScene" uid="uid://dms6agqcsirpd" path="res://Components/debug/DebugDraw.tscn" id="5_60v4n"]
 [ext_resource type="PackedScene" uid="uid://xdaakni06sl0" path="res://VFX/projectiles/missile/vfx_missile_01_running.tscn" id="5_b38nf"]
@@ -301,15 +301,18 @@ mesh = SubResource("ArrayMesh_jt5c7")
 skeleton = NodePath("")
 
 [node name="FirePosCmp" parent="Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_main" instance=ExtResource("3_b38nf")]
-fire_projectile = ExtResource("4_43ohs")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.92902e-10, 0, 0.00100876)
+fire_projectile = ExtResource("4_60v4n")
 
 [node name="FirePosCmp2" parent="Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_main" instance=ExtResource("3_b38nf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0105211, 0, -5.12227e-09)
 fire_animation = &""
-fire_projectile = ExtResource("4_43ohs")
+fire_projectile = ExtResource("4_60v4n")
 
 [node name="FirePosCmp3" parent="Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_main" instance=ExtResource("3_b38nf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0106627, 0, 4.19095e-09)
 fire_animation = &""
-fire_projectile = ExtResource("4_43ohs")
+fire_projectile = ExtResource("4_60v4n")
 
 [node name="Cannon_7_Base_top_fire_side" type="MeshInstance3D" parent="Cannon7/Node3D/Cannon_7_Base_mid/Node3D2"]
 transform = Transform3D(-100, 9.59904e-13, -2.14568e-05, -6.60002e-13, 100, 7.54979e-06, 2.14568e-05, 7.54979e-06, -100, 0.00970065, 2.25645, -1.16027)
