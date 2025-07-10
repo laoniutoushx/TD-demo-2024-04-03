@@ -1,18 +1,18 @@
 [gd_scene load_steps=20 format=3 uid="uid://d4i83bqlqpy0a"]
 
-[ext_resource type="Material" uid="uid://ceb6m6dh5v0hb" path="res://Asserts/Models/projectiles/m_lightening_std.tres" id="1_dqsn4"]
-[ext_resource type="ArrayMesh" uid="uid://xv6ycjsmspbm" path="res://Asserts/Models/projectiles/sm_fireb_blast4_HS.obj" id="2_y58hq"]
-[ext_resource type="Shader" uid="uid://bpf8re2if2yu3" path="res://VFX/projectiles/fireball/s_FireHeader.tres" id="3_qgu4u"]
-[ext_resource type="Material" uid="uid://c7tmvatlueuuv" path="res://Asserts/Models/projectiles/m_Trail_lightening_1.tres" id="4_mwhk3"]
-[ext_resource type="Shader" uid="uid://bxslcncv0mhh1" path="res://VFX/projectiles/fireball/s_Trail_dynamic.tres" id="5_ykqcl"]
-[ext_resource type="Texture2D" uid="uid://tj7s34v4h2nk" path="res://Asserts/textures/vfx/projectiles/T_VFX_TrailKuwaharaLight.jpg" id="6_fkovg"]
-[ext_resource type="Script" uid="uid://b3w53u07ukurw" path="res://Scripts/Trail3D.gd" id="7_3mi7x"]
-[ext_resource type="Shader" uid="uid://b28qeeghrupsv" path="res://VFX/projectiles/fireball/s_basic_disolve_p.tres" id="8_0sqmk"]
-[ext_resource type="Texture2D" uid="uid://p882hvpsbqve" path="res://Asserts/textures/vfx/projectiles/T_VFX_spark44.jpg" id="9_bfo5i"]
+[ext_resource type="Material" uid="uid://ceb6m6dh5v0hb" path="res://Asserts/Models/projectiles/m_lightening_std.tres" id="1_euu8j"]
+[ext_resource type="ArrayMesh" uid="uid://xv6ycjsmspbm" path="res://Asserts/Models/projectiles/sm_fireb_blast4_HS.obj" id="2_thylp"]
+[ext_resource type="Shader" uid="uid://bpf8re2if2yu3" path="res://VFX/projectiles/fireball/s_FireHeader.tres" id="3_f37xi"]
+[ext_resource type="Material" uid="uid://c7tmvatlueuuv" path="res://Asserts/Models/projectiles/m_Trail_lightening_1.tres" id="4_6coaa"]
+[ext_resource type="Shader" uid="uid://bxslcncv0mhh1" path="res://VFX/projectiles/fireball/s_Trail_dynamic.tres" id="5_h8aha"]
+[ext_resource type="Texture2D" uid="uid://tj7s34v4h2nk" path="res://Asserts/textures/vfx/projectiles/T_VFX_TrailKuwaharaLight.jpg" id="6_a0iir"]
+[ext_resource type="Script" uid="uid://b3w53u07ukurw" path="res://Scripts/Trail3D.gd" id="7_s52cs"]
+[ext_resource type="Shader" uid="uid://b28qeeghrupsv" path="res://VFX/projectiles/fireball/s_basic_disolve_p.tres" id="8_4mhi3"]
+[ext_resource type="Texture2D" uid="uid://p882hvpsbqve" path="res://Asserts/textures/vfx/projectiles/T_VFX_spark44.jpg" id="9_nv2mq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rec5w"]
 render_priority = 0
-shader = ExtResource("3_qgu4u")
+shader = ExtResource("3_f37xi")
 shader_parameter/Color = Color(0.2, 0.8, 3, 1)
 shader_parameter/Fresnel = 30.0
 
@@ -22,17 +22,17 @@ shader_parameter/Fresnel = 30.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qk5ma"]
 render_priority = -1
-shader = ExtResource("5_ykqcl")
+shader = ExtResource("5_h8aha")
 shader_parameter/Scale = Vector2(0.5, 1)
 shader_parameter/Trail_Speed = Vector2(4, 0)
-shader_parameter/Texture2DParameter = ExtResource("6_fkovg")
+shader_parameter/Texture2DParameter = ExtResource("6_a0iir")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_lupbe"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_dqsn4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gkdsd"]
 render_priority = 0
-shader = ExtResource("8_0sqmk")
-shader_parameter/Texture = ExtResource("9_bfo5i")
+shader = ExtResource("8_4mhi3")
+shader_parameter/Texture = ExtResource("9_nv2mq")
 
 [sub_resource type="Curve" id="Curve_h7cf3"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -66,9 +66,9 @@ anim_speed_max = 2.0
 [node name="TBHead" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.727, 0, -1.3841e-07, 0, 0.727, 0, 6.35564e-08, 0, -1.58323, 0, 0, 0)
 sorting_offset = 1.0
-material_override = ExtResource("1_dqsn4")
+material_override = ExtResource("1_euu8j")
 cast_shadow = 0
-mesh = ExtResource("2_y58hq")
+mesh = ExtResource("2_thylp")
 skeleton = NodePath("../../..")
 
 [node name="MHeader" type="MeshInstance3D" parent="."]
@@ -80,7 +80,7 @@ skeleton = NodePath("../..")
 
 [node name="Trail1_static" type="MeshInstance3D" parent="."]
 transform = Transform3D(-2.37553e-07, -0.707107, 0.707107, 0, 0.707107, 0.707107, -5.43457, 3.09086e-08, -3.09086e-08, 0, 0, 2.53354)
-material_override = ExtResource("4_mwhk3")
+material_override = ExtResource("4_6coaa")
 cast_shadow = 0
 mesh = SubResource("QuadMesh_p7v2y")
 skeleton = NodePath("../..")
@@ -90,9 +90,9 @@ transform = Transform3D(0.900067, 0, -0.435751, 0, 1, 0, 0.435751, 0, 0.900067, 
 visible = false
 material_override = SubResource("ShaderMaterial_qk5ma")
 cast_shadow = 0
-mesh = SubResource("ImmediateMesh_lupbe")
+mesh = SubResource("ImmediateMesh_dqsn4")
 skeleton = NodePath("../..")
-script = ExtResource("7_3mi7x")
+script = ExtResource("7_s52cs")
 fromWidth = 1.0
 toWidth = 0.3
 lifespan = 0.2

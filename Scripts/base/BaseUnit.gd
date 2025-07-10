@@ -96,11 +96,6 @@ var attack_value: float	#
 @export var mana_recove_rate_factor: float = 0.0		# 魔法值恢复速率
 
 
-# FightRegion
-var vfx_projectile_name: String
-var projectile_trace: Curve3D
-
-
 
 # material and mesh
 var _outline_mesh: MeshInstance3D

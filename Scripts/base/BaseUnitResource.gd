@@ -73,8 +73,7 @@ enum ELEMENT_PHASE_STR{
 
 
 
-# FightRegion
-@export var vfx_projectile_name: String
+
 
 # ANIMATION
 @export_group("Animation")

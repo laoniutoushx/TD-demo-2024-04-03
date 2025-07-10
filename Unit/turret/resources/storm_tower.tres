@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=7 format=3 uid="uid://d20fwfuv5wl6l"]
+
+[ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="1_ghd3t"]
+[ext_resource type="PackedScene" uid="uid://lb1p6hi1qybm" path="res://Unit/turret/scenes/storm_tower.tscn" id="2_ghd3t"]
+[ext_resource type="Script" uid="uid://cwoilst65vmq6" path="res://Unit/enemy/EnemyResource.gd" id="3_m1vtd"]
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_l051c"]
+[ext_resource type="Resource" uid="uid://bs6w3mufvu6f1" path="res://System/skill_system/resources/damage/ice_strom.tres" id="5_s7gaa"]
+[ext_resource type="Resource" uid="uid://dpnj33orc37b" path="res://System/skill_system/resources/damage/thunder_chain.tres" id="6_ghd3t"]
+
+[resource]
+script = ExtResource("3_m1vtd")
+clz_name = "storm_tower"
+model_path = ExtResource("2_ghd3t")
+title = "风暴塔"
+desc = "范围伤害和群体控制，提供减速和持续伤害。"
+icon_path = "res://Asserts/Images/icon/turret/storm_tower.png"
+aabb_scale = 1.0
+aabb_height_scale = 1.0
+element_phase = 31
+unit_move_type = 1
+unit_cate = 1
+armor_amount = 0.0
+armor_type = 2
+is_mesh_outline = false
+is_mesh_standing = false
+mana_cost = 10.0
+wood_cost = -1.0
+money_cost = 50.0
+money_reward = -1
+wood_reward = -1
+max_health = 100.0
+max_mana = 100.0
+move_speed = 5.0
+turn_speed = 10.0
+attack_speed = 0.5
+attack_range = 37.0
+attack_num = 1
+bounce_times = 0
+bounce_distance = 20
+bounce_decay_factor = 0.3
+attack_value = 200.0
+unit_growth_factor = 0.01
+projectile_speed = 280.0
+health_recove_rate_factor = 0.0
+mana_recove_rate_factor = 1.0
+anim_attack = null
+anim_run = "Armature|Jump"
+anim_walk = null
+anim_idle = null
+anim_death = "death"
+anim_release = null
+anim_speed_factor = 1.0
+anim_ack_point = 0.03
+is_selected_circle = true
+component_systems = 0
+pickup_velocity = 1000.0
+item_metas = Array[ExtResource("1_ghd3t")]([])
+skill_metas = Array[ExtResource("4_l051c")]([ExtResource("5_s7gaa"), ExtResource("6_ghd3t")])

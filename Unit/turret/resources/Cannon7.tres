@@ -9,9 +9,9 @@
 script = ExtResource("3_keaqc")
 clz_name = "Cannon_7"
 model_path = ExtResource("2_b6h2c")
-title = "大炮 Lv 7"
-desc = "大炮7"
-icon_path = "res://Asserts/Images/icon/skill icon/27.png"
+title = "炮塔 MAX"
+desc = "简单粗暴的物理DPS，应对中低护甲的单体怪物"
+icon_path = "res://Asserts/Images/icon/turret/cannon.png"
 aabb_scale = 1.0
 aabb_height_scale = 1.0
 element_phase = 31

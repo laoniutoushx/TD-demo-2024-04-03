@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://gbkgnwr3dp34"]
+
+[ext_resource type="Texture2D" uid="uid://b1613emejqwc3" path="res://Asserts/textures/vfx/T_Noise1_tiled.png" id="1_xh4a2"]
+
+[resource]
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 2, 3, 1)
+albedo_texture = ExtResource("1_xh4a2")
+emission = Color(0, 0, 2, 1)
+uv1_offset = Vector3(0, 1, 0)

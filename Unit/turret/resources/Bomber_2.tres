@@ -9,8 +9,8 @@
 script = ExtResource("3_h32g6")
 clz_name = "Bomber_2"
 model_path = ExtResource("2_0qtyr")
-title = "轰炸机 Lv 2"
-desc = "轰炸机2"
+title = "守卫者 MAX"
+desc = "无主动技能，专注于普攻输出"
 icon_path = "res://Asserts/Images/icon/turret/bomber2.png"
 aabb_scale = 1.0
 aabb_height_scale = 1.0
