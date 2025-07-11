@@ -300,35 +300,37 @@ static func create_outline_mesh(mesh_instance: MeshInstance3D, outline_width: fl
 
 
 
-# 计算相关
-# "det == 0"	 look at 共线错误修复
-static func safe_look_at(node: Node3D, from: Vector3, to: Vector3, up: Vector3 = Vector3.UP) -> void:
-	var direction = (to - from).normalized()
-
-	# 检查是否和 up 向量共线（即点积接近 ±1）
-	if abs(direction.dot(up)) > 0.999:
-		up = Vector3.FORWARD if abs(direction.dot(Vector3.FORWARD)) < 0.999 else Vector3.RIGHT
-
-	node.look_at(to, up)
-
-
-# static func safe_look_at(node: Node3D, from: Vector3, to: Vector3) -> void:
-# 	var direction := (to - from).normalized()
-# 	if direction.length() < 0.001:
-# 		return # 避免无效方向
-
-# 	# 计算安全的 up 向量：尝试默认 UP，如果共线则用 FORWARD，再不行用 RIGHT
-# 	var up := Vector3.UP
-# 	if abs(direction.dot(up)) > 0.99:
-# 		up = Vector3.FORWARD
-# 		if abs(direction.dot(up)) > 0.99:
-# 			up = Vector3.RIGHT
-
-# 	# 确保 up 与方向正交
-# 	var right = direction.cross(up).normalized()
-# 	up = right.cross(direction).normalized()
-
-# 	node.global_transform = Transform3D().looking_at(to, up).translated(from)
+# 使用四元数插值实现平滑旋转
+static func safe_look_at(node: Node3D, from: Vector3, to: Vector3, up: Vector3 = Vector3.UP, speed: float = 1.0) -> void:
+	var direction = to - from
+	var distance = direction.length()
+	
+	# 检查方向向量是否有效
+	if distance < 0.001 or not direction.is_finite() or direction.is_equal_approx(Vector3.ZERO):
+		return  # 跳过无效或接近零的方向向量
+	
+	direction = direction.normalized()
+	
+	# 选择合适的 up 向量，确保不与方向向量平行
+	var fallback_up = Vector3.UP
+	if abs(direction.dot(fallback_up)) > 0.999:
+		fallback_up = Vector3.FORWARD if abs(direction.dot(Vector3.FORWARD)) < 0.999 else Vector3.RIGHT
+	
+	# 计算目标旋转
+	var target_basis = Basis.looking_at(direction, fallback_up)
+	
+	# 验证基矩阵是否有效
+	if target_basis.is_finite() and abs(target_basis.determinant()) > 0.0001:
+		# 使用四元数插值实现平滑旋转
+		var current_quat = node.transform.basis.get_rotation_quaternion()
+		var target_quat = target_basis.get_rotation_quaternion()
+		var new_quat = current_quat.slerp(target_quat, speed)
+		
+		node.global_position = from
+		node.transform.basis = Basis(new_quat)
+	else:
+		# 如果基矩阵无效，保持当前旋转
+		print_debug("Invalid basis in safe_look_at: ", target_basis)
 
 
 

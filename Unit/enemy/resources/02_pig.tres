@@ -41,7 +41,6 @@ unit_growth_factor = 1.0
 projectile_speed = 100.0
 health_recove_rate_factor = 0.0
 mana_recove_rate_factor = 0.0
-vfx_projectile_name = ""
 anim_attack = null
 anim_run = "Armature|Jump"
 anim_walk = null

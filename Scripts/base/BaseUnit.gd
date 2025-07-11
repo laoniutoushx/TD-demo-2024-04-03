@@ -22,8 +22,8 @@ signal mana_changed(unit: BaseUnit, left_mana: float)	# 魔法变化单位，剩
 @export var desc: String
 
 @export var icon_path: String
-@export_range(0.0, 100.0, 0.01) var aabb_scale: float = 1	# 通过参数修正 代码获取 aabb 尺寸偏差的问题 ？？ 
-@export_range(0.0, 100.0, 0.01) var aabb_height_scale: float = 1	# 通过参数修正 代码获取 aabb 尺寸偏差的问题 ？？ 
+@export_range(0.0, 100.0, 0.01) var aabb_scale: float	# 通过参数修正 代码获取 aabb 尺寸偏差的问题 ？？ 
+@export_range(0.0, 100.0, 0.01) var aabb_height_scale: float	# 通过参数修正 代码获取 aabb 尺寸偏差的问题 ？？ 
 
 # define unit element phase
 @export_flags("WOOD", "FIRE", "METAL", "WATER", "EARCH") var element_phase: int = 0
@@ -287,7 +287,7 @@ func _ready() -> void:
 
 
 	# AABB
-	var aabb: AABB = CommonUtil.get_scaled_aabb(CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ, false))
+	var aabb: AABB = CommonUtil.get_scaled_aabb(CommonUtil.get_first_node_by_node_type(self.get_child(0), Constants.MeshInstance3D_CLZ, false))
 	# _transformed_aabb = AABB(aabb.position * aabb_scale, aabb.size * aabb_scale)
 	_transformed_aabb = aabb.grow(aabb_scale)
 	_height = aabb.size.y * aabb_height_scale
@@ -488,11 +488,13 @@ func heal(amount: int):
 
 	
 func _create_mesh_outline():
+	CommonUtil.add_outline_to_unit(self.get_child(0), _outline_material)
+
 	# 1. 获取对象 mesh 网格
-	var origin_mesh = CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ, false)
-	if origin_mesh != null:
-		var om: MeshInstance3D = (origin_mesh as MeshInstance3D)
-		om.material_overlay = _outline_material
+	# var origin_mesh = CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ, false)
+	# if origin_mesh != null:
+	# 	var om: MeshInstance3D = (origin_mesh as MeshInstance3D)
+	# 	om.material_overlay = _outline_material
 
 	
 func _create_mesh_standing():

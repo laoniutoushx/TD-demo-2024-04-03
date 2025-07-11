@@ -45,7 +45,6 @@ unit_growth_factor = 0.03
 projectile_speed = 300.0
 health_recove_rate_factor = 0.0
 mana_recove_rate_factor = 5.0
-vfx_projectile_name = "asif20_kunai_knife"
 anim_attack = "attack"
 anim_run = "walk"
 anim_walk = "walk"

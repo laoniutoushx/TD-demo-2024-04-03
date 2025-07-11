@@ -26,7 +26,8 @@ func _health_bar_create():
 	await self.ready
 	var health_bar: HealthBar = preload("res://Components/health_bar/health_bar.tscn").instantiate()
 	# var aabb: AABB = _transformed_aabb
-	var aabb: AABB = CommonUtil.get_scaled_aabb(CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ, false))
+	var aabb: AABB = _transformed_aabb
+	# var aabb: AABB = CommonUtil.get_scaled_aabb(CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ, false))
 	# print("aabb %s" % aabb)
 
 	var width = aabb.size.x
@@ -50,7 +51,8 @@ func _health_bar_create():
 	# print("self.global_position.y %s" % self.global_position.y)
 	# print("height %s" % height)
 	# health_bar.position.y = self.global_position.y + _height
-	health_bar.position.y = self.global_position.y + real_height
+	health_bar.position.y = self.global_position.y + real_height # + 1.0
+	print("health_bar.position.y %s" % health_bar.position.y)
 
 	health_bar.prepare(max_health)
 	health_bar.resize(health_bar_2d_width, health_bar_2d_height, w_w_scale)

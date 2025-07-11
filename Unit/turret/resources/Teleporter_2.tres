@@ -85,7 +85,6 @@ unit_growth_factor = 0.02
 projectile_speed = 300.0
 health_recove_rate_factor = 0.0
 mana_recove_rate_factor = 2.0
-vfx_projectile_name = "water"
 anim_attack = null
 anim_run = null
 anim_walk = null
