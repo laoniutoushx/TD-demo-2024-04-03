@@ -51,15 +51,15 @@ enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_gf
 script = ExtResource("4_gg7ch")
 enemy_res_name = "03_pug"
 spawn_start_delay = 2.0
-spawn_interval = 4.0
-enemy_amount = 5
+spawn_interval = 1.0
+enemy_amount = 10
 
 [sub_resource type="Resource" id="Resource_c8hpo"]
 script = ExtResource("4_gg7ch")
 enemy_res_name = "04_dog"
 spawn_start_delay = 0.0
-spawn_interval = 4.0
-enemy_amount = 5
+spawn_interval = 1.7
+enemy_amount = 15
 
 [sub_resource type="Resource" id="Resource_prnja"]
 script = ExtResource("3_o0ugr")

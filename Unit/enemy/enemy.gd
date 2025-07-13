@@ -31,10 +31,9 @@ func _health_bar_create():
 	# print("aabb %s" % aabb)
 
 	var width = aabb.size.x
-	var height = aabb.size.y
 
 	var real_width = width
-	var real_height = height * health_bar.y_scale 
+	var real_height = _height
 	
 	# health bar 长度比例计算  78 px : 10px => 2
 	var default_scale_of_healthbar2d_x_y = float(health_bar.get_health_bar2d_size().x) / float(health_bar.get_health_bar2d_size().y)

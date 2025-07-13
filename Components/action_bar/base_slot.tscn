@@ -1,7 +1,6 @@
-[gd_scene load_steps=25 format=3 uid="uid://d2fad1mnop0tn"]
+[gd_scene load_steps=24 format=3 uid="uid://d2fad1mnop0tn"]
 
 [ext_resource type="Script" uid="uid://brlg4583nsr33" path="res://Components/action_bar/base_slot.gd" id="1_csdik"]
-[ext_resource type="Texture2D" uid="uid://dowc03iavj7w8" path="res://Asserts/Images/item/1.png" id="1_fdg41"]
 [ext_resource type="LabelSettings" uid="uid://dddgoh2chfqp" path="res://Asserts/resources/action_bar_label_setting.tres" id="2_cwpij"]
 [ext_resource type="Material" uid="uid://bvuqnh7l05igc" path="res://Components/action_bar/corner_boder_color.tres" id="3_4x347"]
 [ext_resource type="Texture2D" uid="uid://dehmc0uae454w" path="res://Components/action_bar/board_effect/1_01.png" id="7_lnur2"]
@@ -29,7 +28,7 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="Gradient" id="Gradient_a1akp"]
-colors = PackedColorArray(0, 0, 0, 0.490196, 0, 0, 0, 0.490196)
+colors = PackedColorArray(0, 0, 0, 0.784314, 0, 0, 0, 0.784314)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_vaoaa"]
 gradient = SubResource("Gradient_a1akp")
@@ -109,7 +108,6 @@ script = ExtResource("1_csdik")
 material = ExtResource("3_4x347")
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("1_fdg41")
 expand_mode = 1
 
 [node name="ShortCut" type="Label" parent="."]

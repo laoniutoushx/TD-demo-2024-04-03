@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=4 uid="uid://do5bxrrfoty6f"]
 
 [ext_resource type="Script" uid="uid://cb2myjgx6f2f" path="res://Unit/enemy/enemy.gd" id="1_ijk4d"]
-[ext_resource type="Texture2D" uid="uid://p3sj07vw46tu" path="res://Asserts/Models/ulimate monster/glTF/Alpaking_Evolved_Atlas_Monsters.png" id="2_54y8d"]
+[ext_resource type="Texture2D" uid="uid://c0e53xq6hi3gr" path="res://Asserts/Models/ulimate monster/glTF/Alpaking_Evolved_Atlas_Monsters.png" id="2_54y8d"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="3_vlnwg"]
 [ext_resource type="PackedScene" uid="uid://bxwu6lrqgowbs" path="res://Components/level/level_comp.tscn" id="4_fjgav"]
 
@@ -901,7 +901,7 @@ skin = SubResource("Skin_mf8y3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Alpaking_Evolved"]
 libraries = {
-"": SubResource("AnimationLibrary_q6ey8")
+&"": SubResource("AnimationLibrary_q6ey8")
 }
 
 [node name="AttackedScope" type="Area3D" parent="." groups=["enemy"]]
