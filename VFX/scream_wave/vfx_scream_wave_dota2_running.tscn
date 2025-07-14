@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=3 uid="uid://wf43ori5gj8a"]
+
+[ext_resource type="Script" uid="uid://r2nxuo6d2vcj" path="res://VFX/scream_wave/scream_wave.gd" id="1_hsenh"]
+[ext_resource type="Shader" uid="uid://dcetteksa2voj" path="res://VFX/scream_wave/vfx_scream_wave_dota2_running.gdshader" id="2_6a20e"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rsi2y"]
+render_priority = 0
+shader = ExtResource("2_6a20e")
+shader_parameter/deform_strength = 0.25
+shader_parameter/deform_scale = 2.0
+shader_parameter/time_speed = 1.0
+shader_parameter/deform_direction = Vector3(2, 1, 0.5)
+shader_parameter/base_hue = 0.286
+shader_parameter/hue_variation = 1.0
+shader_parameter/base_saturation = 0.735
+shader_parameter/saturation_variation = 1.0
+shader_parameter/base_brightness = 1.257
+shader_parameter/brightness_variation = 0.442
+shader_parameter/color_noise_scale = 0.1
+
+[sub_resource type="Curve" id="Curve_3c628"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.06567, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_uvsj8"]
+curve = SubResource("Curve_3c628")
+
+[sub_resource type="Curve" id="Curve_i2eam"]
+_limits = [0.0, 20.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.145946, 3.69863), -5.19845, -5.19845, 0, 0, Vector2(1, 0), -6.14363, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ac1hu"]
+curve = SubResource("Curve_i2eam")
+
+[sub_resource type="Curve" id="Curve_rsi2y"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 0.48933), 0.0, 7.98946, 0, 0, Vector2(0.481081, 2.28731), 0.928866, 0.928866, 0, 0, Vector2(1, 2.5274), 0.211021, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_3c628"]
+curve = SubResource("Curve_rsi2y")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3c628"]
+particle_flag_align_y = true
+emission_shape_scale = Vector3(0.1, 0.1, 0.1)
+emission_shape = 3
+emission_box_extents = Vector3(0.1, 0.1, 0.1)
+direction = Vector3(0, -0.05, 1)
+spread = 0.0
+initial_velocity_min = 32.0
+initial_velocity_max = 32.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -7.69
+linear_accel_max = -7.69
+linear_accel_curve = SubResource("CurveTexture_ac1hu")
+scale_curve = SubResource("CurveTexture_3c628")
+color = Color(0.63486, 0.730902, 0.701445, 1)
+alpha_curve = SubResource("CurveTexture_uvsj8")
+
+[sub_resource type="TorusMesh" id="TorusMesh_ac1hu"]
+inner_radius = 1.7
+outer_radius = 2.0
+rings = 32
+ring_segments = 16
+
+[node name="ScreamWave" type="Node3D"]
+script = ExtResource("1_hsenh")
+
+[node name="DoubleRingCore" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.996195, 0.0871557, 0, -0.0871557, 0.996195, 0, 2, 0)
+material_override = SubResource("ShaderMaterial_rsi2y")
+emitting = false
+amount = 11
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.3
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_3c628")
+draw_pass_1 = SubResource("TorusMesh_ac1hu")

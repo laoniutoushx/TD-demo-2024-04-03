@@ -15,7 +15,7 @@ func action(skill_context: SkillContext) -> void:
 	for wave in range(skill.wave):
 
 		# shockwave
-		var vfx = SystemUtil.vfx_system.create_vfx("scream_wave", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
+		var vfx = SystemUtil.vfx_system.create_vfx("scream_wave_dota2", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
 		vfx.global_position.y = 1
 		self.add_child(vfx)
 
