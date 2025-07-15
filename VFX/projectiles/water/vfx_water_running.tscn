@@ -5,7 +5,7 @@
 [ext_resource type="Shader" uid="uid://critlgjh6ip80" path="res://VFX/projectiles/water/fireball_impact_trail.gdshader" id="3_8exrf"]
 [ext_resource type="Script" uid="uid://b3w53u07ukurw" path="res://Scripts/Trail3D.gd" id="3_hds7r"]
 [ext_resource type="Texture2D" uid="uid://b0sxtqtnp28gp" path="res://addons/kenney_particle_pack/T_PerlinNoise_Tiled.png" id="3_y3j7m"]
-[ext_resource type="AudioStream" uid="uid://buq0byk7dwh4p" path="res://Asserts/waves/fire-ball.wav" id="4_2oh8h"]
+[ext_resource type="AudioStream" uid="uid://bkutx7v2hechb" path="res://Asserts/waves/projectile/波纹攻击_爱给网_aigei_com.mp3" id="6_xk0yr"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h0r0k"]
 gravity = Vector3(0, 0, 0)
@@ -69,7 +69,7 @@ vertex_color_is_srgb = true
 albedo_texture = ExtResource("3_y3j7m")
 billboard_keep_scale = true
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_xk0yr"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_bsf05"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bdvgk"]
 render_priority = 0
@@ -110,7 +110,7 @@ mesh = SubResource("PlaneMesh_aku21")
 [node name="Trail3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_rp5xk")
-mesh = SubResource("ImmediateMesh_xk0yr")
+mesh = SubResource("ImmediateMesh_bsf05")
 script = ExtResource("3_hds7r")
 toWidth = 0.5
 scaleAcceleration = 1.5
@@ -118,10 +118,6 @@ motionDelta = 0.01
 lifespan = 0.2
 startColor = Color(0, 0.541176, 1.62353, 1)
 endColor = Color(0, 0.541176, 1.62353, 1)
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("4_2oh8h")
-autoplay = true
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.122745, 0.663263, 2.56619)
@@ -134,3 +130,9 @@ transform_align = 3
 trail_enabled = true
 process_material = SubResource("ParticleProcessMaterial_x37qa")
 draw_pass_1 = SubResource("RibbonTrailMesh_2lbea")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+stream = ExtResource("6_xk0yr")
+volume_db = 20.0
+autoplay = true

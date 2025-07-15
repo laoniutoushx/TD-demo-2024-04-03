@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://crd40ycge6qp1"]
+[gd_scene load_steps=21 format=3 uid="uid://crd40ycge6qp1"]
 
 [ext_resource type="Texture2D" uid="uid://b7sqddmatavpl" path="res://Asserts/textures/vfx/projectiles/T_basic1_vfx.PNG" id="1_vjvyl"]
 [ext_resource type="Material" uid="uid://c2po8q8oho5y6" path="res://Asserts/Models/projectiles/m_fireTrail1.tres" id="2_ljk52"]
@@ -8,6 +8,7 @@
 [ext_resource type="Shader" uid="uid://duvytfaft2817" path="res://VFX/projectiles/fireball/s_fireball_shader.tres" id="5_ixu2y"]
 [ext_resource type="ArrayMesh" uid="uid://dwr8m6juolyd8" path="res://Asserts/Models/projectiles/fireball_mesh_st.obj" id="6_ou60u"]
 [ext_resource type="Shader" uid="uid://dqd6vb4yowvwv" path="res://VFX/projectiles/fireball/s_FireHeader_shader.tres" id="7_wi8x6"]
+[ext_resource type="AudioStream" uid="uid://buq0byk7dwh4p" path="res://Asserts/waves/fire-ball.wav" id="9_4s24h"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0mdtd"]
 blend_mode = 1
@@ -53,7 +54,7 @@ shader_parameter/Scale = Vector2(0.2, 1)
 shader_parameter/Trail_Speed = Vector2(3, 0)
 shader_parameter/Texture2DParameter = ExtResource("4_f4e2w")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_tdhci"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_n57yl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_66jmh"]
 render_priority = 1
@@ -93,7 +94,7 @@ transform = Transform3D(0.682933, 0.730481, 0, -0.663721, 0.620518, -0.417649, -
 visible = false
 material_override = SubResource("ShaderMaterial_uwnww")
 cast_shadow = 0
-mesh = SubResource("ImmediateMesh_tdhci")
+mesh = SubResource("ImmediateMesh_n57yl")
 skeleton = NodePath("../..")
 script = ExtResource("4_ig45u")
 fromWidth = 1.3
@@ -120,3 +121,8 @@ skeleton = NodePath("../..")
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 light_color = Color(1, 0.721569, 0.552941, 1)
 light_energy = 1.5
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("9_4s24h")
+volume_db = 30.0
+autoplay = true

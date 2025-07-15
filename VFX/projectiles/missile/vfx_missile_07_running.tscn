@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://n8k4to0h1lb" path="res://Asserts/Models/weapons_pack_bullets_gltf/weapons_pack_bullets_gltf_Bullets_M_baseColor.png" id="1_84ka6"]
 [ext_resource type="Script" uid="uid://b3w53u07ukurw" path="res://Scripts/Trail3D.gd" id="2_2agdn"]
-[ext_resource type="AudioStream" uid="uid://buq0byk7dwh4p" path="res://Asserts/waves/fire-ball.wav" id="2_htb0f"]
 [ext_resource type="Texture2D" uid="uid://brtx1k4o282bb" path="res://addons/kenney_particle_pack/spark_07.png" id="2_y4132"]
+[ext_resource type="AudioStream" uid="uid://co0w4sgpbrd27" path="res://Asserts/waves/projectile/ak47单发射击_爱给网_aigei_com.mp3" id="4_f5egr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u5x2j"]
 resource_name = "Bullets_M"
@@ -57,7 +57,7 @@ vertex_color_is_srgb = true
 albedo_texture = ExtResource("2_y4132")
 billboard_keep_scale = true
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_f5egr"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_mijpb"]
 
 [node name="VfxMissleRunning" type="Node3D"]
 
@@ -69,11 +69,11 @@ skeleton = NodePath("")
 [node name="Trail3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_rp5xk")
-mesh = SubResource("ImmediateMesh_f5egr")
+mesh = SubResource("ImmediateMesh_mijpb")
 script = ExtResource("2_2agdn")
 fromWidth = 1.0
 toWidth = 1.0
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("2_htb0f")
+stream = ExtResource("4_f5egr")
 autoplay = true

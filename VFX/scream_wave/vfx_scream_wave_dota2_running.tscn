@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://wf43ori5gj8a"]
+[gd_scene load_steps=17 format=3 uid="uid://wf43ori5gj8a"]
 
 [ext_resource type="Script" uid="uid://r2nxuo6d2vcj" path="res://VFX/scream_wave/scream_wave.gd" id="1_hsenh"]
 [ext_resource type="Shader" uid="uid://dcetteksa2voj" path="res://VFX/scream_wave/vfx_scream_wave_dota2_running.gdshader" id="2_6a20e"]
+[ext_resource type="AudioStream" uid="uid://bjra508h0s5t8" path="res://Asserts/waves/skill/怪物攻击技能音效boss_skill18_爱给网_aigei_com.mp3" id="3_6a20e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rsi2y"]
 render_priority = 0
@@ -181,3 +182,9 @@ debug_color = Color(0, 0.54, 0.631, 1)
 libraries = {
 &"": SubResource("AnimationLibrary_yu8oe")
 }
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_6a20e")
+autoplay = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

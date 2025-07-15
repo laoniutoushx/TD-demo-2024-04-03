@@ -55,6 +55,9 @@ func level_up() -> void:
 				# await vfx_instance.ready
 				# reference.add_child(vfx_instance)	# BUG ？？？ 为什么不使用延迟添加，节点不会进入场景？
 
+				# 播放音效
+				CommonUtil.play_audio(reference, "VIP升级_爱给网_aigei_com", true)
+
 
 
 

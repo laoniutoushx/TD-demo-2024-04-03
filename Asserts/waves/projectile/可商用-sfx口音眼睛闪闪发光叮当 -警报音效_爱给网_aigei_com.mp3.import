@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c0uo5twskm7ro"
+path="res://.godot/imported/可商用-sfx口音眼睛闪闪发光叮当 -警报音效_爱给网_aigei_com.mp3-a17ab62846b182416ba69a8cbf8f004d.mp3str"
+
+[deps]
+
+source_file="res://Asserts/waves/projectile/可商用-sfx口音眼睛闪闪发光叮当 -警报音效_爱给网_aigei_com.mp3"
+dest_files=["res://.godot/imported/可商用-sfx口音眼睛闪闪发光叮当 -警报音效_爱给网_aigei_com.mp3-a17ab62846b182416ba69a8cbf8f004d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

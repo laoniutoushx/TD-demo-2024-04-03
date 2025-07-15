@@ -31,6 +31,7 @@ var FadedCircle3D_CLZ = "FadedCircle3D"
 var MeshInstance3D_CLZ = "MeshInstance3D"
 var CollisionShape3D_CLZ = "CollisionShape3D"
 var AnimationPlayer_CLZ = "AnimationPlayer"
+var AudioStreamPlayer3D_CLZ = "AudioStreamPlayer3D"
 var AnimationTree_CLZ = "AnimationTree"
 
 # Enemy Icon Dir Prefix

@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=4 uid="uid://bhvfsij7cmlgu"]
+[gd_scene load_steps=17 format=4 uid="uid://bhvfsij7cmlgu"]
 
 [ext_resource type="Texture2D" uid="uid://da1iqi53byvde" path="res://Asserts/textures/vfx/T_VFX_Trail_Square.png" id="2_0tq6n"]
 [ext_resource type="Script" uid="uid://b3w53u07ukurw" path="res://Scripts/Trail3D.gd" id="3_ablpa"]
+[ext_resource type="AudioStream" uid="uid://bwuxqyhbpkadv" path="res://Asserts/waves/projectile/投飞镖声2_爱给网_aigei_com.mp3" id="4_0bms1"]
 [ext_resource type="PackedScene" uid="uid://cll88jekgo8hn" path="res://Test/vfx_moving_test/vfx_moving_test.tscn" id="4_i8jyn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fv8em"]
@@ -117,7 +118,7 @@ shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("2_0tq6n")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_7gbw7"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_0tq6n"]
 
 [sub_resource type="Animation" id="Animation_yx0kk"]
 length = 0.001
@@ -177,7 +178,7 @@ skeleton = NodePath("")
 [node name="ScreamTail" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_5ep5o")
-mesh = SubResource("ImmediateMesh_7gbw7")
+mesh = SubResource("ImmediateMesh_0tq6n")
 skeleton = NodePath("../Pivot/asif20_kunai_knife")
 script = ExtResource("3_ablpa")
 fromWidth = 0.1
@@ -195,3 +196,8 @@ start_position = Vector3(0, 0, 10)
 libraries = {
 &"": SubResource("AnimationLibrary_8wevm")
 }
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_0bms1")
+volume_db = 15.0
+autoplay = true

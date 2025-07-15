@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://cntgsbe8u4xcb"]
+[gd_scene load_steps=32 format=4 uid="uid://cntgsbe8u4xcb"]
 
 [ext_resource type="Shader" uid="uid://c1660p2rs4lfs" path="res://VFX/projectiles/fireball/s_ProjectileSoft_B_Disp.tres" id="1_fwhwd"]
 [ext_resource type="Texture2D" uid="uid://8fk5k1sbqvwh" path="res://Asserts/textures/vfx/projectiles/T_VFX_Noise_019.png" id="2_xsmg8"]
@@ -9,6 +9,7 @@
 [ext_resource type="Shader" uid="uid://b28qeeghrupsv" path="res://VFX/projectiles/fireball/s_basic_disolve_p.tres" id="7_d2xpk"]
 [ext_resource type="Texture2D" uid="uid://dgkbv4jad4qii" path="res://Asserts/textures/vfx/projectiles/T_VFX_smoke_1.PNG" id="8_1bfn0"]
 [ext_resource type="Shader" uid="uid://bxslcncv0mhh1" path="res://VFX/projectiles/fireball/s_Trail_dynamic.tres" id="9_02nb3"]
+[ext_resource type="AudioStream" uid="uid://b4auofxfgqffc" path="res://Asserts/waves/musket_fire_4.wav" id="11_87vbh"]
 [ext_resource type="Script" uid="uid://b3w53u07ukurw" path="res://Scripts/Trail3D.gd" id="11_d7jlv"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_oeum1"]
@@ -87,7 +88,7 @@ shader_parameter/Scale = Vector2(0.3, 1)
 shader_parameter/Trail_Speed = Vector2(6, 0)
 shader_parameter/Texture2DParameter = ExtResource("6_frwqm")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_2cqdm"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_qj5lf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wknj3"]
 render_priority = 0
@@ -167,7 +168,7 @@ transform = Transform3D(0.943055, 0, -0.332635, 0, 1, 0, 0.332635, 0, 0.943055, 
 visible = false
 material_override = SubResource("ShaderMaterial_57yat")
 cast_shadow = 0
-mesh = SubResource("ImmediateMesh_2cqdm")
+mesh = SubResource("ImmediateMesh_qj5lf")
 skeleton = NodePath("../..")
 script = ExtResource("11_d7jlv")
 fromWidth = 1.0
@@ -188,3 +189,7 @@ draw_pass_1 = SubResource("QuadMesh_syn1v")
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 light_color = Color(1, 0.756863, 0.0823529, 1)
 light_energy = 1.2
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("11_87vbh")
+autoplay = true

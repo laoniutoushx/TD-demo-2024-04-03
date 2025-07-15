@@ -39,9 +39,15 @@ func action(source, fire_pos: Vector3, target, fire_pos_mark: Marker3D) -> Array
 		projectile_instance.damage = source.attack_value
 		projectile_instance.add_child(vfx_projectile_ins) 
 
+		# 播放动画
 		var pi_ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(vfx_projectile_ins, Constants.AnimationPlayer_CLZ)
 		if pi_ap:
 			pi_ap.play(Constants.ANIM_RUN)
+
+		# 播放音效
+		# CommonUtil.play_audio(source, "投飞镖声2_爱给网_aigei_com", true)
+
+
 
 		# self.add_child(projectile_instance) 
 		call_deferred("add_child", projectile_instance)
