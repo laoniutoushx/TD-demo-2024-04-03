@@ -12,6 +12,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
     # 确保 source_unit 和 target_unit 有效
     if not is_instance_valid(source_unit) or not is_instance_valid(target_unit):
+        set_process(false)
         queue_free()  # 如果单位失效，销毁激光
         return
     
