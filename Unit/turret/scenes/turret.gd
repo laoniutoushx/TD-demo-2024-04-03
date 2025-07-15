@@ -164,12 +164,15 @@ func attack(turret_top) -> void:
 	# 选择 N 个单位攻击
 	if attack_num == 1:
 		(SystemUtil.damage_system as DamageSystem).action(self, current_enemy)
+		attack_unit.emit(self, current_enemy)	# 触发攻击事件
+
 	else:
 		# 选取 attack_num 个敌人
 		for i in range(attack_num):
 			if enemies.size() > i:
 				# projectile fire
 				(SystemUtil.damage_system as DamageSystem).action(self, enemies.values()[i])
+				attack_unit.emit(self, current_enemy)	# 触发攻击事件
 				i += 1
 	pass
 

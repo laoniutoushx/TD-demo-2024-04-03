@@ -77,6 +77,9 @@ var code: String
 @export var wave: int = 1
 # 技能投射速度 米/秒
 @export var projection_speed: float = 1
+# 触发几率（概率控制器）
+@export var probability: float
+
 
 # 技能禁用检查（魔法、健康值、金钱、木材）
 @export_flags("MANA", "HEALTH", "MONEY", "WOOD") var disable_check: int = 0
@@ -146,7 +149,14 @@ var skill_context: SkillContext
 # AI 相关（技能范围判断 AREA)
 var _area_ai: Area3D
 
+## 独立概率器是否初始化
+var _prob_controller: ProbabilityController = null
 
+
+
+
+
+#################### Ready ###########################
 func _ready() -> void:
     # 技能上下文构建
     # SkillContext 上下文，保存 skill: Skill, target: BaseUnit, source: BaseUnit, position: Vector3 等信息
@@ -168,6 +178,17 @@ func _ready() -> void:
         change_state(SKILL_STATE.Release)
 
 
+# 监听所属单位攻击事件
+func _on_unit_attack(source: BaseUnit, target: BaseUnit) -> void:
+    # 被动技能注册（攻击、受击触发）
+    if source.get_instance_id() == unit.get_instance_id() and _prob_controller.next():
+        skill_context.source = source
+        skill_context.target = target
+        skill_context.target_position = target.global_position
+
+        # 触发技能释放
+        change_state(SKILL_STATE.Release)
+        # SystemUtil.skill_system.skill_release_right_now(skill_context)
 
 
 

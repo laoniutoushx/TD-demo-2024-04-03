@@ -58,6 +58,15 @@ func initialize_skills(source_unit: BaseUnit, skill_metas: Array[SkillMetaResour
 
 			skill.add_child(skill.skill_script_instance)
 
+			# 被动技能注册（攻击、受击触发）
+			if (CommonUtil.is_flag_set(SkillMetaResource.SKILL_RELEASE_TYPE.PASSIVE, skill.release_type)
+				and CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.ENEMY, skill.target_type)):
+				# 被动技能监听单位攻击事件
+				source_unit.attack_unit.connect(skill._on_unit_attack)
+
+				# 创建概率器
+				skill._prob_controller = ProbabilityController.new(skill.probability)
+
 
 			## 只处理玩家单位（不涉及敌人单位）
 			if SystemUtil.unit_system.is_player_unit(source_unit):

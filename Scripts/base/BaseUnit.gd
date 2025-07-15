@@ -9,6 +9,7 @@ var clazz: BaseUnitResource
 # signal
 signal logical_death(unit: BaseUnit)
 signal mana_changed(unit: BaseUnit, left_mana: float)	# 魔法变化单位，剩余魔法值
+signal attack_unit(unit: BaseUnit, target: BaseUnit)	# 攻击单位，目标单位
 
 # signal physic_death(unit: BaseUnit)
 
@@ -199,12 +200,11 @@ var _height: float				# 当前对象高度
 
 
 ##################################################################
-#### 单位伤害逻辑
-## 单位伤害事件回调注册
+#单位受到伤害逻辑
 signal unit_take_damage_regist(callable: Callable)
 signal unit_take_damage_unregist(callable: Callable)
 
-## Take Damage 回调处理（用于植入其他处理逻辑），先于回调函数执行
+## Take Damage 回调处理（用于植入其他处理逻辑），先于回调函数执行（收到伤害 - 伤害目标单位，当前单位作为受到伤害单位，执行逻辑）
 var take_damage_callback_list: Array = []
 
 # Register Callable Function to be called when other Component 
@@ -215,11 +215,12 @@ func _on_unit_take_damage_regist(callable: Callable) -> void:
 func _on_unit_take_damage_unregist(callable: Callable) -> void:
 	take_damage_callback_list.erase(callable)
 
-
+##################################################################
+# 单位触发伤害逻辑
 signal unit_action_damage_regist(callable: Callable)
 signal unit_action_damage_unregist(callable: Callable)
 
-## Take Damage 回调处理（用于植入其他处理逻辑），先于回调函数执行
+## Action Damage 回调处理（用于植入其他处理逻辑），先于回调函数执行（触发伤害 - 当前 self 作为伤害来源单位，执行逻辑）
 var action_damage_callback_list: Array = []
 
 # Register Callable Function to be called when other Component 
@@ -229,7 +230,7 @@ func _on_unit_action_damage_regist(callable: Callable) -> void:
 
 func _on_unit_action_damage_unregist(callable: Callable) -> void:
 	action_damage_callback_list.erase(callable)
-
+##################################################################
 
 
 

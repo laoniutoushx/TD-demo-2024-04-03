@@ -84,6 +84,8 @@ class_name SkillMetaResource extends Resource
 @export var wave: int = 1
 # 技能投射速度 米/秒
 @export var projection_speed: float = 1
+# 技能触发几率（概率控制器）
+@export var probability: float = 0.25
 
 # 技能禁用检查（魔法、健康值、金钱、木材）
 enum SKILL_DISABLE_CHECK{
