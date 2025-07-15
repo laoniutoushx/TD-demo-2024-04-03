@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://wf43ori5gj8a"]
+[gd_scene load_steps=16 format=3 uid="uid://wf43ori5gj8a"]
 
 [ext_resource type="Script" uid="uid://r2nxuo6d2vcj" path="res://VFX/scream_wave/scream_wave.gd" id="1_hsenh"]
 [ext_resource type="Shader" uid="uid://dcetteksa2voj" path="res://VFX/scream_wave/vfx_scream_wave_dota2_running.gdshader" id="2_6a20e"]
@@ -6,17 +6,17 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rsi2y"]
 render_priority = 0
 shader = ExtResource("2_6a20e")
-shader_parameter/deform_strength = 0.25
-shader_parameter/deform_scale = 2.0
+shader_parameter/deform_strength = 0.5
+shader_parameter/deform_scale = 3.0
 shader_parameter/time_speed = 1.0
 shader_parameter/deform_direction = Vector3(2, 1, 0.5)
-shader_parameter/base_hue = 0.286
-shader_parameter/hue_variation = 1.0
-shader_parameter/base_saturation = 0.735
-shader_parameter/saturation_variation = 1.0
-shader_parameter/base_brightness = 1.257
-shader_parameter/brightness_variation = 0.442
-shader_parameter/color_noise_scale = 0.1
+shader_parameter/base_hue = 0.1
+shader_parameter/hue_variation = 0.375
+shader_parameter/base_saturation = 0.3
+shader_parameter/saturation_variation = 0.3
+shader_parameter/base_brightness = 1.0
+shader_parameter/brightness_variation = 0.4
+shader_parameter/color_noise_scale = 0.5
 
 [sub_resource type="Curve" id="Curve_3c628"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.06567, 0.0, 0, 0]
@@ -64,6 +64,94 @@ outer_radius = 2.0
 rings = 32
 ring_segments = 16
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_hsenh"]
+size = Vector3(1, 5, 1)
+
+[sub_resource type="Animation" id="Animation_hsenh"]
+resource_name = "burning"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area3D/CollisionShape3D:shape:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(5, 5, 1), Vector3(5, 5, 25), Vector3(5, 5, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoubleRingCore:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Area3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.03333, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.8, 0), Vector3(0, 1.8, 15), Vector3(0, 1.8, 25)]
+}
+
+[sub_resource type="Animation" id="Animation_6a20e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area3D/CollisionShape3D:shape:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 5, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoubleRingCore:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Area3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.8, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yu8oe"]
+_data = {
+&"RESET": SubResource("Animation_6a20e"),
+&"burning": SubResource("Animation_hsenh")
+}
+
 [node name="ScreamWave" type="Node3D"]
 script = ExtResource("1_hsenh")
 
@@ -79,3 +167,17 @@ randomness = 1.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_3c628")
 draw_pass_1 = SubResource("TorusMesh_ac1hu")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_hsenh")
+debug_color = Color(0, 0.54, 0.631, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_yu8oe")
+}

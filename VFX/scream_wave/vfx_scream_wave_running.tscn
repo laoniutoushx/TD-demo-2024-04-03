@@ -8,8 +8,8 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rsi2y"]
 render_priority = 0
 shader = ExtResource("2_bcpbx")
-shader_parameter/ring_color_1 = Color(3, 0.2, 0.3, 1)
-shader_parameter/ring_color_2 = Color(0.2, 0.3, 3, 1)
+shader_parameter/ring_color_1 = Color(1.3, 0.552, 0.2, 1)
+shader_parameter/ring_color_2 = Color(0.2, 0.3, 1.3, 1)
 shader_parameter/inner_radius_min = 0.35
 shader_parameter/inner_radius_max = 0.5
 shader_parameter/outer_radius_min = 0.45
@@ -45,7 +45,7 @@ point_count = 2
 curve = SubResource("Curve_rsi2y")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3c628"]
-particle_flag_rotate_y = true
+particle_flag_align_y = true
 emission_shape_scale = Vector3(0.1, 0.1, 0.1)
 emission_shape = 3
 emission_box_extents = Vector3(0.1, 0.1, 0.1)
@@ -64,8 +64,11 @@ scale_curve = SubResource("CurveTexture_3c628")
 color = Color(0.63486, 0.730902, 0.701445, 1)
 alpha_curve = SubResource("CurveTexture_uvsj8")
 
-[sub_resource type="QuadMesh" id="QuadMesh_84m0v"]
-size = Vector2(5, 5)
+[sub_resource type="TorusMesh" id="TorusMesh_bcpbx"]
+inner_radius = 1.5
+outer_radius = 2.0
+rings = 32
+ring_segments = 16
 
 [sub_resource type="Curve" id="Curve_84m0v"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -572,9 +575,8 @@ lifetime = 1.5
 one_shot = true
 explosiveness = 1.0
 fixed_fps = 60
-local_coords = true
 process_material = SubResource("ParticleProcessMaterial_3c628")
-draw_pass_1 = SubResource("QuadMesh_84m0v")
+draw_pass_1 = SubResource("TorusMesh_bcpbx")
 
 [node name="FlashCore" type="GPUParticles3D" parent="DoubleRingCore"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -597,7 +599,7 @@ explosiveness = 1.0
 fixed_fps = 60
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_3c628")
-draw_pass_1 = SubResource("QuadMesh_84m0v")
+draw_pass_1 = SubResource("TorusMesh_bcpbx")
 
 [node name="FlashCore" type="GPUParticles3D" parent="DoubleRingCore2"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -620,7 +622,7 @@ explosiveness = 1.0
 fixed_fps = 60
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_3c628")
-draw_pass_1 = SubResource("QuadMesh_84m0v")
+draw_pass_1 = SubResource("TorusMesh_bcpbx")
 
 [node name="FlashCore" type="GPUParticles3D" parent="DoubleRingCore3"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -643,7 +645,7 @@ explosiveness = 1.0
 fixed_fps = 60
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_3c628")
-draw_pass_1 = SubResource("QuadMesh_84m0v")
+draw_pass_1 = SubResource("TorusMesh_bcpbx")
 
 [node name="FlashCore" type="GPUParticles3D" parent="DoubleRingCore4"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -666,7 +668,7 @@ explosiveness = 1.0
 fixed_fps = 60
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_3c628")
-draw_pass_1 = SubResource("QuadMesh_84m0v")
+draw_pass_1 = SubResource("TorusMesh_bcpbx")
 
 [node name="FlashCore" type="GPUParticles3D" parent="DoubleRingCore5"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -689,7 +691,7 @@ explosiveness = 1.0
 fixed_fps = 60
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_3c628")
-draw_pass_1 = SubResource("QuadMesh_84m0v")
+draw_pass_1 = SubResource("TorusMesh_bcpbx")
 
 [node name="FlashCore" type="GPUParticles3D" parent="DoubleRingCore6"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -712,7 +714,7 @@ explosiveness = 1.0
 fixed_fps = 60
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_3c628")
-draw_pass_1 = SubResource("QuadMesh_84m0v")
+draw_pass_1 = SubResource("TorusMesh_bcpbx")
 
 [node name="FlashCore" type="GPUParticles3D" parent="DoubleRingCore7"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -735,7 +737,7 @@ explosiveness = 1.0
 fixed_fps = 60
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_3c628")
-draw_pass_1 = SubResource("QuadMesh_84m0v")
+draw_pass_1 = SubResource("TorusMesh_bcpbx")
 
 [node name="FlashCore" type="GPUParticles3D" parent="DoubleRingCore8"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -753,7 +755,7 @@ libraries = {
 }
 
 [node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(0.995396, 0, -0.0958458, -0.0156376, 0.986601, -0.162403, 0.0945615, 0.163154, 0.982059, 0, -0.5, 0)
+transform = Transform3D(0.999876, 0.0157073, 0, -0.0155009, 0.986734, -0.161604, -0.00253836, 0.161584, 0.986856, 0, -0.5, 0)
 collision_layer = 0
 collision_mask = 2
 
