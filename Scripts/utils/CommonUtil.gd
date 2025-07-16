@@ -724,7 +724,7 @@ class Cimer extends Node:
 ## @param place 放置音频播放器的节点
 ## @param audio_name 音频资源名称
 ## @param volume_db 音量（分贝）
-static func play_audio(place: Variant, audio_name: String, volume_db: float = 1.0):
+static func play_audio(place: Variant, audio_name: String, volume_db: float = 0.0):
 	# 创建音频播放器节点
 	var audio_player = AudioStreamPlayer.new()
 	
@@ -733,6 +733,9 @@ static func play_audio(place: Variant, audio_name: String, volume_db: float = 1.
 	
 	# 设置音频资源
 	audio_player.stream = sound_effect
+	
+	# 设置音量（分贝）
+	audio_player.volume_db = volume_db
 	
 	# 将节点添加到场景中
 	if is_instance_valid(place):

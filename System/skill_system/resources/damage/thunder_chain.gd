@@ -18,8 +18,6 @@ func action(skill_context: SkillContext) -> void:
 
 	for wave in range(skill.wave):
 
-		CommonUtil.play_audio(target_unit, "爆炸电类击中－mcx20070509_爱给网_aigei_com")
-
 		if wave == 0:
 			var handler = InnerHandler.new(skill_context)
 			add_child(handler)
@@ -50,6 +48,8 @@ func action(skill_context: SkillContext) -> void:
 
 		damaged_units.append(_t_u)
 		damaged_units.append(_s_u)
+
+		CommonUtil.play_audio(target_unit, "闪电链_爱给网_aigei_com", 1)
 
 		if wave < skill.wave - 1:
 			await CommonUtil.await_timer(skill.internal_time)

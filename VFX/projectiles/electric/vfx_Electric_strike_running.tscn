@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d4i83bqlqpy0a"]
+[gd_scene load_steps=21 format=3 uid="uid://d4i83bqlqpy0a"]
 
 [ext_resource type="Material" uid="uid://ceb6m6dh5v0hb" path="res://Asserts/Models/projectiles/m_lightening_std.tres" id="1_euu8j"]
 [ext_resource type="ArrayMesh" uid="uid://xv6ycjsmspbm" path="res://Asserts/Models/projectiles/sm_fireb_blast4_HS.obj" id="2_thylp"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://b3w53u07ukurw" path="res://Scripts/Trail3D.gd" id="7_s52cs"]
 [ext_resource type="Shader" uid="uid://b28qeeghrupsv" path="res://VFX/projectiles/fireball/s_basic_disolve_p.tres" id="8_4mhi3"]
 [ext_resource type="Texture2D" uid="uid://p882hvpsbqve" path="res://Asserts/textures/vfx/projectiles/T_VFX_spark44.jpg" id="9_nv2mq"]
+[ext_resource type="AudioStream" uid="uid://oc4fdrntiy4a" path="res://Asserts/waves/projectile/雷电-创建音效.mp3" id="10_thylp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rec5w"]
 render_priority = 0
@@ -27,7 +28,7 @@ shader_parameter/Scale = Vector2(0.5, 1)
 shader_parameter/Trail_Speed = Vector2(4, 0)
 shader_parameter/Texture2DParameter = ExtResource("6_a0iir")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_dqsn4"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_euu8j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gkdsd"]
 render_priority = 0
@@ -90,7 +91,7 @@ transform = Transform3D(0.900067, 0, -0.435751, 0, 1, 0, 0.435751, 0, 0.900067, 
 visible = false
 material_override = SubResource("ShaderMaterial_qk5ma")
 cast_shadow = 0
-mesh = SubResource("ImmediateMesh_dqsn4")
+mesh = SubResource("ImmediateMesh_euu8j")
 skeleton = NodePath("../..")
 script = ExtResource("7_s52cs")
 fromWidth = 1.0
@@ -115,3 +116,8 @@ draw_pass_1 = SubResource("QuadMesh_5grta")
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 light_color = Color(0.243137, 0.768627, 1, 1)
 light_energy = 1.2
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("10_thylp")
+volume_db = 15.0
+autoplay = true
