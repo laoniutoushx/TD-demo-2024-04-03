@@ -13,7 +13,7 @@ func action(skill_context: SkillContext) -> void:
 
     for wave in range(skill.wave):
 
-        CommonUtil.play_audio(source_unit, "消防(Fire)_爱给网_aigei_com", 0.5)
+        
 
         # 初始数量
         var init_num: int = skill.init_num
@@ -22,6 +22,9 @@ func action(skill_context: SkillContext) -> void:
         var points = []
         var radius = skill.range
 
+        CommonUtil.play_audio(source_unit, "冰雨坠落_爱给网_aigei_com", 1)
+        
+        var idx = 0
         while points.size() < init_num:
             var angle = randf() * TAU
             var distance = randf() * radius
@@ -32,12 +35,10 @@ func action(skill_context: SkillContext) -> void:
             # 释放
             var handler = InnerHandler.new(skill_context)
             add_child(handler)
-            handler.vfx_handler(new_point)
-    
-        # for point in points:
-        #     var handler = InnerHandler.new(skill_context)
-        #     add_child(handler)
-        #     handler.vfx_handler(point)
+            handler.vfx_handler(idx, new_point)
+            idx += 1
+
+
 
         if wave < skill.wave - 1:
             await CommonUtil.await_timer(skill.internal_time)
@@ -50,7 +51,7 @@ class InnerHandler extends Node3D:
     func _init(skill_context: SkillContext) -> void:
         self.skill_context = skill_context
 
-    func vfx_handler(point: Vector3) -> void:
+    func vfx_handler(idx: int, point: Vector3) -> void:
         var vfx = SystemUtil.vfx_system.create_vfx("ice_prise", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
 
         # vfx.rotate_x(90)
@@ -64,7 +65,12 @@ class InnerHandler extends Node3D:
         tween.tween_property(vfx, "global_position", point, 1)
         await tween.finished
 
-        SystemUtil.damage_system.skill_range_damage(skill_context.skill, skill_context.source, point, skill_context.skill.damage_range)
+        if idx == 0:    # 只为第一个点播放特效声音
+            CommonUtil.play_audio(self, "魔法 魔术 冰 冲击_ 大的 炮弹_ 危险冰块_ 碎片_ 长_爱给网_aigei_com", 1)
+        var affect_unit_in_range = SystemUtil.damage_system.skill_range_damage(skill_context.skill, skill_context.source, point, skill_context.skill.damage_range)
+        for au in affect_unit_in_range:
+            var bf = CommonUtil.get_first_value(skill_context.skill.buff_map)
+            SystemUtil.buff_system.apply(bf, au)
 
         # await CommonUtil.await_timer(2.0)
         

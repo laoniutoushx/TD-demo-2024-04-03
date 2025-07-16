@@ -1,8 +1,35 @@
-[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=4 format=3 uid="uid://bs6w3mufvu6f1"]
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=8 format=3 uid="uid://bs6w3mufvu6f1"]
 
 [ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_txmjm"]
 [ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="2_o8ujh"]
 [ext_resource type="Script" uid="uid://b0kuhskosi8bl" path="res://System/skill_system/resources/damage/ice_storm.gd" id="3_cnmfe"]
+[ext_resource type="Script" uid="uid://dhf7xdpvnn7gv" path="res://System/buff_system/resources/power_buff.gd" id="3_jgkhp"]
+[ext_resource type="Script" uid="uid://cya1pifwbgjdk" path="res://addons/script_property_selector/property_selector_resource.gd" id="4_671qi"]
+
+[sub_resource type="Resource" id="Resource_wqbbn"]
+script = ExtResource("4_671qi")
+selected_script_name = ""
+selected_properties = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_12f74"]
+script = ExtResource("2_o8ujh")
+id = &""
+code = "move_speed_power"
+entity = ""
+prop = "move_speed"
+property_selector = SubResource("Resource_wqbbn")
+type = 50
+title = "降低移动速度"
+desc = "降低移动速度"
+icon_path = "ice_storm"
+value = 50.0
+value_unit = 0
+value_dir = 1
+cooldown = 3.5
+max_overlay_num = 1
+priority = 1
+exclude_level = 3
+buff_script = ExtResource("3_jgkhp")
 
 [resource]
 script = ExtResource("1_txmjm")
@@ -42,4 +69,4 @@ wood_cost = 10.0
 money_cost = 10.0
 skill_script = ExtResource("3_cnmfe")
 skill_level_config = Array[ExtResource("1_txmjm")]([])
-skill_buff_config = Array[ExtResource("2_o8ujh")]([])
+skill_buff_config = Array[ExtResource("2_o8ujh")]([SubResource("Resource_12f74")])

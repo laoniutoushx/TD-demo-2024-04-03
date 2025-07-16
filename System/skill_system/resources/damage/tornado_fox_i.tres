@@ -8,8 +8,8 @@
 script = ExtResource("1_0357b")
 code = "tornado_fox_i"
 title = "白风"
-desc = "白风"
-icon_path = "335"
+desc = "玩家点击施放，在指定区域召唤一个持续旋转的旋风，对区域内所有敌人造成持续魔法伤害"
+icon_path = "whit_wind"
 level = 1
 level_up_gap = 1
 max_level = 3

@@ -8,7 +8,7 @@
 script = ExtResource("1_uejo4")
 code = "scream_wave"
 title = "痛苦冲击"
-desc = "痛苦冲击"
+desc = "玩家点击施放，向指定方向发射一道冲击波，对路径上所有敌人造成一次物理伤害。"
 icon_path = "scream_wave"
 level = 1
 level_up_gap = 1

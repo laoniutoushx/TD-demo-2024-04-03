@@ -33,6 +33,7 @@ start_time = 0.1
 end_time = 0.1
 wave = 1
 projection_speed = 25.0
+probability = 0.25
 disable_check = 1
 release_type = 1
 target_type = 34

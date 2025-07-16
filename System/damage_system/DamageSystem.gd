@@ -171,8 +171,9 @@ func skill_damage(skill: Skill, source: BaseUnit, target: BaseUnit) -> bool:
 
 
 # 技能范围伤害
-func skill_range_damage(skill: Skill, source: BaseUnit, target_position: Vector3, affect_range: float = 5):
+func skill_range_damage(skill: Skill, source: BaseUnit, target_position: Vector3, affect_range: float = 5) -> Array:
 	var units_within_range: Array = []
+	var affect_unit_in_range: Array = []
 
 	for unit in SOS.main.get_tree().get_nodes_in_group("enemy"):
 		if unit.global_position.distance_to(target_position) <= affect_range:
@@ -201,3 +202,8 @@ func skill_range_damage(skill: Skill, source: BaseUnit, target_position: Vector3
 				if is_in_range:
 					if CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.ENEMY, skill.target_type) and unit.owner.player_group != source.player_group:
 						unit.owner.take_skill_damage(DamageCtx.new(source, unit.owner, skill.value, DamageCtx.DamageType.NORMAL, DamageCtx.DamageSourceType.SKILL))
+
+						affect_unit_in_range.append(unit.owner)
+
+	# 返回所有受到伤害的单位
+	return affect_unit_in_range						

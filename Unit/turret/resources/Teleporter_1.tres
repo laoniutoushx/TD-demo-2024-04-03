@@ -1,10 +1,53 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=6 format=3 uid="uid://cr204fvc37686"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=9 format=3 uid="uid://cr204fvc37686"]
 
 [ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="1_h3s57"]
 [ext_resource type="PackedScene" uid="uid://g2pp4vopotbr" path="res://Unit/turret/scenes/Teleporter_1.tscn" id="2_ff0ii"]
 [ext_resource type="Script" uid="uid://cwoilst65vmq6" path="res://Unit/enemy/EnemyResource.gd" id="3_jbjsj"]
 [ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_gigtb"]
-[ext_resource type="Resource" uid="uid://b55nxh8s0ih7" path="res://System/skill_system/resources/building/building_level_up.tres" id="5_hij31"]
+[ext_resource type="Resource" uid="uid://cmq42rp4ss8x0" path="res://Unit/turret/resources/Teleporter_2.tres" id="5_vx2e0"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="6_v2cyi"]
+[ext_resource type="Script" uid="uid://d16rx3mg1e028" path="res://System/skill_system/resources/building/building_level_up.gd" id="7_7by67"]
+
+[sub_resource type="Resource" id="Resource_02sfj"]
+script = ExtResource("4_gigtb")
+code = "building_level_up"
+title = "升级"
+desc = "升级当前单位为指定 ${TARGET_UNIT}"
+icon_path = "building_level_up"
+level = 1
+level_up_gap = 1
+max_level = 3
+init_release = false
+auto_release = false
+cooldown = 60.0
+mana_cost = -1.0
+damage_range = 5.0
+match_range = 30.0
+range = 5.0
+release_distance = 10.0
+stock = 1
+value = 0.0
+value_ext = {}
+run_distance = 10.0
+epoch = 1
+init_num = 1
+internal_time = -1.0
+start_time = 0.1
+end_time = 0.1
+wave = 1
+projection_speed = 1.0
+probability = 0.25
+disable_check = 13
+release_type = 2
+target_type = 8
+effect_type = 4
+building_res = ExtResource("5_vx2e0")
+building_level_up_time = 5.0
+wood_cost = -1.0
+money_cost = -1.0
+skill_script = ExtResource("7_7by67")
+skill_level_config = Array[ExtResource("4_gigtb")]([])
+skill_buff_config = Array[ExtResource("6_v2cyi")]([])
 
 [resource]
 script = ExtResource("3_jbjsj")
@@ -24,7 +67,7 @@ is_mesh_outline = false
 is_mesh_standing = false
 mana_cost = 100.0
 wood_cost = -1.0
-money_cost = 200.0
+money_cost = 0.0
 money_reward = -1
 wood_reward = -1
 max_health = 10000.0
@@ -54,4 +97,4 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_h3s57")]([])
-skill_metas = Array[ExtResource("4_gigtb")]([ExtResource("5_hij31")])
+skill_metas = Array[ExtResource("4_gigtb")]([SubResource("Resource_02sfj")])

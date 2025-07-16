@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c7o7uabseqsf6"
+path="res://.godot/imported/击中 拳头 打击 重击 01_爱给网_aigei_com.wav-d71e1d7faebb3a8d1f2a703c6c1f3aa1.sample"
+
+[deps]
+
+source_file="res://Asserts/waves/common/击中 拳头 打击 重击 01_爱给网_aigei_com.wav"
+dest_files=["res://.godot/imported/击中 拳头 打击 重击 01_爱给网_aigei_com.wav-d71e1d7faebb3a8d1f2a703c6c1f3aa1.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -8,8 +8,8 @@
 script = ExtResource("1_v07ic")
 code = "tornado_fox"
 title = "龙卷风"
-desc = "龙卷风"
-icon_path = "335"
+desc = "玩家点击施放，向指定方向召唤一道龙卷风，对路径上所有敌人造成一次魔法伤害。"
+icon_path = "tornado"
 level = 1
 level_up_gap = 1
 max_level = 3

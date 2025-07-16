@@ -611,6 +611,39 @@ static func arr_to_map(arr: Array) -> Dictionary:
 		map[item.get_instance_id()] = item
 	return map
 
+## 获取 Dictionary 的第一个键值对
+## @param dict 要操作的 Dictionary
+## @return 返回包含 key 和 value 的 Dictionary，如果为空则返回 null
+static func get_first_entry(dict: Dictionary) -> Dictionary:
+	if dict.is_empty():
+		return {}
+	
+	for key in dict:
+		return {"key": key, "value": dict[key]}
+	
+	return {}
+
+## 获取 Dictionary 的第一个键
+## @param dict 要操作的 Dictionary
+## @return 第一个键，如果为空则返回 null
+static func get_first_key(dict: Dictionary) -> Variant:
+	if dict.is_empty():
+		return null
+	
+	return dict.keys()[0]
+
+## 获取 Dictionary 的第一个值
+## @param dict 要操作的 Dictionary
+## @return 第一个值，如果为空则返回 null
+static func get_first_value(dict: Dictionary) -> Variant:
+	if dict.is_empty():
+		return null
+	
+	return dict.values()[0]	
+
+
+
+
 # ===============================
 # 组件相关方法
 # ===============================
@@ -734,12 +767,12 @@ static func play_audio(place: Variant, audio_name: String, volume_db: float = 0.
 	# 设置音频资源
 	audio_player.stream = sound_effect
 	
-	# 设置音量（分贝）
-	audio_player.volume_db = volume_db
-	
 	# 将节点添加到场景中
 	if is_instance_valid(place):
 		place.add_child(audio_player)
+	
+	# 设置音量（分贝）- 必须在添加到场景后设置
+	audio_player.volume_db = volume_db
 	
 	# 播放音频
 	audio_player.play()

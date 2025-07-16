@@ -6838,7 +6838,7 @@ bone_idx = 10
 transform = Transform3D(-0.00507432, -0.871694, -0.490022, 0.587423, 0.393969, -0.70691, 0.809262, -0.291438, 0.510055, 0.141547, 0.25987, 0.124088)
 
 [node name="FirePosCmp" parent="Pivot/fox_mega_magic/Armature/Skeleton3D/BoneAttachment3D" instance=ExtResource("2_wki7s")]
-transform = Transform3D(0.871918, -0.435721, -0.223397, 0.435201, 0.898697, -0.0542615, 0.224409, -0.0499108, 0.973216, -1.40034, 1.08177, -0.335243)
+transform = Transform3D(0.871918, -0.435721, -0.223397, 0.435201, 0.898697, -0.0542615, 0.224409, -0.0499108, 0.973216, -1.4659, 0.973571, -0.361361)
 fire_animation = &"Attack"
 fire_projectile = ExtResource("12_wki7s")
 

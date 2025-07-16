@@ -423,7 +423,8 @@ func take_skill_damage(damage_ctx: DamageCtx) -> bool:
 func take_damage(damage_ctx: DamageCtx) -> bool:
 	damage_ctx = damage_ctx.source.action_damage(damage_ctx)
 
-# CRITICAL
+	# 受击音效
+	CommonUtil.play_audio(damage_ctx.target, "击中 拳头 打击 重击 01_爱给网_aigei_com", -5)
 
 	# TODO 伤害前置处理（暴击、闪避等），附加到某一次攻击当中
 	if not take_damage_callback_list.is_empty():

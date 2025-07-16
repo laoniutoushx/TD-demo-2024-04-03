@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccfqex6yh0nlf"]
+
+[ext_resource type="Texture2D" uid="uid://ctjcjjxt0fk21" path="res://Asserts/materials/high_velocity_blood_spatter_sgeoahup_1k/High_Velocity_Blood_Spatter_sgeoahup_1K_BaseColor.jpg" id="1_8brgc"]
+[ext_resource type="Texture2D" uid="uid://dmb0ra6r005q3" path="res://Asserts/materials/high_velocity_blood_spatter_sgeoahup_1k/High_Velocity_Blood_Spatter_sgeoahup_1K_Normal.jpg" id="2_mr1ay"]
+[ext_resource type="Texture2D" uid="uid://c52egh3o5w3vr" path="res://Asserts/materials/high_velocity_blood_spatter_sgeoahup_1k/High_Velocity_Blood_Spatter_sgeoahup_1K_Opacity.jpg" id="3_k8and"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ap2l2"]
+size = Vector2(10, 10)
+
+[node name="BloodSc" type="Decal"]
+texture_albedo = ExtResource("1_8brgc")
+texture_normal = ExtResource("2_mr1ay")
+texture_orm = ExtResource("3_k8and")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_ap2l2")

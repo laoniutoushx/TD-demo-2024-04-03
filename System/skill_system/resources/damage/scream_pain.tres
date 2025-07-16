@@ -8,7 +8,7 @@
 script = ExtResource("1_vrrtd")
 code = "scream_pain"
 title = "痛苦尖叫"
-desc = "痛苦尖叫"
+desc = "_ 玩家点击施放，女王塔周围圆形区域内所有敌人受到一次高额物理伤害。"
 icon_path = "scream_pain"
 level = 1
 level_up_gap = 1
@@ -16,7 +16,7 @@ max_level = 3
 init_release = false
 auto_release = false
 cooldown = 1.0
-mana_cost = 650.0
+mana_cost = 10.0
 damage_range = 5.0
 match_range = 30.0
 range = 20.0

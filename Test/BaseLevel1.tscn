@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dx0lou5rmkhg8"]
+[gd_scene load_steps=27 format=3 uid="uid://dx0lou5rmkhg8"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_1lpu5"]
 [ext_resource type="Script" uid="uid://b7mg147y1himx" path="res://System/barrage_system/BarrageSystem.gd" id="1_mdmlk"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://5kncg21bpaly" path="res://System/damage_system/damage_system.tscn" id="13_iiwq5"]
 [ext_resource type="PackedScene" uid="uid://7rvt2k3k1jwh" path="res://System/barrage_system/barrage_system.tscn" id="14_y7yt8"]
 [ext_resource type="PackedScene" uid="uid://bn6y16r1niwsj" path="res://Unit/turret/scenes/Fox_Mega.tscn" id="15_u2aab"]
+[ext_resource type="PackedScene" uid="uid://ccfqex6yh0nlf" path="res://Asserts/shared/shader/3d/blood/blood_sc.tscn" id="16_v4qnj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oopyi"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -175,3 +176,6 @@ mesh = SubResource("BoxMesh_flgwt")
 
 [node name="FoxMega" parent="." instance=ExtResource("15_u2aab")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.24721, 0, 0)
+
+[node name="BloodSc" parent="." instance=ExtResource("16_v4qnj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.7519, 0, 1.53652)
