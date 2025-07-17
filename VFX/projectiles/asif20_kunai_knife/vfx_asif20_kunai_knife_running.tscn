@@ -118,7 +118,7 @@ shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("2_0tq6n")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_0tq6n"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_0bms1"]
 
 [sub_resource type="Animation" id="Animation_yx0kk"]
 length = 0.001
@@ -178,7 +178,7 @@ skeleton = NodePath("")
 [node name="ScreamTail" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_5ep5o")
-mesh = SubResource("ImmediateMesh_0tq6n")
+mesh = SubResource("ImmediateMesh_0bms1")
 skeleton = NodePath("../Pivot/asif20_kunai_knife")
 script = ExtResource("3_ablpa")
 fromWidth = 0.1

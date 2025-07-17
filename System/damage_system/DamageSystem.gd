@@ -37,8 +37,10 @@ func process_single_fire_position_async(source: BaseUnit, original_target: BaseU
 	var current_target = original_target
 
 	# 播放火力点动画
+	print("fire_pos_mark.fire_animation %s" % [fire_pos_mark.fire_animation])
 	if fire_pos_mark and fire_pos_mark.ap and fire_pos_mark.fire_animation:
-		fire_pos_mark.ap.play(fire_pos_mark.fire_animation)
+		# fire_pos_mark.ap.play(fire_pos_mark.fire_animation)
+		CommonUtil.play_attack_animation_with_reset_v1(fire_pos_mark.ap, fire_pos_mark.fire_animation, source.attack_speed)			
 	
 	# 弹幕系统处理
 	var bs = await (SystemUtil.barrage_system as BarrageSystem).action(source, fire_pos, current_target, fire_pos_mark)

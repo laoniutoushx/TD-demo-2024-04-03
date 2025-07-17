@@ -876,3 +876,34 @@ static func number_to_chinese(num: int) -> String:
 		result = result.substr(1)
 	
 	return result
+
+
+
+### 动画速度计算
+# 方案1：使用 AnimationPlayer.play() 的 custom_speed 参数
+static func play_attack_animation_with_reset_v1(anim_player: AnimationPlayer, anim_name: String, attack_speed: float) -> void:
+	var anim: Animation = anim_player.get_animation(anim_name)
+
+	if not anim:
+		return
+	
+	# 计算攻击间隔时间（秒/次）
+	var attack_interval = 1.0 / attack_speed
+	var animation_duration = anim.length
+	
+	# 判断是否需要加速动画
+	var playback_speed: float
+	if attack_interval >= animation_duration:
+		playback_speed = 1.0
+	else:
+		playback_speed = animation_duration / attack_interval
+	
+	# 重置逻辑
+	if anim_player.is_playing() && anim_player.current_animation == anim_name:
+		anim_player.seek(0, true)
+	else:
+		anim_player.stop()
+	
+	# 重要：确保 speed_scale 为 1.0，然后使用 play 的 custom_speed 参数
+	anim_player.speed_scale = 1.0
+	anim_player.play(anim_name, -1, playback_speed)  # 第二个参数是 custom_blend，第三个是 custom_speed

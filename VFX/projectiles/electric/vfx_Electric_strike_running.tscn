@@ -28,7 +28,7 @@ shader_parameter/Scale = Vector2(0.5, 1)
 shader_parameter/Trail_Speed = Vector2(4, 0)
 shader_parameter/Texture2DParameter = ExtResource("6_a0iir")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_euu8j"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_thylp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gkdsd"]
 render_priority = 0
@@ -91,7 +91,7 @@ transform = Transform3D(0.900067, 0, -0.435751, 0, 1, 0, 0.435751, 0, 0.900067, 
 visible = false
 material_override = SubResource("ShaderMaterial_qk5ma")
 cast_shadow = 0
-mesh = SubResource("ImmediateMesh_euu8j")
+mesh = SubResource("ImmediateMesh_thylp")
 skeleton = NodePath("../..")
 script = ExtResource("7_s52cs")
 fromWidth = 1.0
