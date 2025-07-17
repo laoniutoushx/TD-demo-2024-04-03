@@ -35,6 +35,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_elfme")
 
 [node name="IconTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 expand_mode = 1

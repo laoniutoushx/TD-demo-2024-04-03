@@ -41,5 +41,5 @@ building_level_up_time = -1.0
 wood_cost = 10.0
 money_cost = 10.0
 skill_script = ExtResource("2_xxo4j")
-skill_level_config = Array[ExtResource("1_k0j1h")]([])
+skill_level_config = Array[ExtResource("1_k0j1h")]([null])
 skill_buff_config = Array[ExtResource("2_voe6e")]([])

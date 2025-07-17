@@ -165,6 +165,7 @@ enum SKILL_EFFECT_TYPE{
 @export var skill_script: Script
 
 # skill level config
+@export var level_limit: int = -1	# 技能生效等级限制
 @export var skill_level_config: Array[SkillMetaResource] = []
 
 # skill buff config

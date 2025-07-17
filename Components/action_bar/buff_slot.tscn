@@ -100,12 +100,14 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_3lpd8")
 script = ExtResource("1_0x0xf")
 
 [node name="IconTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 max_value = 1.0
 step = 0.01
@@ -115,6 +117,7 @@ texture_progress = SubResource("GradientTexture2D_v8uaq")
 tint_progress = Color(1, 1, 1, 0.435294)
 
 [node name="BoardEffect" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(16, 16)
 scale = Vector2(0.43, 0.43)
 sprite_frames = SubResource("SpriteFrames_wmc0m")

@@ -45,7 +45,8 @@ func level_up() -> void:
 	if level < max_level:
 		level += 1
 
-		SignalBus.unit_level_up.emit(owner.get_instance_id(), owner, level)
+		SignalBus.unit_level_up.emit(reference.get_instance_id(), reference, level)
+		reference.level_up.emit(reference, level)
 		
 		if reference is Turret:
 			var vfx_instance = SystemUtil.vfx_system.create_vfx("level_up_tower", VFXSystem.VFX_TYPE.BURNING)

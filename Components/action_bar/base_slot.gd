@@ -19,10 +19,11 @@ signal slot_clicked(s: BaseSlot)
 signal slot_right_clicked(s: BaseSlot)
 
 
-@onready var icon_texture: TextureRect = $IconTexture
-@onready var short_cut: Label = $ShortCut
-@onready var progress_bar: TextureProgressBar = $TextureProgressBar
-@onready var boarder_effect: AnimatedSprite2D = $BoardEffect
+@onready var icon_texture: TextureRect = %IconTexture
+@onready var short_cut: Label = %ShortKey
+@onready var level_key: Label = %LevelKey
+@onready var progress_bar: TextureProgressBar = %TextureProgressBar
+@onready var boarder_effect: AnimatedSprite2D = %BoardEffect
 
 var timer: Timer
 var cimer: CommonUtil.Cimer
@@ -127,7 +128,7 @@ func active_callback(act: bool) -> void:
 	
 
 
-func custome_init(ref: Variant, icon_path: String, type: SLOT_TYPE = SLOT_TYPE.DEFAULT, active: bool = true, label: String = '' ) -> void:
+func custome_init(ref: Variant, icon_path: String, type: SLOT_TYPE = SLOT_TYPE.DEFAULT, active: bool = true, level: int = -1 ) -> void:
 	# 引用实体对象
 	reference = ref
 
@@ -145,9 +146,10 @@ func custome_init(ref: Variant, icon_path: String, type: SLOT_TYPE = SLOT_TYPE.D
 	
 	icon_texture.material = slot_material
 	
-	# slot label name
-	if short_cut and label != null:
-		short_cut.text = label
+
+	if level and level > -1:
+		level_key.text = "LV " + str(level)
+
 	
 	slot_type = type
 	is_active = active

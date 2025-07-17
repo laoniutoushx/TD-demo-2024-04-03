@@ -110,6 +110,8 @@ var code: String
 @export var skill_script: Script
 var skill_script_instance: Variant
 
+var level_limit: int	# 技能生效等级限制
+
 
 @export_group("Skill Buff")
 # Buff（实例化后的buff列表）
@@ -176,6 +178,17 @@ func _ready() -> void:
     # 如果技能设置为初始化时自动施法，则在此手动激活
     if init_release:
         change_state(SKILL_STATE.Release)
+
+    # 监听单位等级提升事件
+    unit.level_up.connect(_on_unit_level_up)
+
+
+# 监听单位升级事件
+func _on_unit_level_up(unit: BaseUnit, level: int) -> void:
+    # 如果单位升级了，那么 =》 
+    if level >= level_limit:
+        print("skill [%s] is disabled, because unit [%s] level [%s] >= limit [%s]" % [code, unit.name, level, level_limit])
+        # change_state(SKILL_STATE.Disabled)
 
 
 # 监听所属单位攻击事件
@@ -555,6 +568,9 @@ func change_state(new_state: SKILL_STATE) -> void:
 
         SKILL_STATE.Idle:
             print("skill [%s] is idle" % code)
+
+        SKILL_STATE.Disabled:
+            print("skill [%s] is Disabled" % code)            
 
 
 
