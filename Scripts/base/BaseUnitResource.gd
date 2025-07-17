@@ -87,6 +87,10 @@ enum ELEMENT_PHASE_STR{
 @export var anim_speed_factor: float = 1.0
 @export var anim_ack_point = 0.03	# 攻击动画回复点
 
+# AUDIO
+@export_group("Audio")
+@export var audio_death: String = "怪物声音大死亡(monster_sound_big_deat_爱给网_aigei_com"
+
 
 # Action Behavior
 @export_group("Action")

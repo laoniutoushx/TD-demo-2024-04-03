@@ -72,6 +72,7 @@ func _ready() -> void:
 
 	# 加载 图标 资源
 	CommonUtil.load_resources_to_container_from_directory("res://Asserts/Images/icon/")
+	CommonUtil.load_resources_to_container_from_directory("res://Asserts/shared/shader/3d/blood/")	# 血迹贴图
 
 	# Signal 监听
 	#SignalBus.ray_picker_regist.emit(click_to_select)

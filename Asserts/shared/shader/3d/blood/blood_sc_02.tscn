@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddjl3pwr2b7oo"]
+
+[ext_resource type="Texture2D" uid="uid://t7ra48yi3xkd" path="res://Asserts/textures/vfx/—Pngtree—red blood splatter overlay design_18731106 (2).png" id="1_n12eo"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ap2l2"]
+size = Vector2(10, 10)
+
+[node name="BloodSc02" type="Decal"]
+texture_albedo = ExtResource("1_n12eo")
+texture_orm = ExtResource("1_n12eo")
+modulate = Color(1, 0, 0, 1)
+cull_mask = 786432
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 786432
+mesh = SubResource("PlaneMesh_ap2l2")

@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://5kncg21bpaly" path="res://System/damage_system/damage_system.tscn" id="13_iiwq5"]
 [ext_resource type="PackedScene" uid="uid://7rvt2k3k1jwh" path="res://System/barrage_system/barrage_system.tscn" id="14_y7yt8"]
 [ext_resource type="PackedScene" uid="uid://bn6y16r1niwsj" path="res://Unit/turret/scenes/Fox_Mega.tscn" id="15_u2aab"]
-[ext_resource type="PackedScene" uid="uid://ccfqex6yh0nlf" path="res://Asserts/shared/shader/3d/blood/blood_sc.tscn" id="16_v4qnj"]
+[ext_resource type="PackedScene" uid="uid://ccfqex6yh0nlf" path="res://Asserts/shared/shader/3d/blood/blood_sc_01.tscn" id="16_v4qnj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oopyi"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -69,6 +69,7 @@ shadow_enabled = true
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+layers = 524288
 mesh = SubResource("BoxMesh_35lo2")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
@@ -97,6 +98,7 @@ data = {
 curve = SubResource("Curve3D_g10yy")
 
 [node name="Road" type="CSGPolygon3D" parent="Path3D"]
+layers = 262144
 polygon = PackedVector2Array(-2, 0, -2, 0.1, 2, 0.1, 2, 0)
 mode = 2
 path_node = NodePath("..")
@@ -112,6 +114,7 @@ path_joined = false
 material = SubResource("StandardMaterial3D_rcpim")
 
 [node name="LeftShoulder" type="CSGPolygon3D" parent="Path3D"]
+layers = 262144
 polygon = PackedVector2Array(-3, 0, -3, 0.5, -2, 0.5, -2, 0)
 mode = 2
 path_node = NodePath("..")
@@ -127,6 +130,7 @@ path_joined = false
 material = SubResource("StandardMaterial3D_rcpim")
 
 [node name="RightShoulder" type="CSGPolygon3D" parent="Path3D"]
+layers = 262144
 polygon = PackedVector2Array(3, 0, 3, 0.5, 2, 0.5, 2, 0)
 mode = 2
 path_node = NodePath("..")
@@ -178,4 +182,4 @@ mesh = SubResource("BoxMesh_flgwt")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.24721, 0, 0)
 
 [node name="BloodSc" parent="." instance=ExtResource("16_v4qnj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.7519, 0, 1.53652)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.80502, -0.121154, 9.69904)

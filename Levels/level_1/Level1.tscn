@@ -106,7 +106,7 @@ shader_type = "Classic4"
 custom_shader = null
 custom_globalmap_shader = null
 texture_set = SubResource("Resource_vqpk2")
-render_layers = 1
+render_layers = 524288
 cast_shadow = 1
 shader_params/u_ground_uv_scale_per_texture = Vector4(20, 20, 20, 20)
 shader_params/u_depth_blending = true
@@ -119,6 +119,7 @@ shader_params/u_specular = 0.5
 
 [node name="GroundMesh" type="MeshInstance3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.001, 0)
+layers = 524288
 mesh = SubResource("PlaneMesh_narih")
 skeleton = NodePath("../..")
 
@@ -141,6 +142,7 @@ unique_name_in_owner = true
 curve = SubResource("Curve3D_g10yy")
 
 [node name="Road" type="CSGPolygon3D" parent="Path3D"]
+layers = 262144
 polygon = PackedVector2Array(-3, 0, -2, 0.1, 2, 0.1, 2, 0)
 mode = 2
 path_node = NodePath("..")
@@ -156,6 +158,7 @@ path_joined = false
 material = SubResource("StandardMaterial3D_rcpim")
 
 [node name="LeftShoulder" type="CSGPolygon3D" parent="Path3D"]
+layers = 262144
 polygon = PackedVector2Array(-3, 0, -3, 0.5, -2, 0.5, -2, 0)
 mode = 2
 path_node = NodePath("..")
@@ -171,6 +174,7 @@ path_joined = false
 material = SubResource("StandardMaterial3D_rcpim")
 
 [node name="RightShoulder" type="CSGPolygon3D" parent="Path3D"]
+layers = 262144
 polygon = PackedVector2Array(3, 0, 3, 0.5, 2, 0.5, 2, 0)
 mode = 2
 path_node = NodePath("..")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b6x0ifedubj2s"]
+[gd_scene load_steps=22 format=3 uid="uid://b6x0ifedubj2s"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_55flt"]
 [ext_resource type="MeshLibrary" uid="uid://b6ioecdsupr03" path="res://MeshLibraries/SpaceLibrary.tres" id="2_cnmp3"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="10_mdt28"]
 [ext_resource type="PackedScene" uid="uid://bg1lkqccck6ln" path="res://VFX/projectiles/hammer/vfx_hammer_running.tscn" id="10_q7emr"]
 [ext_resource type="PackedScene" uid="uid://lpvl2p5oyaj0" path="res://VFX/teleport/vfx_teleport_running.tscn" id="11_k5b5s"]
+[ext_resource type="PackedScene" uid="uid://ccfqex6yh0nlf" path="res://Asserts/shared/shader/3d/blood/blood_sc_01.tscn" id="12_ipwre"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oopyi"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -60,6 +61,7 @@ shadow_enabled = true
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+layers = 524288
 mesh = SubResource("BoxMesh_35lo2")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
@@ -87,6 +89,7 @@ data = {
 curve = SubResource("Curve3D_g10yy")
 
 [node name="Road" type="CSGPolygon3D" parent="Path3D"]
+layers = 262144
 polygon = PackedVector2Array(-2, 0, -2, 0.1, 2, 0.1, 2, 0)
 mode = 2
 path_node = NodePath("..")
@@ -102,6 +105,7 @@ path_joined = false
 material = SubResource("StandardMaterial3D_rcpim")
 
 [node name="LeftShoulder" type="CSGPolygon3D" parent="Path3D"]
+layers = 262144
 polygon = PackedVector2Array(-3, 0, -3, 0.5, -2, 0.5, -2, 0)
 mode = 2
 path_node = NodePath("..")
@@ -117,6 +121,7 @@ path_joined = false
 material = SubResource("StandardMaterial3D_rcpim")
 
 [node name="RightShoulder" type="CSGPolygon3D" parent="Path3D"]
+layers = 262144
 polygon = PackedVector2Array(3, 0, 3, 0.5, 2, 0.5, 2, 0)
 mode = 2
 path_node = NodePath("..")
@@ -169,3 +174,6 @@ transform = Transform3D(0.0863212, 0, 0.996267, 0, 1, 0, -0.996267, 0, 0.0863212
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 36, 9, 11)
 
 [node name="VfxTeleportRunning" parent="." instance=ExtResource("11_k5b5s")]
+
+[node name="BloodSc01" parent="." instance=ExtResource("12_ipwre")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.34223, 0.00873876, 9.55301)

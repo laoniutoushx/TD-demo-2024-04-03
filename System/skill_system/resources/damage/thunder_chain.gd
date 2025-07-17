@@ -49,7 +49,7 @@ func action(skill_context: SkillContext) -> void:
 		damaged_units.append(_t_u)
 		damaged_units.append(_s_u)
 
-		CommonUtil.play_audio(target_unit, "闪电链_爱给网_aigei_com", 1)
+		CommonUtil.play_audio(target_unit, "闪电链_爱给网_aigei_com", -5)
 
 		if wave < skill.wave - 1:
 			await CommonUtil.await_timer(skill.internal_time)

@@ -51,6 +51,7 @@ anim_death = "destory"
 anim_release = null
 anim_speed_factor = 1.0
 anim_ack_point = 0.03
+audio_death = ""
 is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0

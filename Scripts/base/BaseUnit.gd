@@ -123,8 +123,7 @@ var _mesh_standing: MeshInstance3D
 
 
 
-# selected circle
-var is_selected_circle: bool
+
 
 
 @export_group("Player")
@@ -171,7 +170,15 @@ var _anim_speed: float	# 动画播放速率
 @export var level_component: LevelComp
 
 
+# AUDIO
+@export_group("Audio")
+var audio_death: String
 
+
+# Action Behavior
+@export_group("Action")
+# selected circle
+var is_selected_circle: bool
 
 
 @export_group("Item")
@@ -345,6 +352,17 @@ func do_after_logic_dead() -> void:
 	# player death animation
 	death_effect()
 
+	# 播放死亡音效
+	CommonUtil.play_audio(self, audio_death)
+
+	# 在单位位置创建血迹贴图
+	var bs: PackedScene = CommonUtil.get_resource("blood_sc_01")
+	if bs:
+		var blood_stain: Decal = bs.instantiate()
+		blood_stain.global_position = self.global_position
+		blood_stain.scale = Vector3(_transformed_aabb.size.x, 1, _transformed_aabb.size.z)
+		SOS.main.get_tree().get_root().add_child(blood_stain)
+
 
 
 # unit death effect
@@ -480,6 +498,7 @@ func do_logical_death() -> void:
 	_is_logic_alive = false
 	logical_death.emit(self)
 	SignalBus.unit_logic_death.emit(get_instance_id(), self)
+
 
 
 
