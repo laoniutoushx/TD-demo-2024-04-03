@@ -22,8 +22,10 @@ var code: String
 @export var title: String = "Unnamed Skill"
 @export var desc: String
 @export var icon_path: String
-@export var level: int = 1
-@export var max_level: int = 3
+@export var level: int
+@export var max_level: int
+@export var level_limit: int	# 技能生效等级限制
+@export var next_level_limit: int	# 下一级技能生效等级限制
 
 # 初始化释放
 @export var init_release: bool
@@ -110,7 +112,7 @@ var code: String
 @export var skill_script: Script
 var skill_script_instance: Variant
 
-var level_limit: int	# 技能生效等级限制
+
 
 
 @export_group("Skill Buff")
@@ -127,6 +129,7 @@ var _mana_disabled = false
 var _health_disabled = false
 var _money_disabled = false
 var _wood_disabled = false
+var _level_disabled = false
 
 
 # FSM
@@ -184,11 +187,21 @@ func _ready() -> void:
 
 
 # 监听单位升级事件
-func _on_unit_level_up(unit: BaseUnit, level: int) -> void:
+func _on_unit_level_up(unit: BaseUnit, unit_level: int) -> void:
     # 如果单位升级了，那么 =》 
-    if level >= level_limit:
-        print("skill [%s] is disabled, because unit [%s] level [%s] >= limit [%s]" % [code, unit.name, level, level_limit])
-        # change_state(SKILL_STATE.Disabled)
+    if unit_level >= level_limit:
+        print("skill [%s] is idle, because unit [%s] level [%s] >= limit [%s]" % [code, unit.name, level, level_limit])
+        if current_state == SKILL_STATE.Disabled:
+            change_state(SKILL_STATE.Idle)
+
+
+        # 处理技能升级逻辑
+        if skill_meta_res.skill_level_config and skill_meta_res.skill_level_config.size() + 1 > level:
+
+            var next_level_skill_res: SkillMetaResource = skill_meta_res.skill_level_config[level - 1]
+            if level < max_level and unit_level >= next_level_skill_res.level_limit:
+                CommonUtil.bean_properties_copy(next_level_skill_res, self)
+
 
 
 # 监听所属单位攻击事件

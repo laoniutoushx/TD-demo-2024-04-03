@@ -34,6 +34,7 @@ class_name SkillMetaResource extends Resource
 @export var level: int = 1
 @export var level_up_gap: int = 1
 @export var max_level: int = 3
+@export var level_limit: int = -1	# 技能生效等级限制
 
 # 初始化释放
 @export var init_release: bool
@@ -165,7 +166,6 @@ enum SKILL_EFFECT_TYPE{
 @export var skill_script: Script
 
 # skill level config
-@export var level_limit: int = -1	# 技能生效等级限制
 @export var skill_level_config: Array[SkillMetaResource] = []
 
 # skill buff config

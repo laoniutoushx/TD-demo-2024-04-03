@@ -14,6 +14,7 @@ icon_path = "3"
 level = 1
 level_up_gap = 1
 max_level = 3
+level_limit = -1
 init_release = true
 auto_release = false
 cooldown = 1.0

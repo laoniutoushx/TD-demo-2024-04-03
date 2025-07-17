@@ -10,7 +10,7 @@ var clazz: BaseUnitResource
 signal logical_death(unit: BaseUnit)
 signal mana_changed(unit: BaseUnit, left_mana: float)	# 魔法变化单位，剩余魔法值
 signal attack_unit(unit: BaseUnit, target: BaseUnit)	# 攻击单位，目标单位
-signal level_up(unit: BaseUnit, level: int)	# 单位升级
+signal level_up(unit: BaseUnit, unit_level: int)	# 单位升级
 
 # signal physic_death(unit: BaseUnit)
 
