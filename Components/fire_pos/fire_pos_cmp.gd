@@ -39,47 +39,51 @@ func _ready() -> void:
         print("错误: 未找到AnimationPlayer组件")
 
 
-
 func copy_and_setup_animation(source_ap: AnimationPlayer, target_ap: AnimationPlayer, anim_name: StringName):
     var source_animation = source_ap.get_animation(anim_name)
     if not source_animation:
         print("错误: 源动画不存在: ", anim_name)
         return
 
-    target_ap.root_node = target_ap.get_path_to(owner)
+    # 设置 root_node 为 source 的 root_node 相对当前节点
+    var source_root_path: NodePath = source_ap.root_node
+    var source_root_node: Node = source_ap.get_node(source_root_path)
+    var target_root_path: NodePath = target_ap.get_path_to(source_root_node)
+    target_ap.root_node = target_root_path
+
     var new_animation = source_animation.duplicate(true)
-    
-    # 验证和修复动画轨道路径
-    validate_and_fix_animation_tracks(new_animation)
-    
-    var anim_library = target_ap.get_animation_library("")
-    if not anim_library:
+
+    # 修复轨道路径：以 root_node 为基准去找
+    validate_and_fix_animation_tracks(new_animation, target_ap)
+
+    var anim_library: AnimationLibrary = target_ap.get_animation_library("")
+    if anim_library == null:
         anim_library = AnimationLibrary.new()
         target_ap.add_animation_library("", anim_library)
-    
+
+
     if anim_library.has_animation(anim_name):
         anim_library.remove_animation(anim_name)
-        
+
     anim_library.add_animation(anim_name, new_animation)
     print("动画 '%s' 已成功设置" % anim_name)
 
 
-func validate_and_fix_animation_tracks(animation: Animation):
+func validate_and_fix_animation_tracks(animation: Animation, target_ap: AnimationPlayer):
+    var root_node = target_ap.get_node(target_ap.root_node)
     var tracks_to_remove = []
-    
+
     for i in range(animation.get_track_count()):
         var track_path = animation.track_get_path(i)
-        print("检查轨道 %d: %s" % [i, track_path])
-        
-        # 尝试解析路径，看是否存在对应的节点
-        var node_path = NodePath(str(track_path).split(":")[0])
-        var target_node = owner.get_node_or_null(node_path)
-        
+        var relative_node_path = NodePath(str(track_path).split(":")[0])
+        var target_node = root_node.get_node_or_null(relative_node_path)
+
+        print("检查轨道 %d: %s -> 结果: %s" % [i, track_path, target_node])
         if not target_node:
             print("警告: 轨道路径无效，将移除: ", track_path)
             tracks_to_remove.append(i)
-    
-    # 从后往前删除无效轨道，避免索引问题
+
     tracks_to_remove.reverse()
-    for track_index in tracks_to_remove:
-        animation.remove_track(track_index)
+    for i in tracks_to_remove:
+        animation.remove_track(i)
+
