@@ -14,7 +14,7 @@ func _ready() -> void:
 
 # 空接口， buff 自己实现内部逻辑
 func refresh() -> void:
-    if unit and unit.is_alive():
+    if unit and unit.is_alive() and reference_instance:
         attack_num_increase = reference_instance.value - unit.attack_num
         unit.attack_num = reference_instance.value 
 

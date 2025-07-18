@@ -43,6 +43,8 @@ enum ARMOR_TYPE_ENUM  {
 	FRIEND
 }
 @export_flags("INVINCIBLE", "NORMAL", "HERO", "ENEMY", "FRIEND") var armor_type = 0
+# 魔法抗性
+@export var magic_resistance: float
 
 
 # unit status

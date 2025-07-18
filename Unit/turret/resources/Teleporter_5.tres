@@ -50,6 +50,7 @@ anim_death = null
 anim_release = null
 anim_speed_factor = 1.0
 anim_ack_point = 0.03
+audio_death = "怪物声音大死亡(monster_sound_big_deat_爱给网_aigei_com"
 is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0

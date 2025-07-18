@@ -12,7 +12,7 @@ func _ready() -> void:
         
 
 func refresh() -> void:
-    if unit and unit.is_alive():
+    if unit and unit.is_alive() and reference_instance:
         bounce_times_increase = reference_instance.value - unit.bounce_times
         unit.bounce_times = value
 

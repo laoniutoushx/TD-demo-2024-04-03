@@ -112,7 +112,7 @@ enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_55
 
 [sub_resource type="Resource" id="Resource_jeobp"]
 script = ExtResource("4_gg7ch")
-enemy_res_name = "llama"
+enemy_res_name = "08_llama"
 spawn_start_delay = 0.0
 spawn_interval = 3.0
 enemy_amount = 10

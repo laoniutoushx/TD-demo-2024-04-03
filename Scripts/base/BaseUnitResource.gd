@@ -30,8 +30,10 @@ enum ELEMENT_PHASE_STR{
 @export_flags("HUMAN", "BUILDING", "DECORATE_DESTORIED", "DECORATE_FOREVER") var unit_cate = 0
 
 # armor（护甲）
-@export var armor_amount: float
+@export var armor_amount: float = 0
 @export_flags("INVINCIBLE", "NORMAL", "HERO", "ENEMY", "FRIEND") var armor_type = 0
+# 魔法抗性
+@export var magic_resistance: float = 0.0	
 
 # create mesh outline
 @export var is_mesh_outline: bool = false

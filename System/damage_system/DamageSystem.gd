@@ -96,9 +96,9 @@ func process_bounce_chain(source: BaseUnit, initial_target: BaseUnit, dest_pos: 
 func apply_damage_and_effects(source: BaseUnit, target: BaseUnit) -> void:
 	if not target or not target is BaseUnit or not (target as BaseUnit).is_alive():
 		return
-	
+
 	# 造成伤害
-	target.take_damage(DamageCtx.new(source, target, source.attack_value))
+	target.take_damage(DamageCtxPool.get_ctx(source, target, source.attack_value))
 	
 	# 受击动画
 	_under_attack_anim(target)
@@ -168,7 +168,7 @@ func _process(delta: float) -> void:
 # 技能伤害
 func skill_damage(skill: Skill, source: BaseUnit, target: BaseUnit) -> bool:
 	if target.is_alive():
-		return target.take_skill_damage(DamageCtx.new(source, target, skill.value, DamageCtx.DamageType.NORMAL, DamageCtx.DamageSourceType.SKILL))
+		return target.take_skill_damage(DamageCtxPool.get_ctx(source, target, skill.value, DamageCtx.DamageType.NORMAL, DamageCtx.DamageSourceType.SKILL))
 	return true
 
 
@@ -203,9 +203,25 @@ func skill_range_damage(skill: Skill, source: BaseUnit, target_position: Vector3
 				
 				if is_in_range:
 					if CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.ENEMY, skill.target_type) and unit.owner.player_group != source.player_group:
-						unit.owner.take_skill_damage(DamageCtx.new(source, unit.owner, skill.value, DamageCtx.DamageType.NORMAL, DamageCtx.DamageSourceType.SKILL))
+						unit.owner.take_skill_damage(DamageCtxPool.get_ctx(source, unit.owner, skill.value, DamageCtx.DamageType.NORMAL, DamageCtx.DamageSourceType.SKILL))
 
 						affect_unit_in_range.append(unit.owner)
 
 	# 返回所有受到伤害的单位
 	return affect_unit_in_range						
+
+
+
+
+## 伤害池：
+class DamageCtxPool extends RefCounted:
+	const POOL_SIZE := 64
+	static var _pool: Array[DamageCtx] = []
+
+	static func get_ctx(_source: BaseUnit, _target: BaseUnit, _damage: float, _damage_type: DamageCtx.DamageType = DamageCtx.DamageType.NORMAL, _damage_source: DamageCtx.DamageSourceType = DamageCtx.DamageSourceType.UNIT) -> DamageCtx:
+		if _pool.is_empty():
+			return DamageCtx.new(_source, _target, _damage, _damage_type, _damage_source) # fallback，少数情况
+		return _pool.pop_back()
+
+	static func return_ctx(ctx: DamageCtx) -> void:
+		_pool.push_back(ctx)	

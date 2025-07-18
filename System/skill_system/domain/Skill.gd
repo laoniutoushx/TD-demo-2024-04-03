@@ -200,7 +200,7 @@ func _on_unit_level_up(unit: BaseUnit, unit_level: int) -> void:
         if skill_meta_res.skill_level_config and skill_meta_res.skill_level_config.size() + 1 > level:
 
             var next_level_skill_res: SkillMetaResource = skill_meta_res.skill_level_config[level - 1]
-            if level < max_level and unit_level >= next_level_skill_res.level_limit:
+            if next_level_skill_res and level < max_level and unit_level >= next_level_skill_res.level_limit:
                 # 刷新技能属性数据到对应技能等级
                 CommonUtil.bean_properties_copy(next_level_skill_res, self)
 
