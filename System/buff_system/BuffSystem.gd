@@ -69,11 +69,15 @@ func init_buff_for_unit_by_res(ref: Variant, ele: Variant) -> Dictionary:
 
 
 ## buff apply 
-# apply 一般一定是 apply to some unit，故 这里 _reference 为 BaseUnit
-func apply(_buff: Buff, _reference: Variant):	
+# apply 一般 apply buff from one to unit，故 这里 _reference 一般为 Skill 或 Item（通过 skill 或 item 赋予 buff 效果）
+# target 一般为 单位（被授予 buff 效果的目标 target）
+func apply(_buff: Buff, _reference: Variant = null, target: Variant = null) -> void:	
+	assert(_reference != null, "_reference must not be null")
+	assert(target != null, "target must not be null")
+
 
 	# buff 计数
-	var _id = str(_buff.code) + "&" + str(_reference.get_instance_id())
+	var _id = str(_buff.code) + "&" + str(target.get_instance_id())
 	if __buff_inst_counter.has(_id):
 		__buff_inst_counter[_id] += 1
 	else:
@@ -85,12 +89,12 @@ func apply(_buff: Buff, _reference: Variant):
 
 	# 无论是否可以叠加，都应该增加 cooldown 时间
 	if _buff.cooldown > 0:
-		SignalBus.buff_cooldown_extend.emit(_buff, _reference)
+		SignalBus.buff_cooldown_extend.emit(_buff, target)
 
 	# 叠加层数检查
 	if _buff.max_overlay_num > -1:
 		var buff_count = 0
-		for bm: Buff in _reference.buff_map.values():
+		for bm: Buff in target.buff_map.values():
 			if _buff.code == bm.code:
 				buff_count += 1
 
@@ -104,34 +108,36 @@ func apply(_buff: Buff, _reference: Variant):
 	buff = CommonUtil.bean_properties_copy(_buff, buff)
 	buff.prob_callback = _buff.prob_callback
 
-	_reference.buff_map[buff.get_instance_id()] = buff
+	target.buff_map[buff.get_instance_id()] = buff
 
-	if _reference is BaseUnit or _reference is Enemy:
-		buff.unit = _reference
+	buff.reference_instance = _reference
+	buff.unit = target
+
+
 
 	# buff apply
-	if buff.apply(_reference):
+	if buff.apply(buff.reference_instance, buff.unit):
 		# buff exit tree 绑定
-		buff.tree_exiting.connect(_on_buff_exiting_tree.bind(buff, _reference), CONNECT_ONE_SHOT)
+		buff.tree_exiting.connect(_on_buff_exiting_tree.bind(buff, buff.unit), CONNECT_ONE_SHOT)
 
 		# 开启计时器
 		if buff.cooldown > 0:
-			buff.cool_down_timer.timeout.connect(remove.bind(buff, _reference))
+			buff.cool_down_timer.timeout.connect(remove.bind(buff, buff.unit))
 			buff.change_state(Buff.BUFF_STATE.Cool_Down)
 			# buff.cool_down_timer.start()
 
 		# 添加到 buff action_bar ui 界面
-		SignalBus.buff_enter.emit(buff, _reference)
+		SignalBus.buff_enter.emit(buff, buff.unit)
 
 	
 
 
 # buff remove
-func remove(_buff: Buff, _reference: Variant):
+func remove(_buff: Buff, target: Variant):
 	# 当 buff 为永久 buff （cooldown == -1）时，检查 buff 计数
 	if _buff.cooldown == -1:
 		# buff 计数（未达到最小数量时，不删除）（只适合 范围类光辉类 buff）（单体延迟冷却时间类，这里到期后应该立即删除，后期没有机会再触发删除）
-		var _id = str(_buff.code) + "&" + str(_reference.get_instance_id())
+		var _id = str(_buff.code) + "&" + str(target.get_instance_id())
 		if __buff_inst_counter[_id] > 1:
 			__buff_inst_counter[_id] -= 1
 			# 退出时，处理 buff 计数
@@ -142,11 +148,11 @@ func remove(_buff: Buff, _reference: Variant):
 		pass
 
 	# 删除 reference 实体上关联的 buff 信息
-	_reference.buff_map.erase(_buff.get_instance_id())
+	target.buff_map.erase(_buff.get_instance_id())
 
 	# if _buff.remove(_reference):
 	# 移出 buff action_bar ui 界面
-	SignalBus.buff_exit.emit(_buff, _reference)
+	SignalBus.buff_exit.emit(_buff, target)
 
 	# 删除 buff
 	_buff.queue_free()
@@ -154,14 +160,14 @@ func remove(_buff: Buff, _reference: Variant):
 
 
 # buff 退出节点树
-func _on_buff_exiting_tree(_buff: Buff, _reference: Variant):
+func _on_buff_exiting_tree(_buff: Buff, target: Variant):
 	# 销毁时，处理 属性问题
-	_buff.remove(_reference)
+	_buff.remove(target)
 	# _buff.call_deferred("remove", _reference)
 
 
 	# 销毁时，处理 buff 计数
-	var _id = str(_buff.code) + "&" + str(_reference.get_instance_id())
+	var _id = str(_buff.code) + "&" + str(target.get_instance_id())
 	__buff_inst_counter.erase(_id)
 	# print("buff exit %s" % __buff_inst_counter)
 	

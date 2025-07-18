@@ -70,7 +70,7 @@ class InnerHandler extends Node3D:
         var affect_unit_in_range = SystemUtil.damage_system.skill_range_damage(skill_context.skill, skill_context.source, point, skill_context.skill.damage_range)
         for au in affect_unit_in_range:
             var bf = CommonUtil.get_first_value(skill_context.skill.buff_map)
-            SystemUtil.buff_system.apply(bf, au)
+            SystemUtil.buff_system.apply(bf, skill_context.skill, au)
 
         # await CommonUtil.await_timer(2.0)
         

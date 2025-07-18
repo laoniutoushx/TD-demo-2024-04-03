@@ -19,6 +19,6 @@ func action(skill_context: SkillContext) -> void:
             buff.value = skill.value
 
 
-            SystemUtil.buff_system.apply(buff, source_unit)
+            SystemUtil.buff_system.apply(buff, skill, source_unit)
 
 

@@ -17,7 +17,7 @@ func action(skill_context: SkillContext) -> void:
 		for buff: Buff in skill.buff_map.values():
 			buff.value = skill.value
 			# print("---------- %s, buff state %s" % [skill.title, is_instance_valid(buff)])
-			SystemUtil.buff_system.apply(buff, source_unit)
+			SystemUtil.buff_system.apply(buff, skill, source_unit)
 
 
 

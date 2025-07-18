@@ -1,19 +1,61 @@
-[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=5 format=3 uid="uid://dvxj0t85d6tcp"]
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=7 format=3 uid="uid://dvxj0t85d6tcp"]
 
 [ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_lt73v"]
 [ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="2_g8p7r"]
 [ext_resource type="Resource" uid="uid://0y0mntnumqi" path="res://System/buff_system/resources/mult_ack.tres" id="3_g8p7r"]
 [ext_resource type="Script" uid="uid://c6sl3j1xbmdpx" path="res://System/skill_system/resources/effect/mult_attack.gd" id="4_wgebk"]
 
-[resource]
+[sub_resource type="Resource" id="Resource_ijnuw"]
 script = ExtResource("1_lt73v")
 code = "mult_attack"
 title = "多重攻击"
 desc = "多重攻击"
 icon_path = "mult_attack"
-level = 1
+level = 2
 level_up_gap = 1
 max_level = 3
+level_limit = 5
+init_release = true
+auto_release = false
+cooldown = 1.0
+mana_cost = -1.0
+damage_range = 5.0
+match_range = 30.0
+range = 5.0
+release_distance = 10.0
+stock = -1
+value = 2.0
+value_ext = {}
+run_distance = 10.0
+epoch = 1
+init_num = 1
+internal_time = -1.0
+start_time = 0.1
+end_time = 0.1
+wave = 1
+projection_speed = 1.0
+probability = 0.25
+disable_check = 0
+release_type = 32
+target_type = 8
+effect_type = 8
+building_level_up_time = -1.0
+wood_cost = -1.0
+money_cost = -1.0
+skill_script = ExtResource("4_wgebk")
+skill_level_config = Array[ExtResource("1_lt73v")]([null, null])
+skill_buff_config = Array[ExtResource("2_g8p7r")]([ExtResource("3_g8p7r")])
+
+[sub_resource type="Resource" id="Resource_08hq4"]
+script = ExtResource("1_lt73v")
+code = "mult_attack"
+title = "多重攻击"
+desc = "多重攻击"
+icon_path = "mult_attack"
+level = 3
+level_up_gap = 1
+max_level = 3
+level_limit = -1
 init_release = true
 auto_release = false
 cooldown = 1.0
@@ -42,5 +84,46 @@ building_level_up_time = -1.0
 wood_cost = -1.0
 money_cost = -1.0
 skill_script = ExtResource("4_wgebk")
-skill_level_config = Array[ExtResource("1_lt73v")]([])
+skill_level_config = Array[ExtResource("1_lt73v")]([null, null])
+skill_buff_config = Array[ExtResource("2_g8p7r")]([ExtResource("3_g8p7r")])
+
+[resource]
+script = ExtResource("1_lt73v")
+code = "mult_attack"
+title = "多重攻击"
+desc = "多重攻击"
+icon_path = "mult_attack"
+level = 1
+level_up_gap = 1
+max_level = 3
+level_limit = -1
+init_release = true
+auto_release = false
+cooldown = 1.0
+mana_cost = -1.0
+damage_range = 5.0
+match_range = 30.0
+range = 5.0
+release_distance = 10.0
+stock = -1
+value = 1.0
+value_ext = {}
+run_distance = 10.0
+epoch = 1
+init_num = 1
+internal_time = -1.0
+start_time = 0.1
+end_time = 0.1
+wave = 1
+projection_speed = 1.0
+probability = 0.25
+disable_check = 0
+release_type = 32
+target_type = 8
+effect_type = 8
+building_level_up_time = -1.0
+wood_cost = -1.0
+money_cost = -1.0
+skill_script = ExtResource("4_wgebk")
+skill_level_config = Array[ExtResource("1_lt73v")]([SubResource("Resource_ijnuw"), SubResource("Resource_08hq4")])
 skill_buff_config = Array[ExtResource("2_g8p7r")]([ExtResource("3_g8p7r")])

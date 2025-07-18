@@ -8,11 +8,15 @@ var attack_num_increase: int = 0
 func _ready() -> void:
     super._ready()
 
-    # 停止单位移动（process false）
-    if unit and unit.is_alive():
-        attack_num_increase = value - unit.attack_num
-        unit.attack_num = value
+
+    refresh()
         
+
+# 空接口， buff 自己实现内部逻辑
+func refresh() -> void:
+    if unit and unit.is_alive():
+        attack_num_increase = reference_instance.value - unit.attack_num
+        unit.attack_num = reference_instance.value 
 
 
 

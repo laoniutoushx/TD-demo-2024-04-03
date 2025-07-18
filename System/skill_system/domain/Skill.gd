@@ -11,6 +11,7 @@ var slot: BaseSlot
 signal skill_released(skill_context: SkillContext)      # initialize_skills 时注册
 signal skill_cool_down(skill_context: SkillContext)
 signal skill_disabled(skill_context: SkillContext, disabled: bool)      # action bar add_elements slot 时监听 skill_disabled 事件
+signal skill_level_up(skill: Skill, level: int)
 
 
 # meta info 
@@ -200,7 +201,15 @@ func _on_unit_level_up(unit: BaseUnit, unit_level: int) -> void:
 
             var next_level_skill_res: SkillMetaResource = skill_meta_res.skill_level_config[level - 1]
             if level < max_level and unit_level >= next_level_skill_res.level_limit:
+                # 刷新技能属性数据到对应技能等级
                 CommonUtil.bean_properties_copy(next_level_skill_res, self)
+
+                # 刷新技能槽图标展示等级
+                if slot:
+                    slot.reset_level(level)
+                
+                # 技能升级事件
+                skill_level_up.emit(self, level)
 
 
 

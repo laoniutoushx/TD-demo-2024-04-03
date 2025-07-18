@@ -147,8 +147,7 @@ func custome_init(ref: Variant, icon_path: String, type: SLOT_TYPE = SLOT_TYPE.D
 	icon_texture.material = slot_material
 	
 
-	if level and level > -1:
-		level_key.text = "LV " + str(level)
+	reset_level(level)
 
 	
 	slot_type = type
@@ -167,6 +166,14 @@ func do(active):
 		icon_texture.material.set_shader_parameter("modulate_color", Color.DIM_GRAY)
 		icon_texture.material.set_shader_parameter("show_border", false)
 		self.theme = null # slot_panel_container_unactive_theme
+
+
+# 重新设置等级
+func reset_level(level: int) -> void:
+	if level and level > -1:
+		level_key.text = "LV " + str(level)
+
+
 
 # 延长冷却时间
 func extend_cooldown(cooldown: float) -> void:

@@ -8,9 +8,9 @@ var res: BuffResource   # buff 元信息
 var entity: String      # 引用实例类型 Clazz  (e.g. BaseUnit/Skill/LevelComp/Item/Buff)
 var prop: String        # 实例对应属性名称
 
-var reference_instance: Variant        # 引用实例（Skill、Item、Unit）
+var reference_instance: Variant        # 引用实例（Skill、Item、Unit） Buff 来源
 
-var unit: BaseUnit
+var unit: BaseUnit      # 作用单位（如果是技能 buff，则为技能对应的单位）
 var slot: BaseSlot
 
 
@@ -97,6 +97,18 @@ func _ready() -> void:
     if is_prob:
         _prob_controller = prob_callback.call()
 
+    # 监听技能等级事件
+    if reference_instance and reference_instance is Skill:
+        reference_instance.skill_level_up.connect(_on_skill_level_up)
+
+
+
+func _on_skill_level_up(skill: Skill, level: int) -> void:
+    # 技能升级时，刷新 buff 属性值
+    if skill and is_instance_valid(skill):
+        refresh()
+
+
 
 func change_state(state: BUFF_STATE) -> void:
     current_state = state
@@ -110,18 +122,19 @@ func change_state(state: BUFF_STATE) -> void:
                 cool_down_timer.start()
 
 
-func apply(_reference: Variant) -> bool:
+func apply(_reference: Variant, _target: Variant) -> bool:
     # buff exclude level 检查
-    if not is_fit_exclude_level(self, _reference):
+    if not is_fit_exclude_level(self, _target):
         print("buff code %s exclude level %s" % [self.code, self.exclude_level])
         return false 
 
     # 引用单位存在
-    if _reference: 
+    if _target: 
         reference_instance = _reference
+        unit = _target
 
         # 添加到节点树
-        _reference.add_child(self)
+        unit.add_child(self)
 
         # 属性修改
         if prop:
@@ -129,7 +142,7 @@ func apply(_reference: Variant) -> bool:
             # _reference.add_child(buff_instance)
 
             # reference_instance 属性值修改
-            var ref_val = _reference.get(prop)
+            var ref_val = unit.get(prop)
             _value = ref_val
 
 
@@ -144,7 +157,7 @@ func apply(_reference: Variant) -> bool:
 
 
 
-            _reference.set(prop, ref_val)
+            unit.set(prop, ref_val)
 
             # print("REF_VAL %s" % ref_val)
 
@@ -156,14 +169,14 @@ func apply(_reference: Variant) -> bool:
 
 
 
-func remove(_reference: Variant) -> bool:
+func remove(_target: Variant) -> bool:
 
     
     # reference_instance 属性值修改
-    if _reference:
+    if _target:
 
         if prop:
-            var ref_val = _reference.get(prop)
+            var ref_val = _target.get(prop)
 
 
             if value_unit == BuffResource.VALUE_UNIT.PERCENT:
@@ -177,7 +190,7 @@ func remove(_reference: Variant) -> bool:
 
 
 
-            _reference.set(prop, ref_val)
+            _target.set(prop, ref_val)
             # 恢复为当前 buff 修改前的数值
             # _reference.set(prop, _value)
 
@@ -194,29 +207,56 @@ func remove(_reference: Variant) -> bool:
 
 
 # 判断排除等级
-func is_fit_exclude_level(_buff: Buff, _reference: Variant) -> bool:
+func is_fit_exclude_level(_buff: Buff, _target: Variant) -> bool:
     # 
     if _buff.exclude_level == BuffResource.EXCLUDE_LEVEL.ALL:
         return true
 
     if _buff.exclude_level == BuffResource.EXCLUDE_LEVEL.TYPE:
         # 获取已有第一个 buff
-        if _reference.buff_map.size() == 0:
+        if _target.buff_map.size() == 0:
             return true
 
-        var bm: Buff = _reference.buff_map.values()[0]
+        var bm: Buff = _target.buff_map.values()[0]
         if CommonUtil.has_overlapping_flags(_buff.type, bm.type):
             return true	
         else: 
             return false
 
     if _buff.exclude_level == BuffResource.EXCLUDE_LEVEL.SELF:
-        for bm: Buff in _reference.buff_map.values():
+        for bm: Buff in _target.buff_map.values():
             if bm.code != _buff.code:
                 return false
         return true
     
     if _buff.exclude_level == BuffResource.EXCLUDE_LEVEL.NONE:
-        return _reference.buff_map.size() == 0
+        return _target.buff_map.size() == 0
 
     return true
+
+
+# 空接口， buff 自己实现内部逻辑
+func refresh() -> void:
+    # reference_instance 属性值修改
+    if unit:
+        if prop:
+            # reference_instance 属性值修改
+            var ref_val = unit.get(prop)
+            ref_val = (ref_val - prop_value_delta) # 撤回 buff 数值
+            _value = ref_val
+
+
+            if value_unit == BuffResource.VALUE_UNIT.PERCENT:
+                prop_value_delta = ref_val * value / 100 * _value_dir
+                ref_val += prop_value_delta
+
+
+            elif value_unit == BuffResource.VALUE_UNIT.VALUE:
+                prop_value_delta = value * _value_dir
+                ref_val += prop_value_delta
+
+
+            value = ref_val # 新数值复制
+            
+            # 更新单位属性值
+            unit.set(prop, ref_val)

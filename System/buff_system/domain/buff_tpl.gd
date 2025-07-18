@@ -9,11 +9,11 @@ func _exit_tree() -> void:
 	pass
 
 
-func apply(_reference: Variant) -> bool:
+func apply(_reference: Variant, _target: Variant) -> bool:
 	return false
 
 
-func remove(_reference: Variant) -> bool:
+func remove(_target: Variant) -> bool:
 	return false	
 
 

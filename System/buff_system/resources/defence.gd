@@ -14,7 +14,7 @@ func _ready() -> void:
 
     # 高度获取
     if unit:
-        var height = reference_instance._height
+        var height = unit._height
         _vfx.position.y = height / 2
 
         # 注册伤害逻辑
@@ -24,6 +24,12 @@ func _ready() -> void:
     await ready
     # reference_instance.call_deferred("add_child", _vfx)
     unit.add_child(_vfx)
+
+
+
+# 空接口， buff 自己实现内部逻辑
+func refresh() -> void:
+    super.refresh()
 
 
 
@@ -44,7 +50,7 @@ func _on_take_damge_logic(damage_ctx: DamageCtx) -> DamageCtx:
     value = value - damage_ctx.damage
 
     if value <= 0:
-        damage_ctx.damage = abs(value)
+        damage_ctx.damage = abs(reference_instance.value)
 
         SystemUtil.buff_system.remove(self, unit)
         return damage_ctx

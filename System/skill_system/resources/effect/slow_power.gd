@@ -33,7 +33,7 @@ func _on_area_3d_area_entered(area: Area3D, skill_context):
 	if target_unit and target_unit.is_alive() and target_unit.player_group != SOS.main.player_controller.player_group_idx:
 		for buff: Buff in skill.buff_map.values():
 			# print("---------- %s, buff state %s" % [skill.title, is_instance_valid(buff)])
-			SystemUtil.buff_system.apply(buff, target_unit)
+			SystemUtil.buff_system.apply(buff, skill, target_unit)
 
 
 

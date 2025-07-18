@@ -15,7 +15,7 @@ func _on_action_damge_logic(damage_ctx: DamageCtx) -> DamageCtx:
     if _prob_controller.next():
         # 触发暴击
         damage_ctx.damage_type = DamageCtx.DamageType.CRITICAL
-        damage_ctx.damage = damage_ctx.damage * value
+        damage_ctx.damage = damage_ctx.damage * reference_instance.value_ext.get("critical_multiplier")
         return damage_ctx
     else:
         pass

@@ -16,6 +16,11 @@ func _ready() -> void:
 
 	timer.timeout.connect(_on_timer_timeout)
 
+
+func refresh() -> void:
+	super.refresh()
+
+
 # Called when the timer times out
 func _on_timer_timeout() -> void:
 	# Get the owning unit and call the rate buff tick function
@@ -45,3 +50,6 @@ func _on_rate_buff_ticked(unit: BaseUnit):
 		else:
 			var mana = unit.mana + value * _value_dir
 			unit.mana = min(mana, unit.max_mana)
+
+
+

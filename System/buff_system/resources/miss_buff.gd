@@ -22,6 +22,13 @@ func _on_take_damge_logic(damage_ctx: DamageCtx) -> DamageCtx:
     return damage_ctx
 
 
+
+# 空接口， buff 自己实现内部逻辑
+func refresh() -> void:
+    value = reference_instance.value
+
+
+
 func _exit_tree() -> void:
     super._exit_tree()
 

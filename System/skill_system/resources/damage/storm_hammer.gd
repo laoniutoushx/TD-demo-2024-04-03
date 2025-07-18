@@ -69,7 +69,7 @@ class InnerHandler extends Node3D:
         if target_unit.is_alive():
             for buff: Buff in skill.buff_map.values():
                 # print("---------- %s, buff state %s" % [skill.title, is_instance_valid(buff)])
-                SystemUtil.buff_system.apply(buff, target_unit)
+                SystemUtil.buff_system.apply(buff, skill, target_unit)
 
         # 播放音效(魔法击中)
         CommonUtil.play_audio(target_unit, "魔法击中-YS070510_爱给网_aigei_com")

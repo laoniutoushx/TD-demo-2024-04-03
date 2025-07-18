@@ -12,6 +12,9 @@ func _ready() -> void:
         unit.logical_death.connect(_on_unit_logic_death)
 
 
+func refresh() -> void:
+    super.refresh()
+
 
 # 监听单位死亡事件
 func _on_unit_logic_death(unit: BaseUnit) -> void:
