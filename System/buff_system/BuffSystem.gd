@@ -87,9 +87,12 @@ func apply(_buff: Buff, _reference: Variant = null, target: Variant = null) -> v
 	# 进入后，处理 buff 计数
 	# print("buff enter %s" % __buff_inst_counter)	
 
-	# 无论是否可以叠加，都应该增加 cooldown 时间
+	# 根据可叠加层数处理 buff 延迟时间
 	if _buff.cooldown > 0:
-		SignalBus.buff_cooldown_extend.emit(_buff, target)
+		if __buff_inst_counter[_id] <= _buff.max_overlay_num:
+			SignalBus.buff_cooldown_extend.emit(_buff, target)
+		else:
+			pass	# 超过最大叠加层数，不处理延迟时间
 
 	# 叠加层数检查
 	if _buff.max_overlay_num > -1:

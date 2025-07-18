@@ -40,6 +40,7 @@ icon_path = "ice_storm"
 level = 1
 level_up_gap = 1
 max_level = 3
+level_limit = -1
 init_release = false
 auto_release = false
 cooldown = 10.0
