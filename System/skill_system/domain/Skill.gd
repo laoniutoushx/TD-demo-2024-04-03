@@ -205,7 +205,7 @@ func _on_unit_level_up(unit: BaseUnit, unit_level: int) -> void:
                 CommonUtil.bean_properties_copy(next_level_skill_res, self)
 
                 # 刷新技能槽图标展示等级
-                if slot:
+                if slot and is_instance_valid(slot):
                     slot.reset_level(level)
                 
                 # 技能升级事件
