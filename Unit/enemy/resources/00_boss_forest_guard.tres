@@ -1,11 +1,54 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=7 format=3 uid="uid://cyfmq52rep7cb"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=10 format=3 uid="uid://cyfmq52rep7cb"]
 
 [ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="1_7nbd2"]
 [ext_resource type="PackedScene" uid="uid://cs8iasuffn0ij" path="res://Unit/enemy/scenes/00_boss_forest_guard.tscn" id="2_21kux"]
 [ext_resource type="Script" uid="uid://cwoilst65vmq6" path="res://Unit/enemy/EnemyResource.gd" id="3_vyyy8"]
 [ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_whd5l"]
-[ext_resource type="Resource" uid="uid://bm3kcjrhtayri" path="res://System/skill_system/resources/effect/force_field.tres" id="5_h2lr7"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="5_v141w"]
+[ext_resource type="Resource" uid="uid://dk0cymr07pskk" path="res://System/buff_system/resources/defence.tres" id="6_nb7u0"]
 [ext_resource type="Resource" uid="uid://w7qj0bg1wsuy" path="res://System/skill_system/resources/effect/missing.tres" id="6_uuyaa"]
+[ext_resource type="Script" uid="uid://vddi18w1ygwl" path="res://System/skill_system/resources/effect/force_field.gd" id="7_sqec7"]
+
+[sub_resource type="Resource" id="Resource_wbcg4"]
+script = ExtResource("4_whd5l")
+code = "force_field"
+title = "力场护盾"
+desc = "抵御 ${value} 伤害"
+icon_path = "1159"
+level = 1
+level_up_gap = 1
+max_level = 3
+level_limit = -1
+init_release = false
+auto_release = true
+cooldown = 20.0
+mana_cost = -1.0
+damage_range = 5.0
+match_range = 30.0
+range = 5.0
+release_distance = 10.0
+stock = 1
+value = 2000.0
+value_ext = {}
+run_distance = 10.0
+epoch = 1
+init_num = 1
+internal_time = -1.0
+start_time = 0.1
+end_time = 0.1
+wave = 1
+projection_speed = 1.0
+probability = 0.25
+disable_check = 1
+release_type = 2
+target_type = 10
+effect_type = 8
+building_level_up_time = -1.0
+wood_cost = -1.0
+money_cost = -1.0
+skill_script = ExtResource("7_sqec7")
+skill_level_config = Array[ExtResource("4_whd5l")]([])
+skill_buff_config = Array[ExtResource("5_v141w")]([ExtResource("6_nb7u0")])
 
 [resource]
 script = ExtResource("3_vyyy8")
@@ -57,4 +100,4 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_7nbd2")]([])
-skill_metas = Array[ExtResource("4_whd5l")]([ExtResource("5_h2lr7"), ExtResource("6_uuyaa")])
+skill_metas = Array[ExtResource("4_whd5l")]([SubResource("Resource_wbcg4"), ExtResource("6_uuyaa")])
