@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelResource" load_steps=73 format=3 uid="uid://cfjres2fis310"]
+[gd_resource type="Resource" script_class="LevelResource" load_steps=74 format=3 uid="uid://cfjres2fis310"]
 
 [ext_resource type="PackedScene" uid="uid://bxibobasihqmy" path="res://Levels/level_1/Level1.tscn" id="1_n8mn6"]
 [ext_resource type="Script" uid="uid://dbmpwe6whmw1r" path="res://Levels/level_resource.gd" id="1_oc6p8"]
@@ -71,16 +71,24 @@ enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_xt
 [sub_resource type="Resource" id="Resource_rj64l"]
 script = ExtResource("4_gg7ch")
 enemy_res_name = "05_horse"
-spawn_start_delay = 0.0
+spawn_start_delay = 1.5
 spawn_interval = 3.0
 enemy_amount = 10
+
+[sub_resource type="Resource" id="Resource_68lwm"]
+script = ExtResource("4_gg7ch")
+enemy_res_name = "00_boss_forest_guard"
+spawn_start_delay = 0.0
+spawn_interval = 2.0
+enemy_amount = 1
+metadata/_custom_type_script = "uid://4w0o5ddi0bta"
 
 [sub_resource type="Resource" id="Resource_541jc"]
 script = ExtResource("3_o0ugr")
 start_delay = 5.0
 next_wave_delay = 5.0
 level_code = ""
-enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_rj64l")])
+enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_rj64l"), SubResource("Resource_68lwm")])
 
 [sub_resource type="Resource" id="Resource_x0enq"]
 script = ExtResource("4_gg7ch")

@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=7 format=3 uid="uid://cyfmq52rep7cb"]
+
+[ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="1_7nbd2"]
+[ext_resource type="PackedScene" uid="uid://cs8iasuffn0ij" path="res://Unit/enemy/scenes/00_boss_forest_guard.tscn" id="2_21kux"]
+[ext_resource type="Script" uid="uid://cwoilst65vmq6" path="res://Unit/enemy/EnemyResource.gd" id="3_vyyy8"]
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_whd5l"]
+[ext_resource type="Resource" uid="uid://bm3kcjrhtayri" path="res://System/skill_system/resources/effect/force_field.tres" id="5_h2lr7"]
+[ext_resource type="Resource" uid="uid://w7qj0bg1wsuy" path="res://System/skill_system/resources/effect/missing.tres" id="6_uuyaa"]
+
+[resource]
+script = ExtResource("3_vyyy8")
+clz_name = "00_boss_forest_guard"
+model_path = ExtResource("2_21kux")
+title = "丛林守卫者"
+desc = "丛林守卫者是原始世界神秘的保护神。他们与自然共生，能号令百兽，驾驭古老的丛林之力。作为这片绿色净土的最后防线，他们默默抵御着一切试图破坏森林和谐的贪婪与黑暗，以生命捍卫着自然的平衡与所有生灵的安宁。"
+icon_path = "res://Asserts/Images/icon/enemy/forest_guard.png"
+aabb_scale = 1.0
+aabb_height_scale = 1.0
+element_phase = 1
+unit_move_type = 1
+unit_cate = 1
+armor_amount = 0.0
+armor_type = 14
+magic_resistance = 0.0
+is_mesh_outline = false
+is_mesh_standing = true
+mana_cost = -1.0
+wood_cost = -1.0
+money_cost = -1.0
+money_reward = -1
+wood_reward = -1
+max_health = 150000.0
+max_mana = 10000.0
+move_speed = 1.8
+turn_speed = 0.0
+attack_speed = 100.0
+attack_range = 0.0
+attack_num = 1
+bounce_times = 0
+bounce_distance = 20
+bounce_decay_factor = 0.3
+attack_value = 0.0
+unit_growth_factor = 0.0
+projectile_speed = 100.0
+health_recove_rate_factor = 0.0
+mana_recove_rate_factor = 0.0
+anim_attack = "attack"
+anim_run = "walk"
+anim_walk = "walk"
+anim_idle = "a-post"
+anim_death = "death"
+anim_release = ""
+anim_speed_factor = 1.0
+anim_ack_point = 0.03
+audio_death = ""
+is_selected_circle = true
+component_systems = 0
+pickup_velocity = 1000.0
+item_metas = Array[ExtResource("1_7nbd2")]([])
+skill_metas = Array[ExtResource("4_whd5l")]([ExtResource("5_h2lr7"), ExtResource("6_uuyaa")])
