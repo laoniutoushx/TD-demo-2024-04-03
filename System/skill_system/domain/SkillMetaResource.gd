@@ -75,6 +75,8 @@ class_name SkillMetaResource extends Resource
 @export_group("Skill Inner Steup")
 # 初始对象数量（skill 内部单位初始数量）
 @export var init_num: int = 1
+# 施法持续时间
+@export var cast_duration: float = -1
 # 间隔时间
 @export var internal_time: float = -1
 # 施法前摇

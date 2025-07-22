@@ -1,0 +1,74 @@
+[gd_resource type="Resource" script_class="SkillMetaResource" load_steps=8 format=3 uid="uid://bom1o5he8ts17"]
+
+[ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="1_802sa"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="2_bufb0"]
+[ext_resource type="Script" uid="uid://caib52nmgh5qd" path="res://System/buff_system/resources/rate_buff.gd" id="3_fpiyx"]
+[ext_resource type="Script" uid="uid://cya1pifwbgjdk" path="res://addons/script_property_selector/property_selector_resource.gd" id="4_yefi6"]
+[ext_resource type="Script" uid="uid://mftwl3f5remt" path="res://System/skill_system/resources/heal/peaceful.gd" id="5_fpiyx"]
+
+[sub_resource type="Resource" id="Resource_wqbbn"]
+script = ExtResource("4_yefi6")
+selected_script_name = ""
+selected_properties = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_aewfd"]
+script = ExtResource("2_bufb0")
+id = &""
+code = "health_rate_buff_peaceful"
+entity = ""
+prop = "health_recove_rate_factor"
+property_selector = SubResource("Resource_wqbbn")
+type = 35
+title = "速率"
+desc = "修改目标指定属性速率值"
+icon_path = ""
+value = 1.0
+value_unit = 1
+value_dir = 0
+cooldown = -1.0
+max_overlay_num = 1
+priority = 0
+exclude_level = 3
+buff_script = ExtResource("3_fpiyx")
+
+[resource]
+script = ExtResource("1_802sa")
+code = "peaceful"
+title = "宁静"
+desc = "每秒恢复周围 ${match_range} 范围内单位 ${value} 生命值。"
+icon_path = "whit_wind"
+level = 1
+level_up_gap = 1
+max_level = 3
+level_limit = -1
+init_release = false
+auto_release = false
+cooldown = 30.0
+mana_cost = 10.0
+damage_range = 5.0
+match_range = 30.0
+range = 20.0
+release_distance = 20.0
+stock = 1
+value = 8.0
+value_ext = {}
+run_distance = 10.0
+epoch = 1
+init_num = 1
+cast_duration = 10.0
+internal_time = 0.3
+start_time = 0.0
+end_time = 0.0
+wave = 1
+projection_speed = 1.0
+probability = 0.25
+disable_check = 1
+release_type = 4
+target_type = 18
+effect_type = 10
+building_level_up_time = -1.0
+wood_cost = 10.0
+money_cost = 10.0
+skill_script = ExtResource("5_fpiyx")
+skill_level_config = Array[ExtResource("1_802sa")]([])
+skill_buff_config = Array[ExtResource("2_bufb0")]([SubResource("Resource_aewfd")])

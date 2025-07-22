@@ -9,7 +9,11 @@ func _ready() -> void:
 	
 	# Create and configure a timer to execute a task every second
 	timer = Timer.new()
-	timer.wait_time = 1.0  # 1 second
+	if reference_instance is Skill:
+		timer.wait_time = reference_instance.internal_time  # 1 second
+	else:
+		timer.wait_time = 1.0  # Default to 1 second if not a
+
 	timer.autostart = true
 	timer.one_shot = false
 	add_child(timer)

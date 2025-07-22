@@ -12,6 +12,7 @@ signal skill_released(skill_context: SkillContext)      # initialize_skills 时�
 signal skill_cool_down(skill_context: SkillContext)
 signal skill_disabled(skill_context: SkillContext, disabled: bool)      # action bar add_elements slot 时监听 skill_disabled 事件
 signal skill_level_up(skill: Skill, level: int)
+signal skill_cast_end(skill_context: SkillContext)	# 技能施法结束事件（技能施法结束后，可能会触发 buff 施法结束事件）
 
 
 # meta info 
@@ -70,6 +71,8 @@ var code: String
 @export_group("Skill Inner Steup") 
 # 初始对象数量（skill 内部单位初始数量）
 @export var init_num: int = 1
+# 施法持续时间
+@export var cast_duration: float = -1
 # 间隔时间
 @export var internal_time: float = -1
 # 施法前摇
@@ -143,6 +146,7 @@ enum SKILL_STATE {
     Direction_Indicate,
     Circle_Range_Indicate,
 	Release,
+	Casting,
     Cool_Down,
     Disabled
 }
@@ -560,6 +564,8 @@ func change_state(new_state: SKILL_STATE) -> void:
                 change_state(SKILL_STATE.Cool_Down)
             else:
                 change_state(SKILL_STATE.Idle)
+
+
 
 
 
