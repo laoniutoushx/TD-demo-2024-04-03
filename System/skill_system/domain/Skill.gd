@@ -151,6 +151,7 @@ enum SKILL_STATE {
     Disabled
 }
 
+var _is_casting = false
 var current_state: SKILL_STATE
 var mouse_click_check = false
 
@@ -559,6 +560,15 @@ func change_state(new_state: SKILL_STATE) -> void:
 
             # releasing
             SystemUtil.skill_system.release(skill_context)
+
+            # 技能为持续释放（记录持续释放状态）
+            if cast_duration > -1:
+                _is_casting = true
+                CommonUtil.delay_execution(cast_duration, func():
+                    _is_casting = false
+                    skill_cast_end.emit(skill_context)
+                )
+
             
             if cooldown > -1:
                 change_state(SKILL_STATE.Cool_Down)
