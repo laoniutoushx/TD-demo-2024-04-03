@@ -25,6 +25,9 @@ func _health_bar_create():
 	# 初始化创建 health_bar tscn
 	await self.ready
 	var health_bar: HealthBar = preload("res://Components/health_bar/health_bar.tscn").instantiate()
+
+	health_changed.connect(health_bar._on_unit_health_changed)
+
 	# var aabb: AABB = _transformed_aabb
 	var aabb: AABB = _transformed_aabb
 	# var aabb: AABB = CommonUtil.get_scaled_aabb(CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ, false))

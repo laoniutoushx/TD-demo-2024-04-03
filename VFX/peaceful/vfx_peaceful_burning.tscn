@@ -123,9 +123,9 @@ gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveXYZTexture_vkr18")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_8m2w4"]
-top_radius = 1.0
+top_radius = 5.0
 bottom_radius = 15.0
-height = 20.0
+height = 30.0
 radial_segments = 16
 
 [sub_resource type="Shader" id="Shader_tdd70"]
@@ -284,6 +284,57 @@ sub_emitter_frequency = 4.0
 [sub_resource type="QuadMesh" id="QuadMesh_4f8cp"]
 size = Vector2(0.5, 10)
 
+[sub_resource type="Animation" id="Animation_js7cp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RecoverySpark:material_override:shader_parameter/albedo")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 5, 2, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Star:material_override:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HeavenLight:material_override:shader_parameter/light_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector4(0, 0.475, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HealLight:material_override:shader_parameter/albedo")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 5, 2, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_tdd70"]
 resource_name = "burning"
 length = 4.0
@@ -336,57 +387,6 @@ tracks/3/keys = {
 "values": [Color(1, 5, 2, 0), Color(1, 5, 2, 0), Color(1, 5, 2, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_js7cp"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("RecoverySpark:material_override:shader_parameter/albedo")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 5, 2, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Star:material_override:albedo_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("HeavenLight:material_override:shader_parameter/light_color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector4(0, 0.475, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("HealLight:material_override:shader_parameter/albedo")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 5, 2, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n8lcb"]
 _data = {
 &"RESET": SubResource("Animation_js7cp"),
@@ -417,7 +417,7 @@ process_material = SubResource("ParticleProcessMaterial_hxjnh")
 draw_pass_1 = SubResource("QuadMesh_8m2w4")
 
 [node name="HeavenLight" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.246, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.0151, 0)
 material_override = SubResource("ShaderMaterial_4f8cp")
 amount = 4
 lifetime = 4.0

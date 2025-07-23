@@ -13,7 +13,7 @@ func action(skill_context: SkillContext) -> void:
 
 	# load area_tscn
 	var area_tscn: PackedScene = load("res://Components/area/area.tscn")
-	var area_inst: Area3D = area_tscn.instantiate()
+	var area_inst: Area3D = area_tscn.instantiate().duplicate()
 
 	area_inst.init(skill.range)
 	source_unit.add_child(area_inst)

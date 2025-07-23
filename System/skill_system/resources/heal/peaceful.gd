@@ -30,19 +30,30 @@ func action(skill_context: SkillContext) -> void:
 	area_inst.area_exited.connect(_on_area_3d_area_exited.bind(skill_context))
 
 	# 此处监听 技能释放完毕信号，在此处执行所有释放操作
-	skill.skill_cast_end.connect(func(_skill_context: SkillContext):
-		# 释放技能后，移除临时 Area 实例
-		if area_inst and is_instance_valid(area_inst):
-			
-			for area in area_inst.get_overlapping_bodies():
-				var unit = area.owner
-				if unit and is_instance_valid(unit) and unit is BaseUnit and unit.is_alive() and unit.player_group != SOS.main.player_controller.player_group_idx:
-					for buff: Buff in unit.buff_map.values():
-						SystemUtil.buff_system.apply(buff, skill, unit)
+	skill.skill_cast_end.connect(_on_skill_cast_end.bind(area_inst, vfx), CONNECT_ONE_SHOT)
 
-			area_inst.queue_free()
-			vfx.queue_free()
-	)
+
+
+
+func _on_skill_cast_end(_skill_context: SkillContext, _area_inst, _vfx):
+	var _su = _skill_context.source
+	var _sk = _skill_context.skill
+	if _area_inst and is_instance_valid(_area_inst):
+		_area_inst.area_entered.disconnect(_on_area_3d_area_entered)
+		_area_inst.area_exited.disconnect(_on_area_3d_area_exited)
+		_area_inst.queue_free()
+	if _vfx and is_instance_valid(_vfx):		
+		_vfx.queue_free()
+
+	# 自释放
+	_sk.skill_cast_end.disconnect(_on_skill_cast_end)
+
+	# 删除自身 buff
+	for unit_buff: Buff in _su.buff_map.values():
+		for skill_buff: Buff in _sk.buff_map.values():
+			if unit_buff.code == skill_buff.code:
+				SystemUtil.buff_system.remove(unit_buff, _su)
+
 
 
 
@@ -57,6 +68,7 @@ func _on_area_3d_area_entered(area: Area3D, skill_context):
 
 	if target_unit and target_unit.is_alive() and target_unit.player_group != SOS.main.player_controller.player_group_idx:
 		for buff: Buff in skill.buff_map.values():
+			buff.value = skill.value
 			# print("---------- %s, buff state %s" % [skill.title, is_instance_valid(buff)])
 			SystemUtil.buff_system.apply(buff, skill, target_unit)
 

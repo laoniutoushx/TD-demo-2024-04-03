@@ -8,6 +8,7 @@ var clazz: BaseUnitResource
 
 # signal
 signal logical_death(unit: BaseUnit)
+signal health_changed(unit: BaseUnit, left_health: float)	# 生命值变化单位，剩余生命值
 signal mana_changed(unit: BaseUnit, left_mana: float)	# 魔法变化单位，剩余魔法值
 signal attack_unit(unit: BaseUnit, target: BaseUnit)	# 攻击单位，目标单位
 signal level_up(unit: BaseUnit, unit_level: int)	# 单位升级
@@ -48,7 +49,17 @@ enum ARMOR_TYPE_ENUM  {
 
 
 # unit status
-var health : float		
+var health : float : 
+	set(value):
+		var change_health_val = health - value
+		if health != value:
+			health_changed.emit(self, change_health_val)
+		health = value
+		if health < 0:
+			health = 0
+		elif health > max_health:
+			health = max_health
+
 var max_health : float :
 	set(value):
 		health = value

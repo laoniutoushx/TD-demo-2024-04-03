@@ -177,7 +177,7 @@ func release(skill_context: SkillContext) -> void:
 
 
 
-# 自动施法入口
+# 自动施法入口（激活/取消技能自动释放）
 # auto release
 func _on_skill_auto_release(is_auto_release: bool, skill_context: SkillContext):
 	if not skill_context:
@@ -287,7 +287,8 @@ func skill_release_right_now(skill_context: SkillContext) -> void:
 				break
 		return
 
-	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.SELF, skill.target_type):
+	if (CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.SELF, skill.target_type)
+			or CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.NO_TARGET, skill.target_type)):
 		skill_context.source = skill.unit
 		skill_context.target = skill.unit
 		skill_context.target_position = skill.unit.global_position

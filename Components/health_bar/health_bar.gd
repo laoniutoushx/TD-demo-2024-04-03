@@ -12,7 +12,8 @@ class_name HealthBar
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	SignalBus.unit_take_damage.connect(_on_enemy_take_damage)
+	# SignalBus.unit_take_damage.connect(_on_enemy_take_damage)
+	pass
 
 
 func prepare(value:float) -> void:
@@ -49,3 +50,8 @@ func _on_enemy_take_damage(id:int, enemy: Enemy, damage:float) -> void:
 	if id == get_parent().get_instance_id():	# use id and parent id compare(约定物体实例化到其子节点）
 		health_bar.update_health(damage)
 	pass	
+
+
+func _on_unit_health_changed(unit: BaseUnit, health:float) -> void:
+	health_bar.update_health(health)
+
