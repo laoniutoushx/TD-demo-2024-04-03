@@ -254,7 +254,7 @@ func _on_area_3d_area_exited(area: Area3D, skill_context: SkillContext):
 # 立即执行一次技能释放
 func skill_release_right_now(skill_context: SkillContext) -> void:
 	var skill: Skill = skill_context.skill
-	if not is_instance_valid(skill):
+	if not is_instance_valid(skill) or skill_context.source.is_alive() == false:
 		return
 
 	# 1. 技能状态判断（技能未在释放或冷却中 或 技能禁用）
