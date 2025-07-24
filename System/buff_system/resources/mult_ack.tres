@@ -20,6 +20,7 @@ type = 1
 title = "多重攻击"
 desc = "多重攻击"
 icon_path = "mult_attack"
+vfx = {}
 value = 0.0
 value_unit = 1
 value_dir = 0

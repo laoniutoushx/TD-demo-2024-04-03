@@ -20,6 +20,7 @@ type = 33
 title = "闪避"
 desc = "闪避状态"
 icon_path = "miss"
+vfx = {}
 value = 0.0
 value_unit = 0
 value_dir = 0

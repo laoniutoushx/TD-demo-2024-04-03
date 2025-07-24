@@ -21,6 +21,7 @@ unit_move_type = 1
 unit_cate = 1
 armor_amount = 0.0
 armor_type = 10
+magic_resistance = 0.0
 is_mesh_outline = false
 is_mesh_standing = true
 mana_cost = 10.0

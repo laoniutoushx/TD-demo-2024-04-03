@@ -20,6 +20,7 @@ type = 33
 title = "防御"
 desc = "防御"
 icon_path = "force_field"
+vfx = {}
 value = 0.0
 value_unit = 0
 value_dir = 0

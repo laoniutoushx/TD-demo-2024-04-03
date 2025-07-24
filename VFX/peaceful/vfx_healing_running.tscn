@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://dajal4turu0eh"]
+
+[ext_resource type="Texture2D" uid="uid://blun10uxp7j4v" path="res://Asserts/Images/vfx/heald1.png" id="1_rr4pr"]
+
+[sub_resource type="Curve" id="Curve_cdtq1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -4.13169, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0bq8c"]
+curve = SubResource("Curve_cdtq1")
+
+[sub_resource type="Curve" id="Curve_mh16r"]
+_data = [Vector2(0, 0), 0.0, 4.69059, 0, 0, Vector2(0.894737, 0.977457), -0.305944, -0.305944, 0, 0, Vector2(1, 0), -4.13169, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_epln4"]
+curve = SubResource("Curve_mh16r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3gs0a"]
+emission_shape = 1
+emission_sphere_radius = 3.0
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0.3, 0)
+scale_curve = SubResource("CurveTexture_epln4")
+alpha_curve = SubResource("CurveTexture_0bq8c")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w7ueh"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.2, 1, 0.2, 1)
+albedo_texture = ExtResource("1_rr4pr")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_6up71"]
+material = SubResource("StandardMaterial3D_w7ueh")
+
+[node name="VfxHealRunning" type="Node3D"]
+
+[node name="HealSymbol" type="GPUParticles3D" parent="."]
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_3gs0a")
+draw_pass_1 = SubResource("QuadMesh_6up71")

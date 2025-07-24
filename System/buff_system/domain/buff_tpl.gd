@@ -1,4 +1,4 @@
-class_name BuffTpl extends Node
+class_name BuffTpl extends Node3D
 
 
 func _ready() -> void:

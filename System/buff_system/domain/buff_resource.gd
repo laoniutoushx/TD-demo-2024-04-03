@@ -35,6 +35,7 @@ enum BUFF_TYPE{
 @export var title: String
 @export var desc: String
 @export var icon_path: String
+@export var vfx: Dictionary = {}  # buff 特效 资源列表（可以有多个）
 
 
 # buff properity

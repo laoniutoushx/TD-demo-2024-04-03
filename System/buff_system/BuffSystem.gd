@@ -58,6 +58,7 @@ func init_buff_for_unit_by_res(ref: Variant, ele: Variant) -> Dictionary:
 			# print("value dir %s" % str(buff_instance.value_dir))
 			
 			buff_instance.res = buff_res
+			buff_instance.vfx = buff_res.vfx
 
 			# 保存实例
 			ele.buff_map[buff_instance.get_instance_id()] = buff_instance
@@ -110,6 +111,7 @@ func apply(_buff: Buff, _reference: Variant = null, target: Variant = null) -> v
 	var buff: Buff = _buff.duplicate()
 	buff = CommonUtil.bean_properties_copy(_buff, buff)
 	buff.prob_callback = _buff.prob_callback
+	buff.vfx = _buff.vfx
 
 	target.buff_map[buff.get_instance_id()] = buff
 
@@ -131,6 +133,18 @@ func apply(_buff: Buff, _reference: Variant = null, target: Variant = null) -> v
 
 		# 添加到 buff action_bar ui 界面
 		SignalBus.buff_enter.emit(buff, buff.unit)
+
+		# 添加 buff 关联 vfx 特效
+		if buff.vfx:
+			# 遍历 values
+			for bv in buff.vfx.values():
+				if bv and bv is VFX:
+					var vfx_instance = bv.scene.instantiate()
+					# 添加到 buff 实例上
+					buff.add_child(vfx_instance)
+					vfx_instance.position.y = buff.unit._height / 2
+
+
 
 	
 
@@ -167,6 +181,8 @@ func _on_buff_exiting_tree(_buff: Buff, target: Variant):
 	# 销毁时，处理 属性问题
 	_buff.remove(target)
 	# _buff.call_deferred("remove", _reference)
+
+
 
 
 	# 销毁时，处理 buff 计数

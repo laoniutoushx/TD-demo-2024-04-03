@@ -20,6 +20,7 @@ type = 33
 title = "致命攻击"
 desc = "致命攻击"
 icon_path = ""
+vfx = {}
 value = 0.0
 value_unit = 0
 value_dir = 0

@@ -3,10 +3,6 @@ class_name VFXSystem
 
 const m_hit_flash: Material = preload("res://Asserts/materials/hit_flash.tres")
 
-class VFX:
-	var burning_vfx: PackedScene
-	var running_vfx: PackedScene
-	var destory_vfx: PackedScene
 	
 enum VFX_TYPE{
 	BURNING,

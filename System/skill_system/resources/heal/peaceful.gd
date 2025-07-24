@@ -7,6 +7,9 @@ var source_unit: BaseUnit
 var target_position: Vector3 
 
 
+var affected_units: Dictionary = {}  # 受影响的单位列表
+
+
 func action(skill_context: SkillContext) -> void:
 	# 播放施法动画 & 声音
 	skill = skill_context.skill
@@ -48,11 +51,20 @@ func _on_skill_cast_end(_skill_context: SkillContext, _area_inst, _vfx):
 	# 自释放
 	_sk.skill_cast_end.disconnect(_on_skill_cast_end)
 
-	# 删除自身 buff
-	for unit_buff: Buff in _su.buff_map.values():
-		for skill_buff: Buff in _sk.buff_map.values():
-			if unit_buff.code == skill_buff.code:
-				SystemUtil.buff_system.remove(unit_buff, _su)
+	# 删除所有单位 buff 
+	for _au in affected_units.values():
+		if _au and is_instance_valid(_au):
+			for unit_buff: Buff in _au.buff_map.values():
+				for skill_buff: Buff in _sk.buff_map.values():
+					if unit_buff.code == skill_buff.code:
+						SystemUtil.buff_system.remove(unit_buff, _au)
+
+	# for unit_buff: Buff in _su.buff_map.values():
+	# 	for skill_buff: Buff in _sk.buff_map.values():
+	# 		if unit_buff.code == skill_buff.code:
+	# 			SystemUtil.buff_system.remove(unit_buff, _su)
+
+	
 
 
 
@@ -67,10 +79,17 @@ func _on_area_3d_area_entered(area: Area3D, skill_context):
 	# print("%s---------- %s" % [str((area.owner as BaseUnit).player_group), str(SOS.main.player_controller.player_group_idx)])
 
 	if target_unit and target_unit.is_alive() and target_unit.player_group != SOS.main.player_controller.player_group_idx:
+
+		affected_units[target_unit.get_instance_id()] = target_unit
+
+		target_unit.logical_death.connect(_on_target_unit_logical_death, CONNECT_ONE_SHOT)
+
 		for buff: Buff in skill.buff_map.values():
 			buff.value = skill.value
 			# print("---------- %s, buff state %s" % [skill.title, is_instance_valid(buff)])
 			SystemUtil.buff_system.apply(buff, skill, target_unit)
+			
+
 
 
 
@@ -79,7 +98,18 @@ func _on_area_3d_area_exited(area: Area3D, skill_context):
 	var target_unit: BaseUnit = area.owner
 
 	if target_unit and target_unit.is_alive() and target_unit.player_group != SOS.main.player_controller.player_group_idx:
+
+		affected_units.erase(target_unit.get_instance_id())
+
 		for unit_buff: Buff in target_unit.buff_map.values():
+			# if unit_buff.code in skill.buff_map.keys():
+			# 	SystemUtil.buff_system.remove(unit_buff, target_unit)
+
 			for skill_buff: Buff in skill.buff_map.values():
 				if unit_buff.code == skill_buff.code:
 					SystemUtil.buff_system.remove(unit_buff, target_unit)
+
+
+
+func _on_target_unit_logical_death(unit: BaseUnit) -> void:
+	affected_units.erase(unit.get_instance_id())
