@@ -339,10 +339,12 @@ mesh = SubResource("ArrayMesh_pvwjw")
 skeleton = NodePath("")
 
 [node name="FirePosCmp" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left" instance=ExtResource("3_l52fc")]
+transform = Transform3D(1, 0, 0, 0, 1, -4.23516e-22, 0, 0, 1, 0, 0.00280007, 0)
 fire_animation = &"attack_left"
 fire_projectile = ExtResource("4_w3koj")
 
 [node name="FirePosCmp2" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_left" instance=ExtResource("3_l52fc")]
+transform = Transform3D(1, 0, 0, 0, 1, -4.23516e-22, 0, 0, 1, 0, -0.00306567, 0)
 fire_animation = &""
 fire_projectile = ExtResource("4_w3koj")
 
@@ -352,11 +354,13 @@ mesh = SubResource("ArrayMesh_kwux7")
 skeleton = NodePath("")
 
 [node name="FirePosCmp" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right" instance=ExtResource("3_l52fc")]
+transform = Transform3D(1, 0, 0, 0, 1, -4.23516e-22, 0, 0, 1, 0, 0.00326676, 0)
 fire_animation = &"attack_right"
 fire_projectile = ExtResource("4_w3koj")
 fire_group = "乙"
 
 [node name="FirePosCmp2" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right" instance=ExtResource("3_l52fc")]
+transform = Transform3D(1, 0, 0, 0, 1, -4.23516e-22, 0, 0, 1, 0, -0.00326676, 0)
 fire_animation = &""
 fire_projectile = ExtResource("4_w3koj")
 fire_group = "乙"

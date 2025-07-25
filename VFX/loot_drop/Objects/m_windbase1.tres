@@ -1,0 +1,30 @@
+[gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://vh4l5u5msx30"]
+
+[ext_resource type="Shader" uid="uid://bhgldyj2y1dv8" path="res://VFX/Shaders/s_Disolver_advanced_C.tres" id="1_0yep0"]
+[ext_resource type="Texture2D" uid="uid://sfqnk8pph4px" path="res://VFX/Textures/T_VFX_Noise_075.png" id="2_bylnl"]
+
+[sub_resource type="Gradient" id="Gradient_mq8qm"]
+offsets = PackedFloat32Array(0.00749064, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xjtvg"]
+gradient = SubResource("Gradient_mq8qm")
+
+[sub_resource type="Gradient" id="Gradient_wa3hf"]
+offsets = PackedFloat32Array(0, 0.464419, 0.565543, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_o4gqm"]
+gradient = SubResource("Gradient_wa3hf")
+fill_from = Vector2(1, 1)
+
+[resource]
+render_priority = 1
+shader = ExtResource("1_0yep0")
+shader_parameter/Scale = Vector2(1, 2)
+shader_parameter/Velocity = Vector2(0, 1)
+shader_parameter/Use_Particles_Alpha = true
+shader_parameter/VAnishing = 0.0
+shader_parameter/Texture = ExtResource("2_bylnl")
+shader_parameter/Multiply_Texture = SubResource("GradientTexture2D_o4gqm")
+shader_parameter/Gradient_1D_texture = SubResource("GradientTexture1D_xjtvg")

@@ -1,0 +1,82 @@
+[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://ctwquww3ejrbr"]
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_c1pbx"]
+expanded_output_ports = [0]
+parameter_name = "Color"
+
+[sub_resource type="VisualShaderNodeVec3Parameter" id="VisualShaderNodeVec3Parameter_tg1wl"]
+parameter_name = "Offset"
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_dhhtt"]
+input_name = "vertex"
+
+[sub_resource type="VisualShaderNodeVec3Parameter" id="VisualShaderNodeVec3Parameter_du5cd"]
+parameter_name = "Size"
+default_value_enabled = true
+default_value = Vector3(1, 1, 1)
+
+[sub_resource type="VisualShaderNodeMultiplyAdd" id="VisualShaderNodeMultiplyAdd_2f3io"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0, 0, 0)]
+op_type = 2
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_front, diffuse_lambert, specular_schlick_ggx, unshaded, shadows_disabled;
+
+uniform vec3 Size = vec3(1.000000, 1.000000, 1.000000);
+uniform vec3 Offset = vec3(0.000000, 0.000000, 0.000000);
+uniform vec4 Color : source_color;
+
+
+
+void vertex() {
+// Input:2
+	vec3 n_out2p0 = VERTEX;
+
+
+// Vector3Parameter:7
+	vec3 n_out7p0 = Size;
+
+
+// Vector3Parameter:10
+	vec3 n_out10p0 = Offset;
+
+
+// MultiplyAdd:9
+	vec3 n_out9p0 = fma(n_out2p0, n_out7p0, n_out10p0);
+
+
+// Output:0
+	VERTEX = n_out9p0;
+
+
+}
+
+void fragment() {
+// ColorParameter:3
+	vec4 n_out3p0 = Color;
+
+
+// Output:0
+	ALBEDO = vec3(n_out3p0.xyz);
+
+
+}
+"
+modes/cull = 1
+flags/unshaded = true
+flags/shadows_disabled = true
+nodes/vertex/0/position = Vector2(620, 140)
+nodes/vertex/2/node = SubResource("VisualShaderNodeInput_dhhtt")
+nodes/vertex/2/position = Vector2(-340, 120)
+nodes/vertex/7/node = SubResource("VisualShaderNodeVec3Parameter_du5cd")
+nodes/vertex/7/position = Vector2(-700, 240)
+nodes/vertex/9/node = SubResource("VisualShaderNodeMultiplyAdd_2f3io")
+nodes/vertex/9/position = Vector2(160, 160)
+nodes/vertex/10/node = SubResource("VisualShaderNodeVec3Parameter_tg1wl")
+nodes/vertex/10/position = Vector2(-360, 660)
+nodes/vertex/connections = PackedInt32Array(2, 0, 9, 0, 9, 0, 0, 0, 10, 0, 9, 2, 7, 0, 9, 1)
+nodes/fragment/3/node = SubResource("VisualShaderNodeColorParameter_c1pbx")
+nodes/fragment/3/position = Vector2(-80, 100)
+nodes/fragment/connections = PackedInt32Array(3, 0, 0, 0)

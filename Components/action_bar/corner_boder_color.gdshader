@@ -89,18 +89,18 @@ bool should_hide_for_corner(vec2 uv, vec2 texture_pixel_size) {
     float pixel_size_x = 1.0 / texture_pixel_size.x;
     float pixel_size_y = 1.0 / texture_pixel_size.y;
     float max_r = min(pixel_size_x, pixel_size_y) / 2.0;
-    
+
     return is_hid(vec2(uv.x * pixel_size_x, uv.y * pixel_size_y),
                   vec2(pixel_size_x, pixel_size_y),
                   min(corner_radius, max_r));
 }
 
 // 通用边框检测函数
-bool detectBorder(vec2 uv, vec2 texture_pixel_size, sampler2D texture, 
+bool detectBorder(vec2 uv, vec2 texture_pixel_size, sampler2D texture,
                   float border_w, int border_p, bool is_inside) {
     // 首先检查当前像素是否应该因为圆角而被隐藏
     bool current_hidden = should_hide_for_corner(uv, texture_pixel_size);
-    
+
     // 获取当前像素的alpha值
     float current_alpha = texture(texture, uv).a;
     bool current_transparent = current_alpha <= 0.0 || current_hidden;
@@ -123,10 +123,10 @@ bool detectBorder(vec2 uv, vec2 texture_pixel_size, sampler2D texture,
 
             // 检查采样点是否在纹理范围内
             bool in_bounds = (xy == clamp(xy, vec2(0.0), vec2(1.0)));
-            
+
             // 检查采样点是否应该因为圆角而被隐藏
             bool neighbor_hidden = should_hide_for_corner(xy, texture_pixel_size);
-            
+
             // 检查采样点的alpha值
             float neighbor_alpha = in_bounds ? texture(texture, xy).a : 0.0;
             bool neighbor_transparent = !in_bounds || neighbor_alpha <= 0.0 || neighbor_hidden;
@@ -151,14 +151,14 @@ bool detectBorder(vec2 uv, vec2 texture_pixel_size, sampler2D texture,
 // 默认边框检测函数
 bool hasDefaultBorder(vec2 uv, vec2 texture_pixel_size, sampler2D texture) {
     if (!show_default_border) return false;
-    return detectBorder(uv, texture_pixel_size, texture, 
+    return detectBorder(uv, texture_pixel_size, texture,
                        default_border_width, default_border_pattern, default_inside);
 }
 
 // 第二边框检测函数
 bool hasSecondBorder(vec2 uv, vec2 texture_pixel_size, sampler2D texture) {
     if (!show_border) return false;
-    return detectBorder(uv, texture_pixel_size, texture, 
+    return detectBorder(uv, texture_pixel_size, texture,
                        border_width, border_pattern, inside);
 }
 
@@ -166,7 +166,7 @@ bool hasSecondBorder(vec2 uv, vec2 texture_pixel_size, sampler2D texture) {
 void vertex() {
     // 计算需要的最大边框宽度来扩展顶点
     float max_border_width = 0.0;
-    
+
     if (add_margins) {
         if (show_default_border && !default_inside) {
             max_border_width = max(max_border_width, default_border_width);
@@ -175,7 +175,7 @@ void vertex() {
             max_border_width = max(max_border_width, border_width);
         }
     }
-    
+
     if (max_border_width > 0.0) {
         VERTEX += (UV * 2.0 - 1.0) * max_border_width;
     }
@@ -192,12 +192,12 @@ void fragment() {
     if ((default_inside && show_default_border) || (inside && show_border)) {
         // 直接使用原始UV坐标采样纹理，不进行缩放
         texture_color = texture(TEXTURE, uv);
-        
+
         // 检查是否是默认边框位置
         if (hasDefaultBorder(uv, TEXTURE_PIXEL_SIZE, TEXTURE)) {
             is_default_border = true;
         }
-        
+
         // 检查是否是第二边框位置
         if (hasSecondBorder(uv, TEXTURE_PIXEL_SIZE, TEXTURE)) {
             is_second_border = true;
@@ -207,7 +207,7 @@ void fragment() {
     else {
         // 计算需要调整的最大边框宽度
         float max_border_width = 0.0;
-        
+
         if (add_margins) {
             if (show_default_border && !default_inside) {
                 max_border_width = max(max_border_width, default_border_width);
@@ -216,7 +216,7 @@ void fragment() {
                 max_border_width = max(max_border_width, border_width);
             }
         }
-        
+
         if (add_margins && max_border_width > 0.0) {
             vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(max_border_width * 2.0));
             uv = (uv - texture_pixel_size * max_border_width) * TEXTURE_PIXEL_SIZE / texture_pixel_size;
@@ -228,7 +228,7 @@ void fragment() {
             if (hasDefaultBorder(UV, TEXTURE_PIXEL_SIZE, TEXTURE)) {
                 is_default_border = true;
             }
-            
+
             if (hasSecondBorder(UV, TEXTURE_PIXEL_SIZE, TEXTURE)) {
                 is_second_border = true;
             }

@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=11 format=3 uid="uid://cyfmq52rep7cb"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=14 format=3 uid="uid://cyfmq52rep7cb"]
 
 [ext_resource type="Script" uid="uid://di7jhxb20hgok" path="res://System/item_system/domain/item_resource.gd" id="1_7nbd2"]
+[ext_resource type="PackedScene" uid="uid://brsoxpbmx54b2" path="res://System/item_system/resources/treasure_chest.tscn" id="1_wbcg4"]
 [ext_resource type="PackedScene" uid="uid://cs8iasuffn0ij" path="res://Unit/enemy/scenes/00_boss_forest_guard.tscn" id="2_21kux"]
+[ext_resource type="Script" uid="uid://ceet2kpd86p7c" path="res://System/item_system/domain/DropItem.gd" id="2_rpy6g"]
 [ext_resource type="Script" uid="uid://cwoilst65vmq6" path="res://Unit/enemy/EnemyResource.gd" id="3_vyyy8"]
 [ext_resource type="Script" uid="uid://yerxss0el3ef" path="res://System/skill_system/domain/SkillMetaResource.gd" id="4_whd5l"]
 [ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="5_v141w"]
@@ -9,6 +11,13 @@
 [ext_resource type="Resource" uid="uid://w7qj0bg1wsuy" path="res://System/skill_system/resources/effect/missing.tres" id="6_uuyaa"]
 [ext_resource type="Script" uid="uid://vddi18w1ygwl" path="res://System/skill_system/resources/effect/force_field.gd" id="7_sqec7"]
 [ext_resource type="Resource" uid="uid://bom1o5he8ts17" path="res://System/skill_system/resources/heal/peaceful.tres" id="9_nb7u0"]
+
+[sub_resource type="Resource" id="Resource_587b6"]
+script = ExtResource("2_rpy6g")
+scene = ExtResource("1_wbcg4")
+item_name = "axe"
+chance = 10000
+metadata/_custom_type_script = "uid://ceet2kpd86p7c"
 
 [sub_resource type="Resource" id="Resource_wbcg4"]
 script = ExtResource("4_whd5l")
@@ -102,4 +111,7 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_7nbd2")]([])
+drop_item_metas = {
+"axe": SubResource("Resource_587b6")
+}
 skill_metas = Array[ExtResource("4_whd5l")]([SubResource("Resource_wbcg4"), ExtResource("6_uuyaa"), ExtResource("9_nb7u0")])

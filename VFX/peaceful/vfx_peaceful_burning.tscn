@@ -1,16 +1,154 @@
-[gd_scene load_steps=32 format=3 uid="uid://clpl8kqkymrwl"]
+[gd_scene load_steps=35 format=3 uid="uid://clpl8kqkymrwl"]
 
 [ext_resource type="Texture2D" uid="uid://cf1rgrr6brmlk" path="res://Asserts/textures/lighting/1 (7).png" id="1_1fsc0"]
 [ext_resource type="Script" uid="uid://dhquxueldcxv4" path="res://VFX/peaceful/peaceful.gd" id="1_8m2w4"]
-[ext_resource type="Shader" uid="uid://ddilbmq5ijfj" path="res://VFX/peaceful/peaceful.gdshader" id="2_5x7re"]
 [ext_resource type="Texture2D" uid="uid://db4b4af2phfgt" path="res://Asserts/textures/lighting/星星，粒子特效贴图_爱给网_aigei_com.png" id="2_7wgtb"]
 [ext_resource type="Texture2D" uid="uid://ye55rj7kmnut" path="res://addons/kenney_particle_pack/trace_07.png" id="6_8m2w4"]
 [ext_resource type="Shader" uid="uid://d0yhiaw27wlka" path="res://VFX/peaceful/peaceful_light_volum.gdshader" id="6_tdd70"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7wgtb"]
+[sub_resource type="Curve" id="Curve_hxjnh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.52245, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8m2w4"]
+curve = SubResource("Curve_hxjnh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7wgtb"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 5.0
+emission_ring_radius = 13.0
+emission_ring_inner_radius = 1.0
+emission_ring_cone_angle = 90.0
+velocity_pivot = Vector3(0, 1, 0)
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 0.1
+initial_velocity_max = 0.1
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_8m2w4")
+sub_emitter_mode = 1
+sub_emitter_frequency = 4.0
+
+[sub_resource type="Shader" id="Shader_ih15i"]
+code = "// 诊断版本：先搞清楚到底发生了什么
+shader_type spatial;
+render_mode blend_add, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx, unshaded, ambient_light_disabled, fog_disabled;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform ivec2 albedo_texture_size;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+// === 收缩控制参数 ===
+uniform float shrink_start_time : hint_range(0.0, 1.0) = 0.0;
+uniform float y_shrink_intensity : hint_range(0.0, 2.0) = 1.0;
+uniform float x_shrink_intensity : hint_range(0.0, 2.0) = 0.8;
+uniform float quad_half_height : hint_range(0.1, 2.0) = 0.5;
+uniform bool smooth_shrink = true;
+uniform bool debug_mode = true;  // 默认开启调试
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+	
+	// 先保存原始的VERTEX坐标用于调试
+	vec3 original_vertex = VERTEX;
+	
+	// 计算收缩参数
+	float lifetime_progress = 1.0 - COLOR.a;
+	float shrink_progress = 0.0;
+	if (lifetime_progress > shrink_start_time) {
+		shrink_progress = (lifetime_progress - shrink_start_time) / (1.0 - shrink_start_time);
+		if (smooth_shrink) {
+			shrink_progress = shrink_progress * shrink_progress * (3.0 - 2.0 * shrink_progress);
+		}
+		shrink_progress = clamp(shrink_progress, 0.0, 1.0);
+	}
+	
+	float scale_y = 1.0 - (shrink_progress * y_shrink_intensity);
+	scale_y = max(scale_y, 0.0);
+	
+	// === 关键：在Billboard变换之前进行收缩变换 ===
+	// 方法：直接操作本地坐标的VERTEX
+	
+	// 找到最高点（假设QuadMesh中心在原点）
+	float max_y = quad_half_height;  // 顶端
+	float min_y = -quad_half_height; // 底端
+	
+	// 以顶端为锚点进行缩放
+	// 核心思想：保持顶端不动，底部向顶端收缩
+	if (VERTEX.y < max_y) {  // 只对非顶端顶点进行变换
+		float distance_from_top = max_y - VERTEX.y;
+		VERTEX.y = max_y - (distance_from_top * scale_y);
+	}
+	
+	// X轴照常缩放
+	VERTEX.x *= (1.0 - (shrink_progress * x_shrink_intensity));
+	
+	// 调试信息传递给fragment shader
+	if (debug_mode) {
+		COLOR.r = (original_vertex.y + 0.5);  // 原始Y坐标 (-0.5~0.5 映射到 0~1)
+		COLOR.g = shrink_progress;  // 收缩进度
+		COLOR.b = (VERTEX.y + 0.5);  // 变换后Y坐标
+		COLOR.a = 1.0;  // 确保可见
+	}
+	
+	// Billboard变换（在收缩之后进行）
+	MODELVIEW_MATRIX = VIEW_MATRIX * mat4(
+			vec4(normalize(cross(vec3(0.0, 1.0, 0.0), MAIN_CAM_INV_VIEW_MATRIX[2].xyz)), 0.0),
+			vec4(0.0, 1.0, 0.0, 0.0),
+			vec4(normalize(cross(MAIN_CAM_INV_VIEW_MATRIX[0].xyz, vec3(0.0, 1.0, 0.0))), 0.0),
+			MODEL_MATRIX[3]);
+	
+	MODELVIEW_MATRIX = MODELVIEW_MATRIX * mat4(
+			vec4(length(MODEL_MATRIX[0].xyz), 0.0, 0.0, 0.0),
+			vec4(0.0, length(MODEL_MATRIX[1].xyz), 0.0, 0.0),
+			vec4(0.0, 0.0, length(MODEL_MATRIX[2].xyz), 0.0),
+			vec4(0.0, 0.0, 0.0, 1.0));
+	MODELVIEW_NORMAL_MATRIX = mat3(MODELVIEW_MATRIX);
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	
+	if (debug_mode) {
+		// 调试显示：
+		// 红色 = 原始Y位置
+		// 绿色 = 收缩进度  
+		// 蓝色 = 变换后Y位置
+		ALBEDO = COLOR.rgb;
+		ALPHA = 1.0;
+	} else {
+		albedo_tex *= COLOR;
+		ALBEDO = albedo.rgb * albedo_tex.rgb;
+		
+		float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+		METALLIC = metallic_tex * metallic;
+		SPECULAR = specular;
+		
+		vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+		float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+		ROUGHNESS = roughness_tex * roughness;
+		
+		ALPHA *= albedo.a * albedo_tex.a;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ih15i"]
 render_priority = 0
-shader = ExtResource("2_5x7re")
-shader_parameter/albedo = Color(1, 5, 2, 1)
+shader = SubResource("Shader_ih15i")
+shader_parameter/albedo = Color(1, 5, 4, 1)
 shader_parameter/texture_albedo = ExtResource("1_1fsc0")
 shader_parameter/albedo_texture_size = Vector2i(296, 296)
 shader_parameter/point_size = 1.0
@@ -29,32 +167,150 @@ shader_parameter/quad_half_height = 0.5
 shader_parameter/smooth_shrink = true
 shader_parameter/debug_mode = false
 
-[sub_resource type="Curve" id="Curve_hxjnh"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.52245, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_8m2w4"]
-curve = SubResource("Curve_hxjnh")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7wgtb"]
-emission_shape = 6
-emission_ring_axis = Vector3(0, 1, 0)
-emission_ring_height = 5.0
-emission_ring_radius = 10.0
-emission_ring_inner_radius = 1.0
-emission_ring_cone_angle = 90.0
-velocity_pivot = Vector3(0, 1, 0)
-direction = Vector3(0, 1, 0)
-spread = 0.0
-initial_velocity_min = 0.1
-initial_velocity_max = 0.1
-gravity = Vector3(0, 0, 0)
-alpha_curve = SubResource("CurveTexture_8m2w4")
-sub_emitter_mode = 1
-sub_emitter_frequency = 4.0
-
-[sub_resource type="QuadMesh" id="QuadMesh_5x7re"]
+[sub_resource type="QuadMesh" id="QuadMesh_rqig6"]
+material = SubResource("ShaderMaterial_ih15i")
 size = Vector2(0.35, 5)
+
+[sub_resource type="Shader" id="Shader_whpef"]
+code = "// 诊断版本：先搞清楚到底发生了什么
+shader_type spatial;
+render_mode blend_add, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx, unshaded, ambient_light_disabled, fog_disabled;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform ivec2 albedo_texture_size;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+// === 收缩控制参数 ===
+uniform float shrink_start_time : hint_range(0.0, 1.0) = 0.0;
+uniform float y_shrink_intensity : hint_range(0.0, 2.0) = 1.0;
+uniform float x_shrink_intensity : hint_range(0.0, 2.0) = 0.8;
+uniform float quad_half_height : hint_range(0.1, 2.0) = 0.5;
+uniform bool smooth_shrink = true;
+uniform bool debug_mode = true;  // 默认开启调试
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+	
+	// 先保存原始的VERTEX坐标用于调试
+	vec3 original_vertex = VERTEX;
+	
+	// 计算收缩参数
+	float lifetime_progress = 1.0 - COLOR.a;
+	float shrink_progress = 0.0;
+	if (lifetime_progress > shrink_start_time) {
+		shrink_progress = (lifetime_progress - shrink_start_time) / (1.0 - shrink_start_time);
+		if (smooth_shrink) {
+			shrink_progress = shrink_progress * shrink_progress * (3.0 - 2.0 * shrink_progress);
+		}
+		shrink_progress = clamp(shrink_progress, 0.0, 1.0);
+	}
+	
+	float scale_y = 1.0 - (shrink_progress * y_shrink_intensity);
+	scale_y = max(scale_y, 0.0);
+	
+	// === 关键：在Billboard变换之前进行收缩变换 ===
+	// 方法：直接操作本地坐标的VERTEX
+	
+	// 找到最高点（假设QuadMesh中心在原点）
+	float max_y = quad_half_height;  // 顶端
+	float min_y = -quad_half_height; // 底端
+	
+	// 以顶端为锚点进行缩放
+	// 核心思想：保持顶端不动，底部向顶端收缩
+	if (VERTEX.y < max_y) {  // 只对非顶端顶点进行变换
+		float distance_from_top = max_y - VERTEX.y;
+		VERTEX.y = max_y - (distance_from_top * scale_y);
+	}
+	
+	// X轴照常缩放
+	VERTEX.x *= (1.0 - (shrink_progress * x_shrink_intensity));
+	
+	// 调试信息传递给fragment shader
+	if (debug_mode) {
+		COLOR.r = (original_vertex.y + 0.5);  // 原始Y坐标 (-0.5~0.5 映射到 0~1)
+		COLOR.g = shrink_progress;  // 收缩进度
+		COLOR.b = (VERTEX.y + 0.5);  // 变换后Y坐标
+		COLOR.a = 1.0;  // 确保可见
+	}
+	
+	// Billboard变换（在收缩之后进行）
+	MODELVIEW_MATRIX = VIEW_MATRIX * mat4(
+			vec4(normalize(cross(vec3(0.0, 1.0, 0.0), MAIN_CAM_INV_VIEW_MATRIX[2].xyz)), 0.0),
+			vec4(0.0, 1.0, 0.0, 0.0),
+			vec4(normalize(cross(MAIN_CAM_INV_VIEW_MATRIX[0].xyz, vec3(0.0, 1.0, 0.0))), 0.0),
+			MODEL_MATRIX[3]);
+	
+	MODELVIEW_MATRIX = MODELVIEW_MATRIX * mat4(
+			vec4(length(MODEL_MATRIX[0].xyz), 0.0, 0.0, 0.0),
+			vec4(0.0, length(MODEL_MATRIX[1].xyz), 0.0, 0.0),
+			vec4(0.0, 0.0, length(MODEL_MATRIX[2].xyz), 0.0),
+			vec4(0.0, 0.0, 0.0, 1.0));
+	MODELVIEW_NORMAL_MATRIX = mat3(MODELVIEW_MATRIX);
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	
+	if (debug_mode) {
+		// 调试显示：
+		// 红色 = 原始Y位置
+		// 绿色 = 收缩进度  
+		// 蓝色 = 变换后Y位置
+		ALBEDO = COLOR.rgb;
+		ALPHA = 1.0;
+	} else {
+		albedo_tex *= COLOR;
+		ALBEDO = albedo.rgb * albedo_tex.rgb;
+		
+		float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+		METALLIC = metallic_tex * metallic;
+		SPECULAR = specular;
+		
+		vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+		float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+		ROUGHNESS = roughness_tex * roughness;
+		
+		ALPHA *= albedo.a * albedo_tex.a;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rqig6"]
+render_priority = 0
+shader = SubResource("Shader_whpef")
+shader_parameter/albedo = Color(1, 5, 4, 1)
+shader_parameter/texture_albedo = ExtResource("1_1fsc0")
+shader_parameter/albedo_texture_size = Vector2i(296, 296)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/shrink_start_time = 0.0
+shader_parameter/y_shrink_intensity = 1.0
+shader_parameter/x_shrink_intensity = 0.8
+shader_parameter/quad_half_height = 0.5
+shader_parameter/smooth_shrink = true
+shader_parameter/debug_mode = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_7ay66"]
+material = SubResource("ShaderMaterial_rqig6")
+size = Vector2(0.4, 6)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5x7re"]
 transparency = 1
@@ -96,6 +352,7 @@ scale_curve = SubResource("CurveTexture_tdd70")
 alpha_curve = SubResource("CurveTexture_hxjnh")
 
 [sub_resource type="QuadMesh" id="QuadMesh_8m2w4"]
+size = Vector2(2, 2)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4f8cp"]
 render_priority = 0
@@ -268,8 +525,8 @@ shader_parameter/debug_mode = false
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vkr18"]
 emission_shape = 6
 emission_ring_axis = Vector3(0, 1, 0)
-emission_ring_height = 5.0
-emission_ring_radius = 10.0
+emission_ring_height = 20.0
+emission_ring_radius = 13.0
 emission_ring_inner_radius = 1.0
 emission_ring_cone_angle = 90.0
 velocity_pivot = Vector3(0, 1, 0)
@@ -289,50 +546,62 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("RecoverySpark:material_override:shader_parameter/albedo")
+tracks/0/path = NodePath("Star:material_override:albedo_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 5, 2, 1)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Star:material_override:albedo_color")
+tracks/1/path = NodePath("HeavenLight:material_override:shader_parameter/light_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Vector4(0, 0.475, 1, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("HeavenLight:material_override:shader_parameter/light_color")
+tracks/2/path = NodePath("HealLight:material_override:shader_parameter/albedo")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector4(0, 0.475, 1, 1)]
+"values": [Color(1, 5, 2, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("HealLight:material_override:shader_parameter/albedo")
+tracks/3/path = NodePath("RecoverySpark:draw_pass_2:material:shader_parameter/albedo")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 5, 2, 1)]
+"values": [Color(1, 5, 4, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("RecoverySpark:draw_pass_1:material:shader_parameter/albedo")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 5, 4, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_tdd70"]
@@ -341,50 +610,62 @@ length = 4.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("RecoverySpark:material_override:shader_parameter/albedo")
+tracks/0/path = NodePath("Star:material_override:albedo_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(3, 4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 5, 2, 1), Color(1, 5, 2, 0)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Star:material_override:albedo_color")
+tracks/1/path = NodePath("HeavenLight:material_override:shader_parameter/light_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(3, 4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Vector4(0, 0.475, 1, 1), Vector4(0, 0.475, 1, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("HeavenLight:material_override:shader_parameter/light_color")
+tracks/2/path = NodePath("HealLight:material_override:shader_parameter/albedo")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(3, 4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector4(0, 0.475, 1, 1), Vector4(0, 0.475, 1, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("HealLight:material_override:shader_parameter/albedo")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 1, 1.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 5, 2, 0), Color(1, 5, 2, 0), Color(1, 5, 2, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("RecoverySpark:draw_pass_2:material:shader_parameter/albedo")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(3, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 5, 4, 1), Color(1, 5, 4, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("RecoverySpark:draw_pass_1:material:shader_parameter/albedo")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(3, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 5, 4, 1), Color(1, 5, 4, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n8lcb"]
@@ -397,14 +678,15 @@ _data = {
 script = ExtResource("1_8m2w4")
 
 [node name="RecoverySpark" type="GPUParticles3D" parent="."]
-material_override = SubResource("ShaderMaterial_7wgtb")
-amount = 46
+amount = 32
 sub_emitter = NodePath("../Star")
-explosiveness = 0.3
-randomness = 0.7
+explosiveness = 0.5
+randomness = 0.5
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_7wgtb")
-draw_pass_1 = SubResource("QuadMesh_5x7re")
+draw_passes = 2
+draw_pass_1 = SubResource("QuadMesh_rqig6")
+draw_pass_2 = SubResource("QuadMesh_7ay66")
 
 [node name="Star" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_5x7re")
@@ -428,7 +710,7 @@ process_material = SubResource("ParticleProcessMaterial_n8lcb")
 draw_pass_1 = SubResource("CylinderMesh_8m2w4")
 
 [node name="HealLight" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22.2784, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.3391, 0)
 material_override = SubResource("ShaderMaterial_js7cp")
 amount = 24
 lifetime = 2.5

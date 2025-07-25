@@ -198,6 +198,9 @@ var is_selected_circle: bool
 @export_group("Item")
 @export var pickup_velocity := 1000.0
 @export var item_metas: Array[ItemResource] = []	# item meta info
+# 掉落装备
+@export var drop_item_metas: Dictionary = {}	# drop item meta info
+
 # Item（实例化后的物品列表）
 var item_map: Dictionary = {}
 
@@ -417,7 +420,21 @@ func _on_physic_dead(unit: BaseUnit) -> void:
 # 逻辑死亡
 func _on_logic_dead(unit: BaseUnit) -> void:
 	if unit:
+
 		unit.do_after_logic_dead()
+
+		# 爆装备
+		if drop_item_metas and drop_item_metas.size() > 0:
+			
+			for drop_item_key in drop_item_metas.keys():
+				var drop_item: DropItem = drop_item_metas[drop_item_key]
+				if SOS.main.prob.chance_fast(drop_item.chance):
+					# 创建装备模型
+					var item: Node3D = drop_item.scene.instantiate()
+
+					SOS.main.item_system.add_child(item)
+					item.global_position = unit.global_position
+		
 
 
 # is dead

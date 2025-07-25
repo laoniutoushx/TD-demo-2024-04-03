@@ -20,6 +20,7 @@ func action(skill_context: SkillContext) -> void:
 	# 创建 vfx
 	var vfx = SystemUtil.vfx_system.create_vfx("peaceful", SystemUtil.vfx_system.VFX_TYPE.BURNING)
 	source_unit.add_child(vfx)
+	vfx.position.y = source_unit._height / 2
 
 
 	# 临时创建一个 Area 实例

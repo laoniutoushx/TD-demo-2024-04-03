@@ -1,6 +1,6 @@
 [gd_scene load_steps=31 format=4 uid="uid://btp1vjm2dv6de"]
 
-[ext_resource type="Texture2D" uid="uid://n8k4to0h1lb" path="res://Asserts/Models/weapons_pack_bullets_gltf/weapons_pack_bullets_gltf_Bullets_M_baseColor.png" id="1_5xe76"]
+[ext_resource type="Texture2D" uid="uid://n8k4to0h1lb" path="res://Asserts/Models/Weapons/weapons_pack_bullets_gltf/weapons_pack_bullets_gltf_Bullets_M_baseColor.png" id="1_5xe76"]
 [ext_resource type="Texture2D" uid="uid://brtx1k4o282bb" path="res://addons/kenney_particle_pack/spark_07.png" id="2_oktld"]
 [ext_resource type="Script" uid="uid://b3w53u07ukurw" path="res://Scripts/Trail3D.gd" id="3_5s8gt"]
 [ext_resource type="AudioStream" uid="uid://buq0byk7dwh4p" path="res://Asserts/waves/fire-ball.wav" id="4_0mbpg"]

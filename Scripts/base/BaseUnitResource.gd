@@ -114,6 +114,9 @@ enum COMPONENT_SYSTEM{
 # 拾取速度
 @export var pickup_velocity := 1000.0
 @export var item_metas: Array[ItemResource] = []	# item meta info
+# 掉落装备
+@export var drop_item_metas: Dictionary = {}	# drop item meta info
+
 
 # Skill related
 @export_group("Skill")

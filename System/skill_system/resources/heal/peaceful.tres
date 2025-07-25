@@ -4,9 +4,9 @@
 [ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="2_bufb0"]
 [ext_resource type="Script" uid="uid://caib52nmgh5qd" path="res://System/buff_system/resources/rate_buff.gd" id="3_fpiyx"]
 [ext_resource type="Script" uid="uid://cya1pifwbgjdk" path="res://addons/script_property_selector/property_selector_resource.gd" id="4_yefi6"]
-[ext_resource type="PackedScene" path="res://VFX/peaceful/vfx_healing_running.tscn" id="5_aewfd"]
+[ext_resource type="PackedScene" uid="uid://dajal4turu0eh" path="res://VFX/peaceful/vfx_healing_running.tscn" id="5_aewfd"]
 [ext_resource type="Script" uid="uid://mftwl3f5remt" path="res://System/skill_system/resources/heal/peaceful.gd" id="5_fpiyx"]
-[ext_resource type="Script" path="res://System/vfx_system/vfx.gd" id="6_2npo3"]
+[ext_resource type="Script" uid="uid://cdm3t683ip5rp" path="res://System/vfx_system/vfx.gd" id="6_2npo3"]
 
 [sub_resource type="Resource" id="Resource_wqbbn"]
 script = ExtResource("4_yefi6")

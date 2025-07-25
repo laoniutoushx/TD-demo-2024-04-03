@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=4 uid="uid://dq3xxe6os2ekj"]
 
-[ext_resource type="Texture2D" uid="uid://n8k4to0h1lb" path="res://Asserts/Models/weapons_pack_bullets_gltf/weapons_pack_bullets_gltf_Bullets_M_baseColor.png" id="1_84ka6"]
+[ext_resource type="Texture2D" uid="uid://n8k4to0h1lb" path="res://Asserts/Models/Weapons/weapons_pack_bullets_gltf/weapons_pack_bullets_gltf_Bullets_M_baseColor.png" id="1_84ka6"]
 [ext_resource type="Script" uid="uid://b3w53u07ukurw" path="res://Scripts/Trail3D.gd" id="2_2agdn"]
 [ext_resource type="Texture2D" uid="uid://brtx1k4o282bb" path="res://addons/kenney_particle_pack/spark_07.png" id="2_y4132"]
 [ext_resource type="AudioStream" uid="uid://co0w4sgpbrd27" path="res://Asserts/waves/projectile/ak47单发射击_爱给网_aigei_com.mp3" id="4_f5egr"]
