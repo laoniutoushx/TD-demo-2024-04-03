@@ -20,6 +20,7 @@ type = 1
 title = "弹跳攻击"
 desc = "弹跳攻击"
 icon_path = "bounce_attack"
+vfx = {}
 value = 0.0
 value_unit = 0
 value_dir = 0

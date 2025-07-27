@@ -25,7 +25,10 @@ var turret_manager: TurretManager
 @onready var buff_system: BuffSystem = %BuffSystem
 @onready var floating_text_system: FloatingTextSystem = %FloatingTextSystem
 
-var gp: GameProbability
+# 高性能概率发生器
+@onready var prob: GameProbability = %GameProbability
+
+
 
 
 
@@ -38,8 +41,7 @@ func _ready() -> void:
 	# 加载音频资源
 	CommonUtil.load_resources_to_container_from_directory("res://Asserts/waves/")
 
-	# 高性能概率发生器
-	gp = GameProbability.new()
+
 
 
 func _input(event: InputEvent) -> void:

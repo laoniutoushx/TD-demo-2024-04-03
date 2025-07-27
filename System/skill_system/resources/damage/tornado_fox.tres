@@ -28,6 +28,7 @@ value_ext = {}
 run_distance = 20.0
 epoch = 1
 init_num = 15
+cast_duration = -1.0
 internal_time = 0.3
 start_time = 0.1
 end_time = 0.1

@@ -1,6 +1,6 @@
 # GameProbability.gd
 # 高性能游戏概率系统 - 优化版
-class_name GameProbability extends RefCounted
+class_name GameProbability extends Node3D
 
 # 性能优化：使用整数运算替代浮点运算
 const PRECISION = 10000  # 精度：0.0001 (万分之一)
