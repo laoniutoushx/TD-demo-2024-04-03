@@ -1,7 +1,7 @@
 class_name SelectionBox extends Node3D
 
-signal frame_selecting_unit_entered(unit: BaseUnit)
-signal frame_selecting_unit_exited(unit: BaseUnit)
+# signal frame_selecting_unit_entered(unit: BaseUnit)
+# signal frame_selecting_unit_exited(unit: BaseUnit)
 signal selecting_started
 signal selecting_finished(unit_map: Dictionary, end_project_pos: Vector3, player_status: PlayerController.PLAYER_STATUS)
 
@@ -98,16 +98,17 @@ func select_area_pos_sync(ray_cast: RayCast3D) -> void:
 
 func _on_selected_area_area_entered(area: Area3D) -> void:
 	# TODO player owner check
-	if area.owner is BaseUnit and (area.owner as BaseUnit).is_alive():
+	if ((area.owner is BaseUnit and (area.owner as BaseUnit).is_alive())
+			or area.owner is Item):
 		DoubleCacheSelection.append(area.owner)
-		frame_selecting_unit_entered.emit(area.owner)
+		# frame_selecting_unit_entered.emit(area.owner)
 		#print("enter -> " + str(DoubleCacheSelection.units().keys().size()))
 
 
 func _on_selected_area_area_exited(area: Area3D) -> void:
-	if area.owner is BaseUnit:
+	if area.owner is BaseUnit or area.owner is Item:
 		DoubleCacheSelection.remove(area.owner)
-		frame_selecting_unit_exited.emit(area.owner)
+		# frame_selecting_unit_exited.emit(area.owner)
 
 # listening unit death
 func _on_unit_logic_death(id:int, enemy):

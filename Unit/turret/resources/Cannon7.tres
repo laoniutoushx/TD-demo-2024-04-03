@@ -55,4 +55,5 @@ is_selected_circle = true
 component_systems = 0
 pickup_velocity = 1000.0
 item_metas = Array[ExtResource("1_tb6py")]([])
+drop_item_metas = {}
 skill_metas = Array[ExtResource("4_tebfu")]([])

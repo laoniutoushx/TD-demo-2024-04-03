@@ -2,6 +2,7 @@ class_name PlayerController extends Node3D
 
 # Scope Node Define
 @onready var select_area: Area3D = %SelectArea		# （单个单位鼠标高亮检测）
+@onready var item_hud: PackedScene = preload("res://Components/item_indicator/item_hud.tscn")
 
 @onready var selection_box: SelectionBox = %SelectionBox
 @onready var player_skill_scope_indicator: PlayerSkillScopeIndicator = %PlayerSkillScopeIndicator
@@ -155,7 +156,7 @@ func switch_cursor(cousor: Constants.CURSOR_STATUS) -> void:
 		# 完全清除自定义光标
 		# Input.set_custom_mouse_cursor(null)
 		Input.set_custom_mouse_cursor(cursor_building, Input.CURSOR_ARROW, Vector2(16, 16))
-		
+
 
 
 # 选中单位		
@@ -177,6 +178,24 @@ func refresh_selection_units(unit_map: Dictionary, mouse_pos: Vector3, on_select
 	
 	# emit signal player_selected_units
 	SignalBus.player_selected_units.emit(unit_map, mouse_pos, on_selected_player_status)
+
+
+
+# 选中物品	
+# TODO click select && frame select (click select trigger when show circle, but unit will move out to candidate， how to stop it）
+func refresh_selection_items(item_map: Dictionary, mouse_pos: Vector3, on_selected_player_status: PLAYER_STATUS) -> void:
+	# emit signal player_selected_units
+	# SignalBus.player_selected_items.emit(unit_map, mouse_pos, on_selected_player_status)
+
+	# 在单位所在位置显示 物品提示信息
+	for item in item_map.values():
+		if is_instance_valid(item) and item is Item:
+			var _ih = item_hud.instantiate()
+			item.add_child(_ih)
+
+	pass
+
+
 
 
 # 单位进入时，监听右键事件（攻击）
@@ -286,7 +305,19 @@ func _on_selection_box_selecting_started() -> void:
 # player select box 监听事件
 func _on_selection_box_selecting_finished(unit_map: Dictionary, mouse_pos: Vector3, on_selected_player_status: PLAYER_STATUS) -> void:
 	PlayerSelect._selecting = false
+
+	var item_map: Dictionary = {}
+
+
+	for v in unit_map.values():
+		if v is Item:
+			item_map[v.get_instance_id()] = v
+			unit_map.erase(v.get_instance_id())
+
+
 	refresh_selection_units(unit_map, mouse_pos, on_selected_player_status)
+	if item_map.keys().size() > 0:
+		refresh_selection_items(item_map, mouse_pos, on_selected_player_status)
 	
 	
 func _on_skill_released(skill_context: SkillContext) -> void:

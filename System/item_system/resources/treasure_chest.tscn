@@ -1,9 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://brsoxpbmx54b2"]
+[gd_scene load_steps=9 format=3 uid="uid://brsoxpbmx54b2"]
 
 [ext_resource type="Script" uid="uid://cnypglor0bg7t" path="res://System/item_system/resources/treasure_chest.gd" id="1_msl80"]
 [ext_resource type="PackedScene" uid="uid://dv480s183616w" path="res://Asserts/Models/item/Treasure Chest.glb" id="1_novyb"]
 [ext_resource type="PackedScene" uid="uid://k71f6e0s6lho" path="res://VFX/loot_drop/VFX_Loot_drop_B_green.tscn" id="2_mca1s"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="4_3if6d"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3if6d"]
+size = Vector3(1.86481, 3.86792, 1.29547)
 
 [sub_resource type="Animation" id="Animation_msl80"]
 length = 0.001
@@ -172,6 +175,15 @@ transform = Transform3D(0.818972, 0, -0.573833, 0, 1, 0, 0.573833, 0, 0.818972, 
 
 [node name="VFX_LootDrop_B_green" parent="." instance=ExtResource("2_mca1s")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.485, 0)
+
+[node name="SelectedScope" type="Area3D" parent="." groups=["enemy"]]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SelectedScope" groups=["enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00137326, 1.28241, -0.0849304)
+shape = SubResource("BoxShape3D_3if6d")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

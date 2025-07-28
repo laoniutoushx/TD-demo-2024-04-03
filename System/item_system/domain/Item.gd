@@ -1,4 +1,4 @@
-class_name Item extends Node
+class_name Item extends Node3D
 
 # Reference
 var unit: BaseUnit
@@ -61,6 +61,13 @@ var buff_map: Dictionary = {}
 var cool_down_timer: Timer
 
 
+func _ready() -> void:
+	pass
+
+
+
 ## Item 逻辑处理
 func action(item_context: ItemContext) -> void:
 	pass
+
+

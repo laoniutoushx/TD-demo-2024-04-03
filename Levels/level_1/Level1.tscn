@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bxibobasihqmy"]
+[gd_scene load_steps=38 format=3 uid="uid://bxibobasihqmy"]
 
 [ext_resource type="Script" uid="uid://jiitdpiccclv" path="res://Levels/level_1/level.gd" id="1_chftm"]
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_elhju"]
@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://dd4b4lnasc213" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree1.gltf" id="18_idpdn"]
 [ext_resource type="PackedScene" uid="uid://dan2sqr4q05tc" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree2.gltf" id="19_8kqgr"]
 [ext_resource type="PackedScene" uid="uid://cxhmatlnx4b1s" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree_Group.gltf" id="20_qdvia"]
+[ext_resource type="PackedScene" uid="uid://brsoxpbmx54b2" path="res://System/item_system/resources/treasure_chest.tscn" id="29_catae"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ksqit"]
 panorama = ExtResource("3_ot2kt")
@@ -280,3 +281,6 @@ transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -7.22688, 0, -14.9699)
 
 [node name="GDbotSkin" parent="." instance=ExtResource("1_umiea")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.16514, 0)
+
+[node name="TreasureChest" parent="." instance=ExtResource("29_catae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.57012, 0, 13.2038)
