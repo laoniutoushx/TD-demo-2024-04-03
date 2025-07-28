@@ -192,6 +192,7 @@ func refresh_selection_items(item_map: Dictionary, mouse_pos: Vector3, on_select
 		if is_instance_valid(item) and item is Item:
 			var _ih = item_hud.instantiate()
 			item.add_child(_ih)
+			_ih.position.y = item._height * 1.25
 
 	pass
 

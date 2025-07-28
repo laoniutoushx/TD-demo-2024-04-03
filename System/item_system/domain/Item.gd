@@ -61,7 +61,18 @@ var buff_map: Dictionary = {}
 var cool_down_timer: Timer
 
 
+
+var _transformed_aabb: AABB
+var _height: float = 0.0
+
 func _ready() -> void:
+	# 获取 _height
+
+		# AABB
+	var aabb: AABB = CommonUtil.get_scaled_aabb(CommonUtil.get_first_node_by_node_type(self.get_child(0), Constants.MeshInstance3D_CLZ, false))
+	# _transformed_aabb = AABB(aabb.position * aabb_scale, aabb.size * aabb_scale)
+	_transformed_aabb = aabb.grow(1)
+	_height = aabb.size.y * 1.0
 	pass
 
 
