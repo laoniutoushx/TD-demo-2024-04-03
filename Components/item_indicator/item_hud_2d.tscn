@@ -1,7 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://c877ljdwqdknf"]
+[gd_scene load_steps=4 format=3 uid="uid://c877ljdwqdknf"]
+
+[ext_resource type="FontFile" uid="uid://bce2telnqh8yo" path="res://Asserts/resources/demo_ui/Font/江城圆体 500W.ttf" id="1_j7g0n"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ptn40"]
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kgp8t"]
+font = ExtResource("1_j7g0n")
+font_size = 50
 
 [node name="ItemHud2D" type="Control"]
 layout_mode = 3
@@ -30,9 +36,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ptn40")
 [node name="Panel" type="Panel" parent="PanelContainer"]
 layout_mode = 2
 
-[node name="TextEdit" type="TextEdit" parent="PanelContainer/Panel"]
-layout_mode = 2
-offset_right = 100.0
-offset_bottom = 100.0
-text = "123213
-"
+[node name="Label" type="Label" parent="PanelContainer/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 46.0
+text = "测试"
+label_settings = SubResource("LabelSettings_kgp8t")
