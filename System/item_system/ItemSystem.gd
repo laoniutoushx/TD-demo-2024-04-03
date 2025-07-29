@@ -96,6 +96,18 @@ func pick_up(source: BaseUnit, item: TreasureChest) -> Item:
 	source.add_child(new_item)
 	new_item.add_child(new_item.item_script_instance)
 
+	# action bar item bar 处理
+	SOS.main.level_controller._cur_scene.action_bar.item_bar_comp.add_element(
+		new_item.id, 
+		SOS.main.level_controller._cur_scene.action_bar.item_bar, 
+		func(a1, a2): pass, 
+		SOS.main.level_controller._cur_scene.action_bar.item_slot
+	)
+
+
+	# 删除掉宝箱
+	item.queue_free()
+
 
 	return new_item
 

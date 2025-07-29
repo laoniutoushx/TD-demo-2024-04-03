@@ -70,7 +70,21 @@ func _bind_mapping_key(slot: BaseSlot, idx: int):
 
 	slot.mapping_key = short_cut_text
 	slot.short_cut.text = short_cut_text
+
+
+# func add_element(ele: Variant):
+# 	ele = (ele as Item)
+# 	if not _item_bar.has_node(ele.id):
+# 		var _s: BaseSlot = _create_item_slot(ele)
+# 		_action_bar.register_active(_s.active_callback)
+# 		_item_bar.add_child(_s)
+# 	else:
+# 		printerr("ERROR: item slot already exists for %s" % ele.id)
+# 		return
 	
+# 	# cur_active_slot = _s
+# 	print("slot added %s" % ele.id)
+
 	
 func remove_element(ele: Variant):
 	ele = (ele as Item)
