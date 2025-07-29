@@ -1,10 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://brsoxpbmx54b2"]
+[gd_scene load_steps=11 format=3 uid="uid://brsoxpbmx54b2"]
 
 [ext_resource type="Script" uid="uid://cnypglor0bg7t" path="res://System/item_system/resources/treasure_chest.gd" id="1_msl80"]
 [ext_resource type="PackedScene" uid="uid://dv480s183616w" path="res://Asserts/Models/item/Treasure Chest.glb" id="1_novyb"]
+[ext_resource type="Script" uid="uid://ceet2kpd86p7c" path="res://System/item_system/domain/DropItem.gd" id="2_luske"]
 [ext_resource type="PackedScene" uid="uid://k71f6e0s6lho" path="res://VFX/loot_drop/VFX_Loot_drop_B_green.tscn" id="2_mca1s"]
 [ext_resource type="PackedScene" uid="uid://djg6ewxcqfyp7" path="res://generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="4_3if6d"]
-[ext_resource type="PackedScene" uid="uid://4givvjtq4idu" path="res://Components/item_indicator/item_hud.tscn" id="5_pogq5"]
+
+[sub_resource type="Resource" id="Resource_p2js4"]
+script = ExtResource("2_luske")
+item_name = ""
+chance = 10000
+metadata/_custom_type_script = "uid://ceet2kpd86p7c"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3if6d"]
 size = Vector3(1.86481, 3.86792, 1.29547)
@@ -168,6 +174,7 @@ _data = {
 
 [node name="TreasureChest" type="Node3D"]
 script = ExtResource("1_msl80")
+drop_item = SubResource("Resource_p2js4")
 
 [node name="Chest" type="Node3D" parent="."]
 
@@ -197,7 +204,3 @@ width = 15.0
 inner_edge_width = 10.0
 outer_edge_width = 15.0
 color = Color(1.3, 1.3, 1.3, 1)
-
-[node name="ItemHud" parent="." instance=ExtResource("5_pogq5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.41298, 0)
-visible = false

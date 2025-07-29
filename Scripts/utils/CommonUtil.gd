@@ -463,9 +463,9 @@ static func bean_properties_copy(src: Object, tar: Object) -> Variant:
 ## 从资源容器中获取指定名称的资源
 ## @param file_name 资源文件名
 ## @return 资源对象，如果不存在则返回null
-static func get_resource(file_name):
-	if ResourceLoaderUtil.contains_resource(file_name):
-		return ResourceLoaderUtil.get_resource(file_name)
+static func get_resource(file_name, _conatiner: Dictionary = {}):
+	if ResourceLoaderUtil.contains_resource(file_name, _conatiner):
+		return ResourceLoaderUtil.get_resource(file_name, _conatiner)
 
 ## 通用资源加载方法
 ## 从指定目录加载资源到容器中
@@ -517,13 +517,17 @@ class ResourceLoaderUtil:
 	## 从容器中获取指定名称的资源
 	## @param file_name 资源文件名
 	## @return 资源对象
-	static func get_resource(file_name):
+	static func get_resource(file_name, _conatiner: Dictionary = {}):
+		if _conatiner.keys().size() > 0:
+			return _conatiner.get(file_name)
 		return _common_container.get(file_name)
 
 	## 检查容器中是否存在指定名称的资源
 	## @param file_name 资源文件名
 	## @return bool 是否存在
-	static func contains_resource(file_name):
+	static func contains_resource(file_name, _conatiner: Dictionary = {}):
+		if _conatiner.keys().size() > 0:	
+			return _conatiner.has(file_name)
 		return _common_container.has(file_name)
 
 	## 打印所有已加载的资源

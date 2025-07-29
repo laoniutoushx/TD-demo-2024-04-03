@@ -183,16 +183,28 @@ func refresh_selection_units(unit_map: Dictionary, mouse_pos: Vector3, on_select
 
 # 选中物品	
 # TODO click select && frame select (click select trigger when show circle, but unit will move out to candidate， how to stop it）
+var _last_selection_items = []
 func refresh_selection_items(item_map: Dictionary, mouse_pos: Vector3, on_selected_player_status: PLAYER_STATUS) -> void:
 	# emit signal player_selected_units
 	# SignalBus.player_selected_items.emit(unit_map, mouse_pos, on_selected_player_status)
 
+	# 清空上次选中的物品
+	if _last_selection_items.size() > 0:
+		for item_hud in _last_selection_items:
+			if is_instance_valid(item_hud):
+				item_hud.queue_free()
+		_last_selection_items.clear()
+
 	# 在单位所在位置显示 物品提示信息
-	for item in item_map.values():
-		if is_instance_valid(item) and item is Item:
+	for treasure_chest: TreasureChest in item_map.values():
+		if is_instance_valid(treasure_chest) and treasure_chest.drop_item:
 			var _ih = item_hud.instantiate()
-			item.add_child(_ih)
-			_ih.position.y = item._height * 1.25
+			_last_selection_items.append(_ih)
+
+			treasure_chest.add_child(_ih)
+			_ih.steup(treasure_chest)
+
+
 
 	pass
 
@@ -207,22 +219,29 @@ func _input(event):
 		if cur_unit_map.size() > 0:
 			var target_unit
 			for cur_unit in cur_unit_map.values():
-				print("cur unit %s" % cur_unit.clz_name)
-				if cur_unit is BaseUnit and cur_unit.is_alive() and cur_unit.player_group != player_group_idx:
+				# print("cur unit %s" % cur_unit.clz_name)
+				if (cur_unit is BaseUnit and cur_unit.is_alive() and cur_unit.player_group != player_group_idx) or cur_unit is TreasureChest:
 					target_unit = cur_unit
 					break
 
 			if target_unit:
-				for turret in PlayerSelect.units():
-					if is_instance_valid(turret) and turret is Turret:
-						# 如果单位再防御塔候选攻击单位中 enemies 
-						if turret.enemies.has(target_unit.get_instance_id()):
-							# 直接设置当前敌人
-							turret.current_enemy = target_unit
-						else:
-							# 提示敌人不在防御塔攻击范围内
-							print("敌人 %s 不在防御塔攻击范围内" % target_unit.clz_name)
-							SOS.main.message_bar.set_message("敌人不在防御塔攻击范围内")
+				if target_unit is TreasureChest:
+					for turret in PlayerSelect.units():
+						if is_instance_valid(turret) and turret is Turret:
+							SOS.main.item_system.pick_up(turret, target_unit)
+						
+						break;
+				else:
+					for turret in PlayerSelect.units():
+						if is_instance_valid(turret) and turret is Turret:
+							# 如果单位再防御塔候选攻击单位中 enemies 
+							if turret.enemies.has(target_unit.get_instance_id()):
+								# 直接设置当前敌人
+								turret.current_enemy = target_unit
+							else:
+								# 提示敌人不在防御塔攻击范围内
+								print("敌人 %s 不在防御塔攻击范围内" % target_unit.clz_name)
+								SOS.main.message_bar.set_message("敌人不在防御塔攻击范围内")
 			else:
 				SOS.main.message_bar.set_message("没有可攻击的敌人单位")
 						
@@ -233,7 +252,7 @@ func _input(event):
 # monitor when unit enter mouse scope
 func _on_select_area_area_entered(area: Area3D) -> void:
 	var unit = area.owner
-	if unit and unit is BaseUnit and unit.is_alive():
+	if unit and ( (unit is BaseUnit and unit.is_alive())  or  (unit is TreasureChest) ):
 		
 		# 开启右键输入检测
 		if PlayerSelect.units().size() > 0:
@@ -243,7 +262,7 @@ func _on_select_area_area_entered(area: Area3D) -> void:
 		cur_unit_map[unit.get_instance_id()] = unit
 
 		if unit.has_method('show_selected_circle'):
-			(unit as BaseUnit).show_selected_circle()
+			unit.show_selected_circle()
 	
 
 		# 描边特效
@@ -311,14 +330,13 @@ func _on_selection_box_selecting_finished(unit_map: Dictionary, mouse_pos: Vecto
 
 
 	for v in unit_map.values():
-		if v is Item:
+		if v is TreasureChest:
 			item_map[v.get_instance_id()] = v
 			unit_map.erase(v.get_instance_id())
 
 
 	refresh_selection_units(unit_map, mouse_pos, on_selected_player_status)
-	if item_map.keys().size() > 0:
-		refresh_selection_items(item_map, mouse_pos, on_selected_player_status)
+	refresh_selection_items(item_map, mouse_pos, on_selected_player_status)
 	
 	
 func _on_skill_released(skill_context: SkillContext) -> void:

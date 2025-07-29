@@ -1,4 +1,4 @@
-class_name UnitSystem extends Node
+class_name UnitSystem extends Node3D
 
 
 

@@ -1,4 +1,4 @@
-class_name BuffSystem extends Node
+class_name BuffSystem extends Node3D
 
 # 每次添加 buff 时，记录 buff 的实例 id 的添加数量，用于计数
 # 每次删除 buff 或 buff 消失时，检查 buff 的实例 id 的添加数量

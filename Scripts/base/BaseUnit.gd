@@ -430,10 +430,10 @@ func _on_logic_dead(unit: BaseUnit) -> void:
 				var drop_item: DropItem = drop_item_metas[drop_item_key]
 				if SOS.main.prob.chance_fast(drop_item.chance):
 					# 创建装备模型
-					var item: Node3D = drop_item.scene.instantiate()
-
-					SOS.main.item_system.add_child(item)
-					item.global_position = unit.global_position
+					var chest_model: Node3D = drop_item.scene.instantiate()
+					chest_model.steup(drop_item)
+					SOS.main.item_system.add_child(chest_model)
+					chest_model.global_position = unit.global_position
 		
 
 

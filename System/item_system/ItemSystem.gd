@@ -1,4 +1,4 @@
-class_name ItemSystem extends Node
+class_name ItemSystem extends Node3D
 
 
 
@@ -24,11 +24,11 @@ func initialize_items(source_unit: BaseUnit, item_metas: Array[ItemResource]) ->
 	for idx in range(item_metas.size()):
 		var item: Item = _initialize_item(source_unit, item_metas[idx], idx)
 
-		# 初始化 buff
-		SystemUtil.buff_system.init_buff_for_unit_by_res(item.item_res, item)
-
-		item.unit = source_unit
 		if item != null:
+			# 初始化 buff
+			SystemUtil.buff_system.init_buff_for_unit_by_res(item.item_res, item)
+
+			item.unit = source_unit
 			item_map[item.code] = item
 
 			# add to unit tree
@@ -65,6 +65,41 @@ func _initialize_item(source_unit: BaseUnit, item_meta_res: ItemResource, idx: i
 	
 	return null
 	
+
+
+func pick_up(source: BaseUnit, item: TreasureChest) -> Item:
+	# 获取 item
+	var drop_item: DropItem = item.drop_item
+	if drop_item == null:
+		return null
+	
+	# 获取 item resource
+	var item_res: ItemResource = CommonUtil.get_resource(drop_item.item_name, ItemManager.container())
+	if item_res == null:
+		printerr("ERROR: item resource not found for %s" % drop_item.item_name)
+		return null
+	
+	# 实例化 item
+	var new_item: Item = _initialize_item(source, item_res)
+	if new_item == null:
+		printerr("ERROR: failed to initialize item for %s" % drop_item.item_name)
+		return null
+
+	# 初始化 buff
+	SystemUtil.buff_system.init_buff_for_unit_by_res(item_res, new_item)
+
+	new_item.unit = source
+	source.item_map[new_item.code] = new_item
+
+	# add to unit tree
+	new_item.name = new_item.code
+	source.add_child(new_item)
+	new_item.add_child(new_item.item_script_instance)
+
+
+	return new_item
+
+
 
 
 # Inner Class

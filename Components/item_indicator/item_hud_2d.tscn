@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c877ljdwqdknf"]
+[gd_scene load_steps=5 format=3 uid="uid://c877ljdwqdknf"]
 
 [ext_resource type="FontFile" uid="uid://bce2telnqh8yo" path="res://Asserts/resources/demo_ui/Font/江城圆体 500W.ttf" id="1_j7g0n"]
+[ext_resource type="Script" uid="uid://cdeqppluahhxp" path="res://Components/item_indicator/item_hud_2d.gd" id="1_kgp8t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ptn40"]
 bg_color = Color(0, 0, 0, 1)
@@ -16,8 +17,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_kgp8t")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="Container" type="PanelContainer" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 1
 anchors_preset = 8
@@ -25,20 +28,41 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
+offset_left = -150.0
+offset_top = -50.0
+offset_right = 150.0
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ptn40")
 
-[node name="Panel" type="Panel" parent="PanelContainer"]
+[node name="GridContainer" type="GridContainer" parent="Container"]
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
+theme_override_constants/v_separation = 30
 
-[node name="Label" type="Label" parent="PanelContainer/Panel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 46.0
+[node name="Title" type="Label" parent="Container/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 text = "测试"
 label_settings = SubResource("LabelSettings_kgp8t")
+
+[node name="Desc" type="Label" parent="Container/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "1213123213213"
+label_settings = SubResource("LabelSettings_kgp8t")
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="DetailList" type="Label" parent="Container/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "测试"
+label_settings = SubResource("LabelSettings_kgp8t")
+autowrap_mode = 3

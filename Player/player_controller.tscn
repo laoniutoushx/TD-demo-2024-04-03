@@ -18,7 +18,7 @@ money = 2000
 unique_name_in_owner = true
 top_level = true
 collision_layer = 0
-collision_mask = 3
+collision_mask = 7
 
 [node name="CollisionShape" type="CollisionShape3D" parent="SelectArea"]
 unique_name_in_owner = true
