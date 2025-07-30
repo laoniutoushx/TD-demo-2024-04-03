@@ -97,6 +97,10 @@ func pick_up(source: BaseUnit, item: TreasureChest) -> Item:
 	new_item.add_child(new_item.item_script_instance)
 
 	# action bar item bar 处理
+	# 获取一个空白的 item slot
+	
+
+
 	SOS.main.level_controller._cur_scene.action_bar.item_bar_comp.add_element(
 		new_item.id, 
 		SOS.main.level_controller._cur_scene.action_bar.item_bar, 
