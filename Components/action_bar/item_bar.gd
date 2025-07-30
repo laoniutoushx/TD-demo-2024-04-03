@@ -85,6 +85,20 @@ func _bind_mapping_key(slot: BaseSlot, idx: int):
 # 	# cur_active_slot = _s
 # 	print("slot added %s" % ele.id)
 
+
+
+func pick_up(item: Item) -> void:
+	if item == null:
+		printerr("ERROR: item is null")
+		return
+
+	if _slot_num >= 3:
+		printerr("ERROR: item bar is full, cannot add more items")
+		return
+	
+	
+
+
 	
 func remove_element(ele: Variant):
 	ele = (ele as Item)
