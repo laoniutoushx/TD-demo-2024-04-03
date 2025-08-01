@@ -2,6 +2,8 @@ class_name ItemBarComponent extends ActionBar.BaseBarComponent
 
 
 var cur_active_slot: BaseSlot	
+var slots: Array = []
+
 
 # 装配 skill 时，需要检查 skill 状态，当 skill 处于 release 状态时，需要处理 progress_bar  等信息
 func setup_for_unit(unit_map: Dictionary):
@@ -18,6 +20,9 @@ func setup_for_unit(unit_map: Dictionary):
 	# 如果 _slot_num < 3 ，剩余槽位创建 item_slot_empty 占位槽，保持 UI 布局一致
 	while _slot_num < 3:
 		var _slot = super.add_element(UUID.v4(), _item_bar, func(a1, a2): pass, _action_bar.item_slot_empty)
+		
+		slots.append(_slot)
+
 		_slot_num += 1
 
 
@@ -46,7 +51,7 @@ func _create_item_slot(item: Item) -> BaseSlot:
 	# 	slot_instance.progress_bar.visible = true
 	# 	slot_instance.set_process(true)
 
-	_slot_num += 1
+	# _slot_num += 1
 
 	return slot_instance
 
@@ -96,7 +101,19 @@ func pick_up(item: Item) -> void:
 		printerr("ERROR: item bar is full, cannot add more items")
 		return
 	
-	
+	# 取出一个槽，放入元素
+	for slot: BaseSlot in slots:
+		if slot.is_fill == false:
+			# 找到一个空槽位
+			slot.custome_init(
+						item,
+						item.icon_path,
+						BaseSlot.SLOT_TYPE.ITEM, 
+						item.unit.player_group == SOS.main.player_controller.get_player_group_idx()
+					)
+			break
+
+
 
 
 	

@@ -170,6 +170,7 @@ class BaseBarComponent extends Node:
 
 
 	var _slot_num = 0
+	var _slot_fill_num = 0
 	
 	func _init(action_bar: ActionBar):
 		_action_bar = action_bar
@@ -237,6 +238,7 @@ class SelectionBarComponent extends BaseBarComponent:
 						element.player_group == SOS.main.player_controller.get_player_group_idx()
 					)
 					_slot_num += 1
+					_slot_fill_num += 1
 					
 		
 	func remove_element(ele: Variant):
@@ -246,6 +248,7 @@ class SelectionBarComponent extends BaseBarComponent:
 			_action_bar.deregister_active(_s.active_callback)
 			_s.queue_free()
 			_slot_num -= 1
+			_slot_fill_num -= 1
 			
 			
 			
@@ -254,6 +257,7 @@ class SelectionBarComponent extends BaseBarComponent:
 			_action_bar.deregister_active(child.active_callback)
 			child.queue_free()
 		_slot_num = 0
+		_slot_fill_num = 0
 	
 	
 	func add_element_hook(ab: ActionBar, bs: BaseSlot):
@@ -340,6 +344,7 @@ class BuffBarComponent extends BaseBarComponent:
 				slot_instance.set_process(true)
 
 		_slot_num += 1
+		_slot_fill_num += 1
 		return slot_instance					
 
 
@@ -371,6 +376,7 @@ class BuffBarComponent extends BaseBarComponent:
 						buff_slot_instance.set_process(true)
 
 					_slot_num += 1
+					_slot_fill_num += 1
 					
 		
 	func remove_element(ele: Variant):
@@ -380,6 +386,7 @@ class BuffBarComponent extends BaseBarComponent:
 			_action_bar.deregister_active(_s.active_callback)
 			_s.queue_free()
 			_slot_num -= 1
+			_slot_fill_num -= 1
 			
 			
 			
@@ -388,6 +395,7 @@ class BuffBarComponent extends BaseBarComponent:
 			_action_bar.deregister_active(child.active_callback)
 			child.queue_free()
 		_slot_num = 0
+		_slot_fill_num = 0
 	
 	
 	func add_element_hook(ab: ActionBar, bs: BaseSlot):

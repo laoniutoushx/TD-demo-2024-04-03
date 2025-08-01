@@ -101,12 +101,8 @@ func pick_up(source: BaseUnit, item: TreasureChest) -> Item:
 	
 
 
-	SOS.main.level_controller._cur_scene.action_bar.item_bar_comp.add_element(
-		new_item.id, 
-		SOS.main.level_controller._cur_scene.action_bar.item_bar, 
-		func(a1, a2): pass, 
-		SOS.main.level_controller._cur_scene.action_bar.item_slot
-	)
+	SOS.main.level_controller._cur_scene.action_bar.item_bar_comp.pick_up(new_item)
+
 
 
 	# 删除掉宝箱

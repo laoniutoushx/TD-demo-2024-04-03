@@ -43,6 +43,7 @@ var icon_res_container := {}
 
 var is_active: bool = false
 var is_mouse_hover: bool = false
+var is_fill: bool = false
 var slot_type: SLOT_TYPE
 # 快捷键（写死）
 var mapping_key: String = ""
@@ -153,8 +154,13 @@ func custome_init(ref: Variant, icon_path: String, type: SLOT_TYPE = SLOT_TYPE.D
 	slot_type = type
 	is_active = active
 	
+	
 	# 激活 or 不激活	
 	do(active)
+	
+
+	# 填充
+	is_fill = true
 		
 		
 func do(active):
