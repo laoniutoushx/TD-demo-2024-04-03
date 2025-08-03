@@ -219,8 +219,15 @@ func _input(event):
 		if cur_unit_map.size() > 0:
 			var target_unit
 			for cur_unit in cur_unit_map.values():
-				# print("cur unit %s" % cur_unit.clz_name)
-				if (cur_unit is BaseUnit and cur_unit.is_alive() and cur_unit.player_group != player_group_idx) or cur_unit is TreasureChest:
+				print("cur unit %s" % cur_unit)
+				
+				# First check if the instance is valid before doing any type checking
+				if not is_instance_valid(cur_unit):
+					continue
+				
+				# Now safely check the type and other conditions
+				if ((cur_unit is BaseUnit and cur_unit.is_alive() and cur_unit.player_group != player_group_idx) or 
+					(cur_unit is TreasureChest)):
 					target_unit = cur_unit
 					break
 
