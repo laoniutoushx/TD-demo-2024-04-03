@@ -98,11 +98,7 @@ func pick_up(source: BaseUnit, item: TreasureChest) -> Item:
 
 	# action bar item bar 处理
 	# 获取一个空白的 item slot
-	
-
-
 	SOS.main.level_controller._cur_scene.action_bar.item_bar_comp.pick_up(new_item)
-
 
 
 	# 删除掉宝箱

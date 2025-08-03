@@ -133,6 +133,9 @@ func custome_init(ref: Variant, icon_path: String, type: SLOT_TYPE = SLOT_TYPE.D
 	# 引用实体对象
 	reference = ref
 
+	# 填充
+	is_fill = true	
+
 	# 图标初始化
 	if icon_path != null and icon_res_container.has(icon_path.get_file().get_basename()):
 		icon_texture.texture = icon_res_container[icon_path.get_file().get_basename()]
@@ -159,8 +162,7 @@ func custome_init(ref: Variant, icon_path: String, type: SLOT_TYPE = SLOT_TYPE.D
 	do(active)
 	
 
-	# 填充
-	is_fill = true
+	
 		
 		
 func do(active):

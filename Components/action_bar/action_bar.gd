@@ -168,7 +168,7 @@ class BaseBarComponent extends Node:
 
 
 
-
+	var _slots: Array = []
 	var _slot_num = 0
 	var _slot_fill_num = 0
 	
@@ -193,7 +193,7 @@ class BaseBarComponent extends Node:
 		# 只保留类型为 BaseUnit 且是 玩家所属单位
 		var slot_instance = slot_scene.instantiate()
 		if slot_instance is BaseSlot:
-			slot_instance.name = id
+			slot_instance.name = id 
 			slot_instance.icon_res_container = _icon_res_container
 			slot_instance.action_bar = _action_bar
 			_bar.add_child(slot_instance)
@@ -204,6 +204,8 @@ class BaseBarComponent extends Node:
 				hook.call(_action_bar, slot_instance)
 		else:
 			_bar.add_child(slot_instance)
+
+		_slots.append(slot_instance)
 
 		return slot_instance
 		
@@ -238,7 +240,7 @@ class SelectionBarComponent extends BaseBarComponent:
 						element.player_group == SOS.main.player_controller.get_player_group_idx()
 					)
 					_slot_num += 1
-					_slot_fill_num += 1
+
 					
 		
 	func remove_element(ele: Variant):
@@ -246,16 +248,26 @@ class SelectionBarComponent extends BaseBarComponent:
 		if _selection_bar.has_node(str(ele.get_instance_id())):
 			var _s: BaseSlot = _selection_bar.get_node(str(ele.get_instance_id()))
 			_action_bar.deregister_active(_s.active_callback)
+
+			_slots.erase(_s)
 			_s.queue_free()
+
+
 			_slot_num -= 1
-			_slot_fill_num -= 1
+
+			# 不是空槽位
+			if _s.reference:
+				_slot_fill_num -= 1
 			
 			
 			
 	func clear():
+		_slots = []
 		for child: BaseSlot in _selection_bar.get_children():
 			_action_bar.deregister_active(child.active_callback)
 			child.queue_free()
+
+
 		_slot_num = 0
 		_slot_fill_num = 0
 	
@@ -329,6 +341,8 @@ class BuffBarComponent extends BaseBarComponent:
 			BaseSlot.SLOT_TYPE.ITEM, 
 			buff.unit.player_group == SOS.main.player_controller.get_player_group_idx()
 		)
+
+
 		# click signal listener
 		slot_instance.slot_clicked.connect(slot_buff_clicked)
 
@@ -344,7 +358,8 @@ class BuffBarComponent extends BaseBarComponent:
 				slot_instance.set_process(true)
 
 		_slot_num += 1
-		_slot_fill_num += 1
+		if slot_instance.reference:
+			_slot_fill_num += 1
 		return slot_instance					
 
 
@@ -376,7 +391,8 @@ class BuffBarComponent extends BaseBarComponent:
 						buff_slot_instance.set_process(true)
 
 					_slot_num += 1
-					_slot_fill_num += 1
+					if buff_slot_instance.reference:
+						_slot_fill_num += 1
 					
 		
 	func remove_element(ele: Variant):
@@ -384,13 +400,17 @@ class BuffBarComponent extends BaseBarComponent:
 		if _buff_bar.has_node(str(ele.get_instance_id())):
 			var _s: BaseSlot = _buff_bar.get_node(str(ele.get_instance_id()))
 			_action_bar.deregister_active(_s.active_callback)
+			_slots.erase(_s)
 			_s.queue_free()
 			_slot_num -= 1
-			_slot_fill_num -= 1
+			
+			if _s.reference:
+				_slot_fill_num -= 1
 			
 			
 			
 	func clear():
+		_slots = []
 		for child: BaseSlot in _buff_bar.get_children():
 			_action_bar.deregister_active(child.active_callback)
 			child.queue_free()
