@@ -33,7 +33,7 @@ func create_buff_by_code(code: String) -> Object:
 
 ## 初始化 buff（通过 skill or item）
 ## ref skill or item resource
-func init_buff_for_unit_by_res(ref: Variant, ele: Variant) -> Dictionary:
+func init_buff_for_unit_by_res(source: BaseUnit, ref: Variant, ele: Variant) -> Dictionary:
 	var buff_instance_map = {}
 	var buff_reses
 	if ref is SkillMetaResource:
@@ -63,6 +63,9 @@ func init_buff_for_unit_by_res(ref: Variant, ele: Variant) -> Dictionary:
 			# 保存实例
 			ele.buff_map[buff_instance.get_instance_id()] = buff_instance
 			buff_instance_map[buff_instance.get_instance_id()] = buff_instance
+
+			# 授予 buff 效果到目标单位
+			apply(buff_instance, ele, source)
 
 
 	return buff_instance_map

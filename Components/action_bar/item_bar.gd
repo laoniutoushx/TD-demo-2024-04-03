@@ -132,6 +132,7 @@ func remove_element(ele: Variant):
 		
 		
 func clear():
+	_slots = []
 	for child in _item_bar.get_children():
 		if child is BaseSlot:
 			_action_bar.deregister_active(child.active_callback)

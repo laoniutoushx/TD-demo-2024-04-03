@@ -26,7 +26,7 @@ func initialize_items(source_unit: BaseUnit, item_metas: Array[ItemResource]) ->
 
 		if item != null:
 			# 初始化 buff
-			SystemUtil.buff_system.init_buff_for_unit_by_res(item.item_res, item)
+			SystemUtil.buff_system.init_buff_for_unit_by_res(source_unit, item.item_res, item)
 
 			item.unit = source_unit
 			item_map[item.code] = item
@@ -86,7 +86,7 @@ func pick_up(source: BaseUnit, item: TreasureChest) -> Item:
 		return null
 
 	# 初始化 buff
-	SystemUtil.buff_system.init_buff_for_unit_by_res(item_res, new_item)
+	SystemUtil.buff_system.init_buff_for_unit_by_res(source, item_res, new_item)
 
 	new_item.unit = source
 	source.item_map[new_item.code] = new_item
