@@ -8,14 +8,56 @@ func _ready() -> void:
 	CommonUtil.load_resources_to_container_from_directory("res://System/item_system/resources/", ItemManager.container())
 
 
-# generate item 
-func generate_item(item_code: String, p: Vector3) -> Item:
-	# load item res
-	var item_res: ItemResource = ItemManager.got(item_code)
-	
+# drop_item 
+func drop_item(unit: BaseUnit) -> void:
+	var drop_item_metas = unit.drop_item_metas
+	if drop_item_metas and drop_item_metas.size() > 0:
+		
+		for drop_item_key in drop_item_metas.keys():
+			var drop_item: DropItem = drop_item_metas[drop_item_key]
+			if SOS.main.prob.chance_fast(drop_item.chance):
+				# 创建装备模型
+				var chest_model: Node3D = drop_item.scene.instantiate()
+				chest_model.steup(drop_item)
+				SOS.main.item_system.add_child(chest_model)
+				chest_model.global_position = unit.global_position
 
+
+# generate chest
+func generate_chest(item: Item, position: Vector3) -> TreasureChest:
+	var chest: TreasureChest = item.chest
 	
-	return null
+	# add to item system
+	SOS.main.item_system.add_child(chest)
+
+	chest.global_position = position
+	
+	return chest
+
+
+
+func remove_item_from_inventory(reference: Item):
+
+	# 从背包中删除 item
+	if reference != null and reference.unit != null:
+		var unit: BaseUnit = reference.unit
+		if unit.item_map.has(reference.code):
+			unit.item_map.erase(reference.code)
+
+			# 清除引用
+			reference.slot._slot_fill_num -= 1
+			reference.slot = null
+
+			reference.queue_free()
+			print("Item %s removed from inventory." % reference.code)
+		else:
+			printerr("ERROR: Item %s not found in inventory." % reference.code)
+	else:
+		printerr("ERROR: Invalid item reference.")
+
+
+
+
 
 	
 # 实例化 技能
@@ -67,9 +109,9 @@ func _initialize_item(source_unit: BaseUnit, item_meta_res: ItemResource, idx: i
 	
 
 
-func pick_up(source: BaseUnit, item: TreasureChest) -> Item:
+func pick_up(source: BaseUnit, chest: TreasureChest) -> Item:
 	# 获取 item
-	var drop_item: DropItem = item.drop_item
+	var drop_item: DropItem = chest.drop_item
 	if drop_item == null:
 		return null
 	
@@ -89,6 +131,7 @@ func pick_up(source: BaseUnit, item: TreasureChest) -> Item:
 	SystemUtil.buff_system.init_buff_for_unit_by_res(source, item_res, new_item)
 
 	new_item.unit = source
+	new_item.chest = chest.duplicate() # 复制一份宝箱，避免直接引用原宝箱导致问题
 	source.item_map[new_item.code] = new_item
 
 	# add to unit tree
@@ -102,7 +145,7 @@ func pick_up(source: BaseUnit, item: TreasureChest) -> Item:
 
 
 	# 删除掉宝箱
-	item.queue_free()
+	chest.queue_free()
 
 
 	return new_item

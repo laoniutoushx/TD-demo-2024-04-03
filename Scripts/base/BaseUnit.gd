@@ -420,20 +420,12 @@ func _on_physic_dead(unit: BaseUnit) -> void:
 # 逻辑死亡
 func _on_logic_dead(unit: BaseUnit) -> void:
 	if unit:
-
+		
+		# 逻辑死亡
 		unit.do_after_logic_dead()
 
 		# 爆装备
-		if drop_item_metas and drop_item_metas.size() > 0:
-			
-			for drop_item_key in drop_item_metas.keys():
-				var drop_item: DropItem = drop_item_metas[drop_item_key]
-				if SOS.main.prob.chance_fast(drop_item.chance):
-					# 创建装备模型
-					var chest_model: Node3D = drop_item.scene.instantiate()
-					chest_model.steup(drop_item)
-					SOS.main.item_system.add_child(chest_model)
-					chest_model.global_position = unit.global_position
+		SystemUtil.item_system.drop_item(unit)
 		
 
 

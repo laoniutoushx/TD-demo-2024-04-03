@@ -43,13 +43,14 @@ var icon_res_container := {}
 
 var is_active: bool = false
 var is_mouse_hover: bool = false
-var is_fill: bool = false
+# var is_fill: bool = false
 var slot_type: SLOT_TYPE
 # 快捷键（写死）
 var mapping_key: String = ""
  
 func _ready() -> void:
 	set_process(false)
+	# set_process_input(false)
 	slot_material = _slot_material.duplicate(true)
 	progress_bar.value = 0.0
 	progress_bar.visible = false
@@ -65,62 +66,129 @@ func _ready() -> void:
 # input event handler register
 func _input(event: InputEvent) -> void: 
 	# 技能 slot 监听
-	if is_instance_valid(reference) and reference is Skill:
-		# print("is mouse hover %s" % is_mouse_hover)
-		# 绑定鼠标左键点击
-		if is_mouse_hover:
-			# print(reference.unit.current_global_skill_state, reference.current_state)
-			if (reference.unit.current_global_skill_state == 0 and reference.SKILL_STATE.Idle == reference.current_state and 
-				(
-					event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed 
-				)
-			):
-				slot_clicked.emit(self)
-			# 阻止事件传递
-			get_viewport().set_input_as_handled()
 
-		# 绑定鼠标右键点击
-		if is_mouse_hover:
-			# print(reference.unit.current_global_skill_state, reference.current_state)
-			if (reference.unit.current_global_skill_state == 0 and 
-				(
-					event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed # event.is_released()
-				)
-			):
-				slot_right_clicked.emit(self)
-				# 直接设置关联技能属性（自动释放）
-
-				if reference.auto_release:
-					reference.auto_release = false
-					boarder_effect.visible = false
-					boarder_effect.stop()
-				else: 
-					reference.auto_release = true
-					boarder_effect.visible = true
-					boarder_effect.play("default", 1.0, true)
-
-				# slot 自动释放动画效果添加
-
-				print("自动施法 %s %s" % [reference.title, reference.auto_release])
-
-
-
-			# 阻止事件传递
-			get_viewport().set_input_as_handled()			
-
-
-		# 按键主动绑定到显示的 slot 上（每次切换 action bar 时动态绑定）
-		if (mapping_key != "" 
-			and is_instance_valid(reference) 
-			and is_instance_valid(reference.unit) 
-			and reference.unit.current_global_skill_state == 0 
-			and reference.SKILL_STATE.Idle == reference.current_state 
-			and event is InputEventKey 
-			and event.pressed):
-			if InputMap.action_has_event(mapping_key, event):
-				print("Triggered action:", mapping_key)
-				slot_clicked.emit(self)
+	if slot_type == SLOT_TYPE.SKILL:
+		if is_instance_valid(reference):
+			# print("is mouse hover %s" % is_mouse_hover)
+			# 绑定鼠标左键点击
+			if is_mouse_hover:
+				# print(reference.unit.current_global_skill_state, reference.current_state)
+				if (reference.unit.current_global_skill_state == 0 and reference.SKILL_STATE.Idle == reference.current_state and 
+					(
+						event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed 
+					)
+				):
+					slot_clicked.emit(self)
+				# 阻止事件传递
 				get_viewport().set_input_as_handled()
+
+			# 绑定鼠标右键点击
+			if is_mouse_hover:
+				# print(reference.unit.current_global_skill_state, reference.current_state)
+				if (reference.unit.current_global_skill_state == 0 and 
+					(
+						event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed # event.is_released()
+					)
+				):
+					slot_right_clicked.emit(self)
+					# 直接设置关联技能属性（自动释放）
+
+					if reference.auto_release:
+						reference.auto_release = false
+						boarder_effect.visible = false
+						boarder_effect.stop()
+					else: 
+						reference.auto_release = true
+						boarder_effect.visible = true
+						boarder_effect.play("default", 1.0, true)
+
+					# slot 自动释放动画效果添加
+
+					print("自动施法 %s %s" % [reference.title, reference.auto_release])
+
+
+				# 阻止事件传递
+				get_viewport().set_input_as_handled()	
+
+
+			# 按键主动绑定到显示的 slot 上（每次切换 action bar 时动态绑定）
+			if (mapping_key != "" 
+				and is_instance_valid(reference) 
+				and is_instance_valid(reference.unit) 
+				and reference.unit.current_global_skill_state == 0 
+				and reference.SKILL_STATE.Idle == reference.current_state 
+				and event is InputEventKey 
+				and event.pressed):
+				if InputMap.action_has_event(mapping_key, event):
+					print("Triggered action:", mapping_key)
+					slot_clicked.emit(self)
+					get_viewport().set_input_as_handled()
+
+
+	elif slot_type == SLOT_TYPE.ITEM:
+		# print("is mouse hover %s" % is_mouse_hover)
+		# 鼠标右键，则物品可以跟随鼠标移动
+		if is_mouse_hover:
+			# print(reference.unit.current_global_skill_state, reference.current_state)
+			if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed): # event.is_released()
+
+				# 阻止事件传递
+				get_viewport().set_input_as_handled()
+
+				# slot_clicked.emit(self)
+				print("Item right clicked:")
+				# 开启 3D 空间 Camera ray picker 定位
+
+				# 锁定当前玩家状态
+				if SOS.main.player_controller.player_status == SOS.main.player_controller.PLAYER_STATUS.DEFAULT:
+
+					# 切换玩家状态
+					SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DROPING_ITEM
+
+
+					_chest = SystemUtil.item_system.generate_chest(reference, Vector3.ZERO)
+
+					# 注册 RayPicker
+					SignalBus.ray_picker_regist.emit(callable_drop_item)
+
+
+
+
+
+var _chest
+
+# 注册 build_turret function 到 RayPicker
+func callable_drop_item(ray_cast_3d: RayCast3D) -> void:
+
+	if _chest:
+		var collision_point = ray_cast_3d.get_collision_point()
+		print("drop item at %s" % collision_point)
+		_chest.global_position = collision_point
+
+		if Input.is_action_pressed("click"):	# 等待左键点击
+			_chest = null
+
+			# 取消注册
+			SignalBus.ray_picker_unregist.emit(callable_drop_item)
+
+			# item bar 删除
+			SOS.main.level_controller._cur_scene.action_bar.item_bar_comp.drop_item(self)
+
+			# 删除装备信息（从背包中删除）
+			SystemUtil.item_system.remove_item_from_inventory(reference)
+
+			# 切换玩家状态
+			SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DEFAULT
+
+
+
+
+
+
+
+	
+
+
 
 
 func active_callback(act: bool) -> void:
@@ -134,7 +202,7 @@ func custome_init(ref: Variant, icon_path: String, type: SLOT_TYPE = SLOT_TYPE.D
 	reference = ref
 
 	# 填充
-	is_fill = true	
+	# is_fill = true	
 
 	# 图标初始化
 	if icon_path != null and icon_res_container.has(icon_path.get_file().get_basename()):
@@ -194,9 +262,12 @@ func extend_cooldown(cooldown: float) -> void:
 
 
 func _on_mouse_entered() -> void:
+	# set_process_input(true)
 	# print("mouse hover")
 	is_mouse_hover = true
-	icon_texture.material.set_shader_parameter("show_border", true)
+
+	if icon_texture and icon_texture.material:
+		icon_texture.material.set_shader_parameter("show_border", true)
 	
 
 	# 显示 slot_indicator 
@@ -212,7 +283,9 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
 	# print("mouse out")
 	is_mouse_hover = false
-	icon_texture.material.set_shader_parameter("show_border", false)
+	
+	if icon_texture  and icon_texture.material:
+		icon_texture.material.set_shader_parameter("show_border", false)
 
 	# 关闭 slot_indicator 
 	if is_instance_valid(reference) and  reference is Skill:
@@ -221,6 +294,8 @@ func _on_mouse_exited() -> void:
 		SOS.main.unit_slot_indicator.show_toggle(self)
 	elif is_instance_valid(reference) and reference is Item:
 		SOS.main.item_slot_indicator.show_toggle(self)
+
+	# set_process_input(false)
 
 
 

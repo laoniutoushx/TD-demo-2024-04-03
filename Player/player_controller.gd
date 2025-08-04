@@ -49,7 +49,8 @@ var skill_indicator_grid_map_material: ShaderMaterial = load("res://Test/glow sh
 enum PLAYER_STATUS {
 	DEFAULT,
 	CHOOSING_TARGETED_UNIT,
-	CHOOSING_BUILDING_AREA
+	CHOOSING_BUILDING_AREA,
+	DROPING_ITEM
 }
 
 var player_status = PLAYER_STATUS.DEFAULT
@@ -214,7 +215,7 @@ func refresh_selection_items(item_map: Dictionary, mouse_pos: Vector3, on_select
 # 单位进入时，监听右键事件（攻击）
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-		print("监听到右键点击")
+		# print("监听到右键点击")
 		# 获取到玩家选择的所有单位，过滤出 所有玩家单位，判断
 		if cur_unit_map.size() > 0:
 			var target_unit

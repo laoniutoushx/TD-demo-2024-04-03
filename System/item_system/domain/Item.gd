@@ -5,6 +5,7 @@ var unit: BaseUnit
 var target: BaseUnit
 var item_res: ItemResource
 var slot: BaseSlot
+var chest: TreasureChest
 
 ## Item 效果（属性提升，buff 叠加，技能释放，状态转变）
 
@@ -12,7 +13,7 @@ var slot: BaseSlot
 
 # basic properity
 @export_group("Item Meta Steup")
-@export var id: StringName
+@export var id: String
 @export var code: String
 @export var sort: int
 

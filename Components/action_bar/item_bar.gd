@@ -116,7 +116,23 @@ func pick_up(item: Item) -> void:
 			break
 
 
+func drop_item(slot: BaseSlot) -> void:
+	if slot == null:
+		printerr("ERROR: item is null")
+		return
+	
+	# 删除掉 item slot
+	slot.custome_init(
+		null,
+		"",
+		BaseSlot.SLOT_TYPE.ITEM, 
+		false
+	)
 
+
+	# 清除当前激活槽位
+	if cur_active_slot == slot:
+		cur_active_slot = null
 
 	
 func remove_element(ele: Variant):

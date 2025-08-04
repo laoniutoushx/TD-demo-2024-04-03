@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 	ray_cast_3d.target_position = project_local_ray_normal(mouse_position) * 100.0
 	
 	# 强制更新射线碰撞信息
-	ray_cast_3d.force_raycast_update() 
+	ray_cast_3d.force_raycast_update()
 
 	# 射线碰撞回调
 	if callable_back_list.size() > 0:

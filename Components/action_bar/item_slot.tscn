@@ -121,3 +121,6 @@ unique_name_in_owner = true
 position = Vector2(48, 48)
 scale = Vector2(1.28, 1.28)
 sprite_frames = SubResource("SpriteFrames_wmc0m")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

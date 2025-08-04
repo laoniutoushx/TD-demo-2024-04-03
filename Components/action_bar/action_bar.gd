@@ -338,7 +338,7 @@ class BuffBarComponent extends BaseBarComponent:
 		slot_instance.custome_init(
 			buff,
 			buff.icon_path,
-			BaseSlot.SLOT_TYPE.ITEM, 
+			BaseSlot.SLOT_TYPE.BUFF, 
 			buff.unit.player_group == SOS.main.player_controller.get_player_group_idx()
 		)
 
