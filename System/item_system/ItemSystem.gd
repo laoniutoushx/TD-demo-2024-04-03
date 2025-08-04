@@ -44,9 +44,8 @@ func remove_item_from_inventory(reference: Item):
 		if unit.item_map.has(reference.code):
 			unit.item_map.erase(reference.code)
 
-			# 清除引用
-			reference.slot._slot_fill_num -= 1
-			reference.slot = null
+			# res 中也清除
+			# unit.item_metas.erase(reference.item_res)
 
 			reference.queue_free()
 			print("Item %s removed from inventory." % reference.code)

@@ -61,8 +61,8 @@ func init_buff_for_unit_by_res(source: BaseUnit, ref: Variant, ele: Variant) -> 
 			buff_instance.vfx = buff_res.vfx
 
 			# 保存实例
-			ele.buff_map[buff_instance.get_instance_id()] = buff_instance
-			buff_instance_map[buff_instance.get_instance_id()] = buff_instance
+			ele.buff_map[buff_instance.code] = buff_instance
+			buff_instance_map[buff_instance.code] = buff_instance
 
 			# 授予 buff 效果到目标单位
 			apply(buff_instance, ele, source)

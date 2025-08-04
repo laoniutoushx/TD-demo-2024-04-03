@@ -171,11 +171,28 @@ func callable_drop_item(ray_cast_3d: RayCast3D) -> void:
 			# 取消注册
 			SignalBus.ray_picker_unregist.emit(callable_drop_item)
 
-			# item bar 删除
-			SOS.main.level_controller._cur_scene.action_bar.item_bar_comp.drop_item(self)
+
+			# item buff 信息删除
+			if reference is Item:
+				
+				for c in reference.unit.buff_map.keys():
+					print("unit name %s,  remove unit buff %s" % [reference.unit.name ,c])
+
+				# 删除 buff 信息
+				for _item_buff in reference.buff_map.values():
+					print("remove item buff %s" % _item_buff.code)
+					SystemUtil.buff_system.remove(_item_buff, reference.unit)
+
+
+
 
 			# 删除装备信息（从背包中删除）
 			SystemUtil.item_system.remove_item_from_inventory(reference)
+
+
+			# item bar 删除
+			SOS.main.level_controller._cur_scene.action_bar.item_bar_comp.drop_item(self)
+
 
 			# 切换玩家状态
 			SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DEFAULT

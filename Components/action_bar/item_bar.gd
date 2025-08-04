@@ -110,7 +110,7 @@ func pick_up(item: Item) -> void:
 						item,
 						item.icon_path,
 						BaseSlot.SLOT_TYPE.ITEM, 
-						item.unit.player_group == SOS.main.player_controller.get_player_group_idx()
+						true
 					)
 			_slot_fill_num += 1
 			break
@@ -133,6 +133,8 @@ func drop_item(slot: BaseSlot) -> void:
 	# 清除当前激活槽位
 	if cur_active_slot == slot:
 		cur_active_slot = null
+
+	_slot_fill_num -= 1
 
 	
 func remove_element(ele: Variant):
