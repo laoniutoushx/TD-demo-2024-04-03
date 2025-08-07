@@ -390,6 +390,10 @@ class BuffBarComponent extends BaseBarComponent:
 						buff_slot_instance.progress_bar.visible = true
 						buff_slot_instance.set_process(true)
 
+					# buff 引用 buff_slot 实例
+					element.slot = buff_slot_instance
+
+					# 引用计数处理
 					_slot_num += 1
 					if buff_slot_instance.reference:
 						_slot_fill_num += 1
@@ -397,15 +401,24 @@ class BuffBarComponent extends BaseBarComponent:
 		
 	func remove_element(ele: Variant):
 		ele = (ele as Buff)
-		if _buff_bar.has_node(str(ele.get_instance_id())):
-			var _s: BaseSlot = _buff_bar.get_node(str(ele.get_instance_id()))
-			_action_bar.deregister_active(_s.active_callback)
-			_slots.erase(_s)
-			_s.queue_free()
-			_slot_num -= 1
-			
-			if _s.reference:
-				_slot_fill_num -= 1
+		var _ele_slot = ele.slot
+		for _child_buff_slot in _buff_bar.get_children():
+			print("child buf id: %s, ele id: %s" % [_child_buff_slot.get_instance_id(), ele.get_instance_id()])
+
+
+		for _child_buff_slot in _buff_bar.get_children():
+			if _child_buff_slot.get_instance_id() == _ele_slot.get_instance_id():
+
+				_action_bar.deregister_active(_ele_slot.active_callback)
+
+				# 引用计数处理
+				_slots.erase(_ele_slot)
+				if _ele_slot.reference:
+					_slot_fill_num -= 1
+				_slot_num -= 1
+
+				_ele_slot.queue_free()
+				
 			
 			
 			

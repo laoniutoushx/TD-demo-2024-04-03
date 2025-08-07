@@ -228,7 +228,7 @@ func _input(event):
 				
 				# Now safely check the type and other conditions
 				if ((cur_unit is BaseUnit and cur_unit.is_alive() and cur_unit.player_group != player_group_idx) or 
-					(cur_unit is TreasureChest)):
+					(cur_unit is TreasureChest and player_status == PLAYER_STATUS.DEFAULT)):
 					target_unit = cur_unit
 					break
 

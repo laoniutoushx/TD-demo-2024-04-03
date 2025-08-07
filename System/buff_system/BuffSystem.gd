@@ -5,6 +5,7 @@ class_name BuffSystem extends Node3D
 # 先检查数量，在执行实际 buff 实例的添加或移除操作，同时满足 buff 排斥条件和 buff 叠加限制，以及 buff 的持续时间（记录 buff 叠加层数）
 
 
+
 # 一个 buff 被添加到某个 实例的次数
 # key: buff_code&instance_id -> count(*)
 var __buff_inst_counter: Dictionary = {}
@@ -116,7 +117,7 @@ func apply(_buff: Buff, _reference: Variant = null, target: Variant = null) -> v
 	buff.prob_callback = _buff.prob_callback
 	buff.vfx = _buff.vfx
 
-	target.buff_map[buff.get_instance_id()] = buff
+	target.buff_map[_id] = buff
 
 	buff.reference_instance = _reference
 	buff.unit = target
@@ -154,10 +155,10 @@ func apply(_buff: Buff, _reference: Variant = null, target: Variant = null) -> v
 
 # buff remove
 func remove(_buff: Buff, target: Variant):
+	var _id = str(_buff.code) + "&" + str(target.get_instance_id())
 	# 当 buff 为永久 buff （cooldown == -1）时，检查 buff 计数
 	if _buff.cooldown == -1:
 		# buff 计数（未达到最小数量时，不删除）（只适合 范围类光辉类 buff）（单体延迟冷却时间类，这里到期后应该立即删除，后期没有机会再触发删除）
-		var _id = str(_buff.code) + "&" + str(target.get_instance_id())
 		if __buff_inst_counter[_id] > 1:
 			__buff_inst_counter[_id] -= 1
 			# 退出时，处理 buff 计数
@@ -168,7 +169,7 @@ func remove(_buff: Buff, target: Variant):
 		pass
 
 	# 删除 reference 实体上关联的 buff 信息
-	target.buff_map.erase(_buff.get_instance_id())
+	target.buff_map.erase(_id)
 
 	# if _buff.remove(_reference):
 	# 移出 buff action_bar ui 界面
@@ -184,7 +185,6 @@ func _on_buff_exiting_tree(_buff: Buff, target: Variant):
 	# 销毁时，处理 属性问题
 	_buff.remove(target)
 	# _buff.call_deferred("remove", _reference)
-
 
 
 

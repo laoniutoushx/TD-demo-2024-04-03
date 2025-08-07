@@ -14,7 +14,7 @@ enemy_amount = 1
 
 [sub_resource type="Resource" id="Resource_6jk0d"]
 script = ExtResource("3_o0ugr")
-start_delay = 3.0
+start_delay = 300.0
 next_wave_delay = 3.0
 level_code = "Level1"
 enemy_spawner_resource = Array[ExtResource("4_gg7ch")]([SubResource("Resource_2tx4y")])

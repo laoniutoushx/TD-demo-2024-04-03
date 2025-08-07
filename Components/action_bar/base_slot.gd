@@ -162,7 +162,7 @@ func callable_drop_item(ray_cast_3d: RayCast3D) -> void:
 
 	if _chest:
 		var collision_point = ray_cast_3d.get_collision_point()
-		print("drop item at %s" % collision_point)
+		# print("drop item at %s" % collision_point)
 		_chest.global_position = collision_point
 
 		if Input.is_action_pressed("click"):	# 等待左键点击
