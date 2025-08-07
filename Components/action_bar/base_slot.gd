@@ -180,8 +180,9 @@ func callable_drop_item(ray_cast_3d: RayCast3D) -> void:
 
 				# 删除 buff 信息
 				for _item_buff in reference.unit.buff_map.values():
-					print("remove item buff %s" % _item_buff.code)
-					SystemUtil.buff_system.remove(_item_buff, reference.unit)
+					if _item_buff.code in reference.buff_map.keys():
+						print("remove item buff %s" % _item_buff.code)
+						SystemUtil.buff_system.remove(_item_buff, reference.unit)
 
 
 

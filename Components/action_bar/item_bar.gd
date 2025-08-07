@@ -129,6 +129,7 @@ func drop_item(slot: BaseSlot) -> void:
 		false
 	)
 
+	slot.reference = null
 
 	# 清除当前激活槽位
 	if cur_active_slot == slot:
@@ -157,6 +158,7 @@ func clear():
 
 		child.queue_free()
 	_slot_num = 0
+	_slot_fill_num = 0
 
 
 func _on_slot_clicked(slot: BaseSlot):

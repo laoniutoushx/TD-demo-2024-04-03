@@ -92,6 +92,7 @@ func clear():
 		_action_bar.deregister_active(child.active_callback)
 		child.queue_free()
 	_slot_num = 0
+	_slot_fill_num = 0
 
 
 func _on_slot_clicked(slot: BaseSlot):
