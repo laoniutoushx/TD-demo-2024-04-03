@@ -172,14 +172,14 @@ func callable_drop_item(ray_cast_3d: RayCast3D) -> void:
 			SignalBus.ray_picker_unregist.emit(callable_drop_item)
 
 
-			# item buff 信息删除
+			# item buff 信息删除(注意所有 buff 都是在 unit 下，不要再 item 或 skill 下寻找)
 			if reference is Item:
 				
 				for c in reference.unit.buff_map.keys():
 					print("unit name %s,  remove unit buff %s" % [reference.unit.name ,c])
 
 				# 删除 buff 信息
-				for _item_buff in reference.buff_map.values():
+				for _item_buff in reference.unit.buff_map.values():
 					print("remove item buff %s" % _item_buff.code)
 					SystemUtil.buff_system.remove(_item_buff, reference.unit)
 
