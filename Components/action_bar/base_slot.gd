@@ -133,14 +133,15 @@ func _input(event: InputEvent) -> void:
 			if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed): # event.is_released()
 
 				# 阻止事件传递
-				get_viewport().set_input_as_handled()
+				# get_viewport().set_input_as_handled()
 
 				# slot_clicked.emit(self)
 				print("Item right clicked:")
 				# 开启 3D 空间 Camera ray picker 定位
 
+
 				# 锁定当前玩家状态
-				if SOS.main.player_controller.player_status == SOS.main.player_controller.PLAYER_STATUS.DEFAULT:
+				if SOS.main.player_controller.player_status == SOS.main.player_controller.PLAYER_STATUS.DEFAULT and reference:
 
 					# 切换玩家状态
 					SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DROPING_ITEM
