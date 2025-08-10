@@ -22,6 +22,7 @@ static var icon_res_container := {}
 var selection_bar_comp: SelectionBarComponent
 var item_bar_comp: ItemBarComponent
 var skill_bar_comp: SkillBarComponent
+var player_bar_comp: PlayerBarComponent
 var buff_bar_comp: BuffBarComponent
 
 var active_callback_list: Array[Callable] = []
@@ -42,11 +43,13 @@ func _ready() -> void:
 	selection_bar_comp = SelectionBarComponent.new(self)
 	item_bar_comp = ItemBarComponent.new(self)
 	skill_bar_comp = SkillBarComponent.new(self)
+	player_bar_comp = PlayerBarComponent.new(self)
 	buff_bar_comp = BuffBarComponent.new(self)
 
 	add_child(selection_bar_comp)
 	add_child(item_bar_comp)
 	add_child(skill_bar_comp)
+	add_child(player_bar_comp)
 	add_child(buff_bar_comp)
 
 	# progress_util_bar
@@ -107,7 +110,9 @@ func _on_player_select_units(unit_map: Dictionary, mouse_pos: Vector3, on_select
 			open_skill_bar(unit_map)
 			# item bar
 			open_item_bar(unit_map)
-			# item bar
+			# player bar
+			open_player_bar(unit_map)
+			# buff bar
 			open_buff_bar(unit_map)
 			# progress bar
 			progress_util_bar.close()
@@ -131,6 +136,11 @@ func open_skill_bar(unit_map: Dictionary):
 	skill_bar_comp.clear()
 	# skill bar init
 	skill_bar_comp.setup_for_unit(unit_map)
+
+func open_player_bar(unit_map: Dictionary):
+	player_bar_comp.clear()
+	# player bar init
+	player_bar_comp.setup_for_unit(unit_map)
 
 func open_item_bar(unit_map: Dictionary):
 	item_bar_comp.clear()

@@ -1,6 +1,7 @@
 class_name ItemSystem extends Node3D
 
 
+var _chest: PackedScene = preload("res://System/item_system/resources/treasure_chest.tscn")
 
 func _ready() -> void:
 	SystemUtil.item_system = self
@@ -101,6 +102,12 @@ func _initialize_item(source_unit: BaseUnit, item_meta_res: ItemResource, idx: i
 			item.item_script_instance = item.item_script.new()
 		else:
 			printerr("ERROR: item script not define")
+
+		# 初始化 item chest
+		item.chest = _chest.instantiate()
+		item.chest.drop_item = DropItem.new()
+		item.chest.drop_item.item_name = item.code
+		item.chest.drop_item.chance = 10000 # 100% 掉
 		
 		return item
 	

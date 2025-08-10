@@ -32,6 +32,8 @@ var client_id: String = OS.get_unique_id()
 var player_idx: int
 var player_group_idx: int 
 
+var player_talent: Dictionary = {}
+
 
 var outline_material: ShaderMaterial
 
@@ -54,6 +56,7 @@ enum PLAYER_STATUS {
 }
 
 var player_status = PLAYER_STATUS.DEFAULT
+
 
 
 
