@@ -6,27 +6,28 @@ var cur_active_slot: BaseSlot
 
 
 # 装配 skill 时，需要检查 skill 状态，当 skill 处于 release 状态时，需要处理 progress_bar  等信息
-func setup_for_unit(unit_map: Dictionary):
-	var unit: BaseUnit = unit_map.values()[0]
-	var item_map: Dictionary = unit.item_map
-	if item_map != null and item_map.keys().size() > 0:
-		for code in item_map.keys():
-			if _slot_num < 3:	# 0,1,2 三个槽位
-				var item: Item = item_map[code]
-				var _slot = _create_item_slot(item)
-				item.slot = _slot
-				_bind_mapping_key(_slot, _slot_num)
+func setup_for_player():
+	# var unit: BaseUnit = unit_map.values()[0]
+	# var item_map: Dictionary = unit.item_map
+	# if item_map != null and item_map.keys().size() > 0:
+	# 	for code in item_map.keys():
+	# 		if _slot_num < 3:	# 0,1,2 三个槽位
+	# 			var item: Item = item_map[code]
+	# 			var _slot = _create_item_slot(item)
+	# 			item.slot = _slot
+	# 			_bind_mapping_key(_slot, _slot_num)
 
-	# 如果 _slot_num < 3 ，剩余槽位创建 item_slot_empty 占位槽，保持 UI 布局一致
-	while _slot_num < 1:
-		var _slot = super.add_element(UUID.v4(), _item_bar, func(a1, a2): pass, _action_bar.item_slot_empty)
-		_slot_num += 1
+	# # 如果 _slot_num < 3 ，剩余槽位创建 item_slot_empty 占位槽，保持 UI 布局一致
+	# while _slot_num < 1:
+	# 	var _slot = super.add_element(UUID.v4(), _player_bar, func(a1, a2): pass, _action_bar.item_slot_empty)
+	# 	_slot_num += 1
+	pass
 
 
 
 
 func _create_item_slot(item: Item) -> BaseSlot:	
-	var slot_instance: BaseSlot = super.add_element(item.id, _item_bar, func(a1, a2): pass, _action_bar.item_slot)
+	var slot_instance: BaseSlot = super.add_element(item.id, _player_bar, func(a1, a2): pass, _action_bar.item_slot)
 	
 	slot_instance.custome_init(
 		item,
@@ -80,10 +81,10 @@ func _bind_mapping_key(slot: BaseSlot, idx: int):
 
 # func add_element(ele: Variant):
 # 	ele = (ele as Item)
-# 	if not _item_bar.has_node(ele.id):
+# 	if not _player_bar.has_node(ele.id):
 # 		var _s: BaseSlot = _create_item_slot(ele)
 # 		_action_bar.register_active(_s.active_callback)
-# 		_item_bar.add_child(_s)
+# 		_player_bar.add_child(_s)
 # 	else:
 # 		printerr("ERROR: item slot already exists for %s" % ele.id)
 # 		return
@@ -140,8 +141,8 @@ func drop_item(slot: BaseSlot) -> void:
 	
 func remove_element(ele: Variant):
 	ele = (ele as Item)
-	if _item_bar.has_node(ele.id):
-		var _s: BaseSlot = _item_bar.get_node(ele.id)
+	if _player_bar.has_node(ele.id):
+		var _s: BaseSlot = _player_bar.get_node(ele.id)
 		_action_bar.deregister_active(_s.active_callback)
 		_s.queue_free()
 		_slot_num -= 1
@@ -152,7 +153,7 @@ func remove_element(ele: Variant):
 		
 func clear():
 	_slots = []
-	for child in _item_bar.get_children():
+	for child in _player_bar.get_children():
 		if child is BaseSlot:
 			_action_bar.deregister_active(child.active_callback)
 

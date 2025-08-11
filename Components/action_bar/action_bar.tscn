@@ -1019,13 +1019,14 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="PlayerContainer" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer3/PanelContainer/MarginContainer3"]
+[node name="PlayerBar" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer3/PanelContainer/MarginContainer3"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_5vfmd")
 
-[node name="PlayerSlotEmpty" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer3/PanelContainer/MarginContainer3/PlayerContainer" instance=ExtResource("7_t2jrh")]
+[node name="PlayerSlotEmpty" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer3/PanelContainer/MarginContainer3/PlayerBar" instance=ExtResource("7_t2jrh")]
 layout_mode = 2
 
 [node name="PadBox3" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer"]

@@ -4,6 +4,7 @@ class_name ActionBar extends Control
 
 @onready var layer: CanvasLayer = %CanvasLayer
 @onready var item_bar: GridContainer = %ItemBar
+@onready var player_bar: GridContainer = %PlayerBar
 @onready var selection_bar: GridContainer = %SelectionBar
 @onready var buff_bar: GridContainer = %BuffBar
 
@@ -140,7 +141,7 @@ func open_skill_bar(unit_map: Dictionary):
 func open_player_bar(unit_map: Dictionary):
 	player_bar_comp.clear()
 	# player bar init
-	player_bar_comp.setup_for_unit(unit_map)
+	player_bar_comp.setup_for_player()
 
 func open_item_bar(unit_map: Dictionary):
 	item_bar_comp.clear()
@@ -173,6 +174,7 @@ class BaseBarComponent extends Node:
 
 	var _skill_bar: GridContainer
 	var _item_bar: GridContainer
+	var _player_bar: GridContainer
 	var _selection_bar: GridContainer
 	var _buff_bar: GridContainer
 
@@ -186,6 +188,7 @@ class BaseBarComponent extends Node:
 		_action_bar = action_bar
 		_skill_bar = _action_bar.skill_bar
 		_item_bar = _action_bar.item_bar
+		_player_bar = _action_bar.player_bar
 		_selection_bar = _action_bar.selection_bar
 		_buff_bar = _action_bar.buff_bar
 	
