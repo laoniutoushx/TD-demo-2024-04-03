@@ -961,7 +961,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
-columns = 5
+columns = 3
 
 [node name="ItemSlot" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff/GridContainer/MarginContainer/Item/ItemBar" instance=ExtResource("6_t2jrh")]
 layout_mode = 2
@@ -969,7 +969,7 @@ layout_mode = 2
 [node name="ItemSlot2" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff/GridContainer/MarginContainer/Item/ItemBar" instance=ExtResource("6_t2jrh")]
 layout_mode = 2
 
-[node name="ItemSlot3" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff/GridContainer/MarginContainer/Item/ItemBar" instance=ExtResource("6_t2jrh")]
+[node name="ItemSlotEmpty" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff/GridContainer/MarginContainer/Item/ItemBar" instance=ExtResource("6_t2jrh")]
 layout_mode = 2
 
 [node name="Buff" type="PanelContainer" parent="CanvasLayer/Container/MarginContainer/PanelContainer/VBoxContainer/BottomC/BottomContainer/MarginContainer2/ItemABuff/GridContainer"]

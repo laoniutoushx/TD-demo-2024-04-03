@@ -20,6 +20,7 @@ func setup_for_unit(unit_map: Dictionary):
 	# 如果 _slot_num < 3 ，剩余槽位创建 item_slot_empty 占位槽，保持 UI 布局一致
 	while _slot_num < 3:
 		var _slot = super.add_element(UUID.v4(), _item_bar, func(a1, a2): pass, _action_bar.item_slot_empty)
+		print(_slots)
 		_slot_num += 1
 
 
@@ -55,6 +56,9 @@ func _create_item_slot(item: Item) -> BaseSlot:
 		_slot_fill_num += 1	
 
 	return slot_instance
+
+	
+
 
 # 绑定快捷键
 # 按键主动绑定到显示的 slot 上（每次切换 action bar 时动态绑定）
@@ -104,7 +108,8 @@ func pick_up(item: Item) -> void:
 	
 	# 取出一个槽，放入元素
 	for slot in _slots:
-		if slot.reference == null:  # 找到一个空槽位
+		if slot.reference == null :  # 找到一个空槽位
+		# if slot and slot.reference == null :  # 找到一个空槽位
 			# 找到一个空槽位
 			slot.custome_init(
 						item,

@@ -206,15 +206,15 @@ class BaseBarComponent extends Node:
 			slot_instance.name = id 
 			slot_instance.icon_res_container = _icon_res_container
 			slot_instance.action_bar = _action_bar
-			_bar.add_child(slot_instance)
 			_action_bar.register_active(slot_instance.active_callback)
 			
 			# 添加 element 时的钩子函数
 			if hook != null:
 				hook.call(_action_bar, slot_instance)
 		else:
-			_bar.add_child(slot_instance)
+			pass
 
+		_bar.add_child(slot_instance)
 		_slots.append(slot_instance)
 
 		return slot_instance

@@ -1,0 +1,99 @@
+[gd_scene load_steps=10 format=3 uid="uid://cb77hr6pdtaw5"]
+
+[ext_resource type="Script" uid="uid://d0ac08acxcvg8" path="res://System/talent_system/talent_ui/choose_talent_bar.gd" id="1_7fv8p"]
+[ext_resource type="Texture2D" uid="uid://b7vu3ufd0j528" path="res://icon-64.svg" id="1_jfjjs"]
+[ext_resource type="FontFile" uid="uid://bce2telnqh8yo" path="res://Asserts/resources/demo_ui/Font/江城圆体 500W.ttf" id="2_frpqo"]
+[ext_resource type="FontFile" uid="uid://m6iwjdk2oqpf" path="res://Asserts/resources/demo_ui/Font/江城圆体 700W.ttf" id="3_mc6o4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_osyra"]
+bg_color = Color(0.593138, 0.633115, 0.270988, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 5
+shadow_offset = Vector2(4, 4)
+
+[sub_resource type="Gradient" id="Gradient_jfjjs"]
+colors = PackedColorArray(0.593, 0.633, 0.271, 1, 0.270916, 0.27068, 0.0777624, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_frpqo"]
+gradient = SubResource("Gradient_jfjjs")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jfjjs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_frpqo"]
+
+[node name="ChooseTalentBar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7fv8p")
+talent_text = "[font_size=28][b]贪婪[/b][/font_size]
+[font_size=18]每回合开始，获得当前波次 [b]X 100[/b] 的金钱奖励[/font_size]
+
+[font_size=20]► 金钱奖励：[color=green]+100%[/color][/font_size]"
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+theme_override_styles/panel = SubResource("StyleBoxFlat_osyra")
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer2"]
+layout_mode = 2
+texture = SubResource("GradientTexture1D_frpqo")
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer2"]
+layout_mode = 2
+columns = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme_override_styles/panel = SubResource("StyleBoxEmpty_jfjjs")
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer2/HBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer2/HBoxContainer/PanelContainer/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("1_jfjjs")
+
+[node name="RightPanel" type="PanelContainer" parent="PanelContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_frpqo")
+
+[node name="TalentContent" type="RichTextLabel" parent="PanelContainer2/HBoxContainer/RightPanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_frpqo")
+theme_override_fonts/bold_font = ExtResource("3_mc6o4")
+bbcode_enabled = true
+text = "[font_size=28][b]贪婪[/b][/font_size]
+[font_size=18]每回合开始，获得当前波次 [b]X 100[/b] 的金钱奖励[/font_size]
+
+[font_size=20]► 金钱奖励：[color=green]+100%[/color][/font_size]"
+vertical_alignment = 1

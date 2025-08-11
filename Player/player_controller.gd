@@ -32,6 +32,7 @@ var client_id: String = OS.get_unique_id()
 var player_idx: int
 var player_group_idx: int 
 
+# 玩家天赋信息
 var player_talent: Dictionary = {}
 
 

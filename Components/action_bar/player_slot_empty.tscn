@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bax0nhyh31t2m"]
+[gd_scene load_steps=5 format=3 uid="uid://bax0nhyh31t2m"]
 
 [ext_resource type="Shader" uid="uid://drrcb1fdwb2ul" path="res://UI/ui_border.gdshader" id="1_4xsef"]
+[ext_resource type="Texture2D" uid="uid://bnmmv3kt3wehw" path="res://Asserts/Images/icon/player/question.png" id="2_4xsef"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rbb42"]
 shader = ExtResource("1_4xsef")
@@ -39,5 +40,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_elfme")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(136, 136)
 layout_mode = 2
+texture = ExtResource("2_4xsef")
 expand_mode = 1
 stretch_mode = 5
