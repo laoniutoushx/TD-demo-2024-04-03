@@ -1,6 +1,8 @@
 extends Node
 
 
+@onready var layer: CanvasLayer = %CanvasLayer
+
 
 func _ready() -> void:
 	# SignalBus.unit_logic_death.connect(_on_enemy_death)
@@ -20,6 +22,11 @@ func _ready() -> void:
 
 	
 	pass
+
+
+func ui_toggle():
+	layer.visible = !layer.visible
+
 
 func _on_money_changed(enemy: Object, money: int):
 	var money_label = %MoneyLabel

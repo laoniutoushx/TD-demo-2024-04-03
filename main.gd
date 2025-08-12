@@ -22,6 +22,7 @@ var turret_manager: TurretManager
 @onready var unit_system: UnitSystem = %UnitSystem
 @onready var skill_system: SkillSystem = %SkillSystem
 @onready var item_system: ItemSystem = %ItemSystem
+@onready var talent_system: TalentSystem = %TalentSystem
 @onready var buff_system: BuffSystem = %BuffSystem
 @onready var floating_text_system: FloatingTextSystem = %FloatingTextSystem
 
@@ -32,7 +33,7 @@ var turret_manager: TurretManager
 
 
 
-var input_event_callable_list: Array[Callable] = []
+# var input_event_callable_list: Array[Callable] = []
 
 func _ready() -> void:
 	SOS.main = self
@@ -44,6 +45,6 @@ func _ready() -> void:
 
 
 
-func _input(event: InputEvent) -> void:
-	for input_event_callable in input_event_callable_list:
-		input_event_callable.call(event)
+# func _input(event: InputEvent) -> void:
+# 	for input_event_callable in input_event_callable_list:
+# 		input_event_callable.call(event)

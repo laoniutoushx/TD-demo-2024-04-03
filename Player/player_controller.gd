@@ -33,7 +33,7 @@ var player_idx: int
 var player_group_idx: int 
 
 # 玩家天赋信息
-var player_talent: Dictionary = {}
+var player_talent_map: Dictionary = {}
 
 
 var outline_material: ShaderMaterial
@@ -53,7 +53,8 @@ enum PLAYER_STATUS {
 	DEFAULT,
 	CHOOSING_TARGETED_UNIT,
 	CHOOSING_BUILDING_AREA,
-	DROPING_ITEM
+	DROPING_ITEM,
+	CHOOSING_TALENT
 }
 
 var player_status = PLAYER_STATUS.DEFAULT

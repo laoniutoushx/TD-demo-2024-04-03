@@ -22,67 +22,6 @@ outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 0
 
-[sub_resource type="Animation" id="Animation_c7tqi"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/WavePanel:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer/WavePanel:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_nm1m0"]
-resource_name = "wave_tip"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/WavePanel:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 1),
-"transitions": PackedFloat32Array(3.73213, 1, 1),
-"update": 0,
-"values": [Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer/WavePanel:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_cbfhl"]
-_data = {
-&"RESET": SubResource("Animation_c7tqi"),
-&"wave_tip": SubResource("Animation_nm1m0")
-}
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2qbci"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ow1yt"]
@@ -161,10 +100,72 @@ content_margin_bottom = 5.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h81ot"]
 shader = ExtResource("2_cbfhl")
 
+[sub_resource type="Animation" id="Animation_c7tqi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/WavePanel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/WavePanel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_nm1m0"]
+resource_name = "wave_tip"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/WavePanel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(3.73213, 1, 1),
+"update": 0,
+"values": [Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/WavePanel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cbfhl"]
+_data = {
+&"RESET": SubResource("Animation_c7tqi"),
+&"wave_tip": SubResource("Animation_nm1m0")
+}
+
 [node name="Node" type="Node"]
 script = ExtResource("1_64wmh")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
 layer = 127
 
 [node name="WavePanel" type="PanelContainer" parent="CanvasLayer"]
@@ -193,13 +194,7 @@ label_settings = SubResource("LabelSettings_nm1m0")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_cbfhl")
-}
-
-[node name="HeaderContainer" type="PanelContainer" parent="."]
+[node name="HeaderContainer" type="PanelContainer" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -209,26 +204,26 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_2qbci")
 
-[node name="LayoutCtl" type="HBoxContainer" parent="HeaderContainer"]
+[node name="LayoutCtl" type="HBoxContainer" parent="CanvasLayer/HeaderContainer"]
 layout_mode = 2
 
-[node name="Left" type="PanelContainer" parent="HeaderContainer/LayoutCtl"]
+[node name="Left" type="PanelContainer" parent="CanvasLayer/HeaderContainer/LayoutCtl"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ow1yt")
 
-[node name="Center" type="PanelContainer" parent="HeaderContainer/LayoutCtl"]
+[node name="Center" type="PanelContainer" parent="CanvasLayer/HeaderContainer/LayoutCtl"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 8.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ow1yt")
 
-[node name="Panel" type="Panel" parent="HeaderContainer/LayoutCtl/Center"]
+[node name="Panel" type="Panel" parent="CanvasLayer/HeaderContainer/LayoutCtl/Center"]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="GridContainer" type="GridContainer" parent="HeaderContainer/LayoutCtl/Center/Panel"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/HeaderContainer/LayoutCtl/Center/Panel"]
 layout_mode = 2
 anchor_bottom = 1.0
 offset_left = -280.0
@@ -239,43 +234,43 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 3
 
-[node name="HSplitContainer" type="HSplitContainer" parent="HeaderContainer/LayoutCtl/Center/Panel/GridContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="CanvasLayer/HeaderContainer/LayoutCtl/Center/Panel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="MoneyIcon" type="TextureRect" parent="HeaderContainer/LayoutCtl/Center/Panel/GridContainer/HSplitContainer"]
+[node name="MoneyIcon" type="TextureRect" parent="CanvasLayer/HeaderContainer/LayoutCtl/Center/Panel/GridContainer/HSplitContainer"]
 layout_mode = 2
 texture = ExtResource("1_sx3px")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="MoneyLabel" type="Label" parent="HeaderContainer/LayoutCtl/Center/Panel/GridContainer/HSplitContainer"]
+[node name="MoneyLabel" type="Label" parent="CanvasLayer/HeaderContainer/LayoutCtl/Center/Panel/GridContainer/HSplitContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0"
 vertical_alignment = 1
 
-[node name="HSplitContainer2" type="HSplitContainer" parent="HeaderContainer/LayoutCtl/Center/Panel/GridContainer"]
+[node name="HSplitContainer2" type="HSplitContainer" parent="CanvasLayer/HeaderContainer/LayoutCtl/Center/Panel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="WoodIcon" type="TextureRect" parent="HeaderContainer/LayoutCtl/Center/Panel/GridContainer/HSplitContainer2"]
+[node name="WoodIcon" type="TextureRect" parent="CanvasLayer/HeaderContainer/LayoutCtl/Center/Panel/GridContainer/HSplitContainer2"]
 layout_mode = 2
 texture = ExtResource("2_pxfgc")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="WoodLabel" type="Label" parent="HeaderContainer/LayoutCtl/Center/Panel/GridContainer/HSplitContainer2"]
+[node name="WoodLabel" type="Label" parent="CanvasLayer/HeaderContainer/LayoutCtl/Center/Panel/GridContainer/HSplitContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0"
 vertical_alignment = 1
 
-[node name="Panel2" type="Panel" parent="HeaderContainer/LayoutCtl/Center"]
+[node name="Panel2" type="Panel" parent="CanvasLayer/HeaderContainer/LayoutCtl/Center"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_4fiuh")
 
-[node name="Wave" type="VBoxContainer" parent="HeaderContainer/LayoutCtl/Center/Panel2"]
+[node name="Wave" type="VBoxContainer" parent="CanvasLayer/HeaderContainer/LayoutCtl/Center/Panel2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -285,7 +280,7 @@ grow_vertical = 2
 mouse_filter = 2
 alignment = 1
 
-[node name="WaveLabel" type="Label" parent="HeaderContainer/LayoutCtl/Center/Panel2/Wave"]
+[node name="WaveLabel" type="Label" parent="CanvasLayer/HeaderContainer/LayoutCtl/Center/Panel2/Wave"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "WAVE 0/1"
@@ -293,7 +288,7 @@ label_settings = SubResource("LabelSettings_cbfhl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="HeaderContainer/LayoutCtl/Center/Panel2"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HeaderContainer/LayoutCtl/Center/Panel2"]
 material = SubResource("ShaderMaterial_o2jkc")
 layout_mode = 1
 anchors_preset = 15
@@ -306,19 +301,19 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_h81ot")
 
-[node name="ColorRect" type="ColorRect" parent="HeaderContainer/LayoutCtl/Center/Panel2/PanelContainer"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/HeaderContainer/LayoutCtl/Center/Panel2/PanelContainer"]
 z_index = -1
 material = SubResource("ShaderMaterial_0w6e5")
 layout_mode = 2
 color = Color(0.017, 0.02945, 0.1, 0.45098)
 
-[node name="Right" type="PanelContainer" parent="HeaderContainer/LayoutCtl"]
+[node name="Right" type="PanelContainer" parent="CanvasLayer/HeaderContainer/LayoutCtl"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ow1yt")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_6rr40")
 offset_left = 72.0
 offset_top = 35.0
@@ -326,24 +321,30 @@ offset_right = 190.0
 offset_bottom = 153.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_0w6e5")
 
-[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Container" type="PanelContainer" parent="PanelContainer/MarginContainer2"]
+[node name="Container" type="PanelContainer" parent="CanvasLayer/PanelContainer/MarginContainer2"]
 material = SubResource("ShaderMaterial_4fiuh")
 layout_mode = 2
 mouse_filter = 2
 theme = ExtResource("1_cvmv4")
 theme_override_styles/panel = SubResource("StyleBoxFlat_o2jkc")
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer2/Container"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PanelContainer/MarginContainer2/Container"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_h81ot")
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("6_nm1m0")
 expand_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_cbfhl")
+}

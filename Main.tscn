@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d4gqkoqce24re"]
+[gd_scene load_steps=20 format=3 uid="uid://d4gqkoqce24re"]
 
 [ext_resource type="Script" uid="uid://cs2gvmolianpk" path="res://main.gd" id="1_7e1y6"]
 [ext_resource type="PackedScene" uid="uid://lwbcrrjy7f4u" path="res://Player/player_controller.tscn" id="1_7t1by"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c3a6luswx336s" path="res://System/item_system/item_system.tscn" id="10_lph7j"]
 [ext_resource type="PackedScene" uid="uid://byvfnv1m624t" path="res://Components/message_bar/message_bar.tscn" id="10_s4ypy"]
 [ext_resource type="PackedScene" uid="uid://clsjotbm5x8w3" path="res://System/buff_system/buff_system.tscn" id="11_3fiu1"]
+[ext_resource type="PackedScene" uid="uid://c6uju1b4n0rt1" path="res://System/talent_system/talent_system.tscn" id="11_5tuhn"]
 [ext_resource type="PackedScene" uid="uid://b1ol5vcu5t2uq" path="res://Components/building_key_indicator/building_key_indicator.tscn" id="11_al8tg"]
 [ext_resource type="PackedScene" uid="uid://vrme7q61fwqx" path="res://Components/slot_indicator/skill_slot_indicator.tscn" id="12_kj6y6"]
 [ext_resource type="PackedScene" uid="uid://dufuxk02yxxkf" path="res://Components/floating_text/FloatingTextSystem.tscn" id="12_sc1dx"]
@@ -50,6 +51,9 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="ItemSystem" parent="System" instance=ExtResource("10_lph7j")]
+unique_name_in_owner = true
+
+[node name="TalentSystem" parent="System" instance=ExtResource("11_5tuhn")]
 unique_name_in_owner = true
 
 [node name="BuffSystem" parent="System" instance=ExtResource("11_3fiu1")]

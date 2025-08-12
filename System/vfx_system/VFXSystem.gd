@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 class_name VFXSystem
 
 const m_hit_flash: Material = preload("res://Asserts/materials/hit_flash.tres")

@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://o0ep3rsqgvbu"]
+[gd_scene load_steps=12 format=3 uid="uid://o0ep3rsqgvbu"]
 
+[ext_resource type="Script" uid="uid://7qsdluxtn3oa" path="res://System/talent_system/talent_ui/talent_choose_layout.gd" id="1_id8cy"]
 [ext_resource type="FontFile" uid="uid://m6iwjdk2oqpf" path="res://Asserts/resources/demo_ui/Font/江城圆体 700W.ttf" id="1_rflyy"]
 [ext_resource type="PackedScene" uid="uid://cb77hr6pdtaw5" path="res://System/talent_system/talent_ui/choose_talent_bar.tscn" id="2_id8cy"]
 
@@ -52,6 +53,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_id8cy")
 
 [node name="TalentContainer" type="PanelContainer" parent="."]
 layout_mode = 1

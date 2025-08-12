@@ -5,6 +5,7 @@ enum SLOT_TYPE {
 	SKILL,
 	SELECT,
 	ITEM,
+	TALENT,
 	BUFF,
 	DEFAULT
 }
@@ -16,6 +17,8 @@ enum SLOT_STATE {
 }
 
 signal slot_clicked(s: BaseSlot)
+
+signal slot_left_clicked(s: BaseSlot)
 signal slot_right_clicked(s: BaseSlot)
 
 
@@ -48,6 +51,7 @@ var slot_type: SLOT_TYPE
 # 快捷键（写死）
 var mapping_key: String = ""
  
+
 func _ready() -> void:
 	set_process(false)
 	# set_process_input(false)
@@ -62,100 +66,97 @@ func _ready() -> void:
 	# 设置 slot 轴心位置（防止缩放时，图标位置偏移）
 	self.pivot_offset = self.size / 2  # Set the pivot to the center of the node
 
+
+	slot_left_clicked.connect(_on_slot_left_clicked)
+	slot_right_clicked.connect(_on_slot_right_clicked)
+
+
 	
 # input event handler register
 func _input(event: InputEvent) -> void: 
-	# 技能 slot 监听
 
-	if slot_type == SLOT_TYPE.SKILL:
-		if is_instance_valid(reference):
-			# print("is mouse hover %s" % is_mouse_hover)
-			# 绑定鼠标左键点击
-			if is_mouse_hover:
-				# print(reference.unit.current_global_skill_state, reference.current_state)
-				if (reference.unit.current_global_skill_state == 0 and reference.SKILL_STATE.Idle == reference.current_state and 
-					(
-						event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed 
-					)
-				):
-					slot_clicked.emit(self)
-				# 阻止事件传递
-				get_viewport().set_input_as_handled()
+	# 监听 slot 鼠标点击事件（左/右）
+	if is_mouse_hover:
 
-			# 绑定鼠标右键点击
-			if is_mouse_hover:
-				# print(reference.unit.current_global_skill_state, reference.current_state)
-				if (reference.unit.current_global_skill_state == 0 and 
-					(
-						event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed # event.is_released()
-					)
-				):
-					slot_right_clicked.emit(self)
-					# 直接设置关联技能属性（自动释放）
-
-					if reference.auto_release:
-						reference.auto_release = false
-						boarder_effect.visible = false
-						boarder_effect.stop()
-					else: 
-						reference.auto_release = true
-						boarder_effect.visible = true
-						boarder_effect.play("default", 1.0, true)
-
-					# slot 自动释放动画效果添加
-
-					print("自动施法 %s %s" % [reference.title, reference.auto_release])
+		if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed): # event.is_released()
+			# print("right click")
+			slot_left_clicked.emit(self)
+			# 阻止事件传递
+			get_viewport().set_input_as_handled()
 
 
-				# 阻止事件传递
-				get_viewport().set_input_as_handled()	
-
-
+		if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed): # event.is_released()
+			# print("right click")
+			slot_right_clicked.emit(self)
+			# 阻止事件传递
+			get_viewport().set_input_as_handled()
+					
+	# 监听 slot 键盘输入 
+	if event is InputEventKey and event.pressed:
+		# SKILL
+		if slot_type == SLOT_TYPE.SKILL:
 			# 按键主动绑定到显示的 slot 上（每次切换 action bar 时动态绑定）
-			if (mapping_key != "" 
-				and is_instance_valid(reference) 
-				and is_instance_valid(reference.unit) 
-				and reference.unit.current_global_skill_state == 0 
-				and reference.SKILL_STATE.Idle == reference.current_state 
-				and event is InputEventKey 
-				and event.pressed):
-				if InputMap.action_has_event(mapping_key, event):
-					print("Triggered action:", mapping_key)
-					slot_clicked.emit(self)
-					get_viewport().set_input_as_handled()
-
-
-	elif slot_type == SLOT_TYPE.ITEM:
-		# print("is mouse hover %s" % is_mouse_hover)
-		# 鼠标右键，则物品可以跟随鼠标移动
-		if is_mouse_hover:
-			# print(reference.unit.current_global_skill_state, reference.current_state)
-			if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed): # event.is_released()
-
-				# 阻止事件传递
-				# get_viewport().set_input_as_handled()
-
-				# slot_clicked.emit(self)
-				print("Item right clicked:")
-				# 开启 3D 空间 Camera ray picker 定位
-
-
-				# 锁定当前玩家状态
-				if SOS.main.player_controller.player_status == SOS.main.player_controller.PLAYER_STATUS.DEFAULT and reference:
-
-					# 切换玩家状态
-					SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DROPING_ITEM
-
-
-					_chest = SystemUtil.item_system.generate_chest(reference, Vector3.ZERO)
-
-					# 注册 RayPicker
-					SignalBus.ray_picker_regist.emit(callable_drop_item)
+			if mapping_key != ""  and  InputMap.action_has_event(mapping_key, event):
+				# 技能状态正常
+				if (
+					is_instance_valid(reference)
+					# and is_instance_valid(reference.unit) 
+					and reference.unit.current_global_skill_state == 0 
+					and reference.current_state == reference.SKILL_STATE.Idle
+					):
+						print("Triggered action:", mapping_key)
+						slot_clicked.emit(self)
+						get_viewport().set_input_as_handled()
 
 
 
 
+# mouse left click handler
+func _on_slot_left_clicked(slot: BaseSlot) -> void:
+	# print("slot clicked %s" % slot)
+	if is_instance_valid(reference):
+		if slot_type == SLOT_TYPE.SKILL:
+			if reference.unit.current_global_skill_state == 0 and reference.current_state == reference.SKILL_STATE.Idle:
+				# print("slot clicked %s" % reference.title)
+				slot_clicked.emit(self)
 
+
+# mouse right click handler
+func _on_slot_right_clicked(slot: BaseSlot) -> void:
+	# print("slot right clicked %s" % slot)
+	if is_instance_valid(reference):
+		if slot_type == SLOT_TYPE.SKILL:
+			if reference.unit.current_global_skill_state == 0 :
+				# print("slot right clicked %s" % reference.title)
+				if reference.auto_release:
+					reference.auto_release = false
+					boarder_effect.visible = false
+					boarder_effect.stop()
+				else: 
+					reference.auto_release = true
+					boarder_effect.visible = true
+					boarder_effect.play("default", 1.0, true)
+
+				# slot 自动释放动画效果添加
+
+				print("自动施法 %s %s" % [reference.title, reference.auto_release])
+		
+		elif slot_type == SLOT_TYPE.ITEM:
+			# print("slot right clicked %s" % reference.title)
+			if SOS.main.player_controller.player_status == SOS.main.player_controller.PLAYER_STATUS.DEFAULT and reference:
+
+				# 切换玩家状态
+				SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DROPING_ITEM
+
+				# 3D 场景创建 chest 实例
+				_chest = SystemUtil.item_system.generate_chest(reference, Vector3.ZERO)
+
+				# 注册 RayPicker
+				SignalBus.ray_picker_regist.emit(callable_drop_item)
+
+
+
+# item drop handler =================================================
 var _chest
 
 # 注册 build_turret function 到 RayPicker
@@ -198,7 +199,7 @@ func callable_drop_item(ray_cast_3d: RayCast3D) -> void:
 
 			# 切换玩家状态
 			SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DEFAULT
-
+# item drop handler =================================================
 
 
 

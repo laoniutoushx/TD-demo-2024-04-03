@@ -7,33 +7,35 @@ var cur_active_slot: BaseSlot
 
 # 装配 skill 时，需要检查 skill 状态，当 skill 处于 release 状态时，需要处理 progress_bar  等信息
 func setup_for_player():
-	# var unit: BaseUnit = unit_map.values()[0]
-	# var item_map: Dictionary = unit.item_map
-	# if item_map != null and item_map.keys().size() > 0:
-	# 	for code in item_map.keys():
-	# 		if _slot_num < 3:	# 0,1,2 三个槽位
-	# 			var item: Item = item_map[code]
-	# 			var _slot = _create_item_slot(item)
-	# 			item.slot = _slot
-	# 			_bind_mapping_key(_slot, _slot_num)
+	var player_talent_map: Dictionary = SOS.main.player_controller.player_talent_map
 
-	# # 如果 _slot_num < 3 ，剩余槽位创建 item_slot_empty 占位槽，保持 UI 布局一致
-	# while _slot_num < 1:
-	# 	var _slot = super.add_element(UUID.v4(), _player_bar, func(a1, a2): pass, _action_bar.item_slot_empty)
-	# 	_slot_num += 1
+
+
+	if player_talent_map != null and player_talent_map.keys().size() > 0:
+		for code in player_talent_map.keys():
+			if _slot_num < 3:	# 0,1,2 三个槽位
+				var talent: Talent = player_talent_map[code]
+				var _slot = _create_talent_slot(talent)
+				talent.slot = _slot
+				_bind_mapping_key(_slot, _slot_num)
+
+	# 如果 _slot_num < 3 ，剩余槽位创建 item_slot_empty 占位槽，保持 UI 布局一致
+	while _slot_num < 1:
+		var _slot = super.add_element(UUID.v4(), _player_bar, func(a1, a2): pass, _action_bar.player_slot_empty)
+		_slot_num += 1
 	pass
 
 
 
 
-func _create_item_slot(item: Item) -> BaseSlot:	
-	var slot_instance: BaseSlot = super.add_element(item.id, _player_bar, func(a1, a2): pass, _action_bar.item_slot)
+func _create_talent_slot(talent: Talent) -> BaseSlot:	
+	var slot_instance: BaseSlot = super.add_element(talent.id, _player_bar, func(a1, a2): pass, _action_bar.player_slot)
 	
 	slot_instance.custome_init(
-		item,
-		item.icon_path,
-		BaseSlot.SLOT_TYPE.ITEM, 
-		item.unit.player_group == SOS.main.player_controller.get_player_group_idx()
+		talent,
+		talent.icon_path,
+		BaseSlot.SLOT_TYPE.TALENT, 
+		true
 	)
 	# click signal listener
 	slot_instance.slot_clicked.connect(_on_slot_clicked)
@@ -42,8 +44,8 @@ func _create_item_slot(item: Item) -> BaseSlot:
 	# slot_state = SLOT_STATE.IN_ACTIVE
 
 	# skill init
-	slot_instance.timer = item.cool_down_timer
-	slot_instance.progress_bar.max_value = item.cooldown
+	slot_instance.timer = talent.cool_down_timer
+	slot_instance.progress_bar.max_value = talent.cooldown
 
 	# # if skill status = Cool_Down
 	# if skill.current_state == skill.SKILL_STATE.Cool_Down:
@@ -65,7 +67,7 @@ func _bind_mapping_key(slot: BaseSlot, idx: int):
 
 	var short_cut_text = ""
 	if idx == 1:
-		short_cut_text = "1"
+		short_cut_text = "Z"
 	elif idx == 2:
 		short_cut_text = "2"
 	elif idx == 3:
@@ -93,62 +95,6 @@ func _bind_mapping_key(slot: BaseSlot, idx: int):
 # 	print("slot added %s" % ele.id)
 
 
-
-func pick_up(item: Item) -> void:
-	if item == null:
-		printerr("ERROR: item is null")
-		return
-
-	if _slot_fill_num >= 3:
-		printerr("ERROR: item bar is full, cannot add more items")
-		return
-	
-	# 取出一个槽，放入元素
-	for slot in _slots:
-		if slot.reference == null:  # 找到一个空槽位
-			# 找到一个空槽位
-			slot.custome_init(
-						item,
-						item.icon_path,
-						BaseSlot.SLOT_TYPE.ITEM, 
-						true
-					)
-			_slot_fill_num += 1
-			break
-
-
-func drop_item(slot: BaseSlot) -> void:
-	if slot == null:
-		printerr("ERROR: item is null")
-		return
-	
-	# 删除掉 item slot
-	slot.custome_init(
-		null,
-		"",
-		BaseSlot.SLOT_TYPE.ITEM, 
-		false
-	)
-
-	slot.reference = null
-
-	# 清除当前激活槽位
-	if cur_active_slot == slot:
-		cur_active_slot = null
-
-	_slot_fill_num -= 1
-
-	
-func remove_element(ele: Variant):
-	ele = (ele as Item)
-	if _player_bar.has_node(ele.id):
-		var _s: BaseSlot = _player_bar.get_node(ele.id)
-		_action_bar.deregister_active(_s.active_callback)
-		_s.queue_free()
-		_slot_num -= 1
-		# 不是空槽位
-		if _s.reference:
-			_slot_fill_num -= 1		
 		
 		
 func clear():

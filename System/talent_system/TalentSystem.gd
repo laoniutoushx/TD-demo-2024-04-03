@@ -1,14 +1,23 @@
 class_name TalentSystem extends Node3D
 
 
+@onready var talent_choose: Control = %TalentChoose
+
 
 func _ready() -> void:
 	SystemUtil.talent_system = self
 	# 在系统启动时，初始化所有 item template resource，将起保存在 container 当中
 	CommonUtil.load_resources_to_container_from_directory("res://System/talent_system/resources/")
 
+	# IOC 注册到 SystemUtil
+	SystemUtil.talent_system = self
+
+	# 隐藏 talent_choose
+	talent_choose.hide()
 
 
+func show_player_talent_ui() -> void:
+	talent_choose.show()
 
 
 # 实例化 技能
@@ -30,6 +39,7 @@ func _ready() -> void:
 # 			talent.add_child(talent.talent_script_instance)
 
 # 	return talent_map
+	
 	
 # # 实例化
 # func _initialize_talent(source_unit: BaseUnit, talent_meta_res: TalentResource, idx: int = 0) -> Talent:

@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://dxgqr1djrs08u" path="res://System/vfx_system/VFXSystem.gd" id="1_xtb34"]
 
-[node name="VfxSystem" type="Node"]
+[node name="VfxSystem" type="Node3D"]
 script = ExtResource("1_xtb34")

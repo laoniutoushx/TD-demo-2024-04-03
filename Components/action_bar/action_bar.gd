@@ -4,7 +4,7 @@ class_name ActionBar extends Control
 
 @onready var layer: CanvasLayer = %CanvasLayer
 @onready var item_bar: GridContainer = %ItemBar
-@onready var player_bar: GridContainer = %PlayerBar
+@onready var player_bar: PanelContainer = %PlayerBar
 @onready var selection_bar: GridContainer = %SelectionBar
 @onready var buff_bar: GridContainer = %BuffBar
 
@@ -55,6 +55,10 @@ func _ready() -> void:
 
 	# progress_util_bar
 	progress_util_bar.action_bar = self
+
+
+func ui_toggle():
+	layer.visible = !layer.visible	
 	
 
 func register_active(cale: Callable):
@@ -174,7 +178,7 @@ class BaseBarComponent extends Node:
 
 	var _skill_bar: GridContainer
 	var _item_bar: GridContainer
-	var _player_bar: GridContainer
+	var _player_bar: PanelContainer
 	var _selection_bar: GridContainer
 	var _buff_bar: GridContainer
 
@@ -202,7 +206,7 @@ class BaseBarComponent extends Node:
 		pass
 
 		
-	func add_element(id: String, _bar: GridContainer, hook: Callable = func(ab: ActionBar, bs: BaseSlot): pass, slot_scene: PackedScene = _action_bar.slot):
+	func add_element(id: String, _bar: Variant, hook: Callable = func(ab: ActionBar, bs: BaseSlot): pass, slot_scene: PackedScene = _action_bar.slot):
 		# 只保留类型为 BaseUnit 且是 玩家所属单位
 		var slot_instance = slot_scene.instantiate()
 		if slot_instance is BaseSlot:
