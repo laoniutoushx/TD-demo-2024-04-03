@@ -76,6 +76,18 @@ func _on_talent_selected() -> void:
     await ap.animation_finished
 
     # 关闭天赋选择界面
-    SOS.main.level_controller._cur_scene.ui.talent_choose.show()
+    SOS.main.level_controller._cur_scene.ui.talent_choose.hide()
+
+    # 切换玩家状态
+    SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DEFAULT
+
+    # 隐藏其他 UI（UI & ActionBar）
+    SOS.main.level_controller._cur_scene.action_bar.ui_toggle()
+    # SOS.main.level_controller._cur_scene.ui.ui_toggle()
+
+
+    # 重设 player_slot 信息数据（refresh）
+
+
 
 
