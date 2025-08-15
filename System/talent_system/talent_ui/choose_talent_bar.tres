@@ -1,0 +1,31 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dy268qu2q3gdf"]
+
+[ext_resource type="Shader" uid="uid://cmefn3nvinte8" path="res://System/talent_system/talent_ui/choose_talent_bar.gdshader" id="1_lwhuc"]
+
+[resource]
+shader = ExtResource("1_lwhuc")
+shader_parameter/bg_color = Color(0.592157, 0.631373, 0.270588, 1)
+shader_parameter/use_gradient = true
+shader_parameter/gradient_color_2 = Color(0.21, 0.21, 0.071, 1)
+shader_parameter/gradient_direction = 0
+shader_parameter/use_pattern = false
+shader_parameter/pattern_type = 0
+shader_parameter/pattern_scale = 5.0
+shader_parameter/pattern_color = Color(1, 1, 1, 0.3)
+shader_parameter/border_width = 2.0
+shader_parameter/border_color = Color(0.585746, 0.479959, 0, 1)
+shader_parameter/border_gradient = true
+shader_parameter/border_gradient_color_2 = Color(0.554859, 0.617824, 0.173794, 1)
+shader_parameter/corner_radius_tl = 15.0
+shader_parameter/corner_radius_tr = 15.0
+shader_parameter/corner_radius_bl = 15.0
+shader_parameter/corner_radius_br = 15.0
+shader_parameter/smoothness = 1.0
+shader_parameter/mouse_hover = false
+shader_parameter/hover_intensity = 1.2
+shader_parameter/hover_color = Color(1, 1, 1, 0.2)
+shader_parameter/use_hover_slide = false
+shader_parameter/slide_position = 0.0
+shader_parameter/slide_width = 0.3
+shader_parameter/slide_color = Color(1, 1, 1, 0.6)
+shader_parameter/time = 0.0

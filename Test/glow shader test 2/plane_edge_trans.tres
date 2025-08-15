@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ji40ky8fib46"]
 
-[ext_resource type="Shader" path="res://Test/glow shader test 2/plane_edge_trans.gdshader" id="1_af7e4"]
+[ext_resource type="Shader" uid="uid://bdcg4gllaew0q" path="res://Test/glow shader test 2/plane_edge_trans.gdshader" id="1_af7e4"]
 
 [resource]
 render_priority = 0

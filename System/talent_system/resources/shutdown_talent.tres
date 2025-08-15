@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TalentResource" load_steps=3 format=3 uid="uid://djtaqpi5fe5yf"]
+
+[ext_resource type="Script" uid="uid://duhwafogr7nvj" path="res://System/talent_system/resources/talent_resource.gd" id="1_civp1"]
+[ext_resource type="Script" uid="uid://cdtkccen2c02d" path="res://System/talent_system/resources/shutdown_talent.gd" id="2_civp1"]
+
+[resource]
+script = ExtResource("1_civp1")
+id = "186da44e-126f-409c-8203-e478083ac3b2"
+code = "SHUTDOWN"
+title = "命运一指"
+desc = "立即杀死目标非 英雄 单位"
+icon_path = ""
+talent_script = ExtResource("2_civp1")
+metadata/_custom_type_script = "uid://duhwafogr7nvj"

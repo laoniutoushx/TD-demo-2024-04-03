@@ -1,4 +1,5 @@
-class_name TalentResource extends Node
+@tool
+class_name TalentResource extends Resource
 
 
 @export var id: String = UUID.v4()

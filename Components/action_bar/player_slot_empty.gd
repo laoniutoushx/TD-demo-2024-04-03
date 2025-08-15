@@ -10,7 +10,7 @@ func _on_slot_left_clicked(slot: BaseSlot) -> void:
 
 	# 隐藏其他 UI（UI & ActionBar）
 	SOS.main.level_controller._cur_scene.action_bar.ui_toggle()
-	SOS.main.level_controller._cur_scene.ui.ui_toggle()
+	# SOS.main.level_controller._cur_scene.ui.ui_toggle()
 
 
 	# show player talent choose ui

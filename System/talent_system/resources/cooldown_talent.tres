@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TalentResource" load_steps=3 format=3 uid="uid://c0jknopw08kwb"]
+
+[ext_resource type="Script" uid="uid://duhwafogr7nvj" path="res://System/talent_system/resources/talent_resource.gd" id="1_ij0me"]
+[ext_resource type="Script" uid="uid://br64lat1hr34u" path="res://System/talent_system/resources/cooldown_talent.gd" id="2_ij0me"]
+
+[resource]
+script = ExtResource("1_ij0me")
+id = "186da44e-106f-409c-8203-e478083ac3b2"
+code = "COOLDOWN"
+title = "时光倒流"
+desc = "立即重置玩家所有防御塔技能  CD"
+icon_path = ""
+talent_script = ExtResource("2_ij0me")
+metadata/_custom_type_script = "uid://duhwafogr7nvj"

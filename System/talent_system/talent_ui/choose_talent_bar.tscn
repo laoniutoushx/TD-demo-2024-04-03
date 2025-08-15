@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cb77hr6pdtaw5"]
+[gd_scene load_steps=13 format=3 uid="uid://cb77hr6pdtaw5"]
 
 [ext_resource type="Script" uid="uid://d0ac08acxcvg8" path="res://System/talent_system/talent_ui/choose_talent_bar.gd" id="1_7fv8p"]
 [ext_resource type="Texture2D" uid="uid://b7vu3ufd0j528" path="res://icon-64.svg" id="1_jfjjs"]
 [ext_resource type="FontFile" uid="uid://bce2telnqh8yo" path="res://Asserts/resources/demo_ui/Font/江城圆体 500W.ttf" id="2_frpqo"]
+[ext_resource type="Material" uid="uid://dy268qu2q3gdf" path="res://System/talent_system/talent_ui/choose_talent_bar.tres" id="2_tgyrd"]
 [ext_resource type="FontFile" uid="uid://m6iwjdk2oqpf" path="res://Asserts/resources/demo_ui/Font/江城圆体 700W.ttf" id="3_mc6o4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_osyra"]
@@ -19,15 +20,123 @@ corner_radius_bottom_left = 20
 shadow_size = 5
 shadow_offset = Vector2(4, 4)
 
-[sub_resource type="Gradient" id="Gradient_jfjjs"]
-colors = PackedColorArray(0.593, 0.633, 0.271, 1, 0.270916, 0.27068, 0.0777624, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_frpqo"]
-gradient = SubResource("Gradient_jfjjs")
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jfjjs"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_frpqo"]
+
+[sub_resource type="Animation" id="Animation_gurl3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ChooseTalentBarContainer:material:shader_parameter/mouse_hover")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ChooseTalentBarContainer:material:shader_parameter/use_hover_slide")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ChooseTalentBarContainer:material:shader_parameter/slide_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tgyrd"]
+resource_name = "burning"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ChooseTalentBarContainer:material:shader_parameter/mouse_hover")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ChooseTalentBarContainer:material:shader_parameter/use_hover_slide")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ChooseTalentBarContainer:material:shader_parameter/slide_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.7]
+}
+
+[sub_resource type="Animation" id="Animation_kw0b6"]
+resource_name = "selected"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, -1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kw0b6"]
+_data = {
+&"RESET": SubResource("Animation_gurl3"),
+&"burning": SubResource("Animation_tgyrd"),
+&"selected": SubResource("Animation_kw0b6")
+}
 
 [node name="ChooseTalentBar" type="Control"]
 layout_mode = 3
@@ -36,13 +145,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_7fv8p")
 talent_text = "[font_size=28][b]贪婪[/b][/font_size]
 [font_size=18]每回合开始，获得当前波次 [b]X 100[/b] 的金钱奖励[/font_size]
 
 [font_size=20]► 金钱奖励：[color=green]+100%[/color][/font_size]"
 
-[node name="PanelContainer2" type="PanelContainer" parent="."]
+[node name="ChooseTalentBarContainer" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+material = ExtResource("2_tgyrd")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -51,40 +164,37 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_osyra")
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer2"]
-layout_mode = 2
-texture = SubResource("GradientTexture1D_frpqo")
-
-[node name="GridContainer" type="GridContainer" parent="PanelContainer2"]
+[node name="GridContainer" type="GridContainer" parent="ChooseTalentBarContainer"]
 layout_mode = 2
 columns = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ChooseTalentBarContainer"]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer2/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="ChooseTalentBarContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 theme_override_styles/panel = SubResource("StyleBoxEmpty_jfjjs")
 
-[node name="CenterContainer" type="CenterContainer" parent="PanelContainer2/HBoxContainer/PanelContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="ChooseTalentBarContainer/HBoxContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer2/HBoxContainer/PanelContainer/CenterContainer"]
+[node name="TextureRect" type="TextureRect" parent="ChooseTalentBarContainer/HBoxContainer/PanelContainer/CenterContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource("1_jfjjs")
 
-[node name="RightPanel" type="PanelContainer" parent="PanelContainer2/HBoxContainer"]
+[node name="RightPanel" type="PanelContainer" parent="ChooseTalentBarContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_frpqo")
 
-[node name="TalentContent" type="RichTextLabel" parent="PanelContainer2/HBoxContainer/RightPanel"]
+[node name="TalentContent" type="RichTextLabel" parent="ChooseTalentBarContainer/HBoxContainer/RightPanel"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
@@ -97,3 +207,22 @@ text = "[font_size=28][b]贪婪[/b][/font_size]
 
 [font_size=20]► 金钱奖励：[color=green]+100%[/color][/font_size]"
 vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_kw0b6")
+}
+
+[connection signal="mouse_entered" from="ColorRect" to="." method="_on_color_rect_mouse_entered"]
+[connection signal="mouse_exited" from="ColorRect" to="." method="_on_color_rect_mouse_exited"]

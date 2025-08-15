@@ -2,6 +2,8 @@ extends Node
 
 
 @onready var layer: CanvasLayer = %CanvasLayer
+@onready var talent_choose: Control = %TalentChoose
+
 
 
 func _ready() -> void:

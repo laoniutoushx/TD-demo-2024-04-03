@@ -101,6 +101,24 @@ func _ready() -> void:
 	set_wood(self, 0)
 
 
+# 添加玩家天赋
+func add_talent(talent_code: String) -> void:
+	# 添加玩家天赋
+	if !player_talent_map.has(talent_code):
+		var talent: Talent = SystemUtil.talent_system.initialize_talent(talent_code)
+
+		# 如果天赋脚本实例化成功
+		self.add_child(talent)
+
+		if talent:
+			player_talent_map[talent_code] = talent
+			print("add player talent %s" % talent_code)
+		else:
+			printerr("ERROR: player talent %s not found" % talent_code)
+	else:
+		printerr("ERROR: player talent %s already exists" % talent_code)
+
+
 
 # 获取玩家索引信息
 func get_player_idx():

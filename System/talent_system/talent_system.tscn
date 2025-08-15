@@ -1,10 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c6uju1b4n0rt1"]
+[gd_scene load_steps=2 format=3 uid="uid://c6uju1b4n0rt1"]
 
 [ext_resource type="Script" uid="uid://imlc75rsfukp" path="res://System/talent_system/TalentSystem.gd" id="1_wvrqm"]
-[ext_resource type="PackedScene" uid="uid://o0ep3rsqgvbu" path="res://System/talent_system/talent_ui/talent_choose_layout.tscn" id="2_gs5eu"]
 
 [node name="TalentSystem" type="Node3D"]
 script = ExtResource("1_wvrqm")
-
-[node name="TalentChoose" parent="." instance=ExtResource("2_gs5eu")]
-unique_name_in_owner = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://v7ppoiw21kdi"]
+[gd_scene load_steps=30 format=3 uid="uid://v7ppoiw21kdi"]
 
 [ext_resource type="Script" uid="uid://dq14ttrg0jq64" path="res://UI/UI.gd" id="1_64wmh"]
 [ext_resource type="Theme" uid="uid://bf5a24ang0c6j" path="res://Asserts/resources/demo_ui/panel_container_theme.tres" id="1_cvmv4"]
@@ -11,6 +11,7 @@
 [ext_resource type="FontFile" uid="uid://bce2telnqh8yo" path="res://Asserts/resources/demo_ui/Font/江城圆体 500W.ttf" id="6_cbfhl"]
 [ext_resource type="Shader" uid="uid://d1g7arohlq6ec" path="res://UI/uil_player_bar_bg.gdshader" id="6_h81ot"]
 [ext_resource type="Texture2D" uid="uid://boagolswk1t65" path="res://Asserts/Images/icon/player/gdbot.png" id="6_nm1m0"]
+[ext_resource type="PackedScene" uid="uid://o0ep3rsqgvbu" path="res://System/talent_system/talent_ui/talent_choose_layout.tscn" id="12_0w6e5"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hat8c"]
 
@@ -166,7 +167,7 @@ script = ExtResource("1_64wmh")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
-layer = 127
+layer = 8
 
 [node name="WavePanel" type="PanelContainer" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -342,6 +343,10 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("6_nm1m0")
 expand_mode = 1
+
+[node name="TalentChoose" parent="CanvasLayer" instance=ExtResource("12_0w6e5")]
+unique_name_in_owner = true
+visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

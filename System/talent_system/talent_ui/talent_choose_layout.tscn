@@ -47,6 +47,7 @@ outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
 [node name="TalentChoose" type="Control"]
+z_index = 4096
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -137,8 +138,8 @@ label_settings = SubResource("LabelSettings_evfee")
 
 [node name="ChooseTalentBar" parent="TalentContainer/HBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_id8cy")]
 layout_mode = 2
-size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
+talent_code = "GREEDY"
 
 [node name="Pad1" type="PanelContainer" parent="TalentContainer/HBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -149,8 +150,8 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_4aho2")
 
 [node name="ChooseTalentBar2" parent="TalentContainer/HBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_id8cy")]
 layout_mode = 2
-size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
+talent_code = "COOLDOWN"
 talent_text = "[font_size=28][b]时光倒流[/b][/font_size]
 [font_size=18]立即重置玩家所有防御塔技能  [b]CD[/b] [/font_size]
 
@@ -165,8 +166,8 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_4aho2")
 
 [node name="ChooseTalentBar3" parent="TalentContainer/HBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_id8cy")]
 layout_mode = 2
-size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
+talent_code = "SHUTDOWN"
 talent_text = "[font_size=28][b]命运一指[/b][/font_size]
 [font_size=18]立即杀死目标非 [b]英雄[/b] 单位[/font_size]
 
