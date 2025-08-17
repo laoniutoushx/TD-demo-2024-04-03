@@ -1,4 +1,4 @@
-class_name Talent extends Node
+class_name Talent extends Node3D
 
 
 

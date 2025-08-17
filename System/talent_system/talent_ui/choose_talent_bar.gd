@@ -22,6 +22,11 @@ func _ready() -> void:
     var mat := choose_talent_bar_container.material
     if mat is ShaderMaterial:
         choose_talent_bar_container.material = mat.duplicate()  # true 表示深拷贝子资源
+    
+
+    print("Instance ID: ", get_instance_id())
+    print("AnimationPlayer ID: ", ap.get_instance_id())
+    print("AnimationPlayer path: ", ap.get_path())
 
 
 
@@ -43,11 +48,8 @@ func _on_color_rect_mouse_exited() -> void:
 
     set_process_input(false)  # 关闭输入处理
 
-    # 鼠标滑过高亮动画-
-    ap.stop()                      # 停止当前动画
-    ap.play("RESET")        # 播放想恢复的动画
-    ap.seek(0.0, true)              # 跳到第一帧，并立即应用属性
-    ap.stop()                      # 再次停止，保持第一帧状态
+    if _selecting == false:
+        ap.play("RESET")
 
 
 func _input(event: InputEvent) -> void:
@@ -59,9 +61,12 @@ func _input(event: InputEvent) -> void:
             _on_talent_selected()
 
 
+var _selecting = false
 
 
 func _on_talent_selected() -> void:
+
+    _selecting = true
 
     # 天赋创建(添加到玩家）
     if talent_code == "GREEDY":
@@ -71,23 +76,31 @@ func _on_talent_selected() -> void:
     elif talent_code == "SHUTDOWN":
         SOS.main.player_controller.add_talent("shutdown_talent")
 
+
+
     # 播放选择动画
     ap.play("selected")  # 播放选择动画
-    await ap.animation_finished
-
-    # 关闭天赋选择界面
-    SOS.main.level_controller._cur_scene.ui.talent_choose.hide()
-
-    # 切换玩家状态
-    SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DEFAULT
-
-    # 隐藏其他 UI（UI & ActionBar）
-    SOS.main.level_controller._cur_scene.action_bar.ui_toggle()
-    # SOS.main.level_controller._cur_scene.ui.ui_toggle()
-
-
-    # 重设 player_slot 信息数据（refresh）
+    print("----------------selected anim: selected ----------------------")
 
 
 
 
+
+
+
+func _on_animation_player_animation_finished(anim_name:StringName) -> void:
+    print("----------------finished anim: " + anim_name)
+    if anim_name == 'selected':
+        # 关闭天赋选择界面
+        SOS.main.level_controller._cur_scene.ui.talent_choose.hide()
+
+        # 切换玩家状态
+        SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DEFAULT
+
+        # 隐藏其他 UI（UI & ActionBar）
+        SOS.main.level_controller._cur_scene.action_bar.ui_toggle()
+        # SOS.main.level_controller._cur_scene.ui.ui_toggle()
+
+
+        # 重设 player_slot 信息数据（refresh）
+        _selecting = false
