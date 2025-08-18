@@ -63,3 +63,49 @@ func _initialize_talent(talent_meta_res: TalentResource, idx: int = 0) -> Talent
 		return talent
 	
 	return null
+
+
+
+
+
+
+
+# 天赋释放入口
+func release(talent_context: TalentContext) -> void:
+	# 加载技能 元数据 对应 action 脚本，执行
+	# 0. 鼠标等效果处理， 施法效果, UI interactive
+	# 1. talent 准备( anim/cooldown/vfx/audio )
+	# 2. talent 执行（ do action ）可包括任何逻辑, take_damage, vfx, other logic, audio 等
+	# 3. talent 完成( vfx/anim/audio )
+
+	var talent: Talent = talent_context.skill
+	var source_unit: BaseUnit = talent_context.source
+	var target_unit: BaseUnit = talent_context.target
+
+	if source_unit is Gdbot:
+
+		source_unit.jump()
+		await CommonUtil.await_timer(0.1)
+		source_unit.fall()
+		await CommonUtil.await_timer(0.1)
+		source_unit.idle()
+
+
+	var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(source_unit, Constants.AnimationPlayer_CLZ)
+	var anim_release_code: String = source_unit.anim_release
+
+	if ap != null and ap.has_animation(anim_release_code):
+		ap.play(anim_release_code)
+
+	await CommonUtil.await_timer(talent_context.talent.start_time)
+	if is_instance_valid(talent):
+		
+		# 显示技能释放漂浮文字
+		SystemUtil.floating_text_system.spawn(
+			Vector3(source_unit.global_position.x, source_unit._height, source_unit.global_position.z),
+			talent.title,
+			Color.GREEN_YELLOW
+		)
+
+		talent.talent_script_instance.action(talent_context)
+		await CommonUtil.await_timer(talent_context.talent.end_time)

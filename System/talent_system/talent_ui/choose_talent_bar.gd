@@ -37,9 +37,10 @@ func _on_color_rect_mouse_entered() -> void:
     color_rect.mouse_entered.connect(_on_color_rect_mouse_exited)
 
     set_process_input(true)  # 开启输入处理
-
-    # 鼠标滑过高亮动画
-    ap.play("burning")
+    
+    if _selecting == false:
+        # 鼠标滑过高亮动画
+        ap.play("burning")
 
 
 func _on_color_rect_mouse_exited() -> void:
@@ -101,6 +102,12 @@ func _on_animation_player_animation_finished(anim_name:StringName) -> void:
         SOS.main.level_controller._cur_scene.action_bar.ui_toggle()
         # SOS.main.level_controller._cur_scene.ui.ui_toggle()
 
+        # 选择状态重置
+        _selecting = false
+
 
         # 重设 player_slot 信息数据（refresh）
-        _selecting = false
+        SOS.main.level_controller._cur_scene.action_bar.player_bar.reset_slot_for_player()
+
+        # SystemUtil.talent_system.
+
