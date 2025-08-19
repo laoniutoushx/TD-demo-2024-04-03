@@ -107,7 +107,7 @@ func _on_animation_player_animation_finished(anim_name:StringName) -> void:
 
 
         # 重设 player_slot 信息数据（refresh）
-        SOS.main.level_controller._cur_scene.action_bar.player_bar.reset_slot_for_player()
+        SOS.main.level_controller._cur_scene.action_bar.player_bar_comp.reset_slot_for_player()
 
         # SystemUtil.talent_system.
 

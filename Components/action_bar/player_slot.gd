@@ -3,6 +3,12 @@ extends BaseSlot
 
 
 
+# mouse left click handler
+func _on_slot_left_clicked(slot: BaseSlot) -> void:
+
+	print("Player slot clicked")
+
+
 
 
 

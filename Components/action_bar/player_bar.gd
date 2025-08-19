@@ -29,16 +29,6 @@ func setup_for_player():
 
 
 
-
-func reset_slot_for_player():
-	clear()
-	_slot_num = 0
-	_slot_fill_num = 0
-	setup_for_player()
-
-
-
-
 func _create_talent_slot(talent: Talent) -> BaseSlot:	
 	var slot_instance: BaseSlot = super.add_element(talent.id, _player_bar, func(a1, a2): pass, _action_bar.player_slot)
 	
@@ -54,21 +44,23 @@ func _create_talent_slot(talent: Talent) -> BaseSlot:
 
 	# slot_state = SLOT_STATE.IN_ACTIVE
 
-	# skill init
+	# talent init
 	slot_instance.timer = talent.cool_down_timer
 	slot_instance.progress_bar.max_value = talent.cooldown
 
-	# # if skill status = Cool_Down
-	# if skill.current_state == skill.SKILL_STATE.Cool_Down:
-	# 	slot_instance.progress_bar.value = skill.cool_down_timer.time_left
-	# 	slot_instance.progress_bar.visible = true
-	# 	slot_instance.set_process(true)
+	# if talent status = Cool_Down
+	if talent.current_state == talent.TALENT_STATE.Cool_Down:
+		slot_instance.progress_bar.value = talent.cool_down_timer.time_left
+		slot_instance.progress_bar.visible = true
+		slot_instance.set_process(true)
 
 	_slot_num += 1
 	if slot_instance.reference:
 		_slot_fill_num += 1	
 
 	return slot_instance
+
+
 
 # 绑定快捷键
 # 按键主动绑定到显示的 slot 上（每次切换 action bar 时动态绑定）
@@ -79,31 +71,46 @@ func _bind_mapping_key(slot: BaseSlot, idx: int):
 	var short_cut_text = ""
 	if idx == 1:
 		short_cut_text = "Z"
-	elif idx == 2:
-		short_cut_text = "2"
-	elif idx == 3:
-		short_cut_text = "3"
-	elif idx == 4:
-		short_cut_text = "4"
-	elif idx == 5:
-		short_cut_text = "5"	
+
 
 	slot.mapping_key = short_cut_text
 	slot.short_cut.text = short_cut_text
 
 
-# func add_element(ele: Variant):
-# 	ele = (ele as Item)
-# 	if not _player_bar.has_node(ele.id):
-# 		var _s: BaseSlot = _create_item_slot(ele)
-# 		_action_bar.register_active(_s.active_callback)
-# 		_player_bar.add_child(_s)
-# 	else:
-# 		printerr("ERROR: item slot already exists for %s" % ele.id)
-# 		return
-	
-# 	# cur_active_slot = _s
-# 	print("slot added %s" % ele.id)
+
+
+# 重置 slot 内容
+func reset_slot_for_player():
+	clear()
+	# empty_slot()
+	_slot_num = 0
+	_slot_fill_num = 0
+	setup_for_player()
+
+
+# 清空 slot
+func empty_slot() -> void:
+	for slot: BaseSlot in _slots:
+		if slot == null:
+			printerr("ERROR: slot is null")
+			return
+		
+		# 删除掉 item slot
+		slot.custome_init(
+			null,
+			"",
+			BaseSlot.SLOT_TYPE.TALENT, 
+			false
+		)
+
+		slot.reference = null
+
+		# 清除当前激活槽位
+		if cur_active_slot == slot:
+			cur_active_slot = null
+
+		_slot_fill_num -= 1
+
 
 
 		
