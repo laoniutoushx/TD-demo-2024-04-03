@@ -263,7 +263,7 @@ radius = 10.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_q2oqp"]
 size = Vector3(1, 2.5, 1)
 
-[node name="Cannon7" type="Node3D" node_paths=PackedStringArray("turret_top", "fire_poses", "hud")]
+[node name="Cannon7" type="Node3D" node_paths=PackedStringArray("turret_top", "fire_poses", "hud") groups=["friend"]]
 script = ExtResource("1_nx1hr")
 turret_top = NodePath("Cannon7/Node3D")
 fire_poses = [NodePath("Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_main/FirePosCmp"), NodePath("Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_main/FirePosCmp2"), NodePath("Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_main/FirePosCmp3"), NodePath("Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_side/FirePosCmp"), NodePath("Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_side/FirePosCmp2"), NodePath("Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_side/FirePosCmp3"), NodePath("Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_side/FirePosCmp4"), NodePath("Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_side/FirePosCmp5"), NodePath("Cannon7/Node3D/Cannon_7_Base_mid/Node3D2/Cannon_7_Base_top_fire_side/FirePosCmp6")]

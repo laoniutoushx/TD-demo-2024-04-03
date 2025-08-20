@@ -59,7 +59,8 @@ enabled=PackedStringArray("res://addons/GPUTrail/plugin.cfg", "res://addons/debu
 
 [global_group]
 
-enemy=""
+enemy="Enemy Unit"
+friend="Turret Unit"
 
 [gui]
 

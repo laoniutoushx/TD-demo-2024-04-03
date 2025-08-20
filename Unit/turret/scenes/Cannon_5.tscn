@@ -262,7 +262,7 @@ radius = 10.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_q2oqp"]
 size = Vector3(1, 2.5, 1)
 
-[node name="Cannon5" type="Node3D" node_paths=PackedStringArray("turret_top", "fire_poses", "hud")]
+[node name="Cannon5" type="Node3D" node_paths=PackedStringArray("turret_top", "fire_poses", "hud") groups=["friend"]]
 script = ExtResource("1_ph4ht")
 turret_top = NodePath("Cannon5/Node3D")
 fire_poses = [NodePath("Cannon5/Node3D/Cannon_5_Base_mid/Node3D2/Cannon_5_Base_top_fire_left/FirePosCmp2"), NodePath("Cannon5/Node3D/Cannon_5_Base_mid/Node3D2/Cannon_5_Base_top_fire_left/FirePosCmp"), NodePath("Cannon5/Node3D/Cannon_5_Base_mid/Node3D2/Cannon_5_Base_top_fire_right/FirePosCmp2"), NodePath("Cannon5/Node3D/Cannon_5_Base_mid/Node3D2/Cannon_5_Base_top_fire_right/FirePosCmp")]

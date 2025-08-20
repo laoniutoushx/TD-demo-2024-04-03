@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="TalentResource" load_steps=3 format=3 uid="uid://c0jknopw08kwb"]
+[gd_resource type="Resource" script_class="TalentResource" load_steps=4 format=3 uid="uid://c0jknopw08kwb"]
 
 [ext_resource type="Script" uid="uid://duhwafogr7nvj" path="res://System/talent_system/resources/talent_resource.gd" id="1_ij0me"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="2_08kxc"]
 [ext_resource type="Script" uid="uid://br64lat1hr34u" path="res://System/talent_system/resources/cooldown_talent.gd" id="2_ij0me"]
 
 [resource]
@@ -38,9 +39,10 @@ probability = 0.25
 disable_check = 0
 release_type = 4
 target_type = 4
-effect_type = 8
+effect_type = 2
 building_level_up_time = -1.0
 wood_cost = -1.0
 money_cost = -1.0
 talent_script = ExtResource("2_ij0me")
+talent_buff_config = Array[ExtResource("2_08kxc")]([])
 metadata/_custom_type_script = "uid://duhwafogr7nvj"

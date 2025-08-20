@@ -28,7 +28,7 @@ _data = {
 &"attack": SubResource("Animation_3ryhm")
 }
 
-[node name="Wukong" type="Node3D" node_paths=PackedStringArray("fire_poses", "hud")]
+[node name="Wukong" type="Node3D" node_paths=PackedStringArray("fire_poses", "hud") groups=["friend"]]
 script = ExtResource("1_qbgh6")
 fire_poses = [null]
 hud = NodePath("Hud")

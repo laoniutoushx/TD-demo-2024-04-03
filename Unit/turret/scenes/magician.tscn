@@ -73,7 +73,7 @@ _data = {
 &"attack": SubResource("Animation_3ryhm")
 }
 
-[node name="Magician" type="Node3D" node_paths=PackedStringArray("fire_poses")]
+[node name="Magician" type="Node3D" node_paths=PackedStringArray("fire_poses") groups=["friend"]]
 script = ExtResource("1_lg5ti")
 fire_poses = [null]
 

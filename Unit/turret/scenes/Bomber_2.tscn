@@ -359,7 +359,7 @@ fire_animation = &"attack_right"
 fire_projectile = ExtResource("4_w3koj")
 fire_group = "乙"
 
-[node name="FirePosCmp2" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right" instance=ExtResource("3_l52fc")]
+[node name="FirePosCmp2" parent="Bomber2/Node3D/Bomber_2_Base_mid/Node3D2/Bomber_2_Base_top_fire_right" groups=["friend"] instance=ExtResource("3_l52fc")]
 transform = Transform3D(1, 0, 0, 0, 1, -4.23516e-22, 0, 0, 1, 0, -0.00326676, 0)
 fire_animation = &""
 fire_projectile = ExtResource("4_w3koj")
