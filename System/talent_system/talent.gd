@@ -43,7 +43,7 @@ signal talent_cast_end(talent_context: TalentContext)	# 技能施法结束事件
 @export var value: float = 0.0
 # 技能伤害值（动态扩展）
 @export var value_ext: Dictionary = {
-	
+    
 }
 
 # 技能运行距离（方向性技能）
@@ -101,15 +101,29 @@ signal talent_cast_end(talent_context: TalentContext)	# 技能施法结束事件
 @export var talent_script: Script
 var talent_script_instance: Variant
 
-var talent_context: TalentContext
+
+
+@export_group("Skill Buff")
+# Buff（实例化后的buff列表）
+var buff_map: Dictionary = {}
+
+
+
 
 # Timer
 var cool_down_timer: Timer
+# Context
+var talent_context: TalentContext
 
 
-var _is_casting = false
-var current_state: TALENT_STATE
-var mouse_click_check = false
+
+# 禁用 skill
+var _is_disabled = false
+var _mana_disabled = false
+var _health_disabled = false
+var _money_disabled = false
+var _wood_disabled = false
+var _level_disabled = false
 
 
 
@@ -129,6 +143,25 @@ enum TALENT_STATE {
 }
 
 
+var _is_casting = false
+var current_state: TALENT_STATE
+var mouse_click_check = false
+
+
+
+
+func _ready() -> void:
+    # 技能上下文构建
+    # SkillContext 上下文，保存 skill: Skill, target: BaseUnit, source: BaseUnit, position: Vector3 等信息
+    talent_context = TalentContext.new(self, null, unit, Vector3.ZERO)
+    current_state = TALENT_STATE.Idle
+
+    # cool_down_timer 配置
+    cool_down_timer = Timer.new()
+    cool_down_timer.one_shot = true
+    cool_down_timer.autostart = false
+    cool_down_timer.wait_time = cooldown
+    add_child(cool_down_timer)
 
 
 

@@ -289,6 +289,7 @@ transform = Transform3D(-5, 0, -4.37114e-07, 0, 5, 0, 4.37114e-07, 0, -5, 26.18,
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -7.22688, 0, -14.9699)
 
 [node name="GDbotSkin" parent="." instance=ExtResource("1_umiea")]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.16514, 0)
 
 [node name="TreasureChest" parent="." instance=ExtResource("29_hjlrc")]

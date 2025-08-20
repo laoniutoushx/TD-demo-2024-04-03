@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="TalentResource" load_steps=3 format=3 uid="uid://d23aa0sd57dmw"]
+[gd_resource type="Resource" script_class="TalentResource" load_steps=5 format=3 uid="uid://d23aa0sd57dmw"]
 
 [ext_resource type="Script" uid="uid://duhwafogr7nvj" path="res://System/talent_system/resources/talent_resource.gd" id="1_oipq6"]
 [ext_resource type="Script" uid="uid://bcmph1j3maatm" path="res://System/talent_system/resources/greedy_talent.gd" id="2_5qen7"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="2_u5dg4"]
+[ext_resource type="Resource" uid="uid://d3h1hxcsqiq4q" path="res://System/buff_system/resources/greedy.tres" id="3_od4s1"]
 
 [resource]
 script = ExtResource("1_oipq6")
@@ -36,11 +38,12 @@ wave = 1
 projection_speed = 1.0
 probability = 0.25
 disable_check = 0
-release_type = 2
+release_type = 32
 target_type = 4
 effect_type = 8
 building_level_up_time = -1.0
 wood_cost = -1.0
 money_cost = -1.0
 talent_script = ExtResource("2_5qen7")
+talent_buff_config = Array[ExtResource("2_u5dg4")]([ExtResource("3_od4s1")])
 metadata/_custom_type_script = "uid://duhwafogr7nvj"

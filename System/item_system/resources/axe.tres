@@ -50,6 +50,7 @@ level = 1
 max_level = 3
 stock = 1
 value = 0.0
+release_type = 32
 category = 1
 nature = 4
 borning_position = Vector3(0, 0, 0)

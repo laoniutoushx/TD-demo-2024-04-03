@@ -25,11 +25,18 @@ func initialize_talent(talent_code: String) -> Talent:
 
 	var talent: Talent = _initialize_talent(talent_meta_res)
 
+	# 初始化 buff
+	SystemUtil.buff_system.init_buff_for_unit_by_res(SOS.main.level_controller._cur_scene.gdbot, talent.talent_res, talent)
+
+
 	if talent != null:
 		
 
 		# add to unit tree
 		talent.name = talent.code
+
+		# 固定单位（source unit）
+		talent.unit = SOS.main.level_controller._cur_scene.gdbot
 		talent.add_child(talent.talent_script_instance)
 
 
@@ -42,8 +49,11 @@ func initialize_talent(talent_code: String) -> Talent:
 # # 实例化
 func _initialize_talent(talent_meta_res: TalentResource, idx: int = 0) -> Talent:
 	if talent_meta_res != null:
-		var talent: Talent = Talent.new()
+		var talent: Talent = Talent.new().duplicate()
+		talent.unit = SOS.main.level_controller._cur_scene.gdbot
+
 		CommonUtil.bean_properties_copy(talent_meta_res, talent)
+
 		# 手动赋值 skill_script
 		talent.talent_script = talent_meta_res.talent_script
 		talent.talent_res = talent_meta_res
@@ -78,7 +88,7 @@ func release(talent_context: TalentContext) -> void:
 	# 2. talent 执行（ do action ）可包括任何逻辑, take_damage, vfx, other logic, audio 等
 	# 3. talent 完成( vfx/anim/audio )
 
-	var talent: Talent = talent_context.skill
+	var talent: Talent = talent_context.talent
 	var source_unit: BaseUnit = talent_context.source
 	var target_unit: BaseUnit = talent_context.target
 

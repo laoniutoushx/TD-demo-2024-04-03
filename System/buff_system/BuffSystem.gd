@@ -43,6 +43,10 @@ func init_buff_for_unit_by_res(source: BaseUnit, ref: Variant, ele: Variant) -> 
 	if ref is ItemResource:
 		buff_reses = (ref as ItemResource).item_buff_config
 
+	if ref is TalentResource:
+		buff_reses = (ref as TalentResource).talent_buff_config
+
+
 	if buff_reses == null:
 		return {}
 	
@@ -66,7 +70,10 @@ func init_buff_for_unit_by_res(source: BaseUnit, ref: Variant, ele: Variant) -> 
 			buff_instance_map[buff_instance.code] = buff_instance
 
 			# 授予 buff 效果到目标单位
-			apply(buff_instance, ele, source)
+			# 当 buff 是被动时，直接应用到单位身上
+			# 当 buff 是主动时，在技能释放时应用到目标身上
+			if CommonUtil.is_flag_set(SkillMetaResource.SKILL_RELEASE_TYPE.PASSIVE, ele.release_type):
+				apply(buff_instance, ele, source)
 
 
 	return buff_instance_map

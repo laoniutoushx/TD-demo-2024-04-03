@@ -39,6 +39,8 @@ var chest: TreasureChest
 @export var value: float
 
 
+@export_flags("TARGETED", "SELF_CAST", "NO_TARGET", "DIRECTION", "CIRCLE_RANGE", "PASSIVE") var release_type: int = 32
+
 
 # 分类
 @export_flags("WEAPON", "CLOTHING", "SHOES", "JEWELRY", "OTHER") var category

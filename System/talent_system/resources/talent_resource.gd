@@ -145,3 +145,6 @@ enum TALENT_EFFECT_TYPE{
 # Talent Script Template( 用于 动态 处理 Talent 逻辑 )
 @export var talent_script: Script
 
+# talent buff config
+@export var talent_buff_config: Array[BuffResource] = []
+

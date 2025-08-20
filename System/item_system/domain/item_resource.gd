@@ -38,6 +38,19 @@ enum NATURE_STR{
 @export var value: float
 
 
+# release skill
+
+enum ITEM_RELEASE_TYPE{
+	TARGETED,	
+	SELF_CAST,
+	NO_TARGET,
+	DIRECTION,
+	CIRCLE_RANGE,
+	PASSIVE
+}
+@export_flags("TARGETED", "SELF_CAST", "NO_TARGET", "DIRECTION", "CIRCLE_RANGE", "PASSIVE") var release_type: int = 32
+
+
 
 # 分类
 @export_flags("WEAPON", "CLOTHING", "SHOES", "JEWELRY", "OTHER") var category

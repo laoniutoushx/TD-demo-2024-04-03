@@ -39,6 +39,7 @@ func load_skill_meta_res():
 # 获取技能元信息
 func get_meta_skill_by_id(skill_code: String) -> SkillMetaResource:
 	return skill_meta_map[skill_code]
+
 	
 # 实例化 技能
 func initialize_skills(source_unit: BaseUnit, skill_metas: Array[SkillMetaResource]) -> Dictionary:
@@ -102,12 +103,12 @@ func _initialize_skill(source_unit: BaseUnit, skill_meta_res: SkillMetaResource,
 
 		# skill property init
 		CommonUtil.bean_properties_copy(skill_meta_res, skill)
+		
 		# 手动赋值 skill_script
 		skill.skill_script = skill_meta_res.skill_script
-
-
 		skill.skill_meta_res = skill_meta_res
 		skill.sort = idx
+
 		if skill.code == null:
 			printerr("ERROR: skill code not define")
 			
