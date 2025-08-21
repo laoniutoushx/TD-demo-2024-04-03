@@ -1,32 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://cym641yvamusq"]
+[gd_scene load_steps=4 format=3 uid="uid://cym641yvamusq"]
 
 [ext_resource type="Script" uid="uid://dtgkemi3jg8sa" path="res://Unit/home/base.gd" id="1_8pvdi"]
-[ext_resource type="Texture2D" uid="uid://b1007h3e1stpr" path="res://Asserts/materials/Tiles019_2K-JPG/Tiles019_2K-JPG_Color.jpg" id="2_b7026"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n5m5e"]
-albedo_texture = ExtResource("2_b7026")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ktxgf"]
-albedo_color = Color(0.780392, 0.109804, 0.113725, 1)
+[ext_resource type="PackedScene" uid="uid://cwdfip6pck67" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/TownCenter_SecondAge_Level2.gltf" id="2_4n5ke"]
 
 [sub_resource type="SystemFont" id="SystemFont_ms2hu"]
 subpixel_positioning = 0
 
 [node name="Base" type="Node3D" groups=["base"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -13)
 script = ExtResource("1_8pvdi")
 life = 100
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-size = Vector3(5, 1, 5)
-material = SubResource("StandardMaterial3D_n5m5e")
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-radius = 2.0
-height = 4.0
-sides = 32
-material = SubResource("StandardMaterial3D_ktxgf")
 
 [node name="Area3D" type="Area3D" parent="."]
 
@@ -35,3 +17,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 billboard = 1
 font = SubResource("SystemFont_ms2hu")
 font_size = 500
+
+[node name="TownCenter_SecondAge_Level22" parent="." instance=ExtResource("2_4n5ke")]
