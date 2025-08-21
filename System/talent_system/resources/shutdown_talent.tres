@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="TalentResource" load_steps=3 format=3 uid="uid://djtaqpi5fe5yf"]
+[gd_resource type="Resource" script_class="TalentResource" load_steps=4 format=3 uid="uid://djtaqpi5fe5yf"]
 
 [ext_resource type="Script" uid="uid://duhwafogr7nvj" path="res://System/talent_system/resources/talent_resource.gd" id="1_civp1"]
 [ext_resource type="Script" uid="uid://cdtkccen2c02d" path="res://System/talent_system/resources/shutdown_talent.gd" id="2_civp1"]
+[ext_resource type="Script" uid="uid://it5p3x5runhq" path="res://System/buff_system/domain/buff_resource.gd" id="2_ehud3"]
 
 [resource]
 script = ExtResource("1_civp1")
@@ -23,7 +24,7 @@ match_range = 30.0
 range = 5.0
 release_distance = 10.0
 stock = -1
-value = 0.0
+value = 999999.0
 value_ext = {}
 run_distance = 10.0
 epoch = 1
@@ -43,4 +44,5 @@ building_level_up_time = -1.0
 wood_cost = -1.0
 money_cost = -1.0
 talent_script = ExtResource("2_civp1")
+talent_buff_config = Array[ExtResource("2_ehud3")]([])
 metadata/_custom_type_script = "uid://duhwafogr7nvj"

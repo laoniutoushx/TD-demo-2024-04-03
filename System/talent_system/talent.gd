@@ -181,7 +181,7 @@ func change_state(new_state: TALENT_STATE) -> void:
         or current_state == TALENT_STATE.Building_Indicate 
         or current_state == TALENT_STATE.Circle_Range_Indicate):
         # 单位全局技能共享状态值 -1
-        unit.current_global_TALENT_STATE = 0
+        unit.current_global_skill_state = 0
         # player status 变更 DEFAULT
         SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DEFAULT
         # player cursor 变更 DEFAULT
@@ -279,7 +279,7 @@ func change_state(new_state: TALENT_STATE) -> void:
 
 
             # 单位全局技能状态处理
-            unit.current_global_TALENT_STATE = 1
+            unit.current_global_skill_state = 1
 
             # TODO 可以在此处注册 键盘 Esc 事件，取消 indicator
             
@@ -402,3 +402,93 @@ func change_state(new_state: TALENT_STATE) -> void:
 
         TALENT_STATE.Disabled:
             print("talent [%s] is Disabled" % code)            
+
+
+
+
+
+
+# 专门处理 targeted 模式下，玩家选择单位的逻辑        
+func _process(delta: float) -> void:
+    # 监听 target mouse clicked
+    if Input.is_action_pressed("click"):
+        if mouse_click_check and current_state == TALENT_STATE.Targeted_Indicate:
+            
+            # 目标类型检查-地面
+            if CommonUtil.is_flag_set(TalentResource.TALENT_TARGET_TYPE.FLOOR, target_type):
+                print("技能无需目标")
+                # 停止监听
+                mouse_click_check = false
+                set_process(false)
+
+                talent_context.target_position = SOS.main.player_controller.player_skill_target_indicator.global_position
+                talent_context.target = null
+
+                change_state(TALENT_STATE.Release)
+
+            # 目标类型检查-某个单位
+            if CommonUtil.is_flag_set(TalentResource.TALENT_TARGET_TYPE.UNIT, target_type):
+                var cur_unit_map = SOS.main.player_controller.cur_unit_map
+                if not cur_unit_map.is_empty():
+
+                    # 停止监听
+                    mouse_click_check = false
+                    set_process(false)
+
+                    # 获取选中单位
+                    var min_unit = null
+                    var min_distance = INF  # 使用 INF 作为初始最小距离
+                    
+                    # 遍历所有单位
+                    for u_key in cur_unit_map.keys():
+                        var _unit = cur_unit_map.get(u_key)
+                        
+                        if not _unit:
+                            continue
+
+                        # 根据 skill target type 动态判断是否满足条件
+                        if not _talent_target_unit_cond_matched(_unit):
+                            continue
+
+                        # 计算单位到原点的距离
+                        var distance = Vector2(_unit.global_position.x, _unit.global_position.z).length()
+                        
+                        # 如果找到更近的单位，更新最小距离和对应的单位
+                        if distance < min_distance:
+                            min_distance = distance
+                            min_unit = _unit
+                    
+                    # 此时 min_unit 就是距离原点最近的单位
+                    if min_unit:
+                        # 在这里处理最近的单位，比如选中它
+                        print("最近的单位距离: ", min_distance)
+                        print("最近的单位: ", min_unit)
+
+
+                        talent_context.target_position = SOS.main.player_controller.player_skill_target_indicator.global_position
+                        talent_context.target = min_unit
+
+                        change_state(TALENT_STATE.Release)
+
+                    else:
+                        print("没有找到最近的单位")
+                        SOS.main.message_bar.set_message("没有选中任何单位")
+
+                else:
+                    print("没有选中任何单位")
+                    SOS.main.message_bar.set_message("没有选中任何单位")
+
+
+
+# talent target selected unit filter
+func _talent_target_unit_cond_matched(_u: BaseUnit) -> bool:
+
+    var conditions = [
+        # friend unit
+        CommonUtil.is_flag_set(TalentResource.TALENT_TARGET_TYPE.FRIEND, target_type) and _u.player_group == SOS.main.player_controller.player_group_idx,
+        # enemy unit
+        CommonUtil.is_flag_set(TalentResource.TALENT_TARGET_TYPE.ENEMY, target_type) and _u.player_group != SOS.main.player_controller.player_group_idx
+    ]
+
+    return conditions.any(func(x): return x)
+

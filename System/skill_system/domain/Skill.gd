@@ -585,15 +585,13 @@ func change_state(new_state: SKILL_STATE) -> void:
             cool_down_timer.start()
 
             # 槽
-            if slot:
-                if is_instance_valid(slot) and is_instance_valid(slot.progress_bar):
+            if slot and is_instance_valid(slot) and is_instance_valid(slot.progress_bar):
                     slot.progress_bar.visible = true    
                     slot.set_process(true)
 
             await cool_down_timer.timeout
             
-            if slot:
-                if is_instance_valid(slot) and is_instance_valid(slot.progress_bar):
+            if slot and is_instance_valid(slot) and is_instance_valid(slot.progress_bar):
                     slot.progress_bar.visible = false             
                     slot.set_process(false)
 

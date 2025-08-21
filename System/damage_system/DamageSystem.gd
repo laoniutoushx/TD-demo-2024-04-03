@@ -166,10 +166,12 @@ func _process(delta: float) -> void:
 
 
 # 技能伤害
-func skill_damage(skill: Skill, source: BaseUnit, target: BaseUnit) -> bool:
+func skill_damage(skill: Variant, source: BaseUnit, target: BaseUnit) -> bool:
 	if target.is_alive():
 		return target.take_skill_damage(DamageCtxPool.get_ctx(source, target, skill.value, DamageCtx.DamageType.NORMAL, DamageCtx.DamageSourceType.SKILL))
 	return true
+
+
 
 
 # 技能范围伤害

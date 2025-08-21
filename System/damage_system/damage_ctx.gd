@@ -13,7 +13,8 @@ enum DamageType {
 # 伤害来源类型
 enum DamageSourceType {
     UNIT,   # 单位
-    SKILL   # 技能
+    SKILL,   # 技能
+    TALENT   # 天赋
 }
 
 var damage: float = 0.0
