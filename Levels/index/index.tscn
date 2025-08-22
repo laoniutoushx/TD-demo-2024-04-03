@@ -1,7 +1,33 @@
-[gd_scene load_steps=2 format=3 uid="uid://hd4hmcwk2uo6"]
+[gd_scene load_steps=4 format=3 uid="uid://hd4hmcwk2uo6"]
 
 [ext_resource type="PackedScene" uid="uid://dx0lou5rmkhg8" path="res://Test/BaseLevel1.tscn" id="1_1qxrv"]
+[ext_resource type="PackedScene" uid="uid://d12j5q1c4hxby" path="res://UI/index/index_ui.tscn" id="1_e5jvj"]
 
-[node name="Index" type="Node3D"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_7uanx"]
+viewport_path = NodePath("SubViewport")
 
-[node name="BaseLevel" parent="." instance=ExtResource("1_1qxrv")]
+[node name="Index" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_7uanx")
+
+[node name="IndexUi" parent="." instance=ExtResource("1_e5jvj")]
+layout_mode = 1
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(1080, 512)
+
+[node name="BaseLevel" parent="SubViewport" instance=ExtResource("1_1qxrv")]
