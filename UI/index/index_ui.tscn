@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://d12j5q1c4hxby"]
+[gd_scene load_steps=5 format=3 uid="uid://d12j5q1c4hxby"]
 
 [ext_resource type="FontFile" uid="uid://bce2telnqh8yo" path="res://Asserts/resources/demo_ui/Font/江城圆体 500W.ttf" id="1_1msp2"]
 [ext_resource type="Shader" uid="uid://cd3kc5m2jrvvr" path="res://UI/index/index_ui_title.gdshader" id="1_g3k3s"]
+[ext_resource type="Script" uid="uid://b8qv2wpt55n3r" path="res://UI/index/index_ui.gd" id="1_v4w0m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1msp2"]
 shader = ExtResource("1_g3k3s")
@@ -22,38 +23,42 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_v4w0m")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PadL" type="MarginContainer" parent="HBoxContainer"]
+[node name="PadL" type="MarginContainer" parent="CanvasLayer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
-[node name="PadL2" type="MarginContainer" parent="HBoxContainer"]
+[node name="PadL2" type="MarginContainer" parent="CanvasLayer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PadL2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/PadL2"]
 layout_mode = 2
 
-[node name="Pad1" type="MarginContainer" parent="HBoxContainer/PadL2/VBoxContainer"]
+[node name="Pad1" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
 
-[node name="Pad2" type="MarginContainer" parent="HBoxContainer/PadL2/VBoxContainer"]
+[node name="Pad2" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/PadL2/VBoxContainer/Pad2"]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad2"]
 material = SubResource("ShaderMaterial_1msp2")
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
@@ -70,14 +75,15 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Pad3" type="MarginContainer" parent="HBoxContainer/PadL2/VBoxContainer"]
+[node name="Pad3" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PadL2/VBoxContainer/Pad3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3"]
 layout_mode = 2
 
-[node name="Start" type="Button" parent="HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer"]
+[node name="Start" type="Button" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -89,7 +95,8 @@ theme_override_fonts/font = ExtResource("1_1msp2")
 theme_override_font_sizes/font_size = 45
 text = "开始游戏"
 
-[node name="Setting" type="Button" parent="HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer"]
+[node name="Setting" type="Button" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -101,7 +108,8 @@ theme_override_fonts/font = ExtResource("1_1msp2")
 theme_override_font_sizes/font_size = 45
 text = "设置"
 
-[node name="Exit" type="Button" parent="HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer"]
+[node name="Exit" type="Button" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -113,12 +121,14 @@ theme_override_fonts/font = ExtResource("1_1msp2")
 theme_override_font_sizes/font_size = 45
 text = "退出游戏"
 
-[node name="Pad5" type="MarginContainer" parent="HBoxContainer/PadL2/VBoxContainer"]
+[node name="Pad5" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.3
 
-[node name="PadR" type="MarginContainer" parent="HBoxContainer"]
+[node name="PadR" type="MarginContainer" parent="CanvasLayer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
+
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer/Start" to="." method="_on_start_pressed"]

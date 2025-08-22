@@ -14,6 +14,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+gui_disable_input = true
+size = Vector2i(1080, 512)
+
+[node name="BaseLevel" parent="SubViewport" instance=ExtResource("1_1qxrv")]
+
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -24,10 +31,5 @@ grow_vertical = 2
 texture = SubResource("ViewportTexture_7uanx")
 
 [node name="IndexUi" parent="." instance=ExtResource("1_e5jvj")]
+z_index = 127
 layout_mode = 1
-
-[node name="SubViewport" type="SubViewport" parent="."]
-transparent_bg = true
-size = Vector2i(1080, 512)
-
-[node name="BaseLevel" parent="SubViewport" instance=ExtResource("1_1qxrv")]
