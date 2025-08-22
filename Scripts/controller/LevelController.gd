@@ -21,7 +21,8 @@ func _ready():
  
 # initialize level
 func initialize_level():
-	next_level("choose_player")
+	# next_level("choose_player")
+	next_level("index")
 	
 func next_level_before():
 	#if _pre_scene != null:
@@ -42,6 +43,10 @@ func next_level_after():
 
 func load_scene(scene_code: String) -> Node:
 	var scene
+	if scene_code == "index":
+		scene = level_tres_map['index'].scene.instantiate()
+		add_child(scene)
+
 	if scene_code == "choose_player":
 		scene = level_tres_map['choose_player'].scene.instantiate()
 		add_child(scene)

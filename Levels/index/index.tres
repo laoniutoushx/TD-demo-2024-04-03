@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="LevelResource" load_steps=4 format=3 uid="uid://b86ii1hjkgf6e"]
+
+[ext_resource type="PackedScene" uid="uid://hd4hmcwk2uo6" path="res://Levels/index/index.tscn" id="1_fx0ds"]
+[ext_resource type="Script" uid="uid://dbmpwe6whmw1r" path="res://Levels/level_resource.gd" id="2_cdupn"]
+[ext_resource type="Script" uid="uid://dkj2hwe7n0kae" path="res://Waves/WaveResource.gd" id="3_mcn2w"]
+
+[resource]
+script = ExtResource("2_cdupn")
+code = "index"
+name = "index"
+scene = ExtResource("1_fx0ds")
+start_delay = 0.0
+end_delay = 5.0
+waves = Array[ExtResource("3_mcn2w")]([])

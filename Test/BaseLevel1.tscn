@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dx0lou5rmkhg8"]
+[gd_scene load_steps=37 format=3 uid="uid://dx0lou5rmkhg8"]
 
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_1lpu5"]
 [ext_resource type="Script" uid="uid://b7mg147y1himx" path="res://System/barrage_system/BarrageSystem.gd" id="1_mdmlk"]
@@ -9,25 +9,21 @@
 [ext_resource type="Resource" uid="uid://d07kpuyhw4vhh" path="res://Asserts/h_terrain_data/data.hterrain" id="4_5ecae"]
 [ext_resource type="Script" uid="uid://dqh2rt0fn1vli" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="5_6m1xw"]
 [ext_resource type="Texture2D" uid="uid://b8y078eghrc8r" path="res://Asserts/materials/Ground075_2K-JPG/Level1_slot0_albedo_bump.png" id="6_1pg7e"]
-[ext_resource type="Script" uid="uid://cinc4wtj23xik" path="res://Scripts/controller/RTSController.gd" id="6_10okp"]
 [ext_resource type="Texture2D" uid="uid://dmgtnga770225" path="res://Asserts/materials/Ground075_2K-JPG/Level1_slot1_albedo_bump.png" id="7_grskg"]
 [ext_resource type="Texture2D" uid="uid://dquempkj3exai" path="res://Asserts/materials/Ground075_2K-JPG/Level1_slot2_albedo_bump.png" id="8_htfw7"]
 [ext_resource type="Texture2D" uid="uid://bshysheo7cqjk" path="res://Asserts/materials/Ground075_2K-JPG/Level1_slot0_normal_roughness.png" id="9_ht4ko"]
-[ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="9_wqmse"]
 [ext_resource type="Texture2D" uid="uid://i7c50wew6re7" path="res://Asserts/materials/Ground075_2K-JPG/Level1_slot1_normal_roughness.png" id="10_3so0f"]
 [ext_resource type="Texture2D" uid="uid://cgyss5lflachy" path="res://Asserts/materials/Ground075_2K-JPG/Level1_slot2_normal_roughness.png" id="11_dt7rq"]
 [ext_resource type="Shader" uid="uid://bnm6ve400eljx" path="res://Levels/level_1/Level1.gdshader" id="12_o7so0"]
 [ext_resource type="Texture2D" uid="uid://fyg6yshil7wl" path="res://Asserts/materials/Tiles130_2K-JPG/Tiles130_2K-JPG_Color.jpg" id="15_nsa61"]
 [ext_resource type="Texture2D" uid="uid://bfc5ana2pdo7a" path="res://Asserts/materials/Tiles130_2K-JPG/Tiles130_2K-JPG_NormalGL.jpg" id="16_v2dek"]
 [ext_resource type="Texture2D" uid="uid://cqployapdqqit" path="res://Asserts/materials/Tiles130_2K-JPG/Tiles130_2K-JPG_Roughness.jpg" id="17_esxci"]
-[ext_resource type="Script" uid="uid://d386ucglmr21" path="res://Waves/WaveManager.gd" id="20_s00qj"]
-[ext_resource type="PackedScene" uid="uid://btv2y2tfng4ob" path="res://Unit/turret/TurretManager.tscn" id="21_2owf3"]
-[ext_resource type="PackedScene" uid="uid://m4qd1674r2ft" path="res://Test/3d grid shader/cube_mesh_shader/cell_mesh_tri_ind.tscn" id="22_4pseh"]
 [ext_resource type="PackedScene" uid="uid://dd4b4lnasc213" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree1.gltf" id="23_c2n84"]
 [ext_resource type="PackedScene" uid="uid://dan2sqr4q05tc" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree2.gltf" id="24_jq6ar"]
 [ext_resource type="PackedScene" uid="uid://cxhmatlnx4b1s" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree_Group.gltf" id="25_nlcod"]
 [ext_resource type="PackedScene" uid="uid://db0jb0y1rkt8c" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Houses_SecondAge_2_Level2.gltf" id="26_janso"]
 [ext_resource type="PackedScene" uid="uid://wacj14cvr4eq" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/WallTowers_DoorClosed_FirstAge.gltf" id="27_alutt"]
+[ext_resource type="PackedScene" uid="uid://c4fba1hyqkstw" path="res://Unit/player/gdbot/gdbot.glb" id="27_hr4w1"]
 [ext_resource type="PackedScene" uid="uid://bdruiih1fouof" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Rock.gltf" id="28_4m228"]
 [ext_resource type="PackedScene" uid="uid://brsoxpbmx54b2" path="res://System/item_system/resources/treasure_chest.tscn" id="30_d63kh"]
 [ext_resource type="Script" uid="uid://ceet2kpd86p7c" path="res://System/item_system/domain/DropItem.gd" id="31_mhr1r"]
@@ -205,16 +201,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.4411, 0.103827, 5.59998)
 [node name="Base" parent="." instance=ExtResource("3_aroyc")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 31.3225, 0, -17.6237)
 
-[node name="RTSController" type="Node3D" parent="."]
-script = ExtResource("6_10okp")
-map_bounds = Rect2(0, -8, 50, 50)
-
-[node name="WaveManager" type="Node3D" parent="."]
-script = ExtResource("20_s00qj")
-
-[node name="TurretManager" parent="." instance=ExtResource("21_2owf3")]
-cell_mesh_indicator_scene = ExtResource("22_4pseh")
-
 [node name="Environment" type="Node3D" parent="."]
 
 [node name="Resource_Tree12" parent="Environment" instance=ExtResource("23_c2n84")]
@@ -283,9 +269,8 @@ transform = Transform3D(-5, 0, -4.37114e-07, 0, 5, 0, 4.37114e-07, 0, -5, 26.18,
 [node name="Rock2" parent="Environment" instance=ExtResource("28_4m228")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -7.22688, 0, -14.9699)
 
-[node name="GDbotSkin" parent="." instance=ExtResource("9_wqmse")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.16514, 0)
-
 [node name="TreasureChest" parent="." instance=ExtResource("30_d63kh")]
 drop_item = SubResource("Resource_dwqyb")
+
+[node name="gdbot" parent="." instance=ExtResource("27_hr4w1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.47366, 0, 0)

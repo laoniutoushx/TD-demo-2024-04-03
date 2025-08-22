@@ -7,4 +7,4 @@ script = ExtResource("1_s0q55")
 base_folder = "res://Levels"
 includes = Array[String](["**.tres"])
 excludes = Array[String]([])
-paths = Array[String](["res://Levels/choose_player/ChoosePlayer.tres", "res://Levels/level_1/Level1.tres"])
+paths = Array[String](["res://Levels/choose_player/ChoosePlayer.tres", "res://Levels/index/index.tres", "res://Levels/level_1/Level1.tres"])
