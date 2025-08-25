@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://d12j5q1c4hxby"]
+[gd_scene load_steps=7 format=3 uid="uid://d12j5q1c4hxby"]
 
 [ext_resource type="FontFile" uid="uid://bce2telnqh8yo" path="res://Asserts/resources/demo_ui/Font/江城圆体 500W.ttf" id="1_1msp2"]
 [ext_resource type="Shader" uid="uid://cd3kc5m2jrvvr" path="res://UI/index/index_ui_title.gdshader" id="1_g3k3s"]
 [ext_resource type="Script" uid="uid://b8qv2wpt55n3r" path="res://UI/index/index_ui.gd" id="1_v4w0m"]
+[ext_resource type="Texture2D" uid="uid://xcjfb0y6c56c" path="res://Asserts/resources/demo_ui/UI/ChatGPT Image Aug 25, 2025, 03_47_08 PM (1).png" id="3_jck8i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1msp2"]
 shader = ExtResource("1_g3k3s")
@@ -15,6 +16,9 @@ shader_parameter/outline_thickness = 0.001
 shader_parameter/shadow_color = Color(0, 0, 0, 0.835294)
 shader_parameter/shadow_offset_x = -1.292
 shader_parameter/shadow_offset_y = 4.75e-07
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ddofq"]
+texture = ExtResource("3_jck8i")
 
 [node name="IndexUi" type="Control"]
 layout_mode = 3
@@ -78,11 +82,20 @@ vertical_alignment = 1
 [node name="Pad3" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_right = 150
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3"]
 layout_mode = 2
+theme_override_constants/separation = 12
 
-[node name="Start" type="Button" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_ddofq")
+
+[node name="Start" type="Button" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer/PanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -94,8 +107,15 @@ theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("1_1msp2")
 theme_override_font_sizes/font_size = 45
 text = "开始游戏"
+flat = true
 
-[node name="Setting" type="Button" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer"]
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_ddofq")
+
+[node name="Setting" type="Button" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer/PanelContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -107,8 +127,15 @@ theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("1_1msp2")
 theme_override_font_sizes/font_size = 45
 text = "设置"
+flat = true
 
-[node name="Exit" type="Button" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer"]
+[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_ddofq")
+
+[node name="Exit" type="Button" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer/PanelContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -120,6 +147,7 @@ theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("1_1msp2")
 theme_override_font_sizes/font_size = 45
 text = "退出游戏"
+flat = true
 
 [node name="Pad5" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer"]
 layout_mode = 2
@@ -131,4 +159,4 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
-[connection signal="pressed" from="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer/PanelContainer/Start" to="." method="_on_start_pressed"]

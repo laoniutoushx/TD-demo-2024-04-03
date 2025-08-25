@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" load_steps=13 format=3 uid="uid://duvytfaft2817"]
 
-[ext_resource type="Texture2D" uid="uid://sfqnk8pph4px" path="res://Asserts/textures/vfx/projectiles/T_VFX_Noise_075.png" id="1_l63ha"]
+[ext_resource type="Texture2D" uid="uid://sfqnk8pph4px" path="res://VFX/loot_drop/Textures/T_VFX_Noise_075.png" id="1_l63ha"]
 
 [sub_resource type="VisualShaderNodeVec2Parameter" id="VisualShaderNodeVec2Parameter_8fy8j"]
 parameter_name = "Speed"

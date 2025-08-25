@@ -6,13 +6,13 @@ extends Control
 
 
 func _ready() -> void: 
-    pass
+	pass
 
 
 
 func _on_start_pressed() -> void: 
-    print("start clicked")
-    SignalBus.next_level.emit("choose_player")
+	print("start clicked")
+	SignalBus.next_level.emit("choose_player")
 
-    owner.queue_free()
-    pass # Replace with function body.    
+	owner.queue_free()
+	pass # Replace with function body.    

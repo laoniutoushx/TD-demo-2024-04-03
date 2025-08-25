@@ -24,17 +24,17 @@ void fragment() {
     // 计算渐变方向
     float rad = radians(gradient_direction);
     vec2 dir = vec2(cos(rad), sin(rad));
-    
+
     // 计算渐变因子（基于 UV 和方向）
     float gradient_factor = dot(UV, dir);
     gradient_factor = clamp(gradient_factor, 0.0, 1.0);
-    
+
     // 混合渐变颜色
     vec4 gradient_color = mix(start_color, end_color, gradient_factor) * intensity;
-    
+
     // 应用渐变到文本（保留原始透明度）
     vec4 final_color = vec4(gradient_color.rgb, texture_alpha);
-    
+
     // 边框效果
     if (outline_thickness > 0.0) {
         float outline = 0.0;
@@ -47,13 +47,13 @@ void fragment() {
             final_color = mix(outline_color, final_color, texture_alpha);
         }
     }
-    
+
     // 阴影效果
     vec4 shadow = texture(TEXTURE, UV + vec2(shadow_offset_x, shadow_offset_y) * 0.01);
     if (shadow.a > 0.0 && texture_alpha == 0.0) {
         final_color = shadow_color * shadow.a;
     }
-    
+
     // 最终颜色输出
     COLOR = final_color;
 }
