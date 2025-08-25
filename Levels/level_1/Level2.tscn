@@ -142,7 +142,7 @@ skeleton = NodePath("../..")
 metadata/_edit_lock_ = true
 
 [node name="RayPickerCamera" parent="." node_paths=PackedStringArray("grid_map") instance=ExtResource("15_051g3")]
-transform = Transform3D(1, 0, 0, 0, 0.317305, 0.948324, 0, -0.948324, 0.317305, -0.417316, 32, 17.3702)
+transform = Transform3D(1, 0, 0, 0, 0.646257, 0.76312, 0, -0.76312, 0.646257, -0.417316, 16.4879, 17.3702)
 fov = 70.0
 grid_map = NodePath("../GridMap")
 

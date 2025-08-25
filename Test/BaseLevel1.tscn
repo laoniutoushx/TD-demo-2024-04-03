@@ -125,8 +125,8 @@ mesh = SubResource("PlaneMesh_oofvr")
 skeleton = NodePath("../..")
 
 [node name="RayPickerCamera" parent="." instance=ExtResource("1_1lpu5")]
-transform = Transform3D(1, 0, 0, 0, 0.317305, 0.948324, 0, -0.948324, 0.317305, -0.417316, 32, 17.3702)
-fov = 70.0
+transform = Transform3D(1, 0, 0, 0, 0.699664, 0.714473, 0, -0.714473, 0.699664, -0.417316, 9.61962, 12.5642)
+fov = 119.6
 
 [node name="GridMap" type="GridMap" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
