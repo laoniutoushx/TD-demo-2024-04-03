@@ -1,10 +1,9 @@
-[gd_scene load_steps=43 format=3 uid="uid://bxibobasihqmy"]
+[gd_scene load_steps=39 format=3 uid="uid://bxibobasihqmy"]
 
 [ext_resource type="Script" uid="uid://jiitdpiccclv" path="res://Levels/level_1/level.gd" id="1_chftm"]
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_elhju"]
 [ext_resource type="PackedScene" uid="uid://bdyptm7smjixm" path="res://Unit/player/gdbot/gdbot_skin.tscn" id="1_umiea"]
 [ext_resource type="MeshLibrary" uid="uid://b6ioecdsupr03" path="res://MeshLibraries/SpaceLibrary.tres" id="2_cynf3"]
-[ext_resource type="PackedScene" uid="uid://wacj14cvr4eq" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/WallTowers_DoorClosed_FirstAge.gltf" id="2_gg4ko"]
 [ext_resource type="PackedScene" uid="uid://bdruiih1fouof" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Rock.gltf" id="3_03ljr"]
 [ext_resource type="PackedScene" uid="uid://cym641yvamusq" path="res://Unit/home/base.tscn" id="3_epmlt"]
 [ext_resource type="Script" uid="uid://bcxq7ivuxy3up" path="res://addons/zylann.hterrain/hterrain.gd" id="3_gvb4y"]
@@ -12,25 +11,22 @@
 [ext_resource type="Resource" uid="uid://d07kpuyhw4vhh" path="res://Asserts/h_terrain_data/data.hterrain" id="4_ivp0y"]
 [ext_resource type="Script" uid="uid://dqh2rt0fn1vli" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="5_xcclr"]
 [ext_resource type="Script" uid="uid://cinc4wtj23xik" path="res://Scripts/controller/RTSController.gd" id="7_xmjyx"]
+[ext_resource type="Texture2D" uid="uid://dojndah00duji" path="res://Asserts/materials/Ground075_2K-JPG/Ground075_2K-JPG_Color.jpg" id="8_catae"]
 [ext_resource type="Script" uid="uid://d386ucglmr21" path="res://Waves/WaveManager.gd" id="8_iynip"]
-[ext_resource type="Texture2D" uid="uid://b8y078eghrc8r" path="res://Asserts/materials/Ground075_2K-JPG/Level1_slot0_albedo_bump.png" id="8_lj00k"]
 [ext_resource type="Shader" uid="uid://bnm6ve400eljx" path="res://Levels/level_1/Level1.gdshader" id="9_25tn7"]
 [ext_resource type="Texture2D" uid="uid://dmgtnga770225" path="res://Asserts/materials/Ground075_2K-JPG/Level1_slot1_albedo_bump.png" id="9_312i8"]
 [ext_resource type="Texture2D" uid="uid://dquempkj3exai" path="res://Asserts/materials/Ground075_2K-JPG/Level1_slot2_albedo_bump.png" id="10_7xjsd"]
 [ext_resource type="Texture2D" uid="uid://fyg6yshil7wl" path="res://Asserts/materials/Tiles130_2K-JPG/Tiles130_2K-JPG_Color.jpg" id="10_56d2c"]
 [ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI/ui.tscn" id="10_i7dqg"]
-[ext_resource type="Texture2D" uid="uid://bshysheo7cqjk" path="res://Asserts/materials/Ground075_2K-JPG/Level1_slot0_normal_roughness.png" id="10_tqfjl"]
 [ext_resource type="Texture2D" uid="uid://i7c50wew6re7" path="res://Asserts/materials/Ground075_2K-JPG/Level1_slot1_normal_roughness.png" id="11_7xjsd"]
+[ext_resource type="Texture2D" uid="uid://c76yvvbbkdfh7" path="res://Asserts/materials/Ground075_2K-JPG/Ground075_2K-JPG_NormalGL.jpg" id="11_hjlrc"]
 [ext_resource type="Texture2D" uid="uid://bfc5ana2pdo7a" path="res://Asserts/materials/Tiles130_2K-JPG/Tiles130_2K-JPG_NormalGL.jpg" id="11_ixhyk"]
 [ext_resource type="Texture2D" uid="uid://cqployapdqqit" path="res://Asserts/materials/Tiles130_2K-JPG/Tiles130_2K-JPG_Roughness.jpg" id="12_utomj"]
 [ext_resource type="Texture2D" uid="uid://cgyss5lflachy" path="res://Asserts/materials/Ground075_2K-JPG/Level1_slot2_normal_roughness.png" id="13_jn16r"]
 [ext_resource type="PackedScene" uid="uid://cddhheg1d4j32" path="res://Components/action_bar/action_bar.tscn" id="13_sr2b3"]
 [ext_resource type="PackedScene" uid="uid://btv2y2tfng4ob" path="res://Unit/turret/TurretManager.tscn" id="14_d0au5"]
 [ext_resource type="PackedScene" uid="uid://m4qd1674r2ft" path="res://Test/3d grid shader/cube_mesh_shader/cell_mesh_tri_ind.tscn" id="14_g50c0"]
-[ext_resource type="PackedScene" uid="uid://db0jb0y1rkt8c" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Houses_SecondAge_2_Level2.gltf" id="18_h4uq3"]
 [ext_resource type="PackedScene" uid="uid://dd4b4lnasc213" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree1.gltf" id="18_idpdn"]
-[ext_resource type="PackedScene" uid="uid://dan2sqr4q05tc" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree2.gltf" id="19_8kqgr"]
-[ext_resource type="PackedScene" uid="uid://cxhmatlnx4b1s" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree_Group.gltf" id="20_qdvia"]
 [ext_resource type="PackedScene" uid="uid://brsoxpbmx54b2" path="res://System/item_system/resources/treasure_chest.tscn" id="29_hjlrc"]
 [ext_resource type="Script" uid="uid://ceet2kpd86p7c" path="res://System/item_system/domain/DropItem.gd" id="30_7xjsd"]
 
@@ -53,7 +49,7 @@ glow_enabled = true
 [sub_resource type="Resource" id="Resource_vqpk2"]
 script = ExtResource("5_xcclr")
 mode = 0
-textures = [[ExtResource("8_lj00k"), ExtResource("9_312i8"), ExtResource("10_7xjsd")], [ExtResource("10_tqfjl"), ExtResource("11_7xjsd"), ExtResource("13_jn16r")]]
+textures = [[ExtResource("8_catae"), ExtResource("9_312i8"), ExtResource("10_7xjsd")], [ExtResource("11_hjlrc"), ExtResource("11_7xjsd"), ExtResource("13_jn16r")]]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1726d"]
 render_priority = 0
@@ -210,7 +206,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.4411, 0.103827, 5.59998)
 
 [node name="Base" parent="." instance=ExtResource("3_epmlt")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 31.3225, 0, -17.6237)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 31.3225, 0, -18.3236)
 
 [node name="RTSController" type="Node3D" parent="." node_paths=PackedStringArray("cam")]
 script = ExtResource("7_xmjyx")
@@ -227,66 +223,6 @@ cell_mesh_indicator_scene = ExtResource("14_g50c0")
 
 [node name="Resource_Tree12" parent="Environment" instance=ExtResource("18_idpdn")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 35.9255, 0, 11.6911)
-
-[node name="Resource_Tree22" parent="Environment" instance=ExtResource("19_8kqgr")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 35.9134, -9.53674e-07, 1.27881)
-
-[node name="Resource_Tree_Group2" parent="Environment" instance=ExtResource("20_qdvia")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 41.5345, 0, 1.47907)
-
-[node name="Resource_Tree_Group3" parent="Environment" instance=ExtResource("20_qdvia")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 41.3855, -1.90735e-06, -8.81063)
-
-[node name="Resource_Tree_Group4" parent="Environment" instance=ExtResource("20_qdvia")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 41.5345, 0, -18.469)
-
-[node name="Resource_Tree_Group5" parent="Environment" instance=ExtResource("20_qdvia")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 41.3855, -1.90735e-06, -28.7588)
-
-[node name="Resource_Tree_Group6" parent="Environment" instance=ExtResource("20_qdvia")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 30.8767, 0, -40.7714)
-
-[node name="Resource_Tree_Group7" parent="Environment" instance=ExtResource("20_qdvia")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 20.6953, -1.90735e-06, -40.6788)
-
-[node name="Resource_Tree_Group8" parent="Environment" instance=ExtResource("20_qdvia")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 10.3453, 0, -40.8881)
-
-[node name="Resource_Tree_Group9" parent="Environment" instance=ExtResource("20_qdvia")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.163912, -1.90735e-06, -40.7954)
-
-[node name="Resource_Tree_Group10" parent="Environment" instance=ExtResource("20_qdvia")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -9.48613, 0, -41.0047)
-
-[node name="Resource_Tree_Group11" parent="Environment" instance=ExtResource("20_qdvia")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -19.6676, -1.90735e-06, -40.9121)
-
-[node name="Resource_Tree_Group12" parent="Environment" instance=ExtResource("20_qdvia")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -29.4342, 0, -41.3547)
-
-[node name="Resource_Tree_Group13" parent="Environment" instance=ExtResource("20_qdvia")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -39.6157, -1.90735e-06, -41.262)
-
-[node name="Resource_Tree_Group14" parent="Environment" instance=ExtResource("20_qdvia")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -41.991, 0, -21.5021)
-
-[node name="Resource_Tree_Group17" parent="Environment" instance=ExtResource("20_qdvia")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -41.991, 0, -31.4997)
-
-[node name="Resource_Tree_Group15" parent="Environment" instance=ExtResource("20_qdvia")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -42.9566, -1.90735e-06, -11.9603)
-
-[node name="Resource_Tree_Group16" parent="Environment" instance=ExtResource("20_qdvia")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -44.6969, -1.90735e-06, -1.71811)
-
-[node name="Resource_Tree_Group26" parent="Environment" instance=ExtResource("20_qdvia")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 42.3163, -1.90735e-06, 11.2139)
-
-[node name="Houses_SecondAge_2_Level22" parent="Environment" instance=ExtResource("18_h4uq3")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 9.73745, 0, -26.2595)
-
-[node name="WallTowers_DoorClosed_FirstAge2" parent="Environment" instance=ExtResource("2_gg4ko")]
-transform = Transform3D(-5, 0, -4.37114e-07, 0, 5, 0, 4.37114e-07, 0, -5, 26.18, 0, -27.6704)
 
 [node name="Rock2" parent="Environment" instance=ExtResource("3_03ljr")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -7.22688, 0, -14.9699)
