@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bxibobasihqmy"]
+[gd_scene load_steps=41 format=3 uid="uid://bxibobasihqmy"]
 
 [ext_resource type="Script" uid="uid://jiitdpiccclv" path="res://Levels/level_1/level.gd" id="1_chftm"]
 [ext_resource type="PackedScene" uid="uid://boulaxdrcplpg" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_elhju"]
@@ -11,21 +11,23 @@
 [ext_resource type="Resource" uid="uid://d07kpuyhw4vhh" path="res://Asserts/h_terrain_data/data.hterrain" id="4_ivp0y"]
 [ext_resource type="Script" uid="uid://dqh2rt0fn1vli" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="5_xcclr"]
 [ext_resource type="Script" uid="uid://cinc4wtj23xik" path="res://Scripts/controller/RTSController.gd" id="7_xmjyx"]
-[ext_resource type="Texture2D" uid="uid://dojndah00duji" path="res://Asserts/materials/Ground075_2K-JPG/Ground075_2K-JPG_Color.jpg" id="8_catae"]
 [ext_resource type="Script" uid="uid://d386ucglmr21" path="res://Waves/WaveManager.gd" id="8_iynip"]
+[ext_resource type="Texture2D" uid="uid://cxsddk700q5mr" path="res://Levels/level_1/Level1_slot0_albedo_bump.png" id="8_lj00k"]
 [ext_resource type="Shader" uid="uid://bnm6ve400eljx" path="res://Levels/level_1/Level1.gdshader" id="9_25tn7"]
-[ext_resource type="Texture2D" uid="uid://dmgtnga770225" path="res://Asserts/materials/Ground075_2K-JPG/Level1_slot1_albedo_bump.png" id="9_312i8"]
-[ext_resource type="Texture2D" uid="uid://dquempkj3exai" path="res://Asserts/materials/Ground075_2K-JPG/Level1_slot2_albedo_bump.png" id="10_7xjsd"]
+[ext_resource type="Texture2D" uid="uid://ssg5up7saq6q" path="res://Levels/level_1/Level1_slot1_albedo_bump.png" id="9_312i8"]
 [ext_resource type="Texture2D" uid="uid://fyg6yshil7wl" path="res://Asserts/materials/Tiles130_2K-JPG/Tiles130_2K-JPG_Color.jpg" id="10_56d2c"]
 [ext_resource type="PackedScene" uid="uid://v7ppoiw21kdi" path="res://UI/ui.tscn" id="10_i7dqg"]
-[ext_resource type="Texture2D" uid="uid://i7c50wew6re7" path="res://Asserts/materials/Ground075_2K-JPG/Level1_slot1_normal_roughness.png" id="11_7xjsd"]
-[ext_resource type="Texture2D" uid="uid://c76yvvbbkdfh7" path="res://Asserts/materials/Ground075_2K-JPG/Ground075_2K-JPG_NormalGL.jpg" id="11_hjlrc"]
+[ext_resource type="Texture2D" uid="uid://baci0tbmcgmbo" path="res://Levels/level_1/Level1_slot2_albedo_bump.png" id="10_tqfjl"]
+[ext_resource type="Texture2D" uid="uid://c0mtvptnnk33f" path="res://Levels/level_1/Level1_slot3_albedo_bump.png" id="11_7xjsd"]
 [ext_resource type="Texture2D" uid="uid://bfc5ana2pdo7a" path="res://Asserts/materials/Tiles130_2K-JPG/Tiles130_2K-JPG_NormalGL.jpg" id="11_ixhyk"]
+[ext_resource type="Texture2D" uid="uid://dt3oco8x2kbmb" path="res://Levels/level_1/Level1_slot0_normal_roughness.png" id="12_jn16r"]
 [ext_resource type="Texture2D" uid="uid://cqployapdqqit" path="res://Asserts/materials/Tiles130_2K-JPG/Tiles130_2K-JPG_Roughness.jpg" id="12_utomj"]
-[ext_resource type="Texture2D" uid="uid://cgyss5lflachy" path="res://Asserts/materials/Ground075_2K-JPG/Level1_slot2_normal_roughness.png" id="13_jn16r"]
+[ext_resource type="Texture2D" uid="uid://dc807c4aqlfly" path="res://Levels/level_1/Level1_slot1_normal_roughness.png" id="13_ck2aa"]
 [ext_resource type="PackedScene" uid="uid://cddhheg1d4j32" path="res://Components/action_bar/action_bar.tscn" id="13_sr2b3"]
+[ext_resource type="Texture2D" uid="uid://ur3vahvc4yau" path="res://Levels/level_1/Level1_slot2_normal_roughness.png" id="14_0bopa"]
 [ext_resource type="PackedScene" uid="uid://btv2y2tfng4ob" path="res://Unit/turret/TurretManager.tscn" id="14_d0au5"]
 [ext_resource type="PackedScene" uid="uid://m4qd1674r2ft" path="res://Test/3d grid shader/cube_mesh_shader/cell_mesh_tri_ind.tscn" id="14_g50c0"]
+[ext_resource type="Texture2D" uid="uid://ji2s1x270ubw" path="res://Levels/level_1/Level1_slot3_normal_roughness.png" id="15_80t7b"]
 [ext_resource type="PackedScene" uid="uid://dd4b4lnasc213" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Resource_Tree1.gltf" id="18_idpdn"]
 [ext_resource type="PackedScene" uid="uid://brsoxpbmx54b2" path="res://System/item_system/resources/treasure_chest.tscn" id="29_hjlrc"]
 [ext_resource type="Script" uid="uid://ceet2kpd86p7c" path="res://System/item_system/domain/DropItem.gd" id="30_7xjsd"]
@@ -49,7 +51,7 @@ glow_enabled = true
 [sub_resource type="Resource" id="Resource_vqpk2"]
 script = ExtResource("5_xcclr")
 mode = 0
-textures = [[ExtResource("8_catae"), ExtResource("9_312i8"), ExtResource("10_7xjsd")], [ExtResource("11_hjlrc"), ExtResource("11_7xjsd"), ExtResource("13_jn16r")]]
+textures = [[ExtResource("8_lj00k"), ExtResource("9_312i8"), ExtResource("10_tqfjl"), ExtResource("11_7xjsd")], [ExtResource("12_jn16r"), ExtResource("13_ck2aa"), ExtResource("14_0bopa"), ExtResource("15_80t7b")]]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1726d"]
 render_priority = 0
@@ -106,9 +108,9 @@ map_scale = Vector3(0.5, 0.5, 0.5)
 centered = true
 _terrain_data = ExtResource("4_ivp0y")
 chunk_size = 16
-collision_enabled = true
-collision_layer = 1
-collision_mask = 1
+collision_enabled = false
+collision_layer = 0
+collision_mask = 0
 shader_type = "Classic4"
 custom_shader = null
 custom_globalmap_shader = null
