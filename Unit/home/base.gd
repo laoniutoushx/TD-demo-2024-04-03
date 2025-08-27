@@ -8,11 +8,11 @@ var current_life: int:
 		current_life = life_in
 		print("life was changed")
 		lifeLable.text = str(current_life) + "/" + str(life)
-		
+
+		var green = Color.GREEN
 		var red = Color.RED
-		var white = Color.WHITE
-		
-		lifeLable.modulate = red.lerp(white, float(current_life) / float(life))
+
+		lifeLable.modulate = red.lerp(green, float(current_life) / float(life))
 
 		if current_life == 0:
 			print("game over")

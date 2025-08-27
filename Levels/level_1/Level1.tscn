@@ -226,7 +226,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 31.322
 [node name="RTSController" type="Node3D" parent="." node_paths=PackedStringArray("cam")]
 script = ExtResource("7_xmjyx")
 cam = NodePath("../RayPickerCamera")
-map_bounds = Rect2(-20, -10, 50, 50)
+map_bounds = Rect2(-30, -10, 50, 50)
 
 [node name="WaveManager" type="Node3D" parent="."]
 script = ExtResource("8_iynip")
@@ -342,15 +342,15 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 44.040
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 44.3334, 0.0150017, 11.9526)
 
 [node name="FogVolume" type="FogVolume" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.3816, 1, -13.5129)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.6953, 1, -13.5129)
 layers = 524288
-size = Vector3(23.9091, 2, 80)
+size = Vector3(30.5365, 2, 80)
 material = SubResource("FogMaterial_ck2aa")
 
 [node name="FogVolume2" type="FogVolume" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.6736, 1, -13.5129)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.0338, 1, -13.5129)
 layers = 524288
-size = Vector3(24.2419, 2, 80)
+size = Vector3(30.9623, 2, 80)
 material = SubResource("FogMaterial_ck2aa")
 
 [node name="FogVolume3" type="FogVolume" parent="Environment"]

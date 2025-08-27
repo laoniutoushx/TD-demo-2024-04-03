@@ -56,7 +56,7 @@ func setup(text: String, color: Color = Color.WHITE, damage_type: int = DamageCt
 
 	
 	# 设置随机方向
-	random_direction = Vector3(
+	random_direction = Vector3( 
 		randf_range(-1.0, 1.0),
 		randf_range(0.5, 1.0),
 		randf_range(-1.0, 1.0)
