@@ -17,3 +17,9 @@ func _on_start_pressed() -> void:
 
 	owner.queue_free()
 	pass # Replace with function body.    
+
+func _show() -> void:
+	canvas_layer.visible = true
+
+func _hide() -> void:
+	canvas_layer.visible = false

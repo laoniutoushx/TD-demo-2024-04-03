@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://hd4hmcwk2uo6"]
+[gd_scene load_steps=5 format=3 uid="uid://hd4hmcwk2uo6"]
 
+[ext_resource type="Script" uid="uid://8rqoqps8go2x" path="res://Levels/index/index.gd" id="1_6bjpg"]
 [ext_resource type="PackedScene" uid="uid://cy48q06v7iqtq" path="res://Levels/level_1/Level12.tscn" id="1_7uanx"]
 [ext_resource type="PackedScene" uid="uid://d12j5q1c4hxby" path="res://UI/index/index_ui.tscn" id="1_e5jvj"]
 
@@ -13,14 +14,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_6bjpg")
 
 [node name="SubViewport" type="SubViewport" parent="."]
+unique_name_in_owner = true
 gui_disable_input = true
 size = Vector2i(1080, 512)
 
-[node name="Level12" parent="SubViewport" instance=ExtResource("1_7uanx")]
+[node name="BGLevel" parent="SubViewport" instance=ExtResource("1_7uanx")]
+unique_name_in_owner = true
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="BGTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,5 +35,6 @@ grow_vertical = 2
 texture = SubResource("ViewportTexture_7uanx")
 
 [node name="IndexUi" parent="." instance=ExtResource("1_e5jvj")]
+unique_name_in_owner = true
 z_index = 127
 layout_mode = 1

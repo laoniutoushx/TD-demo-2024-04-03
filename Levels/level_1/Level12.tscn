@@ -1,6 +1,5 @@
-[gd_scene load_steps=32 format=3 uid="uid://cy48q06v7iqtq"]
+[gd_scene load_steps=29 format=3 uid="uid://cy48q06v7iqtq"]
 
-[ext_resource type="Script" uid="uid://jiitdpiccclv" path="res://Levels/level_1/level.gd" id="1_ju3ny"]
 [ext_resource type="Texture2D" uid="uid://ck1gvidor42pp" path="res://Asserts/Images/background/rogland_clear_night_4k.exr" id="4_4f7fs"]
 [ext_resource type="Script" uid="uid://bcxq7ivuxy3up" path="res://addons/zylann.hterrain/hterrain.gd" id="5_au0ev"]
 [ext_resource type="Resource" uid="uid://d07kpuyhw4vhh" path="res://Asserts/h_terrain_data/data.hterrain" id="6_yfd8d"]
@@ -18,7 +17,6 @@
 [ext_resource type="PackedScene" uid="uid://bdruiih1fouof" path="res://Asserts/Models/rts_ultimate_fantiasy/glTF/Rock.gltf" id="28_c1j3d"]
 [ext_resource type="PackedScene" uid="uid://dop8p2v3sf1r5" path="res://Asserts/Models/env/tree_03.fbx" id="29_lxboo"]
 [ext_resource type="PackedScene" uid="uid://brsoxpbmx54b2" path="res://System/item_system/resources/treasure_chest.tscn" id="31_vwdym"]
-[ext_resource type="Script" uid="uid://ceet2kpd86p7c" path="res://System/item_system/domain/DropItem.gd" id="32_7tx5w"]
 [ext_resource type="PackedScene" uid="uid://bd2c5erwfo0rf" path="res://Asserts/Models/env/tree_pine_05.fbx" id="33_vyt23"]
 [ext_resource type="PackedScene" uid="uid://durmdldpivwjh" path="res://Asserts/Models/env/tree_oka_04.fbx" id="34_5ruoe"]
 [ext_resource type="PackedScene" uid="uid://cirbj86rotn3t" path="res://Asserts/Models/env/tree_02.fbx" id="35_ntl6w"]
@@ -63,14 +61,7 @@ size = Vector2(100, 100)
 density = 0.5
 emission = Color(0.577381, 0.842208, 0.489076, 1)
 
-[sub_resource type="Resource" id="Resource_lj00k"]
-script = ExtResource("32_7tx5w")
-item_name = "axe"
-chance = 10000
-metadata/_custom_type_script = "uid://ceet2kpd86p7c"
-
 [node name="BaseLevel" type="Node3D"]
-script = ExtResource("1_ju3ny")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qynmx")
@@ -211,4 +202,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.8618, 0.0149973, -17.2065)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7281, 0.0150049, -27.1815)
 
 [node name="TreasureChest" parent="." instance=ExtResource("31_vwdym")]
-drop_item = SubResource("Resource_lj00k")
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 18.6057, 0, 0)
+
+[node name="Treasure Chest" parent="TreasureChest/Chest" index="0"]
+transform = Transform3D(0.818972, 0, -0.573833, 0, 1, 0, 0.573833, 0, 0.818972, 0, -0.343022, 0)
+
+[editable path="TreasureChest"]
