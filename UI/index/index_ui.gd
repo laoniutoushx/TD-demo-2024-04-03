@@ -12,7 +12,8 @@ func _ready() -> void:
 
 func _on_start_pressed() -> void: 
 	print("start clicked")
-	SignalBus.next_level.emit("choose_player")
+	# SignalBus.next_level.emit("choose_player")
+	SignalBus.next_level.emit("level1")
 
 	owner.queue_free()
 	pass # Replace with function body.    
