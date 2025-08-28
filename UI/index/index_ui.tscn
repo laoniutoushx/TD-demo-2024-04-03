@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://d12j5q1c4hxby"]
 
-[ext_resource type="FontFile" uid="uid://bce2telnqh8yo" path="res://Asserts/resources/demo_ui/Font/江城圆体 500W.ttf" id="1_1msp2"]
 [ext_resource type="Shader" uid="uid://cd3kc5m2jrvvr" path="res://UI/index/index_ui_title.gdshader" id="1_g3k3s"]
 [ext_resource type="Script" uid="uid://b8qv2wpt55n3r" path="res://UI/index/index_ui.gd" id="1_v4w0m"]
 [ext_resource type="Texture2D" uid="uid://xcjfb0y6c56c" path="res://Asserts/resources/demo_ui/UI/ChatGPT Image Aug 25, 2025, 03_47_08 PM (1).png" id="3_jck8i"]
+[ext_resource type="FontFile" uid="uid://m6iwjdk2oqpf" path="res://Asserts/resources/demo_ui/Font/江城圆体 700W.ttf" id="4_jck8i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1msp2"]
 shader = ExtResource("1_g3k3s")
@@ -104,7 +104,7 @@ theme_override_colors/font_color = Color(1, 0.676667, 0.03, 1)
 theme_override_colors/font_focus_color = Color(2, 0.78, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.713657, 0.139984, 0.198013, 1)
 theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("1_1msp2")
+theme_override_fonts/font = ExtResource("4_jck8i")
 theme_override_font_sizes/font_size = 45
 text = "开始游戏"
 flat = true
@@ -124,7 +124,7 @@ theme_override_colors/font_color = Color(1, 0.676667, 0.03, 1)
 theme_override_colors/font_focus_color = Color(2, 0.78, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.713657, 0.139984, 0.198013, 1)
 theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("1_1msp2")
+theme_override_fonts/font = ExtResource("4_jck8i")
 theme_override_font_sizes/font_size = 45
 text = "设置"
 flat = true
@@ -144,7 +144,7 @@ theme_override_colors/font_color = Color(1, 0.676667, 0.03, 1)
 theme_override_colors/font_focus_color = Color(2, 0.78, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.713657, 0.139984, 0.198013, 1)
 theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("1_1msp2")
+theme_override_fonts/font = ExtResource("4_jck8i")
 theme_override_font_sizes/font_size = 45
 text = "退出游戏"
 flat = true

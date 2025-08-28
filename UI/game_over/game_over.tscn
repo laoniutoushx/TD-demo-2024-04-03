@@ -1,0 +1,224 @@
+[gd_scene load_steps=13 format=3 uid="uid://3wslqnh7ui8n"]
+
+[ext_resource type="Shader" uid="uid://cd3kc5m2jrvvr" path="res://UI/index/index_ui_title.gdshader" id="1_kue3i"]
+[ext_resource type="Script" uid="uid://dcire2ijsokjw" path="res://UI/game_over/game_over.gd" id="1_osx01"]
+[ext_resource type="Texture2D" uid="uid://xcjfb0y6c56c" path="res://Asserts/resources/demo_ui/UI/ChatGPT Image Aug 25, 2025, 03_47_08 PM (1).png" id="2_86djh"]
+[ext_resource type="Shader" uid="uid://drrcb1fdwb2ul" path="res://UI/ui_border.gdshader" id="2_osx01"]
+[ext_resource type="FontFile" uid="uid://m6iwjdk2oqpf" path="res://Asserts/resources/demo_ui/Font/江城圆体 700W.ttf" id="3_86djh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7w6la"]
+shader = ExtResource("1_kue3i")
+shader_parameter/start_color = Color(0.87, 0.52896, 0.0174, 1)
+shader_parameter/end_color = Color(0.0203353, 0.00910742, 0, 1)
+shader_parameter/gradient_direction = 90.0
+shader_parameter/intensity = 1.0
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_thickness = 0.001
+shader_parameter/shadow_color = Color(0, 0, 0, 0.835294)
+shader_parameter/shadow_offset_x = -1.292
+shader_parameter/shadow_offset_y = 4.75e-07
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cmcd2"]
+shader = ExtResource("2_osx01")
+shader_parameter/border_width_px = 2.5
+shader_parameter/top_border_color = Color(0.247059, 0.12549, 0.0431373, 1)
+shader_parameter/right_border_color = Color(0.693382, 0.494863, 0, 1)
+shader_parameter/bottom_border_color = Color(0.247059, 0.12549, 0.0431373, 1)
+shader_parameter/left_border_color = Color(0.693382, 0.494863, 0, 1)
+shader_parameter/top_gradient = 0.0
+shader_parameter/right_gradient = 0.0
+shader_parameter/bottom_gradient = 0.0
+shader_parameter/left_gradient = 0.0
+shader_parameter/fill_color = Color(0.312155, 0.206096, 0.0538698, 1)
+shader_parameter/corner_radius_px = 40.0
+shader_parameter/smoothness_px = 5.0
+
+[sub_resource type="Gradient" id="Gradient_kue3i"]
+offsets = PackedFloat32Array(0.514286, 0.838095)
+colors = PackedColorArray(0.654725, 0.462244, 0.20817, 1, 0.420298, 0.283765, 0.0636872, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_86djh"]
+gradient = SubResource("Gradient_kue3i")
+fill = 1
+fill_from = Vector2(0.495726, 0.517094)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_osx01"]
+texture = SubResource("GradientTexture2D_86djh")
+
+[sub_resource type="LabelSettings" id="LabelSettings_kue3i"]
+font = ExtResource("3_86djh")
+font_size = 42
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cmcd2"]
+texture = ExtResource("2_86djh")
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_osx01")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PadL" type="MarginContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="PadL2" type="MarginContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/PadL2"]
+layout_mode = 2
+
+[node name="Pad1" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="Pad2" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad2"]
+material = SubResource("ShaderMaterial_7w6la")
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_outline_color = Color(0.17696, 0.124363, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_offset_y = 10
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_outline_size = 5
+theme_override_font_sizes/normal_font_size = 108
+text = "胜利！"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pad4" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4"]
+material = SubResource("ShaderMaterial_cmcd2")
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_osx01")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = -30
+
+[node name="WaveLabel" type="Label" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "完成波次：15/31"
+label_settings = SubResource("LabelSettings_kue3i")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DefeatLabel" type="Label" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "消灭敌人：250"
+label_settings = SubResource("LabelSettings_kue3i")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResLabel" type="Label" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "资源总量：1230/220"
+label_settings = SubResource("LabelSettings_kue3i")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "最终得分：7560"
+label_settings = SubResource("LabelSettings_kue3i")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pad6" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="Pad3" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_right = 150
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_cmcd2")
+
+[node name="Restart" type="Button" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.676667, 0.03, 1)
+theme_override_colors/font_focus_color = Color(2, 0.78, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.713657, 0.139984, 0.198013, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_86djh")
+theme_override_font_sizes/font_size = 45
+text = "重新开始"
+flat = true
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_cmcd2")
+
+[node name="Setting" type="Button" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer/PanelContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.676667, 0.03, 1)
+theme_override_colors/font_focus_color = Color(2, 0.78, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.713657, 0.139984, 0.198013, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_86djh")
+theme_override_font_sizes/font_size = 45
+text = "主界面"
+flat = true
+
+[node name="Pad5" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="PadR" type="MarginContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
