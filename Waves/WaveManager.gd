@@ -8,6 +8,7 @@ enum WaveState {
 	END
 }
 
+var cur_wave_index: int = 1
 var current_state: WaveState
 var wave_delay: float = 5.0	# 5s per wave interval
 
@@ -53,6 +54,8 @@ func wave_start():
 	for idx in wave_resources.size():	
 		var wave_resource: WaveResource = wave_resources[idx]
 		if wave_resource:
+
+			cur_wave_index = idx + 1
 
 			SignalBus.wave_start.emit(idx, wave_resource, wave_resources)
 			print("wave start: ", idx, wave_resource.level_code)

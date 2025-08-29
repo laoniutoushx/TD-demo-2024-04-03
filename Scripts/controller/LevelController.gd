@@ -30,10 +30,12 @@ func next_level_before():
 	pass
 	
 # load level scene by scene code	
-func next_level(code: String):
+func next_level(code: String) -> Node:
 	next_level_before()
-	load_scene(code)
+	var s = load_scene(code)
 	next_level_after()
+
+	return s
 	
 	
 func next_level_after():
@@ -50,6 +52,10 @@ func load_scene(scene_code: String) -> Node:
 	if scene_code == "choose_player":
 		scene = level_tres_map['choose_player'].scene.instantiate()
 		add_child(scene)
+
+	if scene_code == "game_over":
+		scene = level_tres_map['game_over'].scene.instantiate()
+		add_child(scene)		
 	
 	if scene_code == "level1":
 		# binding LevelResource
@@ -57,6 +63,8 @@ func load_scene(scene_code: String) -> Node:
 		# 初始化场景 1
 		scene = level_tres_map['level1'].scene.instantiate()
 		get_parent().add_child(scene)
+
+
 
 
 	_pre_scene = _cur_scene

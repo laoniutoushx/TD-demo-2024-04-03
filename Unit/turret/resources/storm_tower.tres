@@ -122,6 +122,7 @@ wood_cost = -1.0
 money_cost = 0.0
 money_reward = -1
 wood_reward = -1
+score_reward = 0
 max_health = 100.0
 max_mana = 3000.0
 move_speed = 5.0

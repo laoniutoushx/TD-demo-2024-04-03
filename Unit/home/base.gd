@@ -16,7 +16,17 @@ var current_life: int:
 
 		if current_life == 0:
 			print("game over")
-			get_tree().reload_current_scene()
+			# get_tree().reload_current_scene()
+
+			get_tree().paused = true
+			# show game over scene
+
+			var cur_scene = SOS.main.level_controller.next_level("game_over")
+			cur_scene.setup(false)
+
+			
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

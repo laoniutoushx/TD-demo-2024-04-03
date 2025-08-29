@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://3wslqnh7ui8n"]
 
 [ext_resource type="Shader" uid="uid://cd3kc5m2jrvvr" path="res://UI/index/index_ui_title.gdshader" id="1_kue3i"]
-[ext_resource type="Script" uid="uid://dcire2ijsokjw" path="res://UI/game_over/game_over.gd" id="1_osx01"]
+[ext_resource type="Script" uid="uid://dcire2ijsokjw" path="res://Levels/game_over/game_over.gd" id="1_osx01"]
 [ext_resource type="Texture2D" uid="uid://xcjfb0y6c56c" path="res://Asserts/resources/demo_ui/UI/ChatGPT Image Aug 25, 2025, 03_47_08 PM (1).png" id="2_86djh"]
 [ext_resource type="Shader" uid="uid://drrcb1fdwb2ul" path="res://UI/ui_border.gdshader" id="2_osx01"]
 [ext_resource type="FontFile" uid="uid://m6iwjdk2oqpf" path="res://Asserts/resources/demo_ui/Font/江城圆体 700W.ttf" id="3_86djh"]
@@ -64,6 +64,7 @@ grow_vertical = 2
 script = ExtResource("1_osx01")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 1
 layer = 128
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
@@ -95,7 +96,8 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad2"]
+[node name="VictoryLabel" type="RichTextLabel" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad2"]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_7w6la")
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
@@ -108,6 +110,24 @@ theme_override_constants/shadow_offset_x = 10
 theme_override_constants/shadow_outline_size = 5
 theme_override_font_sizes/normal_font_size = 108
 text = "胜利！"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FailedLabel" type="RichTextLabel" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad2"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_7w6la")
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_outline_color = Color(0.17696, 0.124363, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_offset_y = 10
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_outline_size = 5
+theme_override_font_sizes/normal_font_size = 108
+text = "失败！"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -126,6 +146,7 @@ layout_mode = 2
 theme_override_constants/separation = -30
 
 [node name="WaveLabel" type="Label" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 6
 text = "完成波次：15/31"
@@ -134,6 +155,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DefeatLabel" type="Label" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 6
 text = "消灭敌人：250"
@@ -142,6 +164,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ResLabel" type="Label" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 6
 text = "资源总量：1230/220"
@@ -150,6 +173,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ScoreLabel" type="Label" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 6
 text = "最终得分：7560"
@@ -222,3 +246,6 @@ size_flags_stretch_ratio = 0.3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
+
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer/PanelContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer/PanelContainer2/Setting" to="." method="_on_setting_pressed"]

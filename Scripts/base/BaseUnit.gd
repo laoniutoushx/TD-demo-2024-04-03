@@ -130,9 +130,10 @@ var _mesh_standing: MeshInstance3D
 # 金钱消耗
 @export var money_cost: float = -1
 
+# 奖励
 @export var money_reward: int = -1
 @export var wood_reward: int = -1
-
+@export var score_reward: int = 0
 
 
 

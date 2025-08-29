@@ -51,7 +51,8 @@ enum ELEMENT_PHASE_STR{
 @export var money_reward: int = -1
 # 木材奖励
 @export var wood_reward: int = -1
-
+# 积分奖励
+@export var score_reward: int = 0
 
 # unit status
 

@@ -16,6 +16,8 @@ class_name PlayerController extends Node3D
 
 @export var wood: int = 0
 func set_wood(s: Object, value: int) -> void:	# from _on_unit_logic_death
+	if wood < value:
+			total_wood += value - wood	# 统计总收入
 	wood = value
 	SignalBus.wood_changed.emit(s, wood)
 	# print("wood changed %s" % [wood])
@@ -23,10 +25,22 @@ func set_wood(s: Object, value: int) -> void:	# from _on_unit_logic_death
 
 @export var money: int = 0
 func set_money(s: Object, value: int) -> void:	# from _on_unit_logic_death
+	if money < value:
+		total_money += value - money	# 统计总收入
+
 	money = value
 	SignalBus.money_changed.emit(s, money)
 	# print("money changed %s" % [money])
-	
+
+
+
+# Player Status
+var death_unit_num = 0	# 玩家击杀单位数
+var player_score = 0	# 玩家积分数
+var total_wood = 0	# 玩家采集木材数
+var total_money = 0	# 玩家采集金钱数
+
+# ===================================
 
 var client_id: String = OS.get_unique_id()
 var player_idx: int
@@ -346,6 +360,10 @@ func _on_unit_logic_death(id: int, unit: BaseUnit):
 
 	if unit.money_reward > -1:
 		set_money(unit, money + unit.money_reward)
+
+	# 积分累计
+	player_score += unit.score_reward
+	death_unit_num += 1
 
 
 
