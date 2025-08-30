@@ -6,6 +6,8 @@ var level_tres_map: Dictionary = {}
 const LEVEL_RESOURCE_GROUP = preload("res://Asserts/resources/demo_ui/LevelResourceGroup.tres")
 
 
+var level_map: Dictionary = {}
+
 var _pre_scene
 var _cur_scene
 
@@ -33,6 +35,7 @@ func next_level_before():
 func next_level(code: String) -> Node:
 	next_level_before()
 	var s = load_scene(code)
+	level_map[code] = s
 	next_level_after()
 
 	return s

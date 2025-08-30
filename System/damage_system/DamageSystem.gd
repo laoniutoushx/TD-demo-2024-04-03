@@ -10,6 +10,8 @@ func _ready() -> void:
 func action(source: BaseUnit, target: BaseUnit):
 	# 等待动画回复点
 	await CommonUtil.await_timer(source.anim_ack_point)
+	if not is_instance_valid(self):
+		return	
 	
 	var fire_pos_marks: Array = CommonUtil.get_fire_pos(source)
 	
@@ -44,9 +46,13 @@ func process_single_fire_position_async(source: BaseUnit, original_target: BaseU
 	
 	# 弹幕系统处理
 	var bs = await (SystemUtil.barrage_system as BarrageSystem).action(source, fire_pos, current_target, fire_pos_mark)
+	if not is_instance_valid(self):
+		return
 	
 	# 处理主目标伤害
 	await apply_damage_and_effects(source, current_target)
+	if not is_instance_valid(self):
+		return
 	
 	# 更新目标信息
 	var dest_pos: Vector3 = bs[0]
@@ -55,6 +61,8 @@ func process_single_fire_position_async(source: BaseUnit, original_target: BaseU
 	
 	# 处理弹跳逻辑
 	await process_bounce_chain(source, current_target, dest_pos, target_unit_id, fire_pos_mark)
+	if not is_instance_valid(self):
+		return
 
 
 # 处理弹跳链
@@ -85,6 +93,8 @@ func process_bounce_chain(source: BaseUnit, initial_target: BaseUnit, dest_pos: 
 		
 		# 处理弹跳目标的伤害和效果
 		await apply_damage_and_effects(source, current_target)
+		if not is_instance_valid(self):
+			return
 		
 		# 更新位置和目标信息
 		current_dest_pos = bounce_result[0]

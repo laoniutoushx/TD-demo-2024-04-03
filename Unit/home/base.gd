@@ -16,13 +16,18 @@ var current_life: int:
 
 		if current_life == 0:
 			print("game over")
+			SignalBus.game_over.emit()
 			# get_tree().reload_current_scene()
 
-			get_tree().paused = true
+			var level1_scene = SOS.main.level_controller._cur_scene
 			# show game over scene
 
-			var cur_scene = SOS.main.level_controller.next_level("game_over")
-			cur_scene.setup(false)
+			var game_over_scene = SOS.main.level_controller.next_level("game_over")
+			game_over_scene.setup(false)
+
+
+
+	
 
 			
 

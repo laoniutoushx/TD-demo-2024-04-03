@@ -50,3 +50,8 @@ signal buff_cooldown_extend(buff: Buff, _ref: Variant)    # buff 删除
 # UI
 signal wave_start(wave_index: int, wave_resource: WaveResource, wave_resources: Array)	# wave start
 signal wave_end(wave_index: int, wave_resource: WaveResource, wave_resources: Array)	# wave end
+
+
+# Game
+signal game_over()   # 游戏结束
+signal game_restart()   # 游戏重启

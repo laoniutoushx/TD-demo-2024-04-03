@@ -166,7 +166,7 @@ func remove(_buff: Buff, target: Variant):
 	# 当 buff 为永久 buff （cooldown == -1）时，检查 buff 计数
 	if _buff.cooldown == -1:
 		# buff 计数（未达到最小数量时，不删除）（只适合 范围类光辉类 buff）（单体延迟冷却时间类，这里到期后应该立即删除，后期没有机会再触发删除）
-		if __buff_inst_counter[_id] > 1:
+		if __buff_inst_counter.has(_id) and __buff_inst_counter[_id] > 1:
 			__buff_inst_counter[_id] -= 1
 			# 退出时，处理 buff 计数
 			# print("buff exit %s" % __buff_inst_counter)

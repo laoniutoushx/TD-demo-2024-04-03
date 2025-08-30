@@ -15,7 +15,7 @@ func _on_start_pressed() -> void:
 	# SignalBus.next_level.emit("choose_player")
 	SignalBus.next_level.emit("level1")
 
-	owner.queue_free()
+	SOS.main.level_controller.level_map["index"].queue_free()
 	pass # Replace with function body.    
 
 func _show() -> void:

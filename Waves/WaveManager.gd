@@ -11,11 +11,13 @@ enum WaveState {
 var cur_wave_index: int = 1
 var current_state: WaveState
 var wave_delay: float = 5.0	# 5s per wave interval
+var is_game_over: bool = false
 
 var level_controller: LevelController
 var wave_resources: Array[WaveResource]
 
 var cur_wave_spawner
+
 
 class WaveSpawner:
 	var start_delay
@@ -31,6 +33,9 @@ class WaveSpawner:
 		if finished_enemy_spawner_counter == enemy_spawner_reses.size():
 			print("finished wave spawner")
 			spawning_finished.emit()
+	
+
+
 		
 
 
@@ -43,7 +48,8 @@ func _ready() -> void:
 	print("wave manager ready")
 	print(get_tree().get_meta(Constants.WAVE_RESOURCE))
 	
-	
+	# game over listener
+	SignalBus.game_over.connect(self._on_game_over)
 	
 	wave_resources = get_tree().get_meta(Constants.WAVE_RESOURCE) as Array[WaveResource]
 	wave_start()
@@ -52,6 +58,9 @@ func _ready() -> void:
 
 func wave_start():
 	for idx in wave_resources.size():	
+		if is_game_over:
+			return
+			
 		var wave_resource: WaveResource = wave_resources[idx]
 		if wave_resource:
 
@@ -65,15 +74,21 @@ func wave_start():
 
 			# start_delay
 			await CommonUtil.await_timer(wave_spawner.start_delay)
+			if not is_instance_valid(self):
+				return
 
 			# start
 			_wave_spawner_start(wave_spawner)
 
 			# next_wave_delay
 			await CommonUtil.await_timer(wave_spawner.next_wave_delay)
+			if not is_instance_valid(self):
+				return			
 
 			# waiting for wave_spawner over
 			await wave_spawner.spawning_finished
+			if not is_instance_valid(self):
+				return			
 	
 	pass
 
@@ -99,6 +114,9 @@ func _wave_spawner_start(wave_spawner: WaveManager.WaveSpawner) -> WaveSpawner:
 	
 	# spawning	(parallel spawning unit)
 	for enemy_spawner_res: EnemySpawnerResource in enemy_spawner_reses:
+		if is_game_over:
+			return wave_spawner
+			
 		var enemy_spawner: EnemySpawner =  EnemySpawner.new(enemy_spawner_res, %Path3D, %StartMark, wave_spawner)
 		#var enemy_spawner =  EnemySpawner.new(enemy_spawner_res, %OffsetNode, %StartMark, wave_spawner)
 
@@ -108,6 +126,7 @@ func _wave_spawner_start(wave_spawner: WaveManager.WaveSpawner) -> WaveSpawner:
 
 
 
-	
+func _on_game_over():
+	is_game_over = true
 	
 	
