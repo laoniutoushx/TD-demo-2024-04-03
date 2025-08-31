@@ -46,7 +46,7 @@ func process_single_fire_position_async(source: BaseUnit, original_target: BaseU
 	
 	# 弹幕系统处理
 	var bs = await (SystemUtil.barrage_system as BarrageSystem).action(source, fire_pos, current_target, fire_pos_mark)
-	if not is_instance_valid(self):
+	if not is_instance_valid(self) or not is_instance_valid(source) or  not is_instance_valid(current_target):
 		return
 	
 	# 处理主目标伤害
@@ -128,7 +128,7 @@ func _under_attack_anim(target: BaseUnit):
 		
 	mesh_standing.visible = true
 	# 延迟隐藏
-	CommonUtil.delay_execution(0.1, 
+	CommonUtil.delay_execution(0.1, target,
 		func(): 
 			if mesh_standing and is_instance_valid(mesh_standing): 
 				mesh_standing.visible = false
@@ -146,7 +146,7 @@ func _vfx_projectile_destory(target: BaseUnit):
 		
 	mesh_standing.visible = true
 	# 延迟隐藏
-	CommonUtil.delay_execution(0.1, 
+	CommonUtil.delay_execution(0.1, target,
 		func(): 
 			if mesh_standing and is_instance_valid(mesh_standing): 
 				mesh_standing.visible = false

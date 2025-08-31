@@ -47,13 +47,17 @@ static func await_timer(second, callback = func(): pass) -> void:
 ## 延迟执行方法
 ## 在指定延迟后执行回调函数，使用信号连接方式
 ## @param delay 延迟时间（秒）
+## @param root timer 绑定的节点
 ## @param callback 要执行的回调函数
-static func delay_execution(delay: float, callback: Callable):
+static func delay_execution(delay: float, root: Variant, callback: Callable):
 	if delay > 0:
 		# 创建一次性计时器
 		var timer = Timer.new()
 		timer.one_shot = true
-		var root = await_get_root_node()
+		if not root:
+			# 没有传入 root，直接获取根节点
+			root = await_get_root_node()
+
 		root.add_child(timer)
 		
 		# 创建回调包装函数，在执行完回调后清理计时器

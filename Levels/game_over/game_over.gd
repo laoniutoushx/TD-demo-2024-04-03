@@ -26,8 +26,10 @@ func setup(is_win: bool) -> void:
 
 func _on_restart_pressed() -> void:
     get_tree().paused = true
-    SOS.main.level_controller.level_map["game_over"].queue_free()
     SOS.main.level_controller.level_map["level1"].queue_free()
+    # godot4 等待一帧
+    await get_tree().process_frame
+    SOS.main.level_controller.level_map["game_over"].queue_free()
     var index_scene = SOS.main.level_controller.next_level("index")
     get_tree().paused = false
 

@@ -116,7 +116,7 @@ func _physics_process(delta: float) -> void:
 			# 立即转入寻敌状态
 			pre_state = current_state
 			current_state = TurretState.AIMMING_WAITING
-			CommonUtil.delay_execution(attack_speed, (func(node: BaseUnit) -> void:
+			CommonUtil.delay_execution(attack_speed, self, (func(node: BaseUnit) -> void:
 					if node and is_instance_valid(node):
 						node.pre_state = node.TurretState.AIMMING_WAITING).bind(self)
 				)

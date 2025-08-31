@@ -357,7 +357,7 @@ func change_state(new_state: TALENT_STATE) -> void:
             # 技能为持续释放（记录持续释放状态）
             if cast_duration > -1:
                 _is_casting = true
-                CommonUtil.delay_execution(cast_duration, func():
+                CommonUtil.delay_execution(cast_duration, self, func():
                     _is_casting = false
                     talent_cast_end.emit(talent_context)
                 )

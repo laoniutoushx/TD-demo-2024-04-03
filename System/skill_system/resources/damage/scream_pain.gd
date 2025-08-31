@@ -16,7 +16,7 @@ func action(skill_context: SkillContext) -> void:
 		var vfx = SystemUtil.vfx_system.create_vfx("shockwave", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
 		vfx.global_position.y = source_unit._height / 2
 		self.add_child(vfx)
-		CommonUtil.delay_execution(0.5, (func(_vfx): _vfx.queue_free()).bind(vfx))
+		CommonUtil.delay_execution(0.5, self, (func(_vfx): _vfx.queue_free()).bind(vfx))
 
 		CommonUtil.play_audio(source_unit, "施法")
 

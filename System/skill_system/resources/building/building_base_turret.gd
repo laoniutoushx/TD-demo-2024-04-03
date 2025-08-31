@@ -39,5 +39,5 @@ func action(skill_context: SkillContext) -> void:
     building.change_state(Turret.TurretState.IDLE)
 
     # remove vfx
-    CommonUtil.delay_execution(0.3, func(): if is_instance_valid(vfx): vfx.queue_free())
+    CommonUtil.delay_execution(0.3, self, func(): if is_instance_valid(vfx): vfx.queue_free())
 

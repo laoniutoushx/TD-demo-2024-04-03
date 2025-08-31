@@ -4,7 +4,7 @@ class_name Main extends Node3D
 
 @onready var level_controller: LevelController = $LevelController
 @onready var resource_manager: ResourceManager = $ResourceManager
-@onready var player_controller: PlayerController = $PlayerController
+@onready var player_controller: PlayerController
 var turret_manager: TurretManager
 
 # UI
@@ -43,6 +43,9 @@ func _ready() -> void:
 	CommonUtil.load_resources_to_container_from_directory("res://Asserts/waves/")
 
 
+
+func set_player_controller(controller: PlayerController) -> void:
+	player_controller = controller
 
 
 # func _input(event: InputEvent) -> void:

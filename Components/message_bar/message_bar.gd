@@ -17,7 +17,7 @@ func _process(delta: float) -> void:
 func set_message(message: String) -> void:
 	msg.text = message
 	shake()
-	CommonUtil.delay_execution(2, (func() -> void:
+	CommonUtil.delay_execution(2, self, (func() -> void:
 		msg.text = ""
 	))
 

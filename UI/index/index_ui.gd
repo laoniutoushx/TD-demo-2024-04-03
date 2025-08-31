@@ -12,6 +12,17 @@ func _ready() -> void:
 
 func _on_start_pressed() -> void: 
 	print("start clicked")
+	var pc = CommonUtil.get_first_node_by_node_name(SOS.main, "PlayerController", false)
+	if pc:
+		pc.queue_free()
+
+
+	# 创建 player controller
+	var player_controller: PlayerController = load("res://Player/player_controller.tscn").instantiate()
+	SOS.main.add_child(player_controller)
+	SOS.main.set_player_controller(player_controller)
+
+
 	# SignalBus.next_level.emit("choose_player")
 	SignalBus.next_level.emit("level1")
 
