@@ -160,3 +160,4 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer/PanelContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/VBoxContainer/PanelContainer2/Setting" to="." method="_on_setting_pressed"]
