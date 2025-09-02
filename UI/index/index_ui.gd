@@ -27,7 +27,16 @@ func _on_start_pressed() -> void:
 	SignalBus.next_level.emit("level1")
 
 	SOS.main.level_controller.level_map["index"].queue_free()
-	pass # Replace with function body.    
+
+
+
+
+func _on_setting_pressed() -> void:
+	SignalBus.next_level.emit("setting")
+	SOS.main.level_controller.level_map["index"].queue_free()
+
+
+
 
 func _show() -> void:
 	canvas_layer.visible = true

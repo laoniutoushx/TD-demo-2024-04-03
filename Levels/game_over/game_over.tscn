@@ -29,7 +29,7 @@ shader_parameter/top_gradient = 0.0
 shader_parameter/right_gradient = 0.0
 shader_parameter/bottom_gradient = 0.0
 shader_parameter/left_gradient = 0.0
-shader_parameter/fill_color = Color(0.312155, 0.206096, 0.0538698, 1)
+shader_parameter/fill_color = Color(0.31, 0.202792, 0.0527, 0.705882)
 shader_parameter/corner_radius_px = 40.0
 shader_parameter/smoothness_px = 5.0
 

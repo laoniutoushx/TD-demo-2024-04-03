@@ -1,0 +1,368 @@
+[gd_scene load_steps=16 format=3 uid="uid://cwt3d1c4qxvtt"]
+
+[ext_resource type="Script" uid="uid://dl4bw0w68nb7y" path="res://Levels/setting/setting.gd" id="1_4i7q2"]
+[ext_resource type="Shader" uid="uid://cd3kc5m2jrvvr" path="res://UI/index/index_ui_title.gdshader" id="2_4hvkh"]
+[ext_resource type="Shader" uid="uid://drrcb1fdwb2ul" path="res://UI/ui_border.gdshader" id="3_rw7gb"]
+[ext_resource type="FontFile" uid="uid://m6iwjdk2oqpf" path="res://Asserts/resources/demo_ui/Font/江城圆体 700W.ttf" id="4_eamsr"]
+[ext_resource type="Texture2D" uid="uid://xcjfb0y6c56c" path="res://Asserts/resources/demo_ui/UI/ChatGPT Image Aug 25, 2025, 03_47_08 PM (1).png" id="5_76yxb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7w6la"]
+shader = ExtResource("2_4hvkh")
+shader_parameter/start_color = Color(0.87, 0.52896, 0.0174, 1)
+shader_parameter/end_color = Color(0.0203353, 0.00910742, 0, 1)
+shader_parameter/gradient_direction = 90.0
+shader_parameter/intensity = 1.0
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_thickness = 0.001
+shader_parameter/shadow_color = Color(0, 0, 0, 0.835294)
+shader_parameter/shadow_offset_x = -1.292
+shader_parameter/shadow_offset_y = 4.75e-07
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cmcd2"]
+shader = ExtResource("3_rw7gb")
+shader_parameter/border_width_px = 2.5
+shader_parameter/top_border_color = Color(0.247059, 0.12549, 0.0431373, 1)
+shader_parameter/right_border_color = Color(0.693382, 0.494863, 0, 1)
+shader_parameter/bottom_border_color = Color(0.247059, 0.12549, 0.0431373, 1)
+shader_parameter/left_border_color = Color(0.693382, 0.494863, 0, 1)
+shader_parameter/top_gradient = 0.0
+shader_parameter/right_gradient = 0.0
+shader_parameter/bottom_gradient = 0.0
+shader_parameter/left_gradient = 0.0
+shader_parameter/fill_color = Color(0.312155, 0.206096, 0.0538698, 1)
+shader_parameter/corner_radius_px = 40.0
+shader_parameter/smoothness_px = 5.0
+
+[sub_resource type="Gradient" id="Gradient_kue3i"]
+offsets = PackedFloat32Array(0.514286, 0.838095)
+colors = PackedColorArray(0.654725, 0.462244, 0.20817, 1, 0.420298, 0.283765, 0.0636872, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_86djh"]
+gradient = SubResource("Gradient_kue3i")
+fill = 1
+fill_from = Vector2(0.495726, 0.517094)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_osx01"]
+texture = SubResource("GradientTexture2D_86djh")
+
+[sub_resource type="LabelSettings" id="LabelSettings_4i7q2"]
+font = ExtResource("4_eamsr")
+font_size = 50
+font_color = Color(0.761272, 0.543917, 0, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3wyci"]
+font = ExtResource("4_eamsr")
+font_size = 30
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3o38x"]
+bg_color = Color(0.2746, 0.214817, 0.00789799, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.251557, 0.152778, 9.62615e-08, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 6.0
+expand_margin_top = 10.0
+expand_margin_right = 5.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4i7q2"]
+bg_color = Color(1, 0.676667, 0.03, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+expand_margin_left = 3.0
+expand_margin_top = 7.0
+expand_margin_right = 10.0
+expand_margin_bottom = 7.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cmcd2"]
+texture = ExtResource("5_76yxb")
+
+[node name="Setting" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4i7q2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 1
+layer = 128
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PadL" type="MarginContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="PadL2" type="MarginContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/PadL2"]
+layout_mode = 2
+
+[node name="Pad2" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="SettingLabel" type="RichTextLabel" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad2"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_7w6la")
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_outline_color = Color(0.17696, 0.124363, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_offset_y = 10
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_outline_size = 5
+theme_override_font_sizes/normal_font_size = 108
+text = "设置"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pad4" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4"]
+material = SubResource("ShaderMaterial_cmcd2")
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_osx01")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = -30
+
+[node name="AudioContainer" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 10
+
+[node name="VSplitContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/AudioContainer"]
+layout_mode = 2
+
+[node name="AudioLabel" type="Label" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/AudioContainer/VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "音量"
+label_settings = SubResource("LabelSettings_4i7q2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSplitContainer" type="HSplitContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/AudioContainer/VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BgLabel" type="Label" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/AudioContainer/VSplitContainer/HSplitContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "背景音乐"
+label_settings = SubResource("LabelSettings_3wyci")
+vertical_alignment = 1
+
+[node name="BgVolum" type="HSlider" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/AudioContainer/VSplitContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_constants/center_grabber = 0
+theme_override_styles/slider = SubResource("StyleBoxFlat_3o38x")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_4i7q2")
+value = 50.0
+
+[node name="HSplitContainer2" type="HSplitContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/AudioContainer/VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SoundLabel" type="Label" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/AudioContainer/VSplitContainer/HSplitContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "游戏音效"
+label_settings = SubResource("LabelSettings_3wyci")
+vertical_alignment = 1
+
+[node name="SoundVolum" type="HSlider" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/AudioContainer/VSplitContainer/HSplitContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_constants/center_grabber = 0
+theme_override_styles/slider = SubResource("StyleBoxFlat_3o38x")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_4i7q2")
+value = 50.0
+
+[node name="LanguageContainer" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/LanguageContainer"]
+layout_mode = 2
+
+[node name="LanguageLabel" type="Label" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/LanguageContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "语言"
+label_settings = SubResource("LabelSettings_4i7q2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/LanguageContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/LanguageContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_fonts/font = ExtResource("4_eamsr")
+theme_override_font_sizes/font_size = 30
+alignment = 1
+selected = 0
+item_count = 2
+popup/item_0/text = "中文"
+popup/item_0/id = 0
+popup/item_1/text = "English"
+popup/item_1/id = 1
+
+[node name="Graphics" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/Graphics"]
+layout_mode = 2
+
+[node name="GrapphLabel" type="Label" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "图形"
+label_settings = SubResource("LabelSettings_4i7q2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/Graphics/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_fonts/font = ExtResource("4_eamsr")
+theme_override_font_sizes/font_size = 30
+alignment = 1
+selected = 1
+item_count = 3
+popup/item_0/text = "低画质"
+popup/item_0/id = 0
+popup/item_1/text = "中画质"
+popup/item_1/id = 1
+popup/item_2/text = "高画质"
+popup/item_2/id = 2
+
+[node name="Pad6" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="Pad3" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_cmcd2")
+
+[node name="Apply" type="Button" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/HBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.676667, 0.03, 1)
+theme_override_colors/font_focus_color = Color(2, 0.78, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.713657, 0.139984, 0.198013, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_eamsr")
+theme_override_font_sizes/font_size = 45
+text = "应用"
+flat = true
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_cmcd2")
+
+[node name="Return" type="Button" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/HBoxContainer/PanelContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.676667, 0.03, 1)
+theme_override_colors/font_focus_color = Color(2, 0.78, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.713657, 0.139984, 0.198013, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_eamsr")
+theme_override_font_sizes/font_size = 45
+text = "返回"
+flat = true
+
+[node name="Pad5" type="MarginContainer" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="PadR" type="MarginContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/HBoxContainer/PanelContainer/Apply" to="." method="_on_apply_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/HBoxContainer/PanelContainer2/Return" to="." method="_on_return_pressed"]
