@@ -30,30 +30,30 @@ float rect_sdf(vec2 p, vec2 size, float radius) {
 // 计算到各边的权重，基于到边的距离
 vec4 get_border_weights(vec2 uv_centered, vec2 half_size, float border_width_uv, float corner_radius_uv) {
     vec4 weights = vec4(0.0);
-    
+
     // 计算到各边的距离（不考虑圆角）
     float top_dist = half_size.y + uv_centered.y;
     float right_dist = half_size.x - uv_centered.x;
     float bottom_dist = half_size.y - uv_centered.y;
     float left_dist = half_size.x + uv_centered.x;
-    
+
     // 在圆角区域，我们需要特殊处理
     vec2 abs_uv = abs(uv_centered);
     vec2 corner_center = half_size - vec2(corner_radius_uv);
-    
+
     // 检查是否在圆角区域
     bool in_corner = abs_uv.x > corner_center.x && abs_uv.y > corner_center.y;
-    
+
     if (in_corner && corner_radius_uv > 0.0) {
         // 在圆角区域，基于相对位置来分配权重
         vec2 corner_pos = abs_uv - corner_center;
-        
+
         // 使用归一化的坐标来计算权重，避免角度计算的复杂性
         float total_dist = corner_pos.x + corner_pos.y;
         if (total_dist > 0.0) {
             float x_factor = corner_pos.x / total_dist;
             float y_factor = corner_pos.y / total_dist;
-            
+
             // 确定在哪个象限并分配权重
             if (uv_centered.x > 0.0 && uv_centered.y < 0.0) {
                 // 右上角：x增加时偏向右边框，y增加时偏向上边框
@@ -87,48 +87,48 @@ vec4 get_border_weights(vec2 uv_centered, vec2 half_size, float border_width_uv,
         if (left_dist < border_width_uv) {
             weights.w = 1.0;
         }
-        
+
         // 在边缘交接处，需要混合权重
         float total = weights.x + weights.y + weights.z + weights.w;
         if (total > 1.0) {
             weights /= total;
         }
     }
-    
+
     return weights;
 }
 
 void fragment() {
     // 计算纹理的像素尺寸
     vec2 texture_size = 1.0 / fwidth(UV);
-    
+
     // 使用较小的尺寸作为基准
     float min_size = min(texture_size.x, texture_size.y);
-    
+
     // 将像素值转换为UV空间
     float corner_radius_uv = corner_radius_px / min_size;
     float border_width_uv = border_width_px / min_size;
     float smoothness_uv = smoothness_px / min_size;
-    
+
     // 计算UV坐标，按纹理比例调整
     vec2 aspect_ratio = texture_size / min_size;
     vec2 uv_centered = (UV - vec2(0.5)) * aspect_ratio;
-    
+
     // UV空间中的半尺寸
     vec2 half_size = aspect_ratio * 0.5;
     vec2 rect_size = half_size - vec2(border_width_uv);
-    
+
     // 计算SDF距离
     float outer_dist = rect_sdf(uv_centered, half_size, corner_radius_uv);
     float inner_dist = rect_sdf(uv_centered, rect_size, max(0.0, corner_radius_uv - border_width_uv));
-    
+
     // 创建基本的形状遮罩
     float outer_alpha = 1.0 - smoothstep(-smoothness_uv, smoothness_uv, outer_dist);
     float inner_alpha = 1.0 - smoothstep(-smoothness_uv, smoothness_uv, inner_dist);
-    
+
     vec3 final_color = vec3(0.0);
     float final_alpha = 0.0;
-    
+
     // 如果在填充区域内，使用填充色
     if (inner_alpha > 0.5) {
         final_color = fill_color.rgb;
@@ -143,12 +143,12 @@ void fragment() {
     else {
         // 获取边框权重
         vec4 border_weights = get_border_weights(uv_centered, half_size, border_width_uv, corner_radius_uv);
-        
+
         // 应用渐变效果
         float distance_to_outer = max(0.0, -outer_dist);
         float distance_to_inner = max(0.0, inner_dist);
         float border_progress = distance_to_inner / (distance_to_inner + distance_to_outer);
-        
+
         // 对每个边框应用渐变
         vec4 gradient_factors = vec4(
             mix(1.0, border_progress, top_gradient),
@@ -156,29 +156,29 @@ void fragment() {
             mix(1.0, border_progress, bottom_gradient),
             mix(1.0, border_progress, left_gradient)
         );
-        
+
         border_weights *= gradient_factors;
-        
+
         // 归一化权重
         float total_weight = border_weights.x + border_weights.y + border_weights.z + border_weights.w;
         if (total_weight > 0.0) {
             border_weights /= total_weight;
         }
-        
+
         // 混合边框颜色
         final_color += top_border_color.rgb * border_weights.x;
         final_color += right_border_color.rgb * border_weights.y;
         final_color += bottom_border_color.rgb * border_weights.z;
         final_color += left_border_color.rgb * border_weights.w;
-        
+
         final_alpha += top_border_color.a * border_weights.x;
         final_alpha += right_border_color.a * border_weights.y;
         final_alpha += bottom_border_color.a * border_weights.z;
         final_alpha += left_border_color.a * border_weights.w;
-        
+
         // 应用外部形状遮罩
         final_alpha *= outer_alpha;
     }
-    
+
     COLOR = vec4(final_color, final_alpha);
 }

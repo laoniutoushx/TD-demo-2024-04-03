@@ -126,7 +126,6 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.3
 
 [node name="SettingLabel" type="RichTextLabel" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad2"]
-unique_name_in_owner = true
 material = SubResource("ShaderMaterial_7w6la")
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
@@ -180,7 +179,6 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="BgLabel" type="Label" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/AudioContainer/VSplitContainer/HSplitContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
@@ -189,6 +187,7 @@ label_settings = SubResource("LabelSettings_3wyci")
 vertical_alignment = 1
 
 [node name="BgVolum" type="HSlider" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/AudioContainer/VSplitContainer/HSplitContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -210,6 +209,7 @@ label_settings = SubResource("LabelSettings_3wyci")
 vertical_alignment = 1
 
 [node name="SoundVolum" type="HSlider" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/AudioContainer/VSplitContainer/HSplitContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -243,7 +243,8 @@ size_flags_vertical = 2
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_right = 100
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/LanguageContainer/VBoxContainer/MarginContainer"]
+[node name="LangOpt" type="OptionButton" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/LanguageContainer/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 2
 theme_override_fonts/font = ExtResource("4_eamsr")
@@ -281,7 +282,8 @@ size_flags_vertical = 2
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_right = 100
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/Graphics/VBoxContainer/MarginContainer"]
+[node name="GraOpt" type="OptionButton" parent="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/Graphics/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 2
 theme_override_fonts/font = ExtResource("4_eamsr")
