@@ -12,6 +12,8 @@ extends Control
 
 
 
+
+
 func _ready() -> void:
 	toggle()
 
@@ -31,13 +33,14 @@ func _on_apply_pressed() -> void:
 
 
 func _on_sound_volum_value_changed(value:float) -> void:
-	pass
+	SOS.main.config["sound_volume"] = value / 5.0
 
 
 
 func _on_bg_volum_value_changed(value:float) -> void:
-	var bgm_player: AudioStreamPlayer3D = CommonUtil.get_first_node_by_node_name(SOS.main.level_controller._cur_scene, "BGMPlayer")
-	bgm_player.volume_db = value
+	var bgm_player = CommonUtil.get_first_node_by_node_name(SOS.main.level_controller._cur_scene, "BGMPlayer")
+	SOS.main.config["bg_volume"] = value / 5.0
+	SignalBus.bgm_volume_changed.emit(value / 5.0)
 
 
 func toggle() -> void:

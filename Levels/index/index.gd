@@ -20,6 +20,13 @@ func _ready() -> void:
     # music 启动
     # var audio_stream = load("res://Asserts/Audios/background/StartMenuBGM.mp3") as AudioStream
     # SOS.main.audio_manager.play_bg_music(audio_stream)
+    SignalBus.bgm_volume_changed.connect(self._on_bgm_volume_changed)
+    $BGMPlayer.volume_db = SOS.main.config["bg_volume"]
+
+
+func _on_bgm_volume_changed(value: float) -> void:
+    $BGMPlayer.volume_db = value
+
 
 func _show_loading_hint():
     # 如果你有加载提示节点的话

@@ -780,7 +780,7 @@ static func play_audio(place: Variant, audio_name: String, volume_db: float = 0.
 		place.add_child(audio_player)
 	
 	# 设置音量（分贝）- 必须在添加到场景后设置
-	audio_player.volume_db = volume_db
+	audio_player.volume_db = volume_db + SOS.main.config["sound_volume"]
 	
 	# 播放音频
 	audio_player.play()

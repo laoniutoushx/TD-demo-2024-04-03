@@ -31,7 +31,13 @@ var turret_manager: TurretManager
 @onready var prob: GameProbability = %GameProbability
 
 
-
+# 配置信息
+@export var config: Dictionary = {
+	"bg_volume": 0.5,
+	"sound_volume": 0.5,
+	"language": "en",
+	"graphics_quality": "high"
+}
 
 
 # var input_event_callable_list: Array[Callable] = []

@@ -12,4 +12,9 @@ class_name Level extends Node3D
 
 
 func _ready() -> void:
-    pass
+    SignalBus.bgm_volume_changed.connect(self._on_bgm_volume_changed)
+    $BGMPlayer.volume_db = SOS.main.config["bg_volume"]
+
+
+func _on_bgm_volume_changed(value: float) -> void:
+    $BGMPlayer.volume_db = value

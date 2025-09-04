@@ -55,3 +55,7 @@ signal wave_end(wave_index: int, wave_resource: WaveResource, wave_resources: Ar
 # Game
 signal game_over()   # 游戏结束
 signal game_restart()   # 游戏重启
+
+
+# Audio
+signal bgm_volume_changed(value: float)
