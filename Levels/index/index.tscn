@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://hd4hmcwk2uo6"]
+[gd_scene load_steps=6 format=3 uid="uid://hd4hmcwk2uo6"]
 
 [ext_resource type="Script" uid="uid://8rqoqps8go2x" path="res://Levels/index/index.gd" id="1_6bjpg"]
 [ext_resource type="PackedScene" uid="uid://cy48q06v7iqtq" path="res://Levels/level_1/Level12.tscn" id="1_7uanx"]
 [ext_resource type="PackedScene" uid="uid://d12j5q1c4hxby" path="res://UI/index/index_ui.tscn" id="1_e5jvj"]
+[ext_resource type="AudioStream" uid="uid://dr51eyssnk0s4" path="res://Asserts/Audios/background/StartMenuBGM.mp3" id="5_xg41t"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_7uanx"]
 viewport_path = NodePath("SubViewport")
@@ -38,3 +39,7 @@ texture = SubResource("ViewportTexture_7uanx")
 unique_name_in_owner = true
 z_index = 127
 layout_mode = 1
+
+[node name="BGMPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_xg41t")
+autoplay = true

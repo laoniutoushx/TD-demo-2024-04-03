@@ -366,5 +366,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
+[connection signal="value_changed" from="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/AudioContainer/VSplitContainer/HSplitContainer/BgVolum" to="." method="_on_bg_volum_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad4/PanelContainer/VBoxContainer/AudioContainer/VSplitContainer/HSplitContainer2/SoundVolum" to="." method="_on_sound_volum_value_changed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/HBoxContainer/PanelContainer/Apply" to="." method="_on_apply_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/PadL2/VBoxContainer/Pad3/HBoxContainer/PanelContainer2/Return" to="." method="_on_return_pressed"]

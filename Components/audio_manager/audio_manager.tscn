@@ -7,3 +7,4 @@ script = ExtResource("1_yatjp")
 
 [node name="BGPlayer" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
+autoplay = true

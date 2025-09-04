@@ -11,8 +11,15 @@ extends Control
 
 
 
+
+func _ready() -> void:
+	toggle()
+
+
+
+
 func _on_return_pressed() -> void:
-	pass # Replace with function body.
+	toggle()
 
 
 
@@ -20,3 +27,18 @@ func _on_return_pressed() -> void:
 func _on_apply_pressed() -> void:
 	pass # Replace with function body.
 
+
+
+
+func _on_sound_volum_value_changed(value:float) -> void:
+	pass
+
+
+
+func _on_bg_volum_value_changed(value:float) -> void:
+	var bgm_player: AudioStreamPlayer3D = CommonUtil.get_first_node_by_node_name(SOS.main.level_controller._cur_scene, "BGMPlayer")
+	bgm_player.volume_db = value
+
+
+func toggle() -> void:
+	$CanvasLayer.visible = !$CanvasLayer.visible

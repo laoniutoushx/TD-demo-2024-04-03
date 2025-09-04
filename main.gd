@@ -4,6 +4,7 @@ class_name Main extends Node3D
 
 @onready var level_controller: LevelController = $LevelController
 @onready var resource_manager: ResourceManager = $ResourceManager
+# @onready var audio_manager: AudioManager = $AudioManager
 @onready var player_controller: PlayerController
 var turret_manager: TurretManager
 
@@ -46,6 +47,7 @@ func _ready() -> void:
 
 func set_player_controller(controller: PlayerController) -> void:
 	player_controller = controller
+
 
 
 # func _input(event: InputEvent) -> void:

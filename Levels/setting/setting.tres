@@ -6,8 +6,8 @@
 
 [resource]
 script = ExtResource("2_f714l")
-code = "game_over"
-name = "game_over"
+code = "setting"
+name = "setting"
 scene = ExtResource("1_ujomy")
 start_delay = 0.0
 end_delay = 0.0

@@ -32,8 +32,10 @@ func _on_start_pressed() -> void:
 
 
 func _on_setting_pressed() -> void:
-	SignalBus.next_level.emit("setting")
-	SOS.main.level_controller.level_map["index"].queue_free()
+	# SignalBus.next_level.emit("setting")
+	var setting =  load("res://Levels/setting/setting.tscn").instantiate()
+	SOS.main.add_child(setting)
+	setting.toggle()
 
 
 

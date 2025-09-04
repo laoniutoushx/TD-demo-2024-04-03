@@ -17,6 +17,10 @@ func _ready() -> void:
     _hide_loading_hint()
     _show_ui_smoothly()
 
+    # music 启动
+    # var audio_stream = load("res://Asserts/Audios/background/StartMenuBGM.mp3") as AudioStream
+    # SOS.main.audio_manager.play_bg_music(audio_stream)
+
 func _show_loading_hint():
     # 如果你有加载提示节点的话
     pass
