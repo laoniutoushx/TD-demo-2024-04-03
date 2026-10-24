@@ -49,5 +49,5 @@ release_type = 32
 target_type = 8
 effect_type = 8
 skill_script = ExtResource("4_3erva")
-skill_level_config = Array[ExtResource("1_4m8vg")]([SubResource("Resource_3erva"), SubResource("Resource_4m8vg")])
+skill_level_config = Array[Resource]([SubResource("Resource_3erva"), SubResource("Resource_4m8vg")])
 skill_buff_config = Array[ExtResource("2_3erva")]([ExtResource("3_4m8vg")])

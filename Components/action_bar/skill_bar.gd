@@ -97,14 +97,15 @@ func clear():
 
 func _on_slot_clicked(slot: BaseSlot):
 	cur_active_slot = slot
-	print("slot cliecked %s" % "hahaha")
+	CommonUtil.debug_log(["slot cliecked %s" % "hahaha"])
 	# skill indicator show
 	var skill: Skill = (slot.reference as Skill)
 
 	# 技能禁用状态检测
 	# 前置条件检查（魔耗）
 	if skill._is_disabled:
-		SOS.main.message_bar.set_message("技能无法施放，魔法不足")
+		var reason := SOS.main.player_controller.validate_skill_cost(skill.skill_context)
+		SOS.main.message_bar.set_message(reason if reason != "" else "技能当前不可用")
 		# change_state(SKILL_STATE.Idle)
 		return
 

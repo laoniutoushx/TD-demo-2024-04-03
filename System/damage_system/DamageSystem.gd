@@ -2,6 +2,12 @@ extends Node3D
 class_name DamageSystem
 
 var _tick := 0.0
+var attack_serial := 0
+
+func attack_delay(source: BaseUnit) -> float:
+	if source.anim_ack_normalized >= 0 and is_instance_valid(source._ap) and source._ap.has_animation(source.anim_attack):
+		return source._ap.get_animation(source.anim_attack).length * source.anim_ack_normalized / maxf(source._ap.speed_scale, 0.001)
+	return maxf(0.0, source.anim_ack_point)
 
 func _ready() -> void:
 	SystemUtil.damage_system = self
@@ -11,33 +17,35 @@ func action(source: BaseUnit, target: BaseUnit):
 	if not is_instance_valid(source) or not is_instance_valid(target):
 		return
 	var generation = SOS.main.level_controller.session_id
+	attack_serial += 1
+	var attack_uid := "%d:%d" % [generation, attack_serial]
 	# 等待动画回复点
-	await CommonUtil.await_timer(source.anim_ack_point)
+	await CommonUtil.await_timer(attack_delay(source))
 	if not is_instance_valid(source) or not is_instance_valid(target) or not SystemUtil.skill_system._session_valid(generation, source):
 		return
 
 	var fire_pos_marks: Array = CommonUtil.get_fire_pos(source)
 
 	# 并发处理所有火力点 - 不等待完成
-	process_all_fire_positions_concurrent(source, target, fire_pos_marks)
+	process_all_fire_positions_concurrent(source, target, fire_pos_marks, attack_uid)
 
 	# 火力点轮换
 	source.current_fire_pos_key = CommonUtil.get_next_fire_pos_key(source)
 
 
 # 并发处理所有火力点 - 核心方法
-func process_all_fire_positions_concurrent(source: BaseUnit, target: BaseUnit, fire_pos_marks: Array) -> void:
+func process_all_fire_positions_concurrent(source: BaseUnit, target: BaseUnit, fire_pos_marks: Array, attack_uid := "") -> void:
 	# 直接启动所有并发任务，不存储返回值
 	for fire_pos_mark: Marker3D in fire_pos_marks:
 		# 每个火力点独立启动，不等待
-		process_single_fire_position_async(source, target, fire_pos_mark)
+		process_single_fire_position_async(source, target, fire_pos_mark, attack_uid)
 
 	# 可选：如果需要等待所有任务完成，可以使用信号或计数器
 	# 这里不等待，实现真正的"发射后不管"并发
 
 
 # 单个火力点的异步处理 - 完全独立
-func process_single_fire_position_async(source: BaseUnit, original_target: BaseUnit, fire_pos_mark: Marker3D) -> void:
+func process_single_fire_position_async(source: BaseUnit, original_target: BaseUnit, fire_pos_mark: Marker3D, attack_uid := "") -> void:
 	if not is_instance_valid(source) or not is_instance_valid(original_target) or not is_instance_valid(fire_pos_mark):
 		return
 	var fire_pos = fire_pos_mark.global_position
@@ -50,12 +58,12 @@ func process_single_fire_position_async(source: BaseUnit, original_target: BaseU
 		CommonUtil.play_attack_animation_with_reset_v1(fire_pos_mark.ap, fire_pos_mark.fire_animation, source.attack_speed)
 
 	# 弹幕系统处理
-	var bs = await (SystemUtil.barrage_system as BarrageSystem).action(source, fire_pos, current_target, fire_pos_mark)
+	var bs = await (SystemUtil.barrage_system as BarrageSystem).action(source, fire_pos, current_target, fire_pos_mark, attack_uid)
 	if bs.is_empty() or not is_instance_valid(source) or not is_instance_valid(current_target):
 		return
 
 	# 处理主目标伤害
-	await apply_damage_and_effects(source, current_target)
+	await apply_damage_and_effects(source, current_target, attack_uid)
 	if not is_instance_valid(self) or not is_instance_valid(source) or not source.is_inside_tree():
 		return
 
@@ -65,13 +73,13 @@ func process_single_fire_position_async(source: BaseUnit, original_target: BaseU
 	current_target = bs[2]
 
 	# 处理弹跳逻辑
-	await process_bounce_chain(source, current_target, dest_pos, target_unit_id, fire_pos_mark)
+	await process_bounce_chain(source, current_target, dest_pos, target_unit_id, fire_pos_mark, attack_uid)
 	if not is_instance_valid(self) or not is_instance_valid(source) or not source.is_inside_tree():
 		return
 
 
 # 处理弹跳链
-func process_bounce_chain(source: BaseUnit, initial_target: BaseUnit, dest_pos: Vector3, target_unit_id: int, fire_pos_mark: Marker3D) -> void:
+func process_bounce_chain(source: BaseUnit, initial_target: BaseUnit, dest_pos: Vector3, target_unit_id: int, fire_pos_mark: Marker3D, attack_uid := "") -> void:
 	var current_target = initial_target
 	var current_dest_pos = dest_pos
 	var current_target_unit_id = target_unit_id
@@ -91,7 +99,7 @@ func process_bounce_chain(source: BaseUnit, initial_target: BaseUnit, dest_pos: 
 		var new_fire_pos = Vector3(current_target.global_position.x, current_target._height / 2, current_target.global_position.z)
 
 		# 弹幕系统处理弹跳
-		var bounce_result = await (SystemUtil.barrage_system as BarrageSystem).action(source, new_fire_pos, next_target, fire_pos_mark)
+		var bounce_result = await (SystemUtil.barrage_system as BarrageSystem).action(source, new_fire_pos, next_target, fire_pos_mark, attack_uid)
 
 		if bounce_result.is_empty():
 			return
@@ -99,7 +107,7 @@ func process_bounce_chain(source: BaseUnit, initial_target: BaseUnit, dest_pos: 
 		current_target = next_target
 
 		# 处理弹跳目标的伤害和效果
-		await apply_damage_and_effects(source, current_target)
+		await apply_damage_and_effects(source, current_target, attack_uid, &"bounce")
 		if not is_instance_valid(self) or not is_instance_valid(source) or not source.is_inside_tree():
 			return
 
@@ -110,12 +118,15 @@ func process_bounce_chain(source: BaseUnit, initial_target: BaseUnit, dest_pos: 
 
 
 # 应用伤害和效果
-func apply_damage_and_effects(source: BaseUnit, target: BaseUnit) -> void:
+func apply_damage_and_effects(source: BaseUnit, target: BaseUnit, attack_uid := "", role: StringName = &"primary") -> void:
 	if not is_instance_valid(source) or not is_instance_valid(target) or not target is BaseUnit or not (target as BaseUnit).is_alive():
 		return
 
 	# 造成伤害
-	target.take_damage(DamageCtxPool.get_ctx(source, target, source.attack_value))
+	var context := DamageCtxPool.get_ctx(source, target, source.attack_value)
+	context.attack_uid = attack_uid
+	context.hit_role = role
+	target.take_damage(context)
 
 	# 受击动画
 	_under_attack_anim(target)
@@ -229,6 +240,8 @@ class DamageCtxPool extends RefCounted:
 		context.damage = _damage
 		context.damage_type = _damage_type
 		context.damage_source_type = _damage_source
+		context.attack_uid = ""
+		context.hit_role = &"primary"
 		return context
 
 	static func return_ctx(ctx: DamageCtx) -> void:

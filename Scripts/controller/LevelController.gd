@@ -62,12 +62,15 @@ func next_level(code: String) -> Node:
 				level_map.erase(key)
 		_pre_scene.queue_free()
 	_transitioning = false
+	if is_instance_valid(get_parent().cursor_policy): get_parent().cursor_policy.sync_mode()
 	scene_changed.emit(code, scene)
 	return scene
 
 func open_settings() -> Control:
 	if not is_instance_valid(_settings):
+		_cancel_pointer_gesture("settings")
 		_settings = load(SETTINGS_PATH).instantiate()
+		if is_instance_valid(get_parent().cursor_policy): get_parent().cursor_policy.sync_mode()
 		get_parent().add_child(_settings)
 		_settings.tree_exiting.connect(_on_settings_closed, CONNECT_ONE_SHOT)
 		if _cur_scene == level_map.get("index"):
@@ -80,11 +83,14 @@ func finish_battle(is_win: bool) -> void:
 	if _battle_finished or not is_instance_valid(level_map.get("level1")):
 		return
 	_battle_finished = true
+	_cancel_pointer_gesture("battle_finished")
 	battle_active = false
+	if is_instance_valid(get_parent().cursor_policy): get_parent().cursor_policy.sync_mode()
 	get_parent().barrage_system.reset_session()
 	var battle = level_map["level1"]
 	var player = get_parent().player_controller
 	result = {
+		"is_win": is_win,
 		"wave": battle.wave_manager.cur_wave_index,
 		"waves": battle.wave_manager.wave_resources.size(),
 		"defeated": player.death_unit_num,
@@ -104,6 +110,7 @@ func return_to_menu(next_code: String = "index") -> void:
 	if _transitioning:
 		return
 	_transitioning = true
+	_cancel_pointer_gesture("scene_change")
 	battle_active = false
 	session_id += 1
 	SignalBus.game_over.emit()
@@ -137,3 +144,8 @@ func _on_settings_closed() -> void:
 		_cur_scene.index_ui._show()
 	elif _cur_scene == level_map.get("game_over"):
 		_cur_scene.show()
+
+func _cancel_pointer_gesture(reason: String) -> void:
+	var player = get_parent().player_controller
+	if is_instance_valid(player) and is_instance_valid(player.selection_box):
+		player.selection_box.cancel_selection(reason)

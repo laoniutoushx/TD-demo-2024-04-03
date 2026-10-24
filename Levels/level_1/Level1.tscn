@@ -88,7 +88,7 @@ normal_texture = ExtResource("11_ixhyk")
 uv1_scale = Vector3(0.1, 5, 1)
 
 [sub_resource type="FogMaterial" id="FogMaterial_ck2aa"]
-density = 0.5
+density = 0.12
 emission = Color(0.446777, 0.446777, 0.446777, 1)
 edge_fade = 0.17411
 
@@ -130,14 +130,14 @@ custom_globalmap_shader = null
 texture_set = SubResource("Resource_vqpk2")
 render_layers = 524288
 cast_shadow = 1
-shader_params/u_ground_uv_scale_per_texture = Vector4(20, 20, 20, 20)
+shader_params/u_ground_uv_scale_per_texture = Vector4(12, 12, 12, 12)
 shader_params/u_depth_blending = true
 shader_params/u_triplanar = false
 shader_params/u_tile_reduction = Vector4(0, 0, 0, 0)
 shader_params/u_globalmap_blend_start = 0.0
 shader_params/u_globalmap_blend_distance = 0.0
 shader_params/u_colormap_opacity_per_texture = Vector4(1, 1, 1, 1)
-shader_params/u_specular = 0.5
+shader_params/u_specular = 0.15
 
 [node name="GroundMesh" type="MeshInstance3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.001, 0)

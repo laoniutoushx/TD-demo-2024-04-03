@@ -7,6 +7,7 @@
 
 [resource]
 script = ExtResource("3_xqf4c")
+animation_player_path = NodePath("Fox2/AnimationPlayer")
 clz_name = "fox"
 model_path = ExtResource("2_q6kqe")
 title = "狡猾狐狸"

@@ -7,13 +7,14 @@ func _ready() -> void:
 
 # Completion belongs to the projectile, not a dynamically allocated signal on
 # this persistent system. Cancellation always resolves the waiting attack.
-func action(source, fire_pos: Vector3, target, fire_pos_mark: Marker3D) -> Array:
+func action(source, fire_pos: Vector3, target, fire_pos_mark: Marker3D, attack_uid := "") -> Array:
 	if not is_instance_valid(source) or not is_instance_valid(target) or not is_instance_valid(fire_pos_mark):
 		return []
 	if fire_pos_mark.fire_projectile == null:
 		return []
 	var projectile = PROJECTILE_SCENE.instantiate()
 	projectile.source = source
+	projectile.set_meta("attack_uid", attack_uid)
 	projectile.target = target
 	projectile.fire_pos = fire_pos
 	projectile.speed = source.projectile_speed

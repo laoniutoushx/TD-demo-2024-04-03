@@ -36,20 +36,20 @@ func _ready() -> void:
 		if fire_pos.fire_group not in fire_poses_map:
 			fire_poses_map[fire_pos.fire_group] = []
 		fire_poses_map[fire_pos.fire_group].append(fire_pos)
-	print("fire_poses_map:")
-	print(fire_poses_map)
+	CommonUtil.debug_log(["fire_poses_map:"])
+	CommonUtil.debug_log([fire_poses_map])
 
 
 	# 塔防单位状态设置
 	current_state = TurretState.BUILDING
 
 	# animation play
-	ap = CommonUtil.get_first_node_by_node_type(self, Constants.AnimationPlayer_CLZ)
+	ap = _ap
 
-	print("动画列表:")
-	var animations = ap.get_animation_list()
+	CommonUtil.debug_log(["动画列表:"])
+	var animations = ap.get_animation_list() if is_instance_valid(ap) else PackedStringArray()
 	for anim_name in animations:
-		print("  - ", anim_name)
+		CommonUtil.debug_log(["  - ", anim_name])
 
 	# HUD 初始化
 	hud.init_hud_bar(self)
@@ -71,13 +71,13 @@ func _physics_process(delta: float) -> void:
 
 		TurretState.IDLE:
 			# animation play
-			if ap != null and ap.has_animation(anim_idle):
+			if ap != null and ap.has_animation(anim_idle) and not (is_instance_valid(_at) and _at.active):
 				ap.play(anim_idle)
 
 			if enemies.size() > 0:
 				if current_enemy == null:
 					current_enemy = enemies.values()[0]
-					print(enemies)
+					CommonUtil.debug_log([enemies])
 				pre_state = current_state
 				current_state = TurretState.AIMMING
 			#print("idle")
@@ -89,17 +89,17 @@ func _physics_process(delta: float) -> void:
 				pre_state = current_state
 				current_state = TurretState.IDLE
 			else:
-				var target_direction = turret_top.global_position.direction_to(Vector3(current_enemy.position.x, turret_top.global_position.y, current_enemy.position.z))
+				var target_direction = turret_top.global_position.direction_to(Vector3(current_enemy.global_position.x, turret_top.global_position.y, current_enemy.global_position.z))
 
 				var target_basis:Basis = Basis.looking_at(target_direction)
 
-				turret_top.basis = turret_top.basis.slerp(target_basis, acquire_slerp_progress)
+				turret_top.global_basis = Basis(turret_top.global_basis.get_rotation_quaternion()).slerp(target_basis, clampf(acquire_slerp_progress, 0.0, 1.0)).scaled(turret_top.global_basis.get_scale())
 				acquire_slerp_progress += delta * turn_speed
 				if acquire_slerp_progress >= 0.97:
 					pre_state = current_state
 					current_state = TurretState.ATTACK
 					acquire_slerp_progress = 0
-					turret_top.look_at(Vector3(current_enemy.position.x, turret_top.global_position.y, current_enemy.position.z))
+					turret_top.look_at(Vector3(current_enemy.global_position.x, turret_top.global_position.y, current_enemy.global_position.z))
 				
 		# 需要一个执行动画回复点的状态或方法，等待执行完成后，执行 attack
 		# 等待动画回复点
@@ -107,7 +107,7 @@ func _physics_process(delta: float) -> void:
 			 
 		TurretState.ATTACK:
 			if current_enemy != null:
-				turret_top.look_at(Vector3(current_enemy.position.x, turret_top.global_position.y, current_enemy.position.z))
+				turret_top.look_at(Vector3(current_enemy.global_position.x, turret_top.global_position.y, current_enemy.global_position.z))
 				# 在转换为 attack 状态后立即发起攻击，之后等待攻击间隔冷却后切换状态（Timer.timeout）
 				attack(turret_top)
 				pre_state = current_state
@@ -137,9 +137,9 @@ func _physics_process(delta: float) -> void:
 					current_state = TurretState.AIMMING
 			else:
 				if current_enemy != null:
-					var target_direction = turret_top.global_position.direction_to(Vector3(current_enemy.position.x, turret_top.global_position.y, current_enemy.position.z))
+					var target_direction = turret_top.global_position.direction_to(Vector3(current_enemy.global_position.x, turret_top.global_position.y, current_enemy.global_position.z))
 					var target_basis:Basis = Basis.looking_at(target_direction)
-					turret_top.basis = turret_top.basis.slerp(target_basis, acquire_slerp_progress)
+					turret_top.global_basis = Basis(turret_top.global_basis.get_rotation_quaternion()).slerp(target_basis, clampf(acquire_slerp_progress, 0.0, 1.0)).scaled(turret_top.global_basis.get_scale())
 					acquire_slerp_progress += delta * turn_speed
 					if acquire_slerp_progress >= 0.97:
 						acquire_slerp_progress = 0
@@ -162,9 +162,8 @@ func attack(turret_top) -> void:
 	#add_child(projectile_ins) 
 
 	# animation play
-	var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(self, Constants.AnimationPlayer_CLZ)
-	if ap != null and ap.has_animation(anim_attack):
-		ap.play(anim_attack)
+	var ap: AnimationPlayer = _ap
+	play_action_animation(anim_attack)
 
 	# 选择 N 个单位攻击
 	if attack_num == 1:

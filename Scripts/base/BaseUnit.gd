@@ -29,7 +29,7 @@ signal level_up(unit: BaseUnit, unit_level: int)	# 单位升级
 @export_range(0.0, 100.0, 0.01) var aabb_height_scale: float	# 通过参数修正 代码获取 aabb 尺寸偏差的问题 ？？ 
 
 # define unit element phase
-@export_flags("WOOD", "FIRE", "METAL", "WATER", "EARCH") var element_phase: int = 0
+@export_flags("WOOD", "FIRE", "EARCH", "METAL", "WATER") var element_phase: int = 0
 # define how unit move on mesh ground
 @export_flags("WALK", "FLYING", "SWIM") var unit_move_type: int = 0
 # define unit category
@@ -81,6 +81,30 @@ var mana : float :
 
 
 var _is_logic_alive := true
+var exit_reason := "killed"
+var unit_uid := ""
+var wave_index := -1
+var action_animation_generation := 0
+var resume_animation_tree := false
+var action_animation_name: StringName
+
+func play_action_animation(animation: StringName) -> void:
+	if not is_instance_valid(_ap) or animation == "" or not _ap.has_animation(animation): return
+	action_animation_generation += 1
+	action_animation_name = animation
+	if is_instance_valid(_at) and _at.active:
+		resume_animation_tree = true
+		_at.active = false
+	if is_instance_valid(_at) and not _ap.animation_finished.is_connected(_finish_action_animation):
+		_ap.animation_finished.connect(_finish_action_animation)
+	_ap.speed_scale = 1.0
+	_ap.play(animation)
+
+func _finish_action_animation(finished: StringName) -> void:
+	if finished != action_animation_name or not is_alive(): return
+	if resume_animation_tree and is_instance_valid(_at): _at.active = true
+	resume_animation_tree = false
+	action_animation_name = &""
 
 
 var move_speed : float :
@@ -88,7 +112,7 @@ var move_speed : float :
 		move_speed = value
 		_anim_speed = move_speed * anim_speed_factor / 5
 
-		if _ap:
+		if _ap and self is Enemy and get("current_state") == Enemy.EnemyState.WALKING:
 			_ap.speed_scale = _anim_speed
 
 
@@ -154,6 +178,9 @@ var _mesh_standing: MeshInstance3D
 
 # ANIMATION
 @export_group("Animation")
+@export var animation_player_path: NodePath
+@export var animation_tree_path: NodePath
+@export var health_anchor_path: NodePath
 
 var _ap: AnimationPlayer
 var _at: AnimationTree
@@ -172,11 +199,12 @@ var _anim_speed: float	# 动画播放速率
 		anim_speed_factor = value
 		_anim_speed = move_speed * anim_speed_factor / 5
 
-		if _ap:
+		if _ap and self is Enemy and get("current_state") == Enemy.EnemyState.WALKING:
 			_ap.speed_scale = _anim_speed
 
 
 @export var anim_ack_point = 0.03	# 攻击动画回复点
+@export var anim_ack_normalized := -1.0
 
 
 # Component - 组件系统预定义
@@ -262,6 +290,8 @@ func _on_unit_action_damage_unregist(callable: Callable) -> void:
 
 
 func _ready() -> void:
+	add_to_group("selectable_units")
+	if unit_uid == "": unit_uid = UUID.v4()
 	# 注意 BaseUnit 与 BaseUnitResource 的 cycle reference 
 	clazz_init()
 
@@ -292,7 +322,7 @@ func _ready() -> void:
 		var cylinder_collision: CollisionShape3D = attacking_scope.get_child(0)
 		if cylinder_collision and cylinder_collision.shape:
 			# print("has cylinder collision")
-			print(attack_range)
+			CommonUtil.debug_log([attack_range])
 			(cylinder_collision.shape as CylinderShape3D).radius = attack_range
 			
 
@@ -326,8 +356,8 @@ func _ready() -> void:
 	unit_action_damage_unregist.connect(_on_unit_action_damage_unregist)
 
 	# animation init
-	_ap = CommonUtil.get_first_node_by_node_name(self, Constants.AnimationPlayer_CLZ)
-	_at = CommonUtil.get_first_node_by_node_name(self, Constants.AnimationTree_CLZ)
+	_ap = get_node_or_null(animation_player_path) as AnimationPlayer if not animation_player_path.is_empty() else CommonUtil.get_first_node_by_node_type(self, Constants.AnimationPlayer_CLZ)
+	_at = get_node_or_null(animation_tree_path) as AnimationTree if not animation_tree_path.is_empty() else CommonUtil.get_first_node_by_node_type(self, Constants.AnimationTree_CLZ)
 
 	# 魔法值设置
 	mana = max_mana
@@ -344,7 +374,7 @@ func clazz_init():
 	var current_scene_name: String = self.scene_file_path.get_file().get_basename()
 
 	# load clz resource
-	clazz = SOS.main.resource_manager.find_resource_by_name(current_scene_name)
+	if clazz == null: clazz = SOS.main.resource_manager.find_resource_by_name(current_scene_name)
 	
 	# bean property copy
 	if clazz != null:
@@ -392,8 +422,10 @@ func death_effect():
 	signal_physic_dead.connect(_on_physic_dead, CONNECT_ONE_SHOT)
 	
 	# logic animation player
-	var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(self, Constants.AnimationPlayer_CLZ)
+	var ap: AnimationPlayer = _ap
+	if is_instance_valid(_at): _at.active = false
 	if ap != null and ap.has_animation(anim_death):
+		ap.speed_scale = 1.0
 		ap.play(anim_death)
 		ap.animation_finished.connect(_on_animation_player_animation_finished.bind(self, signal_physic_dead), CONNECT_ONE_SHOT)
 	else:	
@@ -421,6 +453,12 @@ func _on_physic_dead(unit: BaseUnit) -> void:
 # 逻辑死亡
 func _on_logic_dead(unit: BaseUnit) -> void:
 	if unit:
+		if exit_reason != "killed":
+			set_process(false)
+			set_physics_process(false)
+			set("visible", false)
+			queue_free()
+			return
 		
 		# 逻辑死亡
 		unit.do_after_logic_dead()
@@ -449,7 +487,8 @@ func action_damage(damage_ctx: DamageCtx) -> DamageCtx:
 
 	# TODO 伤害前置处理（暴击、闪避等），附加到某一次攻击当中
 	if not action_damage_callback_list.is_empty():
-		for callback in action_damage_callback_list:
+		for callback in action_damage_callback_list.duplicate():
+			if not callback.is_valid(): continue
 			damage_ctx = callback.call(damage_ctx)
 
 	return damage_ctx
@@ -458,19 +497,26 @@ func action_damage(damage_ctx: DamageCtx) -> DamageCtx:
 
 # 技能伤害
 func take_skill_damage(damage_ctx: DamageCtx) -> bool:
-	return _damage(damage_ctx)
+	# Preserve the existing skill bypass policy through the common entry point.
+	return receive_damage(damage_ctx, false, false)
 
 
 # damage unit
 func take_damage(damage_ctx: DamageCtx) -> bool:
-	damage_ctx = damage_ctx.source.action_damage(damage_ctx)
+	return receive_damage(damage_ctx, true, true)
+
+func receive_damage(damage_ctx: DamageCtx, source_modifiers := true, target_modifiers := true) -> bool:
+	if not is_alive() or damage_ctx == null: return false
+	if source_modifiers and is_instance_valid(damage_ctx.source):
+		damage_ctx = damage_ctx.source.action_damage(damage_ctx)
 
 	# 受击音效
 	CommonUtil.play_audio(damage_ctx.target, "击中 拳头 打击 重击 01_爱给网_aigei_com", -5)
 
 	# TODO 伤害前置处理（暴击、闪避等），附加到某一次攻击当中
-	if not take_damage_callback_list.is_empty():
-		for callback in take_damage_callback_list:
+	if target_modifiers and not take_damage_callback_list.is_empty():
+		for callback in take_damage_callback_list.duplicate():
+			if not callback.is_valid(): continue
 			damage_ctx = callback.call(damage_ctx)
 
 	if damage_ctx.damage_type == DamageCtx.DamageType.MISS:
@@ -492,6 +538,7 @@ func take_damage(damage_ctx: DamageCtx) -> bool:
 
 # 伤害单位
 func _damage(damage_ctx: DamageCtx) -> bool:
+	if not _is_logic_alive: return false
 	var value = damage_ctx.damage
 
 	if value <= 0:
@@ -509,19 +556,19 @@ func _damage(damage_ctx: DamageCtx) -> bool:
 	)
 	
 	if health + value > 0 and health <= 0:
-		_is_logic_alive = false
-		logical_death.emit(self)
-		SignalBus.unit_logic_death.emit(get_instance_id(), self)
+		do_logical_death()
 	
 	return _is_logic_alive
 
 
 
 # 立即逻辑死亡
-func do_logical_death() -> void:
+func do_logical_death(reason := "killed") -> void:
+	if not _is_logic_alive: return
+	exit_reason = reason
 	_is_logic_alive = false
 	logical_death.emit(self)
-	SignalBus.unit_logic_death.emit(get_instance_id(), self)
+	if reason == "killed": SignalBus.unit_logic_death.emit(get_instance_id(), self)
 
 
 
@@ -595,4 +642,5 @@ func hide_selected_circle() -> void:
 # 监听技能释放事件
 func _on_skill_released(skill_context: SkillContext) -> void:
 	var skill = skill_context.skill
-	self.mana -= skill.mana_cost
+	if not skill_context.cost_paid:
+		self.mana -= maxf(0.0, skill.mana_cost)

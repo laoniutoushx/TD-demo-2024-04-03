@@ -47,6 +47,8 @@ enum ELEMENT_PHASE_STR{
 @export var wood_cost: float = -1
 # 金钱消耗
 @export var money_cost: float = -1
+## Authored grid footprint. Existing assets retain their original one-cell placement.
+@export var building_footprint := Vector2i.ONE
 # 金币奖励
 @export var money_reward: int = -1
 # 木材奖励
@@ -80,6 +82,9 @@ enum ELEMENT_PHASE_STR{
 
 # ANIMATION
 @export_group("Animation")
+@export var animation_player_path: NodePath
+@export var animation_tree_path: NodePath
+@export var health_anchor_path: NodePath
 @export var anim_attack = Constants.ANIM_ATTACK
 @export var anim_run = Constants.ANIM_RUN
 @export var anim_walk = Constants.ANIM_WALK
@@ -89,6 +94,8 @@ enum ELEMENT_PHASE_STR{
 
 @export var anim_speed_factor: float = 1.0
 @export var anim_ack_point = 0.03	# 攻击动画回复点
+## -1 preserves legacy seconds; otherwise use a fraction of the attack clip.
+@export_range(-1.0, 1.0, 0.01) var anim_ack_normalized := -1.0
 
 # AUDIO
 @export_group("Audio")

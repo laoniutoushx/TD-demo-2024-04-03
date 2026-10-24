@@ -33,6 +33,8 @@ var active_unit: BaseUnit
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$CanvasLayer/Container.add_to_group("blocks_world_input")
 	hidden()
 	# Action Bar Icon Container
 	CommonUtil.load_resources_to_container_from_directory("res://Asserts/Images/icon/", icon_res_container)

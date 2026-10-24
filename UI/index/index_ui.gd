@@ -24,4 +24,4 @@ func _hide() -> void:
 	canvas_layer.visible = false
 
 func _on_exit_pressed() -> void:
-	get_tree().quit()
+	SOS.main.request_quit()

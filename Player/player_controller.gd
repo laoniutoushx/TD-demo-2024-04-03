@@ -1,4 +1,5 @@
 class_name PlayerController extends Node3D
+const BattleInput = preload("res://Scripts/utils/BattleInput.gd")
 
 # Scope Node Define
 @onready var select_area: Area3D = %SelectArea		# （单个单位鼠标高亮检测）
@@ -71,7 +72,13 @@ enum PLAYER_STATUS {
 	CHOOSING_TALENT
 }
 
-var player_status = PLAYER_STATUS.DEFAULT
+var player_status = PLAYER_STATUS.DEFAULT:
+	set(value):
+		if player_status == value: return
+		player_status = value
+		if is_instance_valid(SOS.main) and is_instance_valid(SOS.main.cursor_policy): SOS.main.cursor_policy.sync_mode()
+		if value != PLAYER_STATUS.DEFAULT and is_instance_valid(selection_box):
+			selection_box.cancel_selection("player_mode_changed")
 
 
 
@@ -89,7 +96,7 @@ var is_limit_move: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# 关闭输入监听
-	set_process_input(false)	
+	set_process_unhandled_input(false)
 
 	# 加载 图标 资源
 	CommonUtil.load_resources_to_container_from_directory("res://Asserts/Images/icon/")
@@ -127,7 +134,7 @@ func add_talent(talent_code: String) -> void:
 
 		if talent:
 			player_talent_map[talent_code] = talent
-			print("add player talent %s" % talent_code)
+			CommonUtil.debug_log(["add player talent %s" % talent_code])
 		else:
 			printerr("ERROR: player talent %s not found" % talent_code)
 	else:
@@ -158,6 +165,7 @@ func not_limit_move():
 # TODO 当限制技能释放范围时，也同时限制鼠标移动范围（3d 反向映射 2d 空间）
 # area3d 与 mouse position 同步 （ray picker 回调函数）
 func select_area_pos_sync(ray_cast: RayCast3D) -> void:
+	if not ray_cast.is_colliding(): return
 	# 此处多一个处理，当玩家处在技能提示阶段，准备释放技能时，限制获取到的最大点击位置（鼠标移动限制只针对无法移动单位）
 	var collision_point = ray_cast.get_collision_point()
 	if is_limit_move:
@@ -251,14 +259,16 @@ func refresh_selection_items(item_map: Dictionary, mouse_pos: Vector3, on_select
 
 
 # 单位进入时，监听右键事件（攻击）
-func _input(event):
+func _unhandled_input(event):
+	if event is InputEventMouseButton and not BattleInput.pointer_available(get_viewport(), event.position): return
+	if player_status != PLAYER_STATUS.DEFAULT: return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 		# print("监听到右键点击")
 		# 获取到玩家选择的所有单位，过滤出 所有玩家单位，判断
 		if cur_unit_map.size() > 0:
 			var target_unit
 			for cur_unit in cur_unit_map.values():
-				print("cur unit %s" % cur_unit)
+				CommonUtil.debug_log(["cur unit %s" % cur_unit])
 				
 				# First check if the instance is valid before doing any type checking
 				if not is_instance_valid(cur_unit):
@@ -286,7 +296,7 @@ func _input(event):
 								turret.current_enemy = target_unit
 							else:
 								# 提示敌人不在防御塔攻击范围内
-								print("敌人 %s 不在防御塔攻击范围内" % target_unit.clz_name)
+								CommonUtil.debug_log(["敌人 %s 不在防御塔攻击范围内" % target_unit.clz_name])
 								SOS.main.message_bar.set_message("敌人不在防御塔攻击范围内")
 			else:
 				SOS.main.message_bar.set_message("没有可攻击的敌人单位")
@@ -302,7 +312,7 @@ func _on_select_area_area_entered(area: Area3D) -> void:
 		
 		# 开启右键输入检测
 		if PlayerSelect.units().size() > 0:
-			set_process_input(true)	
+			set_process_unhandled_input(true)
 
 		# 添加单位到当前选中单位
 		cur_unit_map[unit.get_instance_id()] = unit
@@ -328,7 +338,7 @@ func _on_select_area_area_exited(area: Area3D) -> void:
 	# 如果当前玩家候选单位为 0
 	if cur_unit_map.size() == 0:
 		# 关闭右键输入检测
-		set_process_input(false)	
+		set_process_unhandled_input(false)
 
 
 	# 描边特效
@@ -389,33 +399,40 @@ func _on_selection_box_selecting_finished(unit_map: Dictionary, mouse_pos: Vecto
 	refresh_selection_items(item_map, mouse_pos, on_selected_player_status)
 	
 	
-func _on_skill_released(skill_context: SkillContext) -> void:
-	# 处理技能释放
-	var skill: Skill = skill_context.skill
-
-	# 技能是建筑技能，触发金钱、木材消耗
+func validate_skill_cost(context: SkillContext) -> String:
+	var skill: Skill = context.skill
+	if not is_instance_valid(context.source) or not context.source.is_alive(): return "施法单位已失效"
+	if context.source.mana < maxf(0.0, skill.mana_cost): return "魔法不足"
 	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_EFFECT_TYPE.BUILDING, skill.effect_type):
-		
-		# 获取建筑技能对应建筑单位信息（元数据中）
-		var building_res: BaseUnitResource = skill.skill_meta_res.building_res
+		var resource: BaseUnitResource = skill.skill_meta_res.building_res
+		if resource == null: return "建筑配置缺失"
+		if wood < maxi(0, int(resource.wood_cost)): return "木材不足"
+		if money < maxi(0, int(resource.money_cost)): return "金币不足"
+	return ""
 
-		if building_res.wood_cost > -1:
-			if wood < building_res.wood_cost:
-				# TODO 提示木材不足
-				print("skill %s - %s wood not enough" % [skill.name, skill.title])
-				return
-			else:
-				set_wood(skill, wood - building_res.wood_cost)
-		
-		if building_res.money_cost > -1:
-			if money < building_res.money_cost:
-				# TODO 提示金钱不足
-				print("skill %s - %s money not enough" % [skill.name, skill.title])
-				return
-			else:
-				set_money(skill, money - building_res.money_cost)
+func commit_skill_cost(context: SkillContext) -> bool:
+	if context.cost_paid: return true
+	var reason := validate_skill_cost(context)
+	if reason != "":
+		SOS.main.message_bar.set_message(reason)
+		return false
+	var skill: Skill = context.skill
+	var wood_cost := 0
+	var money_cost := 0
+	if CommonUtil.is_flag_set(SkillMetaResource.SKILL_EFFECT_TYPE.BUILDING, skill.effect_type):
+		wood_cost = maxi(0, int(skill.skill_meta_res.building_res.wood_cost))
+		money_cost = maxi(0, int(skill.skill_meta_res.building_res.money_cost))
+	context.cost_paid = true
+	wood -= wood_cost
+	money -= money_cost
+	context.source.mana -= maxf(0.0, skill.mana_cost)
+	if wood_cost > 0: SignalBus.wood_changed.emit(skill, wood)
+	if money_cost > 0: SignalBus.money_changed.emit(skill, money)
+	return true
 
-
+func _on_skill_released(_context: SkillContext) -> void:
+	# Costs are committed once before Release, never from a notification signal.
+	pass
 
 
 # Player Selected Unit
@@ -438,6 +455,9 @@ class PlayerSelect:
 		
 	static func units() -> Array:
 		return _selected_unit.values()
+
+	static func unit_map() -> Dictionary:
+		return _selected_unit.duplicate()
 		
 	static func add_selected_unit(unit) -> Object:
 		if unit != null:

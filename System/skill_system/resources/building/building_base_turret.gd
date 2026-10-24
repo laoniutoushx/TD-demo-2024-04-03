@@ -13,12 +13,14 @@ func action(skill_context: SkillContext) -> void:
 
     # 技能释放
     var building: BaseUnit = skill_context.building
+    if not is_instance_valid(building): return
+    var generation = SOS.main.level_controller.session_id
     var gp = skill_context.building.global_position
     # building.position = Vector3(origin_p.x, 100, origin_p.z)
     var vfx = SystemUtil.vfx_system.create_vfx("build_located", VFXSystem.VFX_TYPE.RUNNING)
     building.add_child(vfx)
     
-    building.global_position = Vector3(gp.x, 30.0, gp.z)
+    building.global_position = gp + Vector3.UP * 30.0
 
     var tween: Tween = create_tween()
     tween.set_ease(Tween.EASE_OUT)
@@ -27,6 +29,7 @@ func action(skill_context: SkillContext) -> void:
 
     # TODO 逻辑耦合 buliding turret
     await tween.finished
+    if not SystemUtil.skill_system._session_valid(generation, source_unit) or not is_instance_valid(building): return
 
     # player building place audio
     CommonUtil.play_audio(source_unit, "building-placing")
@@ -39,5 +42,9 @@ func action(skill_context: SkillContext) -> void:
     building.change_state(Turret.TurretState.IDLE)
 
     # remove vfx
-    CommonUtil.delay_execution(0.3, self, func(): if is_instance_valid(vfx): vfx.queue_free())
+    var effect_ref: WeakRef = weakref(vfx)
+    CommonUtil.delay_execution(0.3, self, func():
+        var effect = effect_ref.get_ref()
+        if is_instance_valid(effect): effect.queue_free()
+    )
 

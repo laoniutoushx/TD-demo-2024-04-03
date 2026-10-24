@@ -257,7 +257,7 @@ func refresh() -> void:
                 ref_val += prop_value_delta
 
 
-            value = ref_val # 新数值复制
+            # Keep the modifier magnitude; ref_val is the final attribute, not its effect.
             
             # 更新单位属性值
             unit.set(prop, ref_val)

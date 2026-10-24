@@ -63,7 +63,8 @@ enum ITEM_RELEASE_TYPE{
 @export var item_script: Script
 
 # item level config
-@export var item_level_config: Array[ItemResource] = []
+# Avoid Godot's self-referential exported-array script retention; validate entries at load.
+@export var item_level_config: Array[Resource] = []
 
 # item buff config
 @export var item_buff_config: Array[BuffResource] = []

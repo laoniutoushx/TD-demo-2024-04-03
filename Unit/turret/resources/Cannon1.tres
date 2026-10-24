@@ -47,6 +47,7 @@ attack_value = 200.0
 unit_growth_factor = 0.01
 projectile_speed = 200.0
 mana_recove_rate_factor = 1.0
+animation_player_path = NodePath("AnimationPlayer")
 anim_attack = null
 anim_run = "Armature|Jump"
 anim_walk = null

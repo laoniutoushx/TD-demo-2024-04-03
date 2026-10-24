@@ -29,7 +29,10 @@ func generate_chest(item: Item, position: Vector3) -> TreasureChest:
 	var chest: TreasureChest = item.chest
 	
 	# add to item system
-	SOS.main.item_system.add_child(chest)
+	if chest.get_parent(): chest.reparent(self)
+	else: add_child(chest)
+	chest.process_mode = Node.PROCESS_MODE_INHERIT
+	chest.show()
 
 	chest.global_position = position
 	
@@ -43,6 +46,7 @@ func remove_item_from_inventory(reference: Item):
 	if reference != null and reference.unit != null:
 		var unit: BaseUnit = reference.unit
 		if unit.item_map.has(reference.code):
+			remove_effects(reference, unit)
 			unit.item_map.erase(reference.code)
 
 			# res 中也清除
@@ -83,6 +87,10 @@ func initialize_items(source_unit: BaseUnit, item_metas: Array[ItemResource]) ->
  # 实例化
 func _initialize_item(source_unit: BaseUnit, item_meta_res: ItemResource, idx: int = 0) -> Item:
 	if item_meta_res != null:
+		for level_definition in item_meta_res.item_level_config:
+			if level_definition != null and not level_definition is ItemResource:
+				push_error("Invalid item level resource: " + item_meta_res.resource_path)
+				return null
 		var item: Item = Item.new()
 		item.unit = source_unit
 		CommonUtil.bean_properties_copy(item_meta_res, item)
@@ -117,6 +125,7 @@ func _initialize_item(source_unit: BaseUnit, item_meta_res: ItemResource, idx: i
 
 func pick_up(source: BaseUnit, chest: TreasureChest) -> Item:
 	if not is_instance_valid(source) or not is_instance_valid(chest) or source.item_map.size() >= 3:
+		if is_instance_valid(SOS.main): SOS.main.message_bar.set_message("无法拾取：背包已满或目标失效")
 		return null
 	# 获取 item
 	var drop_item: DropItem = chest.drop_item
@@ -126,6 +135,7 @@ func pick_up(source: BaseUnit, chest: TreasureChest) -> Item:
 	# 获取 item resource
 	var item_res: ItemResource = CommonUtil.get_resource(drop_item.item_name, ItemManager.container())
 	if source.item_map.has(drop_item.item_name):
+		SOS.main.message_bar.set_message("已拥有同类物品")
 		return null
 	if item_res == null:
 		printerr("ERROR: item resource not found for %s" % drop_item.item_name)
@@ -151,7 +161,8 @@ func pick_up(source: BaseUnit, chest: TreasureChest) -> Item:
 
 	# action bar item bar 处理
 	# 获取一个空白的 item slot
-	SOS.main.level_controller._cur_scene.action_bar.item_bar_comp.pick_up(new_item)
+	var bar = SOS.main.level_controller._cur_scene.action_bar
+	if bar.active_unit == source: bar.item_bar_comp.pick_up(new_item)
 
 
 	# 删除掉宝箱
@@ -164,6 +175,35 @@ func pick_up(source: BaseUnit, chest: TreasureChest) -> Item:
 
 
 # Inner Class
+func remove_effects(item: Item, unit: BaseUnit) -> void:
+	for buff in unit.buff_map.values().duplicate():
+		if is_instance_valid(buff) and buff.reference_instance == item:
+			# Equipment removal must not leave aura reference counts behind.
+			buff.cooldown = 0.0
+			SystemUtil.buff_system.remove(buff, unit)
+
+func transfer_all(source: BaseUnit, destination: BaseUnit) -> void:
+	for item in source.item_map.values().duplicate():
+		remove_effects(item, source)
+		if destination.item_map.has(item.code):
+			remove_item_from_inventory(destination.item_map[item.code])
+		source.item_map.erase(item.code)
+		CommonUtil.release_detached_nodes(item.buff_map)
+		item.unit = destination
+		item.slot = null
+		item.reparent(destination)
+		destination.item_map[item.code] = item
+		SystemUtil.buff_system.init_buff_for_unit_by_res(destination, item.item_res, item)
+	_refresh_inventory_ui.call_deferred(source.get_instance_id())
+	_refresh_inventory_ui.call_deferred(destination.get_instance_id())
+
+func _refresh_inventory_ui(id: int) -> void:
+	if not is_instance_valid(SOS.main) or not SOS.main.level_controller.battle_active: return
+	var bar = SOS.main.level_controller._cur_scene.action_bar
+	if not is_instance_valid(bar.active_unit) or bar.active_unit.get_instance_id() != id: return
+	var unit: BaseUnit = bar.active_unit
+	SOS.main.player_controller.refresh_selection_units(PlayerController.PlayerSelect.unit_map(), unit.global_position, PlayerController.PLAYER_STATUS.DEFAULT)
+
 # control item data
 class ItemManager:
 

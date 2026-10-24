@@ -168,6 +168,7 @@ func apply(_buff: Buff, _reference: Variant = null, target: Variant = null) -> v
 
 # buff remove
 func remove(_buff: Buff, target: Variant):
+	if not is_instance_valid(_buff) or not is_instance_valid(target) or _buff.is_queued_for_deletion(): return
 	var _id = str(_buff.code) + "&" + str(target.get_instance_id())
 	# 当 buff 为永久 buff （cooldown == -1）时，检查 buff 计数
 	if _buff.cooldown == -1:
@@ -189,7 +190,13 @@ func remove(_buff: Buff, target: Variant):
 	SignalBus.buff_exit.emit(_buff, target)
 
 	# 删除 buff
+	# Unregister modifiers and callbacks before another operation can re-equip.
+	if _buff.tree_exiting.is_connected(_on_buff_exiting_tree):
+		_buff.tree_exiting.disconnect(_on_buff_exiting_tree)
+	_buff.remove(target)
+	if _buff.get_parent(): _buff.get_parent().remove_child(_buff)
 	_buff.queue_free()
+	__buff_inst_counter.erase(_id)
 
 
 

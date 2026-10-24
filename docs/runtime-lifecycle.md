@@ -59,9 +59,15 @@ Logs and Forward+ screenshots (`qa_menu.png`, `qa_settings.png`, `qa_battle.png`
 necessary for new UI changes; calling button handlers in these checks does not
 replace physical mouse/keyboard input testing.
 
-Language and graphics selectors are visibly disabled because the project has
-no implemented translations or quality presets. This change does not create
-new language packs, graphics presets, or victory rules.
+Language selection remains disabled because translations are not implemented.
+Graphics presets, settings persistence, cancellation of settings previews, and
+final-clear victory are now implemented. See `rts-demo-improvements.md` for
+the compatibility boundaries and the RTS quality regression scenario.
+
+The runner now inspects stdout and stderr as well as the log file. Earlier
+log-only results did not cover diagnostics emitted after the logger closed.
+The RTS quality scenario adds transaction, upgrade ownership, animation binding,
+pressure sampling, terminal ordering, and twenty session restart checks.
 
 ## Validation recorded on 2026-10-24
 

@@ -9,6 +9,7 @@ var _height: float = 2.5
 
 
 func _ready() -> void:
+    add_to_group("selectable_units")
     $AnimationPlayer.play("burning")
 
 

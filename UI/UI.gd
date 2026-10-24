@@ -7,6 +7,9 @@ extends Node
 
 
 func _ready() -> void:
+	# HUD layout spacers and information are not interactive controls.
+	_set_information_passthrough($CanvasLayer/HeaderContainer)
+	_set_information_passthrough($CanvasLayer/PanelContainer)
 	# SignalBus.unit_logic_death.connect(_on_enemy_death)
 	SignalBus.money_changed.connect(_on_money_changed)
 	SignalBus.wood_changed.connect(_on_wood_changed)
@@ -74,4 +77,10 @@ func _on_wave_end(wave_index: int, wave_resource: WaveResource, wave_resources: 
 
 
 func reset_wave_tip_pivot_offset_center():
-	%WavePanel.pivot_offset = %WavePanel.size / 2 # 设置偏移量（中心位置）	
+	%WavePanel.pivot_offset = %WavePanel.size / 2 # 设置偏移量（中心位置）
+func _set_information_passthrough(node: Node) -> void:
+	if node is BaseButton:
+		node.add_to_group("blocks_world_input")
+		return
+	if node is Control: node.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for child in node.get_children(): _set_information_passthrough(child)

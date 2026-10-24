@@ -6,6 +6,7 @@ extends Control
 @onready var subviewport: SubViewport = %SubViewport
 
 func _ready() -> void:
+    SOS.main.apply_graphics(self)
     bg_texture.texture = subviewport.get_texture()
     index_ui._hide()
     
@@ -22,11 +23,12 @@ func _ready() -> void:
     # var audio_stream = load("res://Asserts/Audios/background/StartMenuBGM.mp3") as AudioStream
     # SOS.main.audio_manager.play_bg_music(audio_stream)
     SignalBus.bgm_volume_changed.connect(self._on_bgm_volume_changed)
-    $BGMPlayer.volume_db = linear_to_db(maxf(SOS.main.config["bg_volume"], 0.00001))
+    $BGMPlayer.bus = "Music"
+    $BGMPlayer.volume_db = 0.0
 
 
 func _on_bgm_volume_changed(value: float) -> void:
-    $BGMPlayer.volume_db = linear_to_db(maxf(value, 0.00001))
+    $BGMPlayer.volume_db = 0.0
 
 
 func _show_loading_hint():

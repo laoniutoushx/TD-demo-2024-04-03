@@ -20,56 +20,22 @@ func _ready() -> void:
 	
 
 # health bar creation
-func _health_bar_create():
-	# TODO 使用方法注解等方式实现自动初始化对应 tscn 目标，按照一定逻辑
-	# 初始化创建 health_bar tscn
+func _health_bar_create() -> void:
 	await self.ready
-	var health_bar: HealthBar = preload("res://Components/health_bar/health_bar.tscn").instantiate()
-
-	health_changed.connect(health_bar._on_unit_health_changed)
-
-	# var aabb: AABB = _transformed_aabb
-	var aabb: AABB = _transformed_aabb
-	# var aabb: AABB = CommonUtil.get_scaled_aabb(CommonUtil.get_first_node_by_node_type(self, Constants.MeshInstance3D_CLZ, false))
-	# print("aabb %s" % aabb)
-
-	var width = aabb.size.x
-
-	var real_width = width
-	var real_height = _height
-	
-	# health bar 长度比例计算  78 px : 10px => 2
-	var default_scale_of_healthbar2d_x_y = float(health_bar.get_health_bar2d_size().x) / float(health_bar.get_health_bar2d_size().y)
-	var default_scale_of_healthbar2d_and_mesh3d = 78.0 / 2.0
-	
-	# 4x width 扩大 => 1x width 处理
-	var health_bar_2d_width = real_width * default_scale_of_healthbar2d_and_mesh3d * 1
-	var health_bar_2d_height = health_bar_2d_width / default_scale_of_healthbar2d_x_y
-	
-	# 412px : 78px = 4 => 78px : 78px = 1
-	var w_w_scale = (health_bar_2d_width) / health_bar.get_health_bar2d_size().x
-	
-	add_child(health_bar) 
-	# print("self.global_position.y %s" % self.global_position.y)
-	# print("height %s" % height)
-	# health_bar.position.y = self.global_position.y + _height
-	health_bar.position.y = self.global_position.y + real_height # + 1.0
-	print("health_bar.position.y %s" % health_bar.position.y)
-
-	health_bar.prepare(max_health)
-	health_bar.resize(health_bar_2d_width, health_bar_2d_height, w_w_scale)
-	# print("%s, %s, %s, %s" % [health_bar_2d_width, health_bar_2d_height, w_w_scale, health_bar.position.y])
+	var bars = get_tree().get_first_node_in_group("screen_health_bars")
+	if is_instance_valid(bars): bars.register_unit(self)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if not is_alive() or current_state != EnemyState.WALKING: return
 	
 	path.progress = path.progress + (delta * move_speed)
 	if path.progress_ratio >= 0.98 && !is_finish:
 		is_finish = true
 		if is_instance_valid(base):
 			base.take_damage()
-		queue_free()
+		do_logical_death("leaked")
 		set_process(false)
 
 
@@ -93,10 +59,7 @@ var current_state: EnemyState
 
 func _physics_process(delta: float) -> void:
 
-	if pre_state == EnemyState.STUN:
-		set_process(true)
-		if _ap and _ap.has_animation(anim_idle):
-			_ap.play()
+	if not is_alive(): return
 
 	match current_state:		
 		EnemyState.IDLE:
@@ -118,6 +81,7 @@ func _physics_process(delta: float) -> void:
 
 
 func change_state(new_state: EnemyState) -> void:
+	if not is_alive() and new_state != EnemyState.DEAD: return
 	pre_state = current_state
 	current_state = new_state
 
@@ -137,6 +101,7 @@ func change_state(new_state: EnemyState) -> void:
 
 
 	if current_state == EnemyState.WALKING:
+		set_process(true)
 		# 初始化 walk 动画
 		if _ap and _ap.has_animation(anim_run):
 			_ap.play(anim_run)

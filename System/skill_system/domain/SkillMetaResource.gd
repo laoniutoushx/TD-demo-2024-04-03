@@ -168,7 +168,8 @@ enum SKILL_EFFECT_TYPE{
 @export var skill_script: Script
 
 # skill level config
-@export var skill_level_config: Array[SkillMetaResource] = []
+# Resource keeps existing serialized entries without retaining this script through its own type.
+@export var skill_level_config: Array[Resource] = []
 
 # skill buff config
 @export var skill_buff_config: Array[BuffResource] = []

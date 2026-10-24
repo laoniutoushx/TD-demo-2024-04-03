@@ -1,58 +1,16 @@
 extends Panel
+## Presentation only. SelectionBox owns the complete gesture lifecycle.
 
+func _ready() -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	clear()
 
-signal finished(rect)
+func show_rect(rectangle: Rect2) -> void:
+	var rectangle_in_canvas := rectangle.abs()
+	position = rectangle_in_canvas.position
+	size = rectangle_in_canvas.size
+	show()
 
-var selecting_delay: float = 0.05
-
-var _rect = null
-
-func _ready():
-	# input event handler register
-	pass
-	
-func _input(event: InputEvent) -> void:
-	if SOS.main.player_controller.player_status == SOS.main.player_controller.PLAYER_STATUS.DEFAULT:
-		if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
-			_start()
-			
-		if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed):
-			_finish()
-	
-
-
-
-
-func _physics_process(_delta):
-	_update()
-
-
-func _selecting():
-	return _rect != null
-
-
-func _start():
-	var mouse_pos = get_global_mouse_position()
-	_rect = Rect2(0, 0, 100, 100)
-	_rect.position = mouse_pos
-	
-
-
-func _finish():
-	if not _selecting():
-		return
-	_rect.end = get_global_mouse_position()
-	finished.emit(_rect.abs())
-	_rect = null
+func clear() -> void:
 	hide()
-
-
-func _update():
-	if not _selecting():
-		return
-	_rect.end = get_global_mouse_position()
-	var absolute_rect = _rect.abs()
-	if absolute_rect.has_area():
-		show()
-	position = absolute_rect.position
-	size = absolute_rect.size
+	size = Vector2.ZERO

@@ -9,11 +9,13 @@ var _path: Node
 var _start_node: Marker3D
 
 var is_game_over = false
+var wave_index := -1
 
 
 
 func _init(enemy_spawner_res: EnemySpawnerResource, path: Node, start_node: Node, wave_spawner: WaveManager.WaveSpawner) -> void:
 	_enemy_spawner_res = enemy_spawner_res
+	wave_index = wave_spawner.wave_index
 	_path = path
 	_start_node = start_node
 	
@@ -41,6 +43,8 @@ func start():
 		
 		# generate enemy instance
 		var enemy_instance: Enemy = SystemUtil.unit_system.create_unit(enemy_resource, 1)
+		enemy_instance.wave_index = wave_index
+		get_parent().register_enemy(enemy_instance, wave_index)
 		
 		# y offset
 		if is_instance_valid(_start_node):

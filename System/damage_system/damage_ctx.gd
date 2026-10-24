@@ -22,6 +22,8 @@ var damage_type: DamageType = DamageType.NORMAL
 var damage_source_type: DamageSourceType = DamageSourceType.UNIT
 var source: BaseUnit
 var target: BaseUnit
+var attack_uid := ""
+var hit_role: StringName = &"primary"
 
 func _init(_source: BaseUnit, _target: BaseUnit, _damage: float, _damage_type: DamageType = DamageCtx.DamageType.NORMAL, _damage_source: DamageSourceType = DamageSourceType.UNIT) -> void:
     self.source = _source

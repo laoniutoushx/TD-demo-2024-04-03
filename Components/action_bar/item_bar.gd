@@ -20,7 +20,7 @@ func setup_for_unit(unit_map: Dictionary):
 	# 如果 _slot_num < 3 ，剩余槽位创建 item_slot_empty 占位槽，保持 UI 布局一致
 	while _slot_num < 3:
 		var _slot = super.add_element(UUID.v4(), _item_bar, func(a1, a2): pass, _action_bar.item_slot_empty)
-		print(_slots)
+		CommonUtil.debug_log([_slots])
 		_slot_num += 1
 
 
@@ -169,7 +169,7 @@ func clear():
 
 func _on_slot_clicked(slot: BaseSlot):
 	cur_active_slot = slot
-	print("slot cliecked %s" % "hahaha")
+	CommonUtil.debug_log(["slot cliecked %s" % "hahaha"])
 	# skill indicator show
 	# var skill: Skill = (slot.reference as Skill)
 

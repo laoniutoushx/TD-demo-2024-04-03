@@ -1,4 +1,5 @@
 class_name Skill extends Node3D
+const BattleInput = preload("res://Scripts/utils/BattleInput.gd")
 
 # Reference
 var skill_meta_res: SkillMetaResource
@@ -196,7 +197,7 @@ func _ready() -> void:
 func _on_unit_level_up(unit: BaseUnit, unit_level: int) -> void:
     # 如果单位升级了，那么 =》 
     if unit_level >= level_limit:
-        print("skill [%s] is idle, because unit [%s] level [%s] >= limit [%s]" % [code, unit.name, level, level_limit])
+        CommonUtil.debug_log(["skill [%s] is idle, because unit [%s] level [%s] >= limit [%s]" % [code, unit.name, level, level_limit]])
         if current_state == SKILL_STATE.Disabled:
             change_state(SKILL_STATE.Idle)
 
@@ -287,7 +288,8 @@ func skill_disabled_check() -> void:
 
 
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
+    if event is InputEventMouseButton and not BattleInput.pointer_available(get_viewport(), event.position): return
     if mouse_click_check and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
         # 单位事件监听
         if current_state == SKILL_STATE.Direction_Indicate or current_state == SKILL_STATE.Circle_Range_Indicate:
@@ -298,12 +300,12 @@ func _input(event: InputEvent) -> void:
             skill_context.target_position =  SOS.main.player_controller.player_skill_scope_indicator.global_position
 
             change_state(SKILL_STATE.Release)
-            Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+            load("res://Scripts/utils/BattleInput.gd").request_cursor_hidden(self, false)
             get_viewport().set_input_as_handled()
     
     if event is InputEventKey and event.pressed and event.keycode  == KEY_ESCAPE:
         if current_state == SKILL_STATE.Targeted_Indicate or current_state == SKILL_STATE.Building_Indicate or current_state == SKILL_STATE.Circle_Range_Indicate:
-            Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+            load("res://Scripts/utils/BattleInput.gd").request_cursor_hidden(self, false)
             change_state(SKILL_STATE.Idle)
             mouse_click_check = false
             get_viewport().set_input_as_handled()
@@ -337,8 +339,8 @@ func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3, on_sele
             # 此时 min_unit 就是距离原点最近的单位
             if min_unit:
                 # 在这里处理最近的单位，比如选中它
-                print("最近的单位距离: ", min_distance)
-                print("最近的单位: ", min_unit)
+                CommonUtil.debug_log(["最近的单位距离: ", min_distance])
+                CommonUtil.debug_log(["最近的单位: ", min_unit])
 
 
                 skill_context.target_position = mouse_pos
@@ -348,11 +350,11 @@ func _on_player_selected_units(unit_map: Dictionary, mouse_pos: Vector3, on_sele
                 SignalBus.player_selected_units.disconnect(_on_player_selected_units)
                 SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.DEFAULT)
             else:
-                print("没有找到最近的单位")
+                CommonUtil.debug_log(["没有找到最近的单位"])
                 SOS.main.message_bar.set_message("没有选中任何单位")
 
         else:
-            print("没有选中任何单位")
+            CommonUtil.debug_log(["没有选中任何单位"])
             SOS.main.message_bar.set_message("没有选中任何单位")
 
 
@@ -376,6 +378,12 @@ func _skill_target_unit_cond_matched(_u: BaseUnit) -> bool:
 # You could also move each state's setup into a separate function if you had a lot to do.
 func change_state(new_state: SKILL_STATE) -> void:
 
+    if new_state == SKILL_STATE.Release:
+        if current_state in [SKILL_STATE.Release, SKILL_STATE.Cool_Down, SKILL_STATE.Casting]: return
+        skill_context.cost_paid = false
+        if not SOS.main.player_controller.commit_skill_cost(skill_context): return
+        skill_context.release_id += 1
+
     # 前置条件检查（魔耗）
     # if _is_disabled:
     #     SOS.main.message_bar.set_message("技能无法施放，魔法不足")
@@ -392,7 +400,7 @@ func change_state(new_state: SKILL_STATE) -> void:
         # player status 变更 DEFAULT
         SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DEFAULT
         # player cursor 变更 DEFAULT
-        Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+        load("res://Scripts/utils/BattleInput.gd").request_cursor_hidden(self, false)
         SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.DEFAULT)
 
         slot.icon_texture.material.set_shader_parameter("enable_gradient", false)
@@ -416,8 +424,7 @@ func change_state(new_state: SKILL_STATE) -> void:
             SignalBus.building_floor_indicator_hide.emit(skill_context)
             # 如果切换到 Idle 状态，直接删除 turret（耦合代码）
             if new_state == SKILL_STATE.Idle and SOS.main.turret_manager:
-                SOS.main.turret_manager.turret.queue_free()
-                SOS.main.turret_manager.cell_mesh_indicator.queue_free()
+                SOS.main.turret_manager.cancel_preview()
                 
 
         if current_state == SKILL_STATE.Circle_Range_Indicate:
@@ -462,7 +469,7 @@ func change_state(new_state: SKILL_STATE) -> void:
             SOS.main.player_controller.player_skill_scope_indicator.set_indicator_size(range * 2, range * 2)
             SOS.main.player_controller.player_skill_scope_indicator.show_indicator()
             # 隐藏鼠标光标
-            Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+            load("res://Scripts/utils/BattleInput.gd").request_cursor_hidden(self, true)
             mouse_click_check = true
             # 点击任意位置后，释放
 
@@ -496,11 +503,12 @@ func change_state(new_state: SKILL_STATE) -> void:
 
             # 等待3帧
             await CommonUtil.await_timer(0.1)
+            if current_state != SKILL_STATE.Targeted_Indicate or not is_instance_valid(unit) or not unit.is_alive(): return
 
             # 切换鼠标光标
             # SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.TARGETED)
             # 隐藏鼠标光标（开始捕捉模式）
-            Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+            load("res://Scripts/utils/BattleInput.gd").request_cursor_hidden(self, true)
             mouse_click_check = true
 
 
@@ -541,6 +549,7 @@ func change_state(new_state: SKILL_STATE) -> void:
 
             # 针对无目标点击地面技能，停顿 0.1 s（修复点击建筑单位图标，立即再对应位置建造单位的 BUG）
             await CommonUtil.await_timer(0.1)  # 等待一帧，确保状态切换
+            if not is_inside_tree() or current_state != SKILL_STATE.Building_Indicate: return
 
             # building floor indicator show by signal
             SignalBus.building_floor_indicator_show.emit(skill_context)
@@ -556,10 +565,11 @@ func change_state(new_state: SKILL_STATE) -> void:
             #     return            
 
             # 技能释放魔法消耗
-            skill_released.emit(skill_context)
+            var released_context := skill_context.snapshot()
+            skill_released.emit(released_context)
 
             # releasing
-            SystemUtil.skill_system.release(skill_context)
+            SystemUtil.skill_system.release(released_context)
 
             # 技能为持续释放（记录持续释放状态）
             if cast_duration > -1:
@@ -603,22 +613,22 @@ func change_state(new_state: SKILL_STATE) -> void:
 
 
         SKILL_STATE.Idle:
-            print("skill [%s] is idle" % code)
+            CommonUtil.debug_log(["skill [%s] is idle" % code])
 
         SKILL_STATE.Disabled:
-            print("skill [%s] is Disabled" % code)            
+            CommonUtil.debug_log(["skill [%s] is Disabled" % code])
 
 
 
 # 专门处理 targeted 模式下，玩家选择单位的逻辑        
 func _process(delta: float) -> void:
     # 监听 target mouse clicked
-    if Input.is_action_pressed("click"):
+    if Input.is_action_just_pressed("click") and BattleInput.pointer_available(get_viewport()):
         if mouse_click_check and current_state == SKILL_STATE.Targeted_Indicate:
             
             # 目标类型检查-地面
             if CommonUtil.is_flag_set(SkillMetaResource.SKILL_TARGET_TYPE.FLOOR, target_type):
-                print("技能无需目标")
+                CommonUtil.debug_log(["技能无需目标"])
                 # 停止监听
                 mouse_click_check = false
                 set_process(false)
@@ -653,7 +663,7 @@ func _process(delta: float) -> void:
                             continue
 
                         # 计算单位到原点的距离
-                        var distance = Vector2(_unit.global_position.x, _unit.global_position.z).length()
+                        var distance = _unit.global_position.distance_squared_to(SOS.main.player_controller.player_skill_target_indicator.global_position)
                         
                         # 如果找到更近的单位，更新最小距离和对应的单位
                         if distance < min_distance:
@@ -663,8 +673,8 @@ func _process(delta: float) -> void:
                     # 此时 min_unit 就是距离原点最近的单位
                     if min_unit:
                         # 在这里处理最近的单位，比如选中它
-                        print("最近的单位距离: ", min_distance)
-                        print("最近的单位: ", min_unit)
+                        CommonUtil.debug_log(["最近的单位距离: ", min_distance])
+                        CommonUtil.debug_log(["最近的单位: ", min_unit])
 
 
                         skill_context.target_position = SOS.main.player_controller.player_skill_target_indicator.global_position
@@ -673,11 +683,12 @@ func _process(delta: float) -> void:
                         change_state(SKILL_STATE.Release)
 
                     else:
-                        print("没有找到最近的单位")
+                        CommonUtil.debug_log(["没有找到最近的单位"])
                         SOS.main.message_bar.set_message("没有选中任何单位")
 
                 else:
-                    print("没有选中任何单位")
+                    CommonUtil.debug_log(["没有选中任何单位"])
                     SOS.main.message_bar.set_message("没有选中任何单位")
 func _exit_tree() -> void:
+    load("res://Scripts/utils/BattleInput.gd").request_cursor_hidden(self, false)
     CommonUtil.release_detached_nodes(buff_map)

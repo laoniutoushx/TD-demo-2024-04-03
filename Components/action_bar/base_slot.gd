@@ -1,4 +1,5 @@
 class_name BaseSlot extends PanelContainer
+const BattleInput = preload("res://Scripts/utils/BattleInput.gd")
 
 # type0
 enum SLOT_TYPE {
@@ -53,6 +54,9 @@ var mapping_key: String = ""
  
 
 func _ready() -> void:
+	# Decorations must not swallow _gui_input before it reaches this slot.
+	for child in find_children("*", "Control", true, false):
+		child.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	set_process(false)
 	# set_process_input(false)
 	slot_material = _slot_material.duplicate(true)
@@ -74,23 +78,23 @@ func _ready() -> void:
 	
 # input event handler register
 func _input(event: InputEvent) -> void: 
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE and is_instance_valid(_chest):
+		cancel_drop_preview()
+		get_viewport().set_input_as_handled()
+		return
 
-	# 监听 slot 鼠标点击事件（左/右）
-	if is_mouse_hover:
-
-		if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed): # event.is_released()
-			# print("right click")
+func _gui_input(event: InputEvent) -> void:
+	if not is_visible_in_tree() or not BattleInput.interaction_available(get_viewport()): return
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT:
 			slot_left_clicked.emit(self)
-			# 阻止事件传递
-			get_viewport().set_input_as_handled()
-
-
-		if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed): # event.is_released()
-			# print("right click")
+			accept_event()
+		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			slot_right_clicked.emit(self)
-			# 阻止事件传递
-			get_viewport().set_input_as_handled()
-					
+			accept_event()
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not is_visible_in_tree() or not BattleInput.interaction_available(get_viewport()): return
 	# 监听 slot 键盘输入 
 	if event is InputEventKey and event.pressed:
 		# SKILL
@@ -159,15 +163,32 @@ func _on_slot_right_clicked(slot: BaseSlot) -> void:
 # item drop handler =================================================
 var _chest
 
+func cancel_drop_preview() -> void:
+	if not is_instance_valid(_chest): return
+	SignalBus.ray_picker_unregist.emit(callable_drop_item)
+	var preview = _chest
+	_chest = null
+	if is_instance_valid(reference) and reference is Item and not reference.is_queued_for_deletion():
+		preview.reparent(reference, false)
+		preview.hide()
+		preview.process_mode = Node.PROCESS_MODE_DISABLED
+	else: preview.queue_free()
+	if is_instance_valid(SOS.main) and is_instance_valid(SOS.main.player_controller):
+		SOS.main.player_controller.player_status = PlayerController.PLAYER_STATUS.DEFAULT
+
+func _exit_tree() -> void:
+	cancel_drop_preview()
+
 # 注册 build_turret function 到 RayPicker
 func callable_drop_item(ray_cast_3d: RayCast3D) -> void:
+	if not ray_cast_3d.is_colliding() or not BattleInput.pointer_available(get_viewport()): return
 
 	if _chest:
 		var collision_point = ray_cast_3d.get_collision_point()
 		# print("drop item at %s" % collision_point)
 		_chest.global_position = collision_point
 
-		if Input.is_action_pressed("click"):	# 等待左键点击
+		if Input.is_action_just_pressed("click"):	# 等待左键点击
 			_chest = null
 
 			# 取消注册
@@ -184,7 +205,7 @@ func callable_drop_item(ray_cast_3d: RayCast3D) -> void:
 				for _item_buff in reference.unit.buff_map.values():
 					if _item_buff.code in reference.buff_map.keys():
 						print("remove item buff %s" % _item_buff.code)
-						SystemUtil.buff_system.remove(_item_buff, reference.unit)
+						if _item_buff.reference_instance == reference: SystemUtil.buff_system.remove(_item_buff, reference.unit)
 
 
 
@@ -220,6 +241,12 @@ func active_callback(act: bool) -> void:
 func custome_init(ref: Variant, icon_path: String, type: SLOT_TYPE = SLOT_TYPE.DEFAULT, active: bool = true, level: int = -1 ) -> void:
 	# 引用实体对象
 	reference = ref
+	if is_instance_valid(ref):
+		tooltip_text = str(ref.get("title")) + "\n" + str(ref.get("desc"))
+		if ref is Skill:
+			tooltip_text += "\n冷却 %.1fs · 魔法 %.0f" % [maxf(ref.cooldown, 0.0), maxf(ref.mana_cost, 0.0)]
+			if ref.skill_meta_res.building_res != null:
+				tooltip_text += "\n金币 %.0f · 木材 %.0f" % [maxf(ref.skill_meta_res.building_res.money_cost, 0.0), maxf(ref.skill_meta_res.building_res.wood_cost, 0.0)]
 
 	# 填充
 	# is_fill = true	

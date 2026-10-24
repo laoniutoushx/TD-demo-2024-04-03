@@ -6,6 +6,7 @@ var elapsed := 0.0
 var main_scene
 var menu_node_limit := 0
 var initial_orphans := 0
+var binding_report: Array = []
 
 func _initialize() -> void:
 	call_deferred("run")
@@ -24,7 +25,11 @@ func check(condition: bool, message: String) -> bool:
 	return condition
 
 func run() -> void:
-	main_scene = load("res://Main.tscn").instantiate()
+	var entry_path: String = ProjectSettings.get_setting("application/run/main_scene", "")
+	if not check(entry_path == "res://Main.tscn", "default entry preserves original demo"):
+		return
+	main_scene = load(entry_path).instantiate()
+	main_scene.settings_path = "user://demo_regression_settings.cfg"
 	root.add_child(main_scene)
 	await create_timer(1.0).timeout
 	initial_orphans = int(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT))
@@ -57,6 +62,7 @@ func run() -> void:
 		menu.index_ui._on_start_pressed()
 		await create_timer(2.0).timeout
 		var level = controller._cur_scene
+		level.get_node("RTSController").edge_scroll_enabled = false
 		if cycle == 0:
 			await audit_battle_resources(level)
 		if not check(level.get("action_bar") != null, "battle route"):
@@ -94,7 +100,7 @@ func run() -> void:
 			await capture("battle")
 			if "--quit-in-combat" in OS.get_cmdline_user_args():
 				print("COMBAT_SHUTDOWN_OK")
-				quit()
+				main_scene.request_quit()
 				return
 		# Damage and death through the real enemy path.
 		var enemies = get_nodes_in_group("enemy")
@@ -160,6 +166,8 @@ func run() -> void:
 	await process_frame
 	await create_timer(0.3).timeout
 	print("FLOW_TEST_OK")
+	var report_file := FileAccess.open("res://.godot/asset-binding-report.json", FileAccess.WRITE)
+	if report_file: report_file.store_string(JSON.stringify(binding_report, "\t"))
 	quit()
 
 
@@ -233,6 +241,9 @@ func audit_battle_resources(level) -> void:
 			for animation_name in [enemy.anim_run, enemy.anim_idle, enemy.anim_death]:
 				check(animation_name == "" or enemy._ap.has_animation(animation_name), "animation " + enemy_name + ": " + animation_name)
 		await process_frame
+		var enemy_binding = load("res://Scripts/utils/AssetBindingAudit.gd").inspect_unit(enemy)
+		binding_report.append(enemy_binding)
+		check(enemy_binding.issues.is_empty(), "enemy bindings " + enemy_name)
 		enemy.queue_free()
 		await process_frame
 	var pending: Array = []
@@ -252,6 +263,9 @@ func audit_battle_resources(level) -> void:
 			if skill.skill_meta_res.building_res != null:
 				pending.append(skill.skill_meta_res.building_res)
 		await process_frame
+		var turret_binding = load("res://Scripts/utils/AssetBindingAudit.gd").inspect_unit(turret)
+		binding_report.append(turret_binding)
+		check(turret_binding.issues.is_empty(), "turret bindings " + resource.resource_path)
 		turret.queue_free()
 		await process_frame
 	print("RESOURCE_AUDIT_OK: ", enemy_names.size(), " enemy types, ", visited.size(), " building tiers")

@@ -13,6 +13,7 @@ func action(skill_context: SkillContext) -> void:
     var unit_res: BaseUnitResource = skill.skill_meta_res.building_res
 
     var unit_id = source_unit.get_instance_id()
+    var generation = SOS.main.level_controller.session_id
 
 
 
@@ -51,6 +52,7 @@ func action(skill_context: SkillContext) -> void:
 
 
     await cimer.timeout
+    if not SystemUtil.skill_system._session_valid(generation, source_unit) or not source_unit.is_alive(): return
 
     # 升级完成，替换单位
     print("升级完成，替换单位")
@@ -61,12 +63,31 @@ func action(skill_context: SkillContext) -> void:
 
 
     # 逻辑死亡
-    source_unit.hide()
-    source_unit.do_logical_death()
-
-    
     SOS.main.level_controller._cur_scene.turret_manager.add_child(unit_inst)
     unit_inst.global_position = source_unit.global_position
+    unit_inst.unit_uid = source_unit.unit_uid
+    SystemUtil.item_system.transfer_all(source_unit, unit_inst)
+    var old_level = SystemUtil.unit_system.get_component_from_unit(source_unit, BaseUnitResource.COMPONENT_SYSTEM.LEVEL)
+    var new_level = SystemUtil.unit_system.get_component_from_unit(unit_inst, BaseUnitResource.COMPONENT_SYSTEM.LEVEL)
+    if is_instance_valid(old_level) and is_instance_valid(new_level):
+        for property in ["level", "exp", "level_up_experience", "relife"]: new_level.set(property, old_level.get(property))
+    for code in source_unit.skill_map:
+        if unit_inst.skill_map.has(code):
+            var old_skill: Skill = source_unit.skill_map[code]
+            var new_skill: Skill = unit_inst.skill_map[code]
+            if old_skill.cool_down_timer.time_left > 0 and old_skill.cooldown > 0:
+                new_skill.current_state = Skill.SKILL_STATE.Cool_Down
+                new_skill.cool_down_timer.start(maxf(0.001, old_skill.cool_down_timer.time_left / old_skill.cooldown * new_skill.cooldown))
+                new_skill.cool_down_timer.timeout.connect(new_skill.change_state.bind(Skill.SKILL_STATE.Idle), CONNECT_ONE_SHOT)
+    var manager = SOS.main.level_controller._cur_scene.turret_manager
+    manager.replace_building(source_unit, unit_inst)
+    var was_selected = PlayerController.PlayerSelect.contains_unit(source_unit)
+    source_unit.do_logical_death("upgrade")
+    if was_selected:
+        var selected_units = PlayerController.PlayerSelect.unit_map()
+        selected_units.erase(source_unit.get_instance_id())
+        selected_units[unit_inst.get_instance_id()] = unit_inst
+        SOS.main.player_controller.refresh_selection_units(selected_units, unit_inst.global_position, PlayerController.PLAYER_STATUS.DEFAULT)
 
     # 单位状态切换
     unit_inst.change_state(Turret.TurretState.IDLE)

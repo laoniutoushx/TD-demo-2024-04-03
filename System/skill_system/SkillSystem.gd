@@ -46,6 +46,7 @@ func initialize_skills(source_unit: BaseUnit, skill_metas: Array[SkillMetaResour
 	var skill_map: Dictionary = {}
 	for idx in range(skill_metas.size()):
 		var skill: Skill = _initialize_skill(source_unit, skill_metas[idx], idx)
+		if skill == null: continue
 
 		# 初始化 buff
 		SystemUtil.buff_system.init_buff_for_unit_by_res(source_unit, skill.skill_meta_res, skill)
@@ -95,6 +96,10 @@ func initialize_skills(source_unit: BaseUnit, skill_metas: Array[SkillMetaResour
  # 实例化
 func _initialize_skill(source_unit: BaseUnit, skill_meta_res: SkillMetaResource, idx: int = 0) -> Skill:
 	if skill_meta_res != null:
+		for level_definition in skill_meta_res.skill_level_config:
+			if level_definition != null and not level_definition is SkillMetaResource:
+				push_error("Invalid skill level resource: " + skill_meta_res.resource_path)
+				return null
 		var skill: Skill = Skill.new()
 		skill.unit = source_unit
 
@@ -153,9 +158,7 @@ func release(skill_context: SkillContext) -> void:
 		if not _session_valid(generation, source_unit):
 			return
 		source_unit.idle()
-	var animation = CommonUtil.get_first_node_by_node_type(source_unit, "AnimationPlayer")
-	if animation and animation.has_animation(source_unit.anim_release):
-		animation.play(source_unit.anim_release)
+	source_unit.play_action_animation(source_unit.anim_release)
 	await CommonUtil.await_timer(skill.start_time)
 	if not _session_valid(generation, source_unit) or not is_instance_valid(skill):
 		return

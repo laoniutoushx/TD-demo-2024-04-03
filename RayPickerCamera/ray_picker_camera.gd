@@ -24,6 +24,7 @@ func _process(delta: float) -> void:
 	
 	# 强制更新射线碰撞信息
 	ray_cast_3d.force_raycast_update()
+	if not ray_cast_3d.is_colliding(): return
 
 	# 射线碰撞回调
 	if callable_back_list.size() > 0:

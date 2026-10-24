@@ -18,6 +18,7 @@ func create_unit(unit_res: Resource, player_idx: int) -> BaseUnit:
 # 实例化单位（内部）
 func _unit_create(unit_resource: BaseUnitResource, player_idx) -> BaseUnit:
 	var unit_instance: BaseUnit = unit_resource.model_path.instantiate()
+	unit_instance.clazz = unit_resource
 	unit_instance = CommonUtil.bean_properties_copy(unit_resource, unit_instance)
 	
 	# player

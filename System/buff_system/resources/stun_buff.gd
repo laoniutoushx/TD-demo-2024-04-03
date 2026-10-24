@@ -35,7 +35,7 @@ func _exit_tree() -> void:
     super._exit_tree()
 
     # 恢复单位移动（process false）
-    if unit is Enemy:
+    if is_instance_valid(unit) and unit is Enemy:
         if unit.is_alive():
             unit.change_state(Enemy.EnemyState.WALKING)
         else:

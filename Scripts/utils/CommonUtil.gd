@@ -747,30 +747,28 @@ class Cimer extends Node:
 ## @param place 放置音频播放器的节点
 ## @param audio_name 音频资源名称
 ## @param volume_db 音量（分贝）
+static func debug_log(values: Array) -> void:
+	if not ProjectSettings.get_setting("debug/demo_verbose", false): return
+	var parts := PackedStringArray()
+	for value in values: parts.append(str(value))
+	print(" ".join(parts))
+
 static func play_audio(place: Variant, audio_name: String, volume_db: float = 0.0):
-	if not is_instance_valid(place):
-		return
-	# 创建音频播放器节点
-	var audio_player = AudioStreamPlayer.new()
-	
-	# 加载音频资源
+	if not is_instance_valid(place) or SOS.main.config.sound_volume <= 0.0: return
 	var sound_effect = get_resource(audio_name)
-	
-	# 设置音频资源
+	if not sound_effect is AudioStream: return
+	var group := "sfx_" + str(audio_name.hash())
+	if place.get_tree().get_nodes_in_group(group).size() >= 4: return
+	if place.get_tree().get_nodes_in_group("active_sfx").size() >= 24: return
+	var audio_player := AudioStreamPlayer.new()
 	audio_player.stream = sound_effect
-	
-	# 将节点添加到场景中
-	if is_instance_valid(place):
-		place.add_child(audio_player)
-	
-	# 设置音量（分贝）- 必须在添加到场景后设置
-	audio_player.volume_db = volume_db + linear_to_db(maxf(SOS.main.config["sound_volume"], 0.00001))
-	
-	# 播放音频
-	audio_player.play()
-	
-	# 播放完成后自动释放节点
+	audio_player.bus = "SFX"
+	audio_player.volume_db = volume_db
+	place.add_child(audio_player)
+	audio_player.add_to_group(group)
+	audio_player.add_to_group("active_sfx")
 	audio_player.finished.connect(audio_player.queue_free)
+	audio_player.play()
 
 # ===============================
 # 火力点相关方法

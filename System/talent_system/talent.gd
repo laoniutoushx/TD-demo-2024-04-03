@@ -185,7 +185,7 @@ func change_state(new_state: TALENT_STATE) -> void:
         # player status 变更 DEFAULT
         SOS.main.player_controller.player_status = SOS.main.player_controller.PLAYER_STATUS.DEFAULT
         # player cursor 变更 DEFAULT
-        Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+        load("res://Scripts/utils/BattleInput.gd").request_cursor_hidden(self, false)
         SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.DEFAULT)
 
         slot.icon_texture.material.set_shader_parameter("enable_gradient", false)
@@ -255,7 +255,7 @@ func change_state(new_state: TALENT_STATE) -> void:
             SOS.main.player_controller.player_skill_scope_indicator.set_indicator_size(range * 2, range * 2)
             SOS.main.player_controller.player_skill_scope_indicator.show_indicator()
             # 隐藏鼠标光标
-            Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+            load("res://Scripts/utils/BattleInput.gd").request_cursor_hidden(self, true)
             mouse_click_check = true
             # 点击任意位置后，释放
 
@@ -289,11 +289,12 @@ func change_state(new_state: TALENT_STATE) -> void:
 
             # 等待3帧
             await CommonUtil.await_timer(0.1)
+            if current_state != TALENT_STATE.Targeted_Indicate or not is_instance_valid(unit) or not unit.is_alive(): return
 
             # 切换鼠标光标
             # SOS.main.player_controller.switch_cursor(Constants.CURSOR_STATUS.TARGETED)
             # 隐藏鼠标光标（开始捕捉模式）
-            Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+            load("res://Scripts/utils/BattleInput.gd").request_cursor_hidden(self, true)
             mouse_click_check = true
 
 
@@ -494,4 +495,5 @@ func _talent_target_unit_cond_matched(_u: BaseUnit) -> bool:
 
 
 func _exit_tree() -> void:
+    load("res://Scripts/utils/BattleInput.gd").request_cursor_hidden(self, false)
     CommonUtil.release_detached_nodes(buff_map)
