@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://diau7m8wv81l3"]
+[gd_resource type="Theme" format=3 uid="uid://diau7m8wv81l3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5pm7c"]
 texture_margin_left = 5.0

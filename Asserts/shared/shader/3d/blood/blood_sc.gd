@@ -24,8 +24,6 @@ func _ready():
     # 保存初始尺寸
     _initial_size = size
     
-    # 创建Tween（Godot 4中Tween是RefCounted，不需要add_child）
-    _fade_tween = create_tween()
     
     # 开始淡入效果
     start_fade_in()

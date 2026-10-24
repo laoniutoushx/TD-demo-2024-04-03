@@ -68,6 +68,10 @@ func _load_resource(file_path: String, file_name: String) -> void:
 	else:
 		printerr("无法加载资源：", file_path)
 
+# Optional lookup; callers can fall back to a direct resource path.
+func find_resource_by_name(resource_name: String) -> Resource:
+	return _loaded_resources.get(resource_name)
+
 # 通过文件名获取资源
 func get_resource_by_name(name: String) -> Resource:
 	if _loaded_resources.has(name):

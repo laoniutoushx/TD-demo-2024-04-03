@@ -25,13 +25,15 @@ class WaveSpawner:
 	var level_code
 	var enemy_spawner_reses: Array[EnemySpawnerResource]
 	signal spawning_finished		# is finished spawing
-	var finished_enemy_spawner_counter := 0		# EnemySpawner finished counter
+	var finished_enemy_spawner_counter := 0
+	var finished := false		# EnemySpawner finished counter
 
 	# Note 是否完成
 	func finish_listener():
 		finished_enemy_spawner_counter += 1
 		if finished_enemy_spawner_counter == enemy_spawner_reses.size():
 			print("finished wave spawner")
+			finished = true
 			spawning_finished.emit()
 	
 
@@ -74,7 +76,7 @@ func wave_start():
 
 			# start_delay
 			await CommonUtil.await_timer(wave_spawner.start_delay)
-			if not is_instance_valid(self):
+			if not is_inside_tree() or is_game_over:
 				return
 
 			# start
@@ -82,12 +84,13 @@ func wave_start():
 
 			# next_wave_delay
 			await CommonUtil.await_timer(wave_spawner.next_wave_delay)
-			if not is_instance_valid(self):
+			if not is_inside_tree() or is_game_over:
 				return			
 
 			# waiting for wave_spawner over
-			await wave_spawner.spawning_finished
-			if not is_instance_valid(self):
+			if not wave_spawner.finished:
+				await wave_spawner.spawning_finished
+			if not is_inside_tree() or is_game_over:
 				return			
 	
 	pass
@@ -111,6 +114,9 @@ func _wave_spawner_initial(wave_resource: WaveResource) -> WaveSpawner:
 func _wave_spawner_start(wave_spawner: WaveManager.WaveSpawner) -> WaveSpawner:
 	cur_wave_spawner = wave_spawner		# 当前 wave spawner 保存
 	var enemy_spawner_reses: Array[EnemySpawnerResource] = wave_spawner.enemy_spawner_reses
+	if enemy_spawner_reses.is_empty():
+		wave_spawner.finished = true
+		wave_spawner.spawning_finished.emit()
 	
 	# spawning	(parallel spawning unit)
 	for enemy_spawner_res: EnemySpawnerResource in enemy_spawner_reses:
@@ -120,6 +126,7 @@ func _wave_spawner_start(wave_spawner: WaveManager.WaveSpawner) -> WaveSpawner:
 		var enemy_spawner: EnemySpawner =  EnemySpawner.new(enemy_spawner_res, %Path3D, %StartMark, wave_spawner)
 		#var enemy_spawner =  EnemySpawner.new(enemy_spawner_res, %OffsetNode, %StartMark, wave_spawner)
 
+		add_child(enemy_spawner)
 		enemy_spawner.start()
 	
 	return wave_spawner
@@ -128,5 +135,8 @@ func _wave_spawner_start(wave_spawner: WaveManager.WaveSpawner) -> WaveSpawner:
 
 func _on_game_over():
 	is_game_over = true
+	if cur_wave_spawner != null and not cur_wave_spawner.finished:
+		cur_wave_spawner.finished = true
+		cur_wave_spawner.spawning_finished.emit()
 	
 	

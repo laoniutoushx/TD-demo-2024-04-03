@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://c2po8q8oho5y6"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://c2po8q8oho5y6"]
 
 [ext_resource type="Shader" uid="uid://blb7a2rnt06sr" path="res://VFX/projectiles/fireball/s_Trail_Fire_shader.tres" id="1_otlli"]
 

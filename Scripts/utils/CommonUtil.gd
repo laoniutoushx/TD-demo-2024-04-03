@@ -22,27 +22,10 @@ static func await_get_root_node() -> Node:
 ## @param second 等待的秒数（float或int）
 ## @param callback 计时器结束后的回调函数
 static func await_timer(second, callback = func(): pass) -> void:
-	# 确保时间参数是有效的数值类型
-	if second is float or second is int:
-		second = float(second)
-		if second > 0:
-			# 创建一次性计时器
-			var timer = Timer.new()
-			timer.one_shot = true
-
-			# 将计时器添加到根节点
-			var root = await_get_root_node()
-			root.add_child(timer)
-			timer.start(second)
-			
-			# 等待计时器超时
-			await timer.timeout
-
-			# 执行回调函数
-			callback.call()
-
-			# 释放计时器资源
-			timer.queue_free()
+	if (second is float or second is int) and second > 0:
+		await Engine.get_main_loop().create_timer(float(second)).timeout
+	if callback.is_valid():
+		callback.call()
 
 ## 延迟执行方法
 ## 在指定延迟后执行回调函数，使用信号连接方式
@@ -84,7 +67,7 @@ func _process(delta: float) -> void:
 ## @param node 要搜索的起始节点
 ## @return Array[MeshInstance3D] 找到的所有MeshInstance3D节点数组
 static func get_all_mesh_instances(node: Node) -> Array[MeshInstance3D]:
-	var mesh_instances = []
+	var mesh_instances: Array[MeshInstance3D] = []
 	# 检查当前节点是否是MeshInstance3D
 	if node is MeshInstance3D:
 		mesh_instances.append(node)
@@ -491,32 +474,31 @@ class ResourceLoaderUtil:
 	## @param path 资源目录路径
 	## @param container 目标容器（可选，默认使用_common_container）
 	## @return Dictionary 返回使用的容器
+	static var _directory_cache: Dictionary = {}
+
 	static func load_resources_to_container_from_directory(path, container = null) -> Dictionary:
+		var key = String(path).trim_suffix("/")
+		if not _directory_cache.has(key):
+			var resources: Dictionary = {}
+			_collect_directory(key, resources)
+			_directory_cache[key] = resources
+		var target: Dictionary = container if container != null else _common_container
+		target.merge(_directory_cache[key], true)
+		return target
+
+	static func _collect_directory(path: String, resources: Dictionary) -> void:
 		var dir = DirAccess.open(path)
-		
-		if dir:
-			dir.list_dir_begin()
-			var file_name = dir.get_next()
-			while file_name != "":
-				if dir.current_is_dir():
-					# 递归处理子目录
-					load_resources_to_container_from_directory(dir.get_current_dir() + "/" + file_name, container if container != null else _common_container)
-				elif (file_name.ends_with(".tres") or file_name.ends_with(".tscn") 
-					or file_name.ends_with("png") or file_name.ends_with("svg")
-					or file_name.ends_with("wav") or file_name.ends_with("mp3")
-					):
-					# 加载支持的资源格式
-					var full_path = path + "/" + file_name
-					var resource = load(full_path)
-					if resource:
-						(container if container != null else _common_container)[full_path.get_file().get_basename()] = resource
-						print("Loaded: " + file_name)
-				file_name = dir.get_next()
-			dir.list_dir_end()
-		else:
-			print("An error occurred when trying to access the path.")
-		
-		return container if container else _common_container
+		if dir == null:
+			push_error("Cannot open resource directory: " + path)
+			return
+		for directory in dir.get_directories():
+			if not directory.begins_with("."):
+				_collect_directory(path.path_join(directory), resources)
+		for file in dir.get_files():
+			if file.get_extension().to_lower() in ["tres", "tscn", "png", "svg", "wav", "mp3"]:
+				var resource = load(path.path_join(file))
+				if resource:
+					resources[file.get_basename()] = resource
 
 	## 从容器中获取指定名称的资源
 	## @param file_name 资源文件名
@@ -766,6 +748,8 @@ class Cimer extends Node:
 ## @param audio_name 音频资源名称
 ## @param volume_db 音量（分贝）
 static func play_audio(place: Variant, audio_name: String, volume_db: float = 0.0):
+	if not is_instance_valid(place):
+		return
 	# 创建音频播放器节点
 	var audio_player = AudioStreamPlayer.new()
 	
@@ -780,7 +764,7 @@ static func play_audio(place: Variant, audio_name: String, volume_db: float = 0.
 		place.add_child(audio_player)
 	
 	# 设置音量（分贝）- 必须在添加到场景后设置
-	audio_player.volume_db = volume_db + SOS.main.config["sound_volume"]
+	audio_player.volume_db = volume_db + linear_to_db(maxf(SOS.main.config["sound_volume"], 0.00001))
 	
 	# 播放音频
 	audio_player.play()
@@ -802,7 +786,7 @@ static func get_fire_pos(source) -> Array:
 		return []
 
 	if source is Turret and source.fire_poses and source.fire_poses.size() > 0:
-		return source.fire_poses_map.get(source.current_fire_pos_key, null)
+		return source.fire_poses_map.get(source.current_fire_pos_key, [])
 
 	return []
 
@@ -915,3 +899,10 @@ static func play_attack_animation_with_reset_v1(anim_player: AnimationPlayer, an
 	# 重要：确保 speed_scale 为 1.0，然后使用 play 的 custom_speed 参数
 	anim_player.speed_scale = 1.0
 	anim_player.play(anim_name, -1, playback_speed)  # 第二个参数是 custom_blend，第三个是 custom_speed
+# Templates are Nodes kept outside the scene tree until applied; their owner
+# must release them explicitly. Applied instances are owned by their target.
+static func release_detached_nodes(nodes: Dictionary) -> void:
+	for node in nodes.values():
+		if is_instance_valid(node) and node is Node and node.get_parent() == null:
+			node.free()
+	nodes.clear()

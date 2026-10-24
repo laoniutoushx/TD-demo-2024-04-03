@@ -178,7 +178,7 @@ func _ready() -> void:
     cool_down_timer = Timer.new()
     cool_down_timer.one_shot = true
     cool_down_timer.autostart = false
-    cool_down_timer.wait_time = cooldown
+    cool_down_timer.wait_time = maxf(cooldown, 0.001)
     add_child(cool_down_timer)
 
     # player 监听技能释放
@@ -679,3 +679,5 @@ func _process(delta: float) -> void:
                 else:
                     print("没有选中任何单位")
                     SOS.main.message_bar.set_message("没有选中任何单位")
+func _exit_tree() -> void:
+    CommonUtil.release_detached_nodes(buff_map)

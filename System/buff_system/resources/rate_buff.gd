@@ -9,7 +9,7 @@ func _ready() -> void:
 	
 	# Create and configure a timer to execute a task every second
 	timer = Timer.new()
-	if reference_instance is Skill:
+	if reference_instance is Skill and reference_instance.internal_time > 0.0:
 		timer.wait_time = reference_instance.internal_time  # 1 second
 	else:
 		timer.wait_time = 1.0  # Default to 1 second if not a
@@ -31,8 +31,8 @@ func _on_timer_timeout() -> void:
 	_on_rate_buff_ticked(unit)
 
 # Monitor unit death events
-func _on_unit_logic_death(id:int, _unit :BaseUnit) -> void:
-	if id == unit.get_instance_id():
+func _on_unit_logic_death(dead_unit: BaseUnit) -> void:
+	if dead_unit == unit:
 		queue_free()
 
 func _on_rate_buff_ticked(unit: BaseUnit):

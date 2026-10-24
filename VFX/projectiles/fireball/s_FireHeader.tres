@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=4 format=3 uid="uid://bpf8re2if2yu3"]
+[gd_resource type="VisualShader" format=3 uid="uid://bpf8re2if2yu3"]
 
 [sub_resource type="VisualShaderNodeFresnel" id="VisualShaderNodeFresnel_q55pl"]
 default_input_values = [2, true, 3, 8.0]
@@ -13,34 +13,6 @@ default_value_enabled = true
 default_value = 8.0
 
 [resource]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded, shadows_disabled, fog_disabled;
-
-uniform vec4 Color : source_color;
-uniform float Fresnel = 8.0;
-
-
-
-void fragment() {
-// ColorParameter:3
-	vec4 n_out3p0 = Color;
-
-
-// FloatParameter:4
-	float n_out4p0 = Fresnel;
-
-
-// Fresnel:2
-	float n_out2p0 = pow(clamp(dot(NORMAL, VIEW), 0.0, 1.0), n_out4p0);
-
-
-// Output:0
-	ALBEDO = vec3(n_out3p0.xyz);
-	ALPHA = n_out2p0;
-
-
-}
-"
 flags/unshaded = true
 flags/shadows_disabled = true
 flags/fog_disabled = true

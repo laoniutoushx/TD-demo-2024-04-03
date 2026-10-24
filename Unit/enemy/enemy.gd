@@ -67,12 +67,14 @@ func _process(delta: float) -> void:
 	path.progress = path.progress + (delta * move_speed)
 	if path.progress_ratio >= 0.98 && !is_finish:
 		is_finish = true
-		base.take_damage()
+		if is_instance_valid(base):
+			base.take_damage()
+		queue_free()
 		set_process(false)
 
 
-func take_damage(damage_ctx: DamageCtx):
-	super.take_damage(damage_ctx)
+func take_damage(damage_ctx: DamageCtx) -> bool:
+	return super.take_damage(damage_ctx)
 
 
 #func _on_animation_player_animation_finished(anim_name: StringName) -> void:
@@ -93,7 +95,7 @@ func _physics_process(delta: float) -> void:
 
 	if pre_state == EnemyState.STUN:
 		set_process(true)
-		if _ap:
+		if _ap and _ap.has_animation(anim_idle):
 			_ap.play()
 
 	match current_state:		
@@ -121,14 +123,14 @@ func change_state(new_state: EnemyState) -> void:
 
 	if current_state == EnemyState.IDLE:
 		# 初始化 idle 动画
-		if _ap:
+		if _ap and _ap.has_animation(anim_idle):
 			_ap.play(anim_idle)
 			_ap.speed_scale = _anim_speed
 
 
 	if current_state == EnemyState.STUN:
 		set_process(false)
-		if _ap:
+		if _ap and _ap.has_animation(anim_idle):
 			_ap.play(anim_idle)
 			_ap.speed_scale = _anim_speed
 
@@ -136,13 +138,13 @@ func change_state(new_state: EnemyState) -> void:
 
 	if current_state == EnemyState.WALKING:
 		# 初始化 walk 动画
-		if _ap:
+		if _ap and _ap.has_animation(anim_run):
 			_ap.play(anim_run)
 			_ap.speed_scale = _anim_speed
 
 
 
 	if current_state == EnemyState.DEAD:
-		if _ap:
+		if _ap and _ap.has_animation(anim_death):
 			_ap.play(anim_death)
 			_ap.speed_scale = _anim_speed

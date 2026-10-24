@@ -122,7 +122,8 @@ func add_talent(talent_code: String) -> void:
 		var talent: Talent = SystemUtil.talent_system.initialize_talent(talent_code)
 
 		# 如果天赋脚本实例化成功
-		self.add_child(talent)
+		if talent:
+			self.add_child(talent)
 
 		if talent:
 			player_talent_map[talent_code] = talent

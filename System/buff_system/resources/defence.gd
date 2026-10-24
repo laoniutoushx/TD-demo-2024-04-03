@@ -5,27 +5,12 @@ var _vfx
 
 func _ready() -> void:
     super._ready()
-
-    
-    # 添加 vfx 到单位
-    _vfx = SystemUtil.vfx_system.create_vfx("force_field", SystemUtil.vfx_system.VFX_TYPE.RUNNING).duplicate()
-
-
-
-    # 高度获取
-    if unit:
-        var height = unit._height
-        _vfx.position.y = height / 2
-
-        # 注册伤害逻辑
+    _vfx = SystemUtil.vfx_system.create_vfx("force_field", VFXSystem.VFX_TYPE.RUNNING)
+    if is_instance_valid(unit):
         unit.unit_take_damage_regist.emit(_on_take_damge_logic)
-
-
-    await ready
-    # reference_instance.call_deferred("add_child", _vfx)
-    unit.add_child(_vfx)
-
-
+        if is_instance_valid(_vfx):
+            add_child(_vfx)
+            _vfx.position.y = unit._height / 2
 
 # 空接口， buff 自己实现内部逻辑
 func refresh() -> void:
@@ -37,16 +22,8 @@ func refresh() -> void:
 
 
 func _exit_tree() -> void:
-    unit.unit_take_damage_unregist.emit(_on_take_damge_logic)
-
-    # play death animation
-    var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(_vfx, Constants.AnimationPlayer_CLZ)
-    ap.animation_finished.connect(_on_animation_player_animation_finished, CONNECT_ONE_SHOT)
-    ap.play("death")
-    await ap.animation_finished
-
-
-
+    if is_instance_valid(unit):
+        unit.unit_take_damage_unregist.emit(_on_take_damge_logic)
 
 # 防御值逻辑（回调注入）
 func _on_take_damge_logic(damage_ctx: DamageCtx) -> DamageCtx:
@@ -61,10 +38,3 @@ func _on_take_damge_logic(damage_ctx: DamageCtx) -> DamageCtx:
     # 伤害值小于 防御值（不处理）
     damage_ctx.damage = 0
     return damage_ctx
-
-
-# 自动kill
-func _on_animation_player_animation_finished(anim_name:StringName) -> void:
-    if anim_name == "death":
-        super._exit_tree()
-

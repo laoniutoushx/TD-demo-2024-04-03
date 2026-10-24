@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=13 format=3 uid="uid://dvhhlfdrvshmg"]
+[gd_resource type="VisualShader" format=3 uid="uid://dvhhlfdrvshmg"]
 
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_18kao"]
 default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(0, 0, 0, 0)]
@@ -48,63 +48,6 @@ op_type = 0
 operator = 2
 
 [resource]
-code = "shader_type spatial;
-render_mode blend_add, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded, shadows_disabled, fog_disabled;
-
-uniform vec4 ColorParameter : source_color;
-uniform vec2 Speed;
-uniform sampler2D NoiseTexture : source_color;
-uniform sampler2D tex_frg_12;
-
-
-
-void fragment() {
-// ColorParameter:13
-	vec4 n_out13p0 = ColorParameter;
-
-
-// Input:5
-	float n_out5p0 = TIME;
-
-
-// Vector2Parameter:6
-	vec2 n_out6p0 = Speed;
-
-
-// VectorOp:7
-	vec2 n_out7p0 = vec2(n_out5p0) * n_out6p0;
-
-
-// UVFunc:4
-	vec2 n_in4p1 = vec2(1.00000, 1.00000);
-	vec2 n_out4p0 = n_out7p0 * n_in4p1 + UV;
-
-
-	vec4 n_out3p0;
-// Texture2D:3
-	n_out3p0 = texture(NoiseTexture, n_out4p0);
-
-
-// Texture2D:12
-	vec4 n_out12p0 = texture(tex_frg_12, UV);
-
-
-// VectorOp:10
-	vec4 n_out10p0 = n_out3p0 * n_out12p0;
-
-
-// VectorOp:11
-	vec4 n_out11p0 = n_out13p0 * n_out10p0;
-	float n_out11p4 = n_out11p0.a;
-
-
-// Output:0
-	ALBEDO = vec3(n_out11p0.xyz);
-	ALPHA = n_out11p4;
-
-
-}
-"
 modes/blend = 1
 modes/cull = 2
 flags/unshaded = true

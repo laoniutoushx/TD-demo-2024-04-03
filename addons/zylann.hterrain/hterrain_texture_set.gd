@@ -92,14 +92,18 @@ func _get(key: StringName):
 		return _mode
 	if key == &"textures":
 		return _textures
+	return null
 
 
 func _set(key: StringName, value):
 	if key == &"mode":
 		# Not using set_mode() here because otherwise it could reset stuff set before...
 		_mode = value
-	if key == &"textures":
+	elif key == &"textures":
 		_textures = value
+	else:
+		return false
+	return true
 
 
 func get_slots_count() -> int:

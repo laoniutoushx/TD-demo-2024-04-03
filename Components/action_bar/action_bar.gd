@@ -237,8 +237,8 @@ class SelectionBarComponent extends BaseBarComponent:
 
 	func _ready() -> void:
 		# 加载 icon resource
-		CommonUtil.load_resources_to_container_from_directory("res://Asserts/Images/icon/enemy/")
-		CommonUtil.load_resources_to_container_from_directory("res://Asserts/Images/icon/player/")
+		CommonUtil.load_resources_to_container_from_directory("res://Asserts/Images/icon/enemy/", ActionBar.icon_res_container)
+		CommonUtil.load_resources_to_container_from_directory("res://Asserts/Images/icon/player/", ActionBar.icon_res_container)
 
 	
 	func add_elements(elements: Array, hook: Callable):
@@ -315,7 +315,7 @@ class BuffBarComponent extends BaseBarComponent:
 	func _on_buff_enter(buff: Buff, _ref: Variant):
 		# 确认时当前激活单位，添加 buff 图标
 		if _action_bar.active_unit and _ref.get_instance_id() == _action_bar.active_unit.get_instance_id():
-			add_elements([buff], func(): )
+			add_elements([buff], func(): pass)
 
 
 	func _on_buff_exit(buff: Buff, _ref: Variant):

@@ -159,6 +159,6 @@ func _create_cell_mesh_indicator_in_position(grid_map, cell_position: Vector3) -
 # 清空所有指示
 func _clear_cell_mesh_indicator_in_position() -> void:
 	for cell_position in cell_mesh_container:
-		remove_child(cell_mesh_container[cell_position])
+		cell_mesh_container[cell_position].queue_free()
 	
 	cell_mesh_container.clear()

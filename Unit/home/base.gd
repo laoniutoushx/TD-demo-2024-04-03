@@ -5,7 +5,7 @@ extends Node3D
 
 var current_life: int:
 	set(life_in):
-		current_life = life_in
+		current_life = clampi(life_in, 0, life)
 		print("life was changed")
 		lifeLable.text = str(current_life) + "/" + str(life)
 
@@ -15,23 +15,7 @@ var current_life: int:
 		lifeLable.modulate = red.lerp(green, float(current_life) / float(life))
 
 		if current_life == 0:
-			print("game over")
-			SignalBus.game_over.emit()
-			# get_tree().reload_current_scene()
-
-			var level1_scene = SOS.main.level_controller._cur_scene
-			# show game over scene
-
-			var game_over_scene = SOS.main.level_controller.next_level("game_over")
-			game_over_scene.setup(false)
-
-
-
-	
-
-			
-
-
+			SOS.main.level_controller.finish_battle(false)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -45,4 +29,5 @@ func _process(delta: float) -> void:
 
 
 func take_damage() -> void:
-	current_life = current_life - 1
+	if current_life > 0:
+		current_life -= 1

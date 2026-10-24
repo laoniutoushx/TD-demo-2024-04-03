@@ -23,6 +23,7 @@ func _input(event: InputEvent) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$Sprite3D.texture = $Sprite3D/SubViewport.get_texture()
 	refresh_turret_status()
 	if is_show:
 		show()

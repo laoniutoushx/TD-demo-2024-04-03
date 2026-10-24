@@ -8,6 +8,7 @@ extends Node3D
 
 
 func _ready() -> void:
+    _sprite_3d.texture = sub_viewport.get_texture()
     pass
 
 

@@ -450,19 +450,23 @@ func _get(key: StringName):
 	
 	elif key == &"cast_shadow":
 		return _cast_shadow_setting
+	return null
 	
 
 func _set(key: StringName, value):
 	if key == &"data_directory":
 		_set_data_directory(value)
+		return true
 
 	# Can't use setget when the exported type is custom,
 	# because we were also are forced to use _get_property_list...
 	elif key == &"_terrain_data":
 		set_data(value)
+		return true
 
 	elif key == &"texture_set":
 		set_texture_set(value)
+		return true
 
 	# Legacy, left for migration from 1.4
 	var key_str := String(key)
@@ -477,6 +481,8 @@ func _set(key: StringName, value):
 					_texture_set_migration_textures.append([null, null])
 				var texs = _texture_set_migration_textures[i]
 				texs[ground_texture_type] = value
+				return true
+		return false
 
 	elif key == &"shader_type":
 		set_shader_type(value)
@@ -508,10 +514,13 @@ func _set(key: StringName, value):
 			_collider.set_collision_mask(value)
 
 	elif key == &"render_layers":
-		return set_render_layer_mask(value)
+		set_render_layer_mask(value)
 
 	elif key == &"cast_shadow":
 		set_cast_shadow(value)
+	else:
+		return false
+	return true
 
 
 func get_texture_set() -> HTerrainTextureSet:

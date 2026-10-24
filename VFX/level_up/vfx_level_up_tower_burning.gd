@@ -5,7 +5,6 @@ extends Node3D
 
 
 func _ready() -> void:
-	print("vfx player ing")
 	player.play("default")
 	await player.animation_finished
 	queue_free()

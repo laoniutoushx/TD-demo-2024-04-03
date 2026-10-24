@@ -71,23 +71,26 @@ class InnerHandler extends Node3D:
 		
 		await finished
 		vfx.queue_free()
+		queue_free()
 
 
 
 	func _process(delta):
-		if target_position:
+		if not is_instance_valid(vfx) or skill.projection_speed <= 0.0:
+			queue_free()
+			return
 		   
-			# 计算移动方向
-			var direction = (target_position - source_position).normalized()
+		# 计算移动方向
+		var direction = (target_position - source_position).normalized()
 
-			# 更新物体位置
-			vfx.global_position += direction * delta * skill.projection_speed
+		# 更新物体位置
+		vfx.global_position += direction * delta * skill.projection_speed
 
-			# 判断物体是否接近目标
-			var remaining_distance = vfx.global_position.distance_to(source_position)
+		# 判断物体是否接近目标
+		var remaining_distance = vfx.global_position.distance_to(source_position)
 
-			# 判断是否接近目标并且方向正确
-			if remaining_distance >= skill.run_distance:
-				set_process(false)
-				# print("击中目标！")
-				finished.emit()
+		# 判断是否接近目标并且方向正确
+		if remaining_distance >= skill.run_distance:
+			set_process(false)
+			# print("击中目标！")
+			finished.emit()

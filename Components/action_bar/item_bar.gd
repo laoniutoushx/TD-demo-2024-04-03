@@ -117,6 +117,7 @@ func pick_up(item: Item) -> void:
 						BaseSlot.SLOT_TYPE.ITEM, 
 						true
 					)
+			item.slot = slot
 			_slot_fill_num += 1
 			break
 

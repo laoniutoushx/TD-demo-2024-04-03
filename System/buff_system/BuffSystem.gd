@@ -145,6 +145,12 @@ func apply(_buff: Buff, _reference: Variant = null, target: Variant = null) -> v
 		# 添加到 buff action_bar ui 界面
 		SignalBus.buff_enter.emit(buff, buff.unit)
 
+	else:
+		target.buff_map.erase(_id)
+		buff.free()
+		return
+
+	if is_instance_valid(buff):
 		# 添加 buff 关联 vfx 特效
 		if buff.vfx:
 			# 遍历 values
@@ -189,6 +195,8 @@ func remove(_buff: Buff, target: Variant):
 
 # buff 退出节点树
 func _on_buff_exiting_tree(_buff: Buff, target: Variant):
+	if not is_instance_valid(target):
+		return
 	# 销毁时，处理 属性问题
 	_buff.remove(target)
 	# _buff.call_deferred("remove", _reference)
@@ -226,3 +234,7 @@ class BuffManager:
 	# 获取容器
 	static func container() -> Dictionary:
 		return _buff_res_container
+
+func reset_session() -> void:
+	__buff_inst_counter.clear()
+	BuffManager._buff_domain_container.clear()

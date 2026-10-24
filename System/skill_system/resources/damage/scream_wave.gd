@@ -16,8 +16,8 @@ func action(skill_context: SkillContext) -> void:
 
 		# shockwave
 		var vfx = SystemUtil.vfx_system.create_vfx("scream_wave_dota2", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
-		vfx.global_position.y = 1
 		self.add_child(vfx)
+		vfx.position.y = 1
 
 
 		var area: Area3D = vfx.find_child("Area3D")

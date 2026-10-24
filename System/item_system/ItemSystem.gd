@@ -116,6 +116,8 @@ func _initialize_item(source_unit: BaseUnit, item_meta_res: ItemResource, idx: i
 
 
 func pick_up(source: BaseUnit, chest: TreasureChest) -> Item:
+	if not is_instance_valid(source) or not is_instance_valid(chest) or source.item_map.size() >= 3:
+		return null
 	# 获取 item
 	var drop_item: DropItem = chest.drop_item
 	if drop_item == null:
@@ -123,6 +125,8 @@ func pick_up(source: BaseUnit, chest: TreasureChest) -> Item:
 	
 	# 获取 item resource
 	var item_res: ItemResource = CommonUtil.get_resource(drop_item.item_name, ItemManager.container())
+	if source.item_map.has(drop_item.item_name):
+		return null
 	if item_res == null:
 		printerr("ERROR: item resource not found for %s" % drop_item.item_name)
 		return null
@@ -137,7 +141,7 @@ func pick_up(source: BaseUnit, chest: TreasureChest) -> Item:
 	SystemUtil.buff_system.init_buff_for_unit_by_res(source, item_res, new_item)
 
 	new_item.unit = source
-	new_item.chest = chest.duplicate() # 复制一份宝箱，避免直接引用原宝箱导致问题
+
 	source.item_map[new_item.code] = new_item
 
 	# add to unit tree
@@ -179,3 +183,8 @@ class ItemManager:
 	# 获取容器
 	static func container() -> Dictionary:
 		return _item_res_container
+
+func reset_session() -> void:
+	for item in get_children():
+		item.queue_free()
+	ItemManager._item_domain_container.clear()

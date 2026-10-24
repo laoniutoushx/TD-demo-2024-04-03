@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://bdyptm7smjixm"]
+[gd_scene load_steps=74 format=3 uid="uid://bdyptm7smjixm"]
 
 [ext_resource type="Script" uid="uid://s735cotrkihs" path="res://Unit/player/gdbot/gdbot_skin.gd" id="1_dt082"]
 [ext_resource type="PackedScene" uid="uid://c4fba1hyqkstw" path="res://Unit/player/gdbot/gdbot.glb" id="1_no8yw"]
@@ -384,14 +384,10 @@ skill_script = ExtResource("21_06vpb")
 skill_level_config = Array[ExtResource("4_u5x4p")]([])
 skill_buff_config = Array[ExtResource("10_ghtsn")]([SubResource("Resource_4i4s6"), SubResource("Resource_7c8df")])
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_0dla7"]
-viewport_path = NodePath("SubViewport")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2nj81"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("3_johvk")
-shader_parameter/face_texture = SubResource("ViewportTexture_0dla7")
 shader_parameter/intensity = 2.0
 shader_parameter/screen_color = Color(0.101961, 0.662745, 1, 0.0196078)
 shader_parameter/screen_red_offset = Vector2(0, 0)

@@ -160,7 +160,7 @@ func _ready() -> void:
     cool_down_timer = Timer.new()
     cool_down_timer.one_shot = true
     cool_down_timer.autostart = false
-    cool_down_timer.wait_time = cooldown
+    cool_down_timer.wait_time = maxf(cooldown, 0.001)
     add_child(cool_down_timer)
 
 
@@ -492,3 +492,6 @@ func _talent_target_unit_cond_matched(_u: BaseUnit) -> bool:
 
     return conditions.any(func(x): return x)
 
+
+func _exit_tree() -> void:
+    CommonUtil.release_detached_nodes(buff_map)

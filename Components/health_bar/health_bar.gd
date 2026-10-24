@@ -12,6 +12,7 @@ class_name HealthBar
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	texture = $SubViewport.get_texture()
 	# SignalBus.unit_take_damage.connect(_on_enemy_take_damage)
 	pass
 

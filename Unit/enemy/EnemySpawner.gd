@@ -27,7 +27,7 @@ func start():
 	# spawning
 
 	await CommonUtil.await_timer(_enemy_spawner_res.spawn_start_delay)
-	if not is_instance_valid(self):
+	if not is_inside_tree() or is_game_over:
 		return	
 
 	for i in _enemy_spawner_res.enemy_amount:
@@ -58,12 +58,13 @@ func start():
 			#enemy_instance.find_child()
 
 			await CommonUtil.await_timer(_enemy_spawner_res.spawn_interval)
-			if not is_instance_valid(self):
+			if not is_inside_tree() or is_game_over:
 				return			
 
 	
 	# emit spawning end signal
 	enemy_spawn_finished.emit()
+	queue_free()
 
 
 func _on_game_over():

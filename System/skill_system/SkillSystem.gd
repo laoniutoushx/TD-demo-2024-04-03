@@ -95,7 +95,7 @@ func initialize_skills(source_unit: BaseUnit, skill_metas: Array[SkillMetaResour
  # 实例化
 func _initialize_skill(source_unit: BaseUnit, skill_meta_res: SkillMetaResource, idx: int = 0) -> Skill:
 	if skill_meta_res != null:
-		var skill: Skill = Skill.new().duplicate()
+		var skill: Skill = Skill.new()
 		skill.unit = source_unit
 
 		# skill context init
@@ -138,45 +138,34 @@ func _initialize_skill(source_unit: BaseUnit, skill_meta_res: SkillMetaResource,
 	
 # 技能释放入口
 func release(skill_context: SkillContext) -> void:
-	# 加载技能 元数据 对应 action 脚本，执行
-	# 0. 鼠标等效果处理， 施法效果, UI interactive
-	# 1. skill 准备( anim/cooldown/vfx/audio )
-	# 2. skill 执行（ do action ）可包括任何逻辑, take_damage, vfx, other logic, audio 等
-	# 3. skill 完成( vfx/anim/audio )
-
-	var skill: Skill = skill_context.skill
-	var source_unit: BaseUnit = skill_context.source
-	var target_unit: BaseUnit = skill_context.target
-
+	var skill = skill_context.skill
+	var source_unit = skill_context.source
+	if not is_instance_valid(skill) or not is_instance_valid(source_unit):
+		return
+	var generation = SOS.main.level_controller.session_id
 	if source_unit is Gdbot:
-
 		source_unit.jump()
 		await CommonUtil.await_timer(0.1)
+		if not _session_valid(generation, source_unit):
+			return
 		source_unit.fall()
 		await CommonUtil.await_timer(0.1)
+		if not _session_valid(generation, source_unit):
+			return
 		source_unit.idle()
+	var animation = CommonUtil.get_first_node_by_node_type(source_unit, "AnimationPlayer")
+	if animation and animation.has_animation(source_unit.anim_release):
+		animation.play(source_unit.anim_release)
+	await CommonUtil.await_timer(skill.start_time)
+	if not _session_valid(generation, source_unit) or not is_instance_valid(skill):
+		return
+	if skill_context.target != null and not is_instance_valid(skill_context.target):
+		return
+	SystemUtil.floating_text_system.spawn(Vector3(source_unit.global_position.x, source_unit._height, source_unit.global_position.z), skill.title, Color.GREEN_YELLOW)
+	skill.skill_script_instance.action(skill_context)
 
-
-	var ap: AnimationPlayer = CommonUtil.get_first_node_by_node_type(source_unit, Constants.AnimationPlayer_CLZ)
-	var anim_release_code: String = source_unit.anim_release
-
-	if ap != null and ap.has_animation(anim_release_code):
-		ap.play(anim_release_code)
-
-	await CommonUtil.await_timer(skill_context.skill.start_time)
-	if is_instance_valid(skill):
-		
-		# 显示技能释放漂浮文字
-		SystemUtil.floating_text_system.spawn(
-			Vector3(source_unit.global_position.x, source_unit._height, source_unit.global_position.z),
-			skill.title,
-			Color.GREEN_YELLOW
-		)
-
-		skill.skill_script_instance.action(skill_context)
-		await CommonUtil.await_timer(skill_context.skill.end_time)
-
-
+func _session_valid(generation: int, source) -> bool:
+	return is_instance_valid(SOS.main) and is_instance_valid(source) and source.is_inside_tree() and SOS.main.level_controller.battle_active and SOS.main.level_controller.session_id == generation
 
 # 自动施法入口（激活/取消技能自动释放）
 # auto release
@@ -200,7 +189,7 @@ func _on_skill_auto_release(is_auto_release: bool, skill_context: SkillContext):
 			if not CommonUtil.is_flag_set(SkillMetaResource.SKILL_RELEASE_TYPE.SELF_CAST, skill.release_type):
 				# load area_tscn
 				var area_tscn: PackedScene = load("res://Components/area/area.tscn")
-				var area_inst: Area = area_tscn.instantiate().duplicate()
+				var area_inst: Area = area_tscn.instantiate()
 
 				area_inst.init(skill.release_distance)
 				source_unit.add_child(area_inst)
@@ -209,7 +198,7 @@ func _on_skill_auto_release(is_auto_release: bool, skill_context: SkillContext):
 				area_inst.area_entered.connect(_on_area_3d_area_entered.bind(skill_context))
 				area_inst.area_exited.connect(_on_area_3d_area_exited.bind(skill_context))
 
-				await skill._area_ai.ready
+				# add_child() has already completed _ready synchronously.
 			
 			# 技能冷却
 			skill.skill_cool_down.connect(_on_skill_cool_down)
@@ -255,7 +244,7 @@ func _on_area_3d_area_exited(area: Area3D, skill_context: SkillContext):
 # 立即执行一次技能释放
 func skill_release_right_now(skill_context: SkillContext) -> void:
 	var skill: Skill = skill_context.skill
-	if not is_instance_valid(skill) or skill_context.source.is_alive() == false:
+	if not is_instance_valid(skill) or not is_instance_valid(skill_context.source) or not skill_context.source.is_alive() or not SOS.main.level_controller.battle_active:
 		return
 
 	# 1. 技能状态判断（技能未在释放或冷却中 或 技能禁用）
@@ -295,3 +284,6 @@ func skill_release_right_now(skill_context: SkillContext) -> void:
 		skill_context.target_position = skill.unit.global_position
 		skill.change_state(Skill.SKILL_STATE.Release)
 		return
+
+func reset_session() -> void:
+	auto_release_skill_command_container.clear()

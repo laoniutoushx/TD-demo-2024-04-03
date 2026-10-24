@@ -10,6 +10,13 @@ var walk_run_blending = 0.0 : set = _set_walk_run_blending
 
 
 func _ready() -> void:
+	for mesh in CommonUtil.get_all_mesh_instances(self):
+		for surface in mesh.mesh.get_surface_count():
+			var material = mesh.get_active_material(surface)
+			if material is ShaderMaterial and material.shader == preload("res://Asserts/shared/shader/screen_shader.gdshader"):
+				var local_material = material.duplicate()
+				local_material.set_shader_parameter("face_texture", $SubViewport.get_texture())
+				mesh.set_surface_override_material(surface, local_material)
 	super._ready()	
 	set_face("default")
 	idle()

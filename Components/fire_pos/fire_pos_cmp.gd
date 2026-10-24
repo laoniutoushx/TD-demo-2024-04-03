@@ -56,7 +56,9 @@ func copy_and_setup_animation(source_ap: AnimationPlayer, target_ap: AnimationPl
     # 修复轨道路径：以 root_node 为基准去找
     validate_and_fix_animation_tracks(new_animation, target_ap)
 
-    var anim_library: AnimationLibrary = target_ap.get_animation_library("")
+    var anim_library: AnimationLibrary
+    if target_ap.has_animation_library(""):
+        anim_library = target_ap.get_animation_library("")
     if anim_library == null:
         anim_library = AnimationLibrary.new()
         target_ap.add_animation_library("", anim_library)

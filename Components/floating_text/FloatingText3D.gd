@@ -1,5 +1,8 @@
 extends Node3D
 
+signal recycled(instance: Node3D)
+var _animation_tween: Tween
+
 @export_group("基本设置")
 @export var float_speed: float = 2.0
 @export var gravity: float = 0.5
@@ -34,6 +37,9 @@ var is_critical: bool = false
 
 # 基本设置函数 - 接口保持简单，新增 damage_type 参数
 func setup(text: String, color: Color = Color.WHITE, damage_type: int = DamageCtx.DamageType.NORMAL, direction: Vector2 = Vector2.ZERO):
+	reset_for_pool()
+	set_physics_process(true)
+	visible = true
 
 	# 应用不同伤害类型的设置
 	match damage_type:
@@ -125,7 +131,8 @@ func apply_debuff_effect():
 
 # 创建动画效果
 func create_animation_tween(damage_type: int):
-	var tween = create_tween()
+	_animation_tween = create_tween()
+	var tween = _animation_tween
 	
 	var current_max_scale = crit_max_scale if is_critical else max_scale
 	var current_scale_up_time = crit_scale_up_time if is_critical else scale_up_time
@@ -144,7 +151,7 @@ func create_animation_tween(damage_type: int):
 	
 	# 淡出效果
 	tween.tween_property(label, "modulate:a", 0.0, lifetime - current_scale_up_time - scale_down_time)
-	tween.tween_callback(queue_free)
+	tween.tween_callback(_finish_animation)
 
 func _physics_process(delta):
 	time_passed += delta
@@ -162,3 +169,20 @@ func _physics_process(delta):
 	
 	# 移动文本
 	global_translate(velocity * delta + wobble)
+
+func _ready() -> void:
+	reset_for_pool()
+
+func reset_for_pool() -> void:
+	if _animation_tween and _animation_tween.is_valid():
+		_animation_tween.kill()
+	_animation_tween = null
+	time_passed = 0.0
+	velocity = Vector3.ZERO
+	visible = false
+	set_physics_process(false)
+
+func _finish_animation() -> void:
+	visible = false
+	set_physics_process(false)
+	recycled.emit(self)

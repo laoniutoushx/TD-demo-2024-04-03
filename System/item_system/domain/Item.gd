@@ -85,3 +85,9 @@ func action(item_context: ItemContext) -> void:
 	pass
 
 
+
+func _exit_tree() -> void:
+	CommonUtil.release_detached_nodes(buff_map)
+	if is_instance_valid(chest) and not chest.is_inside_tree():
+		chest.free()
+	chest = null

@@ -1,10 +1,12 @@
 class_name TalentSystem extends Node3D
 
+var talent_resources: Dictionary = {}
+
 
 func _ready() -> void:
 	SystemUtil.talent_system = self
 	# 在系统启动时，初始化所有 item template resource，将起保存在 container 当中
-	CommonUtil.load_resources_to_container_from_directory("res://System/talent_system/resources/")
+	CommonUtil.load_resources_to_container_from_directory("res://System/talent_system/resources/", talent_resources)
 
 	# IOC 注册到 SystemUtil
 	SystemUtil.talent_system = self
@@ -20,9 +22,11 @@ func show_player_talent_ui() -> void:
 func initialize_talent(talent_code: String) -> Talent:
 
 	# 获取资源文件
-	var talent_meta_res: TalentResource = CommonUtil.get_resource(talent_code)
+	var talent_meta_res: TalentResource = talent_resources.get(talent_code)
 
 
+	if talent_meta_res == null:
+		return null
 	var talent: Talent = _initialize_talent(talent_meta_res)
 
 	# 初始化 buff
@@ -49,7 +53,7 @@ func initialize_talent(talent_code: String) -> Talent:
 # # 实例化
 func _initialize_talent(talent_meta_res: TalentResource, idx: int = 0) -> Talent:
 	if talent_meta_res != null:
-		var talent: Talent = Talent.new().duplicate()
+		var talent: Talent = Talent.new()
 		talent.unit = SOS.main.level_controller._cur_scene.gdbot
 
 		CommonUtil.bean_properties_copy(talent_meta_res, talent)
@@ -89,6 +93,7 @@ func release(talent_context: TalentContext) -> void:
 	# 3. talent 完成( vfx/anim/audio )
 
 	var talent: Talent = talent_context.talent
+	var generation = SOS.main.level_controller.session_id
 	var source_unit: BaseUnit = talent_context.source
 	var target_unit: BaseUnit = talent_context.target
 
@@ -96,8 +101,12 @@ func release(talent_context: TalentContext) -> void:
 
 		source_unit.jump()
 		await CommonUtil.await_timer(0.1)
+		if not SystemUtil.skill_system._session_valid(generation, source_unit):
+			return
 		source_unit.fall()
 		await CommonUtil.await_timer(0.1)
+		if not SystemUtil.skill_system._session_valid(generation, source_unit):
+			return
 		source_unit.idle()
 
 
@@ -108,7 +117,7 @@ func release(talent_context: TalentContext) -> void:
 		ap.play(anim_release_code)
 
 	await CommonUtil.await_timer(talent_context.talent.start_time)
-	if is_instance_valid(talent):
+	if is_instance_valid(talent) and SystemUtil.skill_system._session_valid(generation, source_unit):
 		
 		# 显示技能释放漂浮文字
 		SystemUtil.floating_text_system.spawn(
@@ -119,3 +128,6 @@ func release(talent_context: TalentContext) -> void:
 
 		talent.talent_script_instance.action(talent_context)
 		await CommonUtil.await_timer(talent_context.talent.end_time)
+
+func reset_session() -> void:
+	pass

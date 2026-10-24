@@ -1,9 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dms6agqcsirpd"]
+[gd_scene load_steps=3 format=3 uid="uid://dms6agqcsirpd"]
 
 [ext_resource type="Script" uid="uid://w1mt555h08o5" path="res://Components/debug/debug_draw.gd" id="1_0xatp"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_vojyk"]
-viewport_path = NodePath("Sprite3D/SubViewport")
 
 [sub_resource type="LabelSettings" id="LabelSettings_7fo2w"]
 font_size = 64
@@ -17,7 +14,6 @@ script = ExtResource("1_0xatp")
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.60944, 0)
 billboard = 1
-texture = SubResource("ViewportTexture_vojyk")
 
 [node name="SubViewport" type="SubViewport" parent="Sprite3D"]
 transparent_bg = true

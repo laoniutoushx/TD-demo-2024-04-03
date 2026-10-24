@@ -344,7 +344,7 @@ func clazz_init():
 	var current_scene_name: String = self.scene_file_path.get_file().get_basename()
 
 	# load clz resource
-	clazz = SOS.main.resource_manager.get_resource_by_name(current_scene_name)
+	clazz = SOS.main.resource_manager.find_resource_by_name(current_scene_name)
 	
 	# bean property copy
 	if clazz != null:
@@ -377,9 +377,9 @@ func do_after_logic_dead() -> void:
 	var bs: PackedScene = CommonUtil.get_resource("blood_sc_01")
 	if bs:
 		var blood_stain: Decal = bs.instantiate()
+		SystemUtil.vfx_system.add_child(blood_stain)
 		blood_stain.global_position = self.global_position
 		blood_stain.scale = Vector3(_transformed_aabb.size.x, 1, _transformed_aabb.size.z)
-		SOS.main.get_tree().get_root().add_child(blood_stain)
 
 
 

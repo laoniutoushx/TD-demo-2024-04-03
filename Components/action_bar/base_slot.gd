@@ -23,8 +23,8 @@ signal slot_right_clicked(s: BaseSlot)
 
 
 @onready var icon_texture: TextureRect = %IconTexture
-@onready var short_cut: Label = %ShortKey
-@onready var level_key: Label = %LevelKey
+@onready var short_cut: Label = get_node_or_null("%ShortKey")
+@onready var level_key: Label = get_node_or_null("%LevelKey")
 @onready var progress_bar: TextureProgressBar = %TextureProgressBar
 @onready var boarder_effect: AnimatedSprite2D = %BoardEffect
 
@@ -224,18 +224,13 @@ func custome_init(ref: Variant, icon_path: String, type: SLOT_TYPE = SLOT_TYPE.D
 	# 填充
 	# is_fill = true	
 
-	# 图标初始化
-	if icon_path != null and icon_res_container.has(icon_path.get_file().get_basename()):
-		icon_texture.texture = icon_res_container[icon_path.get_file().get_basename()]
-	else:
-		icon_texture.texture = SOS.main.resource_manager.get_resource_by_name(icon_path.get_file().get_basename())
-	
-	if icon_texture.texture == null:
+	# Resolve symbolic icons without treating an empty slot as a file path.
+	var icon_name = icon_path.get_file().get_basename()
+	icon_texture.texture = icon_res_container.get(icon_name)
+	if icon_texture.texture == null and icon_path.begins_with("res://") and ResourceLoader.exists(icon_path):
 		icon_texture.texture = load(icon_path)
-
 	if icon_texture.texture == null:
-		icon_texture.texture = SOS.main.resource_manager.get_resource_by_name('default')
-	
+		icon_texture.texture = icon_res_container.get("default", preload("res://icon.svg"))
 	icon_texture.material = slot_material
 	
 
@@ -266,7 +261,7 @@ func do(active):
 
 # 重新设置等级
 func reset_level(level: int) -> void:
-	if level and level > -1:
+	if is_instance_valid(level_key) and level > -1:
 		level_key.text = "LV " + str(level)
 
 

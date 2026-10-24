@@ -4,6 +4,7 @@ class_name LevelBar extends Sprite3D
 @onready var level_bar2d: LevelBar2D = $SubViewport/LevelBar
 
 func _ready() -> void:
+    texture = $SubViewport.get_texture()
     SignalBus.unit_level_up.connect(_on_unit_level_up)
 
 func _on_unit_level_up(id: int, unit: BaseUnit, level: int) -> void:

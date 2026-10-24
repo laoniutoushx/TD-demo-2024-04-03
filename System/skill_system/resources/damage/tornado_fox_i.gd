@@ -59,7 +59,7 @@ class InnerHandler extends Node3D:
 	func handler() -> void:
 
 		for matched_unit in matched_units:
-			if matched_unit and matched_unit.is_alive():
+			if is_instance_valid(matched_unit) and matched_unit.is_alive():
 				var vfx = SystemUtil.vfx_system.create_vfx("funnel_tornado", SystemUtil.vfx_system.VFX_TYPE.RUNNING)
 				matched_unit.add_child(vfx)
 
@@ -83,3 +83,5 @@ class InnerHandler extends Node3D:
 		for vfx in vfxs:
 			if vfx and is_instance_valid(vfx):
 				vfx.queue_free()
+
+		queue_free()

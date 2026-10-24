@@ -25,7 +25,7 @@ func action(skill_context: SkillContext) -> void:
 
 	# 临时创建一个 Area 实例
 	var area_tscn: PackedScene = load("res://Components/area/area.tscn")
-	var area_inst: Area = area_tscn.instantiate().duplicate()
+	var area_inst: Area = area_tscn.instantiate()
 
 	area_inst.init(skill.range)
 	source_unit.add_child(area_inst)

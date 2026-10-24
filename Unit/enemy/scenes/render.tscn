@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://elccnreb1nvm"]
+[gd_scene load_steps=18 format=4 uid="uid://pc3da7e8dkiy"]
 
 [ext_resource type="Script" uid="uid://cb2myjgx6f2f" path="res://Unit/enemy/enemy.gd" id="1_rs53c"]
 [ext_resource type="Texture2D" uid="uid://dk3hnt1t20wgf" path="res://Asserts/Models/ulimate monster/glTF/Armabee_Atlas_Monsters.png" id="2_vmkbm"]

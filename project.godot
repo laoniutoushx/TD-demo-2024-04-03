@@ -21,11 +21,15 @@ resources_spreadsheet_view/fold_docks=true
 resources_spreadsheet_view/resource_cell_label_mode=1
 resources_spreadsheet_view/freeze_first_column=true
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Barbarian Blaster"
 run/main_scene="res://Main.tscn"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -36,7 +40,7 @@ Constants="*res://Scripts/Constants.gd"
 SystemUtil="*res://Scripts/utils/SystemUtil.gd"
 UUID="*res://Scripts/utils/uuid.gd"
 SOS="*res://Scripts/utils/SOS.gd"
-DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+DebugMenu="*uid://cggqb75a8w8r"
 
 [display]
 

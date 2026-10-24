@@ -82,3 +82,4 @@ class InnerHandler extends Node3D:
 
         if is_instance_valid(vfx_destory):
             vfx_destory.queue_free()
+        queue_free()

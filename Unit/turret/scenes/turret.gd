@@ -59,6 +59,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	if not is_instance_valid(current_enemy):
+		current_enemy = null
+	for id in enemies.keys():
+		if not is_instance_valid(enemies[id]) or not enemies[id].is_alive():
+			enemies.erase(id)
 	match current_state:
 		TurretState.BUILDING:
 			pass

@@ -27,7 +27,10 @@ func _process(delta: float) -> void:
 
 	# 射线碰撞回调
 	if callable_back_list.size() > 0:
-		for callback in callable_back_list:
+		for callback in callable_back_list.duplicate():
+			if not callback.is_valid():
+				callable_back_list.erase(callback)
+				continue
 			var callbacl_class = callback.get_object()
 
 			# 特殊处理 TurretManager`s RayPicker
@@ -41,7 +44,8 @@ func _process(delta: float) -> void:
 
 # Register Callable Function to be called when other Component need RayPicker Result
 func _on_ray_picker_regist(callable: Callable) -> void:
-	callable_back_list.append(callable)
+	if callable.is_valid() and not callable_back_list.has(callable):
+		callable_back_list.append(callable)
 
 
 func _on_ray_picker_unregist(callable: Callable) -> void:
