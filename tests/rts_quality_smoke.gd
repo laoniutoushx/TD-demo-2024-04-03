@@ -45,10 +45,18 @@ func run() -> void:
 	var camera_controller = level.get_node("RTSController")
 	check(is_equal_approx(camera_controller.scroll_direction(Vector2.ZERO, Vector2(1080, 768)).length(), 1.0), "diagonal scrolling normalized")
 	var camera_position: Vector3 = camera_controller.cam.global_position
-	camera_controller._notification(Node.NOTIFICATION_APPLICATION_FOCUS_OUT)
+	root.focus_exited.emit()
 	camera_controller.mouse_camera_move(0.5)
 	check(camera_controller.cam.global_position == camera_position and camera_controller.velocity == Vector3.ZERO, "focus loss stops camera")
-	camera_controller._notification(Node.NOTIFICATION_APPLICATION_FOCUS_IN)
+	root.focus_entered.emit()
+	var reactivate := InputEventKey.new()
+	reactivate.keycode = KEY_F2
+	reactivate.pressed = true
+	root.push_input(reactivate, true)
+	reactivate = reactivate.duplicate()
+	reactivate.pressed = false
+	root.push_input(reactivate, true)
+	await process_frame
 	camera_controller.edge_scroll_enabled = false
 	var manager = level.turret_manager
 	var grid = level.get_node("GridMap")

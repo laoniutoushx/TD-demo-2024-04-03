@@ -11,6 +11,30 @@ var confined := false
 var effective_mode := Input.MOUSE_MODE_VISIBLE
 var pointer := Vector2.ZERO
 var hint_session := -1
+## Optional instance-local reader for deterministic tests; production uses Viewport.
+var pointer_reader: Callable
+var sample_frame := -1
+
+func invalidate_pointer_sample() -> void:
+	sample_frame = -1
+
+func sample_pointer() -> Vector2:
+	var frame := Engine.get_process_frames()
+	if sample_frame == frame: return pointer
+	sample_frame = frame
+	pointer = Vector2.INF
+	var viewport := get_viewport()
+	var rect := viewport.get_visible_rect()
+	if rect.size.x <= 0 or rect.size.y <= 0: return pointer
+	if DisplayServer.get_name() != "headless":
+		if get_window().mode == Window.MODE_MINIMIZED or is_zero_approx(viewport.get_screen_transform().determinant()): return pointer
+	var position: Vector2 = pointer_reader.call() if pointer_reader.is_valid() else viewport.get_mouse_position()
+	if not position.is_finite(): return pointer
+	# Only correct a rounding-sized boundary error, never arbitrary outside data.
+	if is_confined() and not rect.has_point(position) and rect.grow(1.0).has_point(position):
+		position = position.clamp(rect.position, rect.end - Vector2(0.001, 0.001))
+	pointer = position
+	return pointer
 
 func _ready() -> void:
 	main = get_parent()
@@ -18,7 +42,7 @@ func _ready() -> void:
 	process_priority = -100
 	focused = get_window().has_focus() if DisplayServer.get_name() != "headless" else true
 	needs_activation = not focused
-	pointer = get_viewport().get_mouse_position()
+	invalidate_pointer_sample()
 	get_window().focus_exited.connect(_focus_lost)
 	get_window().focus_entered.connect(_focus_gained)
 	get_window().mouse_exited.connect(_mouse_exited)
@@ -32,6 +56,7 @@ func _context_active() -> bool:
 	return is_instance_valid(player) and player.player_status != PlayerController.PLAYER_STATUS.CHOOSING_TALENT
 
 func _process(_delta: float) -> void:
+	invalidate_pointer_sample()
 	sync_mode()
 
 func sync_mode() -> void:
@@ -45,7 +70,7 @@ func sync_mode() -> void:
 	for id in hidden_owners.keys():
 		var owner = hidden_owners[id].get_ref()
 		if not is_instance_valid(owner) or (owner is Node and owner.is_queued_for_deletion()): hidden_owners.erase(id)
-	var inside := get_viewport().get_visible_rect().has_point(pointer)
+	var inside := get_viewport().get_visible_rect().has_point(sample_pointer())
 	confined = _context_active() and focused and not released and not needs_activation and (confined or inside)
 	var mode := Input.MOUSE_MODE_VISIBLE
 	if confined: mode = Input.MOUSE_MODE_CONFINED_HIDDEN if not hidden_owners.is_empty() else Input.MOUSE_MODE_CONFINED
@@ -67,13 +92,20 @@ func release_owner(owner: Object) -> void:
 	request_hidden(owner, false)
 
 func world_input_blocked() -> bool:
-	return released or needs_activation or not focused or activation_frame == Engine.get_process_frames()
+	return not input_block_reason().is_empty()
+
+func input_block_reason() -> String:
+	if not focused: return "unfocused"
+	if released: return "cursor_released"
+	if needs_activation: return "awaiting_activation"
+	if activation_frame == Engine.get_process_frames(): return "activation_frame"
+	return ""
 
 func is_confined() -> bool:
 	return confined and (DisplayServer.get_name() == "headless" or Input.mouse_mode in [Input.MOUSE_MODE_CONFINED, Input.MOUSE_MODE_CONFINED_HIDDEN])
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouse: pointer = event.position
+	if event is InputEventMouse: invalidate_pointer_sample()
 	if not _context_active() or not focused: return
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F2:
 		if released or needs_activation: _activate()
@@ -105,15 +137,15 @@ func _focus_lost() -> void:
 
 func _focus_gained() -> void:
 	focused = true
-	pointer = get_viewport().get_mouse_position()
+	invalidate_pointer_sample()
 	# A focus change never captures while dragging the title bar.
 	sync_mode()
 
 func _mouse_exited() -> void:
-	if not is_confined(): pointer = Vector2.INF
+	invalidate_pointer_sample()
 
 func _mouse_entered() -> void:
-	pointer = get_viewport().get_mouse_position()
+	invalidate_pointer_sample()
 	sync_mode()
 
 func _notification(what: int) -> void:
@@ -138,6 +170,7 @@ func reset_session() -> void:
 	released = false
 	needs_activation = false
 	activation_frame = -1
+	invalidate_pointer_sample()
 	confined = false
 	effective_mode = Input.MOUSE_MODE_VISIBLE
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

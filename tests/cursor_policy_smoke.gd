@@ -6,6 +6,10 @@ var assertions := 0
 var started := Time.get_ticks_msec()
 var original_mouse := Vector2i.ZERO
 var native_samples: Array = []
+var simulated_pointer := Vector2(540, 384)
+
+func read_pointer() -> Vector2:
+	return simulated_pointer
 
 func _initialize() -> void:
 	call_deferred("run")
@@ -30,6 +34,7 @@ func key(code: int) -> void:
 	root.push_input(event, true)
 
 func click(point: Vector2) -> void:
+	simulated_pointer = point
 	var motion := InputEventMouseMotion.new()
 	motion.position = point
 	root.push_input(motion, true)
@@ -50,6 +55,8 @@ func run() -> void:
 	main_scene = load(ProjectSettings.get_setting("application/run/main_scene")).instantiate()
 	main_scene.settings_path = "user://demo_cursor_settings.cfg"
 	root.add_child(main_scene)
+	main_scene.cursor_policy.pointer_reader = read_pointer
+	main_scene.cursor_policy.invalidate_pointer_sample()
 	await create_timer(0.5).timeout
 	check(mouse_mode() == Input.MOUSE_MODE_VISIBLE, "menu does not confine mouse")
 	var controller = main_scene.level_controller
@@ -63,6 +70,7 @@ func run() -> void:
 	click(root.get_visible_rect().size * 0.5)
 	await process_frame
 	policy.sync_mode()
+	if not policy.is_confined(): print("CURSOR_SAMPLE_DEBUG: sample=", policy.sample_pointer(), " rect=", root.get_visible_rect(), " window_mode=", root.mode, " focused=", policy.focused, " needs_activation=", policy.needs_activation, " released=", policy.released)
 	check(policy.is_confined(), "battle confines visible cursor")
 	var owner_a := Node.new()
 	var owner_b := Node.new()
@@ -125,6 +133,8 @@ func run() -> void:
 
 func exercise_native(camera, policy) -> void:
 	# Actual OS cursor positions, not merely an Input.mouse_mode enum assertion.
+	policy.pointer_reader = Callable()
+	policy.invalidate_pointer_sample()
 	policy.released = true
 	policy.sync_mode()
 	root.size = Vector2i(960, 640)

@@ -1,7 +1,7 @@
 param(
     [string]$GodotExecutable = 'H:\Godot\Godot_v4.7.2-stable_mono_win64\Godot_v4.7.2-stable_mono_win64_console.exe',
     [ValidateSet('forward', 'headless')][string]$Renderer = 'forward',
-    [ValidateSet('full', 'menu-exit', 'combat-exit', 'rts-quality', 'selection-input', 'cursor-policy')][string]$Scenario = 'full',
+    [ValidateSet('full', 'menu-exit', 'combat-exit', 'rts-quality', 'selection-input', 'cursor-policy', 'edge-scroll')][string]$Scenario = 'full',
     [int]$TimeoutSeconds = 180
 )
 
@@ -30,6 +30,11 @@ if ($Scenario -eq 'cursor-policy') {
     if ($Renderer -eq 'headless') { $arguments += '--headless' }
 }
 $marker = 'FLOW_TEST_OK'
+if ($Scenario -eq 'edge-scroll') {
+    if ($Renderer -eq 'headless') { throw 'edge-scroll requires a native desktop window' }
+    $arguments = @('--path', $projectRoot, '--script', 'res://tests/edge_scroll_smoke.gd', '--log-file', $logPath)
+    $marker = 'EDGE_SCROLL_OK'
+}
 if ($Scenario -eq 'cursor-policy') { $marker = 'CURSOR_POLICY_OK' }
 if ($Scenario -eq 'rts-quality') { $marker = 'RTS_QUALITY_OK' }
 if ($Scenario -eq 'selection-input') { $marker = 'SELECTION_INPUT_OK' }

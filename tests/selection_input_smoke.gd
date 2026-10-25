@@ -6,6 +6,10 @@ var started := Time.get_ticks_msec()
 var finished_count := 0
 var slot_click_count := 0
 var assertions := 0
+var simulated_pointer := Vector2(540, 384)
+
+func read_pointer() -> Vector2:
+	return simulated_pointer
 
 func _initialize() -> void:
 	call_deferred("run")
@@ -18,15 +22,21 @@ func check(value: bool, message: String) -> void:
 	assertions += 1
 	if not value:
 		failures += 1
+		if is_instance_valid(main_scene) and is_instance_valid(main_scene.level_controller._cur_scene):
+			var camera = main_scene.level_controller._cur_scene.get_node_or_null("RTSController")
+			if camera != null: print("SELECTION_SCROLL_STATE: ", camera.diagnostics)
 		push_error("SELECTION_INPUT_FAILED: " + message)
 
 func motion(point: Vector2, dragging := false) -> void:
+	simulated_pointer = point
+	if is_instance_valid(main_scene): main_scene.cursor_policy.invalidate_pointer_sample()
 	var event := InputEventMouseMotion.new()
 	event.position = point
 	event.button_mask = MOUSE_BUTTON_MASK_LEFT if dragging else 0
 	root.push_input(event, true)
 
 func button(point: Vector2, pressed: bool, index := MOUSE_BUTTON_LEFT) -> void:
+	simulated_pointer = point
 	var event := InputEventMouseButton.new()
 	event.position = point
 	event.button_index = index
@@ -42,6 +52,8 @@ func run() -> void:
 	main_scene = load(ProjectSettings.get_setting("application/run/main_scene")).instantiate()
 	main_scene.settings_path = "user://demo_selection_settings.cfg"
 	root.add_child(main_scene)
+	main_scene.cursor_policy.pointer_reader = read_pointer
+	main_scene.cursor_policy.invalidate_pointer_sample()
 	await create_timer(0.8).timeout
 	var controller = main_scene.level_controller
 	controller.next_level("level1")
@@ -258,6 +270,13 @@ func exercise_interruptions(level, start: Vector2, end: Vector2, first: Vector2)
 	motion(Vector2(2, viewport_size.y * 0.5))
 	await create_timer(0.08).timeout
 	check(camera_controller.cam.global_position.x < camera_controller.map_bounds.end.x, "boundary reversal has no stale velocity")
+	# Invalid/far outside samples must not be clamped into a false edge direction.
+	for invalid in [Vector2.INF, Vector2(-10000, -10000), Vector2(10000, 10000)]:
+		simulated_pointer = invalid
+		main_scene.cursor_policy.invalidate_pointer_sample()
+		var stopped_position: Vector3 = camera_controller.cam.global_position
+		await create_timer(0.05).timeout
+		check(camera_controller.velocity == Vector3.ZERO and camera_controller.cam.global_position == stopped_position, "invalid/outside sampling stops without false scrolling")
 	camera_controller.cam.global_position = original_position
 	camera_controller.velocity = Vector3.ZERO
 	# Exercise every edge/corner through input, without disabling camera processing.
